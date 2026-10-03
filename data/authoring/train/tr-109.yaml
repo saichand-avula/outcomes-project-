@@ -1,0 +1,189 @@
+call_id: tr-109
+split: train
+blueprint: "61-year-old patient asks for refills of lisinopril 10 mg daily and metformin 500 mg twice a day with about three days of pills left. The nurse reads back her phone number wrong (zero one five four) and she corrects it (zero one four five). Resolved in the call, so the corrected number is stated. Nurse plans the refill requests and a callback tomorrow."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [phone_from_file, tall_man_drug, late_answers, split_turns]
+  clinical_domains: [medication, blood_pressure, glucose]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-11-08T14:10:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosario Echeverria
+  patient_name_spoken: Rosario Echeverria
+  patient_name_certainty: stated
+  patient_dob_true: "1965-04-23"
+  patient_dob_spoken: "1965-04-23"
+  patient_dob_certainty: stated
+  caller_name_true: Rosario Echeverria
+  caller_name_spoken: Rosario Echeverria
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7025550145"
+  callback_phone_spoken: "7025550145"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested refills of her blood pressure and diabetes medicines
+  reason_category: refill_request
+  relevant_context: About three days of pills left
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: patient
+    supply_item: lisinopril and metformin
+    supply_remaining: "3"
+    supply_unit: days of pills
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: lisinopril and metformin
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: confirm the refills reached the pharmacy
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep taking both as usual and call if she is down to one day of pills
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Beth.
+  Caller -> Hi, Beth. It's Rosario Echeverria. I need some refills. || patient_name, caller_name, relationship, cc
+  Nurse -> Sure. Can you spell the last name?
+  Caller -> E C H E V E R R I A. || patient_name
+  Nurse -> Thank you. Date of birth?
+  Caller -> April twenty third. Nineteen sixty five. || patient_dob
+  Nurse -> And the number I have is seven oh two, five five five, zero one five four. Is that right? || callback_phone
+  Caller -> No. It's zero one four five. Zero one four five, not five four. || callback_phone
+  Nurse -> Oh, sorry. Zero one four five. Seven oh two, five five five, zero one four five. || callback_phone
+  Caller -> Yes. That's it.
+  Nurse -> Okay. What do you need?
+  Caller -> The lisinopril. Ten milligrams, once a day. And the metformin. Five hundred, twice a day. || A1, A2
+  Nurse -> And how many pills do you have left?
+  Caller -> About three days. Three days' worth. Of both. || A3
+  Nurse -> Okay. Any problems with the pills? Dizziness, stomach upset, anything like that?
+  Caller -> No. They're fine. I feel fine. My sugars have been okay, I check every morning. Mostly one thirty, one forty.
+  Nurse -> Good. That's good to hear. Same pharmacy as before?
+  Caller -> Yes. The one on Main. The same one as always.
+  Nurse -> Okay. And is there a particular time of day that works best for the call tomorrow? Morning, afternoon?
+  Caller -> Afternoon is better. I work mornings. After two.
+  Nurse -> Okay. I'll send the refill requests for both of those. || R1
+  Caller -> Thank you.
+  Nurse -> And I'll call you tomorrow to confirm it went through. || R2
+  Caller -> Okay. Tomorrow.
+  Nurse -> Keep taking them like normal. And if you get down to one day, call us right away. || E1
+  Caller -> I will. I'll watch it.
+  Nurse -> Anything else?
+  Caller -> No. That's it. Thanks, Beth.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: zero one four five, heard_form: zero one five four, fact_id: callback_phone}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosario Echeverria, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1965-04-23", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Rosario Echeverria, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7025550145", certainty: stated, heard_as: [], turns: [7, 8, 9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested refills of her blood pressure and diabetes medicines.
+    speaker: Caller
+    turns: [2]
+    quote: "I need some refills."
+    explanation: Documents the refill request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lisinopril 10 mg once a day and metformin 500 mg twice a day were in use.
+      speaker: Caller
+      turns: [12]
+      quote: "The lisinopril. Ten milligrams, once a day. And the metformin. Five hundred, twice a day."
+      explanation: Documents the current medications.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A1, A2]
+    - text: About 3 days of pills remained for both.
+      speaker: Caller
+      turns: [14]
+      quote: "About three days. Three days' worth. Of both."
+      explanation: Documents the remaining supply.
+      facts:
+        - {type: supply, item: lisinopril and metformin, supply: 3 days of pills, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to send refill requests for both medicines.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll send the refill requests for both of those."
+      explanation: Documents the planned refill requests.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow to confirm the refills went through.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll call you tomorrow to confirm it went through."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised continuing both as usual and calling right away if only one day of pills remained.
+      speaker: Nurse
+      turns: [25]
+      quote: "if you get down to one day, call us right away."
+      explanation: Documents medication supply guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

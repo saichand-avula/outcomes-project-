@@ -1,0 +1,225 @@
+call_id: tr-259
+split: train
+blueprint: "Husband of a 77-year-old on warfarin: her nosebleed has not stopped in forty minutes despite pinching, blood is soaking through a towel and running down her throat, and she looks pale and dizzy. The nurse coaches him (lean forward, pinch the soft part, do not tip the head back), tells him to call 911 now, and stays on until he confirms the ambulance is outside. Flags: other_urgent (bleeding) and escalation_request. Emergency, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [hedging, late_answers, split_turns, trap_phrasing]
+  clinical_domains: [bleeding, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-24T11:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Doris Penhaligon
+  patient_name_spoken: Doris Penhaligon
+  patient_name_certainty: stated
+  patient_dob_true: "1949-06-08"
+  patient_dob_spoken: "1949-06-08"
+  patient_dob_certainty: stated
+  caller_name_true: Walter Penhaligon
+  caller_name_spoken: Walter Penhaligon
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8605550138"
+  callback_phone_spoken: "8605550138"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his wife has had a nosebleed for forty minutes that will not stop
+  reason_category: bleeding
+  relevant_context: Home health patient on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: nosebleed that will not stop
+    symptom_present: true
+    onset_or_duration: forty minutes
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pale and dizzy
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: nosebleed lasting forty minutes in a patient on warfarin
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911, have her sit and lean forward, pinch the soft part of the nose firmly, do not tip the head back, and spit out any blood
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Nosebleed lasting forty minutes in a patient on warfarin who is pale and dizzy
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Tom, it's Walter Penhaligon. My wife has a nosebleed and it won't stop. It's been forty minutes. || caller_name, relationship, cc, A1, F1
+  Nurse -> Okay, Walter. I'm here. What's her name?
+  Caller -> Doris. Doris Penhaligon. || patient_name
+  Nurse -> Okay. Is she awake? Talking to you?
+  Caller -> She's awake. She's talking. She's mad because it's on her good blouse.
+  Nurse -> Ha. Okay. That's a good sign that she's alert.
+  Nurse -> Okay. Walter, tell me exactly. Where is the blood coming from, and how much?
+  Caller -> Her nose. Both sides now. It started on the left. We pinched it. We pinched it for ten minutes, I counted. And it kept going. It's soaking the towel. I've gone through three towels. || A1
+  Nurse -> Okay. Is she swallowing blood? Is it going down the back of her throat?
+  Caller -> Yes. She keeps spitting. She says it tastes like pennies. It's dripping down. She coughed some up. || A1
+  Nurse -> Okay. Is she on a blood thinner?
+  Caller -> Yes. The warfarin. She takes it every night. She took it last night. || A2
+  Nurse -> Has she had any injury to her nose? A bump, a fall, a sneeze?
+  Caller -> No. She sneezed hard, I think. That's all. Then it started to drip. And then it just poured.
+  Nurse -> Okay. Anything like this before?
+  Caller -> A small one in the summer. It stopped in a few minutes. Not like this.
+  Nurse -> Okay. How does she look? Is she pale? Dizzy?
+  Caller -> She's pale. She's really pale. She said she feels dizzy. Her hands are shaking. She's sitting at the kitchen table. || A3
+  Nurse -> Okay. Walter, I need you to call nine one one right now. A nosebleed this long on a blood thinner needs the hospital. || R1, F2
+  Caller -> Nine one one. Okay. Right now? Okay. Should I hang up?
+  Nurse -> Yes. Hang up and call. But first, have her sit up and lean forward. Not back. Forward. And pinch the soft part of her nose, right below the bone, firmly, and hold it. || E1
+  Caller -> Lean forward. Pinch the soft part. Okay. Doris, lean forward. Honey, lean. Pinch right here. Hard. Hold it.
+  Nurse -> Good. Don't tip her head back. Have her spit the blood out, not swallow it. Tell the dispatcher it's been forty minutes and she's on warfarin. || A2
+  Caller -> Forty minutes. Warfarin. Okay. Dispatcher. Okay. I'm hanging up. I'm calling. || A2
+  Nurse -> Walter, quickly, before you go. Her birthday?
+  Caller -> June eighth. Nineteen forty nine. || patient_dob
+  Nurse -> And your number?
+  Caller -> Eight six oh, five five five, zero one three eight. || callback_phone
+  Nurse -> Go. Call now.
+  Caller -> Okay. Okay. Calling.
+  Caller -> Hello? Yes. My wife has a bad nosebleed. Forty minutes. She's on a blood thinner. The address is, it's nineteen Birch Hollow Road. Yes.
+  Nurse -> Walter, I'm still on the line.
+  Caller -> They said an ambulance is coming. They said keep pinching. They said don't let her lie down.
+  Nurse -> That's right. Do exactly what they say.
+  Caller -> Doris, they're coming. Keep pinching. You're doing great. Look at me. Look at me, honey.
+  Nurse -> Walter, is she holding the pinch the whole time, without letting go to check?
+  Caller -> I keep telling her not to check. She keeps wanting to check. Doris, don't peek!
+  Nurse -> That's right. Keep it pinched until they get there.
+  Nurse -> How is the bleeding now?
+  Caller -> It's slower. It's maybe slower? I can't tell. There's still blood on the towel. She's still pinching.
+  Nurse -> Okay. Is she awake and answering you?
+  Caller -> Yes. She says, "I'm okay." But she's so pale, Tom. She's the color of the wall.
+  Nurse -> Okay. Keep her sitting. If she feels faint, help her lean forward onto the table or lower her head toward her knees, but don't lay her flat.
+  Caller -> Lean forward. Don't lay her flat. Okay. She's leaning on the table. She's got a pillow.
+  Nurse -> Good. Is the front door unlocked?
+  Caller -> No. I'll go. Hold on. Doris, hold your nose. I'll be right back. I'm going to the door. Okay. It's unlocked. The porch light is on.
+  Nurse -> Perfect. Go back and stay with her.
+  Caller -> I'm back. She's okay. She's pinching. She says her head is spinning.
+  Nurse -> Does she have anything in her stomach? Did she eat this morning?
+  Caller -> Toast. And coffee. Around seven.
+  Nurse -> Okay. Tell the paramedics that too. And bring her pill bottles, including the warfarin, in a bag. || A2
+  Caller -> The pill bottles. In a bag. I'll get them. Hold on. I'll get them after they come. No, now. Hold on.
+  Caller -> Okay. I have the bag. It's on the table. All the bottles. The warfarin is in there. || A2
+  Nurse -> Perfect.
+  Nurse -> That's from the blood loss. It's why we want the hospital. They'll take good care of her.
+  Caller -> I hope so. We just celebrated our fifty-second anniversary. Last Sunday.
+  Nurse -> That's wonderful. She's going to be okay, Walter. Keep talking to her.
+  Caller -> Doris, remember the trip to Niagara? Remember the boat? We got soaked. You laughed so hard. Remember?
+  Caller -> She's smiling. She's smiling a little.
+  Nurse -> That's perfect. Keep going. Tell her about it.
+  Caller -> I hear a siren. I hear it. They're coming.
+  Nurse -> Good. Go let them in. They'll take over. Walter, let me know how she's doing later.
+  Caller -> I will. I'll call you. Thank you. Thank you, Tom. They're here. They're at the door.
+  Nurse -> Go. Take care of her.
+  Caller -> Okay. Bye.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "It's soaking the towel", heard_form: "It's soaking the towel. I've gone through three towels", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Doris Penhaligon, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1949-06-08", certainty: stated, heard_as: [], turns: [27]}
+    caller_name: {value: Walter Penhaligon, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8605550138", certainty: stated, heard_as: [], turns: [29]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife had a nosebleed for forty minutes that would not stop.
+    speaker: Caller
+    turns: [2]
+    quote: "My wife has a nosebleed and it won't stop. It's been forty minutes."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The nosebleed had continued for forty minutes despite pinching and had soaked three towels.
+      speaker: Caller
+      turns: [9]
+      quote: "We pinched it for ten minutes, I counted. And it kept going."
+      explanation: Documents the persistent bleeding.
+      facts:
+        - {type: symptom, name: nosebleed that will not stop, present: true, duration: forty minutes, certainty: stated}
+      covers: [A1]
+    - text: She was on warfarin, taken every night including last night.
+      speaker: Caller
+      turns: [13]
+      quote: "The warfarin. She takes it every night."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: warfarin, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She was pale and dizzy with shaking hands.
+      speaker: Caller
+      turns: [19]
+      quote: "She's pale. She's really pale. She said she feels dizzy."
+      explanation: Documents the associated symptoms.
+      facts:
+        - {type: symptom, name: pale and dizzy, present: true, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [20]
+      quote: "I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised having her sit and lean forward, pinching the soft part of the nose firmly, not tipping her head back, and spitting out blood.
+      speaker: Nurse
+      turns: [22]
+      quote: "have her sit up and lean forward. Not back. Forward."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "My wife has a nosebleed and it won't stop. It's been forty minutes."}
+    - {category: escalation_request, turns: [20], quote: "I need you to call nine one one right now."}

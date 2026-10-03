@@ -1,0 +1,186 @@
+call_id: tr-073
+split: train
+blueprint: "Daughter reports her 82-year-old father on warfarin fell in the bathroom and hit his head on the sink; scalp is bleeding, he is awake but dizzy. Nurse tells her to call 911 now, apply firm pressure with a clean towel, not move him, unlock the door. Flags: other_urgent and escalation_request (nurse sends to 911)."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [split_turns, crosstalk, late_answers]
+  clinical_domains: [falls, bleeding]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-03T12:08:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Suresh Natarajan
+  patient_name_spoken: Suresh Natarajan
+  patient_name_certainty: stated
+  patient_dob_true: "1944-09-30"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Priyanka
+  caller_name_spoken: Priyanka
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father fell, hit his head, and is bleeding
+  reason_category: fall
+  relevant_context: Father takes a blood thinner
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fall with head strike
+    symptom_present: true
+    body_location: head
+    onset_or_duration: just now
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: scalp bleeding
+    symptom_present: true
+    body_location: scalp
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: head injury with bleeding on a blood thinner
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, press firmly on the bleeding with a clean towel, keep him lying still, and unlock the door
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Fall with head injury and bleeding while on warfarin
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the daughter to call 911 immediately
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Marcus, it's Priyanka, my dad fell. He fell in the bathroom. Suresh. Suresh Natarajan. || caller_name, relationship, patient_name, cc
+  Nurse -> Priyanka, I'm here. Is he awake?
+  Caller -> He's awake. He's talking. But he hit his head, he hit the sink, and it's, there's blood. There's a lot of blood on his head. || A1, A2, F1
+  Nurse -> Okay. Is he dizzy? Is he confused?
+  Caller -> He's dizzy. He says he's dizzy. He knows me. He knows who I am. || A3
+  Nurse -> Is he on a blood thinner?
+  Caller -> Yes. The warfarin. He takes it every night. || A4
+  Nurse -> Did he pass out at all? Did he black out when he fell?
+  Caller -> No, I don't think so. I heard the thud and I ran in and he was sitting on the floor. He was already sitting up. He's holding his head.
+  Nurse -> Okay. Is he breathing normally? Any vomiting?
+  Caller -> He's breathing okay. No, he hasn't thrown up. He's just, he's holding his head and he's looking at me like, like what happened.
+  Nurse -> Okay, Priyanka, listen. I need you to hang up and call 911 right now. He needs to go to the emergency room. || R1, E1, F2
+  Caller -> Okay. Okay, should I.
+  Nurse -> Call 911 first. While you wait, grab a clean towel and press down firmly on the bleeding. Don't let go. Keep him lying down and still, don't try to stand him up. || E1
+  Caller -> Towel. Press. Lying down. Okay. Dad, don't move. Don't, Dad. Stay there.
+  Nurse -> And unlock the front door so they can get in.
+  Caller -> Okay. Door. Okay.
+  Nurse -> I'll call the hospital so they know. Go ahead and call now.
+  Caller -> Okay. Thank you. Thank you, Marcus.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Suresh Natarajan, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Priyanka, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father fell, hit his head, and is bleeding.
+    speaker: Caller
+    turns: [2]
+    quote: "my dad fell. He fell in the bathroom."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He fell in the bathroom and hit his head on the sink, with heavy scalp bleeding.
+      speaker: Caller
+      turns: [4]
+      quote: "he hit his head, he hit the sink, and it's, there's blood. There's a lot of blood on his head."
+      explanation: Documents the injury.
+      facts:
+        - {type: symptom, name: fall with head strike, present: true, location: head, duration: just now, certainty: stated}
+        - {type: symptom, name: scalp bleeding, present: true, location: scalp, certainty: stated}
+      covers: [A1, A2]
+    - text: He was dizzy but recognized her and was talking.
+      speaker: Caller
+      turns: [6]
+      quote: "He's dizzy. He says he's dizzy. He knows me."
+      explanation: Documents his mental status.
+      facts:
+        - {type: symptom, name: dizziness, present: true, certainty: stated}
+      covers: [A3]
+    - text: He took warfarin nightly.
+      speaker: Caller
+      turns: [8]
+      quote: "Yes. The warfarin. He takes it every night."
+      explanation: Documents the anticoagulant use.
+      facts:
+        - {type: medication, name: warfarin, med_status: taking, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 immediately for emergency room evaluation.
+      speaker: Nurse
+      turns: [13]
+      quote: "I need you to hang up and call 911 right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised pressing firmly on the bleeding with a clean towel, keeping him lying still, and unlocking the door.
+      speaker: Nurse
+      turns: [15]
+      quote: "grab a clean towel and press down firmly on the bleeding."
+      explanation: Documents first-aid and emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [4], quote: "there's a lot of blood on his head."}
+    - {category: escalation_request, turns: [13], quote: "I need you to hang up and call 911 right now."}

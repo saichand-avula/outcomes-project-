@@ -1,0 +1,235 @@
+call_id: va-015
+split: val
+blueprint: "Patient accidentally took two warfarin tablets last night; no bleeding signs; nurse has already left messages for the PCP and anticoagulation clinic (completed), advises holding tonight's dose until the clinic calls, and bleeding precautions. Flag: medication concern."
+setup:
+  scenario_category: medication
+  subtype: double_dose
+  secondary_tags: [trap_phrasing, negated_risk_phrase, hedging]
+  clinical_domains: [medication, bleeding_risk]
+  relationship_group: self
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-09-20T13:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Chester Nguyen
+  patient_name_spoken: Chester Nguyen
+  patient_name_certainty: stated
+  patient_dob_true: "1955-03-19"
+  patient_dob_spoken: "1955-03-19"
+  patient_dob_certainty: stated
+  caller_name_true: Chester Nguyen
+  caller_name_spoken: Chester Nguyen
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3345550175"
+  callback_phone_spoken: "3345550175"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Took two warfarin tablets by mistake last night
+  reason_category: medication_error
+  relevant_context: On warfarin for atrial fibrillation
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: extra_dose
+    strength: 5 mg
+    dose: "2"
+    unit: tablets
+    frequency: once a day
+    last_dose_time: last night at 8
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: bleeding or bruising
+    symptom_present: false
+    history_or_context_text: No nosebleeds, no black stools, no new bruises, no headache
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Took one tablet at 8, forgot, and took another at about 9
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: completed
+    actor: nurse
+    recipient_or_target: primary care doctor and anticoagulation clinic
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    reason_or_trigger: hold tonight's dose until the clinic calls
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Watch for nosebleeds, bleeding gums, black or bloody stools, blood in urine, new bruises, or headache
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for a head injury, a severe headache, vomiting blood, black stools, or bleeding that will not stop
+    trigger_condition: head injury; severe headache; vomiting blood; black stools; bleeding that will not stop
+    certainty: stated
+  - item_id: E3
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Use a weekly pill organizer and a log so doses are not repeated
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient reports taking two warfarin tablets last night
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Northstar Home Health, this is Priscilla.
+  Caller -> Hi, Priscilla. This is Chester Nguyen. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Chester. Date of birth?
+  Caller -> March nineteenth, nineteen fifty five. || patient_dob
+  Nurse -> And I have three three four, five five five, zero one seven five. || callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> What's going on?
+  Caller -> I think I made a mistake. I took two warfarin last night. Two of them. By accident. || cc, A1, F1
+  Nurse -> Okay. Tell me what happened.
+  Caller -> I take one, five milligrams, every night at eight. And last night I took it, and then I forgot I took it, and around nine I took another one. || A1, A3
+  Nurse -> Okay. So ten milligrams total.
+  Caller -> I guess so. I'm kind of annoyed at myself.
+  Nurse -> It happens. Okay. Any bleeding? Nosebleeds, bleeding gums, black stools?
+  Caller -> No. No nosebleeds. No black stools. I haven't seen any bruises. And no headache. || A2
+  Nurse -> Okay. That's good. Chester, I've already left a message for your doctor and for the anticoagulation clinic, while we were talking. They'll call you. || R1
+  Caller -> Oh good. Thank you.
+  Nurse -> Don't take tonight's warfarin until they call you back and tell you what to do. || R2
+  Caller -> Okay. No warfarin tonight until they call. Got it. || R2
+  Nurse -> And I'll call you back within the hour to see if you've heard. || R3
+  Caller -> Okay.
+  Nurse -> Watch for any nosebleeds, bleeding gums, black or bloody stools, blood in your urine, new bruises, or a headache. || E1
+  Caller -> Okay. I'll watch.
+  Nurse -> If you hit your head, or you get a severe headache, or you vomit blood, or have black stools, or bleeding that won't stop, call nine one one. || E2
+  Caller -> Nine one one. Okay.
+  Nurse -> Do you use a pill organizer?
+  Caller -> No. I just use the bottle.
+  Nurse -> A weekly organizer with a log helps. Then you can see if you've already taken it. || E3
+  Caller -> That makes sense. My wife keeps telling me that.
+  Nurse -> She's right. Anything else, Chester?
+  Caller -> No. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Chester Nguyen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-03-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Chester Nguyen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3345550175", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he took two warfarin tablets by mistake last night.
+    speaker: Caller
+    turns: [8]
+    quote: "I think I made a mistake. I took two warfarin last night."
+    explanation: Documents the medication error prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Warfarin 5 mg once a day at 8 was taken, and a second tablet was taken at about 9 last night because he forgot the first.
+      speaker: Caller
+      turns: [10]
+      quote: "I take one, five milligrams, every night at eight. And last night I took it, and then I forgot I took it, and around nine I took another one."
+      explanation: Documents the duplicate dose and its circumstances.
+      facts:
+        - {type: medication, name: warfarin, strength: 5 mg, dose: "2", unit: tablets, frequency: once a day, last_dose: last night at 8, med_status: extra_dose, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A3]
+    - text: No nosebleeds, black stools, new bruises, or headache were reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No nosebleeds. No black stools. I haven't seen any bruises. And no headache."
+      explanation: Documents pertinent negatives for bleeding.
+      facts:
+        - {type: pertinent_negative, name: bleeding or bruising, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Left messages for the doctor and the anticoagulation clinic during the call.
+      speaker: Nurse
+      turns: [15]
+      quote: "I've already left a message for your doctor and for the anticoagulation clinic, while we were talking."
+      explanation: Documents the completed notifications.
+      facts:
+        - {type: action, action_type: message_to_team, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Advised holding tonight's warfarin until the clinic called with instructions.
+      speaker: Nurse
+      turns: [17]
+      quote: "Don't take tonight's warfarin until they call you back and tell you what to do."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: warfarin, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back within the hour.
+      speaker: Nurse
+      turns: [19]
+      quote: "And I'll call you back within the hour to see if you've heard."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised watching for nosebleeds, bleeding gums, black or bloody stools, blood in the urine, new bruises, or headache.
+      speaker: Nurse
+      turns: [21]
+      quote: "Watch for any nosebleeds, bleeding gums, black or bloody stools, blood in your urine, new bruises, or a headache."
+      explanation: Documents bleeding precautions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for a head injury, severe headache, vomiting blood, black stools, or bleeding that would not stop.
+      speaker: Nurse
+      turns: [23]
+      quote: "If you hit your head, or you get a severe headache, or you vomit blood, or have black stools, or bleeding that won't stop, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+    - text: Advised using a weekly pill organizer with a log to prevent repeated doses.
+      speaker: Nurse
+      turns: [27]
+      quote: "A weekly organizer with a log helps. Then you can see if you've already taken it."
+      explanation: Documents medication-safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "I took two warfarin last night."}

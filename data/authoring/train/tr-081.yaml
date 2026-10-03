@@ -1,0 +1,222 @@
+call_id: tr-081
+split: train
+blueprint: "41-year-old with a PICC line calls about redness and tenderness at the site, no fever. Her name is heard as Michaela twice and Mikaela once (unresolved, most frequent form kept and marked unclear); she starts to give her birth year wrongly then corrects herself mid-sentence (resolved). Nurse plans a visit this afternoon, tells her to leave the dressing alone and gives return precautions."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, dob_self_corrected, hedging, split_turns, late_answers]
+  clinical_domains: [wound_skin, infection_risk]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-10T13:25:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mikaela Vasquez
+  patient_name_spoken: Michaela Vasquez
+  patient_name_certainty: unclear
+  patient_dob_true: "1985-10-09"
+  patient_dob_spoken: "1985-10-09"
+  patient_dob_certainty: stated
+  caller_name_true: Mikaela Vasquez
+  caller_name_spoken: Michaela Vasquez
+  caller_name_certainty: unclear
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7025550182"
+  callback_phone_spoken: "7025550182"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported redness and tenderness at her PICC line site
+  reason_category: wound_skin
+  relevant_context: Has a PICC line for IV antibiotics
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: redness at the PICC site
+    symptom_present: true
+    body_location: left upper arm PICC site
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: tenderness at the PICC site
+    symptom_present: true
+    severity: 3/10
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: drainage
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    reason_or_trigger: check the PICC site
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: infusion nurse
+    reason_or_trigger: redness at the line site
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Leave the dressing in place and keep it dry; do not touch or pull on the line
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of 100.4 or higher, chills, pus, spreading redness, or swelling of the arm
+    trigger_condition: fever 100.4 or higher; chills; pus; spreading redness; arm swelling
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hi, Ana. This is Michaela. Michaela Vasquez. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Michaela. Can you spell that for me? First name.
+  Caller -> M I K A E L A. Mikaela. || patient_name
+  Nurse -> Okay. And Vasquez with a Q or a S?
+  Caller -> With a S. V A S Q U E Z. Sorry. Michaela Vasquez. || patient_name
+  Nurse -> Thank you. Your birthday?
+  Caller -> October ninth, nineteen eighty. Wait, no. Eighty five. Nineteen eighty five. || patient_dob
+  Nurse -> Okay. October ninth, nineteen eighty five. And I've got seven oh two, five five five, zero one eight two. || patient_dob, callback_phone
+  Caller -> That's me. Yeah. || callback_phone
+  Nurse -> What's going on?
+  Caller -> It's my PICC line. The spot where it goes in. It's red. It got red this morning. || cc, A1
+  Nurse -> Okay. Which arm?
+  Caller -> My left. The upper arm.
+  Nurse -> Does it hurt?
+  Caller -> It's tender. If I touch it. Like a three. || A2
+  Nurse -> Okay. Any fever? Chills?
+  Caller -> No fever. I took it. No chills. || A3
+  Nurse -> And any drainage, any pus, coming from around the line?
+  Caller -> No. It's dry. The dressing's dry. It's just red. || A4
+  Nurse -> Alright. I'd like to have a nurse look at it. I'm going to send someone out this afternoon. || R1
+  Caller -> Okay. Good.
+  Nurse -> And I'll message the infusion nurse about the redness, so she knows. || R2
+  Caller -> Okay.
+  Nurse -> Until then, leave the dressing alone. Keep it dry. Don't touch the line and don't pull on it. || E1
+  Caller -> Okay. I won't touch it.
+  Nurse -> And call us if you get a fever of a hundred point four or higher, chills, any pus, if the redness spreads, or your arm swells up. || E2
+  Caller -> Fever, chills, pus, spreading, swelling. Got it.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Ana.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Mikaela, heard_form: Michaela Vasquez, fact_id: patient_name}
+  - {turn: auto, type: dropped_words, true_form: "nineteen eighty five", heard_form: "nineteen eighty. Wait, no. Eighty five.", fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Michaela Vasquez, certainty: unclear, heard_as: [Mikaela], turns: [2, 4, 6]}
+    patient_dob: {value: "1985-10-09", certainty: stated, heard_as: [], turns: [8, 9]}
+    caller_name: {value: Michaela Vasquez, certainty: unclear, heard_as: [Mikaela], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7025550182", certainty: stated, heard_as: [], turns: [9, 10]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported redness and tenderness at her PICC line site.
+    speaker: Caller
+    turns: [12]
+    quote: "It's my PICC line. The spot where it goes in. It's red."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Redness at the PICC site in the left upper arm began this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "It got red this morning."
+      explanation: Documents the onset of redness.
+      facts:
+        - {type: symptom, name: redness at the PICC site, present: true, location: left upper arm PICC site, duration: since this morning, certainty: stated}
+      covers: [A1]
+    - text: The site was tender, rated 3/10.
+      speaker: Caller
+      turns: [16]
+      quote: "It's tender. If I touch it. Like a three."
+      explanation: Documents the tenderness.
+      facts:
+        - {type: symptom, name: tenderness at the PICC site, present: true, severity: 3/10, certainty: stated}
+      covers: [A2]
+    - text: No fever or chills were reported.
+      speaker: Caller
+      turns: [18]
+      quote: "No fever. I took it. No chills."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+    - text: No drainage was reported and the dressing was dry.
+      speaker: Caller
+      turns: [20]
+      quote: "No. It's dry. The dressing's dry. It's just red."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: drainage, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send a nurse out this afternoon to check the site.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to send someone out this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the infusion nurse about the redness.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll message the infusion nurse about the redness, so she knows."
+      explanation: Documents the planned team notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised leaving the dressing in place and dry and not touching or pulling on the line.
+      speaker: Nurse
+      turns: [25]
+      quote: "leave the dressing alone. Keep it dry. Don't touch the line and don't pull on it."
+      explanation: Documents line care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fever of 100.4 or higher, chills, pus, spreading redness, or arm swelling.
+      speaker: Nurse
+      turns: [27]
+      quote: "call us if you get a fever of a hundred point four or higher, chills, any pus, if the redness spreads, or your arm swells up."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,243 @@
+call_id: va-038
+split: val
+blueprint: "Wife reports her husband has had chest tightness and shortness of breath for 30 minutes with sweating and a heart history; nurse tells her to call 911 now and plans to call the hospital. Flags: breathing concern and escalation."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [late_answers]
+  clinical_domains: [dyspnea, chest_pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-09-07T22:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Walter Henshaw
+  patient_name_spoken: Walter Henshaw
+  patient_name_certainty: stated
+  patient_dob_true: "1944-11-09"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Marjorie
+  caller_name_spoken: Marjorie
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9725550162"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Chest tightness and shortness of breath for 30 minutes
+  reason_category: breathing_chest
+  relevant_context: History of heart disease with a stent last year
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: chest tightness
+    symptom_present: true
+    severity: pressure in the center of the chest
+    onset_or_duration: 30 minutes
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: true
+    onset_or_duration: 30 minutes
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sweating
+    symptom_present: true
+    severity: clammy
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Heart disease with a stent placed last year
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: possible cardiac event
+    timeframe: now
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: emergency department
+    reason_or_trigger: give report ahead of arrival
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, have him sit and rest, unlock the front door, and gather his medication list
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not drive him yourself and stay with him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Caller reports chest tightness and shortness of breath for 30 minutes
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse directs the caller to call 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Rhonda, it's Marjorie Henshaw. It's my husband, Walter. Something's wrong. || caller_name, relationship, patient_name
+  Nurse -> Okay, Marjorie. I'm here. What's happening?
+  Caller -> He says his chest feels tight. Like pressure, right in the middle. And he's short of breath. It started about thirty minutes ago. || cc, A1, A2, F1
+  Nurse -> Okay. Is he having the pain now?
+  Caller -> Yes. It hasn't gone away. He's been sitting in his chair and it won't go away.
+  Nurse -> Okay. Is he sweating, or clammy?
+  Caller -> Yes. His forehead is wet and his hands feel clammy. || A3
+  Nurse -> Okay. Has he had heart problems?
+  Caller -> Yes. He had a stent put in last year. For his heart. || A4
+  Nurse -> Okay. Has he fainted, or nearly fainted?
+  Caller -> No. No, he's awake. He's talking. || A5
+  Nurse -> Okay. Marjorie, I want you to hang up and call nine one one right now. This could be his heart. He needs an ambulance. || R1, F2, E1
+  Caller -> Okay. Okay. Right now?
+  Nurse -> Right now. Please. I'll stay here until you do. Is the front door unlocked?
+  Caller -> I'll unlock it. I'm going to call.
+  Nurse -> What's your address? In case they ask you and you're flustered.
+  Caller -> Four eleven Elm Street. Four eleven Elm. I live right off Main.
+  Nurse -> Good. Four eleven Elm Street. Tell them that.
+  Caller -> Four eleven Elm. Okay.
+  Nurse -> Good. Have him sit and rest, don't let him walk around. And get his medication list ready for the paramedics. || E1
+  Caller -> Okay. I'll get the list. It's on the fridge.
+  Nurse -> And don't drive him yourself. Let the ambulance take him. And stay with him. || E2
+  Caller -> I will. I will. Hold on.
+  Nurse -> I'm calling the hospital now, so they know he's coming. || R2
+  Caller -> Okay. Thank you, Rhonda. I'm calling now.
+  Nurse -> Go. Go ahead.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply", heard_form: "Yes. It hasn't gone away", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Walter Henshaw, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Marjorie, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had chest tightness and shortness of breath for about 30 minutes.
+    speaker: Caller
+    turns: [4]
+    quote: "He says his chest feels tight. Like pressure, right in the middle. And he's short of breath. It started about thirty minutes ago."
+    explanation: Documents the emergency symptoms prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Central chest pressure had been present for about 30 minutes and had not resolved.
+      speaker: Caller
+      turns: [4]
+      quote: "He says his chest feels tight. Like pressure, right in the middle."
+      explanation: Documents chest tightness and its duration.
+      facts:
+        - {type: symptom, name: chest tightness, present: true, severity: pressure in the center of the chest, onset: 30 minutes, certainty: stated}
+      covers: [A1]
+    - text: Shortness of breath began about 30 minutes ago.
+      speaker: Caller
+      turns: [4]
+      quote: "And he's short of breath. It started about thirty minutes ago."
+      explanation: Documents the associated dyspnea.
+      facts:
+        - {type: symptom, name: shortness of breath, present: true, onset: 30 minutes, certainty: stated}
+      covers: [A2]
+    - text: He was sweating, with a wet forehead and clammy hands.
+      speaker: Caller
+      turns: [8]
+      quote: "Yes. His forehead is wet and his hands feel clammy."
+      explanation: Documents the associated sweating.
+      facts:
+        - {type: symptom, name: sweating, present: true, severity: clammy, certainty: stated}
+      covers: [A3]
+    - text: He had heart disease with a stent placed last year.
+      speaker: Caller
+      turns: [10]
+      quote: "Yes. He had a stent put in last year. For his heart."
+      explanation: Documents the cardiac history.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: He had not fainted and was awake and talking.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No, he's awake. He's talking."
+      explanation: Documents a pertinent negative for fainting.
+      facts:
+        - {type: pertinent_negative, name: fainting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 immediately because the symptoms could be cardiac.
+      speaker: Nurse
+      turns: [13]
+      quote: "I want you to hang up and call nine one one right now. This could be his heart."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, timeframe: now, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the hospital so they knew he was coming.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm calling the hospital now, so they know he's coming."
+      explanation: Documents the planned handoff.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised having him sit and rest, unlocking the front door, and preparing his medication list for the paramedics.
+      speaker: Nurse
+      turns: [21]
+      quote: "Have him sit and rest, don't let him walk around. And get his medication list ready for the paramedics."
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised not driving him herself and staying with him.
+      speaker: Nurse
+      turns: [23]
+      quote: "don't drive him yourself. Let the ambulance take him. And stay with him."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [4], quote: "And he's short of breath."}
+    - {category: escalation_request, turns: [13], quote: "I want you to hang up and call nine one one right now."}

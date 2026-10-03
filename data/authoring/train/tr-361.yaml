@@ -1,0 +1,262 @@
+call_id: tr-361
+split: train
+blueprint: "A husband calls home health confused about his wife's pain pills: Tylenol three times a day at meals and tramadol 'as needed', and he is not sure whether he can give the tramadol on top of the Tylenol or only instead of it. She rates her knee pain a five this afternoon. Nurse explains scheduled versus as-needed, tells him to give the scheduled Tylenol at meals and the tramadol if pain stays above a four at least six hours from the last one, offers a message to the team to put a chart on the fridge and plans a callback tomorrow. Medication clarification (prn and scheduled), spouse caller, v2 short."
+setup:
+  scenario_category: medication
+  subtype: prn_and_scheduled
+  secondary_tags: [prn_and_scheduled, trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [medication, pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Frances
+  call_timestamp_utc: "2026-10-24T19:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Edna Fairbairn
+  patient_name_spoken: Edna Fairbairn
+  patient_name_certainty: stated
+  patient_dob_true: "1941-11-22"
+  patient_dob_spoken: "1941-11-22"
+  patient_dob_certainty: stated
+  caller_name_true: Vernon Fairbairn
+  caller_name_spoken: Vernon Fairbairn
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "9015550186"
+  callback_phone_spoken: "9015550186"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked how to give his wife's scheduled and as-needed pain pills
+  reason_category: medication
+  relevant_context: Home health patient with knee arthritis pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: three times a day at meals
+    last_dose: lunch
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: tramadol
+    medication_name_spoken: tramadol
+    medication_status: taking
+    dose: "50"
+    unit: mg
+    frequency: every six hours as needed
+    prn: true
+    last_dose: yesterday evening
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: knee pain
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: sleepiness or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: make a medicine schedule chart for the refrigerator
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the Tylenol at breakfast, lunch and supper no matter what, and give the tramadol only if pain stays above four and at least six hours have passed since the last one
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she gets very sleepy, confused, or the pain stays above a seven even after the tramadol
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Frances.
+  Caller -> Hello. This is Vernon Fairbairn. I'm calling about my wife, Edna Fairbairn. I have a question about her pills. || caller_name, patient_name, relationship
+  Nurse -> Hi Mr. Fairbairn. I can help. What's your wife's date of birth?
+  Caller -> November twenty second, nineteen forty one. || patient_dob
+  Nurse -> And a number I can reach you at?
+  Caller -> Nine oh one, five five five, zero one eight six. || callback_phone
+  Nurse -> Nine oh one, five five five, zero one eight six. Is that right? || callback_phone
+  Caller -> That's right. That's the kitchen phone.
+  Nurse -> Is that a cordless one? In case we need you to move around the house.
+  Caller -> It's a cord. A long cord. Twenty feet. My son in law put it in. I can reach the stove.
+  Nurse -> Ha. That's convenient.
+  Nurse -> Okay. What's your question?
+  Caller -> It's the pain pills. Her knee. She has two. I get them mixed up. One is, it says take three times a day. The other says take as needed. And I don't know what that means. As needed. || cc
+  Nurse -> That's a good question. Let's go through them. What are they called?
+  Caller -> One's Tylenol. Five hundred milligrams. Three times a day. The other is, hold on, I have my glasses. It's tramadol. Fifty milligrams. Every six hours as needed. || A1, A2
+  Nurse -> Okay. Tylenol five hundred, three times a day. Tramadol fifty, every six hours as needed. Is that what's on the bottles? || A1, A2
+  Caller -> Yes. Those are the labels.
+  Nurse -> Good. So here's the difference. The Tylenol is a scheduled one. That's the three times a day. You give it every day at the same times, whether she hurts or not. Like breakfast, lunch, and supper. || A1
+  Caller -> No matter what? Even if she says she's fine?
+  Nurse -> Even if she says she's fine. It works best when it's steady in her system.
+  Caller -> Okay. And the tramadol? || A2
+  Nurse -> That one is as needed. That means you only give it if she's hurting, and the Tylenol isn't enough. Not on a schedule. And not sooner than six hours after the last one. || A1
+  Caller -> So I don't give it with the Tylenol. Or do I give it with the Tylenol? || A1
+  Nurse -> You can give it at the same time as a Tylenol, if she needs it. They don't cancel each other out. Think of the Tylenol as the floor, and the tramadol as the extra. || A1, A2
+  Caller -> The floor and the extra. Okay. I like that. That I can remember.
+  Caller -> I used to be a carpenter. Floor and extra. I can picture it. A floor, and then a shelf on top.
+  Nurse -> A shelf. Even better.
+  Caller -> Forty years of floors and shelves.
+  Nurse -> How is she doing right now? What's her pain?
+  Caller -> She says it's a five. Her left knee. She's sitting with it propped up. She had her lunch, and the Tylenol with lunch. At noon. || A3
+  Nurse -> When was her last tramadol? || A2
+  Caller -> Yesterday evening. About seven. I gave her one for bedtime. She didn't need one this morning. || A2
+  Nurse -> Okay. So it's been more than six hours. Is she sleepy, or confused, or dizzy today?
+  Caller -> No. She's sharp. She did the crossword. She's mad at me for giving her the wrong word for seven across. || A4
+  Nurse -> Ha. Good. Then I'd say, if her pain is staying above a four, and it's been at least six hours, it's okay to give her a tramadol now. And keep giving the Tylenol at breakfast, lunch, and supper no matter what. || E1
+  Caller -> Above a four. Six hours since the last one. Tylenol every meal. Okay. And if she's a three, I don't give it. || A1
+  Nurse -> Right. If it's a three or less, she can probably go without.
+  Caller -> I wrote that down. Four. Six hours. Meals. I have it on the pad.
+  Caller -> The pad is by the phone. The one from the pharmacy with the little green cross on it. I use it for everything.
+  Nurse -> Great. Keep it near the pill box.
+  Caller -> It's right next to it. I'm very careful about the pill box. I fill it every Sunday.
+  Nurse -> Perfect.
+  Nurse -> Perfect. I'm going to leave a message for the team to make a little chart for your fridge. Times for the Tylenol, and a box for the as needed one. So you don't have to remember. || R1
+  Caller -> A chart. Oh, that would be wonderful. I'd put it right on the front. With the magnet.
+  Nurse -> Great. And call us if she gets very sleepy or confused, or if the pain stays above a seven even after the tramadol. || A2
+  Caller -> Very sleepy. Confused. Above a seven. Okay. I'll watch. She hasn't been above a six, I don't think.
+  Nurse -> That's good. I'll call you tomorrow to see how it's going with the new routine. || E2, R2
+  Caller -> Tomorrow. That's fine. I'm home. I'm always home. I don't go anywhere.
+  Nurse -> Ha. That's easy then.
+  Caller -> I do the crossword with her. We do it in pen. She finishes it by ten.
+  Nurse -> In pen? That's brave.
+  Caller -> She never makes mistakes. I make all of them.
+  Nurse -> Ha. Seven across?
+  Caller -> Five letters. Starts with a T. I said tempo. She said tangy. It was tangy.
+  Nurse -> Ha. Edna wins.
+  Caller -> She always wins.
+  Nurse -> Anything else, Mr. Fairbairn?
+  Caller -> No. That's what I wanted. Thank you. I felt silly asking.
+  Nurse -> It wasn't silly. It's a very common question.
+  Caller -> My son says I should have a smart phone and look it up. I said I'd rather call a person.
+  Nurse -> A person is better. We're happy to help.
+  Caller -> That's what I told him.
+  Caller -> Thank you, Frances.
+  Nurse -> You're welcome. Take care.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Edna Fairbairn, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-11-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Vernon Fairbairn, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550186", certainty: stated, heard_as: [], turns: [6, 7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked how to give his wife's scheduled and as-needed pain pills.
+    speaker: Caller
+    turns: [13]
+    quote: "It's the pain pills. Her knee."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Tylenol 500 mg three times a day, last given with lunch at noon.
+      speaker: Caller
+      turns: [15]
+      quote: "One's Tylenol. Five hundred milligrams. Three times a day."
+      explanation: Documents the scheduled medicine.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, frequency: three times a day at meals, last_dose: lunch, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Tramadol 50 mg every six hours as needed, last given yesterday evening.
+      speaker: Caller
+      turns: [15]
+      quote: "It's tramadol. Fifty milligrams. Every six hours as needed."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: tramadol, dose: "50", unit: mg, frequency: every six hours as needed, prn: true, last_dose: yesterday evening, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Left knee pain was a five.
+      speaker: Caller
+      turns: [30]
+      quote: "She says it's a five."
+      explanation: Documents the knee pain.
+      facts:
+        - {type: symptom, name: knee pain, present: true, severity: "5", certainty: stated}
+      covers: [A3]
+    - text: She was not sleepy or confused.
+      speaker: Caller
+      turns: [34]
+      quote: "No. She's sharp."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: sleepiness or confusion, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to leave a message for the team to make a medicine chart for the refrigerator.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to leave a message for the team to make a little chart for your fridge."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you tomorrow"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving the Tylenol at every meal and the tramadol only if pain stayed above four and six hours had passed.
+      speaker: Nurse
+      turns: [35]
+      quote: "keep giving the Tylenol at breakfast, lunch, and supper no matter what."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if she became very sleepy or confused or the pain stayed above seven after the tramadol.
+      speaker: Nurse
+      turns: [45]
+      quote: "call us if she gets very sleepy or confused"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

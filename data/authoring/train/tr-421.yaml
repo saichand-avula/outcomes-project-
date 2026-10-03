@@ -1,0 +1,383 @@
+call_id: tr-421
+split: train
+blueprint: "A neighbor who visits an 84-year-old hospice patient living alone calls late afternoon: the patient has been restless all day, picking at the sheets, said she saw her late husband, has not eaten since yesterday, and has not had a bowel movement in about four days. A lorazepam point five milligram at noon calmed her for a couple of hours, then it came back. The neighbor does not know her birth date, is unsure of the surname spelling (Dunmore or Dunmoor), and cannot tell whether this is dying, constipation or a bladder infection. Nurse sorts it out, pages on-call for orders, sends a nurse today, and calls back in an hour. Ambiguous, identity unresolved, name drift, friend/neighbor caller, long v2."
+setup:
+  scenario_category: ambiguous
+  subtype: restlessness_unclear_cause
+  secondary_tags: [identity_unresolved, name_drift, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [agitation_delirium, constipation, intake_appetite, medication]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Tern Harbor Hospice
+  agency_type: hospice
+  nurse_name: Raul
+  call_timestamp_utc: "2026-11-10T21:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philippa Dunmore
+  patient_name_spoken: Philippa Dunmore
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Philippa Dunmoor]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Ludmila Kowalczyk
+  caller_name_spoken: Ludmila Kowalczyk
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "6105550125"
+  callback_phone_spoken: "6105550125"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her neighbor has been restless all day and may be changing
+  reason_category: agitation_delirium
+  relevant_context: Hospice patient living alone with a neighbor checking on her
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness and picking at the sheets
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: seeing her late husband
+    symptom_present: true
+    certainty: unclear
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: as needed for restlessness
+    prn: true
+    last_dose: noon today
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: missed
+    dose: "1"
+    unit: tablet
+    frequency: every night
+    prn: false
+    last_dose: two nights ago
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement in about four days
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: not eating since yesterday
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: restlessness with no bowel movement and poor intake
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the room quiet with low lights, speak calmly, play soft music and offer sips or a moist swab for her mouth
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not leave her alone, keep the bed low with pillows along the edge, and do not argue with what she says she sees
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if she becomes unable to be calmed, falls, has pain, or breathing changes
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Tern Harbor Hospice, this is Raul.
+  Caller -> Hello. Hello, is this the hospice? Yes? My name is Ludmila Kowalczyk. I'm calling about my neighbor. She's a patient. Philippa. || caller_name, relationship, patient_name
+  Nurse -> Yes, this is Tern Harbor Hospice. I'm Raul. How can I help?
+  Caller -> Oh, good. I wasn't sure I dialed right. My hands are cold. I'm in her kitchen.
+  Nurse -> Hi, Ludmila. Thank you for calling. What's her last name, Philippa?
+  Caller -> Dunmoor. Or Dunmore. I think it's Dunmore, with an E. I've always said Dunmoor. She's never corrected me. || patient_name
+  Nurse -> No problem. A lot of names have two spellings.
+  Caller -> It's on the mailbox. I'm looking out the window. It's too dark.
+  Nurse -> Okay. Philippa Dunmore. I see a Philippa Dunmore in our system. Is she around eighty?
+  Caller -> Eighty four, I think. Eighty three? She's older than me. I'm seventy nine. I don't know her birthday. I'm sorry.
+  Caller -> She told me once she was born the year of some big flood. I can't remember which.
+  Nurse -> That's all right. We'll find it in the chart.
+  Nurse -> That's okay. We can sort it out. What's happening today?
+  Caller -> She's not herself. She's been restless all day. I came at nine, and again at noon, and now I'm back. She won't settle. She keeps picking at her sheets. || cc, A1
+  Nurse -> Picking at the sheets. Is she pulling at the covers, plucking at them?
+  Caller -> Yes. Like she's folding something. Over and over. Her hands never stop. She's pulling at her nightgown too.
+  Caller -> She was a seamstress for forty years. I think she's sewing. Her fingers move like she's threading a needle.
+  Nurse -> That's a lovely way to see it. Those movements can be very familiar to her.
+  Nurse -> Okay. Is she awake? Talking?
+  Caller -> She's awake. Her eyes are open. She talks, but it doesn't make sense. She said Walter was here.
+  Nurse -> Who's Walter?
+  Caller -> Her husband. He died eleven years ago. She said, Walter's in the chair. I looked. Nobody was there. I don't know if she was dreaming, or what. || A2
+  Nurse -> Was she upset by it, or peaceful?
+  Caller -> Peaceful, mostly. She smiled. But then she got agitated again. She wanted to get up and go somewhere. I don't know where. I said it's night, Philippa, and she said no, it's morning.
+  Caller -> She said, he looks so young. That's what she said. He looks so young.
+  Nurse -> That sounds comforting.
+  Caller -> It was. I almost cried. I cried a little in the hallway.
+  Nurse -> Okay. Has she had any medicine for the restlessness?
+  Caller -> The lorazepam. The little pill. The label says point five milligram, as needed for restlessness. I gave her one at noon. It helped. She slept for two hours. But now she's up again. || A3
+  Nurse -> Okay. So lorazepam point five at noon. Has she had another since? || A3
+  Caller -> No. I didn't know if I'm allowed. It says every four hours, I think. It's been, what, five hours. But I was scared to give her another.
+  Nurse -> That's a reasonable worry. I'll get you an answer in a moment. A few more questions first. Has she eaten or had anything to drink?
+  Caller -> My own husband had pills and I never knew what was safe. Nobody told me anything.
+  Nurse -> You're doing a great job asking before giving. That's the right instinct.
+  Caller -> Not since yesterday. I made her tea this morning. She took two sips. She says she's not hungry. She pushes the spoon away. || A6
+  Caller -> I tried applesauce. She turned her head. I tried pudding. Same thing.
+  Nurse -> That's okay. At this stage, a few sips or tastes are enough.
+  Nurse -> Okay. And has she had a bowel movement?
+  Caller -> I think not for four days. I look at the chart the aide keeps. The last mark was Friday. Four days ago. She hasn't said. || A5
+  Caller -> I'm sorry I don't know more. I'm only her neighbor. The aide comes on weekdays, and the aide's gone by three.
+  Nurse -> You're doing more than most. Thank you.
+  Nurse -> And her bowel medicine? Does she take senna, or something at night? || A4
+  Caller -> The senna. One tablet every night. But she didn't take it last night. Or the night before. She refused. She said it tastes like dirt. || A4
+  Nurse -> Okay. That's helpful. Does she seem to have any pain? Grimacing, holding her stomach?
+  Caller -> She touched her belly once. I don't know. She didn't say. She doesn't complain.
+  Caller -> She groaned, once, when I helped her turn. It was a small groan. But it could mean something.
+  Nurse -> I'll make a note of that for the nurse.
+  Nurse -> Okay. Is she passing urine? Any strong smell, or dark color?
+  Caller -> I don't know. The pad was wet. I changed it at noon. It smelled a bit strong. But she hasn't had much to drink. So, I don't know.
+  Nurse -> That's okay. Ludmila, you've given me a lot to work with. There are a few possible reasons she's restless. It could be a change from her illness, it could be constipation, it could be a bladder infection. We need a nurse to look at her. || R2
+  Caller -> A nurse? Today? It's already getting dark.
+  Nurse -> Yes, today. I'm going to page the on-call clinician for orders, and send a nurse as soon as possible. || R1
+  Caller -> Oh. Thank God. I was afraid you would say wait until morning.
+  Caller -> I was ready to wait all night. I thought, they don't come at night. That's what I thought.
+  Nurse -> We do. Hospice is available any time.
+  Nurse -> No. If she's restless now, we don't wait. What's the best number to reach you?
+  Caller -> The street is slippery. It rained. Tell the nurse to be careful on the driveway.
+  Nurse -> I'll pass that on. Thank you.
+  Caller -> Six one oh, five five five, zero one two five. That's my cell. || callback_phone
+  Nurse -> Six one oh, five five five, zero one two five. And do you have a house key, or will someone be there to let the nurse in? || callback_phone
+  Caller -> I have a key. I'm here. I'm sitting by her bed. I'll let the nurse in.
+  Nurse -> Perfect. While we wait, let's make her more comfortable. Is the room bright?
+  Caller -> I've been rubbing her hand. Is that okay?
+  Nurse -> It's more than okay. Touch is very calming.
+  Caller -> The overhead light is on. And the TV is on. She had the news.
+  Nurse -> Turn off the TV, and put on a small lamp instead. Keep the room quiet. Low light. Speak softly. || E1
+  Caller -> The remote is under the afghan. Hold on. I can't find it. I'll just press the button on the set.
+  Nurse -> That's fine.
+  Caller -> TV off. Lamp on. Okay. Hold on. There. It's much quieter. She's looking at me.
+  Nurse -> Good. You can play soft music, if she likes it. And offer sips of water, or touch a moist swab to her lips.
+  Caller -> She hums along to some of them. Not the words, just the tune. She used to sing in the choir.
+  Caller -> She likes the radio. The classical station. I'll find it. I think it's on the nightstand. There. It's low.
+  Caller -> Oh. She's relaxing a little. Her hands are slowing down.
+  Nurse -> That's a good sign. Ludmila, please stay with her. Don't leave her alone right now. || E2
+  Caller -> I won't. I'm not going anywhere. I have my knitting.
+  Caller -> I made a sandwich earlier. It's still on the counter. I'll eat it in a minute.
+  Nurse -> Eat it. You have to look after yourself too.
+  Nurse -> Ha. What are you knitting?
+  Caller -> A scarf. For my grandson. It's blue. It's too long. I keep forgetting to stop.
+  Nurse -> Ha. A very long scarf is fine.
+  Caller -> I started it in September. Every time I finish a row I think, he's going to be taller.
+  Caller -> He's six. It reaches his knees.
+  Nurse -> He'll love it.
+  Nurse -> And if she says she sees Walter, or someone else, don't argue. Just say, I'm here, you're safe. It's okay.
+  Caller -> Okay. I did say it wasn't real. Is that wrong?
+  Nurse -> It's natural. But next time, just be gentle, and stay calm. She may be in a peaceful place in her mind.
+  Caller -> It's hard not to correct someone. I'm a retired teacher. I correct everything.
+  Nurse -> Ha. This is one time to let it go.
+  Caller -> I understand. I'll say Walter's welcome. I'll say that.
+  Nurse -> That's lovely. Is the bed low? Does it have rails?
+  Caller -> I touch the quilt on her bed. It's one of hers. The squares are all different colors. She made it for her wedding.
+  Caller -> It's a hospital bed. The rails are up on one side. The other side is against the wall.
+  Nurse -> Good. Put a pillow along the open side, so she doesn't roll off, and keep the bed low.
+  Caller -> I'll lower it. I know how. The button is on the side. Hold on. It's lower.
+  Nurse -> Great. Now, about the lorazepam. I'm going to ask the on-call clinician if she can have another dose now. I'd like you to hold off until I call back. || A3
+  Caller -> I understand. I'm sorry about asking so many questions.
+  Nurse -> Never apologize. Ask as many as you want.
+  Caller -> Okay. I'll hold off. Please call soon.
+  Nurse -> I'll call you back in an hour at the latest, sooner if I have an answer. || R3
+  Caller -> An hour. Okay. I'll watch the clock.
+  Nurse -> And call right away if she can't be calmed, if she falls, if she seems to be in pain, or if her breathing changes. || E3
+  Caller -> If she can't be calmed. Falls. Pain. Breathing. Okay.
+  Nurse -> Is she breathing normally now?
+  Caller -> Yes. She's breathing slow and easy. She's closing her eyes.
+  Caller -> I can hear the clock. It's loud. She's got a big old grandfather clock in the hall.
+  Nurse -> That sounds good.
+  Caller -> Do you think she's dying? I want to know. I've been with her for fourteen years. I'm the only one.
+  Nurse -> I don't know yet. The nurse will help us understand. Restlessness can be part of the final weeks, but it can also be something treatable. We'll find out.
+  Caller -> Thank you for being honest. I don't want anyone to lie to me.
+  Caller -> My sister was like that. Everyone told me she'd be fine. She wasn't. I never forgave them.
+  Nurse -> I'm sorry. I won't do that to you.
+  Nurse -> I'll always be honest with you.
+  Caller -> She has a niece in Ohio. I don't have her number. It's in the book on the kitchen counter.
+  Nurse -> Let's check the book when the nurse is there. She can call the niece if you'd like.
+  Caller -> I'd like that. She should know.
+  Nurse -> We'll take care of it.
+  Caller -> She'll want to know about the quilt. It goes to the niece. I'll tell her.
+  Caller -> She baked me a pie for my seventieth. Pecan. She was a wonderful baker. Nobody made a crust like her.
+  Nurse -> That sounds lovely. She sounds special.
+  Caller -> She is. She's the bravest woman I know.
+  Nurse -> It's good she has you.
+  Caller -> I'll let you go. I'll sit with her. I'll keep the phone close.
+  Caller -> If she wakes up and asks for me, is there anything I should say?
+  Nurse -> Just tell her you're here and that she's safe. That's all she needs to hear.
+  Nurse -> I'll talk to you soon, Ludmila. Thank you for calling.
+  Caller -> Thank you, Raul. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Dunmore, heard_form: Dunmoor, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philippa Dunmore, certainty: unclear, heard_as: [Philippa Dunmoor], turns: [2, 6]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Ludmila Kowalczyk, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550125", certainty: stated, heard_as: [], turns: [59, 60]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her neighbor had been restless all day and might be changing.
+    speaker: Caller
+    turns: [14]
+    quote: "She's been restless all day."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She was restless all day and kept picking at her sheets.
+      speaker: Caller
+      turns: [14]
+      quote: "She keeps picking at her sheets."
+      explanation: Documents the restlessness.
+      facts:
+        - {type: symptom, name: restlessness and picking at the sheets, present: true, severity: moderate, certainty: stated}
+      covers: [A1]
+    - text: (unclear; may have been dreaming) She said her late husband was in the chair.
+      speaker: Caller
+      turns: [22]
+      quote: "I don't know if she was dreaming, or what."
+      explanation: Documents the possible hallucination.
+      facts:
+        - {type: symptom, name: seeing her late husband, present: true, certainty: unclear}
+      covers: [A2]
+    - text: Lorazepam 0.5 mg as needed for restlessness was given at noon and helped for two hours.
+      speaker: Caller
+      turns: [29]
+      quote: "The label says point five milligram, as needed for restlessness."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: as needed for restlessness, prn: true, last_dose: noon today, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Senna one tablet every night was refused for the last two nights.
+      speaker: Caller
+      turns: [43]
+      quote: "The senna. One tablet every night."
+      explanation: Documents the missed bowel medicine.
+      facts:
+        - {type: medication, name: senna, dose: "1", unit: tablet, frequency: every night, prn: false, last_dose: two nights ago, med_status: missed, certainty: stated}
+      covers: [A4]
+    - text: She had no bowel movement in about four days.
+      speaker: Caller
+      turns: [39]
+      quote: "Four days ago."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement in about four days, present: true, certainty: stated}
+      covers: [A5]
+    - text: She had not eaten since yesterday and took only two sips of tea.
+      speaker: Caller
+      turns: [35]
+      quote: "Not since yesterday."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: not eating since yesterday, present: true, severity: moderate, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician for orders.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm going to page the on-call clinician for orders"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [52]
+      quote: "Yes, today."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back within an hour.
+      speaker: Nurse
+      turns: [99]
+      quote: "I'll call you back in an hour at the latest"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping the room quiet with low light, soft music and sips or a moist swab for her mouth.
+      speaker: Nurse
+      turns: [66]
+      quote: "Keep the room quiet."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised not leaving her alone, keeping the bed low with a pillow along the open side and not arguing with what she saw.
+      speaker: Nurse
+      turns: [74]
+      quote: "Don't leave her alone right now."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if she could not be calmed, fell, had pain or her breathing changed.
+      speaker: Nurse
+      turns: [101]
+      quote: "call right away if she can't be calmed"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

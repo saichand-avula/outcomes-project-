@@ -1,0 +1,390 @@
+call_id: tr-169
+split: train
+blueprint: "Daughter of an 88-year-old man with dementia says he spits out his evening pills and has not taken them for three nights. She reads the labels: donepezil 10 mg at bedtime, memantine 10 mg twice a day, metoprolol tartrate 25 mg twice a day, sertraline 50 mg and pantoprazole 40 mg in the morning, tamsulosin 0.4 mg after dinner (vitamin D is a distractor). She wants to crush everything into applesauce. Nurse says never crush the pantoprazole, messages the provider about liquid or alternative forms, asks the pharmacy about options, visits Thursday. BP 134/80. Flag: medication_concern (doses missed for three nights). Long."
+setup:
+  scenario_category: medication
+  subtype: refusing_pills
+  secondary_tags: [chart_reading_distractor, multi_issue, prn_and_scheduled, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [medication, cognition, agitation_delirium]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-05T14:30:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [vitamin D]
+chief_complaint:
+  patient_name_true: Leopoldo Quintanilla
+  patient_name_spoken: Leopoldo Quintanilla
+  patient_name_certainty: stated
+  patient_dob_true: "1938-03-25"
+  patient_dob_spoken: "1938-03-25"
+  patient_dob_certainty: stated
+  caller_name_true: Esperanza Quintanilla
+  caller_name_spoken: Esperanza Quintanilla
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8305550147"
+  callback_phone_spoken: "8305550147"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father spits out his evening pills and has missed them for three nights
+  reason_category: medication
+  relevant_context: Home health patient with dementia who takes several daily medicines
+assessment:
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: refusing and spitting out pills
+    symptom_present: true
+    onset_or_duration: three nights
+    certainty: stated
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: donepezil
+    medication_name_spoken: donepezil
+    medication_status: missed
+    dose: "10"
+    unit: mg
+    frequency: at bedtime
+    last_dose: three nights ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: memantine
+    medication_name_spoken: memantine
+    medication_status: missed
+    dose: "10"
+    unit: mg
+    frequency: twice a day
+    last_dose: three evenings ago
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol tartrate
+    medication_name_spoken: metoprolol tartrate
+    medication_status: missed
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose: three evenings ago
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: sertraline
+    medication_name_spoken: sertraline
+    medication_status: taking
+    dose: "50"
+    unit: mg
+    frequency: every morning
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: pantoprazole
+    medication_name_spoken: pantoprazole
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: every morning
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: tamsulosin
+    medication_name_spoken: tamsulosin
+    medication_status: missed
+    dose: "0.4"
+    unit: mg
+    frequency: after dinner
+    last_dose: three nights ago
+    certainty: stated
+  - item_id: A8
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Wants to crush all his pills into applesauce
+    certainty: stated
+  - item_id: A9
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 134/80
+    certainty: stated
+  - item_id: A10
+    item_type: symptom
+    reporter: caller
+    symptom_name: more agitated in the evenings
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not crush the pantoprazole
+    certainty: stated
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: pill refusal and options for other forms
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: ask about liquid forms and a pill packaging system
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Offer one pill at a time with a spoonful of applesauce, never hide pills in drinks, and try again in 20 minutes if he refuses
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for chest pain, fainting, a very fast heartbeat, or severe agitation or confusion
+    trigger_condition: chest pain; fainting; very fast heartbeat; severe agitation
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient has missed his evening pills for three nights because he spits them out
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Esperanza Quintanilla. I'm calling about my father, Leopoldo Quintanilla. He won't take his pills. He's spitting them out. For three nights now. || caller_name, relationship, patient_name, cc, A7, F1
+  Nurse -> Okay, Esperanza. Let's work through it. First his date of birth.
+  Caller -> March twenty fifth. Nineteen thirty eight. || patient_dob
+  Nurse -> And is eight three oh, five five five, zero one four seven the best number for you? || callback_phone
+  Caller -> Yes. That's my cell. I'm at his house right now. || callback_phone
+  Nurse -> Okay. Tell me what's been happening with the pills.
+  Caller -> In the mornings he's okay. I give him the pills with breakfast and he takes them. But at night, around seven, he gets agitated. He doesn't know who I am sometimes. He puts the pills in his mouth and he just holds them and then he spits them in the sink or on the floor. Three nights in a row. || A7, A10
+  Nurse -> Okay. That sounds frustrating and frightening for both of you. Has he been eating and drinking okay otherwise?
+  Caller -> Eating, yes. Drinking, not as much as I'd like. I keep a cup by his chair and remind him. He eats the same three things. Eggs, rice, bananas. And a lot of pan dulce, which I'm trying to cut back on, but he gets so happy.
+  Nurse -> A little sweet bread is not the worst thing. Okay. Do you have the bottles in front of you?
+  Caller -> Yes. I have all of them lined up on the counter. There are eight. I made a little chart with the times, my brother helped me do it over video. Hold on. I'll go through them for you.
+  Nurse -> That's a great idea, the chart. Let's start with the morning ones.
+  Caller -> Okay. Sertraline. Fifty milligrams. Every morning. He takes that. || A4
+  Nurse -> Okay. Sertraline fifty every morning, taking. Next. || A4
+  Caller -> Pantoprazole. Forty milligrams. Every morning. He takes that one too. It's the one he takes before breakfast, with a glass of water. || A5
+  Nurse -> Okay. Pantoprazole forty every morning, taking. Next. || A5
+  Caller -> Metoprolol. It says metoprolol tartrate. Twenty five milligrams. Twice a day. He takes the morning one. The evening one, he spits it out. || A3
+  Nurse -> Okay. Metoprolol tartrate twenty five twice a day, the morning dose taken and the evening dose missed. Next. || A3
+  Caller -> Memantine. Ten milligrams. Twice a day. It's the same, he takes it in the morning and not at night. || A2
+  Nurse -> Okay. Memantine ten milligrams twice a day, evening missed. Next. || A2
+  Caller -> The tamsulosin. Point four milligrams. After dinner. He doesn't take that one at all lately. Three nights. || A6
+  Nurse -> Okay. Tamsulosin point four after dinner, missed for three nights. || A6
+  Caller -> And the donepezil. Ten milligrams. At bedtime. He spits that one out too. Three nights. || A1
+  Nurse -> Okay. Donepezil ten at bedtime, missed three nights. I also see vitamin D on his list. Is he taking the vitamin D?
+  Caller -> Yes. In the morning. It's a little softgel. That one he takes.
+  Nurse -> Okay. That's all eight. Has anything changed in his routine, aside from the pills? Any new place, new people?
+  Caller -> Not really. Well. A few weeks ago my cousin's kids visited, and he got very upset by the noise. And we moved his chair. I moved his chair to the other window so he could see the birds. He didn't like that. He kept asking where his chair was. He was standing in the middle of the living room looking for his chair.
+  Nurse -> That can be unsettling. Little changes can matter a lot with dementia. Esperanza, have you checked his blood pressure?
+  Caller -> Yes. I took it this morning. One thirty four over eighty. || A9
+  Nurse -> Okay. That's reasonable. Now, what are you thinking about doing with the pills?
+  Caller -> I was thinking of crushing them all up and putting them in applesauce. That's what I did with my mother's. So he won't know. Can I do that? || A8
+  Nurse -> I'm glad you asked first, because there are two things. Esperanza, the pantoprazole, please do not crush it. It's a delayed release tablet, and crushing it makes it not work and can upset the stomach. || R4, A5
+  Caller -> Oh. Okay. I didn't know. I was going to crush all of them. I'm glad I asked.
+  Nurse -> Me too. And the others, some can be crushed and some can't, so I want the pharmacist and the provider to tell us which. I'm going to message his provider about the refusing and ask about other forms, like liquids. || R1
+  Caller -> Okay. Is there a liquid memantine?
+  Nurse -> There is. That's the kind of thing I'll ask. I'm also going to ask his pharmacy about liquid forms, and about packaging the pills in a system that's easier for you. || R2
+  Caller -> That would be great. Thank you.
+  Nurse -> And a nurse will come out Thursday to look at how the evenings are going and help you work out a routine. || R3
+  Caller -> Thursday. Okay. I'm here Thursday. I'm here every day.
+  Nurse -> In the meantime, here's what I'd try. Offer one pill at a time, with a spoonful of applesauce. Don't hide them in a drink, because if he tastes it, he may stop trusting you. And if he refuses, wait twenty minutes and try again. || E1
+  Caller -> One at a time. Applesauce. Not in a drink. Twenty minutes. Okay. I did try to hide one in his juice last night and he made a face and refused all of them. That makes sense.
+  Nurse -> It often does. It's a hard thing, especially in the evening, when he's more confused.
+  Caller -> Yes. Sundowning. The doctor called it that. He's fine at ten in the morning and by seven he thinks I'm his sister.
+  Nurse -> That's very common. Try to keep the evenings calm. Dim the lights, turn off the TV, play some quiet music. Some people find a snack before the pills helps.
+  Caller -> He loves music. The old Mexican boleros. My mother used to dance with him in the kitchen to them. I'll put those on. Maybe he'll hold still. Maybe he'll even remember.
+  Nurse -> Music reaches people when words don't. It's one of the best tools you have.
+  Caller -> I've noticed. When I sing to him, even the old songs, he calms down. He knows every word. He can't tell me what he had for breakfast, but he knows every word of Sabor a Mí.
+  Nurse -> That's beautiful. Sing to him as much as you like.
+  Nurse -> That's a lovely idea. And Esperanza, call us if he has chest pain, if he faints, if his heart is racing, or if he gets so agitated that you're worried about his safety. || E2
+  Caller -> Chest pain. Faints. Racing. Very agitated. Okay. I will.
+  Nurse -> Good. Esperanza, how are you holding up? You sound tired.
+  Caller -> Tired. I moved in with him in July. My brother lives in Dallas and he calls on Sundays, but it's all me. I don't mind. He took care of us. But the evenings are hard.
+  Nurse -> I'm sure. You're doing a lot. Is there anyone who can give you a break?
+  Caller -> My cousin comes on Saturdays for a few hours. That's something. She takes him to the park. He sits on the bench and feeds the pigeons. I use the time to sleep, or grocery shop, or sometimes just sit in the car and listen to the radio. It's the only time I'm alone.
+  Nurse -> That sounds like exactly what you need. Please protect that time.
+  Nurse -> That's good. Keep that. And if you ever need more help, we can talk about it at the visit.
+  Caller -> Thank you. I'll bring it up. Thank you, Tom. Really. I feel like I have a plan now. Before I called, I was sitting on the kitchen floor with the bottles, just staring at them. I didn't know who to ask. My brother says to just put it in the applesauce, my cousin says to ask the doctor, my aunt says to give him tequila, I'm not kidding.
+  Nurse -> Ha. Please skip the tequila. You did the right thing by calling us.
+  Caller -> I know. I know. I'm not giving him tequila. I'm just telling you what it's like in this family.
+  Nurse -> I believe you. Families have a lot of opinions. The plan we made is a safe one.
+  Caller -> It is. Thank you, Tom.
+  Nurse -> You do. Call us any time if something changes.
+  Caller -> Okay. Goodbye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leopoldo Quintanilla, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-03-25", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Esperanza Quintanilla, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8305550147", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father spits out his evening pills and has missed them for three nights.
+    speaker: Caller
+    turns: [2]
+    quote: "He won't take his pills. He's spitting them out. For three nights now."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He held pills in his mouth and spat them out in the evenings for three nights, and was more agitated at night.
+      speaker: Caller
+      turns: [8]
+      quote: "He puts the pills in his mouth and he just holds them and then he spits them in the sink or on the floor."
+      explanation: Documents the refusal and evening agitation.
+      facts:
+        - {type: symptom, name: refusing and spitting out pills, present: true, duration: three nights, certainty: stated}
+        - {type: symptom, name: more agitated in the evenings, present: true, certainty: stated}
+      covers: [A7, A10]
+    - text: Sertraline 50 mg every morning was being taken.
+      speaker: Caller
+      turns: [14]
+      quote: "Sertraline. Fifty milligrams. Every morning. He takes that."
+      explanation: Documents a current medication.
+      facts:
+        - {type: medication, name: sertraline, dose: "50", unit: mg, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Pantoprazole 40 mg every morning was being taken.
+      speaker: Caller
+      turns: [16]
+      quote: "Pantoprazole. Forty milligrams. Every morning. He takes that one too."
+      explanation: Documents a current medication.
+      facts:
+        - {type: medication, name: pantoprazole, dose: "40", unit: mg, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: Metoprolol tartrate 25 mg twice a day was taken in the morning but the evening dose was spat out.
+      speaker: Caller
+      turns: [18]
+      quote: "Twenty five milligrams. Twice a day. He takes the morning one. The evening one, he spits it out."
+      explanation: Documents the missed evening doses.
+      facts:
+        - {type: medication, name: metoprolol tartrate, dose: "25", unit: mg, frequency: twice a day, last_dose: three evenings ago, med_status: missed, certainty: stated}
+      covers: [A3]
+    - text: Memantine 10 mg twice a day was taken in the morning but not at night.
+      speaker: Caller
+      turns: [20]
+      quote: "Ten milligrams. Twice a day. It's the same, he takes it in the morning and not at night."
+      explanation: Documents the missed evening doses.
+      facts:
+        - {type: medication, name: memantine, dose: "10", unit: mg, frequency: twice a day, last_dose: three evenings ago, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: Tamsulosin 0.4 mg after dinner had been missed for three nights.
+      speaker: Caller
+      turns: [22]
+      quote: "After dinner. He doesn't take that one at all lately. Three nights."
+      explanation: Documents the missed dose.
+      facts:
+        - {type: medication, name: tamsulosin, dose: "0.4", unit: mg, frequency: after dinner, last_dose: three nights ago, med_status: missed, certainty: stated}
+      covers: [A6]
+    - text: Donepezil 10 mg at bedtime had been spat out for three nights.
+      speaker: Caller
+      turns: [24]
+      quote: "Ten milligrams. At bedtime. He spits that one out too. Three nights."
+      explanation: Documents the missed bedtime dose.
+      facts:
+        - {type: medication, name: donepezil, dose: "10", unit: mg, frequency: at bedtime, last_dose: three nights ago, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure this morning was 134/80.
+      speaker: Caller
+      turns: [30]
+      quote: "One thirty four over eighty."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 134/80, certainty: stated}
+      covers: [A9]
+    - text: She wanted to crush all of his pills into applesauce.
+      speaker: Caller
+      turns: [32]
+      quote: "I was thinking of crushing them all up and putting them in applesauce."
+      explanation: Documents the caller's plan and question.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Advised not crushing the pantoprazole.
+      speaker: Nurse
+      turns: [33]
+      quote: "Esperanza, the pantoprazole, please do not crush it."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R4]
+    - text: Planned to message the provider about the refusal and other forms such as liquids.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm going to message his provider about the refusing and ask about other forms, like liquids."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the pharmacy about liquid forms and easier pill packaging.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm also going to ask his pharmacy about liquid forms"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for Thursday.
+      speaker: Nurse
+      turns: [39]
+      quote: "a nurse will come out Thursday to look at how the evenings are going"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering one pill at a time with a spoonful of applesauce, not hiding pills in drinks, and trying again after twenty minutes if he refused.
+      speaker: Nurse
+      turns: [41]
+      quote: "Offer one pill at a time, with a spoonful of applesauce."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for chest pain, fainting, a racing heart, or severe agitation.
+      speaker: Nurse
+      turns: [50]
+      quote: "call us if he has chest pain, if he faints, if his heart is racing, or if he gets so agitated that you're worried about his safety."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "He won't take his pills. He's spitting them out. For three nights now."}

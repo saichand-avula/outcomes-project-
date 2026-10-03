@@ -1,0 +1,239 @@
+call_id: tr-243
+split: train
+blueprint: "A friend from church calls about Abe, who she is not sure is even a hospice patient: she thinks his name is Lieberman or maybe Lieberson, does not know his birth date, and has not seen him bring in his newspapers for three days. When she knocked this morning he said he was fine but looked pale and held the door frame. The nurse works out from the address that he is on their list. Plans a same-day nurse visit and a callback this evening. Identity unresolved on the surname, friend/neighbor caller, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: unidentified_patient
+  secondary_tags: [identity_unresolved, dob_not_stated, hedging, contradiction, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [fatigue, falls_safety]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Mina
+  call_timestamp_utc: "2026-10-17T17:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Abe Lieberman
+  patient_name_spoken: Abe Lieberman
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Abe Lieberson]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Dolores Whitt
+  caller_name_spoken: Dolores Whitt
+  caller_name_certainty: stated
+  relationship_to_patient: friend from church
+  relationship_certainty: stated
+  callback_phone_true: "7185550163"
+  callback_phone_spoken: "7185550163"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Worried about a friend who looks pale and has not picked up his newspapers
+  reason_category: general_update
+  relevant_context: Friend who lives alone, possibly a hospice patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: looked pale and held the door frame
+    symptom_present: true
+    onset_or_duration: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: Newspapers have piled up on the porch for three days
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: He lives alone and told her he was fine
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: seeing a fall or injury
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if he cannot be woken, is on the floor, or is struggling to breathe before the nurse arrives
+    trigger_condition: cannot be woken; on the floor; struggling to breathe
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Mina.
+  Caller -> Hello? Oh, I wasn't sure anyone would pick up on a Saturday. I'm so glad.
+  Nurse -> We're here all weekend. How can I help?
+  Caller -> My name is Dolores Whitt. I'm calling about a friend from church. I don't know if he's one of yours. || caller_name, relationship, cc
+  Nurse -> Okay. What's your friend's name?
+  Caller -> Abe. Abe Lieberman. Or is it Lieberson? Lieberman. I think Lieberman. I go to church with his wife, she passed, and I've only ever heard it said. || patient_name
+  Nurse -> Okay. Let me try both. Do you know his address?
+  Caller -> It's on Fulton Street. Twelve oh four. Two doors down from the funeral home. Which is funny when you think about it, not that it's funny.
+  Nurse -> Okay. I'm looking. I do have an Abraham Lieberman on Fulton Street, and I don't see a Lieberson. I think that's him.
+  Caller -> Oh, thank goodness. Abraham. Yes. Abe is short for it. He's on hospice? I didn't know he was on hospice. He never said.
+  Nurse -> I can't share details about a patient, but I'm glad you called. Tell me what's worrying you. What's going on?
+  Caller -> I don't want to make a fuss. It's probably nothing. But I drive by on my way to the grocery, and his newspapers have been piling up on the porch. I think it's been three days. || A2
+  Nurse -> Three days of newspapers. Okay.
+  Caller -> Yes. And the porch light has been on all day and all night. I noticed that too.
+  Nurse -> The light's been left on.
+  Caller -> Day and night. He's very careful about electricity, so that's not like him.
+  Nurse -> Okay. That's helpful.
+  Caller -> And this morning I stopped. I knocked. He came to the door. He said, "Dolores, I'm fine, don't worry about me." But he didn't look fine. || A3
+  Nurse -> What did you notice?
+  Caller -> He was pale. White as a sheet. And he was holding onto the door frame. Like he was holding himself up. And he was breathing kind of, I don't know, kind of heavy. || A1
+  Nurse -> Okay. Was he steady on his feet? Did he seem confused?
+  Caller -> He knew me. He knew who I was. He made a joke about my hat. But he wouldn't let me in. He said the house was a mess.
+  Nurse -> Did you notice anything inside? The temperature, a smell, the TV?
+  Caller -> I couldn't see much. He kept the door open about this much. The TV was on. I could hear the weather lady.
+  Nurse -> Okay.
+  Caller -> It was warm in there. Very warm. He keeps it warm.
+  Nurse -> Okay. Did you see him fall, or see any bruises, or blood?
+  Caller -> No. No, nothing like that. I didn't see any bruises. He had his bathrobe on. It was, I'd say, ten o'clock. || A4
+  Nurse -> Okay. Does he have anyone else, family nearby, who checks in on him?
+  Caller -> A son in California. I don't have the number. And a neighbor on the other side, but she's away. So I'm kind of it.
+  Nurse -> Do you know the son's name?
+  Caller -> Daniel. Danny. I don't know his last name, it'd be Lieberman, wouldn't it? Ha.
+  Nurse -> Probably. We have a contact for him, I'll check.
+  Caller -> Oh good.
+  Nurse -> Okay. I'm glad you're watching out for him.
+  Caller -> I'm a nosy old lady is what I am. Ha. But I couldn't sleep thinking about it.
+  Nurse -> You did the right thing to call. Dolores, do you know his date of birth? It helps me make sure I have the right chart.
+  Caller -> Oh, no. No, honey. I know his wife was born the same year as me, nineteen forty-six. But Abe, no. I couldn't tell you.
+  Nurse -> That's all right. I have the address and the name. And what number can I reach you at?
+  Caller -> Seven one eight, five five five, zero one six three. That's my home phone. I'm here all day. I'm making pies for the bake sale. || callback_phone
+  Nurse -> Pies. What kind?
+  Caller -> Apple and pecan. Pecan is the one that sells. Anyway. Ha. Sorry.
+  Nurse -> Dolores, I'm going to send a nurse out to see Abe today. They'll check on him. || R1
+  Caller -> Today? Oh. That would be such a relief. Will he be upset? Will he know it was me?
+  Nurse -> The nurse will just say we were doing a routine check. You don't have to worry about that.
+  Caller -> Oh, good. He's very proud. He doesn't like anybody to know he's not well.
+  Nurse -> I understand. And I'll call you this evening, to let you know that someone saw him and that he's okay. I can't share details, but I can tell you that. || R2
+  Caller -> That's all I need. That he's okay. Yes. This evening.
+  Nurse -> One more question. Has he mentioned any pain, or any falls in the past few weeks?
+  Caller -> No pain. A fall, hm. At church, in September. He tripped on the step. He said it was nothing.
+  Nurse -> Okay. Thank you for telling me that.
+  Caller -> I'd forgotten it until just now. Should I have said it before?
+  Nurse -> No, it's good to know now. I'll pass it on.
+  Nurse -> In the meantime, if you pass by again and you see him on the porch or in the window, on the floor, or if he can't be woken, or he's struggling to breathe, don't wait. Call nine one one. || E1
+  Caller -> On the floor. Can't wake him. Struggling to breathe. Nine one one. Okay. I won't wait. I'll write it on my hand.
+  Nurse -> Ha. Write it on paper too. Is there anything else you remember? Anything he said?
+  Caller -> He said he was tired. Just tired. That's all he said.
+  Nurse -> Okay. I'll pass that along to the nurse.
+  Nurse -> And Dolores, I'll make sure the nurse has your number in case they need anything.
+  Caller -> That's fine. That's fine. Tell them to knock loud. His hearing is poor.
+  Nurse -> I'll tell them.
+  Caller -> And tell them I said hello. No, don't. He'll know it was me. Ha.
+  Nurse -> I'll just say it's a routine check.
+  Caller -> Okay. You're so kind. I feel better already.
+  Nurse -> Thank you for caring about him, Dolores. Go make your pies.
+  Caller -> I will. Thank you. Goodbye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Abe Lieberman, certainty: unclear, heard_as: [Abe Lieberson], turns: [6]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Dolores Whitt, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: friend from church, certainty: stated, turns: [4]}
+    callback_phone: {value: "7185550163", certainty: stated, heard_as: [], turns: [40]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Worried about a friend who looked pale and had not picked up his newspapers.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm calling about a friend from church."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He looked pale and held onto the door frame this morning.
+      speaker: Caller
+      turns: [20]
+      quote: "He was pale. White as a sheet. And he was holding onto the door frame."
+      explanation: Documents the observation.
+      facts:
+        - {type: symptom, name: looked pale and held the door frame, present: true, onset: this morning, certainty: stated}
+      covers: [A1]
+    - text: Newspapers had piled up on his porch for about three days.
+      speaker: Caller
+      turns: [12]
+      quote: "his newspapers have been piling up on the porch. I think it's been three days."
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: He lived alone and told her he was fine when she knocked.
+      speaker: Caller
+      turns: [18]
+      quote: "He said, \"Dolores, I'm fine, don't worry about me.\""
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: No fall or injury was seen.
+      speaker: Caller
+      turns: [28]
+      quote: "No. No, nothing like that. I didn't see any bruises."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: seeing a fall or injury, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send a nurse out to see him today.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to send a nurse out to see Abe today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this evening to say that someone had seen him.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you this evening, to let you know that someone saw him and that he's okay."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911 if he was on the floor, could not be woken, or was struggling to breathe before the nurse arrived.
+      speaker: Nurse
+      turns: [54]
+      quote: "if you pass by again and you see him on the porch or in the window, on the floor, or if he can't be woken, or he's struggling to breathe, don't wait. Call nine one one."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

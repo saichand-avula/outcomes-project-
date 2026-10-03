@@ -1,0 +1,167 @@
+call_id: tr-127
+split: train
+blueprint: "New paid aide does not know the patient's birthday and is unsure whether the morning pills were given because the log is blank; patient is sleepier than usual. Nurse says to hold off on pills, messages the office, and schedules a nurse visit this afternoon."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [hedging, identity_unresolved, late_answers, split_turns]
+  clinical_domains: [medication, sedation]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Carla
+  call_timestamp_utc: "2026-09-29T20:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Odalys Quintero
+  patient_name_spoken: Odalys Quintero
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Tamika
+  caller_name_spoken: Tamika
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "7865550138"
+  callback_phone_spoken: "7865550138"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that she is unsure whether the patient had her morning pills and that she is sleepier than usual
+  reason_category: medication_question
+  relevant_context: New aide on her first shift with this patient
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Unsure whether the morning pills were given because the medication log is blank
+    certainty: unclear
+    unclear_detail: Caller does not know if the previous aide gave them
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepier than usual
+    symptom_present: true
+    certainty: unclear
+    unclear_detail: Caller is new and does not know her usual state
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: office
+    reason_or_trigger: find out whether the morning pills were given
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any pills until the nurse confirms what was already given
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Carla.
+  Caller -> Hi. Um, hi. This is Tamika. I'm an aide, I just started today. I'm with Odalys Quintero. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tamika. Welcome. Do you have Odalys's date of birth handy?
+  Caller -> No. No, I don't. I'm sorry. They just sent me over this morning. I don't have her paperwork yet. || patient_dob
+  Nurse -> That's okay. What number can I reach you at?
+  Caller -> Seven eight six, five five five, zero one three eight. || callback_phone
+  Nurse -> Seven eight six, five five five, zero one three eight. || callback_phone
+  Caller -> Yes. That's right.
+  Nurse -> What's going on?
+  Caller -> I'm not sure if she had her morning pills. The log, the sheet on the fridge, it's blank for this morning. The aide before me didn't write anything. And I don't know if I should give her the pills now or not. || cc, A1
+  Nurse -> Okay. How is she right now?
+  Caller -> She's sleepy. More sleepy than, I think more than usual? But I don't know her. I've never met her before today. So I can't really say. || A2
+  Nurse -> Okay. Is she waking up when you talk to her?
+  Caller -> Yeah. She opens her eyes. She says a few words. Then she goes back to sleep.
+  Nurse -> Okay. Tamika, please don't give her any pills right now. Wait until I confirm what's already been given. || E1
+  Caller -> Okay. No pills. Okay.
+  Nurse -> I'm going to message our office and find out whether the morning pills were given. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And I'll send a nurse out to see her this afternoon. || R2
+  Caller -> Okay. This afternoon. Good. I'll be here till six.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. I don't think so. Thanks, Carla.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odalys Quintero, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tamika, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "7865550138", certainty: stated, heard_as: [], turns: [6, 7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that she is unsure whether the patient had her morning pills and that she is sleepier than usual.
+    speaker: Caller
+    turns: [10]
+    quote: "I'm not sure if she had her morning pills."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: It was unclear whether the morning pills were given because the medication log was blank (unclear; the caller did not know if the previous aide gave them).
+      speaker: Caller
+      turns: [10]
+      quote: "The log, the sheet on the fridge, it's blank for this morning."
+      explanation: Documents the uncertain medication history.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A1]
+    - text: She was sleepier than usual (unclear; the caller was new and did not know her usual state).
+      speaker: Caller
+      turns: [12]
+      quote: "She's sleepy. More sleepy than, I think more than usual?"
+      explanation: Documents the sleepiness and its uncertainty.
+      facts:
+        - {type: symptom, name: sleepier than usual, present: true, certainty: unclear}
+      covers: [A2]
+  response:
+    - text: Planned to message the office to find out whether the morning pills were given.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to message our office and find out whether the morning pills were given."
+      explanation: Documents the planned office contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out this afternoon.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll send a nurse out to see her this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not giving any pills until the nurse confirmed what had already been given.
+      speaker: Nurse
+      turns: [15]
+      quote: "please don't give her any pills right now. Wait until I confirm what's already been given."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

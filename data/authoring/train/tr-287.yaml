@@ -1,0 +1,273 @@
+call_id: tr-287
+split: train
+blueprint: "A CNA at a memory care facility calls hospice with a routine update on a resident, Mr. Fuentes, 86: he ate about half his breakfast today (better than last week), is restless around sundown but settles with music, and has no pain behavior. His daughter visits Saturday. The aide asks if the chaplain can come, since he used to sing in a church choir. Lorazepam half a milligram at bedtime continues. Nurse messages the team with the update, requests the chaplain visit, and gives comfort suggestions for sundown. Routine, facility staff caller, v2 short, friendly and rambling."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [intake_appetite, agitation_delirium, medication]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Aspen Hollow Hospice
+  agency_type: hospice
+  nurse_name: Renata
+  call_timestamp_utc: "2026-10-30T20:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Abelardo Fuentes
+  patient_name_spoken: Abelardo Fuentes
+  patient_name_certainty: stated
+  patient_dob_true: "1939-09-12"
+  patient_dob_spoken: "1939-09-12"
+  patient_dob_certainty: stated
+  caller_name_true: Tamika Dunbar
+  caller_name_spoken: Tamika Dunbar
+  caller_name_certainty: stated
+  relationship_to_patient: aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "2065550183"
+  callback_phone_spoken: "2065550183"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on a resident and asked about a chaplain visit
+  reason_category: general_update
+  relevant_context: Hospice patient living in a memory care facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating better
+    symptom_present: true
+    severity: about half of breakfast
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness around sundown
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: at bedtime
+    last_dose: last night
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain behaviors such as grimacing or moaning
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: His daughter is visiting on Saturday and he used to sing in a church choir
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice team
+    reason_or_trigger: routine update on intake and sundown restlessness
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: chaplain
+    timeframe: this week
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Play his favorite hymns softly in the late afternoon, keep the lights low and the room calm, and keep the evening routine the same
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any time if he seems in pain, gets more agitated, stops eating, or the family has questions
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Aspen Hollow Hospice, this is Renata.
+  Caller -> Hi, Renata. It's Tamika over at Willowbrook Memory Care. Tamika Dunbar. I'm one of the aides on the second floor. || caller_name, relationship
+  Nurse -> Hi, Tamika. Good to hear from you. What can I do for you?
+  Caller -> Oh, nothing's wrong. I just wanted to give you all an update on Mr. Fuentes. The nurse here said to call if anything changed and I think it's a good change, so I thought I'd call. || cc
+  Nurse -> I love good news. Which Mr. Fuentes? Abelardo?
+  Caller -> Yes. Abelardo Fuentes. Room two eleven. The one by the window. || patient_name
+  Nurse -> Got it. I have him. What's his birth date, just so I'm sure I've got the right one?
+  Caller -> I have it on the board. It's September twelfth. Nineteen thirty nine. || patient_dob
+  Nurse -> Perfect. And a number for you?
+  Caller -> The second floor desk. Two zero six, five five five, zero one eight three. If I'm not there, whoever answers will find me. || callback_phone
+  Nurse -> Great. So tell me the good news.
+  Caller -> So, he ate. This morning at breakfast he ate about half of his oatmeal and a whole banana and he drank all his juice. Last week he wasn't eating anything. We had to feed him and he'd just clamp up. But today he picked up the spoon himself. Well, he held it. I helped. But he did a lot of it. || A1
+  Nurse -> That's really nice. Half a bowl is good.
+  Caller -> It is for him. He's tiny now. He's not like he was. Used to be such a big man. Worked on the railroad. Now he's like a little bird.
+  Nurse -> Aw. How's he doing otherwise? How's his mood?
+  Caller -> He's pleasant. He's calm most of the day. He's sleeping a lot. He naps after lunch for like three hours. But when he's up, he smiles at people. He says hi to everyone who walks by.
+  Nurse -> That's sweet. Any restlessness? Sometimes in the evenings, they get stirred up.
+  Caller -> A little. Around sundown. Around four, five. He gets kind of fidgety. He pulls at his sleeves. He says he has to go to work. He asks where his lunch pail is. I tell him it's in the car and that seems to settle him. || A2
+  Nurse -> That's a good approach. Meeting him where he is.
+  Caller -> Yes. The training said that. Don't argue. Go with it.
+  Nurse -> Exactly. Is it bad? Or just a little?
+  Caller -> Just a little. It's mild. It lasts maybe twenty minutes. Then he's fine. And the music helps. We put on the old hymns. The Sunday morning stuff. He knows the words. He hums.
+  Nurse -> That's wonderful. Okay. And at night? Is he sleeping okay?
+  Caller -> He sleeps pretty good. He gets his lorazepam at bedtime. The half a milligram. The night nurse gives it at eight. He got it last night and he slept through. || A3
+  Nurse -> Okay. The lorazepam, half a milligram at bedtime. And he slept through. That's good. || A3
+  Caller -> He did. No wandering. No getting up.
+  Nurse -> Does he seem to be in any pain? Grimacing, moaning, guarding anywhere?
+  Caller -> No. No. I watch for that. They taught us the signs. His face is relaxed. No moaning. When we turn him he doesn't flinch. He seems comfortable. || A4
+  Nurse -> That's what I like to hear.
+  Caller -> Me too. Oh. And his daughter is coming Saturday. She lives in Tucson. She comes about every two months. She's driving up. She's going to stay at the Hampton down the road.
+  Nurse -> That'll be a treat for him.
+  Caller -> He won't know it's her, maybe. He sometimes calls her by her mother's name. But he lights up when she walks in. He knows something. || A5
+  Nurse -> That's what matters. They feel it, even if the name isn't there.
+  Caller -> That's what I told her on the phone. I said, it's not about the name.
+  Nurse -> You said exactly the right thing.
+  Caller -> Thank you. Oh, and one other thing I wanted to ask. His daughter said he used to sing in the choir at his church. For like thirty years. Do you all have a chaplain who could come? Maybe sing with him? Or just sit with him?
+  Nurse -> We do. We have a chaplain who does visits. I'd be happy to request that. Would Saturday work, with the daughter? Or earlier in the week?
+  Caller -> Earlier would be better. Maybe before the daughter comes. Then he'd be warmed up. Ha. I mean, you know, he'd have had company.
+  Nurse -> Ha. I'll request a chaplain visit for this week, early if I can. And I'll make a note about the choir, so the chaplain can bring some songs. || R2
+  Caller -> Oh, that'd be wonderful. He loves "Amazing Grace." He goes right into it.
+  Nurse -> I'll put that in the request.
+  Caller -> Thank you. Thank you. You all are so good to us.
+  Caller -> Oh, and sorry, one more tiny thing. His roommate's wife keeps bringing him cookies. Mr. Fuentes sneaks one. Is that okay? He doesn't have any restrictions?
+  Nurse -> A cookie is perfectly fine. At this point, whatever he enjoys and can swallow safely.
+  Caller -> That's what I figured. I just didn't want to get in trouble. He has such a sweet tooth.
+  Nurse -> Let him have the cookie. Just sit him upright and keep an eye on him while he eats.
+  Nurse -> You're the ones doing the work. You're with him every day.
+  Caller -> It's nothing. It's the job. But I love it. I love him. He's one of my favorites. Don't tell the others.
+  Nurse -> Ha. Our secret.
+  Caller -> Ha. Okay.
+  Caller -> Sorry, the call light. I have to, hold on. Okay it's the next room. Someone else is getting it.
+  Nurse -> No problem.
+  Nurse -> I'll also pass this update to the hospice team so they have it in his notes. The better appetite, the sundown restlessness, and that he's comfortable. || R1
+  Caller -> Okay. That's great.
+  Nurse -> A couple of things for the evenings. Keep doing the hymns. Play them softly, in the late afternoon, before he starts to get fidgety. Keep the lights low and the room calm, and keep the evening routine the same every day. He'll do better if it's predictable. || E1
+  Caller -> Same routine. Low lights. Hymns early. Got it. We do the lights already. I'll tell the second shift about the hymns before four.
+  Nurse -> Perfect.
+  Caller -> Is there anything else I should be doing?
+  Nurse -> You're doing great. And call us any time, if he seems in pain, if he gets more agitated, if he stops eating, or if the family has questions. || E2
+  Caller -> Pain, agitated, stops eating, family questions. Okay. I'll write it on the sheet.
+  Nurse -> Good. And you can call just to chat if you want.
+  Caller -> Ha. I might. It's been a long week. We lost a resident on Monday, so everybody's a little down.
+  Nurse -> I'm so sorry. That's hard on the whole floor. Take care of yourselves too.
+  Caller -> We try. We had a little gathering in the dayroom. Okay. Thank you, Renata.
+  Nurse -> Thank you, Tamika. Have a good evening.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Abelardo Fuentes, certainty: stated, heard_as: [], turns: [6]}
+    patient_dob: {value: "1939-09-12", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Tamika Dunbar, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550183", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on a resident and asked about a chaplain visit.
+    speaker: Caller
+    turns: [4]
+    quote: "I just wanted to give you all an update on Mr. Fuentes."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He ate about half his oatmeal, a banana and all his juice at breakfast, better than the week before.
+      speaker: Caller
+      turns: [12]
+      quote: "he ate about half of his oatmeal and a whole banana and he drank all his juice."
+      explanation: Documents the improved intake.
+      facts:
+        - {type: symptom, name: eating better, present: true, severity: about half of breakfast, certainty: stated}
+      covers: [A1]
+    - text: He was mildly restless around sundown for about twenty minutes and settled with redirection and music.
+      speaker: Caller
+      turns: [18]
+      quote: "Around sundown. Around four, five."
+      explanation: Documents the sundown restlessness.
+      facts:
+        - {type: symptom, name: restlessness around sundown, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Lorazepam 0.5 mg at bedtime was given last night and he slept through.
+      speaker: Caller
+      turns: [24]
+      quote: "He gets his lorazepam at bedtime. The half a milligram."
+      explanation: Documents the bedtime medication.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: at bedtime, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: No pain behaviors such as grimacing or moaning were seen.
+      speaker: Caller
+      turns: [28]
+      quote: "His face is relaxed. No moaning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: pain behaviors such as grimacing or moaning, certainty: stated}
+      covers: [A4]
+    - text: His daughter was visiting on Saturday and he had sung in a church choir.
+      speaker: Caller
+      turns: [30]
+      quote: "his daughter is coming Saturday."
+      explanation: Documents the family context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to pass the update to the hospice team.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'll also pass this update to the hospice team so they have it in his notes."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to request a chaplain visit this week, early if possible.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'll request a chaplain visit for this week, early if I can."
+      explanation: Documents the planned chaplain referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: this week, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised playing his favorite hymns softly in the late afternoon, keeping lights low and the routine the same.
+      speaker: Nurse
+      turns: [55]
+      quote: "Keep doing the hymns. Play them softly, in the late afternoon"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Invited calls any time for pain, more agitation, stopping eating or family questions.
+      speaker: Nurse
+      turns: [59]
+      quote: "call us any time, if he seems in pain"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

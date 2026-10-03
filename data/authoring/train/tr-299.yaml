@@ -1,0 +1,325 @@
+call_id: tr-299
+split: train
+blueprint: "A nephew who visits his uncle twice a week calls hospice because his uncle announced he is 'done with the pills' and stopped his water pill Lasix a week ago. His ankles are swollen up to the knee, he gets winded on the three steps to the porch, and the scale shows six pounds more than last week. No chest pain. The uncle also says he is tired of the fuss. The nurse flags the stopped medicine, messages the team, plans a visit tomorrow and a callback this evening, and teaches daily weights and leg elevation. Stopped medication flag, other_family caller, v2 short, easygoing and anecdotal."
+setup:
+  scenario_category: medication
+  subtype: stopped_medication
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, offtopic_chatter, trap_phrasing]
+  clinical_domains: [medication, edema, dyspnea]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Prairie Wind Hospice
+  agency_type: hospice
+  nurse_name: Tomás
+  call_timestamp_utc: "2026-10-29T21:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Barnaby Whitcomb
+  patient_name_spoken: Barnaby Whitcomb
+  patient_name_certainty: stated
+  patient_dob_true: "1947-05-30"
+  patient_dob_spoken: "1947-05-30"
+  patient_dob_certainty: stated
+  caller_name_true: Corbin Whitcomb
+  caller_name_spoken: Corbin Whitcomb
+  caller_name_certainty: stated
+  relationship_to_patient: nephew
+  relationship_certainty: stated
+  callback_phone_true: "3035550145"
+  callback_phone_spoken: "3035550145"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his uncle stopped his water pill and is now swollen and winded
+  reason_category: medication
+  relevant_context: Hospice patient with heart failure living at home
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lasix
+    medication_name_spoken: Lasix
+    medication_status: stopped
+    dose: "40"
+    unit: mg
+    frequency: once a day
+    last_dose: a week ago Tuesday
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: leg swelling up to the knees
+    symptom_present: true
+    severity: worse
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: winded on the porch steps
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: weight gain
+    vital_value: "6"
+    vital_unit: pounds
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: He said he is done with the pills and tired of the fuss
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: stopped Lasix with swelling and weight gain
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh him each morning at the same time and write the number down, and report a gain of two pounds in a day
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise his legs on pillows when he sits or lies down and let him rest between tasks
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain or trouble breathing at rest, and call back if he cannot lie flat
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient stopped his water pill on his own and is now swollen and short of breath
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Prairie Wind Hospice, this is Tomás.
+  Caller -> Hey. Hi. Yeah. I'm calling about my uncle. Barnaby Whitcomb. I'm Corbin, his nephew. Corbin Whitcomb. || caller_name, relationship, patient_name
+  Nurse -> Hi, Corbin. Thanks for calling. What's going on with your uncle?
+  Caller -> Well, so, he stopped taking his pills. His water pill. He told me last weekend he's done. He said "I'm done with the pills, Corbin." And I didn't think much of it. And then I came by tonight and his legs are like balloons. || A1, cc, F1
+  Nurse -> Okay. I'm glad you called. Let me pull up his chart. What's Mr. Whitcomb's date of birth?
+  Caller -> Uh, May thirtieth. Nineteen forty seven. || patient_dob
+  Nurse -> Got it. And a number I can reach you at?
+  Caller -> Yeah. Three zero three, five five five, zero one four five. || callback_phone
+  Nurse -> Great. Which pill did he stop? Do you know the name?
+  Caller -> The Lasix. It's the little white one. He took it every morning. The forty. Forty milligrams. I know because I set up his pill organizer sometimes. He stopped it a week ago. Last Tuesday. Wait. It's Thursday. So a week ago Tuesday. Two days ago? No. Nine days. Hmm. A week and a couple days. || A1
+  Nurse -> About a week and a half, then. Let me make sure I have it right. He took the Lasix, forty milligrams, once a day, and the last dose was around a week ago Tuesday. || A1
+  Caller -> Yeah. Yes. That's it. A week ago Tuesday.
+  Nurse -> And did he stop any of the other pills too, or just the Lasix? || A1
+  Caller -> I think just that one. I looked at the organizer. The rest are gone, like he's still taking them. It's just the one with the white ones.
+  Nurse -> Okay. That's helpful.
+  Nurse -> Okay. Why did he stop? Did he tell you?
+  Caller -> He said he's tired. He's tired of the pills. He takes like eleven of them. And the Lasix makes him run to the bathroom all day. He said he'd rather swell up than live in the bathroom. || A1
+  Nurse -> That's a common complaint. Okay. Tell me what you saw tonight.
+  Caller -> His legs. Both legs. They're puffy all the way up. Up to the knees. Last week it was just the ankles, and now it's the whole shin. And his feet are shiny. And it's, I pushed with my thumb and it left a dent. || A2
+  Nurse -> Okay. Both legs swollen up to the knees, with pitting. Is he short of breath at all?
+  Caller -> A little. Well, more than a little. He came out on the porch to see me, three steps, and he sat down and he was huffing. Like he'd run a mile. He couldn't talk for a minute. || A3
+  Nurse -> Okay. Is he short of breath right now, sitting?
+  Caller -> No, not now. He's in the chair. He's okay sitting. He's breathing normal. He's watching the game.
+  Nurse -> Okay. Does he sleep flat, or does he use pillows?
+  Caller -> Two pillows. And he said last night he slept in the chair. He said he couldn't lie down. I don't know if that's a thing.
+  Nurse -> It can be. Does he cough at night, or wake up gasping?
+  Caller -> He coughed some. Dry. He didn't say gasping. He did say he sat up a couple times.
+  Nurse -> Okay. I'll add that for the provider.
+  Nurse -> That can be a sign. We'll make sure the provider knows. Does he weigh himself?
+  Caller -> He does. There's a scale in the bathroom. I made him step on it tonight. He was one ninety four. And I looked at the sheet that the nurse left, the log. A week ago he was one eighty eight. So that's six pounds. || A4
+  Nurse -> Okay. Six pounds up in about a week. That's a lot. Any chest pain?
+  Caller -> No. No chest pain. I asked him. He said no. He said if he had chest pain I'd know because he'd be on the floor. Ha. That's how he talks. || A5
+  Nurse -> Ha. Okay. It's good he doesn't have it.
+  Caller -> Yeah.
+  Nurse -> Corbin, I'm glad you noticed. Is Mr. Whitcomb able to talk with me? I'd like to hear from him.
+  Caller -> He's, um, he's kind of cranky. He doesn't like when I call you guys. But I'll see. Uncle B? Uncle B, it's the hospice. The nurse wants to talk to you. He says tell him I'm fine.
+  Nurse -> Ha. Okay. I understand. Tell him I hear you and I'm not going to nag. I just want to make sure he's comfortable.
+  Caller -> I told him. He's making a face. He says he's comfortable. He says he's fine and I'm a worry wart.
+  Caller -> He says the last nurse was nice but she talked too much. Ha.
+  Nurse -> Ha. I'll make a note. Short and sweet.
+  Caller -> He'd like that.
+  Nurse -> Okay. I get it. Corbin, a lot of people in his situation get tired of the pills. It's okay to talk about it. What's important is that the team knows, so we can adjust things in a way that works for him. Maybe fewer pills, maybe a different schedule. || A6
+  Caller -> Yeah. Yeah, he said that too. Like, he's not against all of it. He just wants fewer.
+  Nurse -> That's very reasonable. I'm going to send a message to the hospice provider tonight about the stopped Lasix, the swelling, the six pound weight gain, and that he wants fewer pills. || R1
+  Caller -> Okay. That sounds good.
+  Nurse -> I'm also going to have a nurse visit him tomorrow. She can check his legs, listen to his lungs, and talk with him about what he wants. || R2
+  Caller -> Tomorrow. Okay. He's usually up by nine. He doesn't like early.
+  Nurse -> Afternoons are better for him?
+  Caller -> After lunch. He naps around one. So before one or after three.
+  Nurse -> I'll note before one or after three.
+  Nurse -> I'll tell them afternoon. And I'll call you back this evening to let you know what the provider says. || R3
+  Caller -> This evening. Okay. I'll be around. I'll stay till nine. I'm gonna eat dinner here.
+  Nurse -> Great. In the meantime, can you do some things? Weigh him every morning, same time, after the bathroom, before breakfast. And write it down. If he gains two pounds in a day, call us. || E1
+  Caller -> Every morning. Two pounds. Okay. He'll hate it. But I'll tell my cousin to do it. She stops by.
+  Nurse -> And when he's sitting or lying down, put his legs up on pillows. Let him rest between things. Don't push him to do stairs. || E2
+  Caller -> Legs up. Okay. He has a footstool. I'll find a pillow too.
+  Nurse -> Good. And please call nine one one if he has chest pain or trouble breathing even when he's sitting still. And call us back if he can't lie flat. || E3
+  Caller -> Chest pain, can't breathe sitting, can't lie flat. Okay. I got it. I'll tell my cousin.
+  Nurse -> Does he have anyone who stays with him at night?
+  Caller -> My cousin, Lena, sleeps on the couch most nights. She's there tonight.
+  Nurse -> Good. Please tell her too.
+  Caller -> I will. I'll text her right now. Okay. Anything else?
+  Caller -> Oh, one question. Is it okay if he has salty stuff? He's been eating canned soup every day. He says it's the only thing that tastes like anything.
+  Nurse -> I'd cut back on the salty things for now, since the swelling. Maybe half a can instead of a whole one. But let him have what he enjoys. The nurse will go over it.
+  Caller -> Half a can. Okay. I'll tell Lena.
+  Nurse -> Don't scold him about the pills. Okay? Let the nurse and the provider talk with him.
+  Caller -> I won't. I'll bring him a milkshake. That's what he likes. Chocolate.
+  Nurse -> That sounds like a plan.
+  Caller -> Thanks, Tomás. I thought I was overreacting.
+  Nurse -> You weren't. You were right to call.
+  Caller -> Okay. Bye.
+  Nurse -> Bye, Corbin.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Barnaby Whitcomb, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-05-30", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Corbin Whitcomb, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: nephew, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550145", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his uncle stopped his water pill and was now swollen and winded.
+    speaker: Caller
+    turns: [4]
+    quote: "he stopped taking his pills. His water pill."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lasix 40 mg once a day was stopped by the patient, with the last dose a week and a couple of days earlier.
+      speaker: Caller
+      turns: [10]
+      quote: "The Lasix. It's the little white one."
+      explanation: Documents the stopped medication.
+      facts:
+        - {type: medication, name: Lasix, dose: "40", unit: mg, frequency: once a day, last_dose: a week ago Tuesday, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: Both legs were swollen up to the knees, with pitting.
+      speaker: Caller
+      turns: [19]
+      quote: "Up to the knees."
+      explanation: Documents the leg swelling.
+      facts:
+        - {type: symptom, name: leg swelling up to the knees, present: true, severity: worse, certainty: stated}
+      covers: [A2]
+    - text: He was winded after three porch steps and needed a minute to talk.
+      speaker: Caller
+      turns: [21]
+      quote: "He came out on the porch to see me, three steps, and he sat down and he was huffing."
+      explanation: Documents the breathlessness.
+      facts:
+        - {type: symptom, name: winded on the porch steps, present: true, certainty: stated}
+      covers: [A3]
+    - text: Weight was up six pounds in about a week, from 188 to 194.
+      speaker: Caller
+      turns: [30]
+      quote: "So that's six pounds."
+      explanation: Documents the weight gain.
+      facts:
+        - {type: vital, name: weight gain, value: "6", unit: pounds, certainty: stated}
+      covers: [A4]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [32]
+      quote: "No. No chest pain. I asked him."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5]
+    - text: He said he was done with the pills and wanted fewer of them.
+      speaker: Caller
+      turns: [43]
+      quote: "Like, he's not against all of it. He just wants fewer."
+      explanation: Documents the patient's wishes.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the hospice provider about the stopped Lasix, swelling and weight gain.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'm going to send a message to the hospice provider tonight about the stopped Lasix"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow afternoon to check his legs and lungs.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm also going to have a nurse visit him tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with the provider's response.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you back this evening to let you know what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised weighing him every morning, writing it down, and calling for a gain of two pounds in a day.
+      speaker: Nurse
+      turns: [53]
+      quote: "Weigh him every morning, same time, after the bathroom, before breakfast."
+      explanation: Documents weight monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised raising his legs on pillows when sitting or lying down and letting him rest between tasks.
+      speaker: Nurse
+      turns: [55]
+      quote: "put his legs up on pillows."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for chest pain or trouble breathing at rest and calling back if he could not lie flat.
+      speaker: Nurse
+      turns: [57]
+      quote: "please call nine one one if he has chest pain"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [4], quote: "he stopped taking his pills. His water pill."}

@@ -1,0 +1,211 @@
+call_id: tr-172
+split: train
+blueprint: "Husband of a 52-year-old palliative patient with breast cancer: she has vomited 8 times since morning despite ondansetron, cannot keep water down, is dizzy and dry-mouthed. Nurse tells him to take her to the emergency room now (call 911 if she cannot stand), says she will call ahead, and to bring the medicine list. Flags: uncontrolled_symptom and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [late_answers, split_turns, hedging]
+  clinical_domains: [nausea_vomiting, dizziness, hydration]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-05T11:20:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Winona Teller
+  patient_name_spoken: Winona Teller
+  patient_name_certainty: stated
+  patient_dob_true: "1974-07-21"
+  patient_dob_spoken: "1974-07-21"
+  patient_dob_certainty: stated
+  caller_name_true: Caleb Teller
+  caller_name_spoken: Caleb Teller
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "9705550122"
+  callback_phone_spoken: "9705550122"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his wife cannot stop vomiting
+  reason_category: nausea_vomiting
+  relevant_context: Palliative patient with breast cancer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    onset_or_duration: eight times since morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "8"
+    unit: mg
+    last_dose: two hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: cannot keep water down
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizzy with a dry mouth
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: vomiting that medicine did not stop with dehydration signs
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: emergency room
+    reason_or_trigger: patient on the way with uncontrolled vomiting
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Take her to the emergency room now, call 911 if she cannot stand or is too dizzy to walk, bring the medicine list, and bring a bucket
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Vomiting eight times since morning despite ondansetron and unable to keep water down
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to take her to the emergency room now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Denise, it's Caleb Teller. My wife Winona is throwing up and it won't stop. Winona Teller. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Caleb, I'm here. I need her date of birth.
+  Caller -> July twenty first. Nineteen seventy four. || patient_dob
+  Nurse -> And nine seven oh, five five five, zero one two two for you? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> Okay. How many times has she vomited?
+  Caller -> Eight. Since this morning. I lost count. It's just coming up even when there's nothing in her stomach. || A1, F1
+  Nurse -> Did she take her nausea medicine?
+  Caller -> The ondansetron. The eight milligram. She took it two hours ago. It came right back up, I think, because she threw up twenty minutes later. || A2
+  Nurse -> Okay. Can she keep any water down?
+  Caller -> No. Not even a sip. She tries and it comes back. || A3, F1
+  Nurse -> Okay. Is she dizzy? How is her mouth?
+  Caller -> Dizzy, yes. When she stands she holds onto the wall. And her mouth is dry, her lips are cracked. She says she feels weak. || A4
+  Nurse -> Okay. Caleb, this is more than we can fix over the phone. I want you to take her to the emergency room right now. || R1, F2
+  Caller -> Right now? Okay. Should I call an ambulance?
+  Nurse -> If she can walk to the car with your help, you can drive. If she can't stand, or she's too dizzy to walk, call nine one one. Bring her medicine list, and bring a bucket for the car. || E1
+  Caller -> Okay. Car if she can walk. Nine one one if she can't. List. Bucket. Okay.
+  Nurse -> I'm going to call the emergency room ahead of you, so they know she's coming. || R2
+  Caller -> Oh, thank you. Thank you, Denise.
+  Nurse -> Go ahead. Take care of her.
+  Caller -> I'm going. Winona, we're going to the hospital. Come on. Okay. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winona Teller, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1974-07-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Caleb Teller, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "9705550122", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife cannot stop vomiting.
+    speaker: Caller
+    turns: [2]
+    quote: "My wife Winona is throwing up and it won't stop."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She had vomited eight times since this morning, even with nothing in her stomach.
+      speaker: Caller
+      turns: [8]
+      quote: "Eight. Since this morning. I lost count."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, duration: eight times since morning, certainty: stated}
+      covers: [A1]
+    - text: Ondansetron 8 mg was taken two hours earlier but she vomited again soon after.
+      speaker: Caller
+      turns: [10]
+      quote: "The ondansetron. The eight milligram. She took it two hours ago."
+      explanation: Documents the nausea medication.
+      facts:
+        - {type: medication, name: ondansetron, dose: "8", unit: mg, last_dose: two hours ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She could not keep any water down.
+      speaker: Caller
+      turns: [12]
+      quote: "No. Not even a sip. She tries and it comes back."
+      explanation: Documents the inability to keep fluids.
+      facts:
+        - {type: symptom, name: cannot keep water down, present: true, certainty: stated}
+      covers: [A3]
+    - text: She was dizzy with a dry mouth and cracked lips.
+      speaker: Caller
+      turns: [14]
+      quote: "Dizzy, yes. When she stands she holds onto the wall. And her mouth is dry, her lips are cracked."
+      explanation: Documents the dehydration signs.
+      facts:
+        - {type: symptom, name: dizzy with a dry mouth, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised taking her to the emergency room right now.
+      speaker: Nurse
+      turns: [15]
+      quote: "I want you to take her to the emergency room right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the emergency room ahead so they knew she was coming.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'm going to call the emergency room ahead of you, so they know she's coming."
+      explanation: Documents the planned contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised driving her to the emergency room if she could walk, calling 911 if she could not stand, and bringing her medicine list and a bucket.
+      speaker: Nurse
+      turns: [17]
+      quote: "If she can walk to the car with your help, you can drive. If she can't stand, or she's too dizzy to walk, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [8], quote: "Eight. Since this morning. I lost count."}
+    - {category: escalation_request, turns: [15], quote: "I want you to take her to the emergency room right now."}

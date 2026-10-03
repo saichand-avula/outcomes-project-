@@ -1,0 +1,218 @@
+call_id: tr-126
+split: train
+blueprint: "Son reports his father's blood pressure 158/96 twice this morning; lisinopril is garbled by the ASR the first time, then confirmed. No chest pain, headache or vision change. Nurse says take the morning dose now, recheck in an hour, messages the provider, calls back; 911 precautions."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [garbled_drug, late_answers, split_turns]
+  clinical_domains: [blood_pressure, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-09-29T13:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Vernon Dutton
+  patient_name_spoken: Vernon Dutton
+  patient_name_certainty: stated
+  patient_dob_true: "1944-04-22"
+  patient_dob_spoken: "1944-04-22"
+  patient_dob_certainty: stated
+  caller_name_true: Terrence Dutton
+  caller_name_spoken: Terrence Dutton
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "3345550168"
+  callback_phone_spoken: "3345550168"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his father's blood pressure was high this morning
+  reason_category: blood_pressure
+  relevant_context: Home health patient on a blood pressure medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 158/96
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give this morning's lisinopril now
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: high blood pressure readings
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: after the recheck
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Recheck his blood pressure in an hour, sitting down with the arm resting
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, a severe headache, trouble speaking, or weakness on one side
+    trigger_condition: chest pain; severe headache; trouble speaking; one-sided weakness
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, this is Terrence Dutton. I'm calling about my dad. Vernon Dutton. || caller_name, relationship, patient_name
+  Nurse -> Hi, Terrence. His birthday?
+  Caller -> April twenty second. Nineteen forty four. || patient_dob
+  Nurse -> And for you, three three four, five five five, zero one six eight? || callback_phone
+  Caller -> Yeah, that's right. || callback_phone
+  Nurse -> What's going on with your dad?
+  Caller -> His blood pressure's up. I took it twice this morning. One fifty eight over ninety six. Both times. || cc, A2
+  Nurse -> Okay. Is he on anything for his pressure?
+  Caller -> Yeah, the, um, the lysine a pril. Twenty milligrams, once a day.
+  Nurse -> The lisinopril? Twenty milligrams once a day? || A1
+  Caller -> Yes. That one. Lisinopril. He took it yesterday morning. This morning not yet, he was still asleep. || A1
+  Nurse -> Okay. Any chest pain, headache, trouble with his vision?
+  Caller -> No. None of that. He feels fine. Just a little tired. || A3
+  Nurse -> Okay. Give him this morning's lisinopril now with some water. And take his pressure again in an hour. Sitting down, arm resting on a table. || A1, R1, E1
+  Caller -> Okay. Lisinopril now. Pressure in an hour. Sitting. || A1
+  Nurse -> I'm also going to message his provider about the numbers. || R2
+  Caller -> Okay.
+  Nurse -> And I'll call you back after the recheck. || R3
+  Caller -> Okay. Same number.
+  Nurse -> Yes. And Terrence, if he gets chest pain, a really bad headache, trouble speaking, or weakness on one side, call nine one one. || E2
+  Caller -> Nine one one. Okay. I will.
+  Nurse -> Anything else?
+  Caller -> No. Sorry, I'm a little scattered this morning. I was up early getting him breakfast and then I saw the number.
+  Nurse -> No, you're doing great. It's good that you're checking it.
+  Caller -> Okay. Thank you, Rhonda.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: lisinopril, heard_form: lysine a pril, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Vernon Dutton, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-04-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Terrence Dutton, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "3345550168", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father's blood pressure was high this morning.
+    speaker: Caller
+    turns: [8]
+    quote: "His blood pressure's up."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Blood pressure was 158/96 on both checks this morning.
+      speaker: Caller
+      turns: [8]
+      quote: "One fifty eight over ninety six. Both times."
+      explanation: Documents the blood pressure readings.
+      facts:
+        - {type: vital, name: blood pressure, value: 158/96, certainty: stated}
+      covers: [A2]
+    - text: Lisinopril 20 mg once a day was being taken, last given yesterday morning.
+      speaker: Caller
+      turns: [12]
+      quote: "He took it yesterday morning. This morning not yet, he was still asleep."
+      explanation: Documents the current medication and last dose.
+      facts:
+        - {type: medication, name: lisinopril, dose: "20", unit: mg, frequency: once a day, last_dose: yesterday morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: No chest pain was reported, and he felt fine otherwise.
+      speaker: Caller
+      turns: [14]
+      quote: "No. None of that. He feels fine."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised giving this morning's lisinopril now.
+      speaker: Nurse
+      turns: [15]
+      quote: "Give him this morning's lisinopril now with some water."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the blood pressure numbers.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm also going to message his provider about the numbers."
+      explanation: Documents the planned provider contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back after the recheck.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back after the recheck."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: after the recheck, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised rechecking his blood pressure in an hour, sitting down with the arm resting.
+      speaker: Nurse
+      turns: [15]
+      quote: "take his pressure again in an hour. Sitting down, arm resting on a table."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for chest pain, a severe headache, trouble speaking, or one-sided weakness.
+      speaker: Nurse
+      turns: [21]
+      quote: "if he gets chest pain, a really bad headache, trouble speaking, or weakness on one side, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

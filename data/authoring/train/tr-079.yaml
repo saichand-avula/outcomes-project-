@@ -1,0 +1,465 @@
+call_id: tr-079
+split: train
+blueprint: "LONG home health call: wife of a 77-year-old three weeks post-stroke reports BP log (148/90 and 138/84), a big forearm bruise on aspirin + clopidogrel, a near-fall yesterday, tearfulness, unchanged right arm weakness, a cracked shower chair, wants to move Thursday PT to Friday, and is exhausted. No new stroke signs. Nurse messages the doctor, orders a shower chair, asks scheduler to move PT, plans Thursday visit, social work, teaches BP log, fall prevention and stroke signs. No flags."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [name_spelled, phone_from_file, late_answers, split_turns, offtopic_chatter, multi_issue, chart_reading_distractor, prn_and_scheduled]
+  clinical_domains: [blood_pressure, wound_skin, falls_safety, mood, equipment, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-08T15:30:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: [amlodipine]
+chief_complaint:
+  patient_name_true: Ignatius Boateng
+  patient_name_spoken: Ignatius Boateng
+  patient_name_certainty: stated
+  patient_dob_true: "1949-03-18"
+  patient_dob_spoken: "1949-03-18"
+  patient_dob_certainty: stated
+  caller_name_true: Abena Boateng
+  caller_name_spoken: Abena Boateng
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2025550171"
+  callback_phone_spoken: "2025550171"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a status update after his stroke and asked about a bruise, his blood pressure, and rescheduling therapy
+  reason_category: general_update
+  relevant_context: Three weeks after a stroke
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure this morning
+    vital_value: 148/90
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure last night
+    vital_value: 138/84
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: large purple bruise
+    symptom_present: true
+    body_location: left forearm
+    onset_or_duration: noticed Sunday
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: aspirin
+    medication_name_spoken: aspirin
+    medication_status: taking
+    dose: "81"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: clopidogrel
+    medication_name_spoken: clopidogrel
+    medication_status: taking
+    dose: "75"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: near fall
+    symptom_present: true
+    onset_or_duration: yesterday
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: injury from the near fall
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: symptom
+    reporter: caller
+    symptom_name: tearfulness and frustration
+    symptom_present: true
+    certainty: stated
+  - item_id: A9
+    item_type: symptom
+    reporter: caller
+    symptom_name: right arm weakness
+    symptom_present: true
+    body_location: right arm
+    onset_or_duration: unchanged since the stroke
+    certainty: stated
+  - item_id: A10
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: new weakness or face drooping
+    symptom_present: false
+    certainty: stated
+  - item_id: A11
+    item_type: supply
+    reporter: caller
+    supply_item: shower chair
+    supply_remaining: none
+    supply_unit: chair
+    certainty: stated
+  - item_id: A12
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: She is exhausted and doing all the care herself
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: bruise on aspirin and clopidogrel and blood pressure readings
+    certainty: stated
+  - item_id: R2
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: new shower chair
+    certainty: stated
+  - item_id: R3
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    recipient_or_target: scheduler
+    reason_or_trigger: move Thursday therapy to Friday
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R5
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: caregiver strain and his low mood
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check blood pressure morning and evening, sitting after five minutes of rest, and write the numbers down
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the walker within reach, do not let him stand alone, and clear the path to the bathroom
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for face drooping, arm weakness getting worse, trouble speaking, or sudden confusion; call us for bleeding that will not stop or black stools
+    trigger_condition: face drooping; worse weakness; trouble speaking; confusion; bleeding that will not stop; black stools
+    certainty: stated
+  - item_id: E4
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not use the cracked shower chair; sponge bathe until the new one arrives
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Denise.
+  Caller -> Hi, Denise. Hi. It's Abena Boateng. I'm calling about my husband. Ignatius. Ignatius Boateng. || caller_name, relationship, patient_name
+  Nurse -> Hi, Mrs. Boateng. How do you spell the last name?
+  Caller -> B O A T E N G. || patient_name
+  Nurse -> Perfect. And his birthday?
+  Caller -> March eighteenth. Nineteen forty nine. || patient_dob
+  Nurse -> Okay. And I have two oh two, five five five, zero one seven one for you. || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Great. So how are things going?
+  Caller -> Okay. Um. Okay, so, it's a few things. I wrote them down, I'm sorry, it's a list. || cc
+  Nurse -> No, that's perfect. Go ahead.
+  Caller -> So the first thing is his blood pressure. I've been taking it like you showed me. And this morning it was one forty eight over ninety. And last night it was one thirty eight over eighty four. || A1, A2
+  Nurse -> Okay.
+  Caller -> Is that okay? Is that too high?
+  Nurse -> Those are a little high but not alarming, especially a few weeks after a stroke. I'm going to pass them along to his doctor. Do you take it sitting down?
+  Caller -> Yes. Sitting, with the arm on the table. Like you showed.
+  Nurse -> Good. Okay. What's next?
+  Caller -> The bruise. So on Sunday I saw this big purple bruise. On his left forearm. It's like, um, as big as my palm. And he doesn't remember hitting anything. || A3
+  Nurse -> Hm. Okay. Is it tender? Is it swollen?
+  Caller -> A little tender. Not swollen. It's just really dark. It's ugly.
+  Nurse -> Mm-hm. Let me look at his medicines. I'm looking at his list. I see aspirin, eighty one milligrams, once a day. And clopidogrel, seventy five milligrams, once a day. Is he taking both of those? || A4, A5
+  Caller -> Yes. Every morning. The baby aspirin and the, the Plavix one. The clopidogrel. || A4, A5
+  Nurse -> Yes. Okay. So those two together can make him bruise more easily. That's likely what this is. But I want his doctor to know. || A4, A5, R1
+  Caller -> So he should keep taking them?
+  Nurse -> Yes. Don't stop either of them. They're protecting him from another stroke. I'll ask the doctor about the bruise, though. || R1
+  Caller -> Okay. Okay. Good.
+  Caller -> And then he almost fell yesterday. || A6
+  Nurse -> Oh. Tell me about that.
+  Caller -> We were going to the bedroom, he was using the walker, and his right leg just, it kind of gave out. I caught him. I caught him by the belt. || A6
+  Nurse -> Oh my goodness. Okay. Did he hit anything? Did he go down?
+  Caller -> No. No, he didn't hit anything. He didn't go down. I just held him up. I'm still sore, honestly. || A7
+  Nurse -> Mm. Okay. Yeah. You need to be careful with your back too.
+  Caller -> I know. I know.
+  Nurse -> Was it the right leg that gave out?
+  Caller -> Yes. The right. It's the weak side.
+  Nurse -> Okay. Any new weakness? Any change in his face, or his speech, since the stroke?
+  Caller -> No. No change. His face is the same. His talking is the same, a little slow, but the same. || A10
+  Nurse -> And the right arm?
+  Caller -> The right arm is the same. It's no better and no worse. He can lift it a little. He can't make a fist. || A9
+  Nurse -> Okay. That's helpful.
+  Caller -> Mm.
+  Nurse -> Okay. What else is on the list?
+  Caller -> So, he's been really, I don't know. Sad. Crying. Like yesterday he was crying at the TV. He was watching a cooking show and he started crying. || A8
+  Nurse -> Mm-hm.
+  Caller -> And he gets so frustrated. He says why can't I do it, why can't I do it. He throws the, he threw the spoon. || A8
+  Nurse -> That's very common after a stroke, Mrs. Boateng. The emotions can be big. It's partly the brain healing and it's partly, you know, it's a lot to go through.
+  Caller -> I know. I just don't know what to say to him.
+  Nurse -> I think our social worker can help with that. I'd like her to call you, and talk to both of you. || R5
+  Caller -> Yes. I'd like that. That would be really good.
+  Nurse -> Okay. I'll put that in.
+  Caller -> Thank you.
+  Nurse -> Is there anything else on your list?
+  Caller -> The shower chair. The, the plastic one. It cracked. There's a big crack in the seat. I don't want him on it. So we don't have one now. || A11
+  Nurse -> Oh no. Okay. Definitely don't use that. I'll order you a new one. || R2
+  Caller -> Oh, thank you.
+  Nurse -> Until it comes, just sponge bathe him. Sitting at the edge of the bed or at the sink. Not the shower. || E4
+  Caller -> Okay. Sponge bath. He'll like that, he doesn't like the shower anyway.
+  Nurse -> Ha. Okay. What else?
+  Caller -> Oh, and he's sleeping okay. Mostly. He wakes up once or twice, to use the urinal. But then he goes right back.
+  Nurse -> That's good. And eating?
+  Caller -> He eats fine. He likes the rice and the stew. I make it soft for him.
+  Nurse -> Perfect.
+  Caller -> Therapy. His physical therapist is supposed to come Thursday but my daughter's flying in Thursday and I wanted her to meet the therapist. Could it be Friday instead? || cc
+  Nurse -> Let me ask the scheduler. I'll message her to try to move Thursday to Friday. || R3
+  Caller -> Okay. Oh, thank you.
+  Nurse -> I can't promise Friday, but I'll ask. They'll call you to confirm.
+  Caller -> Okay. That's fine.
+  Nurse -> And I'm going to come see him myself Thursday, so I can look at that arm and check his blood pressure and look at everything. || R4
+  Caller -> Oh, you're coming? Okay. Good. That's good.
+  Caller -> My daughter is a nurse too, in Atlanta. She's been telling me for weeks to call you about everything. She says I wait too long.
+  Nurse -> Ha. She's right. You can call us for any of this, any time. It's never too small.
+  Caller -> I know. I just don't like to bother people. I feel like, you have so many patients.
+  Nurse -> You're not bothering anybody. That's literally what we're here for.
+  Caller -> Okay. Thank you, Denise. You are very kind.
+  Nurse -> Now let's talk about the falls, because that near fall worries me. Make sure the walker is right next to him any time he's sitting. And please don't let him stand up by himself. Even for a minute. || E2
+  Caller -> I try. But he gets up. He doesn't wait for me.
+  Nurse -> I know. It's hard. Put a chair alarm, or a little bell by his chair, if he'll go for it. And clear anything on the floor between his chair and the bathroom. Rugs, cords. || E2
+  Caller -> The rugs. We have a runner in the hall. I'll take that up.
+  Nurse -> That would help a lot.
+  Caller -> Okay. I'll do that tonight.
+  Nurse -> Okay. And for the blood pressure, keep checking it every morning and every evening. Sit him quietly for five minutes first, and write the numbers down so I can see them Thursday. || E1
+  Caller -> I've got the notebook. I write them all.
+  Nurse -> Perfect. Now, important. If you see his face droop, if the arm weakness gets worse, if his speech gets slurred or he can't get words out, or he's suddenly confused, call nine one one. Don't wait. || E3
+  Caller -> Face, arm, talking, confused. Nine one one. Okay.
+  Nurse -> And call us if the bruise gets bigger, if he has any bleeding that won't stop, or if his stool turns black. || E3
+  Caller -> Black. Okay. Okay.
+  Nurse -> Mrs. Boateng, how are you doing? Honestly.
+  Caller -> Me? Oh. I'm okay. I'm tired. I'm, I do everything. My daughter can't come most days, she's far. I'm up at night with him. || A12
+  Nurse -> That's a lot.
+  Caller -> It's okay. It's what you do.
+  Nurse -> It is. But you have to take care of you too. The social worker will talk to you about that, about respite, about some help. Okay?
+  Caller -> Okay. Thank you. That's very kind.
+  Nurse -> Alright. Anything else before I let you go?
+  Caller -> No, I think that's everything. Oh, wait. Should he still take the amlodipine? I forgot to ask. Or is that, that's the blood pressure one?
+  Nurse -> Yes, the amlodipine is his regular blood pressure pill. Yes, keep giving it like normal. I'll tell the doctor about the numbers.
+  Caller -> Okay. I thought so. Thank you.
+  Nurse -> Anytime. Take care, Mrs. Boateng. See you Thursday.
+  Caller -> Okay. Bye now.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: bruise noticed Sunday, heard_form: "So on Sunday I saw this big purple bruise.", fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ignatius Boateng, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1949-03-18", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Abena Boateng, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2025550171", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a status update after his stroke and asked about a bruise, his blood pressure, and rescheduling therapy.
+    speaker: Caller
+    turns: [10]
+    quote: "Okay, so, it's a few things. I wrote them down, I'm sorry, it's a list."
+    explanation: Documents the multi-topic update prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Blood pressure was 148/90 this morning and 138/84 last night.
+      speaker: Caller
+      turns: [12]
+      quote: "this morning it was one forty eight over ninety. And last night it was one thirty eight over eighty four."
+      explanation: Documents the home blood pressure readings.
+      facts:
+        - {type: vital, name: blood pressure this morning, value: 148/90, certainty: stated}
+        - {type: vital, name: blood pressure last night, value: 138/84, certainty: stated}
+      covers: [A1, A2]
+    - text: A large purple bruise on the left forearm was noticed on Sunday, with no remembered injury.
+      speaker: Caller
+      turns: [18]
+      quote: "on Sunday I saw this big purple bruise. On his left forearm."
+      explanation: Documents the bruise.
+      facts:
+        - {type: symptom, name: large purple bruise, present: true, location: left forearm, duration: noticed Sunday, certainty: stated}
+      covers: [A3]
+    - text: He took aspirin 81 mg and clopidogrel 75 mg every morning.
+      speaker: Caller
+      turns: [22]
+      quote: "Every morning. The baby aspirin and the, the Plavix one. The clopidogrel."
+      explanation: Documents the antiplatelet medicines.
+      facts:
+        - {type: medication, name: aspirin, dose: "81", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+        - {type: medication, name: clopidogrel, dose: "75", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A4, A5]
+    - text: He had a near fall yesterday when his right leg gave out and she caught him.
+      speaker: Caller
+      turns: [29]
+      quote: "his right leg just, it kind of gave out. I caught him. I caught him by the belt."
+      explanation: Documents the near fall.
+      facts:
+        - {type: symptom, name: near fall, present: true, duration: yesterday, certainty: stated}
+      covers: [A6]
+    - text: He did not hit anything or go down.
+      speaker: Caller
+      turns: [31]
+      quote: "No, he didn't hit anything. He didn't go down."
+      explanation: Documents the absence of injury.
+      facts:
+        - {type: pertinent_negative, name: injury from the near fall, certainty: stated}
+      covers: [A7]
+    - text: No new weakness or change in his face or speech was reported.
+      speaker: Caller
+      turns: [37]
+      quote: "No change. His face is the same."
+      explanation: Documents pertinent negatives for stroke progression.
+      facts:
+        - {type: pertinent_negative, name: new weakness or face drooping, certainty: stated}
+      covers: [A10]
+    - text: Right arm weakness was unchanged, with him able to lift it a little but not make a fist.
+      speaker: Caller
+      turns: [39]
+      quote: "The right arm is the same. It's no better and no worse."
+      explanation: Documents the persisting deficit.
+      facts:
+        - {type: symptom, name: right arm weakness, present: true, location: right arm, duration: unchanged since the stroke, certainty: stated}
+      covers: [A9]
+    - text: He had been tearful and frustrated, including crying at the television.
+      speaker: Caller
+      turns: [43]
+      quote: "Sad. Crying. Like yesterday he was crying at the TV."
+      explanation: Documents the mood changes.
+      facts:
+        - {type: symptom, name: tearfulness and frustration, present: true, certainty: stated}
+      covers: [A8]
+    - text: The plastic shower chair had cracked and there was no usable chair.
+      speaker: Caller
+      turns: [53]
+      quote: "The shower chair. The, the plastic one. It cracked."
+      explanation: Documents the equipment problem.
+      facts:
+        - {type: supply, item: shower chair, supply: none, certainty: stated}
+      covers: [A11]
+    - text: The caller said she was tired and doing all of the care herself.
+      speaker: Caller
+      turns: [88]
+      quote: "I'm tired. I'm, I do everything."
+      explanation: Documents caregiver strain.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A12]
+  response:
+    - text: Planned to pass the blood pressure readings and the bruise on to his doctor.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll ask the doctor about the bruise, though."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the social worker to call about his mood and her strain.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'd like her to call you, and talk to both of you."
+      explanation: Documents the planned psychosocial referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R5]
+    - text: Planned to order a new shower chair.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll order you a new one."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to ask the scheduler to move Thursday therapy to Friday.
+      speaker: Nurse
+      turns: [64]
+      quote: "I'll message her to try to move Thursday to Friday."
+      explanation: Documents the planned scheduling request.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit on Thursday.
+      speaker: Nurse
+      turns: [68]
+      quote: "I'm going to come see him myself Thursday"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised sponge bathing instead of using the cracked shower chair until the new one arrived.
+      speaker: Nurse
+      turns: [56]
+      quote: "Until it comes, just sponge bathe him."
+      explanation: Documents equipment safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E4]
+    - text: Advised keeping the walker within reach, not letting him stand alone, and clearing rugs and cords from the path to the bathroom.
+      speaker: Nurse
+      turns: [75]
+      quote: "Make sure the walker is right next to him any time he's sitting. And please don't let him stand up by himself."
+      explanation: Documents fall prevention guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised checking blood pressure every morning and evening after 5 minutes of rest and writing the numbers down.
+      speaker: Nurse
+      turns: [81]
+      quote: "keep checking it every morning and every evening. Sit him quietly for five minutes first, and write the numbers down"
+      explanation: Documents blood pressure monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for face drooping, worse arm weakness, slurred speech, or sudden confusion, and calling the agency for a growing bruise, bleeding that would not stop, or black stools.
+      speaker: Nurse
+      turns: [83]
+      quote: "If you see his face droop, if the arm weakness gets worse, if his speech gets slurred or he can't get words out, or he's suddenly confused, call nine one one."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

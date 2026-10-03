@@ -1,0 +1,290 @@
+call_id: tr-375
+split: train
+blueprint: "A niece staying with her diabetic aunt calls palliative care after finding her sweaty and shaky and confused at lunchtime: sugar reads 48, she took her morning insulin (glargine 20 units) but only had a few bites of breakfast. She is awake, not passed out, not seizing, able to swallow. Nurse has her give juice now, recheck in fifteen minutes, pages on-call, stays on the line, and says to call 911 if she gets worse or cannot swallow; callback in fifteen minutes. High risk (hypoglycemia, other urgent), other family caller, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: hypoglycemia
+  secondary_tags: [negated_risk_phrase, crosstalk, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [glucose, confusion, medication]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Aspen Grove Palliative Care
+  agency_type: palliative
+  nurse_name: Hassan
+  call_timestamp_utc: "2026-10-27T17:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Beulah Marchetti
+  patient_name_spoken: Beulah Marchetti
+  patient_name_certainty: stated
+  patient_dob_true: "1949-03-08"
+  patient_dob_spoken: "1949-03-08"
+  patient_dob_certainty: stated
+  caller_name_true: Tess Aldridge
+  caller_name_spoken: Tess Aldridge
+  caller_name_certainty: stated
+  relationship_to_patient: niece
+  relationship_certainty: stated
+  callback_phone_true: "6025550140"
+  callback_phone_spoken: "6025550140"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her aunt is sweaty and shaky and confused with a very low blood sugar
+  reason_category: glucose
+  relevant_context: Palliative care patient with diabetes on insulin
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "48"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sweaty and shaky and confused
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: insulin glargine
+    medication_name_spoken: Lantus
+    medication_status: taking
+    dose: "20"
+    unit: units
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: ate only a few bites of breakfast
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: passing out or seizure
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give four ounces of juice now and recheck the sugar in fifteen minutes
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: low blood sugar of 48 on insulin
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she becomes unresponsive, has a seizure, cannot swallow, or the sugar is not rising after the juice
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: After the sugar comes up give crackers with peanut butter or half a sandwich and no more insulin until the clinician calls
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Very low blood sugar of 48 with sweating and confusion in a diabetic on insulin
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Aspen Grove Palliative Care, this is Hassan.
+  Caller -> Hi, hi, this is Tess Aldridge. I'm the niece of Beulah Marchetti. I'm staying with her. Her sugar's low. It's really low. She's confused. I don't know what to do. || caller_name, patient_name, relationship, cc, A1, F1
+  Nurse -> Okay Tess. I'm here. Is Beulah awake?
+  Caller -> She's awake. She's in the kitchen chair. She's sweating. Her hands are shaking. She's saying funny things. She said the stove was a cat. || A2
+  Nurse -> Okay. What does her sugar read?
+  Caller -> Forty eight. Forty eight. I checked it twice. The first time it said forty nine. Then forty eight. || A1
+  Nurse -> Okay. Forty eight. That's low. Did she pass out? Is she having a seizure?
+  Caller -> No. No passing out. No seizure. She's sitting up. She's looking at me. She's just, off. She's not making sense. || A5
+  Nurse -> Okay. Can she swallow? Can she hold a cup?
+  Caller -> She can drink. She sipped water a minute ago. Her hands shake but she can hold it.
+  Nurse -> Okay. Tess, I need you to give her four ounces of juice, right now. Orange juice or apple juice. A half cup. Do you have some? || R1
+  Caller -> I have orange. In the fridge. Hold on. Can you hear me? I'm walking. I'm getting it. Okay. Pouring. Half a cup. Okay.
+  Nurse -> Perfect. Have her drink it slowly. All of it. Don't force her.
+  Caller -> Aunt Beulah, drink this. It's orange juice. Drink it. Come on. There you go. She's drinking. Little sips. She's making a face.
+  Caller -> It's too sour. I want the coffee.
+  Nurse -> Is that Beulah?
+  Caller -> Yes, that was her. She wants her coffee. She's talking. That's good, right?
+  Nurse -> That's good. No coffee yet. Juice first. When did she take her insulin?
+  Caller -> This morning. At eight. The Lantus. I gave it to her. Twenty units. I did it the way the nurse showed me. || A3
+  Nurse -> Okay. Twenty units of Lantus this morning. And what did she eat for breakfast? || A3
+  Caller -> Almost nothing. A few bites. She had two bites of toast and some tea. She wasn't hungry. I should have said something. || A4
+  Nurse -> Okay. That's probably what happened. The insulin worked but she didn't eat. It's not your fault. Is she still sweating?
+  Caller -> Yes. Her face is wet. She's pale. But she's drinking the juice. The glass is half gone.
+  Nurse -> Good. I'm going to page the on-call clinician right now, while you stay with her. They'll want to talk about her insulin. || R2
+  Caller -> Okay. Please. Thank you. Hold on, she's saying something.
+  Caller -> Where's Gerald? Where's my husband?
+  Caller -> Aunt Beulah, he's not here right now. It's me. Tess. Oh dear. Her husband passed years ago. She gets mixed up.
+  Nurse -> That's the low sugar. It should clear as her sugar comes up. Just stay calm and keep her talking.
+  Caller -> Okay. Okay. I'm holding her hand. She finished the juice.
+  Nurse -> Good. We'll recheck in fifteen minutes. Set a timer on your phone. Right now. Fifteen minutes.
+  Caller -> Setting it. Okay. It's set. Fifteen minutes.
+  Nurse -> In the meantime, Tess, what's Beulah's date of birth?
+  Caller -> March eighth. Nineteen forty nine. || patient_dob
+  Nurse -> And what's your cell number?
+  Caller -> Six oh two, five five five, zero one four zero. || callback_phone
+  Nurse -> Six oh two, five five five, zero one four zero. Right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. I'll stay on the phone with you till we recheck. If she becomes unresponsive, has a seizure, can't swallow, or if the sugar doesn't come up after the juice, call 911 right away. || E1
+  Caller -> Unresponsive. Seizure. Can't swallow. Sugar doesn't come up. 911. Okay. I've got it.
+  Nurse -> Is she still talking?
+  Caller -> She's talking. She's asking for her glasses. She says the room is too bright. I think she's coming around.
+  Nurse -> Good sign. Keep her sitting. Let her rest.
+  Caller -> Okay. She's leaning back. She's closing her eyes. Is that okay? Should she sleep?
+  Nurse -> Don't let her fall asleep yet. Keep her talking. Ask her something simple.
+  Caller -> Aunt Beulah, what did you do this morning? She says, I made the bed. I didn't. I did.
+  Nurse -> Ha. Keep chatting.
+  Caller -> What's your favorite song, Aunt Beulah? She says, Moon River. Moon River. She's humming.
+  Nurse -> That's good. She's more alert.
+  Caller -> Yes. She's humming. She looks better. Her color is coming back.
+  Nurse -> Good. Check the timer. How long?
+  Caller -> Ten more minutes. I'll keep singing.
+  Nurse -> You do that.
+  Caller -> Wait. The timer. It's the alarm. It went off. Fifteen minutes.
+  Nurse -> Okay. Check her sugar again.
+  Caller -> Checking. Hold on. Okay, it says eighty four. Eighty four. Oh, thank God.
+  Nurse -> Eighty four. That's much better. Tess, good job.
+  Caller -> Thank you. Thank you. I was terrified.
+  Nurse -> Now, give her something to eat. Crackers with peanut butter, or half a sandwich. And no more insulin today until the clinician talks to you. || E2
+  Caller -> Crackers and peanut butter. No more insulin. Okay. She wants her coffee now. Can she have it?
+  Nurse -> After she eats a little, yes.
+  Caller -> Okay. I'm making the sandwich.
+  Nurse -> I'll call you back in fifteen minutes to see how she is, and with the clinician's instructions. || R3
+  Caller -> Fifteen minutes. Okay. Thank you, Hassan. You saved us.
+  Nurse -> You did all the work. Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beulah Marchetti, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-03-08", certainty: stated, heard_as: [], turns: [33]}
+    caller_name: {value: Tess Aldridge, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: niece, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550140", certainty: stated, heard_as: [], turns: [35, 36]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her aunt was sweaty and shaky and confused with a very low blood sugar.
+    speaker: Caller
+    turns: [2]
+    quote: "Her sugar's low. It's really low. She's confused."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Blood sugar was 48, checked twice.
+      speaker: Caller
+      turns: [6]
+      quote: "Forty eight. Forty eight. I checked it twice."
+      explanation: Documents the blood sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "48", certainty: stated}
+      covers: [A1]
+    - text: She was sweating, shaking and confused.
+      speaker: Caller
+      turns: [4]
+      quote: "She's sweating. Her hands are shaking."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: sweaty and shaky and confused, present: true, certainty: stated}
+      covers: [A2]
+    - text: Lantus 20 units was given this morning at eight.
+      speaker: Caller
+      turns: [19]
+      quote: "The Lantus. I gave it to her. Twenty units."
+      explanation: Documents the insulin.
+      facts:
+        - {type: medication, name: Lantus, dose: "20", unit: units, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She ate only a few bites of breakfast.
+      speaker: Caller
+      turns: [21]
+      quote: "A few bites. She had two bites of toast and some tea."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: ate only a few bites of breakfast, present: true, certainty: stated}
+      covers: [A4]
+    - text: She did not pass out or have a seizure.
+      speaker: Caller
+      turns: [8]
+      quote: "No. No passing out. No seizure."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: passing out or seizure, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised giving four ounces of juice now and rechecking the sugar in fifteen minutes.
+      speaker: Nurse
+      turns: [11]
+      quote: "I need you to give her four ounces of juice, right now."
+      explanation: Documents the treatment instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [62]
+      quote: "I'll call you back in fifteen minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling 911 if she became unresponsive, had a seizure, could not swallow, or the sugar did not come up.
+      speaker: Nurse
+      turns: [38]
+      quote: "call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised crackers with peanut butter or half a sandwich once the sugar was up and no more insulin until the clinician called.
+      speaker: Nurse
+      turns: [58]
+      quote: "Crackers with peanut butter, or half a sandwich."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "Her sugar's low. It's really low. She's confused."}

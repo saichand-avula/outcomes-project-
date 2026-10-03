@@ -1,0 +1,225 @@
+call_id: va-033
+split: val
+blueprint: "Patient is dizzy since Tuesday or maybe Wednesday (unsure), unsure whether she took her amlodipine today, corrects her own birth year; BP 128/74 during the call; nurse advises not to take an extra dose, rise slowly, and plans a message to the PCP."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [hedging, contradiction, phone_from_file, dob_self_corrected]
+  clinical_domains: [dizziness, blood_pressure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-09-03T18:25:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Imelda Rostov
+  patient_name_spoken: Imelda Rostov
+  patient_name_certainty: stated
+  patient_dob_true: "1951-08-21"
+  patient_dob_spoken: "1951-08-21"
+  patient_dob_certainty: stated
+  caller_name_true: Imelda Rostov
+  caller_name_spoken: Imelda Rostov
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6105550158"
+  callback_phone_spoken: "6105550158"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Dizziness and unsure whether she took her blood pressure pill today
+  reason_category: dizziness
+  relevant_context: null
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: dizziness
+    symptom_present: true
+    severity: lightheaded when standing
+    onset_or_duration: since Tuesday or Wednesday
+    certainty: unclear
+    unclear_detail: Patient unsure which day it began
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    last_dose_time: unknown today
+    certainty: unclear
+    unclear_detail: Patient does not remember whether she took today's dose
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: blood pressure
+    vital_value: 128/74
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: falls or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: primary care doctor
+    reason_or_trigger: dizziness
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    reason_or_trigger: do not take an extra dose today
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Rise slowly, sit before standing, drink water, use a cane or walker
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fainting, chest pain, a fall, or a systolic pressure under 100
+    trigger_condition: fainting; chest pain; fall; pressure under 100
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. This is Imelda Rostov. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Imelda. Can I get your date of birth?
+  Caller -> August twenty first, nineteen fifty two. No. Fifty one. Nineteen fifty one. || patient_dob
+  Nurse -> Fifty one. Okay. And I've got six one oh, five five five, zero one five eight for you. || callback_phone
+  Caller -> That's the one. || callback_phone
+  Nurse -> What's going on, Imelda?
+  Caller -> I've been dizzy. A little lightheaded, mostly when I stand up. || cc, A1
+  Nurse -> Okay. How long?
+  Caller -> Since Tuesday. Or maybe Wednesday. I don't remember. One of those. || A1
+  Nurse -> Okay. Have you fallen, or had any chest pain?
+  Caller -> No. No falls. No chest pain. || A4
+  Nurse -> Okay. What medicines do you take for your blood pressure?
+  Caller -> The amlodipine. Five milligrams, once a day. || A2
+  Nurse -> Okay. Did you take it today?
+  Caller -> That's the thing. I can't remember. I think I did. But I'm not sure. || A2
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> I do. Hang on. It says one twenty eight over seventy four. || A3
+  Nurse -> Okay. That's a good number. Now, about the amlodipine, please don't take an extra one today to be safe. Just take your next one tomorrow at the usual time. || R2
+  Caller -> Okay. No extra. Tomorrow.
+  Nurse -> And rise slowly. Sit on the edge of the bed for a minute before you stand. Drink some water. And use your cane or walker. || E1
+  Caller -> I'll use my cane. Okay.
+  Nurse -> I'll send a message to your doctor about the dizziness. || R1
+  Caller -> Thank you.
+  Nurse -> If you faint, have chest pain, fall, or the top number drops under a hundred, call us. || E2
+  Caller -> Okay. Faint, chest pain, fall, under a hundred.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Marcus.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Imelda Rostov, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1951-08-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Imelda Rostov, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550158", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported dizziness and uncertainty about whether she took her blood pressure pill today.
+    speaker: Caller
+    turns: [8]
+    quote: "I've been dizzy. A little lightheaded, mostly when I stand up."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lightheadedness when standing began on Tuesday or Wednesday; the patient was unsure which day.
+      speaker: Caller
+      turns: [10]
+      quote: "Since Tuesday. Or maybe Wednesday. I don't remember. One of those."
+      explanation: Documents the onset with uncertainty preserved.
+      facts:
+        - {type: symptom, name: dizziness, present: true, severity: lightheaded when standing, onset: since Tuesday or Wednesday, certainty: unclear}
+      covers: [A1]
+    - text: Amlodipine 5 mg once a day was taken; she could not remember whether she took today's dose.
+      speaker: Caller
+      turns: [16]
+      quote: "That's the thing. I can't remember. I think I did. But I'm not sure."
+      explanation: Documents the uncertain dose status.
+      facts:
+        - {type: medication, name: amlodipine, dose: "5", unit: mg, frequency: once a day, last_dose: unknown today, med_status: taking, certainty: unclear}
+      covers: [A2]
+    - text: Blood pressure during the call was 128/74.
+      speaker: Caller
+      turns: [18]
+      quote: "I do. Hang on. It says one twenty eight over seventy four."
+      explanation: Documents the reported blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 128/74, certainty: stated}
+      covers: [A3]
+    - text: No falls or chest pain were reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No falls. No chest pain."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: falls or chest pain, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised not taking an extra amlodipine today and taking the next dose tomorrow at the usual time.
+      speaker: Nurse
+      turns: [19]
+      quote: "please don't take an extra one today to be safe. Just take your next one tomorrow at the usual time."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: amlodipine, certainty: stated}
+      covers: [R2]
+    - text: Planned to send a message to her doctor about the dizziness.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll send a message to your doctor about the dizziness."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised rising slowly, sitting at the edge of the bed first, drinking water, and using her cane or walker.
+      speaker: Nurse
+      turns: [21]
+      quote: "rise slowly. Sit on the edge of the bed for a minute before you stand."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fainting, chest pain, a fall, or the top blood pressure number dropping under 100.
+      speaker: Nurse
+      turns: [25]
+      quote: "If you faint, have chest pain, fall, or the top number drops under a hundred, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

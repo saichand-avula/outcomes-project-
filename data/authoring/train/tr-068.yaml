@@ -1,0 +1,219 @@
+call_id: tr-068
+split: train
+blueprint: "CNA at an assisted-living facility reports a new cough and temperature 99.1 in an 89-year-old resident; no breathing trouble; eating less. Nurse plans a visit this afternoon and a message to the physician, advises fluids and sitting up. Caller gets the resident's name wrong once and corrects it."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [self_correction, late_answers, split_turns, phone_from_file]
+  clinical_domains: [cough_uri, fever, intake_appetite]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-09-28T13:50:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Fernando Quispe
+  patient_name_spoken: Fernando Quispe
+  patient_name_certainty: stated
+  patient_dob_true: "1937-12-05"
+  patient_dob_spoken: "1937-12-05"
+  patient_dob_certainty: stated
+  caller_name_true: Brandon
+  caller_name_spoken: Brandon
+  caller_name_certainty: stated
+  relationship_to_patient: certified nursing assistant at his assisted living facility
+  relationship_certainty: stated
+  callback_phone_true: "7185550136"
+  callback_phone_spoken: "7185550136"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a new cough and low-grade temperature in a resident
+  reason_category: cough_uri
+  relevant_context: Resident of Brightwater Gardens assisted living
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: new cough
+    symptom_present: true
+    onset_or_duration: since last night
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.1"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating less
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: new cough and low-grade temperature
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer fluids often and keep him sitting up
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for temperature of 100.4 or higher, trouble breathing, or confusion
+    trigger_condition: temperature 100.4 or higher; trouble breathing; confusion
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Hi, Beth. This is Brandon from Brightwater Gardens. I'm one of the CNAs. I'm calling about, um, Mr. Fernandez. No wait. Quispe. Fernando Quispe. || caller_name, relationship, patient_name
+  Nurse -> Okay. Fernando Quispe. Can you spell the last name?
+  Caller -> Q U I S P E. || patient_name
+  Nurse -> Thanks. His birthday?
+  Caller -> Twelve, five, thirty seven. December fifth. Nineteen thirty seven. || patient_dob
+  Nurse -> And I have seven one eight, five five five, zero one three six for your med room. || callback_phone
+  Caller -> Yep. That's us. || callback_phone
+  Nurse -> What's going on with him?
+  Caller -> He's got a cough. It's new. Started last night. || cc, A1
+  Nurse -> Okay. Is he coughing up anything?
+  Caller -> Not really. It's dry. It's like a little dry cough. Kind of tickly.
+  Nurse -> Does he have a fever?
+  Caller -> We took it. Ninety nine point one. || A2
+  Nurse -> Okay. Any trouble breathing? Short of breath?
+  Caller -> No. No, he's fine. He's breathing fine. He was walking to the dining room. || A3
+  Nurse -> And how's he eating?
+  Caller -> He ate, like, half his breakfast. Which isn't him. He usually cleans his plate. || A4
+  Nurse -> Mm. Okay.
+  Caller -> Yeah.
+  Nurse -> I'm going to send a nurse out to see him this afternoon, Brandon. || R1
+  Caller -> Okay. Okay, good.
+  Nurse -> And I'm going to message his doctor about the cough and the temperature. || R2
+  Caller -> Okay.
+  Nurse -> In the meantime, get fluids in him. Offer something every hour, and keep him sitting up, especially when he's eating. || E1
+  Caller -> Sitting up. Fluids. Got it.
+  Nurse -> And call us if his temp goes to a hundred point four or higher, if he's having trouble breathing, or he seems confused. || E2
+  Caller -> A hundred point four. Okay. Confused, breathing. Okay.
+  Nurse -> Anything else?
+  Caller -> Nope. Thanks, Beth. Okay.
+  Nurse -> Thanks, Brandon.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Quispe, heard_form: Mr. Fernandez, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Fernando Quispe, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1937-12-05", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Brandon, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: certified nursing assistant at his assisted living facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "7185550136", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a new cough and low-grade temperature in a resident.
+    speaker: Caller
+    turns: [10]
+    quote: "He's got a cough. It's new. Started last night."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A new dry cough began last night.
+      speaker: Caller
+      turns: [10]
+      quote: "He's got a cough. It's new. Started last night."
+      explanation: Documents the cough onset.
+      facts:
+        - {type: symptom, name: new cough, present: true, duration: since last night, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 99.1.
+      speaker: Caller
+      turns: [14]
+      quote: "Ninety nine point one."
+      explanation: Documents the temperature reading.
+      facts:
+        - {type: vital, name: temperature, value: "99.1", certainty: stated}
+      covers: [A2]
+    - text: No shortness of breath was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No, he's fine. He's breathing fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A3]
+    - text: He ate about half of his breakfast, less than usual.
+      speaker: Caller
+      turns: [18]
+      quote: "He ate, like, half his breakfast."
+      explanation: Documents reduced appetite.
+      facts:
+        - {type: symptom, name: eating less, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to send a nurse out to see him this afternoon, Brandon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the doctor about the cough and temperature.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to message his doctor about the cough and the temperature."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised offering fluids every hour and keeping him sitting up, especially when eating.
+      speaker: Nurse
+      turns: [25]
+      quote: "get fluids in him. Offer something every hour, and keep him sitting up, especially when he's eating."
+      explanation: Documents hydration and positioning guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a temperature of 100.4 or higher, trouble breathing, or confusion.
+      speaker: Nurse
+      turns: [27]
+      quote: "call us if his temp goes to a hundred point four or higher, if he's having trouble breathing, or he seems confused."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

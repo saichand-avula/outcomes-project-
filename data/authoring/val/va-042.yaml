@@ -1,0 +1,205 @@
+call_id: va-042
+split: val
+blueprint: "Daughter asks whether she can crush her mother's long-acting morphine (called 'the MS something') because her mother can no longer swallow tablets; next dose is due at 8 pm. Nurse says never crush it, will ask the prescriber for a liquid form and call back within 30 minutes. Drug name hedged. No dose given yet; no flag."
+setup:
+  scenario_category: medication
+  subtype: crush_question
+  secondary_tags: [hedging, garbled_drug, late_answers, split_turns]
+  clinical_domains: [medication, swallowing, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-11-21T22:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philomena Rask
+  patient_name_spoken: Philomena Rask
+  patient_name_certainty: stated
+  patient_dob_true: "1937-05-02"
+  patient_dob_spoken: "1937-05-02"
+  patient_dob_certainty: stated
+  caller_name_true: Britta
+  caller_name_spoken: Britta
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2185550117"
+  callback_phone_spoken: "2185550117"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether a long-acting pain tablet can be crushed because her mother cannot swallow it
+  reason_category: medication_question
+  relevant_context: Hospice patient now unable to swallow tablets
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine extended release
+    medication_name_spoken: MS something
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    frequency: every 12 hours
+    last_dose: 8 this morning
+    certainty: unclear
+    unclear_detail: Caller could only say the MS something and read the dose from the bottle
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: unable to swallow tablets
+    symptom_present: true
+    onset_or_duration: since this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 4/10
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not crush the long-acting tablet
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: request a liquid form for the 8 pm dose
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within 30 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep her head raised, moisten her mouth with a swab, and watch for grimacing or moaning
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Priscilla.
+  Caller -> Hi, Priscilla. It's Britta. My mom is Philomena Rask. She's on your hospice. || caller_name, relationship, patient_name
+  Nurse -> Hi, Britta. Her birthday?
+  Caller -> May second. Nineteen thirty seven. || patient_dob
+  Nurse -> And is two one eight, five five five, zero one one seven your number? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's going on?
+  Caller -> She can't swallow her pills anymore. Since this afternoon. They just sit in her mouth. And her pain pill is due at eight. The MS something. The long-acting. || cc, A1, A2
+  Nurse -> Okay. Can you read me the label on the bottle?
+  Caller -> It says, hold on. Fifteen milligrams. Every twelve hours. I can't read the front, it's smudged. It starts with an M. || A1
+  Nurse -> Okay.
+  Caller -> So can I just crush it? Mix it in applesauce? That's what I did with her other pills.
+  Nurse -> No. Please don't crush that one, Britta. It's a long-acting tablet. If it's crushed, the whole dose can hit her at once, and that can be very dangerous. || R1
+  Caller -> Oh. Oh my gosh. I almost did. I was just about to.
+  Nurse -> I'm glad you called first. I'm going to message her prescriber right now and ask for a liquid form for tonight. || R2
+  Caller -> A liquid. Okay. Can they do that?
+  Nurse -> Yes, they can. It's what we do when someone can't swallow. I'll call you back within thirty minutes. || R3
+  Caller -> Thirty minutes. Okay.
+  Nurse -> How is her pain right now?
+  Caller -> She's a little uncomfortable. I'd say a four. She's moaning a little. || A3
+  Nurse -> Okay. Keep her head up on pillows, wipe her mouth with a damp swab, and watch for grimacing or more moaning. If it gets worse, call me right back. || E1
+  Caller -> Okay. Head up. Swab. Watch. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you so much, Priscilla.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: morphine extended release, heard_form: The MS something, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philomena Rask, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1937-05-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Britta, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2185550117", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether a long-acting pain tablet can be crushed because her mother cannot swallow it.
+    speaker: Caller
+    turns: [8]
+    quote: "She can't swallow her pills anymore. Since this afternoon."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A long-acting pain tablet reported as the MS something, 15 mg every 12 hours, was due at 8 pm (unclear; the caller could not read the name on the bottle).
+      speaker: Caller
+      turns: [10]
+      quote: "Fifteen milligrams. Every twelve hours. I can't read the front, it's smudged. It starts with an M."
+      explanation: Documents the unclear medication name and dose.
+      facts:
+        - {type: medication, name: MS something, dose: "15", unit: mg, frequency: every 12 hours, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: She could not swallow tablets since this afternoon.
+      speaker: Caller
+      turns: [8]
+      quote: "They just sit in her mouth."
+      explanation: Documents the swallowing difficulty.
+      facts:
+        - {type: symptom, name: unable to swallow tablets, present: true, duration: since this afternoon, certainty: stated}
+      covers: [A2]
+    - text: Pain was about 4/10 with some moaning.
+      speaker: Caller
+      turns: [20]
+      quote: "I'd say a four. She's moaning a little."
+      explanation: Documents pain level.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 4/10, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised not crushing the long-acting tablet.
+      speaker: Nurse
+      turns: [13]
+      quote: "Please don't crush that one, Britta."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber to request a liquid form for tonight.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to message her prescriber right now and ask for a liquid form for tonight."
+      explanation: Documents the planned prescriber contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back within 30 minutes.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back within thirty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within 30 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping her head raised, moistening her mouth with a swab, and watching for grimacing or more moaning.
+      speaker: Nurse
+      turns: [21]
+      quote: "Keep her head up on pillows, wipe her mouth with a damp swab, and watch for grimacing or more moaning."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+  risk_flags: []

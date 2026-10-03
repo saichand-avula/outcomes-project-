@@ -1,0 +1,216 @@
+call_id: tr-011
+split: train
+blueprint: "Daughter self-corrects mother's DOB and acetaminophen tablets (two, no, one); knee pain around 4/10 with morning stiffness; nurse advises the daily maximum and plans a message to the PCP."
+setup:
+  scenario_category: ambiguous
+  subtype: self_correction
+  secondary_tags: [dob_self_corrected, self_correction, contradiction, name_spelled, prn_and_scheduled]
+  clinical_domains: [pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-08-25T18:40:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lorraine Kowalczyk
+  patient_name_spoken: Lorraine Kowalczyk
+  patient_name_certainty: stated
+  patient_dob_true: "1944-12-02"
+  patient_dob_spoken: "1944-12-02"
+  patient_dob_certainty: stated
+  caller_name_true: Shari
+  caller_name_spoken: Shari
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2165550119"
+  callback_phone_spoken: "2165550119"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Right knee pain and morning stiffness; wants to confirm how much acetaminophen is safe
+  reason_category: pain
+  relevant_context: Patient has arthritis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: knee pain
+    symptom_present: true
+    severity: 4/10
+    body_location: right knee
+    onset_or_duration: a couple of weeks
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: morning stiffness
+    symptom_present: true
+    severity: lasts about an hour
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: taking
+    strength: 500 mg
+    dose: "1"
+    unit: tablet
+    frequency: every 6 hours
+    prn: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: primary care doctor
+    reason_or_trigger: knee pain and stiffness
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    reason_or_trigger: stay within the daily maximum
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: No more than 6 of the 500 mg tablets in 24 hours; check other products for acetaminophen
+    timing_or_threshold: 6 tablets in 24 hours
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Warm shower or heating pad on low in the morning, gentle movement
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi Joanne, my name is Shari. I'm calling about my mother. || caller_name, relationship
+  Nurse -> Okay, Shari. What's your mom's name?
+  Caller -> Lorraine Kowalczyk. That's K O W A L C Z Y K. || patient_name
+  Nurse -> Thank you. And her date of birth?
+  Caller -> December second, nineteen forty five. No, wait. Forty four. Nineteen forty four. Sorry, she'd kill me. || patient_dob
+  Nurse -> Ha. Forty four. And a good number for you?
+  Caller -> Two one six, five five five, oh one one nine. || callback_phone
+  Nurse -> Okay. What's going on?
+  Caller -> It's her knee. The right one. It's been bothering her a couple of weeks. || cc, A1
+  Nurse -> Okay. How bad is it?
+  Caller -> She says maybe a four. A four out of ten. But it's stiff in the morning, like, really stiff. || A1, A2
+  Nurse -> How long does the stiffness last?
+  Caller -> About an hour. She can't get going until she's been up for an hour. || A2
+  Nurse -> Okay. What is she taking for it?
+  Caller -> The Tylenol. Well, the acetaminophen, the five hundred milligram. || A3
+  Caller -> I gave her two tablets this morning. No, one. One tablet. || A3
+  Nurse -> So one tablet. Okay. How often is she taking it?
+  Caller -> Every six hours, if she needs it. She's pretty good about it. || A3
+  Nurse -> Okay. So that's fine. I just want to be sure she doesn't go over the daily maximum of acetaminophen. With the five hundred milligram tablets, no more than six in twenty four hours. || E1, R2
+  Caller -> Six. Okay. That's what I thought.
+  Nurse -> And check the other things she takes, because some cold medicines and sleep aids have acetaminophen in them too. || E1
+  Caller -> Oh. Oh, I didn't think of that. She takes a night time one sometimes.
+  Nurse -> Check the label. If it says acetaminophen, count it in the total. || E1
+  Caller -> Okay. I will.
+  Nurse -> For the stiffness, a warm shower in the morning helps a lot of people. Or a heating pad on low. Then some gentle movement, nothing hard. || E2
+  Caller -> Okay. We have a heating pad.
+  Nurse -> And I'm going to send a message to her doctor about the knee pain and the stiffness, since it's been a couple of weeks. They might want to take a look. || R1
+  Caller -> Oh good. Thank you.
+  Nurse -> Anything else, Shari?
+  Caller -> No, that's it. Thank you, Joanne.
+  Nurse -> You're welcome.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lorraine Kowalczyk, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1944-12-02", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Shari, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2165550119", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported right knee pain and morning stiffness and asked about safe acetaminophen use.
+    speaker: Caller
+    turns: [10]
+    quote: "It's her knee. The right one. It's been bothering her a couple of weeks."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Right knee pain of about 4/10 had been present for a couple of weeks.
+      speaker: Caller
+      turns: [12]
+      quote: "She says maybe a four. A four out of ten."
+      explanation: Documents the reported pain severity.
+      facts:
+        - {type: symptom, name: knee pain, present: true, severity: 4/10, location: right knee, certainty: stated}
+      covers: [A1]
+    - text: Morning stiffness lasting about an hour was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "About an hour. She can't get going until she's been up for an hour."
+      explanation: Documents the stiffness pattern.
+      facts:
+        - {type: symptom, name: morning stiffness, present: true, severity: lasts about an hour, certainty: stated}
+      covers: [A2]
+    - text: Acetaminophen 500 mg tablets were being given as 1 tablet every 6 hours as needed; the caller corrected an initial statement of two tablets to one.
+      speaker: Caller
+      turns: [17]
+      quote: "I gave her two tablets this morning. No, one. One tablet."
+      explanation: Documents the dose with the caller's self-correction.
+      facts:
+        - {type: medication, name: acetaminophen, strength: 500 mg, dose: "1", unit: tablet, frequency: every 6 hours, prn: true, med_status: taking, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised staying within the daily maximum of acetaminophen.
+      speaker: Nurse
+      turns: [20]
+      quote: "I just want to be sure she doesn't go over the daily maximum of acetaminophen."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: acetaminophen, certainty: stated}
+      covers: [R2]
+    - text: Planned to message her doctor about the knee pain and stiffness.
+      speaker: Nurse
+      turns: [28]
+      quote: "And I'm going to send a message to her doctor about the knee pain and the stiffness"
+      explanation: Documents the planned communication to the physician.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised no more than 6 of the 500 mg tablets in 24 hours and checking other products for acetaminophen.
+      speaker: Nurse
+      turns: [22]
+      quote: "And check the other things she takes, because some cold medicines and sleep aids have acetaminophen in them too."
+      explanation: Documents acetaminophen safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised a warm shower or low heating pad in the morning followed by gentle movement.
+      speaker: Nurse
+      turns: [26]
+      quote: "a warm shower in the morning helps a lot of people. Or a heating pad on low."
+      explanation: Documents comfort measures for stiffness.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags: []

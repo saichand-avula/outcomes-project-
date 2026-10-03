@@ -1,0 +1,246 @@
+call_id: tr-063
+split: train
+blueprint: "Granddaughter says her grandmother ran out of her blood thinner (said 'Zarelto', nurse reads the chart and caller agrees it is Xarelto 20 mg with dinner) two nights ago because the pharmacy is late; she also mentions the water pill as 'lay six, I think' which stays unclear. Ankles are swollen. Nurse plans pharmacy contact, prescriber message and a callback tonight. Flag: medication_concern."
+setup:
+  scenario_category: asr_error
+  subtype: garbled_drug
+  secondary_tags: [garbled_drug, hedging, chart_reading_distractor, tall_man_drug, late_answers]
+  clinical_domains: [medication, edema]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-09-22T23:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2, A3]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: [metoprolol]
+chief_complaint:
+  patient_name_true: Concepcion Villareal
+  patient_name_spoken: Concepcion Villareal
+  patient_name_certainty: stated
+  patient_dob_true: "1940-11-25"
+  patient_dob_spoken: "1940-11-25"
+  patient_dob_certainty: stated
+  caller_name_true: Sofia
+  caller_name_spoken: Sofia
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "7545550165"
+  callback_phone_spoken: "7545550165"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her grandmother ran out of her blood thinner and has swollen ankles
+  reason_category: medication
+  relevant_context: Pharmacy delivery was late
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: swollen ankles
+    symptom_present: true
+    body_location: both ankles
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Xarelto
+    medication_name_spoken: Xarelto
+    medication_status: missed
+    strength: 20 mg
+    frequency: once a day with dinner
+    last_dose: two nights ago
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lasix
+    medication_name_spoken: lay six
+    medication_status: taking
+    certainty: unclear
+    unclear_detail: Caller was not sure of the name; heard as lay six and not confirmed
+  - item_id: A4
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Worried that missing the blood thinner is dangerous and that the pharmacy still has not delivered
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: expedite the late refill
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: two missed doses of the blood thinner and ankle swelling
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not double up on the blood thinner to catch up; wait for the doctor's instructions
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, sudden shortness of breath, weakness on one side, or trouble speaking
+    trigger_condition: chest pain; sudden shortness of breath; one-sided weakness; trouble speaking
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient has missed two nights of her blood thinner because the refill has not arrived
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi, Denise. This is Sofia, I'm Concepcion's granddaughter. Concepcion Villareal. || caller_name, relationship, patient_name
+  Nurse -> Hi, Sofia. Her date of birth?
+  Caller -> November twenty fifth, nineteen forty. || patient_dob
+  Nurse -> Thanks. Is seven five four, five five five, zero one six five still good for you? || callback_phone
+  Caller -> Yes, that's mine. || callback_phone
+  Nurse -> What's going on?
+  Caller -> So my grandma, she ran out of her blood thinner. The, um, the Zarelto. The pharmacy was supposed to bring it Monday and it never came. || cc, A2, F1
+  Nurse -> Okay. When did she last take it?
+  Caller -> Two nights ago. She took the last one two nights ago, with dinner. So she's missed, like, two. Two nights. || A2, F1
+  Nurse -> Let me look at her list. I see Xarelto, twenty milligrams, once a day with dinner. Is that the one you mean? || A2
+  Caller -> Yes! Yes, that's the one. Xarelto. That's what it is. || A2
+  Nurse -> Okay. And I see her metoprolol too. Is she out of that, or is that okay?
+  Caller -> Oh, no, that one's fine. We have plenty of that.
+  Caller -> And her ankles are really puffy too. Both of them. || A1
+  Nurse -> Is she taking her water pill?
+  Caller -> I think so. It's the, um, lay six? Lay six, I think it's called. I'm not sure, my aunt does the pills. || A3
+  Nurse -> Okay. Any chest pain, trouble breathing?
+  Caller -> No, no. She's okay. She's just tired.
+  Nurse -> Alright. I'm worried about the missed blood thinner too, so let's get on it. I'm going to call the pharmacy first thing, and see why that refill is late and get it to you today. || R1
+  Caller -> Oh, thank God. I've been so worried. It's a blood thinner, it's, if she misses it, it's dangerous, right? || A4
+  Nurse -> I'm going to message her doctor about the two missed nights and the ankles, and he'll tell us what to do. || R2
+  Caller -> Okay.
+  Nurse -> Please don't double up on any of it to catch up. Wait for the doctor's instructions. || E1
+  Caller -> Okay. No doubling. I wouldn't.
+  Nurse -> I'll call you back tonight with what the pharmacy and the doctor say. || R3
+  Caller -> Okay. Tonight. Thank you.
+  Nurse -> And if she gets chest pain, sudden trouble breathing, weakness on one side, or trouble speaking, call 911. || E2
+  Caller -> Chest pain, breathing, one side, speaking. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Denise.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Xarelto, heard_form: Zarelto, fact_id: A2}
+  - {turn: auto, type: drug_garble, true_form: Lasix, heard_form: lay six, fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Concepcion Villareal, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-11-25", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Sofia, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7545550165", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her grandmother ran out of her blood thinner and has swollen ankles.
+    speaker: Caller
+    turns: [8]
+    quote: "she ran out of her blood thinner."
+    explanation: Documents the medication problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Xarelto 20 mg once a day with dinner was missed for two nights after the supply ran out; the name was confirmed from the chart.
+      speaker: Caller
+      turns: [10]
+      quote: "She took the last one two nights ago, with dinner."
+      explanation: Documents the missed anticoagulant doses.
+      facts:
+        - {type: medication, name: Xarelto, strength: 20 mg, frequency: once a day with dinner, last_dose: two nights ago, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: Both ankles were swollen.
+      speaker: Caller
+      turns: [15]
+      quote: "And her ankles are really puffy too. Both of them."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: swollen ankles, present: true, location: both ankles, certainty: stated}
+      covers: [A1]
+    - text: A water pill was reported as lay six (unclear; the caller was not sure of the name).
+      speaker: Caller
+      turns: [17]
+      quote: "It's the, um, lay six? Lay six, I think it's called."
+      explanation: Documents the diuretic while preserving the uncertain name.
+      facts:
+        - {type: medication, name: lay six, med_status: taking, certainty: unclear}
+      covers: [A3]
+    - text: The caller worried that missing the blood thinner was dangerous and that the pharmacy had not delivered.
+      speaker: Caller
+      turns: [21]
+      quote: "It's a blood thinner, it's, if she misses it, it's dangerous, right?"
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call the pharmacy to find out why the refill was late and get it delivered today.
+      speaker: Nurse
+      turns: [20]
+      quote: "I'm going to call the pharmacy first thing, and see why that refill is late and get it to you today."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the doctor about the two missed nights and the ankle swelling.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'm going to message her doctor about the two missed nights and the ankles"
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tonight with the pharmacy and doctor updates.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'll call you back tonight with what the pharmacy and the doctor say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not to double up on any medication to catch up and to wait for the doctor's instructions.
+      speaker: Nurse
+      turns: [24]
+      quote: "Please don't double up on any of it to catch up. Wait for the doctor's instructions."
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for chest pain, sudden trouble breathing, weakness on one side, or trouble speaking.
+      speaker: Nurse
+      turns: [28]
+      quote: "if she gets chest pain, sudden trouble breathing, weakness on one side, or trouble speaking, call 911."
+      explanation: Documents emergency return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [10], quote: "She took the last one two nights ago, with dinner."}

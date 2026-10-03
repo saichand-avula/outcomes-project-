@@ -1,0 +1,344 @@
+call_id: tr-305
+split: train
+blueprint: "A son who lives with his mother calls home health because she has had chest tightness, trouble catching her breath, sweating and an ache down the left arm for about thirty minutes. She has had a heart attack before and took one nitroglycerin under the tongue ten minutes ago with no relief. Her pulse on his watch is 112. The nurse tells him to call 911 now, stays on the line while he uses the landline, asks about aspirin allergy and advises chewing one regular aspirin, keeps her sitting upright, has him unlock the door and gather her medicine list, pages on-call, and plans a callback. Chest symptoms with 911 escalation, adult child caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing, offtopic_chatter]
+  clinical_domains: [cardiac, dyspnea, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Marcy
+  call_timestamp_utc: "2026-10-30T09:15:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Eudora Vanterpool
+  patient_name_spoken: Eudora Vanterpool
+  patient_name_certainty: stated
+  patient_dob_true: "1945-03-25"
+  patient_dob_spoken: "1945-03-25"
+  patient_dob_certainty: stated
+  caller_name_true: Calvin Vanterpool
+  caller_name_spoken: Calvin Vanterpool
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9185550110"
+  callback_phone_spoken: "9185550110"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported chest tightness, shortness of breath and arm ache in his mother
+  reason_category: cardiac
+  relevant_context: Home health patient with a prior heart attack
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: chest tightness
+    symptom_present: true
+    onset_or_duration: thirty minutes
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sweating and left arm ache
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "112"
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: nitroglycerin
+    medication_name_spoken: nitroglycerin
+    medication_status: taking
+    dose: "1"
+    unit: tablet
+    frequency: under the tongue as needed
+    prn: true
+    last_dose: ten minutes ago
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: She had a heart attack in 2019 and the nitroglycerin did not relieve the pain
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: chest tightness, shortness of breath, sweating and arm ache with a prior heart attack
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: If she has no aspirin allergy and no stomach bleeding, have her chew one regular aspirin while waiting for the ambulance
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep her sitting upright and still, do not let her walk or drive, and unlock the front door
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hand the paramedics her medicine list and tell them she took the nitroglycerin at the time noted
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Chest tightness and shortness of breath for thirty minutes with sweating and arm ache
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Marcy.
+  Caller -> Marcy, hi, it's Calvin Vanterpool. It's my mother. Eudora. She's got chest tightness and she can't catch her breath. It's been like half an hour. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Calvin. I'm here. Is your mother awake and talking?
+  Caller -> She's awake. She's in her chair. She's talking but she's out of breath. She's sweaty. Her forehead is wet. || A2
+  Nurse -> Okay. Does she have any pain anywhere else? Her arm, her jaw?
+  Caller -> Her left arm. She says it aches. Down the arm. And she's sweating. She's clammy. I touched her hand and it's cold and wet. || A3
+  Caller -> Should I take off her sweater? She's sweating but she says she's cold.
+  Nurse -> Put a light blanket over her shoulders. Don't bundle her up.
+  Caller -> A light one. There's the afghan on the couch. I'll get it. Hold on. Okay. It's over her shoulders.
+  Nurse -> Okay. Calvin, I need you to call nine one one right now. This sounds like it could be her heart. || F2, R1
+  Caller -> Her heart. Okay. Okay. Should I call you back? Or call them first?
+  Nurse -> Call them first. Do you have a second phone so I can stay on with you?
+  Caller -> There's a landline. In the hall. With the cord. I'm on my cell. Hold on. I'll put you on speaker.
+  Nurse -> Perfect. Put the cell on speaker where you can hear me, and call from the landline.
+  Caller -> Okay. It's on the chair arm. Mom, I'm calling the ambulance. Don't get up. Don't move. It's okay.
+  Nurse -> Go ahead. I'm right here.
+  Caller -> Okay. It's ringing. Hello? Yes. My mother is having chest pain. Chest tightness. Yes. Eighty one. Forty four Marigold Court. Marigold. M A R. Yes. She had a heart attack before. Yes. They're sending someone. She says six minutes.
+  Nurse -> Good. Stay on with them if they ask. Let me ask you a few things for the paramedics. Did she take anything for it?
+  Caller -> The nitroglycerin. The little tablet. Under the tongue. She has a bottle. She put one under her tongue about ten minutes ago. It didn't help. || A5
+  Nurse -> Okay. Does she keep it with her? Is it a new bottle?
+  Caller -> It's in her pocket. She carries it always. It's a few months old. The pharmacist said they lose strength over time, so she gets a new one.
+  Nurse -> Good. That's helpful.
+  Nurse -> Okay. One tablet, ten minutes ago, no relief. Is she allergic to aspirin? Does she have stomach bleeding or ulcers?
+  Caller -> No allergy that I know of. She takes a baby aspirin every day. No ulcers. She's never had bleeding. Mom, are you allergic to aspirin? She shakes her head. No.
+  Caller -> She also says she had her baby aspirin this morning. With her tea.
+  Nurse -> Okay. Tell the paramedics that. They'll want to know she already had one baby aspirin today.
+  Caller -> Baby aspirin this morning. Plus the big one now. Okay.
+  Nurse -> Okay. If she's not allergic, have her chew one regular aspirin, the full strength, three twenty five, while you wait. Chew it, don't swallow it whole. Do you have one? || E1
+  Caller -> I have the bottle in the cabinet. Hold on. Hold on. I'll go. Okay. I have the Bayer. Regular strength. Mom, chew this. Chew it. Okay. She's chewing. She made a face. She says it's bitter.
+  Nurse -> That's normal. Good. Now keep her sitting upright. Don't let her lie down flat, don't let her walk. Keep her still. || E2
+  Caller -> Sitting up. Still. Okay. She wants to get up, she says she has to go to the bathroom.
+  Caller -> She says she feels like she might be sick to her stomach.
+  Nurse -> Okay. If she's nauseated, keep a bowl nearby. Stay with her.
+  Caller -> I'll grab the mixing bowl. It's right here on the counter.
+  Nurse -> No bathroom. Have her stay put. Tell her I said so.
+  Caller -> Mom, the nurse says stay. Okay. She's staying. She's holding my hand.
+  Nurse -> Good. While we wait, Calvin, I need your mother's date of birth for my notes. Do you know it?
+  Caller -> March twenty fifth. Nineteen forty five. I know it because it's the day before my parents' anniversary. || patient_dob
+  Nurse -> Thank you. And the number you're calling from?
+  Caller -> It's my cell. Nine one eight, five five five, zero one one zero. || callback_phone
+  Nurse -> Got it. Nine one eight, five five five, zero one one zero. Thank you. || callback_phone
+  Nurse -> Good. Calvin, can you take her pulse? Do you have a watch?
+  Caller -> I have my smart watch. I'll put two fingers. Okay. Let me count. It's fast. I'm counting for fifteen seconds. Twenty eight. Times four. A hundred and twelve. || A4
+  Nurse -> Okay. A hundred and twelve. That's useful for the paramedics. Is she having any trouble speaking? Is she confused?
+  Caller -> No. She knows me. She knows where she is. She's scared. She keeps saying it feels like an elephant on her chest.
+  Caller -> She's looking at me. She's scared. Her eyes are big.
+  Nurse -> Hold her hand. Tell her she's doing everything right. Keep your voice low and slow.
+  Caller -> Mom, you're doing great. They're coming. Look at me. Breathe slow.
+  Nurse -> That's it. Slow breaths in through the nose.
+  Nurse -> Okay. Tell her I'm here and help is coming. Is the front door unlocked?
+  Caller -> No. I'll go. Hold on. I have to let go of her hand. Mom, I'll be one second. Okay. It's unlocked. I turned on the light on the porch.
+  Nurse -> Good. Now, is her medicine list nearby?
+  Caller -> It's on the fridge. A sheet. And her pill bottles are in the cabinet. I'll grab the sheet.
+  Nurse -> Get the sheet and the nitroglycerin bottle. When the paramedics come, hand them the sheet and tell them what time she took the nitroglycerin. || E3
+  Caller -> The sheet and the bottle. And tell them the time. I wrote it on my hand. It was nine oh five. Nine oh five. Okay.
+  Caller -> Is there something I'm forgetting? I always forget something.
+  Nurse -> You're doing great. Is her purse nearby, or her insurance card?
+  Caller -> Her purse is by the door. I'll grab it when they come. And her glasses. She'll want her glasses.
+  Nurse -> Good thinking.
+  Nurse -> Great. Do you remember when this started?
+  Caller -> About eight forty five. She was making her tea. She sat down and she said she didn't feel right. And it got worse. So thirty minutes. A little over.
+  Nurse -> Okay. Tell the paramedics eight forty five. Anything else you want me to know? Any history besides the heart attack?
+  Caller -> The heart attack was in two thousand nineteen. She has high blood pressure. She takes a blood pressure pill. A cholesterol pill. And the baby aspirin. That's it. || A6
+  Nurse -> Okay. That's helpful. Did anything unusual happen this morning? Any stress, any exertion?
+  Caller -> She was making tea. That's it. She was a bit upset about my sister's call yesterday. They had a fight. Maybe that.
+  Caller -> I shouldn't have said that. It's not the sister's fault.
+  Nurse -> Nobody is blaming anyone. Stress can sometimes bring things on, but it isn't anyone's fault.
+  Caller -> Okay. Okay. I just feel so guilty.
+  Nurse -> Is there anyone who can meet you at the hospital? Another family member?
+  Caller -> My sister. She'll go crazy. I'll call her once Mom's in the ambulance. She lives fifteen minutes from the hospital.
+  Nurse -> That sounds right. Call her once they're on the way.
+  Nurse -> You're doing everything right.
+  Nurse -> Okay. Not important now. I'm going to page the on-call clinician so they know she's going to the hospital. || R2
+  Caller -> Okay. Thank you, Marcy. Thank you.
+  Nurse -> Calvin, do you hear the sirens?
+  Caller -> Not yet. Wait. Maybe. A far one. I think I hear it.
+  Nurse -> What's her breathing like now?
+  Caller -> Same. Fast. She's trying to talk and I tell her not to. She keeps trying to tell me where her will is.
+  Nurse -> Ha. Tell her to save her energy. There's time for that later.
+  Caller -> She says it's in the blue folder. I told her I know.
+  Nurse -> Good. Go stand at the door and wave them in. Mom will be okay for a few seconds. Tell her you're coming right back.
+  Caller -> Mom, I'm going to the door. I'm coming right back. Okay. I'm at the door. I see them. They turned onto the street. The lights. They're here.
+  Nurse -> Perfect. Let them in. Tell them everything. I'll let you go. I'll call you back in about twenty minutes. Answer if you can, even from the hospital. || R3
+  Caller -> Okay. I will. Thank you so much. Thank you.
+  Nurse -> You did everything right. Go be with your mom.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eudora Vanterpool, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1945-03-25", certainty: stated, heard_as: [], turns: [38]}
+    caller_name: {value: Calvin Vanterpool, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550110", certainty: stated, heard_as: [], turns: [40, 41]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported chest tightness, shortness of breath and arm ache in his mother.
+    speaker: Caller
+    turns: [2]
+    quote: "She's got chest tightness and she can't catch her breath."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Chest tightness began about thirty minutes earlier, around eight forty five.
+      speaker: Caller
+      turns: [2]
+      quote: "It's been like half an hour."
+      explanation: Documents the chest tightness.
+      facts:
+        - {type: symptom, name: chest tightness, present: true, onset: thirty minutes, certainty: stated}
+      covers: [A1]
+    - text: She was short of breath while talking.
+      speaker: Caller
+      turns: [4]
+      quote: "She's talking but she's out of breath."
+      explanation: Documents the shortness of breath.
+      facts:
+        - {type: symptom, name: shortness of breath, present: true, certainty: stated}
+      covers: [A2]
+    - text: She was sweating and clammy with an ache down the left arm.
+      speaker: Caller
+      turns: [6]
+      quote: "Her left arm. She says it aches."
+      explanation: Documents the sweating and arm ache.
+      facts:
+        - {type: symptom, name: sweating and left arm ache, present: true, certainty: stated}
+      covers: [A3]
+    - text: Pulse was 112.
+      speaker: Caller
+      turns: [43]
+      quote: "A hundred and twelve."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "112", certainty: stated}
+      covers: [A4]
+    - text: One nitroglycerin tablet under the tongue was taken about ten minutes earlier without relief.
+      speaker: Caller
+      turns: [19]
+      quote: "The nitroglycerin. The little tablet. Under the tongue."
+      explanation: Documents the nitroglycerin.
+      facts:
+        - {type: medication, name: nitroglycerin, dose: "1", unit: tablet, frequency: under the tongue as needed, prn: true, last_dose: ten minutes ago, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: She had a heart attack in 2019 and takes blood pressure and cholesterol pills.
+      speaker: Caller
+      turns: [63]
+      quote: "The heart attack was in two thousand nineteen."
+      explanation: Documents the cardiac history.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [10]
+      quote: "I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [73]
+      quote: "I'm going to page the on-call clinician so they know she's going to the hospital."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in about twenty minutes.
+      speaker: Nurse
+      turns: [83]
+      quote: "I'll call you back in about twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised chewing one regular aspirin while waiting if she had no aspirin allergy or stomach bleeding.
+      speaker: Nurse
+      turns: [28]
+      quote: "have her chew one regular aspirin, the full strength, three twenty five, while you wait."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping her sitting upright and still, not letting her walk, and unlocking the front door.
+      speaker: Nurse
+      turns: [30]
+      quote: "keep her sitting upright. Don't let her lie down flat, don't let her walk."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised handing the paramedics her medicine list and telling them when she took the nitroglycerin.
+      speaker: Nurse
+      turns: [54]
+      quote: "hand them the sheet and tell them what time she took the nitroglycerin."
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "She's got chest tightness and she can't catch her breath."}
+    - {category: escalation_request, turns: [10], quote: "I need you to call nine one one right now."}

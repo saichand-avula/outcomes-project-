@@ -1,0 +1,277 @@
+call_id: va-051
+split: val
+blueprint: "A wife, Calista Pruitt, calls the hospice line about her husband Desmond, 48, with metastatic colon cancer. Tonight he said he did not want to be here anymore and that he could take all his pills at once. She has taken the pill bottles into the kitchen. He is awake, calm now, and in moderate pain. Nurse stays on the line, tells her to keep the medicines locked up and stay with him, pages the on-call clinician and social worker, and gives the 988 crisis line. Adult under 65, suicidal statement flag, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement_hospice
+  secondary_tags: [spouse, suicidal_statement, safety_planning, split_turns, hedging]
+  clinical_domains: [mood, pain, safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Octavia
+  call_timestamp_utc: "2026-11-26T03:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Desmond Pruitt
+  patient_name_spoken: Desmond Pruitt
+  patient_name_certainty: stated
+  patient_dob_true: "1978-03-21"
+  patient_dob_spoken: "1978-03-21"
+  patient_dob_certainty: stated
+  caller_name_true: Calista Pruitt
+  caller_name_spoken: Calista Pruitt
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6105550107"
+  callback_phone_spoken: "6105550107"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband said he did not want to be here anymore and could take all his pills
+  reason_category: mood
+  relevant_context: Hospice patient with metastatic colon cancer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: statement of not wanting to be here and taking all his pills
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: abdominal pain
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: has taken extra pills
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: She moved the pill bottles to the kitchen and he is awake and calm now
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: patient statement about taking all his pills
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice social worker
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with him, keep all medicines locked up or out of reach, and give each dose herself
+    certainty: stated
+  - item_id: E2
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 anytime, and call 911 if he tries to take pills or hurt himself
+    trigger_condition: tries to take pills; tries to hurt himself
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient said he did not want to be here anymore and could take all of his pills
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Octavia.
+  Caller -> Hi. Hi, I'm sorry, it's the middle of the night. This is Calista Pruitt. My husband is Desmond. Desmond Pruitt. I'm scared. || caller_name, relationship, patient_name
+  Nurse -> Hi, Calista. I'm here. Tell me what's happening.
+  Caller -> I don't know if I'm overreacting. I didn't know who else to call.
+  Nurse -> You are not overreacting. You did exactly the right thing.
+  Caller -> He said something. Tonight. He said he doesn't want to be here anymore. And that he could just take all of his pills. All at once. And then he went quiet. || cc, A1, F1
+  Nurse -> Okay. Thank you for telling me. Where is he right now?
+  Caller -> He's in the bed. He's awake. He's, he's calm. He was crying before. Now he's calm.
+  Nurse -> Is he talking to you?
+  Caller -> A little. He said he's sorry. I told him there's nothing to be sorry for.
+  Nurse -> Are you with him?
+  Caller -> I'm in the bedroom door. I'm looking right at him.
+  Nurse -> Okay. Has he taken any extra pills? Anything tonight beyond his usual?
+  Caller -> No. No. I don't think so. I gave him his nine o'clock ones. I was here. I took the bottles out. They're in the kitchen now. On the counter. I counted. || A3, A4
+  Nurse -> You did the right thing taking them out. Did you count them against the log?
+  Caller -> I counted. I think it's right. I'm shaking. I can't tell. I think it's right.
+  Nurse -> That's okay. We'll go over it together in a minute. Has he said anything like this before?
+  Caller -> Not like this. He said once he's tired of fighting. But never about the pills.
+  Nurse -> Okay. Is he in pain tonight?
+  Caller -> Yes. It's his belly. He keeps holding it. He says it's a six. A bad six. Maybe seven. || A2
+  Nurse -> Okay. We'll make sure the clinician knows about the pain too.
+  Caller -> Yes. I think the pain is part of it. He hasn't slept in two days.
+  Nurse -> Okay. When did he last have something for it?
+  Caller -> At nine. And before that, six.
+  Nurse -> Alright. Calista, I want to stay on the phone with you. Can you tell me his date of birth?
+  Caller -> March twenty first, nineteen seventy eight. He's forty eight. || patient_dob
+  Nurse -> And a number in case we get cut off?
+  Caller -> Six one zero, five five five, zero one zero seven. || callback_phone
+  Nurse -> Got it. Here's what I want you to do. Stay with him. Don't leave him alone in the room, even for a minute. Is there anyone else in the house who can sit with him?
+  Caller -> My sister's on her way. She lives ten minutes away. I called her first.
+  Nurse -> Does she know what's going on?
+  Caller -> Yes. I told her on the phone. She's bringing her husband to stay overnight.
+  Nurse -> Good. Keep all of his medicines locked up or in a place he can't reach. You give every dose yourself, and write it down. Do you have a lockbox?
+  Caller -> We have a, there's a small safe in the closet. For the passports. I can put them in there.
+  Nurse -> That's perfect. Do that now, while I'm on the line. || E1
+  Caller -> Okay. Hang on. I'm going to the kitchen. Don't hang up.
+  Nurse -> I'm right here.
+  Caller -> Okay. I have the bottles. I'm going to the closet. Okay. It's in. The safe is closed.
+  Nurse -> Where's the key or the code?
+  Caller -> It's a code. Only I know it. I'll change it anyway.
+  Nurse -> Great. Thank you. Is his bedroom door open? Can you hear him?
+  Caller -> Yes. I can hear him. He's breathing. He's just lying there.
+  Nurse -> Is he looking at you, answering when you speak?
+  Caller -> Yes. He just nodded at me. He's tired.
+  Nurse -> Okay. I'm going to page the on-call clinician right now. And I'll reach our social worker, too. Someone will call you back very soon. || R1
+  Caller -> Okay. Thank you. Yes. Please.
+  Nurse -> And I'm sending a nurse out to you. She should be there within the hour. || R3
+  Caller -> Within the hour. Okay. I'll unlock the door. Or no, I'll wait by the door.
+  Nurse -> Good. The social worker will reach out to you both in the morning. || R2
+  Caller -> Okay.
+  Nurse -> Calista, I want you to have a number. If at any time you or he feels like he might hurt himself, call or text nine eight eight, the crisis line. It's free and it's all day and night. And if he tries to take pills or hurt himself, call nine one one. || E2
+  Caller -> Nine eight eight. Nine one one. Okay. I'll write it on my hand. I need a pen. Hang on.
+  Nurse -> No rush.
+  Caller -> Okay. I have it.
+  Nurse -> It might help to talk with him gently. Ask him how he's feeling. You don't have to fix it. Just listen.
+  Caller -> I don't know what to say. I'm afraid I'll say the wrong thing.
+  Nurse -> You won't. You know him better than anyone.
+  Nurse -> There's no wrong thing. Tell him you love him and that you're here. Ask him if he's afraid.
+  Caller -> Okay. I can do that.
+  Nurse -> And you're not alone in this. We'll all help.
+  Caller -> Thank you. I'm sorry for crying.
+  Nurse -> Never apologize. You're doing everything right.
+  Caller -> I just feel like I should have seen it.
+  Nurse -> This is not your fault. It is a lot to carry, and you're carrying it.
+  Caller -> My sister's here. I can hear the car.
+  Nurse -> Good. Let her in. Is the nurse's number in your phone?
+  Caller -> Yes. I have the hospice card on the fridge.
+  Nurse -> Great. The clinician will call within about ten minutes. Please keep this line free.
+  Caller -> I will. I'll hang up now and wait. Okay. Thank you, Octavia.
+  Nurse -> I'm here if you need me. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Desmond Pruitt, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1978-03-21", certainty: stated, heard_as: [], turns: [26]}
+    caller_name: {value: Calista Pruitt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550107", certainty: stated, heard_as: [], turns: [28]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband said he did not want to be here anymore and could take all his pills.
+    speaker: Caller
+    turns: [6]
+    quote: "He said he doesn't want to be here anymore."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He said he did not want to be here anymore and could take all of his pills at once.
+      speaker: Caller
+      turns: [6]
+      quote: "he could just take all of his pills."
+      explanation: Documents the statement.
+      facts:
+        - {type: symptom, name: statement of not wanting to be here and taking all his pills, present: true, certainty: stated}
+      covers: [A1]
+    - text: Abdominal pain was a six, possibly seven.
+      speaker: Caller
+      turns: [20]
+      quote: "It's his belly."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: abdominal pain, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: He had not taken extra pills tonight.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No. I don't think so."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: has taken extra pills, certainty: stated}
+      covers: [A3]
+    - text: She moved the pill bottles to the kitchen, and he was awake and calm.
+      speaker: Caller
+      turns: [14]
+      quote: "I took the bottles out."
+      explanation: Documents the safety step.
+      facts:
+        - {type: context, text: She moved the pill bottles to the kitchen and he is awake and calm now, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a social worker contact in the morning.
+      speaker: Nurse
+      turns: [49]
+      quote: "The social worker will reach out to you both in the morning."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm sending a nurse out to you."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying with him, locking up all medicines, and giving each dose herself.
+      speaker: Nurse
+      turns: [29]
+      quote: "Stay with him."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling or texting 988 and calling 911 if he tries to take pills or hurt himself.
+      speaker: Nurse
+      turns: [51]
+      quote: "call or text nine eight eight, the crisis line."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: suicidal_statement, turns: [6], quote: "he could just take all of his pills."}

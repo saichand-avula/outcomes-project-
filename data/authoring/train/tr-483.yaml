@@ -1,0 +1,257 @@
+call_id: tr-483
+split: train
+blueprint: "A mother calls the pediatric home nurse in a panic: her 3-year-old got into his grandmother's blood pressure pills on the coffee table about twenty minutes ago and may have swallowed up to three amlodipine five milligram tablets; he is awake, playing, no vomiting or drowsiness so far. Nurse tells her to call 911 now, keep the bottle, not make him vomit or give him anything, and pages on-call. Accidental ingestion (other urgent and escalation), pediatric, parent caller, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: accidental_ingestion
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [medication, safety]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Fern Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Isadora
+  call_timestamp_utc: "2026-11-20T01:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wrenley Castellano
+  patient_name_spoken: Wrenley Castellano
+  patient_name_certainty: stated
+  patient_dob_true: "2023-05-18"
+  patient_dob_spoken: "2023-05-18"
+  patient_dob_certainty: stated
+  caller_name_true: Jacinda Castellano
+  caller_name_spoken: Jacinda Castellano
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "4145550157"
+  callback_phone_spoken: "4145550157"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her toddler may have swallowed his grandmother's blood pressure pills
+  reason_category: medication
+  relevant_context: Pediatric home care patient
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: extra_dose
+    dose: "3"
+    unit: tablets
+    frequency: single accidental ingestion of five milligram tablets
+    prn: false
+    last_dose: twenty minutes ago
+    certainty: unclear
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or drowsiness
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The bottle was left open on the coffee table and the count is uncertain
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: toddler may have swallowed up to three blood pressure pills
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: accidental ingestion and ambulance on the way
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Do not make him vomit or give him food or drink, keep the bottle and any pills you find, and stay with him until the crew arrives
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put all medicines up high in a locked cabinet after this
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Toddler may have swallowed up to three blood pressure tablets
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Little Fern Pediatric Home Care, this is Isadora.
+  Caller -> Isadora, it's Jacinda Castellano. My son Wrenley Castellano. He got into my mother's pills. The blood pressure ones. I think he swallowed some. I don't know how many. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> Jacinda, slow down. I can hear you. Tell me one thing at a time.
+  Caller -> Okay. Okay. I'm sorry. I'm shaking.
+  Nurse -> It's all right. I'm right here.
+  Nurse -> Jacinda, I'm here. Is he awake? Is he breathing normally?
+  Caller -> He's awake. He's right here. He's running around. He thinks it's a game. He's fine. He seems fine. Oh my God.
+  Nurse -> Good. Keep him where you can see him.
+  Caller -> He's in my arms now. He's squirming. He wants down.
+  Nurse -> Good. Hold him. Don't let him put anything in his mouth.
+  Caller -> I won't. I'm holding both his hands.
+  Nurse -> Okay. Take a breath. When did this happen?
+  Nurse -> Take your time. Who else is at home with you?
+  Caller -> Just my mother upstairs. She's asleep. My husband is working nights.
+  Nurse -> Okay.
+  Caller -> I'm breathing. I'm breathing. Sorry.
+  Caller -> About twenty minutes ago. I was in the kitchen. I heard the bottle shake. He was under the coffee table. The lid was off. There were pills on the rug. I found two on the rug. || A1
+  Nurse -> Okay.
+  Caller -> It might be twenty five. I looked at the clock when I found him and then I lost track.
+  Nurse -> That's fine. About twenty minutes.
+  Nurse -> How many were in the bottle, do you know?
+  Caller -> I don't know. My mother takes one a day. She just filled it last week. I don't know. It was almost full. Maybe thirty. Now there are, I don't know, I'm counting. There are twenty seven. So three are gone? Two on the rug and, I don't know. He could have taken one. Or three. I don't know. || A3, A1
+  Nurse -> Okay.
+  Nurse -> Take your time counting.
+  Caller -> I'm putting them on a napkin. One. Two. I keep losing count because he keeps grabbing.
+  Nurse -> Okay. What's the name of the medicine and the strength?
+  Caller -> I'm reading it. The label is tiny. Give me one second.
+  Nurse -> Take your time.
+  Caller -> Amlodipine. Five milligrams. A tiny white pill. The label says amlodipine, five. || A1
+  Nurse -> Okay. Thank you. I've written that down.
+  Nurse -> Amlodipine, five milligrams. Does he have any symptoms? Is he sleepy, vomiting, acting strange? || A1
+  Caller -> No. No. He's alert. He's laughing. He isn't throwing up. He's not sleepy. He just ate a snack. He's fine. Isn't he? || A2
+  Nurse -> Okay.
+  Caller -> His hands are warm. His color is good. He's talking about dinosaurs.
+  Nurse -> Okay.
+  Nurse -> He may look fine right now, but with this medicine, the effects can come later. Jacinda, I need you to call 911 right now. Hang up and call. Tell them he swallowed up to three blood pressure pills. || R1, F2
+  Caller -> I know. I know. I just keep hoping.
+  Nurse -> I understand.
+  Caller -> Nine one one? Right now? He looks fine.
+  Nurse -> Yes.
+  Caller -> Is this really necessary? I don't want to scare him.
+  Nurse -> It's the safest choice. He's not in trouble. We want to be careful.
+  Nurse -> Yes. Right now. It's the safest choice. Please call.
+  Caller -> Okay. Okay. My phone. Where is my phone. It's in my hand. I'm holding it.
+  Caller -> Okay. Okay. I'm calling. I'm hanging up. Wait. Should I call poison control?
+  Nurse -> Go ahead. Ask.
+  Nurse -> Call 911 first. They will tell you what to do. I will page the on-call clinician. || R2
+  Caller -> My mother is going to be so upset. She's asleep upstairs.
+  Nurse -> Don't worry about that now.
+  Caller -> Okay.
+  Nurse -> Before you hang up. Don't make him vomit. Don't give him anything to eat or drink. Keep the bottle and any pills you find, and take them with you. And stay with him. || E1
+  Caller -> No vomiting. Nothing to eat or drink. Keep the bottle. Stay. Okay. I'm calling. Wrenley, come here. Come to Mama. Come.
+  Nurse -> Good. Go.
+  Caller -> I'm so scared.
+  Nurse -> I know. You're doing the right thing.
+  Caller -> I'm calling.
+  Nurse -> Quickly, so we have it in case you get cut off. What's his date of birth and your number?
+  Caller -> May eighteenth. Twenty twenty three. He's three. My number is four one four, five five five, oh one five seven. || patient_dob, callback_phone
+  Nurse -> Four one four, five five five, oh one five seven. Right? || callback_phone
+  Caller -> Yes. That's my cell. I'll answer if you call back.
+  Caller -> Yes. Yes. Okay. I'm calling now.
+  Nurse -> Keep your phone on afterward. I'll be paging the on-call clinician.
+  Nurse -> Go. After this, put all medicines up high, in a locked cabinet. We can talk about it later. || E2
+  Caller -> Locked cabinet. Later. Okay. Wrenley, come to Mama. Come here. Come.
+  Nurse -> Stay calm for him. He'll follow your lead.
+  Nurse -> Stay with him. You're doing the right thing.
+  Caller -> Thank you. Thank you. I'm calling. Bye.
+  Caller -> I'm dialing. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wrenley Castellano, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2023-05-18", certainty: stated, heard_as: [], turns: [58]}
+    caller_name: {value: Jacinda Castellano, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550157", certainty: stated, heard_as: [], turns: [58, 59]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her toddler may have swallowed his grandmother's blood pressure pills.
+    speaker: Caller
+    turns: [2]
+    quote: "He got into my mother's pills."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear count) Up to three amlodipine 5 mg tablets may have been swallowed about twenty minutes ago.
+      speaker: Caller
+      turns: [29]
+      quote: "Amlodipine. Five milligrams."
+      explanation: Documents the possible ingestion.
+      facts:
+        - {type: medication, name: amlodipine, dose: "3", unit: tablets, frequency: single accidental ingestion of five milligram tablets, prn: false, last_dose: twenty minutes ago, med_status: extra_dose, certainty: unclear}
+      covers: [A1]
+    - text: He had no vomiting or drowsiness so far.
+      speaker: Caller
+      turns: [32]
+      quote: "He's alert."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or drowsiness, certainty: stated}
+      covers: [A2]
+    - text: (unclear) The bottle was left open on the coffee table and the pill count was uncertain.
+      speaker: Caller
+      turns: [22]
+      quote: "So three are gone?"
+      explanation: Documents the uncertain count.
+      facts:
+        - {type: context, text: The bottle was left open on the coffee table and the count is uncertain, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [36]
+      quote: "I need you to call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [47]
+      quote: "I will page the on-call clinician."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not making him vomit, giving nothing to eat or drink, keeping the bottle and pills, and staying with him.
+      speaker: Nurse
+      turns: [51]
+      quote: "Don't make him vomit."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised putting all medicines up high in a locked cabinet.
+      speaker: Nurse
+      turns: [63]
+      quote: "put all medicines up high, in a locked cabinet."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "He got into my mother's pills."}
+    - {category: escalation_request, turns: [36], quote: "I need you to call 911 right now."}

@@ -1,0 +1,292 @@
+call_id: tr-156
+split: train
+blueprint: "Mother of a 3-year-old with a feeding tube needs supplies: 6 cans of formula, 2 syringes, 1 spare extension set. Four feeds a day, no vomiting or diarrhea, tube site clean. She asks about trying blended foods. Nurse orders supplies for Tuesday, messages the dietitian, and reviews flushing and extension set care. Medium."
+setup:
+  scenario_category: supply
+  subtype: feeding_tube_supplies
+  secondary_tags: [multi_issue, phone_from_file, late_answers, split_turns, name_spelled]
+  clinical_domains: [equipment, intake_appetite]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Samira
+  call_timestamp_utc: "2026-10-03T15:00:00Z"
+  length_bucket: medium
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mila Okonkwo-Hart
+  patient_name_spoken: Mila Okonkwo-Hart
+  patient_name_certainty: stated
+  patient_dob_true: "2023-04-02"
+  patient_dob_spoken: "2023-04-02"
+  patient_dob_certainty: stated
+  caller_name_true: Chidinma Okonkwo-Hart
+  caller_name_spoken: Chidinma Okonkwo-Hart
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6785550109"
+  callback_phone_spoken: "6785550109"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested feeding tube supplies for her daughter
+  reason_category: supply_request
+  relevant_context: Child with a feeding tube
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: formula
+    supply_remaining: "6"
+    supply_unit: cans
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: feeding syringes
+    supply_remaining: "2"
+    supply_unit: syringes
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: extension sets
+    supply_remaining: "1"
+    supply_unit: sets
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or diarrhea
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: redness or leaking at the tube site
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Asked whether she can try blended foods through the tube
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Gets four feeds a day
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: formula, feeding syringes and extension sets
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Tuesday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: dietitian
+    reason_or_trigger: blended foods question
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Rinse the syringes in warm soapy water after each use and replace the extension set once a week or when cloudy
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Flush the tube with water after every feed and do not put blended foods through the tube until the dietitian says it is safe
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Samira.
+  Caller -> Hi, Samira. It's Chidinma Okonkwo-Hart. I'm calling about my daughter, Mila. Mila Okonkwo-Hart. That's O K O N K W O, dash, H A R T. || caller_name, relationship, patient_name
+  Nurse -> Hi, Chidinma. Thank you for spelling it. Mila's date of birth?
+  Caller -> April second, twenty twenty three. || patient_dob
+  Nurse -> And is six seven eight, five five five, zero one zero nine still your number? || callback_phone
+  Caller -> Still the same. Yes. That's my cell. || callback_phone
+  Nurse -> Great. What can I do for you today?
+  Caller -> I'm getting low on her feeding supplies. I wanted to get an order in before the weekend, since last time the delivery took forever. || cc
+  Nurse -> Good thinking. Tell me what you have. Let's start with the formula.
+  Caller -> The formula. Okay. I have six cans. The big ones. We use about a can and a half a day, so that's about four days. Not enough for a week. || A1
+  Nurse -> Okay. And the syringes?
+  Caller -> The big syringes, the sixty mil ones. I have two. Just two. One of them is getting kind of cloudy, I think it's old. || A2
+  Nurse -> Okay. And the extension sets?
+  Caller -> The little tube that connects to her button. One spare. One. And the one on her now is from, I don't know, last Sunday. || A3
+  Nurse -> Okay. How many feeds a day is she getting?
+  Caller -> Four. Morning, noon, afternoon, bedtime. She likes the noon one because I give it while she's watching her show. || A7
+  Nurse -> That's a great routine. Any vomiting or diarrhea lately?
+  Caller -> No. None. She's been really good. Her tummy has been fine. No diarrhea either. || A4
+  Nurse -> Good. And how is the skin around the tube? Any redness or leaking?
+  Caller -> No leaking. It's clean. A little dry sometimes but no redness. I check it every time I clean it. || A5
+  Nurse -> Okay. I'll order the formula, the sixty mil syringes, and the extension sets. || R1
+  Caller -> Thank you. How many extension sets will you send? Last time it was just two.
+  Nurse -> I'll ask for a box so you have enough for a month.
+  Caller -> That would be amazing. Thank you.
+  Nurse -> They'll deliver Tuesday. || R2
+  Caller -> Tuesday. Okay. Is it a window? I have to be home for it, right?
+  Nurse -> Someone needs to sign. You'll get a window from the delivery company. Is there a time that's better for you?
+  Caller -> After lunch is best. She naps from one to three and she's happier when she's sleeping through the knock on the door.
+  Nurse -> I'll note that. Is there anything else on your mind?
+  Caller -> Actually, yes. A question. A friend of mine, her son has a tube too, and she blends real food for him. Like sweet potato and chicken. Could I do that for Mila? I'd love for her to have real food. || A6
+  Nurse -> That's a really good question, and a lot of families ask. I want our dietitian to answer it, because it depends on the size of her tube and what formula she's on. I'll message the dietitian for you. || R3
+  Caller -> Okay. I won't do anything until I hear. I just wondered.
+  Nurse -> That's the right approach. Please don't put blended foods through the tube until the dietitian says it's safe. And keep flushing the tube with water after every feed. || E2
+  Caller -> Flush with water after every feed. I do. Five mil. And no blended food until I hear. Okay.
+  Nurse -> Perfect. And a few notes on the supplies. After each use, rinse the syringes in warm, soapy water and let them air dry. And change the extension set once a week, or sooner if it looks cloudy. || E1
+  Caller -> Warm soapy water. Air dry. Extension set weekly. Okay. I think I've been rinsing but not with soap. Is that bad?
+  Nurse -> Not terrible, but soap helps. Just rinse the soap out well.
+  Caller -> Okay. Good to know. I've been doing it wrong for a month, ha.
+  Nurse -> No, you've been doing a great job. Mila is lucky to have you.
+  Caller -> Thank you. That means a lot. Some days I'm not so sure. Last week she pulled the extension set right off in the middle of a feed and formula went everywhere. All over the carpet, all over me, and she thought it was hilarious.
+  Nurse -> Oh no. That happens to everybody at some point. Did you have to restart the feed?
+  Caller -> I just cleaned her up and gave her the rest with a new set. That's actually why I'm down to one spare. I used one that day.
+  Nurse -> That makes sense. That's why I'm asking for a whole box.
+  Caller -> Perfect. And I'm going to try one of those little onesies that snaps over the button. My friend says it keeps their hands off.
+  Nurse -> Those work well. It's a good idea.
+  Nurse -> You're doing great. How is she doing overall?
+  Caller -> She's wonderful. She just learned to say my name. Mama. Well, Mamma-ma. She walks around holding the couch. She's so determined.
+  Nurse -> That's fantastic. Give her a hug from us.
+  Caller -> I will. Okay, that's everything. Thank you, Samira.
+  Nurse -> Take care, Chidinma. Talk soon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mila Okonkwo-Hart, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2023-04-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Chidinma Okonkwo-Hart, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "6785550109", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested feeding tube supplies for her daughter.
+    speaker: Caller
+    turns: [8]
+    quote: "I'm getting low on her feeding supplies."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Six cans of formula remained, about four days' worth.
+      speaker: Caller
+      turns: [10]
+      quote: "I have six cans. The big ones."
+      explanation: Documents the formula supply.
+      facts:
+        - {type: supply, item: formula, supply: 6 cans, certainty: stated}
+      covers: [A1]
+    - text: Two 60 mL syringes remained, one of them cloudy.
+      speaker: Caller
+      turns: [12]
+      quote: "I have two. Just two."
+      explanation: Documents the syringe supply.
+      facts:
+        - {type: supply, item: feeding syringes, supply: 2 syringes, certainty: stated}
+      covers: [A2]
+    - text: One spare extension set remained.
+      speaker: Caller
+      turns: [14]
+      quote: "One spare. One."
+      explanation: Documents the extension set supply.
+      facts:
+        - {type: supply, item: extension sets, supply: 1 sets, certainty: stated}
+      covers: [A3]
+    - text: She received four feeds a day.
+      speaker: Caller
+      turns: [16]
+      quote: "Four. Morning, noon, afternoon, bedtime."
+      explanation: Documents the feeding schedule.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: No vomiting or diarrhea was reported.
+      speaker: Caller
+      turns: [18]
+      quote: "No. None. She's been really good."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or diarrhea, certainty: stated}
+      covers: [A4]
+    - text: No redness or leaking was reported at the tube site.
+      speaker: Caller
+      turns: [20]
+      quote: "No leaking. It's clean."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: redness or leaking at the tube site, certainty: stated}
+      covers: [A5]
+    - text: She asked whether she could give blended foods through the tube.
+      speaker: Caller
+      turns: [30]
+      quote: "Could I do that for Mila? I'd love for her to have real food."
+      explanation: Documents the caller's question.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to order formula, 60 mL syringes, and extension sets.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll order the formula, the sixty mil syringes, and the extension sets."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Tuesday.
+      speaker: Nurse
+      turns: [25]
+      quote: "They'll deliver Tuesday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Tuesday, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the dietitian about blended foods.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'll message the dietitian for you."
+      explanation: Documents the planned dietitian message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not putting blended foods through the tube until the dietitian said it was safe, and flushing with water after every feed.
+      speaker: Nurse
+      turns: [33]
+      quote: "Please don't put blended foods through the tube until the dietitian says it's safe."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised rinsing the syringes in warm soapy water after each use and changing the extension set weekly or when cloudy.
+      speaker: Nurse
+      turns: [35]
+      quote: "After each use, rinse the syringes in warm, soapy water and let them air dry."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+  risk_flags: []

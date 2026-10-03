@@ -1,0 +1,337 @@
+call_id: va-034
+split: val
+blueprint: "Medium call: son's pain-medicine name is heard as 'meth a dome' twice and 'methadone' once with no confirmation (unresolved, unclear); the son's name is misheard (Gordon) and corrected; one reply is mislabeled; pain 5/10 and he asks to increase the dose; nurse says not to change it and plans a hospice physician review."
+setup:
+  scenario_category: asr_error
+  subtype: conflict_unresolved
+  secondary_tags: [garbled_drug, speaker_label_errors, split_turns, name_drift]
+  clinical_domains: [pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-09T19:50:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: [A2]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 4
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Roland Vickers
+  patient_name_spoken: Roland Vickers
+  patient_name_certainty: stated
+  patient_dob_true: "1940-05-22"
+  patient_dob_spoken: "1940-05-22"
+  patient_dob_certainty: stated
+  caller_name_true: Gideon
+  caller_name_spoken: Gideon
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "4045550164"
+  callback_phone_spoken: "4045550164"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Father's pain is up; son wants to increase the pain medicine
+  reason_category: pain
+  relevant_context: Hospice patient with bone pain
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 5/10
+    body_location: hips and lower back
+    onset_or_duration: worse over the last 3 days
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: methadone
+    medication_name_spoken: meth a dome
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: three times a day
+    certainty: unclear
+    unclear_detail: Name heard as meth a dome twice and methadone once with no confirmation
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping more
+    symptom_present: true
+    severity: sleeps most of the day
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: constipation
+    symptom_present: false
+    history_or_context_text: Last bowel movement yesterday morning and normal
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased appetite
+    symptom_present: true
+    severity: a few bites at each meal
+    certainty: stated
+  - item_id: A5
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Wants to double the dose because the pain is worse
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice physician
+    reason_or_trigger: pain review and dose request
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not change the dose until the physician reviews
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give exactly as labeled, write each dose and time on a log, and never double up
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if he is very sleepy, hard to wake, or breathing slowly; 911 if he cannot be woken
+    trigger_condition: very sleepy; hard to wake; slow breathing
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Pillows to support the hips, repositioning every 2 hours, and a warm pack on low
+    timing_or_threshold: every 2 hours
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Hi, Tom. This is Gideon. I'm calling about my dad, Roland Vickers. || caller_name, patient_name, relationship
+  Nurse -> Hi, Gordon. Roland Vickers. And his date of birth?
+  Caller -> It's Gideon. G I D E O N. May twenty second, nineteen forty. || caller_name, patient_dob
+  Nurse -> Sorry about that, Gideon. And I have four oh four, five five five, zero one six four for you? || caller_name, callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> What's going on with your dad?
+  Caller -> His pain is worse. It's his hips, and his lower back. It's been getting worse the last three days. || cc, A1
+  Nurse -> Okay. How bad is it, zero to ten?
+  Caller -> He says a five. Maybe a five. It was a three last week. || A1
+  Nurse -> Okay. What is he taking for pain?
+  Caller -> The meth a dome. Ten milligrams, three times a day. || A2
+  Nurse -> And how's that going?
+  Caller -> It was working. But now it's not enough. So I wanted to ask if I could give him more. Like double the meth a dome. || A2, A5
+  Nurse -> Okay. Is he sleeping a lot?
+  Caller -> He sleeps most of the day. More than before. || A4
+  Nurse -> Okay. And is he throwing up?
+  Caller -> No. No vomiting. || A3
+  Nurse -> Okay. Gideon, I can't change the dose over the phone. His pain medicine is one that needs to be adjusted carefully, because it builds up in the body. || R3
+  Caller -> Okay. But he's hurting.
+  Nurse -> I understand. I'm going to message our hospice doctor tonight, and ask him to review the pain plan. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And I'll call you tomorrow morning with the doctor's answer.
+  Nurse -> When was his last bowel movement?
+  Caller -> Yesterday morning. It was normal. || A6
+  Nurse -> Good. And how's his appetite?
+  Caller -> He's eating a little. A few bites at each meal. Mostly he likes the vanilla pudding. || A7
+  Nurse -> That's fine. Whatever he enjoys.
+  Caller -> Yeah. He used to be a big eater. A truck driver, thirty years. He could eat a whole pie.
+  Nurse -> Ha. Which pie?
+  Caller -> Pecan. Always pecan.
+  Nurse -> A man with good taste.
+  Caller -> My mother used to bake it every Thanksgiving. He still talks about it.
+  Nurse -> That's a lovely memory. Maybe your sister can make one for him.
+  Caller -> That's a great idea. I'll ask her. She's the baker.
+  Nurse -> Even a bite of it might make his day.
+  Caller -> It would. Thank you for that.
+  Caller -> One more thing, can I ask? He keeps asking for his old truck keys. He's confused sometimes in the evening. Is that normal?
+  Nurse -> It can be. Some confusion in the evening is common, especially when someone is sleeping more and not eating much. It's not a surprise, but I'll note it for the doctor.
+  Caller -> Okay. I just go along with it. I tell him they're in the kitchen drawer.
+  Nurse -> That's a kind way to handle it. Gentle, no arguing.
+  Caller -> He gets upset if I correct him. So I don't.
+  Nurse -> Exactly right. Reassure him, keep the lights on in the evening, and keep things calm.
+  Caller -> Okay. Thank you. That helps, knowing I'm not doing it wrong.
+  Nurse -> You're doing it right, Gideon.
+  Nurse -> Does he have a hospice aide coming to help with bathing?
+  Caller -> Tuesdays and Fridays. She's wonderful. Maria. He calls her his girlfriend.
+  Nurse -> Ha. Good for him.
+  Caller -> Tomorrow is Friday, so she'll be here in the morning, right around when you call.
+  Nurse -> Perfect. I'll call a little after she leaves.
+  Nurse -> Okay. That's fine. It's the methadone, right? That's what he said. || A2, label_error
+  Caller -> I think so. Yeah. The methadone. That's what's on the bottle. I think. I don't have my glasses on, so I can't really read it. || A2
+  Nurse -> Okay. Let me see if I can find it in my notes. Hold on.
+  Caller -> Sure.
+  Nurse -> I'm not finding it on this screen. I'll have the doctor confirm all the details when he reviews. In the meantime, please give exactly what the label says, and write down each dose and the time on a sheet. And never double up. || E1, R3, R2
+  Caller -> Okay. Not doubling. I'll write down the times.
+  Nurse -> For comfort, put pillows under his hips, change his position every two hours, and a warm pack on low, wrapped in a towel. || E3
+  Caller -> Okay. A warm pack. We have one.
+  Nurse -> If he gets very sleepy, hard to wake, or his breathing slows down, call me right away. If you can't wake him, nine one one. || E2
+  Caller -> Okay. I will.
+  Nurse -> And how are you doing, Gideon? Are you getting any rest?
+  Caller -> Some. I'm sleeping on the couch next to him. I'm tired, but I'm okay.
+  Nurse -> Good. Is there anyone who can relieve you for a few hours tomorrow?
+  Caller -> My sister is coming in the afternoon. She's driving from Savannah.
+  Nurse -> Good. Take a nap when she gets there.
+  Caller -> I will. Thank you.
+  Nurse -> Talk to you tomorrow morning.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Gideon, heard_form: Gordon, fact_id: caller_name}
+  - {turn: auto, type: drug_garble, true_form: methadone, heard_form: meth a dome, fact_id: A2}
+  - {turn: auto, type: speaker_label, true_form: "caller reply", heard_form: "It's the methadone, right", fact_id: A2}
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "I'll call you tomorrow morning with the doctor's answer", fact_id: R2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Roland Vickers, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-05-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gideon, certainty: stated, heard_as: [], turns: [2, 4, 5]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550164", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father's hip and back pain was worse and asked to increase his pain medicine.
+    speaker: Caller
+    turns: [8]
+    quote: "His pain is worse. It's his hips, and his lower back."
+    explanation: Documents the pain concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hip and lower back pain of about 5/10 had worsened over the last 3 days.
+      speaker: Caller
+      turns: [10]
+      quote: "He says a five. Maybe a five. It was a three last week."
+      explanation: Documents pain severity and trend.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 5/10, location: hips and lower back, onset: worse over the last 3 days, certainty: stated}
+      covers: [A1]
+    - text: Meth a dome 10 mg three times a day was reported (unclear; the name was also heard as methadone and was not confirmed), and the caller wanted to double the dose.
+      speaker: Caller
+      turns: [12]
+      quote: "The meth a dome. Ten milligrams, three times a day."
+      explanation: Documents the current pain medication while preserving the unresolved name conflict.
+      facts:
+        - {type: medication, name: meth a dome, dose: "10", unit: mg, frequency: three times a day, med_status: taking, certainty: unclear}
+      covers: [A2]
+    - text: The caller wanted to double the dose because the pain was no longer controlled.
+      speaker: Caller
+      turns: [14]
+      quote: "So I wanted to ask if I could give him more. Like double the meth a dome."
+      explanation: Documents the caller's request.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+    - text: He was sleeping most of the day, more than before.
+      speaker: Caller
+      turns: [16]
+      quote: "He sleeps most of the day. More than before."
+      explanation: Documents increased sleepiness.
+      facts:
+        - {type: symptom, name: sleeping more, present: true, severity: sleeps most of the day, certainty: stated}
+      covers: [A4]
+    - text: His last bowel movement was yesterday morning and normal.
+      speaker: Caller
+      turns: [25]
+      quote: "Yesterday morning. It was normal."
+      explanation: Documents a pertinent negative for constipation.
+      facts:
+        - {type: pertinent_negative, name: constipation, certainty: stated}
+      covers: [A6]
+    - text: Appetite was reduced, with a few bites at each meal.
+      speaker: Caller
+      turns: [27]
+      quote: "He's eating a little. A few bites at each meal."
+      explanation: Documents decreased appetite.
+      facts:
+        - {type: symptom, name: decreased appetite, present: true, severity: a few bites at each meal, certainty: stated}
+      covers: [A7]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [18]
+      quote: "No. No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that the dose could not be changed by phone and not to change it until the physician reviewed.
+      speaker: Nurse
+      turns: [19]
+      quote: "I can't change the dose over the phone."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+    - text: Planned to message the hospice physician tonight to review the pain plan.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to message our hospice doctor tonight, and ask him to review the pain plan."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow morning with the doctor's answer.
+      speaker: Nurse
+      turns: [23]
+      quote: "And I'll call you tomorrow morning with the doctor's answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving the medicine exactly as labeled, writing down each dose and time, and never doubling up.
+      speaker: Nurse
+      turns: [55]
+      quote: "please give exactly what the label says, and write down each dose and the time on a sheet. And never double up."
+      explanation: Documents medication-safety instructions.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away if he became very sleepy, hard to wake, or his breathing slowed, and calling 911 if he could not be woken.
+      speaker: Nurse
+      turns: [59]
+      quote: "If he gets very sleepy, hard to wake, or his breathing slows down, call me right away."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised pillows under the hips, repositioning every 2 hours, and a warm pack on low.
+      speaker: Nurse
+      turns: [57]
+      quote: "put pillows under his hips, change his position every two hours, and a warm pack on low, wrapped in a towel."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+  risk_flags: []

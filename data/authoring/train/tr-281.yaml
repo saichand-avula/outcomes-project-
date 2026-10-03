@@ -1,0 +1,285 @@
+call_id: tr-281
+split: train
+blueprint: "A 41-year-old woman with multiple sclerosis calls on her break at work: new tingling and numbness in her left hand for two days, more tired than usual, she tripped on a rug Friday but caught herself. No vision changes, no trouble walking. She also needs a baclofen refill, three days left. She can't remember her new cell number so the nurse uses the file. Nurse messages the provider, sends the refill request, has scheduling call for a visit this week, gives return precautions and heat avoidance. Routine self-caller aged 18-64, name spelled, phone not given, v2 short."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [name_spelled, phone_not_given, phone_from_file, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [neurologic, fatigue, medication, falls_safety]
+  relationship_group: self
+  na_reason: null
+  agency_name: Pinecrest Home Health
+  agency_type: home_health
+  nurse_name: Lucy
+  call_timestamp_utc: "2026-10-30T16:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Naomi Fairweather
+  patient_name_spoken: Naomi Fairweather
+  patient_name_certainty: stated
+  patient_dob_true: "1984-08-19"
+  patient_dob_spoken: "1984-08-19"
+  patient_dob_certainty: stated
+  caller_name_true: Naomi Fairweather
+  caller_name_spoken: Naomi Fairweather
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Reported new tingling and numbness in her left hand and asked for a medication refill
+  reason_category: neurologic
+  relevant_context: Home health patient with multiple sclerosis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: tingling and numbness in the left hand
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: more tired than usual
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: patient
+    history_or_context_text: Tripped on a rug on Friday and caught herself without falling
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    medication_status: requested
+    dose: "10"
+    unit: mg
+    frequency: three times a day
+    last_dose: three days left
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: vision changes or trouble walking
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: neurology provider
+    reason_or_trigger: new left hand numbness and tingling
+    certainty: stated
+  - item_id: R2
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: baclofen with three days left
+    certainty: stated
+  - item_id: R3
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    timeframe: this week
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Go to the emergency room if the numbness spreads, she loses vision, has new weakness, or has trouble speaking
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Write down when the tingling comes and goes and avoid hot showers and getting overheated
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pinecrest Home Health, this is Lucy.
+  Caller -> Hi. Hi, Lucy. It's Naomi. Naomi Fairweather. I'm, sorry, I'm on my break so I have like fifteen minutes. || caller_name, relationship, patient_name
+  Nurse -> No problem. We'll be quick. How are you doing, Naomi?
+  Caller -> Okay. Mostly okay. A couple of things. My left hand is acting weird. And I need a refill.
+  Nurse -> Okay. Let's start with that. Can you spell your last name for me so I get the right chart?
+  Caller -> Yeah. F A I R W E A T H E R. Fairweather. Like the weather is fair. People always put a space in the middle.
+  Nurse -> Got it. Fairweather. And your date of birth?
+  Caller -> August nineteenth. Nineteen eighty four. || patient_dob
+  Nurse -> Perfect. And a good callback number?
+  Caller -> Oh gosh. I just switched phones. Ugh. My number changed and I can't remember it. I'm at work so it's the front desk line but that's not good. Hang on, let me, I don't have it. I'm sorry.
+  Nurse -> That's fine. You have a cell number on file with us. I'll use that one and you can tell me if it's wrong.
+  Caller -> Yeah. Please. I'll check it when I get home. It'll be fine.
+  Nurse -> Okay. So, your hand. Which hand, and what's it doing?
+  Caller -> The left one. It's tingly. Like pins and needles. And parts of it are numb. Like my thumb and my first two fingers. It started Thursday morning. So, two days. I thought I slept on it. But it didn't go away. || A1, cc
+  Nurse -> Okay. Does it come and go, or is it constant?
+  Caller -> Mostly constant. It's worse when I type. I type all day. I'm in billing. Not your billing, a different one. A dentist's office.
+  Nurse -> Ha. Okay. Is it affecting your grip? Are you dropping things?
+  Caller -> Sort of. I dropped my coffee. Twice. Not on purpose. It just slips.
+  Nurse -> Okay. Have you had this before? Is this like your MS flares?
+  Caller -> I think so? My last flare was in the spring, and it was my leg. It wasn't a hand. But the nurse said it could do anything. So I thought I should call before it got worse.
+  Nurse -> That was the right call. Any other changes? Vision, balance, speech?
+  Caller -> No. My vision's fine. I would know, the last time I had the blurry eye. That scared me. This is not that. And walking is okay. I'm not wobbly or anything. || A5
+  Nurse -> Good. How about energy? How are you feeling overall?
+  Caller -> Tired. More tired than usual. Like I'm dragging. I come home and I just lie on the couch. My roommate is making dinner every night. I feel bad. || A2
+  Nurse -> That's a lot. How long has the tiredness been going on?
+  Caller -> Maybe the same time? Since Thursday? Maybe a little before. I don't know. Everyone's tired, you know? It's October.
+  Nurse -> Ha. True. Any falls?
+  Caller -> No. No falls. Well, so Friday I tripped on the rug in the hall. The one that curls up. I caught myself on the wall. I didn't fall down. My roommate said I should throw the rug out. || A3
+  Nurse -> Your roommate is right. That rug is a hazard. Maybe tape it down or get rid of it for now.
+  Caller -> I took it up last night. It's in the closet.
+  Nurse -> Good. So the rug is gone. And you said you needed a refill?
+  Caller -> The baclofen. The ten milligrams. I take it three times a day for the stiffness. And I'm down to, let me count, I have three days left. I looked this morning. Three days. || A4
+  Nurse -> Okay. Three days. That's not much time, so we'll get that moving today. Do you know which pharmacy you use?
+  Caller -> The same one. The one on Delaney Street. It's all in my file.
+  Nurse -> Okay. I see it. Delaney Street. Good.
+  Caller -> Thanks. I always forget to do this until it's almost out.
+  Nurse -> Everyone does. Naomi, I'm going to message your neurology provider today about the numbness and tingling in your left hand and how long it's been going on. They'll want to know since it's a new symptom. || R1
+  Caller -> Do you think it's a flare?
+  Nurse -> It could be. I can't say for sure, and I don't want to guess. That's why the provider needs to hear about it.
+  Caller -> Okay. That makes sense.
+  Nurse -> I'll also send the refill request for the baclofen to your provider, since you only have three days left. || R2
+  Caller -> Perfect. Thank you.
+  Nurse -> And I'll have our scheduling person call you to set up an appointment for this week. Is there a day that works better?
+  Caller -> I work Monday to Friday, nine to five. Afternoons are hard. But I can do a lunch. Or I can leave early on Thursday.
+  Nurse -> Okay. I'll tell scheduling you prefer a lunch time or Thursday late afternoon. They'll call to set it up. || R3
+  Caller -> Okay. That works.
+  Nurse -> Now, a couple of important things. If the numbness spreads, like to your face or your leg, or you lose vision, or you get new weakness, or you have trouble speaking, go to the emergency room. Don't wait for a call back. || E1
+  Caller -> Spreads, vision, weakness, speaking. Okay. I'll go to the ER. Yeah. I know. I did that in the spring.
+  Nurse -> Good. And try to write down when the tingling comes and goes, and what makes it worse. Also, avoid hot showers and getting overheated. Heat can make MS symptoms worse. || E2
+  Caller -> Oh. I took a really hot shower last night. Because my hand was cold. That might be it.
+  Nurse -> It could make it feel worse for a while. Keep the water warm, not hot, for now.
+  Caller -> Okay. Warm, not hot. And write it down. I can put it in my phone notes.
+  Nurse -> That's perfect.
+  Caller -> Is there anything I should do about work? Like should I take time off?
+  Nurse -> That's something to ask the provider. If the typing is making it worse, maybe take more breaks and stretch your hands. But I'd let them decide on time off.
+  Caller -> Okay. I have a letter from my doctor from the spring about accommodations. I might use that.
+  Nurse -> That's smart. Have that handy.
+  Caller -> Yeah. Okay. I think that's it. Oh wait. My roommate. Can they talk to you if I'm not around?
+  Nurse -> Only if you've given permission. We'd need that on file.
+  Caller -> I'll fill that out. I'll bring it to the visit.
+  Nurse -> Perfect. Okay, Naomi. Anything else?
+  Caller -> No, I'm good. My break's almost over. Thank you so much, Lucy.
+  Nurse -> You're welcome. Take care of that hand. Feel better.
+  Caller -> I'll try. Bye.
+  Nurse -> Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Naomi Fairweather, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1984-08-19", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Naomi Fairweather, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported new tingling and numbness in her left hand and asked for a medication refill.
+    speaker: Caller
+    turns: [4]
+    quote: "My left hand is acting weird. And I need a refill."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Tingling and numbness in the left thumb and first two fingers began two days earlier and was mostly constant.
+      speaker: Caller
+      turns: [14]
+      quote: "It started Thursday morning. So, two days."
+      explanation: Documents the hand symptoms.
+      facts:
+        - {type: symptom, name: tingling and numbness in the left hand, present: true, onset: two days, certainty: stated}
+      covers: [A1]
+    - text: She felt more tired than usual.
+      speaker: Caller
+      turns: [24]
+      quote: "More tired than usual."
+      explanation: Documents the fatigue.
+      facts:
+        - {type: symptom, name: more tired than usual, present: true, certainty: stated}
+      covers: [A2]
+    - text: She tripped on a rug on Friday and caught herself on the wall without falling.
+      speaker: Caller
+      turns: [28]
+      quote: "I tripped on the rug in the hall."
+      explanation: Documents the near fall.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: Baclofen 10 mg three times a day had three days left and a refill was needed.
+      speaker: Caller
+      turns: [32]
+      quote: "The baclofen. The ten milligrams. I take it three times a day for the stiffness."
+      explanation: Documents the medication needing a refill.
+      facts:
+        - {type: medication, name: baclofen, dose: "10", unit: mg, frequency: three times a day, last_dose: three days left, med_status: requested, certainty: stated}
+      covers: [A4]
+    - text: No vision changes or trouble walking were reported.
+      speaker: Caller
+      turns: [22]
+      quote: "My vision's fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vision changes or trouble walking, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the neurology provider about the new numbness and tingling.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to message your neurology provider today about the numbness and tingling in your left hand"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send the baclofen refill request to the provider.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll also send the refill request for the baclofen to your provider"
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to have scheduling call to set an appointment this week at lunch or Thursday afternoon.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'll have our scheduling person call you to set up an appointment for this week."
+      explanation: Documents the planned appointment scheduling.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, timeframe: this week, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised going to the emergency room if the numbness spread, vision was lost, new weakness developed, or speech was affected.
+      speaker: Nurse
+      turns: [47]
+      quote: "go to the emergency room. Don't wait for a call back."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+    - text: Advised writing down when the tingling came and went and avoiding hot showers and overheating.
+      speaker: Nurse
+      turns: [49]
+      quote: "avoid hot showers and getting overheated."
+      explanation: Documents symptom monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+  risk_flags: []

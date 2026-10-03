@@ -1,0 +1,412 @@
+call_id: va-089
+split: val
+blueprint: "A son, Corbin Brennerman, calls to go over his father Alistair's medicines after a hospital stay for atrial fibrillation. Apixaban five milligrams twice a day is new and replaces warfarin; metoprolol succinate fifty milligrams daily continues; furosemide was lowered from forty to twenty; atorvastatin forty at night is unchanged. On Saturday evening Corbin gave him both warfarin three milligrams and the new apixaban before reading the discharge sheet properly. There is no bleeding or unusual bruising. Nurse pages on-call, notifies the physician, contacts the pharmacy, plans a visit tomorrow to clear the old warfarin from the house, and reviews bleeding signs. Medication reconciliation with a possible double anticoagulant dose, adult child caller, medication concern flag, long, v2."
+setup:
+  scenario_category: medication
+  subtype: discharge_med_reconciliation
+  secondary_tags: [adult_child, medication_change, extra_dose, stopped_drug, multi_issue, late_answers, split_turns]
+  clinical_domains: [medication, cardiac, bleeding]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Aurora Home Health
+  agency_type: home_health
+  nurse_name: Benedikt
+  call_timestamp_utc: "2026-12-15T17:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [Advil]
+chief_complaint:
+  patient_name_true: Alistair Brennerman
+  patient_name_spoken: Alistair Brennerman
+  patient_name_certainty: stated
+  patient_dob_true: "1944-04-02"
+  patient_dob_spoken: "1944-04-02"
+  patient_dob_certainty: stated
+  caller_name_true: Corbin Brennerman
+  caller_name_spoken: Corbin Brennerman
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6105550109"
+  callback_phone_spoken: "6105550109"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Wanted to check his father's medicines after a hospital stay and reported giving both blood thinners one evening
+  reason_category: medication
+  relevant_context: Recently discharged home health patient with atrial fibrillation
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: apixaban
+    medication_name_spoken: apixaban
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: extra_dose
+    dose: "3"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: Saturday evening, given along with the apixaban
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol succinate
+    medication_name_spoken: metoprolol succinate
+    medication_status: taking
+    dose: "50"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: atorvastatin
+    medication_name_spoken: atorvastatin
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: at night
+    prn: false
+    last_dose: last night
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: bleeding or unusual bruising
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: context
+    reporter: caller
+    history_or_context_text: Warfarin was replaced by apixaban at discharge and the old warfarin bottle is still in the house
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: both blood thinners given on Saturday evening
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: dispensing pharmacy
+    reason_or_trigger: confirm the discharge medicine list
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more warfarin, put the old bottle in a bag away from the others, and give the new blood thinner twelve hours apart
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away or dial 911 for bleeding that will not stop, black or bloody stools, vomiting blood, a bad headache, or a fall with a head injury
+    trigger_condition: uncontrolled bleeding; black or bloody stools; vomiting blood; severe headache; head injury
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use a soft toothbrush and electric razor, avoid ibuprofen and aspirin, and use a pill organizer filled from the current list
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Gave both warfarin and apixaban on Saturday evening after the discharge change
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Aurora Home Health, this is Benedikt.
+  Caller -> Hi, Benedikt. This is Corbin Brennerman. I'm calling about my father, Alistair Brennerman. He came home from the hospital Thursday. I need to go over his medicines because I think I made a mistake. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Hi, Corbin. Okay. Let's slow down and go through it. Do you have the discharge list in front of you?
+  Caller -> I do. Seven pages. They stapled the pharmacy printout to the back. And a sheet about blood thinners. I tried to read it all in the first night.
+  Nurse -> That's a lot for anyone. Don't worry about the pile. We'll go step by step.
+  Caller -> I do. And all the bottles. I've lined them up on the kitchen table. Eleven bottles. It's like a pharmacy.
+  Nurse -> Some of those may be old bottles from before the hospital.
+  Caller -> Most of them. I didn't want to throw anything out until someone told me.
+  Nurse -> Smart. We'll sort them tomorrow.
+  Nurse -> Perfect. Start with the new ones. What changed in the hospital?
+  Caller -> Before I start, they kept him four days. They said his heart rate was racing, up near a hundred and forty at one point. They shocked it back, I think. Cardioversion.
+  Nurse -> That's a big stay. You've been through a lot.
+  Caller -> They started a new blood thinner. Apixaban. Five milligrams. Twice a day. The paper says it replaces the warfarin. || A1
+  Nurse -> Right. That's a big change. So the warfarin stopped. || A2
+  Caller -> It's supposed to. The paper says discontinue warfarin. In a box, in bold. But here's the thing. I didn't read the paper carefully on Thursday. Friday I gave him the warfarin in the evening, because that's what he always took. I thought, well, he's on a new one too, but maybe both. And then Saturday evening I gave him both again. The warfarin and the apixaban. || A2
+  Nurse -> Okay. Thank you for telling me. That's very important. When exactly did you give both?
+  Caller -> Saturday evening. Around seven. The warfarin three milligrams. The one pill. And the apixaban at the same time. It was his evening dose of the new one. || A2
+  Nurse -> And he got warfarin on Friday evening too? || A2
+  Caller -> Friday, yes. Just the warfarin on Friday. The apixaban was only supposed to start Saturday morning. Because the hospital said, wait for the INR to come down. I don't know. It's confusing. I read it again last night and I saw the box. And I stopped. I haven't given the warfarin since. || A1, A2
+  Nurse -> Okay. So Friday evening warfarin, then Saturday evening warfarin and apixaban together. And none since. || A1, A2
+  Caller -> Right. Sunday and today, just the apixaban. And the other pills. || A1
+  Nurse -> Okay. Is there any bleeding? Bruising? Anything unusual?
+  Caller -> I checked him from head to toe last night. No bleeding. His gums are fine. No nosebleeds. A bruise on his arm from the IV, but that was there when he came home. Nothing new. He says he feels fine. || A6
+  Nurse -> Good. Any black stools? Blood in the urine?
+  Caller -> He says the stools are normal. Brown. And the urine is yellow. He's careful about that. I asked.
+  Nurse -> Any headaches? Dizziness? Falls?
+  Caller -> No falls. He's steady with the walker. No headaches. A tiny bit of tiredness. He's seventy eight, he's tired.
+  Nurse -> Is he sleeping more than before the hospital, or the same?
+  Caller -> A bit more. He naps after lunch for an hour. He didn't do that before.
+  Nurse -> That's common after a hospital stay.
+  Nurse -> Okay. Corbin, can I have his date of birth?
+  Caller -> April second, nineteen forty four. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Six one zero, five five five, zero one zero nine. || callback_phone
+  Nurse -> Thank you. Now let's go through the rest. Keep your list handy. What's the metoprolol? || A3
+  Caller -> Metoprolol succinate. The extended release. Fifty milligrams. Once a day in the morning. It's unchanged from before. He took it this morning. || A3
+  Nurse -> Good. Please don't crush it. And the water pill? || A3
+  Caller -> Furosemide. Twenty milligrams. Once a day. The hospital lowered it. It used to be forty. But I want to make sure, because the old bottle at home says forty. It's the old bottle. And the new bottle says twenty. || A4
+  Nurse -> Which are you using?
+  Caller -> The new one. Twenty. I put the old one in a drawer.
+  Nurse -> Good. Keep the old one away. And the cholesterol medicine?
+  Caller -> Wait, one more question about the furosemide. If he gains weight, do I give more? || A4
+  Nurse -> No. Weigh him every morning and report a gain to us. Don't change the dose yourself.
+  Caller -> Don't change. Report. Got it.
+  Caller -> Atorvastatin. Forty milligrams. At night. No change. He took it last night. || A5
+  Nurse -> Perfect. So the list is apixaban five twice a day, metoprolol succinate fifty daily, furosemide twenty daily, atorvastatin forty at night. And warfarin is stopped. || A1, A2, A3, A4, A5
+  Caller -> Yes. That's what the paper says. Warfarin stopped. I should have been careful. I feel awful. || A2
+  Caller -> If anything happens to him because of me, I'll never forgive myself.
+  Nurse -> Let's take one thing at a time. We have good steps to take today.
+  Nurse -> I understand. It's an easy mistake when there's so much paper. Where's the warfarin bottle now? || A2
+  Caller -> On the table with the others. I'll put it away.
+  Nurse -> Please put it in a bag, away from the other bottles. Don't throw it out yet. The nurse will help you with it. || A7
+  Caller -> In a bag. Away. Okay.
+  Nurse -> Corbin, here's what I'm going to do. I'm paging the on-call clinician now about the double blood thinner on Saturday. They may want a blood test to check how thin his blood is. || R1
+  Caller -> Okay. Please. Thank you.
+  Nurse -> I'm also going to call the pharmacy to confirm the discharge medicine list, so everything matches. || R2
+  Caller -> That would be great. I'd feel better if somebody else looked at the list.
+  Nurse -> And I'm sending a nurse tomorrow. She'll go through every bottle with you, fill the pill organizer from the current list, and take the old warfarin out of the house. || R3
+  Caller -> Tomorrow. Okay. What time?
+  Caller -> If I'm at the pharmacy when she comes, my dad can let her in. He's fine with the door.
+  Nurse -> I'd prefer you be there for the medication review, if you can.
+  Caller -> Then I'll stay. I'll get what I need by delivery.
+  Nurse -> The scheduler will call you. Probably the morning.
+  Caller -> I'll be here.
+  Nurse -> Until then, give no more warfarin. Give the apixaban twelve hours apart, morning and evening. Same times every day. || E1
+  Caller -> Twelve hours apart. Morning and evening. Okay. Eight and eight.
+  Nurse -> Does he drink alcohol, or take any herbal supplements?
+  Caller -> A glass of wine on Sundays. No supplements. He thinks vitamins are a scam.
+  Nurse -> Ha. Fine. Keep the wine to that.
+  Nurse -> Eight and eight is good. Now, call us right away if he has bleeding that won't stop, black or bloody stools, vomiting blood, a bad headache, or a fall where he hits his head. For any of those, call nine one one. || E2
+  Caller -> Bleeding. Black stools. Vomiting blood. Bad headache. Head injury. Nine one one. I'm writing it down.
+  Nurse -> Stick the list on the fridge where everyone in the house sees it.
+  Caller -> Right next to the pizza magnet. It's the only magnet we have.
+  Nurse -> Also, a few safety things. Use a soft toothbrush and an electric razor. No ibuprofen or aspirin. And fill the pill organizer only from the current list. || E3
+  Caller -> Soft brush. Electric razor. No Advil. Pill organizer from the new list. Okay. I don't think he has an electric razor. I'll buy one.
+  Nurse -> Good idea.
+  Caller -> He's been shaving with a safety razor for fifty years. He'll complain.
+  Nurse -> Ha. Safety first.
+  Caller -> I'll tell him the nurse said.
+  Nurse -> Does he live with anyone else?
+  Caller -> No. He's alone since my mother passed. That's why I'm here.
+  Nurse -> It's good you could take the week.
+  Nurse -> Always works.
+  Caller -> Ha. Benedikt, can I ask you something? Am I a bad son?
+  Nurse -> Not at all. You're a son who's carrying a lot, and who caught the mistake and called. That's what a good caregiver does.
+  Caller -> I'm an accountant. I'm good with numbers. But these are different numbers. Milligrams and units, twice a day, with food, without food.
+  Nurse -> Ha. A different spreadsheet.
+  Caller -> I made one. A spreadsheet. It has the times and the doses and a checkbox.
+  Nurse -> Perfect. Bring it tomorrow. The nurse will love it.
+  Caller -> I'm just so tired. I took a week off work. I'm sleeping on his couch. I'm cooking. I'm doing the pills. I haven't been this stressed in my life.
+  Nurse -> That's a lot. Is there anyone who can help?
+  Caller -> My sister's coming Wednesday. She can take over the evenings.
+  Nurse -> Good. Share the medicine list with her. One person fills the organizer, and the other checks it. Two sets of eyes.
+  Caller -> Two sets of eyes. That's smart. I'll set it up that way.
+  Caller -> She's a pharmacist's assistant, my sister. She's going to enjoy catching my mistakes.
+  Nurse -> Ha. Siblings.
+  Nurse -> Does your father know what happened?
+  Caller -> I told him. He laughed. He said, Corbin, I've been on warfarin for ten years, I could have told you. I said, Dad, why didn't you? He said he thought the hospital knew best. || A2
+  Nurse -> Ha. That's the kind of thing patients assume.
+  Caller -> He's a retired engineer. He thinks everything is a system. If the system says take it, he takes it.
+  Nurse -> Does he want to be involved in the medicine plan?
+  Caller -> He does, actually. He asked for a chart. He wants to tick them off himself. He says it's his heart, he'll count the pills.
+  Nurse -> That's great. Both of you checking is ideal.
+  Nurse -> The system needs a human check sometimes.
+  Caller -> Exactly. I'll be the human check.
+  Caller -> He's already making jokes about me being the pharmacist now.
+  Nurse -> Ha. You're the family pharmacist and the family chef.
+  Caller -> The chef is a stretch. Soup from a can.
+  Nurse -> The clinician will call you within the hour.
+  Caller -> Okay. I'll stay right by the phone.
+  Nurse -> Thank you for calling, Corbin. You did the right thing.
+  Caller -> Thank you for not making me feel stupid.
+  Caller -> I'll tell you, the hardest part was admitting it to my dad. He didn't judge me. He just said, thanks for catching it.
+  Nurse -> He sounds like a good man.
+  Caller -> He is. He built bridges for thirty five years. He knows all about redundancy.
+  Nurse -> Never. Take care.
+  Caller -> Should I tell the hospital about this? The cardiologist?
+  Nurse -> The clinician will handle that, and the nurse can bring it up tomorrow. You don't need to chase anyone down.
+  Caller -> Okay. That's a relief. One less thing.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alistair Brennerman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-04-02", certainty: stated, heard_as: [], turns: [32]}
+    caller_name: {value: Corbin Brennerman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550109", certainty: stated, heard_as: [], turns: [34]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Wanted to check his father's medicines after a hospital stay and reported giving both blood thinners one evening.
+    speaker: Caller
+    turns: [2]
+    quote: "I need to go over his medicines because I think I made a mistake."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Apixaban 5 mg twice a day was started at discharge to replace warfarin, last taken this morning.
+      speaker: Caller
+      turns: [13]
+      quote: "Apixaban. Five milligrams. Twice a day."
+      explanation: Documents the new blood thinner.
+      facts:
+        - {type: medication, name: apixaban, dose: "5", unit: mg, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Warfarin 3 mg was given on Saturday evening together with the apixaban, after being discontinued.
+      speaker: Caller
+      turns: [17]
+      quote: "The warfarin three milligrams."
+      explanation: Documents the extra warfarin dose.
+      facts:
+        - {type: medication, name: warfarin, dose: "3", unit: mg, frequency: once a day, prn: false, last_dose: Saturday evening, given along with the apixaban, med_status: extra_dose, certainty: stated}
+      covers: [A2]
+    - text: Metoprolol succinate 50 mg once a day was unchanged and taken this morning.
+      speaker: Caller
+      turns: [36]
+      quote: "Fifty milligrams. Once a day in the morning."
+      explanation: Documents the metoprolol.
+      facts:
+        - {type: medication, name: metoprolol succinate, dose: "50", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Furosemide was lowered from forty to twenty milligrams once a day, taken this morning.
+      speaker: Caller
+      turns: [38]
+      quote: "Twenty milligrams. Once a day. The hospital lowered it."
+      explanation: Documents the furosemide dose.
+      facts:
+        - {type: medication, name: furosemide, dose: "20", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Atorvastatin 40 mg at night was unchanged and taken last night.
+      speaker: Caller
+      turns: [45]
+      quote: "Forty milligrams. At night."
+      explanation: Documents the atorvastatin.
+      facts:
+        - {type: medication, name: atorvastatin, dose: "40", unit: mg, frequency: at night, prn: false, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: He had no bleeding, bleeding gums, nosebleeds or new bruising.
+      speaker: Caller
+      turns: [23]
+      quote: "No bleeding."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: bleeding or unusual bruising, certainty: stated}
+      covers: [A6]
+    - text: Warfarin was replaced by apixaban at discharge and the old warfarin bottle was still in the house.
+      speaker: Caller
+      turns: [13]
+      quote: "The paper says it replaces the warfarin."
+      explanation: Documents the medication change.
+      facts:
+        - {type: context, text: Warfarin was replaced by apixaban at discharge and the old warfarin bottle is still in the house, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to page the on-call clinician about the double blood thinner.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'm paging the on-call clinician now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy to confirm the discharge medicine list.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'm also going to call the pharmacy to confirm the discharge medicine list"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to go through every bottle.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'm sending a nurse tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving no more warfarin, bagging the old bottle, and giving apixaban twelve hours apart.
+      speaker: Nurse
+      turns: [65]
+      quote: "give no more warfarin."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for uncontrolled bleeding, black or bloody stools, vomiting blood, a bad headache, or a head injury, and 911 for any of those.
+      speaker: Nurse
+      turns: [70]
+      quote: "call us right away if he has bleeding that won't stop"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised a soft toothbrush, an electric razor, avoiding ibuprofen and aspirin, and filling the organizer from the current list.
+      speaker: Nurse
+      turns: [74]
+      quote: "Use a soft toothbrush and an electric razor."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I made a mistake."}

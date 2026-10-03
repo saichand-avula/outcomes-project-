@@ -1,0 +1,276 @@
+call_id: tr-319
+split: train
+blueprint: "A sister who stays with her 58-year-old brother Clifford, who has COPD and uses home oxygen at two liters, calls home health because the humidifier bottle on his concentrator cracked this morning and the only spare nasal cannula tubing has a split near the connector. His nose is dry and a little sore, saturation 92 on the finger monitor, no extra shortness of breath. The nurse orders a new humidifier bottle and tubing (completed), arranges delivery tomorrow morning, and gives instructions to run without the humidifier safely and use distilled water. Equipment supply, other_family caller, v2 short, practical and chatty."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [phone_from_file, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Prairie Home Health
+  agency_type: home_health
+  nurse_name: Layla
+  call_timestamp_utc: "2026-10-27T15:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clifford Mullins
+  patient_name_spoken: Clifford Mullins
+  patient_name_certainty: stated
+  patient_dob_true: "1968-09-16"
+  patient_dob_spoken: "1968-09-16"
+  patient_dob_certainty: stated
+  caller_name_true: Odessa Mullins
+  caller_name_spoken: Odessa Mullins
+  caller_name_certainty: stated
+  relationship_to_patient: sister
+  relationship_certainty: stated
+  callback_phone_true: "6105550163"
+  callback_phone_spoken: "6105550163"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a cracked humidifier bottle and damaged oxygen tubing for her brother
+  reason_category: supply
+  relevant_context: Home health patient with COPD on home oxygen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: humidifier bottle
+    supply_remaining: cracked, none usable
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: nasal cannula tubing
+    supply_remaining: one spare with a split near the connector
+    supply_unit: tubing
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: dry sore nose
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "92"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: extra shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: oxygen supplier
+    reason_or_trigger: humidifier bottle and nasal cannula tubing
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Run the oxygen at two liters without the humidifier until the new bottle arrives, tape the split tubing only if there is no leak, and fill the new bottle with distilled water only
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if his oxygen reading falls under ninety, he gets more short of breath, his lips look blue, or the concentrator alarms
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Prairie Home Health, this is Layla.
+  Caller -> Hi, Layla. This is Odessa Mullins. I'm calling about my brother. Clifford Mullins. He's on the oxygen. || caller_name, relationship, patient_name
+  Nurse -> How long has he been on it?
+  Caller -> About two years. Since the hospital in the spring before last. He says it's his leash. I say it's his lifeline.
+  Nurse -> Hi, Odessa. Thanks for calling. Let me find Clifford. What's his date of birth?
+  Caller -> September sixteenth. Nineteen sixty eight. He's fifty eight. He hates when I say it. || patient_dob
+  Nurse -> Ha. Okay. And a number to reach you? I have one on file but I want to confirm.
+  Caller -> It's my cell. Six one oh, five five five, zero one six three. I'm staying at his house this week. || callback_phone
+  Nurse -> And where are you from, Odessa?
+  Caller -> Atlanta. I flew in Monday. I'm a school bus driver there. I took the week.
+  Nurse -> That's wonderful of you.
+  Nurse -> Got it. So what's going on with his oxygen?
+  Caller -> So this morning I was refilling the little water bottle. The humidifier. And I dropped it. It cracked. On the bottom. It's leaking. It's done. And I thought, okay, we'll use the spare. But there's no spare. We had one and it's the one that cracked. || cc, A1
+  Nurse -> How did you drop it? Was it on the floor?
+  Caller -> It slipped out of my hand when I was washing it. It hit the edge of the sink. I'm so clumsy.
+  Nurse -> It happens all the time. The plastic is brittle.
+  Nurse -> Okay. So the humidifier bottle is cracked and there's no spare. Is the concentrator still running?
+  Caller -> It's running. We're using it without the water bottle. The tubing goes straight from the machine to him. He said that's fine. But he says his nose is dry.
+  Nurse -> Is the machine making any unusual noise, or is any light on?
+  Caller -> It sounds the same. A hum. A green light. No alarm. I looked.
+  Nurse -> Good.
+  Nurse -> Okay. That's fair. We'll get you a new bottle. What about the tubing? The cannula?
+  Caller -> That's the other thing. He has the one he's wearing. And one spare. And the spare has a split. Near the, where it connects. A little tear. I can hear the air hiss when I hold it. So the spare is no good. He's wearing the other one, but it's been on for a while. Like three weeks. || A2
+  Nurse -> Okay. Three weeks is about right to change it, actually. So the one he's wearing is okay for now?
+  Caller -> It seems fine. It's a little stiff. It's yellowed. But no holes.
+  Nurse -> Does he wear it all day?
+  Caller -> Mostly. He takes it off for meals. And in the bathroom. He puts it back on after. He's good about it.
+  Nurse -> Okay. And how's his nose? Dry? Sore?
+  Caller -> Dry. Sore on the inside. He says it feels like it's cracked. There's a little crust. No blood. He keeps picking at it, I tell him not to. || A3
+  Caller -> He gets cranky about his nose. He says it's the one part of him that worked fine and now even that's complaining.
+  Nurse -> Ha. He has a sense of humor.
+  Nurse -> Okay. Is he using any saline spray or gel?
+  Caller -> No. He doesn't have anything. I could pick up the saline spray at the store. Is that okay with oxygen?
+  Nurse -> A water based gel or saline is fine. Not Vaseline or oil. Don't use anything oily around the oxygen.
+  Caller -> No Vaseline. Okay. I'll get a saline gel. The water kind.
+  Nurse -> Good. Odessa, how is his breathing? And does he have the finger monitor?
+  Caller -> He does. He has the little clip. It's reading ninety two. It's usually ninety two or ninety three on the two liters. So it's normal for him. || A4
+  Nurse -> Okay. Ninety two on two liters is his usual. Any extra shortness of breath?
+  Caller -> No. He's the same. He's sitting in his chair doing a crossword. He's not winded. He walked to the kitchen and back and was okay. || A5
+  Nurse -> Good. That's reassuring. Okay, let me place the order. A new humidifier bottle, how many? Two?
+  Caller -> Two. In case I drop another one. Ha.
+  Nurse -> Ha. Two bottles. And a few cannulas. I'll order a box so you have plenty. Hold on. Entering it.
+  Caller -> No rush. I'm just standing here. Oh, the cat is staring at me. Shoo. He wants his dinner.
+  Nurse -> What's the cat's name?
+  Caller -> Mister Biscuit. He's thirteen. He sleeps on Clifford's feet. Every night.
+  Nurse -> Aww. A good companion.
+  Nurse -> It's in. I just placed the order with the oxygen supplier for two humidifier bottles and a box of nasal cannula tubing. || R1
+  Caller -> Wonderful. Thank you. When will they come?
+  Nurse -> I'm going to arrange for delivery tomorrow morning. Will somebody be home?
+  Caller -> Yes. I'm here. We're both here. We don't go anywhere.
+  Nurse -> Does he get out at all? Any appointments?
+  Caller -> The doctor, once a month. My niece takes him. Otherwise he stays home. He doesn't like the portable tank. It's heavy.
+  Nurse -> We have lighter ones. I'll ask the nurse to talk to him about it at the next visit.
+  Nurse -> Great. I'll ask them to deliver tomorrow morning and call when they're close. || R2
+  Caller -> Perfect. Should I do anything in the meantime?
+  Nurse -> Yes. Until the bottle comes, keep the oxygen on at two liters, without the humidifier. That's safe for a day. Use the saline gel for his nose. Don't use the split tubing, unless you can tape it and there's no hiss. If it hisses, don't use it. And when the new bottle comes, fill it with distilled water only. Not tap water. || E1
+  Caller -> No humidifier for now. Saline gel. Don't use the split tubing. Distilled water later. Okay. We have a gallon of distilled water. In the garage. From the last time.
+  Nurse -> Perfect. That's what you want.
+  Caller -> Good. I'll write that on the fridge. I write everything on the fridge. My brother says it looks like a ransom note.
+  Nurse -> Ha. Whatever works.
+  Nurse -> And call us if his oxygen reading falls under ninety, if he gets more short of breath, if his lips look blue, or if the concentrator alarms. || E2
+  Caller -> Under ninety. Short of breath. Blue lips. Alarm. Okay. I'll watch. The alarm hasn't gone off. It's been quiet.
+  Nurse -> Good. How are you doing, Odessa? Is it a lot, staying there?
+  Caller -> It's okay. He's easy. He just needs someone around. I flew in from Atlanta. I'm here till Sunday and then my niece takes over.
+  Nurse -> That's wonderful that you're helping.
+  Caller -> He's my baby brother. Even though he's fifty eight. I'd do anything.
+  Nurse -> Do you have other family nearby?
+  Caller -> Our mother is in the nursing home across town. Ninety four. She doesn't know him anymore. But she knows me.
+  Nurse -> I'm sorry. That's a lot to carry.
+  Caller -> It is. But we manage. Family is family.
+  Nurse -> I can tell. Anything else?
+  Caller -> I don't think so. Thank you, Layla.
+  Nurse -> You're welcome. Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clifford Mullins, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1968-09-16", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Odessa Mullins, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: sister, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550163", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a cracked humidifier bottle and damaged oxygen tubing for her brother.
+    speaker: Caller
+    turns: [13]
+    quote: "I dropped it. It cracked. On the bottom."
+    explanation: Documents the supply problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The humidifier bottle was cracked and leaking, with no spare.
+      speaker: Caller
+      turns: [13]
+      quote: "there's no spare."
+      explanation: Documents the humidifier bottle.
+      facts:
+        - {type: supply, item: humidifier bottle, supply: cracked, none usable, certainty: stated}
+      covers: [A1]
+    - text: The one spare nasal cannula tubing had a split near the connector and hissed.
+      speaker: Caller
+      turns: [23]
+      quote: "And the spare has a split."
+      explanation: Documents the tubing.
+      facts:
+        - {type: supply, item: nasal cannula tubing, supply: one spare with a split near the connector, certainty: stated}
+      covers: [A2]
+    - text: His nose was dry and sore inside with a little crust.
+      speaker: Caller
+      turns: [29]
+      quote: "Dry. Sore on the inside."
+      explanation: Documents the dry nose.
+      facts:
+        - {type: symptom, name: dry sore nose, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Oxygen saturation was 92 on two liters, his usual.
+      speaker: Caller
+      turns: [37]
+      quote: "It's reading ninety two."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "92", certainty: stated}
+      covers: [A4]
+    - text: He had no extra shortness of breath.
+      speaker: Caller
+      turns: [39]
+      quote: "No. He's the same."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: extra shortness of breath, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Placed an order with the oxygen supplier for two humidifier bottles and a box of tubing.
+      speaker: Nurse
+      turns: [47]
+      quote: "I just placed the order with the oxygen supplier for two humidifier bottles and a box of nasal cannula tubing."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery tomorrow morning with a call when close.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll ask them to deliver tomorrow morning and call when they're close."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised running the oxygen at two liters without the humidifier until the new bottle came, using saline gel, and filling the new bottle with distilled water only.
+      speaker: Nurse
+      turns: [56]
+      quote: "Until the bottle comes, keep the oxygen on at two liters, without the humidifier."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if his oxygen reading fell under ninety, he was more short of breath, his lips looked blue, or the concentrator alarmed.
+      speaker: Nurse
+      turns: [61]
+      quote: "call us if his oxygen reading falls under ninety"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

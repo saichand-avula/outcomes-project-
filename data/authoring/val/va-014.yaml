@@ -1,0 +1,209 @@
+call_id: va-014
+split: val
+blueprint: "Wife asks whether she can give a second haloperidol dose for agitation; the order is every 4 hours as needed and the last dose was 2 hours ago; nurse says to wait and use calming measures, and will call back in 30 minutes."
+setup:
+  scenario_category: medication
+  subtype: dose_timing_question
+  secondary_tags: [prn_and_scheduled, phone_from_file]
+  clinical_domains: [agitation_delirium]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-09-22T02:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alma Hendricks
+  patient_name_spoken: Alma Hendricks
+  patient_name_certainty: stated
+  patient_dob_true: "1940-10-27"
+  patient_dob_spoken: "1940-10-27"
+  patient_dob_certainty: stated
+  caller_name_true: Leroy
+  caller_name_spoken: Leroy
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "4795550174"
+  callback_phone_spoken: "4795550174"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Wife is agitated and he wants to know whether he can give another haloperidol dose
+  reason_category: medication_timing
+  relevant_context: Hospice patient with night-time agitation
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: agitation
+    symptom_present: true
+    severity: pulling at the blanket and trying to get out of bed
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    prn: true
+    last_dose_time: 2 hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: signs of pain
+    symptom_present: false
+    certainty: unclear
+    unclear_detail: Caller does not think she is in pain
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    timeframe: wait until 4 hours after the last dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 30 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Dim the lights, speak calmly, play soft music, check for a full bladder, and sit with her
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the bed rails or low bed and stay near so she does not fall
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she becomes combative, cannot be calmed, or is very hard to wake
+    trigger_condition: combative; cannot be calmed; hard to wake
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Lena.
+  Caller -> Lena, it's Leroy Hendricks. It's my wife, Alma. || caller_name, relationship, patient_name
+  Nurse -> Hi, Leroy. Alma's date of birth?
+  Caller -> October twenty seventh, nineteen forty. || patient_dob
+  Nurse -> And I have four seven nine, five five five, zero one seven four. || callback_phone
+  Caller -> Yes. That's the house phone. || callback_phone
+  Nurse -> What's happening tonight?
+  Caller -> She's agitated. She's pulling at the blanket, and she's trying to get out of bed. I don't know what she wants. || cc, A1
+  Nurse -> Okay. Has she had anything?
+  Caller -> I gave her the haloperidol, the point five, about two hours ago. And it's not helping. So I wanted to give her another one. || A2
+  Nurse -> Okay. Let me look. The haloperidol is every four hours as needed. So the next dose isn't due for two more hours. || A2, R1
+  Caller -> Two more hours. But she's so upset.
+  Nurse -> I understand. Is she in pain, do you think?
+  Caller -> I don't think so. She isn't grimacing or moaning. I don't think it's pain. || A3
+  Nurse -> Okay. Please wait on the haloperidol until it's been four hours. In the meantime, let's try some other things. Dim the lights, talk calmly, play soft music, and just sit with her. || E1
+  Caller -> I can do that. Her favorite is Patsy Cline.
+  Nurse -> Perfect. And check whether she might need to use the bathroom. Sometimes that's all it is.
+  Caller -> I'll check her brief. I'll do that now.
+  Nurse -> Also, keep the bed low, or the rails up, and stay near so she doesn't fall trying to get out. || E2
+  Caller -> Okay. I'm right here.
+  Nurse -> I'll call you back in thirty minutes to see how she's doing. || R2
+  Caller -> Thirty minutes. Okay.
+  Nurse -> If she becomes combative, or you can't calm her, or she's very hard to wake, call me right away. || E3
+  Caller -> I will. Thank you, Lena.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alma Hendricks, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-10-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Leroy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "4795550174", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife was agitated and asked whether he could give another haloperidol dose.
+    speaker: Caller
+    turns: [8]
+    quote: "She's agitated. She's pulling at the blanket, and she's trying to get out of bed."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: Haloperidol 0.5 mg as needed was given about 2 hours ago without relief.
+      speaker: Caller
+      turns: [10]
+      quote: "I gave her the haloperidol, the point five, about two hours ago. And it's not helping."
+      explanation: Documents the as-needed medication and its limited effect.
+      facts:
+        - {type: medication, name: haloperidol, dose: "0.5", unit: mg, prn: true, last_dose: 2 hours ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: The caller did not think she was in pain, as she was not grimacing or moaning.
+      speaker: Caller
+      turns: [14]
+      quote: "I don't think so. She isn't grimacing or moaning. I don't think it's pain."
+      explanation: Documents a pertinent negative for pain with the caller's uncertainty preserved.
+      facts:
+        - {type: pertinent_negative, name: signs of pain, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Advised waiting until 4 hours after the last haloperidol dose before giving another.
+      speaker: Nurse
+      turns: [15]
+      quote: "Please wait on the haloperidol until it's been four hours."
+      explanation: Documents the dosing-interval instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: haloperidol, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in 30 minutes.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you back in thirty minutes to see how she's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised dimming the lights, speaking calmly, playing soft music, checking for a full bladder, and sitting with her.
+      speaker: Nurse
+      turns: [15]
+      quote: "Dim the lights, talk calmly, play soft music, and just sit with her."
+      explanation: Documents calming measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the bed low or rails up and staying nearby to prevent a fall.
+      speaker: Nurse
+      turns: [19]
+      quote: "keep the bed low, or the rails up, and stay near so she doesn't fall trying to get out."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if she became combative, could not be calmed, or was very hard to wake.
+      speaker: Nurse
+      turns: [23]
+      quote: "If she becomes combative, or you can't calm her, or she's very hard to wake, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

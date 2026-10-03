@@ -1,0 +1,226 @@
+call_id: tr-076
+split: train
+blueprint: "45-year-old man with ALS says baclofen 10 mg three times a day makes him too sleepy at work and asks to skip the noon dose; legs get stiff when he skips. Nurse says not to skip or stop on his own, plans a prescriber message and callback tomorrow, safety advice on drowsiness. Backchannel-heavy, fillers, consecutive turns."
+setup:
+  scenario_category: medication
+  subtype: side_effect_question
+  secondary_tags: [hedging, late_answers, split_turns, phone_from_file]
+  clinical_domains: [spasticity, sleep, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-06T14:20:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Jasper Linwood
+  patient_name_spoken: Jasper Linwood
+  patient_name_certainty: stated
+  patient_dob_true: "1981-06-12"
+  patient_dob_spoken: "1981-06-12"
+  patient_dob_certainty: stated
+  caller_name_true: Jasper Linwood
+  caller_name_spoken: Jasper Linwood
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2155550129"
+  callback_phone_spoken: "2155550129"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked whether he can skip a dose of baclofen because it makes him too sleepy
+  reason_category: medication_question
+  relevant_context: Has ALS with muscle stiffness
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: three times a day
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: daytime sleepiness
+    symptom_present: true
+    onset_or_duration: after the noon dose
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: leg stiffness
+    symptom_present: true
+    body_location: legs
+    onset_or_duration: when he skips a dose
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not skip or stop baclofen on his own
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: ask about timing or a lower dose
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not drive or use stairs alone when drowsy
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for new confusion, fever, or muscle spasms getting much worse
+    trigger_condition: confusion; fever; worsening spasms
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Beth.
+  Caller -> Hey. Hi, Beth. Um, it's Jasper. Jasper Linwood. || patient_name, caller_name, relationship
+  Nurse -> Hi, Jasper. Mm. Date of birth?
+  Caller -> June twelfth. Uh, nineteen eighty one. || patient_dob
+  Nurse -> And I've got two one five, five five five, zero one two nine. || callback_phone
+  Caller -> Yep. || callback_phone
+  Nurse -> Okay. What's going on?
+  Caller -> So it's, um, it's the baclofen. The, uh, I'm on ten milligrams. Three times a day. || cc, A1
+  Nurse -> Mm-hm.
+  Caller -> And the one at noon, it just knocks me out. Like, I'm at my desk, I'm trying to work and I'm, I'm just. Gone. || A2
+  Nurse -> Okay.
+  Caller -> So I was thinking, you know, I could just skip the noon one. || cc
+  Caller -> Because when I skip it, like, I did it Saturday, I'm fine. || A3
+  Nurse -> You're fine for sleepiness?
+  Caller -> Yeah. For the sleepy. But my legs get, they get so stiff by dinner. Like, really tight. || A3
+  Nurse -> Right.
+  Caller -> So it's, it's like a trade, you know. Tired or stiff.
+  Nurse -> I get it. That's a hard one. Okay. Jasper, I don't want you skipping it or stopping it on your own. || R1
+  Caller -> Okay.
+  Nurse -> With baclofen, if it changes suddenly, it can make the spasms a lot worse, and it can cause other problems too. Confusion, even a fever. So let the doctor decide. || R1
+  Caller -> Oh. Okay. I didn't know that. I didn't know it could do all that.
+  Nurse -> Yeah. So I'm going to message your prescriber and ask about the timing. Maybe a lower noon dose, maybe a different schedule. || R2
+  Caller -> Okay. Yeah. That would be great.
+  Nurse -> And I'll call you tomorrow with what they say. || R3
+  Caller -> Tomorrow. Okay.
+  Nurse -> In the meantime, when you're drowsy, don't drive, and be careful on the stairs. Okay? || E1
+  Caller -> Yeah. I mean, I take the bus. But yeah. Stairs. Okay.
+  Nurse -> And call us if you get confused, spike a fever, or the spasms get way worse. || E2
+  Caller -> Confused, fever, spasms. Okay.
+  Nurse -> Anything else?
+  Caller -> Nope. That's it. Thanks, Beth.
+  Nurse -> Take care.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Jasper Linwood, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1981-06-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Jasper Linwood, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2155550129", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether he can skip a dose of baclofen because it makes him too sleepy.
+    speaker: Caller
+    turns: [12]
+    quote: "So I was thinking, you know, I could just skip the noon one."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Baclofen 10 mg three times a day was in use.
+      speaker: Caller
+      turns: [8]
+      quote: "I'm on ten milligrams. Three times a day."
+      explanation: Documents the current medication and dose.
+      facts:
+        - {type: medication, name: baclofen, dose: "10", unit: mg, frequency: three times a day, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: He became very sleepy at work after the noon dose.
+      speaker: Caller
+      turns: [10]
+      quote: "the one at noon, it just knocks me out."
+      explanation: Documents the sedation side effect.
+      facts:
+        - {type: symptom, name: daytime sleepiness, present: true, duration: after the noon dose, certainty: stated}
+      covers: [A2]
+    - text: His legs became very stiff by dinner when he skipped a dose.
+      speaker: Caller
+      turns: [15]
+      quote: "my legs get, they get so stiff by dinner. Like, really tight."
+      explanation: Documents the loss of effect when a dose is skipped.
+      facts:
+        - {type: symptom, name: leg stiffness, present: true, location: legs, duration: when he skips a dose, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised not skipping or stopping baclofen on his own.
+      speaker: Nurse
+      turns: [18]
+      quote: "I don't want you skipping it or stopping it on your own."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber about the timing or a lower noon dose.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'm going to message your prescriber and ask about the timing."
+      explanation: Documents the planned prescriber contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow with the prescriber's response.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'll call you tomorrow with what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not driving when drowsy and being careful on stairs.
+      speaker: Nurse
+      turns: [26]
+      quote: "when you're drowsy, don't drive, and be careful on the stairs."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for new confusion, fever, or spasms getting much worse.
+      speaker: Nurse
+      turns: [28]
+      quote: "call us if you get confused, spike a fever, or the spasms get way worse."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

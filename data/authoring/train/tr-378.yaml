@@ -1,0 +1,284 @@
+call_id: tr-378
+split: train
+blueprint: "A husband calls home health because his wife's IV antibiotic supplies for her PICC line are running low: two saline flushes, one heparin flush, no dressing change kits, and the edge of the clear dressing is peeling at the corner. No redness or drainage or fever or arm swelling. Nurse plans the supply order, delivery Thursday, a nurse visit tomorrow for a dressing change, and reviews keeping the dressing dry and clean. Supply (PICC line), spouse caller, patient 18-64, v2 short."
+setup:
+  scenario_category: supply
+  subtype: iv_line_supplies
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [equipment, infection_risk, wound_skin]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Redwood Home Health
+  agency_type: home_health
+  nurse_name: Ingrid
+  call_timestamp_utc: "2026-10-28T16:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rochelle Vandermeer
+  patient_name_spoken: Rochelle Vandermeer
+  patient_name_certainty: stated
+  patient_dob_true: "1968-05-30"
+  patient_dob_spoken: "1968-05-30"
+  patient_dob_certainty: stated
+  caller_name_true: Anton Vandermeer
+  caller_name_spoken: Anton Vandermeer
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "6105550149"
+  callback_phone_spoken: "6105550149"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her IV line supplies are running low and the dressing is peeling
+  reason_category: equipment
+  relevant_context: Home health patient receiving IV antibiotics through a PICC line
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: saline flushes
+    supply_remaining: two left
+    supply_unit: flushes
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: heparin flushes
+    supply_remaining: one left
+    supply_unit: flushes
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: dressing change kits
+    supply_remaining: none
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: peeling edge of the PICC dressing
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: redness or drainage or fever or arm swelling
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: infusion pharmacy
+    reason_or_trigger: saline and heparin flushes and dressing change kits
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Cover the dressing with a plastic cover when she showers, do not pull at the peeling corner, and wash hands before touching the line
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, chills, redness or drainage at the site, arm swelling or pain, or if the line leaks or comes out, and press on the site and call 911 if it bleeds heavily
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Redwood Home Health, this is Ingrid.
+  Caller -> Hi. Ingrid. This is Anton Vandermeer. My wife is Rochelle Vandermeer. She has the PICC line. For the antibiotics. || caller_name, patient_name, relationship
+  Nurse -> Right. Sorry, Anton, what was that last name again, with the V?
+  Caller -> Vandermeer. V A N D E R M E E R. Dutch. It means from the lake. Or something. My grandfather said.
+  Nurse -> Got it. Thank you.
+  Nurse -> Hi Anton. Yes, I know the name. What's going on?
+  Caller -> We're running low on supplies. And the dressing is peeling. I wanted to call before the weekend. || cc
+  Nurse -> Good thinking. Let's start with the supplies. How many saline flushes?
+  Caller -> I'm looking at the box. Two. Two saline. || A1
+  Nurse -> Okay. And the heparin flushes?
+  Caller -> One. Just one. || A2
+  Nurse -> Okay. Dressing change kits?
+  Caller -> None. The nurse used the last one on Monday. There's none in the box.
+  Nurse -> Okay. None. So two saline, one heparin, and no kits. || A3
+  Caller -> That's right.
+  Nurse -> How often is she flushing?
+  Caller -> Do you want me to read the lot numbers off the box?
+  Nurse -> No, the pharmacy has them. I just want the counts.
+  Caller -> Okay. I'm an engineer. I like numbers.
+  Nurse -> Ha. Then you're perfect for this.
+  Caller -> After each infusion. Twice a day. So we have about a day. Maybe a day and a half.
+  Nurse -> Okay. That is low. I'll get an order in today.
+  Caller -> Thank you.
+  Nurse -> Tell me about the dressing. What's it doing?
+  Caller -> The corner. The top corner. The edge is lifting. It's about, I'd say, a half inch. The clear part. She says it itches. || A4
+  Nurse -> Okay. Is the skin under it red? Any drainage, or swelling in the arm?
+  Caller -> I looked. No redness. No drainage. Her arm is normal. No swelling. It's just the edge that's lifting. She showered and I think the steam did it. || A5
+  Nurse -> Does she complain about the arm? Any ache?
+  Caller -> No. She says it feels like nothing. She forgets it's there. Except the itching.
+  Nurse -> Okay. Any fever or chills?
+  Caller -> No. We take her temperature twice a day. It's been normal. Ninety eight something.
+  Nurse -> Good. Anton, what's Rochelle's date of birth?
+  Caller -> May thirtieth. Nineteen sixty eight. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six one oh, five five five, zero one four nine. || callback_phone
+  Nurse -> Six one oh, five five five, zero one four nine. Is that right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Okay. I'm going to call the infusion pharmacy and order saline flushes, heparin flushes, and dressing change kits. || R1
+  Caller -> Okay. Thank you. How soon can they come?
+  Nurse -> I'll ask for delivery Thursday. I'll push for earlier.
+  Caller -> Thursday is cutting it close. We'll run out Wednesday night.
+  Nurse -> I know. That's why I want a nurse to come out tomorrow. She can bring flushes from our stock and change the dressing. || R2, R3
+  Caller -> Oh. Good. Tomorrow. That works. What time?
+  Nurse -> The scheduler will call you in the morning with a window.
+  Caller -> Okay. I'll be here. I work from home.
+  Nurse -> And she's comfortable with the schedule? The morning and evening infusions?
+  Caller -> She's fine. I do the hookup. I set the timer. She reads a book for the thirty minutes.
+  Nurse -> Sounds like a good routine.
+  Caller -> It is. We're pros now. Three weeks in.
+  Nurse -> Perfect. In the meantime, don't pull at the peeling corner. Cover the dressing with the plastic shower cover when she showers. And wash your hands before touching the line. || E1
+  Caller -> Don't pull. Shower cover. Wash hands. We have the cover. It's a sleeve. It didn't fit well. The steam got under.
+  Nurse -> Okay. The nurse will check the fit tomorrow.
+  Caller -> We got the cover from the pharmacy. It's blue. It came with the supplies. Maybe it's the wrong size.
+  Nurse -> Possibly. The nurse can bring another.
+  Caller -> Good. Thank you.
+  Nurse -> And call us if she gets a fever or chills, redness or drainage at the site, swelling or pain in the arm, or if the line leaks or comes out. If it bleeds a lot, press on it and call 911. || E2
+  Caller -> Fever. Chills. Red. Drainage. Swelling. Leaking. Out. Bleeding, press and 911. Okay. I'll write that down.
+  Nurse -> Anything else?
+  Caller -> No. How long does she have left on the antibiotics?
+  Nurse -> I don't have the date in front of me. The nurse can tell you tomorrow.
+  Caller -> Okay. I think it's two more weeks.
+  Nurse -> The nurse will confirm.
+  Caller -> She's ready to be done. She says she's tired of the bag and the pole.
+  Nurse -> That's understandable. It's a long course.
+  Caller -> She's named the pole. Gerald. She says Gerald is the only man who follows her everywhere.
+  Nurse -> Ha. Gerald the pole.
+  Caller -> Thanks, Ingrid. Bye.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rochelle Vandermeer, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1968-05-30", certainty: stated, heard_as: [], turns: [33]}
+    caller_name: {value: Anton Vandermeer, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550149", certainty: stated, heard_as: [], turns: [35, 36]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her IV line supplies were running low and the dressing was peeling.
+    speaker: Caller
+    turns: [7]
+    quote: "We're running low on supplies. And the dressing is peeling."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two saline flushes were left.
+      speaker: Caller
+      turns: [9]
+      quote: "Two. Two saline."
+      explanation: Documents the saline flush supply.
+      facts:
+        - {type: supply, item: saline flushes, supply: two left, certainty: stated}
+      covers: [A1]
+    - text: One heparin flush was left.
+      speaker: Caller
+      turns: [11]
+      quote: "One. Just one."
+      explanation: Documents the heparin flush supply.
+      facts:
+        - {type: supply, item: heparin flushes, supply: one left, certainty: stated}
+      covers: [A2]
+    - text: No dressing change kits were left.
+      speaker: Caller
+      turns: [13]
+      quote: "None. The nurse used the last one on Monday."
+      explanation: Documents the dressing kit supply.
+      facts:
+        - {type: supply, item: dressing change kits, supply: none, certainty: stated}
+      covers: [A3]
+    - text: The top corner of the PICC dressing was lifting about a half inch.
+      speaker: Caller
+      turns: [25]
+      quote: "The edge is lifting."
+      explanation: Documents the peeling dressing.
+      facts:
+        - {type: symptom, name: peeling edge of the PICC dressing, present: true, certainty: stated}
+      covers: [A4]
+    - text: There was no redness or drainage or fever or arm swelling.
+      speaker: Caller
+      turns: [27]
+      quote: "No redness. No drainage."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: redness or drainage or fever or arm swelling, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to order flushes and dressing change kits from the infusion pharmacy.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'm going to call the infusion pharmacy and order saline flushes"
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery Thursday.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'll ask for delivery Thursday."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to change the dressing and bring flushes.
+      speaker: Nurse
+      turns: [42]
+      quote: "That's why I want a nurse to come out tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not pulling the peeling corner, covering the dressing in the shower and washing hands before touching the line.
+      speaker: Nurse
+      turns: [50]
+      quote: "don't pull at the peeling corner."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, chills, redness, drainage, arm swelling or pain, or a leaking or dislodged line, and 911 if it bled heavily.
+      speaker: Nurse
+      turns: [56]
+      quote: "call us if she gets a fever or chills"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

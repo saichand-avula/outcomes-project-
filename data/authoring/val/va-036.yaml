@@ -1,0 +1,224 @@
+call_id: va-036
+split: val
+blueprint: "Patient with chemotherapy nausea says ondansetron is not helping; one episode of vomiting, keeping fluids down; nurse plans a message to the palliative provider about a different anti-nausea medicine and a callback within the hour."
+setup:
+  scenario_category: medication
+  subtype: side_effect
+  secondary_tags: [prn_and_scheduled, trap_phrasing, phone_from_file]
+  clinical_domains: [nausea_vomiting]
+  relationship_group: self
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-09-05T15:30:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leona Banerjee
+  patient_name_spoken: Leona Banerjee
+  patient_name_certainty: stated
+  patient_dob_true: "1979-06-02"
+  patient_dob_spoken: "1979-06-02"
+  patient_dob_certainty: stated
+  caller_name_true: Leona Banerjee
+  caller_name_spoken: Leona Banerjee
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3035550160"
+  callback_phone_spoken: "3035550160"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Nausea after chemotherapy not relieved by her anti-nausea medicine
+  reason_category: nausea_vomiting
+  relevant_context: Chemotherapy three days ago
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: nausea
+    symptom_present: true
+    severity: 6/10
+    onset_or_duration: since the chemotherapy 3 days ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: vomiting
+    symptom_present: true
+    severity: once this morning
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "8"
+    unit: mg
+    frequency: every 8 hours
+    prn: true
+    last_dose_time: 6 this morning
+    response_to_medication: Not helping
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: inability to keep fluids down
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: palliative provider
+    reason_or_trigger: ask about a different anti-nausea medicine
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Small bland meals, cold foods, ginger tea, fresh air, and avoid strong smells
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she cannot keep liquids down for 8 hours, feels dizzy, has black stools, or has a fever
+    trigger_condition: no liquids for 8 hours; dizzy; black stools; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi, Denise. It's Leona Banerjee. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Leona. Your date of birth?
+  Caller -> June second, nineteen seventy nine. || patient_dob
+  Nurse -> And I have three oh three, five five five, zero one six oh for you. || callback_phone
+  Caller -> That's me. || callback_phone
+  Nurse -> What's going on?
+  Caller -> I'm so nauseous. It's been three days, since my chemo. And it's not getting better. || cc, A1
+  Nurse -> I'm sorry. How bad is it, zero to ten?
+  Caller -> A six. Most of the day. || A1
+  Nurse -> Okay. Have you thrown up?
+  Caller -> Once. This morning. Just once. || A2
+  Nurse -> Okay. What are you taking for it?
+  Caller -> The ondansetron. The eight milligram, every eight hours as needed. I took one at six this morning. || A3
+  Nurse -> And did it help?
+  Caller -> No. Not really. It takes the edge off for like twenty minutes and then it's back. || A3
+  Nurse -> Okay. Can you keep fluids down?
+  Caller -> Yes. I'm drinking. Water and ginger ale. That part is fine. || A4
+  Nurse -> Okay. That's good. Leona, I'll send a message to your provider, and ask about a different anti-nausea medicine, one that works better for you. || R1
+  Caller -> Oh, thank God. Yes, please.
+  Nurse -> I'll call you back within the hour. || R2
+  Caller -> Okay.
+  Nurse -> In the meantime, small bland meals, like toast or crackers. Cold foods are easier than hot, because there's less smell. Ginger tea can help. Fresh air, and avoid strong smells. || E1
+  Caller -> Cold foods. I'll try that.
+  Nurse -> If you can't keep liquids down for eight hours, or you feel dizzy, or have black stools, or a fever, call us right away. || E2
+  Caller -> Okay. I will.
+  Nurse -> Anything else?
+  Caller -> No. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leona Banerjee, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1979-06-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Leona Banerjee, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550160", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported persistent nausea for three days since chemotherapy.
+    speaker: Caller
+    turns: [8]
+    quote: "I'm so nauseous. It's been three days, since my chemo."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nausea was rated 6/10 most of the day since chemotherapy 3 days ago.
+      speaker: Caller
+      turns: [10]
+      quote: "A six. Most of the day."
+      explanation: Documents nausea severity.
+      facts:
+        - {type: symptom, name: nausea, present: true, severity: 6/10, onset: since the chemotherapy 3 days ago, certainty: stated}
+      covers: [A1]
+    - text: Vomiting occurred once this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "Once. This morning. Just once."
+      explanation: Documents vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: once this morning, certainty: stated}
+      covers: [A2]
+    - text: Ondansetron 8 mg every 8 hours as needed was last taken at 6 this morning and gave only brief relief.
+      speaker: Caller
+      turns: [14]
+      quote: "The ondansetron. The eight milligram, every eight hours as needed. I took one at six this morning."
+      explanation: Documents the antiemetic and its limited effect.
+      facts:
+        - {type: medication, name: ondansetron, dose: "8", unit: mg, frequency: every 8 hours, prn: true, last_dose: 6 this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She was able to keep fluids down.
+      speaker: Caller
+      turns: [18]
+      quote: "Yes. I'm drinking. Water and ginger ale. That part is fine."
+      explanation: Documents a pertinent negative for dehydration risk.
+      facts:
+        - {type: pertinent_negative, name: inability to keep fluids down, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the provider about a different anti-nausea medicine.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll send a message to your provider, and ask about a different anti-nausea medicine, one that works better for you."
+      explanation: Documents the planned provider request.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back within the hour.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you back within the hour."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised small bland meals, cold foods, ginger tea, fresh air, and avoiding strong smells.
+      speaker: Nurse
+      turns: [23]
+      quote: "small bland meals, like toast or crackers. Cold foods are easier than hot, because there's less smell."
+      explanation: Documents comfort measures for nausea.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if she could not keep liquids down for 8 hours, felt dizzy, had black stools, or had a fever.
+      speaker: Nurse
+      turns: [25]
+      quote: "If you can't keep liquids down for eight hours, or you feel dizzy, or have black stools, or a fever, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

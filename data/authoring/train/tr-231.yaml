@@ -1,0 +1,172 @@
+call_id: tr-231
+split: train
+blueprint: "Mother of a 4-year-old: he is wheezing, the skin between his ribs and under his belly is pulling in with each breath, he can only say a word or two, and the albuterol breathing treatment fifteen minutes ago did not help. Nurse tells her to call 911 right now, keep him upright, and stay with him. Flags: breathing_concern and escalation_request. Pediatric."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [dyspnea, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-14T02:20:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Liam Okafor
+  patient_name_spoken: Liam Okafor
+  patient_name_certainty: stated
+  patient_dob_true: "2022-05-02"
+  patient_dob_spoken: "2022-05-02"
+  patient_dob_certainty: stated
+  caller_name_true: Chiamaka Okafor
+  caller_name_spoken: Chiamaka Okafor
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6785550197"
+  callback_phone_spoken: "6785550197"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son is wheezing and working hard to breathe
+  reason_category: breathing
+  relevant_context: Pediatric home care patient with asthma
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: wheezing and working hard to breathe
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: skin pulling in between the ribs and under the belly
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: given_previously
+    last_dose: fifteen minutes ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: severe breathing difficulty not helped by the breathing treatment
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep him upright and calm, and stay with him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Child is wheezing with chest pulling in and the albuterol has not helped
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Beth.
+  Caller -> Beth, it's Chiamaka Okafor. It's Liam. He's wheezing, and he's working so hard to breathe. I gave him the albuterol fifteen minutes ago and it's not helping. || caller_name, relationship, patient_name, cc, A1, A3, F1
+  Nurse -> Okay, Chiamaka. I'm here. Look at his chest for me. What do you see when he breathes?
+  Caller -> The skin, the skin between his ribs is sucking in. And under his belly, under the ribs. It goes in, every breath. He can only say one word. || A2, F1
+  Nurse -> Okay. Chiamaka, I need you to call nine one one right now. This is an emergency. || R1, F2
+  Caller -> Nine one one. Okay. Okay. Should I hang up?
+  Nurse -> Yes. Hang up and call. Keep him sitting up, as calm as you can, and stay with him. Don't lay him down. || E1
+  Caller -> Sitting up. Calm. Okay. Liam, baby, look at Mommy. Okay, baby. Okay.
+  Nurse -> Tell the dispatcher he's four, he has asthma, and the albuterol didn't help. Quickly, his birthday and your number. || A3
+  Caller -> May second, twenty twenty two. And six seven eight, five five five, zero one nine seven. || patient_dob, callback_phone
+  Nurse -> Got it. Is anyone else home to help you, to open the door?
+  Caller -> My husband is here. He's upstairs with the baby. I'll call him. Dayo! Dayo, come down! Okay, he's coming.
+  Nurse -> Good. Have him unlock the door and turn on the porch light, and have him put the dog away so the paramedics can come straight in. Stay with Liam. Call now.
+  Caller -> Okay. Calling now. He's, he's still breathing fast. His lips are okay. They're still pink. I'm watching them. Please pray. Thank you, Beth.
+  Nurse -> I'm here. Go, go.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Liam Okafor, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2022-05-02", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Chiamaka Okafor, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "6785550197", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son was wheezing and working hard to breathe.
+    speaker: Caller
+    turns: [2]
+    quote: "He's wheezing, and he's working so hard to breathe."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was wheezing and working hard to breathe.
+      speaker: Caller
+      turns: [2]
+      quote: "He's wheezing, and he's working so hard to breathe."
+      explanation: Documents the breathing difficulty.
+      facts:
+        - {type: symptom, name: wheezing and working hard to breathe, present: true, certainty: stated}
+      covers: [A1]
+    - text: The skin between the ribs and under the belly pulled in with each breath.
+      speaker: Caller
+      turns: [4]
+      quote: "The skin, the skin between his ribs is sucking in."
+      explanation: Documents the chest retractions.
+      facts:
+        - {type: symptom, name: skin pulling in between the ribs and under the belly, present: true, certainty: stated}
+      covers: [A2]
+    - text: Albuterol was given fifteen minutes earlier without help.
+      speaker: Caller
+      turns: [2]
+      quote: "I gave him the albuterol fifteen minutes ago and it's not helping."
+      explanation: Documents the rescue medication.
+      facts:
+        - {type: medication, name: albuterol, last_dose: fifteen minutes ago, med_status: given_previously, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [5]
+      quote: "I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised keeping him sitting upright and calm and staying with him.
+      speaker: Nurse
+      turns: [7]
+      quote: "Keep him sitting up, as calm as you can, and stay with him."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He's wheezing, and he's working so hard to breathe."}
+    - {category: escalation_request, turns: [5], quote: "I need you to call nine one one right now."}

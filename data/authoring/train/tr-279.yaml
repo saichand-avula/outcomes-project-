@@ -1,0 +1,311 @@
+call_id: tr-279
+split: train
+blueprint: "A niece visiting her uncle calls home health in a panic: Uncle Osmond slipped getting out of the tub, hit the back of his head on the edge, there's blood on the bath mat and he is groggy and repeating himself. He takes Xarelto. He did not pass out. The nurse takes the key details, tells the niece to call 911 now, coaches pressure with a towel and keeping him still, pages the on-call and plans to call back. Niece is scattered, apologizes, asks the same thing twice, and goes to unlock the door. Other_urgent with escalation, other_family caller, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: other_urgent
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [falls_safety, bleeding, cognition]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Willow Creek Home Health
+  agency_type: home_health
+  nurse_name: Tess
+  call_timestamp_utc: "2026-10-31T13:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Osmond Lindqvist
+  patient_name_spoken: Osmond Lindqvist
+  patient_name_certainty: stated
+  patient_dob_true: "1946-12-30"
+  patient_dob_spoken: "1946-12-30"
+  patient_dob_certainty: stated
+  caller_name_true: Cassandra Brandt
+  caller_name_spoken: Cassandra Brandt
+  caller_name_certainty: stated
+  relationship_to_patient: niece
+  relationship_certainty: stated
+  callback_phone_true: "2125550132"
+  callback_phone_spoken: "2125550132"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her uncle fell in the bathroom, hit his head and is bleeding
+  reason_category: falls_safety
+  relevant_context: Home health patient on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: bleeding from the back of the head
+    symptom_present: true
+    onset_or_duration: after a fall a few minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: He slipped getting out of the tub and hit the back of his head on the edge
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Xarelto
+    medication_name_spoken: Xarelto
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: grogginess and repeating himself
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: passing out
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: head strike with bleeding on a blood thinner and grogginess
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Press a clean towel firmly on the bleeding spot and keep pressure on until help arrives
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him lying still and do not try to stand or move him, and keep him awake and talking
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Unlock the front door, and have his medicine list and the name of his blood thinner ready for the paramedics
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Fall with head strike and bleeding in a patient on a blood thinner who is groggy
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Home Health, this is Tess.
+  Caller -> Oh my gosh. Hi. Hi, I need, I don't know who to call, my uncle fell, he fell in the bathroom and he hit his head and there's blood. || cc, F1
+  Nurse -> Okay. I'm here. What's your name and what's your uncle's name?
+  Caller -> I'm Cassandra. Cassandra Brandt. He's, my uncle is Osmond Lindqvist. L I N D Q V I S T. || caller_name, relationship, patient_name
+  Nurse -> Okay, Cassandra. Is he awake right now?
+  Caller -> He's awake. He's sitting on the bath mat. He's sitting, I told him not to get up, he's trying to get up.
+  Nurse -> Okay. Tell him to stay down. Where is he bleeding from?
+  Caller -> The back of his head. There's a lot, I mean there's, it's on the mat and on the towel. I put a towel but it's soaking. It happened like five minutes ago. Maybe less. || A1
+  Nurse -> Okay. You're doing fine. How did he fall?
+  Caller -> He was getting out of the tub. I came over to bring him groceries and I heard a bang. And he, he slipped, I think. His foot slipped and he went back and hit the edge. The edge of the tub. The back of his head. || A2
+  Nurse -> Okay. Did he pass out? Did he lose consciousness at all?
+  Caller -> No. No. He was awake. He said ow. He said a bad word. I was right there. He didn't pass out. || A5
+  Nurse -> Okay. Does he take a blood thinner?
+  Caller -> Yes. Yes he does. Oh no. He takes the, hold on. It's on the fridge. It's the Xarelto. He takes it with supper. Twenty milligrams. || A3
+  Nurse -> Okay. Xarelto, twenty, once a day. Thank you. Cassandra, how is he acting? Is he making sense? || A3
+  Caller -> He's, kind of. He keeps asking me what happened. I told him. And he asked me again. And he's a little sleepy. He's groggy. He's not himself. He's usually very sharp. || A4
+  Nurse -> Okay. I'm going to ask you to do something right now. I want you to call nine one one. Right now. Hang up with me, call nine one one, and tell them he fell, hit his head, he's bleeding, he's on a blood thinner, and he's groggy. || F2, R1
+  Caller -> Nine one one. Okay. Right now? I'm on the phone with you.
+  Nurse -> Yes, right now. I can stay on while you call on another phone, or you can put me on speaker. Do you have a second phone?
+  Caller -> I have my husband's. No wait, he's not here. Hold on. I can use the house phone. It's in the kitchen. Hold on.
+  Nurse -> Okay. Before you go, what's the address? I'll stay on the line.
+  Caller -> I'm putting you on speaker. Okay. I'm going to go in the kitchen. The address is, oh my gosh, I know this, it's forty one Alder Way. Forty one Alder.
+  Nurse -> Forty one Alder Way. Good. Go ahead and call them. I'll wait.
+  Caller -> Okay. Okay. Hold on. Uncle Oz, stay there. Don't move.
+  Nurse -> I'm here.
+  Caller -> Okay, it's ringing. It's ringing. It, hi, hello. Yes. My uncle fell and he hit his head. Forty one Alder Way. Yes. He's on a blood thinner. Yes. Yes. They said stay on the line but I can't. I'm with him. I'm going back to him. They said they're sending someone.
+  Nurse -> Good. That's exactly right. Now, go back to your uncle. Press a clean towel firmly on the bleeding spot. Firm pressure, and don't peek. Keep it there until the paramedics come. || E1
+  Caller -> Firm pressure. Don't peek. Okay. I have a clean towel from the closet. I'm pressing. Uncle Oz, I'm pressing. It's okay.
+  Nurse -> Is he still sitting up?
+  Caller -> He's sitting. He's leaning on the tub.
+  Nurse -> Okay. I'd like him to lie down flat if he can, on the mat, with a pillow or a folded towel under his head. But don't pull him or lift him. If he can lie back slowly by himself, okay. If not, keep him still where he is. || E2
+  Caller -> He says he wants to sit. He says he's fine.
+  Nurse -> I know. Tell him I said please stay still until the paramedics look at him. Just stay as he is. And keep talking to him. Keep him awake.
+  Caller -> Okay. Uncle Oz, talk to me. Who's the president? No. Tell me about your boat. He's telling me about the boat.
+  Nurse -> That's good. That's good. Keep him talking.
+  Caller -> He's talking about the boat. He's got it on the lake. He's doing the whole thing about the engine.
+  Nurse -> That's a good sign that he can tell you a story. Now, Cassandra, while you hold the towel, is there someone who can unlock the front door for the paramedics?
+  Caller -> I'm the only one here. The front door's locked. I came through the garage.
+  Nurse -> Okay. Can you leave him for ten seconds? Make sure he's lying still, and go unlock the front door. Then come right back and hold the towel.
+  Caller -> Okay. Ten seconds. Uncle Oz, I'm coming right back. Okay. Hold on. Door. Okay, the door's open. I'm back. I'm pressing.
+  Nurse -> Perfect. Now, it would help the paramedics if you had his medicine list. Is it on the fridge with the Xarelto? || A3
+  Caller -> It's on the fridge. There's a sheet. His pills and his doctors. A magnet holds it.
+  Nurse -> Good. After the paramedics come, hand them that sheet. Tell them the name of his blood thinner, Xarelto, and what time he last took it. || E3
+  Caller -> He takes it with supper. So last night. He hasn't had today's yet.
+  Nurse -> Okay. Tell them that.
+  Caller -> Okay.
+  Nurse -> How's the towel? Is it soaking through?
+  Caller -> It's, there's some. It's, I think it's slowing down? It's not dripping. I put a second towel over the first one.
+  Nurse -> Good. Keep the pressure on. Don't lift the towel to look.
+  Caller -> I won't. I'm sorry. I'm so sorry. I'm shaking.
+  Nurse -> You're doing everything right. I'm going to page the on-call clinician right now so they know what's happening, and I'll let the agency know. || R2
+  Caller -> Okay. Thank you. Thank you.
+  Nurse -> Can I get the best number to reach you, in case the line drops?
+  Caller -> It's my cell. Two one two. Five five five. Zero one three two. || callback_phone
+  Nurse -> Two one two, five five five, zero one three two. Got it. And I have Mr. Lindqvist's date of birth on file but let me confirm. Is it December thirtieth, nineteen forty six? || callback_phone
+  Caller -> I think so. Yeah. December thirtieth. Nineteen forty six. He's seventy nine. Eighty in December. || patient_dob
+  Nurse -> Okay, good. Cassandra, can you hear sirens yet?
+  Caller -> Not yet. Oh. Maybe. I think I hear something. Is that them?
+  Nurse -> It might be. Keep pressing. Keep talking to your uncle.
+  Caller -> Uncle Oz, they're coming. They're almost here. He says he's cold.
+  Nurse -> Okay. Put a blanket or a coat over him if you have one. Don't move him.
+  Caller -> There's a robe on the hook. I'll put it over his legs. Okay. I put it on him.
+  Nurse -> Good. I'm going to call you back in fifteen minutes to see how he is, and where they're taking him. || R3
+  Caller -> Fifteen minutes. Okay. I'll answer. I might be in the ambulance. Is that okay?
+  Nurse -> That's okay. I'll call that cell number. Pick up if you can.
+  Caller -> Okay. Oh. They're here. I see the lights. They're here. They're pulling in.
+  Nurse -> Perfect. Let them in. Tell them everything we talked about. Go ahead and hang up and be with your uncle.
+  Caller -> Okay. Thank you. Thank you so much. Bye.
+  Nurse -> You're welcome. Bye, Cassandra.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Osmond Lindqvist, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1946-12-30", certainty: stated, heard_as: [], turns: [56]}
+    caller_name: {value: Cassandra Brandt, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: niece, certainty: stated, turns: [4]}
+    callback_phone: {value: "2125550132", certainty: stated, heard_as: [], turns: [54, 55]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her uncle fell in the bathroom, hit his head and was bleeding.
+    speaker: Caller
+    turns: [2]
+    quote: "my uncle fell, he fell in the bathroom and he hit his head and there's blood."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was bleeding from the back of his head after the fall a few minutes earlier.
+      speaker: Caller
+      turns: [8]
+      quote: "The back of his head. There's a lot"
+      explanation: Documents the bleeding.
+      facts:
+        - {type: symptom, name: bleeding from the back of the head, present: true, onset: after a fall a few minutes ago, certainty: stated}
+      covers: [A1]
+    - text: He slipped getting out of the tub and hit the back of his head on the edge.
+      speaker: Caller
+      turns: [10]
+      quote: "he slipped, I think."
+      explanation: Documents the fall.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: He took Xarelto 20 mg once a day with supper.
+      speaker: Caller
+      turns: [14]
+      quote: "It's the Xarelto. He takes it with supper. Twenty milligrams."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: Xarelto, dose: "20", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He was groggy and kept repeating himself.
+      speaker: Caller
+      turns: [16]
+      quote: "He keeps asking me what happened."
+      explanation: Documents the grogginess.
+      facts:
+        - {type: symptom, name: grogginess and repeating himself, present: true, certainty: stated}
+      covers: [A4]
+    - text: He did not pass out.
+      speaker: Caller
+      turns: [12]
+      quote: "He didn't pass out."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: passing out, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [17]
+      quote: "I want you to call nine one one. Right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in fifteen minutes to check on him.
+      speaker: Nurse
+      turns: [63]
+      quote: "I'm going to call you back in fifteen minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised pressing a clean towel firmly on the bleeding spot until the paramedics arrived.
+      speaker: Nurse
+      turns: [27]
+      quote: "Press a clean towel firmly on the bleeding spot."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping him still and awake and not moving him.
+      speaker: Nurse
+      turns: [31]
+      quote: "keep him still where he is."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised unlocking the front door and having his medicine list and blood thinner name ready for the paramedics.
+      speaker: Nurse
+      turns: [43]
+      quote: "hand them that sheet. Tell them the name of his blood thinner, Xarelto"
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "he fell in the bathroom and he hit his head and there's blood."}
+    - {category: escalation_request, turns: [17], quote: "I want you to call nine one one. Right now."}

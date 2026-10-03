@@ -1,0 +1,265 @@
+call_id: va-084
+split: val
+blueprint: "A son, Thibault Fontaine, calls because his mother Eulalia, who has a urinary catheter, woke shaking with a temperature of one oh three point two, is confused and breathing fast, with a blood pressure of eighty eight over fifty two and clammy skin. Nurse recognizes possible sepsis, tells him to call 911 now, gives pre-arrival instructions, and pages on-call. Possible sepsis, adult child caller, escalation plus urgent flags, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: possible_sepsis_catheter
+  secondary_tags: [adult_child, escalation_911, fever, confusion, split_turns, late_answers]
+  clinical_domains: [fever, cognition, dyspnea, urinary]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Silverleaf Home Care
+  agency_type: home_health
+  nurse_name: Marisol
+  call_timestamp_utc: "2026-12-13T04:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Eulalia Fontaine
+  patient_name_spoken: Eulalia Fontaine
+  patient_name_certainty: stated
+  patient_dob_true: "1940-08-23"
+  patient_dob_spoken: "1940-08-23"
+  patient_dob_certainty: stated
+  caller_name_true: Thibault Fontaine
+  caller_name_spoken: Thibault Fontaine
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "5055550109"
+  callback_phone_spoken: "5055550109"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his mother with a urinary catheter has a high fever, confusion and fast breathing
+  reason_category: fever
+  relevant_context: Home care patient with an indwelling urinary catheter
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "103.2"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: new confusion
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: fast breathing
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "88/52"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: shaking chills and clammy skin
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    recipient_or_target: 911
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep her lying down with her legs slightly raised, give nothing by mouth, and have her medicine list and the catheter bag ready for the paramedics
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 for fever, confusion, fast breathing and low blood pressure
+    trigger_speaker: nurse
+    flag_required: true
+  - flag_id: F2
+    risk_category: other_urgent
+    trigger_description: Temperature of 103.2 with new confusion, fast breathing and blood pressure of 88 over 52 in a patient with a catheter
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Silverleaf Home Care, this is Marisol.
+  Caller -> Marisol, hi, this is Thibault Fontaine. My mother is Eulalia Fontaine. She's really sick. She has a fever and she's confused and she's breathing fast. || caller_name, relationship, patient_name, cc, F2
+  Nurse -> Okay, Thibault. Stay with me. Is she awake?
+  Caller -> Sorry. I'm sorry. I got up when I heard her calling and I just ran in. I haven't even put shoes on.
+  Nurse -> That's fine. Shoes can wait. Stay with her.
+  Caller -> She's awake. Sort of. She's in bed. She's shaking. She's talking but it doesn't make sense. She keeps asking for my father. He died years ago.
+  Nurse -> Is she looking at you when you talk? Following you with her eyes?
+  Caller -> Sometimes. Then she drifts. She looks past me at the wall.
+  Nurse -> Okay. Have you taken her temperature?
+  Caller -> Yes. A hundred and three point two. I did it twice. || A1
+  Nurse -> Okay. Does she have a catheter?
+  Caller -> Yes. The Foley. It's been in about three weeks. The bag has cloudy urine. Dark. It smells bad. And there's very little. Almost nothing since last night.
+  Caller -> The nurse changed it last Tuesday, I think. No, Thursday. It's in the chart on the wall.
+  Nurse -> It's okay. The paramedics will see it. We have the chart too.
+  Nurse -> Is the tubing kinked, or the bag lower than her body?
+  Caller -> The bag is hanging on the side of the bed. The tubing looks straight. I didn't touch it.
+  Nurse -> Good. Leave it as it is.
+  Nurse -> Okay. How is she breathing?
+  Caller -> Fast. She's panting. Like she ran a mile. I counted, I think it's over thirty a minute. || A3
+  Nurse -> Do you have a blood pressure cuff?
+  Caller -> I do. Hold on. It says eighty eight over fifty two. That's low, right? That's low for her. She runs about one thirty. || A4
+  Nurse -> Thibault, I want you to call nine one one right now. This sounds like a serious infection. She needs the hospital. || R1, F1
+  Caller -> Okay. Okay. Should I hang up and call? Or do you call?
+  Nurse -> Don't hang up on me. I'll stay on the line while Natalie calls.
+  Caller -> Okay. Okay. I won't.
+  Nurse -> You call, on another phone if you have one, or put me on speaker and call from your cell. Is anyone else in the house?
+  Caller -> My wife's here. Natalie! Natalie! Call nine one one! It's Mom. It's an emergency!
+  Nurse -> Good. Is she calling?
+  Caller -> Yes. She's on it. She's on the phone with them.
+  Nurse -> Perfect. Keep your mother lying down, on her back, with her legs raised a little on a pillow. Don't give her anything to eat or drink. || E1
+  Caller -> Lying down. Legs up. Nothing to eat or drink. Okay. I'm putting a pillow under her feet.
+  Nurse -> Is her skin clammy? Cold? Is she sweating?
+  Caller -> Yes. Cold and sweaty. Clammy. She's pale. She's shivering under three blankets. || A5
+  Nurse -> Okay. Is she confused about where she is?
+  Caller -> She thinks it's nineteen seventy something. She asked me why the kids aren't at school. She doesn't know who the president is. She knows my name though. She said Thibault. Then she said it was my brother's name. || A2
+  Nurse -> Okay. That's new confusion. That's important. Tell the paramedics that. Thibault, what's her date of birth?
+  Caller -> August twenty third, nineteen forty. || patient_dob
+  Nurse -> And the best number for you?
+  Caller -> Five oh five, five five five, zero one zero nine. || callback_phone
+  Nurse -> Thank you. Grab her medicine list and anything for the paramedics. And the catheter bag, with the urine in it. Don't empty it.
+  Caller -> I'll get the list. It's on the fridge. Natalie! Get the list on the fridge! And leave the bag!
+  Nurse -> Is the front door unlocked, and the light on?
+  Caller -> Natalie's already there. She's holding the door. The dog is barking. She put him in the bathroom.
+  Nurse -> Good thinking.
+  Caller -> Yes. I'll unlock it. Natalie, go turn on the porch light.
+  Nurse -> Good. I'm going to page the on-call clinician right now so they can notify the hospital. || R2
+  Caller -> Okay. Thank you. What if she gets worse before they come?
+  Nurse -> If she stops responding or her breathing slows or stops, tell the dispatcher right away. They'll talk you through it.
+  Caller -> Okay. Okay. Natalie says they're sending an ambulance. Six minutes.
+  Nurse -> While you wait, loosen the blankets a little if she's too hot, but don't let her get cold.
+  Caller -> She's shivering. I'll leave two on. She's pulling at them.
+  Nurse -> That's fine.
+  Nurse -> Perfect. Stay with your mother. Hold her hand. Talk to her.
+  Caller -> Mom, I'm here. Help's coming. You're okay. She squeezed my hand. She's looking at me.
+  Nurse -> That's good. She knows you're there.
+  Caller -> I'm so scared. I thought it was just a cold she had.
+  Nurse -> Infections can fool us. She seemed fine yesterday?
+  Caller -> She was tired. She was sleeping a lot. I thought it was the weather. I should have called yesterday.
+  Nurse -> You're calling now. That's what matters.
+  Nurse -> You're doing the right thing. Getting her to the hospital is the right thing.
+  Caller -> I hear a siren. Is that them? Yes, it's them. Natalie's at the door.
+  Nurse -> Go with them. We'll let the hospital know she's coming.
+  Caller -> Thank you. Thank you so much.
+  Nurse -> Go. We'll be thinking of you both.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eulalia Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-08-23", certainty: stated, heard_as: [], turns: [37]}
+    caller_name: {value: Thibault Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550109", certainty: stated, heard_as: [], turns: [39]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother with a urinary catheter has a high fever, confusion and fast breathing.
+    speaker: Caller
+    turns: [2]
+    quote: "She has a fever and she's confused and she's breathing fast."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was 103.2, checked twice.
+      speaker: Caller
+      turns: [10]
+      quote: "A hundred and three point two."
+      explanation: Documents the fever.
+      facts:
+        - {type: vital, name: temperature, value: "103.2", certainty: stated}
+      covers: [A1]
+    - text: She was confused, talking nonsensically and asking for her late husband.
+      speaker: Caller
+      turns: [35]
+      quote: "She thinks it's nineteen seventy something."
+      explanation: Documents the confusion.
+      facts:
+        - {type: symptom, name: new confusion, present: true, severity: severe, certainty: stated}
+      covers: [A2]
+    - text: She was breathing fast, over thirty a minute.
+      speaker: Caller
+      turns: [19]
+      quote: "Fast. She's panting."
+      explanation: Documents the breathing.
+      facts:
+        - {type: symptom, name: fast breathing, present: true, severity: moderate, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 88/52, well below her usual.
+      speaker: Caller
+      turns: [21]
+      quote: "It says eighty eight over fifty two."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "88/52", certainty: stated}
+      covers: [A4]
+    - text: She had shaking chills, cold clammy skin, and was pale.
+      speaker: Caller
+      turns: [33]
+      quote: "Cold and sweaty. Clammy."
+      explanation: Documents the chills.
+      facts:
+        - {type: symptom, name: shaking chills and clammy skin, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [22]
+      quote: "I want you to call nine one one right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping her lying down with legs raised, giving nothing by mouth, and having the medicine list and catheter bag ready.
+      speaker: Nurse
+      turns: [30]
+      quote: "Keep your mother lying down, on her back"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: escalation_request, turns: [22], quote: "I want you to call nine one one right now."}
+    - {category: other_urgent, turns: [2], quote: "She has a fever and she's confused and she's breathing fast."}

@@ -1,0 +1,296 @@
+call_id: tr-296
+split: train
+blueprint: "A wife calls home health because her husband's face is drooping on the right side, his speech is slurred, and his right hand dropped a coffee cup twenty minutes ago. He is 74, has atrial fibrillation and takes Eliquis. He is awake and frustrated. The nurse recognizes stroke signs and tells her to call 911 immediately, asks the time last known well, keeps her on the line, and coaches her to note the time and gather his medicine list. Stroke signs with 911 escalation, spouse caller, v2 short, urgent and clipped but with a few interruptions."
+setup:
+  scenario_category: high_risk
+  subtype: other_urgent
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [neurologic, cardiac, speech]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oak Hollow Home Health
+  agency_type: home_health
+  nurse_name: Brenda
+  call_timestamp_utc: "2026-10-29T12:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wendell Pacheco
+  patient_name_spoken: Wendell Pacheco
+  patient_name_certainty: stated
+  patient_dob_true: "1952-01-09"
+  patient_dob_spoken: "1952-01-09"
+  patient_dob_certainty: stated
+  caller_name_true: Lucille Pacheco
+  caller_name_spoken: Lucille Pacheco
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "4145550176"
+  callback_phone_spoken: "4145550176"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported sudden facial drooping, slurred speech and a dropped cup in her husband
+  reason_category: neurologic
+  relevant_context: Home health patient with atrial fibrillation on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: right facial droop
+    symptom_present: true
+    onset_or_duration: twenty minutes
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: slurred speech
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: right hand weakness
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: Eliquis
+    medication_name_spoken: Eliquis
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: He was last seen normal at twelve fifteen when he was reading the paper at the kitchen table
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: possible stroke with facial droop, slurred speech and hand weakness
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Note the time he was last normal, tell the 911 dispatcher he may be having a stroke and takes a blood thinner, and keep his medicine list ready
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him sitting or lying down, give him nothing to eat or drink, and unlock the front door
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Sudden facial droop, slurred speech and hand weakness suggesting stroke
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Oak Hollow Home Health, this is Brenda.
+  Caller -> Brenda, this is Lucille Pacheco. It's Wendell. His face. His whole face is, it's drooping, on one side. And he can't talk right. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Lucille. I'm listening. Which side of his face?
+  Caller -> The right. The right side. His mouth is hanging down. And his words are all mushy. He's trying to say something and it's, it doesn't come out. || A2
+  Nurse -> Okay. When did this start?
+  Caller -> I don't know. Twenty minutes ago? Maybe. He was reading the paper at the kitchen table. At twelve fifteen. I looked in and he was fine. He said something about the crossword. Then I went to the bathroom. And when I came out, he dropped his coffee cup. It broke. And I looked at him and his face was like that. || A5
+  Nurse -> Okay. Twelve fifteen was the last time he was normal. Is that right?
+  Caller -> Yes. Twelve fifteen. It's twelve forty now, so about twenty five minutes. Yes.
+  Nurse -> Okay. Lucille, I need you to hang up and call nine one one right now. This sounds like it could be a stroke and he needs an ambulance. || F2, R1
+  Caller -> A stroke? Oh my God. Oh no. Okay. Wait. Can't you send someone? Can't a nurse come?
+  Nurse -> A nurse can't get there fast enough. The ambulance can. Time matters with a stroke. Call nine one one right now. Do you have another phone, so I can stay on with you?
+  Caller -> There's the house phone. The kitchen one, on the wall. It has the long cord. I'm on my cell. Hold on. I'll put this one on the counter.
+  Nurse -> Perfect. Put me on speaker on the counter, and call from the wall phone. I'll stay right here.
+  Caller -> Okay. Okay. It's on speaker. Wendell, honey, stay in the chair. I'm calling. I'm calling the ambulance.
+  Nurse -> Go ahead. I can hear you.
+  Caller -> It's ringing. Hello? Yes. I need an ambulance. My husband. I think he's having a stroke. Forty one Birch Lane. Yes. Yes. It's Pacheco. Wendell Pacheco. His face is drooping and he can't talk right.
+  Nurse -> Tell them it started around twelve fifteen to twelve twenty, and that he takes a blood thinner. || E1
+  Caller -> Around twelve fifteen. He's on a blood thinner. Yes. The Eliquis. Yes. Yes. Okay. She says they're sending someone. She says about eight minutes. She says stay on the line but I can't, I have two phones. || A4
+  Nurse -> Stay on with the dispatcher. I'm right here too. Is the front door unlocked?
+  Caller -> It's not. Hold on. I'll go. The cord won't reach. I'll put the wall phone down. Hold on. Okay. It's unlocked. I turned on the porch light.
+  Nurse -> Good. Now go back to Wendell. Is he still sitting up?
+  Caller -> He's in the kitchen chair. He's looking at me. He's trying to talk. He said something. I couldn't understand. He's frustrated. He hit the table.
+  Nurse -> That's okay. Tell him you know, and help is coming. Keep your voice calm.
+  Caller -> Wendell, honey, the ambulance is coming. It's okay. They're coming. Oh, he's crying. Brenda, he's crying.
+  Nurse -> That's understandable. Hold his hand. What about his other hand? Can he squeeze?
+  Caller -> His left one he can. His right hand. It's limp. It won't squeeze at all. It's like a dead thing. || A3
+  Nurse -> Okay. Tell the paramedics that. Is he taking anything for his heart? A blood thinner?
+  Caller -> The Eliquis. Five milligrams. Twice a day. He took the morning one at eight. The list is on the fridge. I'll give it to them. || A4
+  Nurse -> Good. Give the paramedics the list. Don't give him anything to eat or drink, not even water or pills. And keep him sitting or lying down. Don't let him walk around. || E2
+  Caller -> Nothing to eat or drink. Sit or lie. Okay. He wants to get up. He's trying to stand up. No, honey. Sit. Sit down. Okay. He sat.
+  Nurse -> Good. Is he in a safe spot? Not near the edge of the chair?
+  Caller -> I put a pillow on each side. He's fine. He's leaning on me.
+  Nurse -> That's good. Lucille, can you tell me his date of birth? For the chart. In case the line drops.
+  Caller -> January ninth. Nineteen fifty two. || patient_dob
+  Nurse -> Thanks. And the number you're on?
+  Caller -> This one is my cell. Four one four, five five five, zero one seven six. || callback_phone
+  Nurse -> Got it. I'm paging the on-call clinician right now. They'll want to know. || R2
+  Caller -> Okay. Okay. Thank you. How long did they say? Eight minutes. That's forever.
+  Nurse -> It feels long. Let's use the time. Has Wendell had any falls today? Or hit his head?
+  Caller -> No. No falls. He got up fine this morning. He had his oatmeal. He did the stairs. He was fine. He was joking about the crossword.
+  Nurse -> Okay. And did he complain of a headache, or his vision, before this?
+  Caller -> He said his eye was a little blurry at breakfast. But he wipes his glasses all the time. I didn't think anything of it. Oh God. Should I have?
+  Nurse -> No. You couldn't have known. Tell the paramedics about the eye too.
+  Caller -> The blurry eye. Okay. I'll tell them.
+  Caller -> Should I call my daughter? She's at work. She's twenty minutes away.
+  Nurse -> After the paramedics are with him. Right now, stay with Wendell. I can have the agency call her if you give me her number.
+  Caller -> No, I'll do it. I'll call her from the ambulance. Oh. Hold on. The dog. The dog is barking. Shh. Biscuit, quiet.
+  Nurse -> It's okay. Let him bark.
+  Caller -> He knows something's wrong. He's pressing against Wendell's leg.
+  Nurse -> Dogs do know. Is Wendell's breathing okay?
+  Caller -> Yes. He's breathing fine. He's just, one side. His mouth is crooked. He's drooling a little. I wiped it with a towel.
+  Nurse -> Good. That's all right.
+  Caller -> Is it going to be okay? Can they fix this?
+  Nurse -> The sooner he gets to the hospital, the better the chance. You did the right thing calling right away. They have treatments for strokes, but they have to start early.
+  Caller -> That's why you said time. I understand. Okay. I'll stay calm.
+  Caller -> Okay. Okay. Thank you. I can hear something. Is that a siren?
+  Nurse -> It might be. Listen.
+  Caller -> I hear it. I hear it. It's getting louder. It's the fire truck. They said the fire truck comes first.
+  Nurse -> That's normal. Go to the door and wave them in. Tell them everything we went over.
+  Caller -> I'll go. I'll go. Wendell, I'll be right back. Don't get up. The nurse is on the phone. I'll be right back.
+  Nurse -> Go ahead. I'll stay on until you tell me.
+  Caller -> Okay. They're here. They're in the driveway. Two men. They have a bag. I'm waving. Here, he's in the kitchen. Right here. He's in the chair.
+  Nurse -> Lucille, I'm going to let you go so you can talk to them. I'll call you back in fifteen minutes. Pick up if you can, even from the ambulance. || R3
+  Caller -> Okay. Okay. I'll answer. Thank you. Thank you so much, Brenda.
+  Nurse -> You did everything right. Go be with him.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wendell Pacheco, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-01-09", certainty: stated, heard_as: [], turns: [34]}
+    caller_name: {value: Lucille Pacheco, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550176", certainty: stated, heard_as: [], turns: [36]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported sudden facial drooping, slurred speech and a dropped cup in her husband.
+    speaker: Caller
+    turns: [2]
+    quote: "His face. His whole face is, it's drooping, on one side."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The right side of his face was drooping, beginning about twenty minutes earlier.
+      speaker: Caller
+      turns: [4]
+      quote: "The right. The right side. His mouth is hanging down."
+      explanation: Documents the facial droop.
+      facts:
+        - {type: symptom, name: right facial droop, present: true, onset: twenty minutes, certainty: stated}
+      covers: [A1]
+    - text: His speech was slurred.
+      speaker: Caller
+      turns: [4]
+      quote: "his words are all mushy."
+      explanation: Documents the slurred speech.
+      facts:
+        - {type: symptom, name: slurred speech, present: true, certainty: stated}
+      covers: [A2]
+    - text: His right hand was limp and he could not squeeze.
+      speaker: Caller
+      turns: [26]
+      quote: "His right hand. It's limp."
+      explanation: Documents the hand weakness.
+      facts:
+        - {type: symptom, name: right hand weakness, present: true, certainty: stated}
+      covers: [A3]
+    - text: Eliquis 5 mg twice a day was taken, with the morning dose at eight.
+      speaker: Caller
+      turns: [28]
+      quote: "The Eliquis. Five milligrams. Twice a day."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: Eliquis, dose: "5", unit: mg, frequency: twice a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: He was last seen normal at twelve fifteen while reading at the kitchen table.
+      speaker: Caller
+      turns: [6]
+      quote: "He was reading the paper at the kitchen table. At twelve fifteen."
+      explanation: Documents the last known normal time.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away for a possible stroke.
+      speaker: Nurse
+      turns: [9]
+      quote: "I need you to hang up and call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm paging the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [63]
+      quote: "I'll call you back in fifteen minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised telling the dispatcher it might be a stroke starting around twelve fifteen and that he takes a blood thinner.
+      speaker: Nurse
+      turns: [17]
+      quote: "Tell them it started around twelve fifteen to twelve twenty, and that he takes a blood thinner."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised giving him nothing to eat or drink, keeping him sitting or lying down, and unlocking the door.
+      speaker: Nurse
+      turns: [29]
+      quote: "Don't give him anything to eat or drink, not even water or pills."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "His face. His whole face is, it's drooping, on one side."}
+    - {category: escalation_request, turns: [9], quote: "I need you to hang up and call nine one one right now."}

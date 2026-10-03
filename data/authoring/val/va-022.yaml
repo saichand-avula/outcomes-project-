@@ -1,0 +1,264 @@
+call_id: va-022
+split: val
+blueprint: "Son reports severe agitation in his father: pulling at his catheter and trying to climb out of bed, not settling after two lorazepam doses; son asks someone to come; nurse pages the physician (completed), advises holding more lorazepam, and arranges an on-call nurse visit within 45 minutes. Flags: uncontrolled symptom and escalation request."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [tall_man_drug, prn_and_scheduled]
+  clinical_domains: [agitation_delirium]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-09-30T00:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Edmund Valdez
+  patient_name_spoken: Edmund Valdez
+  patient_name_certainty: stated
+  patient_dob_true: "1943-09-14"
+  patient_dob_spoken: "1943-09-14"
+  patient_dob_certainty: stated
+  caller_name_true: Joaquin
+  caller_name_spoken: Joaquin
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "5055550181"
+  callback_phone_spoken: "5055550181"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Father is severely agitated and not settling despite medicine
+  reason_category: agitation
+  relevant_context: Hospice patient with an indwelling urinary catheter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: agitation
+    symptom_present: true
+    severity: severe
+    history_or_context_text: Pulling at his catheter and trying to climb out of bed
+    onset_or_duration: past two hours
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "1"
+    unit: mg
+    prn: true
+    last_dose_time: second dose about 20 minutes ago
+    response_to_medication: Not settling
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Has a urinary catheter in place
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: signs of pain
+    symptom_present: false
+    certainty: unclear
+    unclear_detail: Caller does not think he is hurting
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call physician
+    reason_or_trigger: agitation not responding to lorazepam
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    reason_or_trigger: no more doses until the physician gives orders
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: on-call nurse
+    timeframe: within 45 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with him, keep the bed low, and gently keep his hands away from the catheter
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Dim the lights, speak slowly and calmly, and reduce noise
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he falls, becomes combative, or is hard to wake
+    trigger_condition: fall; combative; hard to wake
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Severe agitation not settling after two doses of lorazepam
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Caller asks the nurse to send someone tonight
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Lena.
+  Caller -> Lena, it's Joaquin Valdez. It's my father, Edmund. Please, I need someone to come. || caller_name, relationship, patient_name, F2
+  Nurse -> Hi, Joaquin. What's Edmund's date of birth?
+  Caller -> September fourteenth, nineteen forty three. || patient_dob
+  Nurse -> And your number is five oh five, five five five, zero one eight one? || callback_phone
+  Caller -> Yes. Yes, that's right. || callback_phone
+  Nurse -> Tell me what's happening.
+  Caller -> He's so agitated. He's pulling at his catheter, he's trying to climb out of bed. It's been two hours and he won't settle. || cc, A1, F1
+  Nurse -> Okay. What have you given him?
+  Caller -> The lorazepam. One milligram. I gave him one at ten, and another one about twenty minutes ago. And it's not working. He's not settling at all after two doses. || A2, F1
+  Nurse -> Okay. Does he have the catheter in?
+  Caller -> Yes. He has a catheter. He keeps grabbing at it. || A3
+  Nurse -> Okay. Do you think he's in pain?
+  Caller -> I don't think so. He isn't grimacing. I think it's the confusion. I think. || A4
+  Nurse -> Okay. Joaquin, I'm paging the on-call doctor right now. Hold on. Okay, I've sent the page. || R1
+  Caller -> Okay. Please. Please send someone. I can't hold him down. I don't want to hurt him.
+  Nurse -> I'm sending the on-call nurse to you. She'll be there within forty five minutes. || R3
+  Caller -> Forty five minutes. Okay. Okay.
+  Nurse -> Please don't give him any more lorazepam until the doctor gives us orders. I don't want him oversedated. || R2
+  Caller -> Okay. No more lorazepam. || R2
+  Nurse -> Stay with him. Keep the bed low, and gently keep his hands away from the catheter. Don't hold him down. || E1
+  Caller -> Okay. I'm holding his hands. Gently.
+  Nurse -> Dim the lights, and talk to him slowly and calmly. Turn off the TV. || E2
+  Caller -> Okay. The lights are going down. Dad, it's okay. It's Joaquin. It's okay.
+  Nurse -> That's great. If he falls, or gets combative, or is very hard to wake, call me right away. || E3
+  Caller -> Okay. I will.
+  Nurse -> I'll stay on the line a few minutes.
+  Caller -> Thank you. Thank you, Lena.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Edmund Valdez, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-09-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Joaquin, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550181", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father was severely agitated and asked for someone to come.
+    speaker: Caller
+    turns: [8]
+    quote: "He's so agitated. He's pulling at his catheter, he's trying to climb out of bed."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Severe agitation for about 2 hours, with pulling at his catheter and trying to climb out of bed.
+      speaker: Caller
+      turns: [8]
+      quote: "It's been two hours and he won't settle."
+      explanation: Documents the course of the agitation.
+      facts:
+        - {type: symptom, name: agitation, present: true, severity: severe, onset: past two hours, certainty: stated}
+      covers: [A1]
+    - text: Lorazepam 1 mg as needed was given at 10 and again about 20 minutes ago without settling him.
+      speaker: Caller
+      turns: [10]
+      quote: "I gave him one at ten, and another one about twenty minutes ago. And it's not working."
+      explanation: Documents the medication given and its lack of effect.
+      facts:
+        - {type: medication, name: lorazepam, dose: "1", unit: mg, prn: true, last_dose: second dose about 20 minutes ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He had an indwelling urinary catheter in place, which he kept grabbing.
+      speaker: Caller
+      turns: [12]
+      quote: "Yes. He has a catheter. He keeps grabbing at it."
+      explanation: Documents the catheter.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: The caller did not think he was in pain, as he was not grimacing, but was not certain.
+      speaker: Caller
+      turns: [14]
+      quote: "I don't think so. He isn't grimacing. I think it's the confusion. I think."
+      explanation: Documents a pertinent negative for pain with uncertainty preserved.
+      facts:
+        - {type: pertinent_negative, name: signs of pain, certainty: unclear}
+      covers: [A4]
+  response:
+    - text: Paged the on-call physician during the call.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm paging the on-call doctor right now. Hold on. Okay, I've sent the page."
+      explanation: Documents the completed physician page.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned an on-call nurse visit within 45 minutes.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm sending the on-call nurse to you. She'll be there within forty five minutes."
+      explanation: Documents the planned urgent visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within 45 minutes, certainty: stated}
+      covers: [R3]
+    - text: Advised no more lorazepam until the physician gave orders.
+      speaker: Nurse
+      turns: [19]
+      quote: "Please don't give him any more lorazepam until the doctor gives us orders."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: lorazepam, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised staying with him, keeping the bed low, and gently keeping his hands away from the catheter without holding him down.
+      speaker: Nurse
+      turns: [21]
+      quote: "Stay with him. Keep the bed low, and gently keep his hands away from the catheter."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised dimming the lights, speaking slowly and calmly, and turning off the television.
+      speaker: Nurse
+      turns: [23]
+      quote: "Dim the lights, and talk to him slowly and calmly. Turn off the TV."
+      explanation: Documents calming measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if he fell, became combative, or was very hard to wake.
+      speaker: Nurse
+      turns: [25]
+      quote: "If he falls, or gets combative, or is very hard to wake, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [10], quote: "He's not settling at all after two doses."}
+    - {category: escalation_request, turns: [2], quote: "Please, I need someone to come."}

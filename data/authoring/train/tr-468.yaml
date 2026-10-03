@@ -1,0 +1,265 @@
+call_id: tr-468
+split: train
+blueprint: "A 61-year-old woman with diabetic nerve pain calls home health herself because she is down to two days of her nerve pain pill, which she pronounces 'gabapenton' (gabapentin 300 milligrams three times a day); the pharmacy says no refills remain. Burning in both feet about a five, no missed doses. Nurse sends a refill request, contacts the pharmacy, plans a callback tomorrow, and reminds her not to stop it suddenly. ASR drug garble with a refill request, self caller, patient 18-64, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, hedging, late_answers, split_turns]
+  clinical_domains: [medication, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bayberry Home Health
+  agency_type: home_health
+  nurse_name: Lucio
+  call_timestamp_utc: "2026-11-13T16:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marisela Dunleavy
+  patient_name_spoken: Marisela Dunleavy
+  patient_name_certainty: stated
+  patient_dob_true: "1965-10-02"
+  patient_dob_spoken: "1965-10-02"
+  patient_dob_certainty: stated
+  caller_name_true: Marisela Dunleavy
+  caller_name_spoken: Marisela Dunleavy
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9185550169"
+  callback_phone_spoken: "9185550169"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Needs a refill of her nerve pain medicine, with two days of pills left
+  reason_category: medication
+  relevant_context: Home health patient with diabetic nerve pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: gabapentin
+    medication_name_spoken: gabapenton
+    medication_status: taking
+    dose: "300"
+    unit: mg
+    frequency: three times a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: burning pain in both feet
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: Only two days of pills left and the pharmacy says no refills remain
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: missed doses
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: nerve pain medicine with two days left
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: confirm the refill status
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep taking it three times a day and do not stop it suddenly or stretch the doses
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bayberry Home Health, this is Lucio.
+  Caller -> Hi, Lucio. This is Marisela Dunleavy. I'm a patient. I'm running low on my gabapenton and the pharmacy told me no refills. I need to talk to somebody. || caller_name, patient_name, relationship, cc, A1
+  Nurse -> Hi, Marisela. Thanks for calling. Let me get this straight. Your gabapentin, the nerve pain medicine? || A1
+  Caller -> Sorry. I'm a little frazzled. I've been on hold with the pharmacy twice.
+  Nurse -> That's frustrating. Let's sort it out.
+  Caller -> Yes. The gabapenton. For my feet. I've been on it for two years. || A1
+  Nurse -> Okay. Two years. That's a long time.
+  Caller -> Feels like longer.
+  Nurse -> Okay. What's the dose, and how often do you take it?
+  Caller -> Three hundred milligrams. Three times a day. Morning, afternoon, and bed. I took my morning one at eight. || A1
+  Nurse -> Three hundred, three times a day. And how many pills do you have left?
+  Caller -> I counted last night. I have six. That's two days. Tomorrow and the day after. Then I run out. || A3
+  Nurse -> Good that you counted.
+  Caller -> I count them every Sunday. It's a habit.
+  Nurse -> Okay. And what did the pharmacy say?
+  Caller -> I called this morning. The girl said there are no refills left on it. She said I need a new prescription from the doctor. She said it would take a couple of days. A couple of days. I don't have a couple of days.
+  Nurse -> Okay.
+  Nurse -> I understand. We'll see what we can do. Have you missed any doses lately?
+  Caller -> No. I'm very good. I take them. I have an alarm on my phone. I haven't missed one. || A4
+  Nurse -> Good. That helps. How are your feet right now?
+  Caller -> Burning. The bottoms. Both of them. Like they're on a hot stove. It's about a five right now, because I took my pill. When it wears off it goes up. || A2
+  Nurse -> Okay. A five out of ten. That's when you're on it.
+  Caller -> Right. I'm afraid of what it'll be like without it.
+  Caller -> Last time I was out for a day, I couldn't sleep. At all.
+  Nurse -> I'm sorry. We won't let that happen if we can help it.
+  Nurse -> That's a very reasonable worry. Let's not let it get there.
+  Caller -> Thank you.
+  Nurse -> What's your date of birth, so I can pull up the chart?
+  Caller -> October second. Nineteen sixty five. || patient_dob
+  Nurse -> Thank you. And the best number?
+  Caller -> Nine one eight, five five five, oh one six nine. || callback_phone
+  Nurse -> Nine one eight, five five five, oh one six nine. Right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. Here's what I'll do. I'll send a refill request to your doctor's office today, marked as urgent, since you only have two days. || R1
+  Caller -> Oh, thank you. That would be wonderful.
+  Nurse -> Of course.
+  Nurse -> I'll also call the pharmacy and confirm where the refill stands. They may already have a request in. || R2
+  Caller -> They said they sent one. Last week. And they didn't hear back.
+  Nurse -> That's helpful to know. I'll mention that.
+  Caller -> Okay.
+  Nurse -> I'll call you tomorrow to let you know where it stands. || R3
+  Caller -> Tomorrow. What time?
+  Nurse -> Around noon.
+  Caller -> Okay. I'll be home. I'm not going anywhere. With these feet.
+  Caller -> I can hear the phone from the couch. It's right next to me.
+  Nurse -> Ha. I understand.
+  Nurse -> In the meantime, keep taking your gabapentin three times a day, like you have been. Don't stop it suddenly, and don't stretch the doses to make it last. Stopping suddenly can cause problems. || E1
+  Caller -> Don't stop it. Don't stretch it. Okay. I wasn't going to. But I was thinking about it. Taking two a day, to make it last.
+  Nurse -> Please don't do that. Take it as prescribed. If it comes down to the wire, call me.
+  Caller -> Okay. I will. Thank you for telling me that.
+  Nurse -> Of course. Are you doing anything else for your feet? Soaks, socks?
+  Caller -> Cotton socks. And I keep them elevated. I have a heating pad but it makes it worse.
+  Nurse -> Okay. Skip the heating pad. Warm things can burn feet that can't feel it well.
+  Caller -> I know. I put it away. It's under the bed.
+  Nurse -> Perfect.
+  Caller -> It was my mother's. Fifty years old. It still works.
+  Nurse -> Ha.
+  Nurse -> Good.
+  Caller -> My sister says I should try some cream. The capsaicin. Do you think that works?
+  Nurse -> Some people find it helps. Ask the doctor before you try it.
+  Caller -> I will. I'll ask at the appointment.
+  Nurse -> When is your next appointment?
+  Caller -> December. The ninth. I think.
+  Nurse -> Okay. Good.
+  Caller -> I wrote it on the calendar. With a star.
+  Caller -> I'm sorry to be a bother.
+  Nurse -> You're not a bother at all. This is what I'm here for.
+  Caller -> Thank you, Lucio. You've made me feel better already.
+  Nurse -> Good. Talk tomorrow.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: gabapentin, heard_form: gabapenton, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marisela Dunleavy, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1965-10-02", certainty: stated, heard_as: [], turns: [29]}
+    caller_name: {value: Marisela Dunleavy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550169", certainty: stated, heard_as: [], turns: [31, 32]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Needs a refill of her nerve pain medicine, with two days of pills left.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm running low on my gabapenton and the pharmacy told me no refills."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Gabapenton 300 mg was taken three times a day, last dose this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "Three hundred milligrams. Three times a day."
+      explanation: Documents the medication as spoken. The drug is named in the tagged call turn.
+      facts:
+        - {type: medication, name: gabapenton, dose: "300", unit: mg, frequency: three times a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Burning pain in both feet was about a five.
+      speaker: Caller
+      turns: [21]
+      quote: "Burning. The bottoms. Both of them."
+      explanation: Documents the foot pain.
+      facts:
+        - {type: symptom, name: burning pain in both feet, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Only two days of pills were left and the pharmacy said no refills remained.
+      speaker: Caller
+      turns: [12]
+      quote: "I have six. That's two days."
+      explanation: Documents the supply and refill context.
+      facts:
+        - {type: context, text: Only two days of pills left and the pharmacy says no refills remain, certainty: stated}
+      covers: [A3]
+    - text: She had not missed any doses.
+      speaker: Caller
+      turns: [19]
+      quote: "I haven't missed one."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: missed doses, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send an urgent refill request to the doctor's office.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll send a refill request to your doctor's office today"
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy to confirm the refill status.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'll also call the pharmacy and confirm where the refill stands."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback tomorrow.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call you tomorrow to let you know where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised continuing it three times a day and not stopping suddenly or stretching the doses.
+      speaker: Nurse
+      turns: [47]
+      quote: "Don't stop it suddenly, and don't stretch the doses to make it last."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

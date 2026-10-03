@@ -1,0 +1,342 @@
+call_id: tr-431
+split: train
+blueprint: "A paid caregiver calls the agency nurse line: her 34-year-old client with epilepsy just had a convulsion lasting about three minutes in the living room, is now unresponsive and breathing noisily, bit his tongue, and missed his Keppra last night. He did not fall from a height or hit his head. Nurse tells her to call 911 now because he is not waking, coaches her to turn him on his side, clear the area and put nothing in his mouth, stays on the line until paramedics arrive, and pages on-call. Seizure (other urgent and escalation request), paid caregiver caller, patient 18-64, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: seizure_911
+  secondary_tags: [hedging, late_answers, split_turns, crosstalk, multi_issue, phone_from_file]
+  clinical_domains: [seizure, neurologic, medication]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Larkspur Home Health
+  agency_type: home_health
+  nurse_name: Dana
+  call_timestamp_utc: "2026-11-17T19:50:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dmitri Yaroshenko
+  patient_name_spoken: Dmitri Yaroshenko
+  patient_name_certainty: stated
+  patient_dob_true: "1991-11-18"
+  patient_dob_spoken: "1991-11-18"
+  patient_dob_certainty: stated
+  caller_name_true: Florence Appiah
+  caller_name_spoken: Florence Appiah
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "7045550165"
+  callback_phone_spoken: "7045550165"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her client had a convulsion and is not waking up
+  reason_category: seizure
+  relevant_context: Home health client with epilepsy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: convulsion lasting about three minutes
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: unresponsive with noisy breathing
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Keppra
+    medication_name_spoken: Keppra
+    medication_status: missed
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or head injury
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: tongue bite with small bleed
+    symptom_present: true
+    severity: mild
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: seizure with unresponsiveness and noisy breathing
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: tell them he is being taken to the hospital after a seizure
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hang up and call 911 now, roll him onto his side, and unlock the front door
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Clear furniture away, put nothing in his mouth, do not hold him down, and note the time the seizure started and stopped
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Convulsion with unresponsiveness and noisy breathing afterward
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Larkspur Home Health, this is Dana.
+  Caller -> Dana, it's Florence Appiah. I'm the caregiver for Dmitri Yaroshenko. He just had a seizure. A bad one. He's on the floor. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Florence, slow down for me. I'm here. I've got you.
+  Caller -> Okay. Okay. Sorry. I'm shaking.
+  Nurse -> No need to apologize. This is scary, and you're doing well. Keep your eyes on him and tell me what you see.
+  Nurse -> Florence, I'm here. Is he breathing?
+  Caller -> Yes. He's breathing. But it's loud. Like snoring. Like gurgling. And he won't wake up.
+  Caller -> I've seen him have a small one before, but never this long. Never this scary.
+  Nurse -> I understand. Stay with him.
+  Nurse -> Okay. How long did the shaking last?
+  Caller -> I think three minutes. Maybe a little more. I looked at the clock when it started. It was seven forty five. And it stopped at seven forty eight. || A1
+  Nurse -> Okay. Is he still shaking?
+  Caller -> No. It stopped. He's still. He's limp. His eyes are closed. I said his name and nothing. I shook his shoulder and nothing. || A2
+  Caller -> His arms stopped jerking. His legs stopped. He's just lying there like a doll.
+  Nurse -> Okay. That can happen after the shaking ends.
+  Nurse -> Florence, he needs an ambulance. I need you to hang up and call 911 right now. || R1, F2
+  Caller -> Nine one one. Yes. Okay. Should I put you on hold?
+  Caller -> I don't want to hang up on you. I feel better with you here.
+  Nurse -> Put me on speaker and dial from your cell, or hang up and dial. Whichever is fastest.
+  Caller -> I'll dial. I'm putting you on the counter. Hold on. It's ringing.
+  Nurse -> Good. Tell them your client had a seizure that lasted about three minutes and is not waking up.
+  Caller -> It's ringing. Pick up, pick up. Okay, it picked up.
+  Caller -> Hello? Yes. My client had a seizure. He's not waking up. He's breathing, but loud. The address is three seventy two Birch Hollow Road. Yes. Apartment B. Yes, I'll stay on.
+  Caller -> They're sending an ambulance. They want me to stay on with them. Dana, they want me on.
+  Nurse -> Tell them his name, Dmitri, and his age, thirty four. They'll ask.
+  Caller -> Dmitri. Thirty four. Okay. They wrote it down.
+  Nurse -> That's fine. Put them on speaker. I'll be right here. Florence, is he on his back?
+  Caller -> Yes. He's flat on the living room floor. On the rug. On his back.
+  Caller -> The rug is thick. That helped. I put a cushion under his head when it started.
+  Nurse -> Okay. I need you to roll him onto his side. Gently. Face turned toward the floor a bit, so anything in his mouth can drain. || E1
+  Caller -> I'm turning him. He's heavy. I got his shoulder. There. He's on his left side. His mouth is open. There's some, there's foam. And a little blood.
+  Nurse -> That's from biting his tongue, probably. That's common. Don't put anything in his mouth. || E2
+  Caller -> I've never touched his mouth. His mother told me never to. She said it's a myth about swallowing the tongue.
+  Nurse -> She's right. It's a myth. You did the right thing.
+  Caller -> I won't. I won't touch his mouth. The blood is small. It's a little on his lip. || A5
+  Nurse -> Good. Is there furniture near him that he could hit?
+  Caller -> The room is small. I keep the corners clear because of this. His mother made me promise to always keep a clear space around him.
+  Nurse -> That was smart planning. It helped him today.
+  Caller -> The coffee table is right there. I pushed it back already when he started. The chair too. I moved the lamp.
+  Nurse -> You did the right things. Florence, did he hit his head when he went down? Did he fall?
+  Caller -> I took a first aid class last spring. I never thought I'd use it.
+  Nurse -> It shows. You were prepared.
+  Caller -> No. He was sitting on the couch. He was watching a game. He just stiffened and slid down onto the rug. I caught his head. I put a cushion under. He didn't hit anything. || A4
+  Nurse -> That's very good. Okay. Now, has he had seizures before?
+  Caller -> Yes. He has epilepsy. He hasn't had one in a year. A year and two months. He's been so good.
+  Caller -> His mother is going to be devastated. She's at her sister's in Charlotte. I should call her.
+  Nurse -> Call her after the paramedics arrive. Focus on him first.
+  Nurse -> Is he on medicine for it?
+  Caller -> The Keppra. Five hundred milligrams. Twice a day. He takes it morning and night. || A3
+  Nurse -> Did he take it today?
+  Caller -> The morning, yes. But last night, no. He fell asleep early. And I wasn't on until this morning. His mother was supposed to remind him. I think he missed it. I just checked the pill box and last night's slot is full. || A3
+  Nurse -> Okay. That could be why. That helps the paramedics. Tell them he missed one dose.
+  Caller -> Missed last night. Okay. I'll tell them.
+  Caller -> I feel awful. I should've checked the box when I came in this morning.
+  Nurse -> This isn't your fault. Let's keep going.
+  Caller -> He's moving a little. His hand just moved. Dmitri? Dmitri, can you hear me?
+  Nurse -> Don't try to get him to sit up. Just talk to him. Keep him on his side. Does he open his eyes?
+  Caller -> No. Not yet. He's groaning. He made a sound. It's a little better, the breathing. Not as loud.
+  Nurse -> That's normal after a seizure. He can be groggy for a while.
+  Caller -> Okay. Okay. I'm staying with him. I'm holding his hand. Dmitri, it's Florence. You had a seizure. You're okay. Help is coming.
+  Caller -> Dmitri, if you can hear me, squeeze my hand. He did it. Just barely. A tiny squeeze.
+  Nurse -> That's a good sign. He's coming back.
+  Nurse -> That's perfect. Keep your voice calm and low.
+  Caller -> He has this stuffed bear, a little brown one, on the shelf. Should I put it by him? He sleeps with it when he's sick.
+  Nurse -> If it's close, yes. But don't leave him for it. Stay by his side.
+  Caller -> It's right here on the arm of the couch. I'm grabbing it. There. I tucked it by his hand.
+  Caller -> I'm trying. My heart is going so fast.
+  Nurse -> It's okay. Take a breath. You're doing great. Is the front door unlocked?
+  Caller -> I'm counting my breaths. In for four. Out for four. It's what I do when I'm nervous.
+  Caller -> It's locked. The deadbolt. Let me go. Dmitri, I'm going to the door, I'll be right back. I'm going. Dana, are you still there?
+  Nurse -> I'm here. Go unlock it, and turn on the porch light.
+  Caller -> It's unlocked. The light is on. I'm back at his side. He's still on his left.
+  Nurse -> Good. Can I ask his date of birth, for the hospital?
+  Caller -> I can hear the dog next door barking at the siren. It's a husky. It sounds like it's singing.
+  Nurse -> Ha. Dogs always join in.
+  Caller -> November eighteenth. Nineteen ninety one. || patient_dob
+  Nurse -> Thanks. And your number? Is it the cell ending in oh one six five?
+  Caller -> I have my phone in my hand. If it dies, I'll use the landline.
+  Caller -> Yes. Seven oh four, five five five, zero one six five. || callback_phone
+  Caller -> If I don't answer, it's because I'm in the ambulance. I'll call you back as soon as I'm at the hospital and know what room.
+  Nurse -> That sounds good. We'll keep trying until we reach you.
+  Nurse -> I'm going to page the on-call clinician and let the hospital know he's on the way. || R2
+  Caller -> Thank you. Please. He's, he's such a good guy. He's thirty four. He shouldn't have to deal with this.
+  Caller -> He plays the guitar. He plays every afternoon. He's teaching me chords. I'm terrible.
+  Nurse -> It sounds like you two have a good bond.
+  Nurse -> I know. You're taking good care of him. How is he now?
+  Caller -> He's opening his eyes a little. He's looking around. He doesn't know me. He's looking at me and he doesn't know me.
+  Nurse -> That's very common. He'll be confused. Just tell him where he is and that you're here.
+  Caller -> He said something. It sounded like a name. Mama. He said mama.
+  Nurse -> That's all right. He's still coming out of it.
+  Caller -> Dmitri, you're at home. It's Florence. You're safe. Okay. He closed his eyes again. He's breathing better.
+  Nurse -> Good. Is his color okay? Lips and face?
+  Caller -> Pink. Not blue. He was a little gray before. It's better now. It's coming back.
+  Caller -> His cheeks have color. His hands are warm. That's good, right?
+  Nurse -> Yes, that's good.
+  Nurse -> That's what I wanted to hear.
+  Caller -> His chest is going up and down nice and even now. I'm watching it like a hawk. I've never watched anything so hard in my life.
+  Nurse -> That's exactly what you should be doing. You're his eyes right now.
+  Caller -> I hear the sirens. They're close. They're really close.
+  Caller -> The neighbor is outside on his porch. He's waving them in. Thank goodness.
+  Nurse -> Good. Open the door and stay with him until they come in. Leave me on the speaker.
+  Caller -> They're here. In here! He's on the floor! He had a seizure, three minutes! He's on his side! He's breathing! Seven forty five to seven forty eight! He missed his Keppra last night! Over here! || A3
+  Nurse -> Florence, I can hear them. Answer their questions. I'll be right here.
+  Caller -> He's been on Keppra five hundred twice a day. A year and two months seizure free. No head injury. He bit his tongue. Yes. Thank you. || A3
+  Nurse -> Which hospital are they taking him to?
+  Caller -> They said Presbyterian. The one on Hawthorne. I'm going to follow in my car. They said it's okay.
+  Caller -> Should I bring a bag? Clothes for him? A phone charger?
+  Nurse -> Quickly grab his charger and a sweater. Don't delay.
+  Nurse -> Okay. Take his medicine list and the pill box. Bring his insurance card if you can find it.
+  Caller -> I'll take the whole box. The weekly one. And the bottle too, the Keppra bottle with the label. They'll want to see it. || A3
+  Nurse -> Good thinking. Bring everything he takes.
+  Caller -> It's in the kitchen drawer. I have it. And the list from the fridge. Okay. They're lifting him. Wait. Dana, they're asking if I'm family.
+  Nurse -> Tell them you're the caregiver, and that you have the authority to give information. I'll make a note.
+  Caller -> I told them. They said okay. Thank you. Thank you so much for staying on.
+  Caller -> I'm going to lock the door behind us. The keys are in my pocket. I have my purse and his sweater. The stove is off. The lights are on.
+  Nurse -> Good. You've thought of everything.
+  Nurse -> You did everything right, Florence. Go. We'll check in later.
+  Caller -> Okay. Bye.
+  Caller -> Sorry, one more thing before I go. His mother may call the agency line. He's on the way to Presbyterian and I'm with him, if anyone asks, and I will call her myself.
+  Nurse -> That sounds right. Go ahead now. Take care, and drive carefully behind them.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dmitri Yaroshenko, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1991-11-18", certainty: stated, heard_as: [], turns: [76]}
+    caller_name: {value: Florence Appiah, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550165", certainty: stated, heard_as: [], turns: [79]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her client had a convulsion and was not waking up.
+    speaker: Caller
+    turns: [2]
+    quote: "He just had a seizure. A bad one."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He had a convulsion lasting about three minutes, from seven forty five to seven forty eight.
+      speaker: Caller
+      turns: [11]
+      quote: "I think three minutes."
+      explanation: Documents the seizure.
+      facts:
+        - {type: symptom, name: convulsion lasting about three minutes, present: true, severity: severe, certainty: stated}
+      covers: [A1]
+    - text: He was limp and unresponsive afterward with loud, gurgling breathing.
+      speaker: Caller
+      turns: [13]
+      quote: "He's still. He's limp."
+      explanation: Documents the unresponsiveness.
+      facts:
+        - {type: symptom, name: unresponsive with noisy breathing, present: true, severity: severe, certainty: stated}
+      covers: [A2]
+    - text: Keppra 500 mg twice a day was missed last night; the morning dose was taken.
+      speaker: Caller
+      turns: [49]
+      quote: "The Keppra. Five hundred milligrams. Twice a day."
+      explanation: Documents the missed medicine.
+      facts:
+        - {type: medication, name: Keppra, dose: "500", unit: mg, frequency: twice a day, prn: false, last_dose: yesterday morning, med_status: missed, certainty: stated}
+      covers: [A3]
+    - text: He did not fall or hit his head; she caught his head and put a cushion under it.
+      speaker: Caller
+      turns: [43]
+      quote: "He didn't hit anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or head injury, certainty: stated}
+      covers: [A4]
+    - text: There was foam and a small amount of blood on his lip from a tongue bite.
+      speaker: Caller
+      turns: [35]
+      quote: "The blood is small."
+      explanation: Documents the tongue bite.
+      facts:
+        - {type: symptom, name: tongue bite with small bleed, present: true, severity: mild, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 now.
+      speaker: Nurse
+      turns: [16]
+      quote: "I need you to hang up and call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician and alert the hospital.
+      speaker: Nurse
+      turns: [82]
+      quote: "I'm going to page the on-call clinician"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised rolling him onto his side and unlocking the front door.
+      speaker: Nurse
+      turns: [30]
+      quote: "I need you to roll him onto his side."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised clearing furniture, putting nothing in his mouth and not holding him down.
+      speaker: Nurse
+      turns: [32]
+      quote: "Don't put anything in his mouth."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "He just had a seizure. A bad one."}
+    - {category: escalation_request, turns: [16], quote: "I need you to hang up and call 911 right now."}

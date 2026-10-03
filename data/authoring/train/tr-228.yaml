@@ -1,0 +1,209 @@
+call_id: tr-228
+split: train
+blueprint: "Paid caregiver realizes she gave the 59-year-old patient his wife's lisinopril ten mg from the wrong pill box about thirty minutes ago; his pressure now is 108 over 70, he is not dizzy. Nurse pages on-call, plans a callback in thirty minutes, advises no more of that pill and sit-before-standing and fall precautions. Flag: medication_concern (wrong medicine)."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [medication, blood_pressure]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Kim
+  call_timestamp_utc: "2026-10-13T13:25:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Quang Tran
+  patient_name_spoken: Quang Tran
+  patient_name_certainty: stated
+  patient_dob_true: "1967-04-22"
+  patient_dob_spoken: "1967-04-22"
+  patient_dob_certainty: stated
+  caller_name_true: Linh Pham
+  caller_name_spoken: Linh Pham
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "7145550175"
+  callback_phone_spoken: "7145550175"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that she gave him his wife's blood pressure pill by mistake
+  reason_category: medication
+  relevant_context: Home care patient who does not take a blood pressure medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: extra_dose
+    dose: "10"
+    unit: mg
+    last_dose: thirty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "108/70"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: dizziness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: patient took a lisinopril prescribed for someone else
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more lisinopril, keep the two pill boxes in separate places, and wait for the on-call clinician before any other pills
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have him sit for a minute before standing, stay with him when he walks, and recheck his blood pressure in thirty minutes
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient was given another person's lisinopril by mistake
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Bluebell Home Care, this is Kim.
+  Caller -> Kim, it's Linh Pham. I'm with Quang Tran this morning. I made a mistake. I gave him the wrong pill. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Linh. Take a breath. Tell me what happened. Quang Tran? What's his date of birth?
+  Caller -> April twenty second, nineteen sixty seven. || patient_dob
+  Nurse -> Thank you. And I have seven one four, five five five, zero one seven five for you. || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What did you give him?
+  Caller -> There are two pill boxes on the counter. His and his wife's. They look the same. I took his wife's by accident. It had a lisinopril in it. Ten milligrams. I gave it to him with his breakfast. || A1, F1
+  Nurse -> Okay. When was that?
+  Caller -> Thirty minutes ago. About thirty. Then I looked at the name on the box and I saw. I felt sick. || A1
+  Nurse -> Okay. He doesn't take a blood pressure medicine, is that right?
+  Caller -> Right. He has none. That's his wife's. She has the high pressure. I didn't give him anything else from her box. I checked. Just the one. || A1
+  Nurse -> Okay. Do you have a blood pressure cuff in the house?
+  Caller -> Yes, there's one. I just took it. It's one oh eight over seventy. That's what it said. || A2
+  Nurse -> Okay. Is he dizzy, lightheaded, anything like that?
+  Caller -> No. He says he feels fine. He's sitting at the table doing his crossword. I asked him twice. He's not dizzy. || A3
+  Nurse -> Okay. Thank you for catching it and calling right away. I'm going to page the on-call clinician now. || R1
+  Caller -> Oh, thank you. Am I in trouble? Is he going to be okay?
+  Nurse -> You did the right thing by telling us. The on-call clinician will say what to watch for. I'll call you back in thirty minutes. || R2
+  Caller -> Thirty minutes. Okay.
+  Nurse -> Until then, please don't give him any more lisinopril, and keep the two pill boxes in separate places. And please hold his other pills until the on-call clinician calls. || E1, A1
+  Caller -> No more of that. Separate boxes. Hold the other pills. I'll put his wife's box in her bedroom. Okay.
+  Nurse -> Have him sit for a minute before he stands, stay close when he walks, and take his pressure again in thirty minutes. || E2
+  Caller -> Sit first. Stay close. Pressure again. Okay. I'm so sorry.
+  Nurse -> It's okay. Is his wife home?
+  Caller -> She's at her appointment. She'll be back at noon. I should tell her, right?
+  Nurse -> Yes, tell her. It's good for her to know. Call me if anything changes.
+  Caller -> I will. Thank you, Kim.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Quang Tran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1967-04-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Linh Pham, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "7145550175", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that she gave him his wife's blood pressure pill by mistake.
+    speaker: Caller
+    turns: [2]
+    quote: "I made a mistake. I gave him the wrong pill."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lisinopril 10 mg belonging to his wife was given about thirty minutes earlier.
+      speaker: Caller
+      turns: [8]
+      quote: "It had a lisinopril in it. Ten milligrams. I gave it to him with his breakfast."
+      explanation: Documents the wrong medication given.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, last_dose: thirty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure was reported as 108/70.
+      speaker: Caller
+      turns: [14]
+      quote: "It's one oh eight over seventy."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "108/70", certainty: stated}
+      covers: [A2]
+    - text: He was not dizzy.
+      speaker: Caller
+      turns: [16]
+      quote: "No. He says he feels fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: dizziness, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to page the on-call clinician now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back in thirty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving no more lisinopril, keeping the two pill boxes apart, and holding his other pills until the on-call clinician called.
+      speaker: Nurse
+      turns: [21]
+      quote: "please don't give him any more lisinopril, and keep the two pill boxes in separate places."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised having him sit before standing, staying close when he walked, and rechecking his blood pressure in thirty minutes.
+      speaker: Nurse
+      turns: [23]
+      quote: "Have him sit for a minute before he stands, stay close when he walks, and take his pressure again in thirty minutes."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I made a mistake. I gave him the wrong pill."}

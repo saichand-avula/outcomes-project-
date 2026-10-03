@@ -1,0 +1,360 @@
+call_id: tr-450
+split: train
+blueprint: "A daughter calls home health unsure whether she gave her 71-year-old mother Celexa (citalopram) twenty milligrams twice this morning instead of one Celebrex (celecoxib) two hundred milligrams and one Celexa; the two bottles look alike and she grabbed one in each hand. She is not sure and the pill organizer slot is empty. Her mother also takes tramadol as needed. Mother feels fine, a little jittery, heart rate normal by the daughter's count. Nurse pages on-call, plans a nurse visit this afternoon, reviews symptoms to watch and the look-alike names. Possible double dose of a look-alike drug (medication concern), tall-man pair, scheduled plus as-needed meds, trap phrasing, adult child, long v2."
+setup:
+  scenario_category: medication
+  subtype: possible_extra_dose
+  secondary_tags: [tall_man_drug, prn_and_scheduled, trap_phrasing, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, mood, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Marlowe Home Health
+  agency_type: home_health
+  nurse_name: Fatima
+  call_timestamp_utc: "2026-12-03T16:00:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marguerite Fontaine
+  patient_name_spoken: Marguerite Fontaine
+  patient_name_certainty: stated
+  patient_dob_true: "1955-07-28"
+  patient_dob_spoken: "1955-07-28"
+  patient_dob_certainty: stated
+  caller_name_true: Danielle Fontaine
+  caller_name_spoken: Danielle Fontaine
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8085550129"
+  callback_phone_spoken: "8085550129"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that she may have given her mother a double dose of Celexa instead of Celebrex
+  reason_category: medication
+  relevant_context: Home health patient on an antidepressant, an arthritis medicine and as-needed tramadol
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Celexa
+    medication_name_spoken: Celexa
+    medication_status: extra_dose
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: unclear
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Celebrex
+    medication_name_spoken: Celebrex
+    medication_status: missed
+    dose: "200"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: unclear whether taken this morning
+    certainty: unclear
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: tramadol
+    medication_name_spoken: tramadol
+    medication_status: prescribed
+    dose: "50"
+    unit: mg
+    frequency: every six hours as needed
+    prn: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild jitteriness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fast heartbeat or confusion or fainting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: possible double dose of Celexa
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team and pharmacy
+    reason_or_trigger: separate the look-alike bottles and add large-print labels
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give nothing more of either medicine today, do not give tramadol until the clinician calls, and bring both bottles and the pill organizer for the nurse to count
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away for a racing heartbeat, shaking, fever, confusion, severe stomach upset or fainting
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the two bottles apart, read the name on the label out loud before each dose and fill the organizer one medicine at a time
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Possibly gave a double dose of Celexa instead of Celebrex
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Marlowe Home Health, this is Fatima.
+  Caller -> Fatima, hi. It's Danielle Fontaine. I'm calling about my mother, Marguerite Fontaine. I think I made a mistake with her pills this morning. I'm not sure. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi, Danielle. I'm glad you called. Tell me, is she safe right now?
+  Caller -> She's fine. She's right here at the table. She doesn't look sick at all. I'm just panicking.
+  Nurse -> Okay, Danielle. Take a breath. Tell me what you think happened.
+  Caller -> I've been up since five. I made her breakfast, I did the laundry, I packed her lunch. It was a normal morning and then this.
+  Caller -> I set out her morning pills. She takes two things in the morning that sound almost the same. Celebrex and Celexa. I think I might have given her the Celexa twice and not given the Celebrex. || A1, A2
+  Nurse -> Okay. Let's go through it slowly. First, what's her date of birth?
+  Caller -> I wrote down the name of every pill last week on a chart. But I didn't look at the chart this morning. I just went on autopilot.
+  Caller -> July twenty eighth. Nineteen fifty five. || patient_dob
+  Nurse -> And your cell is the one ending in oh one two nine?
+  Caller -> Yes. Eight oh eight, five five five, zero one two nine. || callback_phone
+  Nurse -> Thank you. Now, what exactly did you do this morning?
+  Caller -> I'm so sorry for the long explanation. I tend to over explain when I'm anxious.
+  Nurse -> No, I need details. They help.
+  Caller -> I was in a rush. I had the two bottles, one in each hand. They're both in white bottles with the same blue cap. And I put the pills in her little cup. One from each bottle. At least I thought one from each.
+  Nurse -> So you thought one from each, but you're not certain.
+  Caller -> Right. I can't say I didn't give the Celexa twice. I mean, I don't think I didn't. I wouldn't swear I gave one of each. And the Celebrex slot in her organizer, I checked, and it's empty. But the Celexa slot is also empty. So I can't tell. || A1, A2
+  Caller -> It's one of those things where the more I think about it, the less I remember. Like when you can't remember if you locked the door.
+  Nurse -> I know that feeling. It's very human.
+  Nurse -> Okay. So both of her slots are empty, but you only handed her two pills.
+  Caller -> Yes. Two pills. And the cup is in the sink. Gone. I don't know which two.
+  Caller -> I washed the cup. I washed it before I even thought. I'm so stupid. I should have looked in it first.
+  Nurse -> You're not stupid. You couldn't have known.
+  Nurse -> Okay. Let's read the labels. What does the Celexa bottle say? || A1
+  Caller -> It says Celexa. C E L E X A. Twenty milligrams. One tablet every morning. For depression. || A1
+  Nurse -> And the Celebrex? || A2
+  Caller -> Celebrex. C E L E B R E X. Two hundred milligrams. One capsule every morning. For arthritis. It's a capsule, not a tablet. || A2
+  Nurse -> A capsule. Is the Celexa a tablet? || A1
+  Caller -> A tablet. A small white one. A round one.
+  Caller -> The capsule is bigger. White and blue, I think. Or white and green. I don't remember. They sort of blur together in my mind.
+  Nurse -> Did you give her a capsule or only tablets?
+  Caller -> I'm trying to remember. She swallowed them fast. With applesauce. I didn't look. I really can't say. I wish I could.
+  Caller -> She likes to take everything at once. She takes a big gulp and it's gone. She's a champ at taking pills.
+  Nurse -> That's okay. Honesty is the most helpful thing. How is she feeling right now?
+  Caller -> I would give anything to go back and do it slowly. I always tell myself to slow down. And I never do.
+  Caller -> She's fine. She says she feels fine. She's sitting at the table. She's doing her sudoku. She says her hands feel a bit jittery. But she's had coffee. Two cups.
+  Caller -> She even asked me if I wanted a cup of tea. She's serving me. She thinks I'm the one who needs help.
+  Nurse -> Ha. She's looking after you. That's a good sign for her.
+  Nurse -> Okay. A little jittery, from coffee or from the medicine. || A4
+  Caller -> I don't know which. She says it's the coffee.
+  Caller -> She's right, probably. She has two cups every morning at the same time. She had them today. It could just be the coffee.
+  Nurse -> Does she have a fast heartbeat? Can you check her pulse for a full minute?
+  Caller -> I'll do it. I'm walking to the kitchen. Mom, give me your wrist. She says leave me alone. Okay. I'm counting. One, two. This is hard to do on the phone.
+  Nurse -> Take your time. I'll wait.
+  Caller -> Seventy something. I got seventy two. Regular. Not fast.
+  Caller -> I feel silly counting out loud. She's laughing at me. She says I look like I'm timing a marathon.
+  Nurse -> Good. Is she confused, dizzy, or having any trouble walking?
+  Caller -> No. No confusion. She's sharp. She knows the date. She knows I'm late for work. She's not dizzy. She walked to the bathroom on her own. She didn't faint, or nothing like that. || A5
+  Nurse -> Okay. That's reassuring. Does she have any stomach upset, or sweating, or a fever?
+  Caller -> No. Nothing like that. She had her toast. She's not sweaty. I haven't taken her temperature but she feels normal.
+  Nurse -> Thank you. Danielle, here's what I'm going to do. I'm going to page the on-call clinician now, because Celexa is a medicine where a double dose matters. || R1
+  Caller -> Are you going to send an ambulance? Should I be scared?
+  Nurse -> No ambulance right now. She's stable, and you're being careful. This is the safest next step.
+  Caller -> Is it dangerous? Did I hurt her?
+  Nurse -> I don't think she's in danger right now. She has no fast heartbeat, no confusion, no fainting. But we need the clinician to tell us what to watch for, and whether to hold her other medicines.
+  Caller -> Okay. Okay. I'm so sorry. I feel sick.
+  Caller -> I'm shaking. I'm sitting down. I'm putting my head between my knees.
+  Nurse -> That's fine. Take a minute. I'll wait.
+  Nurse -> Don't be hard on yourself. This is one of the most common mix ups. The names are too close. Is she taking anything else?
+  Caller -> Yes. The tramadol. Fifty milligrams. Every six hours if she needs it for the pain. She took one at midnight. She hasn't asked for another. || A3
+  Caller -> She hasn't asked for it today. She says her knees feel okay. She said the weather is warm.
+  Nurse -> Okay. Please don't give her any tramadol until the clinician calls. That medicine can interact with Celexa. And give nothing more of either of the other two today. || E1
+  Caller -> No tramadol. No Celexa. No Celebrex. Okay. Not until the clinician calls. Got it. || A1, A2, A3
+  Nurse -> I'd also like a nurse to come this afternoon to see her, count the pills in both bottles and the organizer, and figure out exactly what she took. || R2
+  Caller -> Counting the pills. Oh. That's smart. That will tell us. I'll leave the bottles on the table. Both of them.
+  Caller -> I can also take pictures of everything on the table, if that helps. The bottles, the labels, the organizer. I have a good camera on this phone.
+  Nurse -> That's a good idea. Take the pictures and keep them.
+  Nurse -> Good. Don't touch them. And don't refill the organizer until the nurse sees it.
+  Caller -> I won't. Is there a time?
+  Nurse -> After lunch, probably between one and three. She'll call when she's close.
+  Caller -> I'm leaving work early. I'll be home by one. I'll be here.
+  Caller -> My boss said go. He said family comes first. He's lovely about this stuff.
+  Nurse -> Perfect. In the meantime, if your mother has a racing heartbeat, shaking, fever, confusion, a lot of stomach upset, or if she faints, call me right away. || E2
+  Caller -> Racing heart. Shaking. Fever. Confusion. Stomach upset. Faints. I'll watch all of it. I'm putting it on a sticky note.
+  Caller -> I have a small notebook. It's the one I keep in my purse. I'll put the symptoms on the first page.
+  Nurse -> And Danielle, call 911 if she faints or has a seizure. Don't wait for me.
+  Caller -> Faints. Seizure. 911. Okay. Gosh. This is scary.
+  Caller -> I have my phone. It's charged. The ringer is on loud. I'll keep it in my pocket.
+  Nurse -> I know. But right now she is fine, and you're acting quickly. That's what matters.
+  Caller -> She's looking at me funny. She says what are you so worried about. I said, I might have given you too much of your pill. She said, I don't remember taking too much.
+  Nurse -> Ha. Tell her it's under control.
+  Caller -> She's a rock. She was raising four kids on her own when she was my age. She doesn't flinch.
+  Caller -> Mom, the nurse says it's under control. She says good. She says now let me finish my sudoku.
+  Caller -> She just offered me a cookie. She says I need sugar. She's right, I haven't eaten.
+  Nurse -> Ha. She sounds calm. That helps.
+  Caller -> She told the neighbor yesterday she's going to live to a hundred and ten, just to annoy her.
+  Caller -> She's always calm. She was a school bus driver for thirty years. Nothing rattles her.
+  Nurse -> Then she'll be fine today. Danielle, I'll also message our team and the pharmacy about the look-alike bottles. Separate bags, bigger labels, maybe a pill pack with the times on it. || R3
+  Caller -> Please. That would be amazing. I should have asked for that long ago.
+  Caller -> I told the pharmacist last month the bottles look alike and she said, I know, everyone says that. Nothing changed.
+  Nurse -> We'll push harder on this one.
+  Nurse -> It's not your fault. The system should help you more. Until then, keep the two bottles in different places, read the name on the label out loud before each dose, and fill the organizer one medicine at a time. || E3
+  Caller -> Different places. Read it out loud. One at a time. I'll do all of that.
+  Caller -> I'll put the one in the kitchen cupboard and the other on her bedside table. That should keep them apart.
+  Caller -> I'm also going to write Celexa on a bright yellow sticker and put it on one bottle. And Celebrex on a pink one. || A1, A2
+  Nurse -> That's an excellent idea.
+  Caller -> I have a whole pack of stickers from my daughter's classroom. She's a teacher's pet. Ha.
+  Nurse -> Ha. Use them.
+  Caller -> My daughter will be thrilled. She loves it when her stickers get used for real life.
+  Caller -> Okay. Thank you, Fatima. I feel a bit better. I was panicking.
+  Caller -> Before I go, if the nurse finds that it was only one of each, will you still need the clinician?
+  Nurse -> We'll let the clinician decide. Either way, you did the right thing.
+  Nurse -> You did the right thing to call. I'll be in touch as soon as I hear from the clinician.
+  Caller -> I'll keep the phone on me. Bye.
+  Caller -> One more thing, sorry. If the clinician wants to speak to me directly, should I call the agency line or will they call my cell?
+  Nurse -> They'll use the number you gave me, so keep your cell with you.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marguerite Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-07-28", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Danielle Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550129", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that she may have given her mother a double dose of Celexa instead of Celebrex.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I made a mistake with her pills this morning. I'm not sure."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear; may have been given twice) Celexa 20 mg once a day, taken this morning.
+      speaker: Caller
+      turns: [26]
+      quote: "Twenty milligrams. One tablet every morning. For depression."
+      explanation: Documents the possible extra dose.
+      facts:
+        - {type: medication, name: Celexa, dose: "20", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: extra_dose, certainty: unclear}
+      covers: [A1]
+    - text: (unclear; may not have been given) Celebrex 200 mg once a day.
+      speaker: Caller
+      turns: [28]
+      quote: "Two hundred milligrams. One capsule every morning. For arthritis."
+      explanation: Documents the possibly missed arthritis medicine.
+      facts:
+        - {type: medication, name: Celebrex, dose: "200", unit: mg, frequency: once a day, prn: false, last_dose: unclear whether taken this morning, med_status: missed, certainty: unclear}
+      covers: [A2]
+    - text: Tramadol 50 mg every six hours as needed, with the last dose at midnight.
+      speaker: Caller
+      turns: [61]
+      quote: "Fifty milligrams. Every six hours if she needs it for the pain."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: tramadol, dose: "50", unit: mg, frequency: every six hours as needed, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A3]
+    - text: She felt a bit jittery in her hands, possibly from coffee.
+      speaker: Caller
+      turns: [37]
+      quote: "But she's had coffee. Two cups."
+      explanation: Documents the jitteriness.
+      facts:
+        - {type: symptom, name: mild jitteriness, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: She had no fast heartbeat, confusion or fainting; pulse was seventy two and regular.
+      speaker: Caller
+      turns: [49]
+      quote: "No. No confusion. She's sharp."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fast heartbeat or confusion or fainting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm going to page the on-call clinician now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit this afternoon to count the pills.
+      speaker: Nurse
+      turns: [65]
+      quote: "I'd also like a nurse to come this afternoon to see her"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the team and pharmacy about separating the look-alike bottles.
+      speaker: Nurse
+      turns: [89]
+      quote: "I'll also message our team and the pharmacy about the look-alike bottles."
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving nothing more of either medicine today, no tramadol until the clinician called, and bringing out both bottles and the organizer for counting.
+      speaker: Nurse
+      turns: [63]
+      quote: "Please don't give her any tramadol until the clinician calls."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for a racing heartbeat, shaking, fever, confusion, severe stomach upset or fainting.
+      speaker: Nurse
+      turns: [74]
+      quote: "call me right away"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised keeping the bottles apart, reading labels out loud and filling the organizer one medicine at a time.
+      speaker: Nurse
+      turns: [93]
+      quote: "keep the two bottles in different places"
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I made a mistake with her pills this morning."}

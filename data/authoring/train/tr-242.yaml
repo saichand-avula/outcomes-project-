@@ -1,0 +1,282 @@
+call_id: tr-242
+split: train
+blueprint: "Wife of a 71-year-old colostomy patient calls Friday afternoon: only two pouches and one skin barrier wafer left for the weekend, the pouch leaked twice overnight and the skin beside the stoma is red and sore. Nurse places the order (completed), coordinates a Monday delivery plus a weekend loaner pack from the on-call kit, and plans a Monday nurse visit. Lots of short turns, small talk, the wife keeps going to look at things. Ostomy supplies, v2 short."
+setup:
+  scenario_category: supply
+  subtype: ostomy_supplies
+  secondary_tags: [phone_from_file, hedging, split_turns, multi_issue, late_answers]
+  clinical_domains: [equipment, skin]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-16T19:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Delbert Marsh
+  patient_name_spoken: Delbert Marsh
+  patient_name_certainty: stated
+  patient_dob_true: "1955-06-02"
+  patient_dob_spoken: "1955-06-02"
+  patient_dob_certainty: stated
+  caller_name_true: Lorna Marsh
+  caller_name_spoken: Lorna Marsh
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6055550136"
+  callback_phone_spoken: "6055550136"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that ostomy supplies are almost gone and the pouch has been leaking
+  reason_category: supply_request
+  relevant_context: Home health patient with a colostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: ostomy pouches
+    supply_remaining: "2"
+    supply_unit: pouches
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: skin barrier wafers
+    supply_remaining: "1"
+    supply_unit: wafer
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pouch leaking overnight
+    symptom_present: true
+    severity: twice
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: red sore skin beside the stoma
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: ostomy pouches and wafers
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Monday
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Monday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Dry the skin fully before the wafer goes on, cut the opening to the size of the stoma, and change the pouch when it is a third full
+    certainty: stated
+  - item_id: E2
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Clean the sore skin gently with water only, pat dry, and dust a little barrier powder before the wafer
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for open or bleeding skin, a stoma that turns dark, no output for a day, or a fever
+    trigger_condition: open or bleeding skin; dark stoma; no output for a day; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. Is this the nurse line? It's Lorna Marsh. || caller_name
+  Nurse -> It is. Hi, Lorna. What can I do for you?
+  Caller -> It's about my husband's supplies. His bag supplies. We're getting low and it's Friday. || relationship, cc
+  Nurse -> Okay. Who's the patient? Is it Delbert?
+  Caller -> Yes. Delbert Marsh. My husband. || patient_name
+  Nurse -> Okay, let me pull up his chart. Can you give me his date of birth?
+  Caller -> June second. Nineteen fifty five. || patient_dob
+  Nurse -> Thanks. And I've got six oh five, five five five, zero one three six on file. || callback_phone
+  Caller -> That's the house. Yes.
+  Nurse -> Great. So how many pouches do you have?
+  Caller -> Hold on. Let me go look. I keep them in the hall closet.
+  Nurse -> No problem.
+  Caller -> Okay. I'm in the closet. There's, one, two. Two pouches. Two left. || A1
+  Nurse -> Two pouches. And the wafers? The skin barrier?
+  Caller -> Those are the, the round flat ones with the hole?
+  Nurse -> Yes, that's the one that sticks to the skin.
+  Caller -> One. There's one box with, no, one wafer. There's one wafer in the box. The box is empty except for one. || A2
+  Nurse -> Okay. One wafer. And how often do you change them?
+  Caller -> Every three days, usually. But the last two nights it's been leaking. So I've been changing it more.
+  Nurse -> Okay. Tell me about the leaking.
+  Caller -> It leaks at night. Twice now. Wednesday night and last night. He woke up wet. All down his side, onto the sheets. It's awful. He's embarrassed. || A3
+  Nurse -> I'm sorry. That's really hard on both of you. Do you know why it's leaking?
+  Caller -> I think the wafer isn't sticking. It's peeling up at the edge. I don't know if I'm cutting it wrong. I've been doing it the same way for two years.
+  Nurse -> It might be the skin. Can you describe the skin around the stoma?
+  Caller -> It's red. It's kind of angry looking. And he says it's sore. It burns when I take the old one off. || A4
+  Nurse -> Okay. Is it open, or bleeding, or weeping at all?
+  Caller -> No. No bleeding. Just red. And a little shiny. Like it's raw, but not open.
+  Nurse -> Okay. That sounds like irritation from the leaking. Is the stoma itself, the actual stoma, pink and moist?
+  Caller -> Yes. It's pink. It looks the same as always. Red like a cherry. That's what the nurse said, it should look like a cherry.
+  Nurse -> That's right. That's good, that it looks like a cherry. Does he have any fever, any belly pain?
+  Caller -> No. No fever. He's eating. He's got output. It's just the leaking.
+  Nurse -> Good. Okay, Lorna. First, the supplies. I've put in the order for pouches and wafers just now. It's done. || R1
+  Caller -> Oh. Oh good. Because I was worried about the weekend.
+  Nurse -> I know. The regular delivery won't come until Monday, so I'm going to coordinate that for Monday. || R2
+  Caller -> Monday. Okay. But I only have two pouches. And one wafer. That's not going to do it.
+  Nurse -> You're right. Let me think. Do you have a neighbor or a friend who can pick up a few from the pharmacy? Some pharmacies carry them.
+  Caller -> The one in town doesn't. I called before. They have to order them.
+  Nurse -> Okay. In that case, I'm going to see about getting a weekend pack to you from our on-call supply. The on-call nurse can drop it by.
+  Caller -> Oh. They can do that? Oh, that would be wonderful.
+  Nurse -> I'll ask. I can't promise yet. I'll call you back and let you know.
+  Caller -> Okay. I'll be home. We're always home.
+  Nurse -> Now, I'd like a nurse to come see him Monday to look at the skin and check the fit. || R3
+  Caller -> Monday. Okay. Is that morning?
+  Nurse -> The scheduler will call you with a time. I'll ask for the morning.
+  Caller -> Okay. Thank you.
+  Nurse -> Now, while we wait. When you change the pouch, make sure the skin is completely dry before the wafer goes on. That's the most common reason they peel. || E1
+  Caller -> Completely dry. I pat it, but I think I'm in a hurry sometimes. Because he's squirming.
+  Nurse -> Take your time with it. And cut the hole to the size of the stoma, not bigger. Just a hair bigger. And change the pouch when it's about a third full, don't wait until it's heavy.
+  Caller -> A hair bigger. A third full. Okay. I wait too long sometimes, I think. I didn't want to bother him at night.
+  Nurse -> It's better to change it. The weight pulls on the wafer. Now, for the red skin. Clean it gently with just water, no soap, pat it dry, and put a little of the barrier powder on it. || E2
+  Caller -> Water only. Pat dry. Powder. We have powder. It's in the bathroom. It's in a little puffer bottle.
+  Nurse -> That's it. Dust it lightly, wipe off the extra, then the wafer.
+  Caller -> Dust it. Wipe off. Wafer. Okay. I'll try that tonight.
+  Nurse -> And call us if the skin opens up or bleeds, if the stoma turns dark, if he has no output for a day, or if he gets a fever. || E3
+  Caller -> Opens up, dark, no output, fever. Okay. I wrote it on the back of the, whatever this is. The electric bill.
+  Nurse -> Ha. That works. Anything else, Lorna?
+  Caller -> No, that's it. Oh, how is your day going? I never ask.
+  Nurse -> It's busy, but good. Yours sounds like a long one.
+  Caller -> It's been a week. But he's in good spirits. He's watching the baseball.
+  Nurse -> That's good. Is he rooting for anyone?
+  Caller -> The Cubs. Always the Cubs. For forty years. They break his heart every October.
+  Nurse -> Ha. Well, keep him comfortable. I'll call you back about the weekend pack.
+  Caller -> Thank you, Marcus. Have a good weekend.
+  Nurse -> You too, Lorna. Take care.
+  Caller -> Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Delbert Marsh, certainty: stated, heard_as: [], turns: [6]}
+    patient_dob: {value: "1955-06-02", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Lorna Marsh, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [4]}
+    callback_phone: {value: "6055550136", certainty: stated, heard_as: [], turns: [9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that ostomy supplies were almost gone and the pouch had been leaking.
+    speaker: Caller
+    turns: [4]
+    quote: "It's about my husband's supplies. His bag supplies. We're getting low and it's Friday."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two ostomy pouches remained.
+      speaker: Caller
+      turns: [14]
+      quote: "Two pouches. Two left."
+      explanation: Documents the pouch supply.
+      facts:
+        - {type: supply, item: ostomy pouches, supply: 2 pouches, certainty: stated}
+      covers: [A1]
+    - text: One skin barrier wafer remained.
+      speaker: Caller
+      turns: [18]
+      quote: "One wafer. There's one wafer in the box."
+      explanation: Documents the wafer supply.
+      facts:
+        - {type: supply, item: skin barrier wafers, supply: 1 wafer, certainty: stated}
+      covers: [A2]
+    - text: The pouch leaked overnight on Wednesday and last night.
+      speaker: Caller
+      turns: [22]
+      quote: "It leaks at night. Twice now. Wednesday night and last night."
+      explanation: Documents the leaking.
+      facts:
+        - {type: symptom, name: pouch leaking overnight, present: true, severity: twice, certainty: stated}
+      covers: [A3]
+    - text: The skin beside the stoma was red and sore.
+      speaker: Caller
+      turns: [26]
+      quote: "It's red. It's kind of angry looking. And he says it's sore."
+      explanation: Documents the skin irritation.
+      facts:
+        - {type: symptom, name: red sore skin beside the stoma, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Placed the order for ostomy pouches and wafers.
+      speaker: Nurse
+      turns: [33]
+      quote: "I've put in the order for pouches and wafers just now. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to coordinate delivery for Monday.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm going to coordinate that for Monday."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Monday, certainty: stated}
+      covers: [R2]
+    - text: Planned to have a nurse see him Monday to look at the skin and check the fit.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'd like a nurse to come see him Monday to look at the skin and check the fit."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Monday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised drying the skin completely before the wafer, cutting the opening just larger than the stoma, and changing the pouch when a third full.
+      speaker: Nurse
+      turns: [47]
+      quote: "make sure the skin is completely dry before the wafer goes on."
+      explanation: Documents equipment use guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised cleaning the sore skin gently with water only, patting dry, and dusting a little barrier powder before the wafer.
+      speaker: Nurse
+      turns: [51]
+      quote: "Clean it gently with just water, no soap, pat it dry, and put a little of the barrier powder on it."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for open or bleeding skin, a dark stoma, no output for a day, or a fever.
+      speaker: Nurse
+      turns: [55]
+      quote: "call us if the skin opens up or bleeds, if the stoma turns dark, if he has no output for a day, or if he gets a fever."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

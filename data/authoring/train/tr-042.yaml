@@ -1,0 +1,243 @@
+call_id: tr-042
+split: train
+blueprint: "Daughter says her 92-year-old father is working hard to breathe with gurgling sounds, and asks someone to come out; nurse advises morphine from the comfort kit and raising his head, explains secretions, and plans a nurse visit within the hour. Flags: breathing concern and escalation request."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [liquid_concentration, crosstalk, trap_phrasing]
+  clinical_domains: [dyspnea, end_of_life_changes]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Priya
+  call_timestamp_utc: "2026-09-23T02:44:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Augustin Pereira
+  patient_name_spoken: Augustin Pereira
+  patient_name_certainty: stated
+  patient_dob_true: "1934-02-02"
+  patient_dob_spoken: "1934-02-02"
+  patient_dob_certainty: stated
+  caller_name_true: Beatriz
+  caller_name_spoken: Beatriz
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5085550145"
+  callback_phone_spoken: "5085550145"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Father is working hard to breathe with gurgling sounds
+  reason_category: breathing
+  relevant_context: Actively declining hospice patient, family at bedside
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: labored breathing
+    symptom_present: true
+    severity: working hard to breathe
+    onset_or_duration: started about half an hour ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: gurgling or rattling breath sounds
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Mostly sleeping and not eating or drinking for 3 days
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: prescribed
+    strength: 20 mg/mL
+    dose: "0.25"
+    unit: mL
+    route: under the tongue
+    history_or_context_text: In the comfort kit; not yet given tonight
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    reason_or_trigger: labored breathing
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    reason_or_trigger: assess breathing and comfort
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise his head with extra pillows, turn him on his side, and swab his mouth
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: The gurgling is from secretions he cannot clear and usually does not bother him
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call back at any time before the nurse arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Caller reports father is working hard to breathe with gurgling
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Caller asks the nurse to come out
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Priya.
+  Caller -> Priya, it's Beatriz Pereira. It's my father, Augustin. Please. || caller_name, relationship, patient_name
+  Nurse -> Hi, Beatriz. What's his date of birth?
+  Caller -> February second, nineteen thirty four. || patient_dob
+  Nurse -> And your number, Beatriz?
+  Caller -> Five oh eight, five five five, oh one four five. || callback_phone
+  Nurse -> Okay. Tell me what's happening.
+  Caller -> He's working so hard to breathe. And it's making this noise, a gurgling. Like a rattle. || cc, A1, A2, F1
+  Caller -> It started about a half hour ago. He's been sleeping, he hasn't eaten or had anything to drink in three days. || A1, A3
+  Nurse -> Okay. Is he awake?
+  Caller -> No. He's sleeping. But his breathing, it sounds so hard. Can somebody please come out? I don't want him to suffer. || F2
+  Caller -> My sister's here too. She wants somebody to come.
+  Nurse -> Okay, Beatriz. I'm going to send a nurse to you. But first, let's help him right now. Do you have the comfort kit?
+  Caller -> Yes. It's in the fridge. In the little box.
+  Nurse -> Okay. Take out the morphine. It's the liquid, and the label should say twenty milligrams per milliliter. || A4, R1
+  Caller -> Twenty milligrams per milliliter. Yes. That's what it says.
+  Nurse -> Okay. Draw up point two five milliliters. That's a quarter of a milliliter, the very small amount. And put it under his tongue, in the cheek, gently. || A4, R1
+  Caller -> Okay. A quarter. Point two five. Under the tongue.
+  Nurse -> Yes. Take your time. It helps with the work of breathing, and with the discomfort. || R1
+  Caller -> Okay. I'm doing it. I'm doing it. Okay. It's in.
+  Nurse -> Good. That was perfect. Now, put extra pillows behind his head and shoulders, so he's raised up. Or turn him gently on his side. That helps the gurgling. || E1
+  Caller -> Okay. Maria, help me with the pillows. Okay. Got him up.
+  Nurse -> Good. And you can use a mouth swab to keep his lips and mouth moist. || E1
+  Caller -> Okay.
+  Nurse -> Beatriz, I want you to know that the gurgling sound is from secretions he can't clear anymore. It sounds worse to us than it feels to him. Usually it doesn't bother him. || E2
+  Caller -> Okay. Okay. That helps. That helps, to hear that.
+  Nurse -> I'm sending the nurse right now. She should be there within the hour. || R2
+  Caller -> Within the hour. Okay. Thank you.
+  Nurse -> And call me back any time before she gets there, if you need me. || E3
+  Caller -> I will. Thank you, Priya.
+  Nurse -> You're doing great. You're doing everything right.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Augustin Pereira, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1934-02-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Beatriz, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "5085550145", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father was working hard to breathe with gurgling sounds and asked for someone to come out.
+    speaker: Caller
+    turns: [8]
+    quote: "He's working so hard to breathe. And it's making this noise, a gurgling. Like a rattle."
+    explanation: Documents the breathing concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Labored breathing began about half an hour ago; he had been mostly sleeping and had not eaten or had anything to drink in 3 days.
+      speaker: Caller
+      turns: [9]
+      quote: "It started about a half hour ago. He's been sleeping, he hasn't eaten or had anything to drink in three days."
+      explanation: Documents onset of the breathing change and recent intake.
+      facts:
+        - {type: symptom, name: labored breathing, present: true, severity: working hard to breathe, onset: started about half an hour ago, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A3]
+    - text: Gurgling or rattling breath sounds were reported.
+      speaker: Caller
+      turns: [8]
+      quote: "And it's making this noise, a gurgling. Like a rattle."
+      explanation: Documents the associated breath sounds.
+      facts:
+        - {type: symptom, name: gurgling or rattling breath sounds, present: true, certainty: stated}
+      covers: [A2]
+    - text: Morphine 20 mg/mL, 0.25 mL under the tongue, was available in the comfort kit and had not been given tonight.
+      speaker: Nurse
+      turns: [17]
+      quote: "Draw up point two five milliliters. That's a quarter of a milliliter, the very small amount."
+      explanation: Documents the comfort-kit medication and dose.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg/mL, dose: "0.25", unit: mL, route: under the tongue, med_status: prescribed, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised giving morphine under the tongue for the labored breathing.
+      speaker: Nurse
+      turns: [15]
+      quote: "Take out the morphine. It's the liquid, and the label should say twenty milligrams per milliliter."
+      explanation: Documents the comfort medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: morphine, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour to assess his breathing and comfort.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'm sending the nurse right now. She should be there within the hour."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised raising his head with extra pillows or turning him on his side, and using a mouth swab for moisture.
+      speaker: Nurse
+      turns: [21]
+      quote: "put extra pillows behind his head and shoulders, so he's raised up. Or turn him gently on his side."
+      explanation: Documents comfort measures for breathing.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Explained that the gurgling was from secretions he could not clear and usually did not bother him.
+      speaker: Nurse
+      turns: [25]
+      quote: "the gurgling sound is from secretions he can't clear anymore. It sounds worse to us than it feels to him."
+      explanation: Documents reassurance about expected breath sounds.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling back at any time before the nurse arrived.
+      speaker: Nurse
+      turns: [29]
+      quote: "call me back any time before she gets there, if you need me."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: breathing_concern, turns: [8], quote: "He's working so hard to breathe."}
+    - {category: escalation_request, turns: [11], quote: "Can somebody please come out?"}

@@ -1,0 +1,296 @@
+call_id: tr-303
+split: train
+blueprint: "A 44-year-old woman recovering from knee surgery calls home health to check that two similar-sounding medicines are different drugs: she takes Celexa 20 mg every morning for depression and was just given Celebrex 200 mg to take as needed for knee pain. She took one Celebrex yesterday and has had mild stomach upset for three days. Knee pain a five. No black stools or vomiting. She spells her name. The nurse confirms she is taking both as prescribed, messages the provider for confirmation, updates the chart, and gives take-with-food and bleeding precautions. Tall-man look-alike pair, prn plus scheduled, name spelled, self caller aged 18-64, v2 short."
+setup:
+  scenario_category: medication
+  subtype: clarification
+  secondary_tags: [tall_man_drug, prn_and_scheduled, name_spelled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, pain, nausea_vomiting]
+  relationship_group: self
+  na_reason: null
+  agency_name: Brightwater Home Health
+  agency_type: home_health
+  nurse_name: Colin
+  call_timestamp_utc: "2026-10-30T17:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Yesenia Valderrama
+  patient_name_spoken: Yesenia Valderrama
+  patient_name_certainty: stated
+  patient_dob_true: "1982-06-11"
+  patient_dob_spoken: "1982-06-11"
+  patient_dob_certainty: stated
+  caller_name_true: Yesenia Valderrama
+  caller_name_spoken: Yesenia Valderrama
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4045550184"
+  callback_phone_spoken: "4045550184"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked to confirm two similar-sounding medicines and reported mild stomach upset
+  reason_category: medication
+  relevant_context: Home health patient recovering from knee surgery
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: Celexa
+    medication_name_spoken: Celexa
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: Celebrex
+    medication_name_spoken: Celebrex
+    medication_status: taking
+    dose: "200"
+    unit: mg
+    frequency: once a day as needed
+    prn: true
+    last_dose: yesterday
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: mild stomach upset
+    symptom_present: true
+    onset_or_duration: three days
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: knee pain
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: black stools or vomiting blood
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: confirm Celexa and Celebrex together and the stomach upset
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    reason_or_trigger: updated the medication list with Celexa and Celebrex
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take Celebrex with food or milk, only when needed for the knee, no more than one a day, and keep taking Celexa every morning
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away for black or bloody stools, vomiting blood, or severe stomach pain, and call 911 for chest pain or trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Brightwater Home Health, this is Colin.
+  Caller -> Hi, Colin. It's Yesenia. Yesenia Valderrama. I just had my knee replaced and you guys come to the house. I have a question about my pills. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Yesenia. Of course. Let me find you. Can you spell your last name for me?
+  Caller -> V A L D E R R A M A. Valderrama. Two R's. People always leave one out.
+  Nurse -> Two R's. Got it. Sorry, one more time, is it Yesenia with a Y?
+  Caller -> Y E S E N I A. Yes. Like the flower, almost. Nobody gets that one either.
+  Nurse -> Y E S E N I A. Okay. I have you now.
+  Nurse -> Got it. Date of birth?
+  Caller -> June eleventh. Nineteen eighty two. || patient_dob
+  Nurse -> Perfect. And your number?
+  Caller -> Four oh four, five five five, zero one eight four. || callback_phone
+  Nurse -> Great. So, your question. What's going on with the pills?
+  Caller -> Sorry, my dog is barking. Hold on. Luna! Luna, no. She's barking at the mailman. He comes at the same time every day and every day it's a surprise.
+  Nurse -> Ha. Dogs. Take your time.
+  Caller -> So I'm on two medicines that sound the same and I'm worried. One is Celexa. And one is Celebrex. And I think I might be mixing them up. The pharmacist said they were different but they have the same letters at the start. || A1, A2
+  Nurse -> Okay. That's a really common thing. They do sound alike. Let's go through each one. Which one do you take every day?
+  Caller -> The Celexa. It's for my mood. It's twenty milligrams. I take it every morning with breakfast. I've been on it for like two years. I took it this morning. || A1
+  Nurse -> Okay. Celexa, twenty milligrams, every morning, and you took it this morning. Good. And Celebrex? || A1, A2
+  Caller -> The Celebrex is new. The surgeon gave it to me for the knee. It's two hundred milligrams. And I'm supposed to take it only if I need it. Once a day at the most. I took one yesterday. That's it. I took it with lunch. || A2
+  Nurse -> Okay. Celebrex, two hundred, once a day as needed, and you took one yesterday. So you've had one so far? || A2
+  Caller -> One. Just one. I didn't take it today. I was scared to. Because I thought maybe I should check first. Because of the, because of the mood pill. Is it okay to take both?
+  Nurse -> That's a smart thing to check.
+  Caller -> I figured. I didn't want to mess up my head. I've been doing really well for a year.
+  Nurse -> That's great to hear.
+  Nurse -> It's different medicines for different things. Celexa is for mood. Celebrex is an anti-inflammatory for pain. They're not the same, and as far as I can see in your chart, you're prescribed both. I'm going to double check with the provider just to be sure about taking them together. || A1, A2
+  Caller -> Okay. That would make me feel better. I looked it up on my phone and one site said they're fine and one site said be careful.
+  Nurse -> Websites can say lots of things. That's why checking is smart. How's your stomach? You said you were worried. Any stomach upset?
+  Caller -> A little. For three days. Since I started the Celebrex, I think. No wait. I started it Tuesday and I took the first one Wednesday. It's Friday. So three days. It's a mild queasy. Like a pit. Not terrible. || A3
+  Nurse -> Okay. Mild queasiness for about three days. Have you been throwing up?
+  Caller -> No. Not throwing up. Just queasy. I ate toast this morning. It was okay.
+  Nurse -> What else did you eat today?
+  Caller -> Toast and a banana at breakfast. A yogurt at lunch. I wasn't very hungry. The queasy thing.
+  Nurse -> Okay. Are you drinking water?
+  Caller -> Lots. I'm trying. My sister says I drink like a camel.
+  Nurse -> Okay. Have you noticed black stools? Or any blood in your vomit or stool?
+  Caller -> No. No black. No blood. I looked. I was nervous so I looked. Everything's normal. || A5
+  Nurse -> Okay. That's good. How's the knee? On a scale of zero to ten?
+  Caller -> It's a five. It's about a five. It hurts when I bend. And at night. Ice helps. The Celebrex helped yesterday. It went down to a three for a few hours. And now it's back to a five. || A4
+  Nurse -> Okay. That's pretty typical after a knee replacement. Are you doing your exercises?
+  Caller -> Yes. The therapist comes Tuesdays and Fridays. She was here this morning. I did my bends and the straight leg lifts. She said I'm ahead of schedule.
+  Nurse -> That's great. How far can you bend it?
+  Caller -> She measured. It was ninety degrees. I think. She said the goal is a hundred and ten by next week.
+  Nurse -> That's wonderful progress.
+  Nurse -> That's great. Okay, Yesenia. Here's what I'm going to do. I'm going to message the provider to confirm that the Celexa and the Celebrex are okay together, and to tell them about the queasy stomach. || R1
+  Caller -> Okay. Thank you. Will they call me?
+  Nurse -> I'll call you tomorrow morning with their answer. || R3
+  Caller -> Tomorrow. Okay. What do I do tonight? If the knee hurts? Can I take the Celebrex? || A2
+  Nurse -> I'd say if the knee is really bothering you, you can take the Celebrex tonight, with food. Something real. Not just toast. A sandwich or yogurt. And not more than one a day. If your stomach feels worse, hold off and wait for the call. || A2
+  Caller -> With real food. Not more than one. Okay. I have yogurt. And leftover pasta.
+  Nurse -> Pasta is fine. And keep taking the Celexa every morning. Don't skip it. || E1
+  Caller -> Celexa every morning. Okay. I won't skip. I never do. I'm good about that one. || A1
+  Nurse -> Do you use a pill organizer?
+  Caller -> Yes. A weekly one. The Celexa goes in the morning slot. The Celebrex stays in the bottle because it's as needed. || A1, A2
+  Nurse -> Perfect. Keep the Celebrex bottle in a different spot so they don't get mixed up. || A2
+  Caller -> I'll put it by the bed. Celexa is in the kitchen. || A1
+  Nurse -> Good. I'm also updating your medication list right now so both are listed clearly with the doses. I'll put a note about the look-alike names. || R2
+  Caller -> Oh, that's smart. A note. Can you add the reason? Celexa for mood. Celebrex for the knee. || A1, A2
+  Nurse -> Yes. I'll write the reason next to each. It's done. I've updated your list with the reason beside each one.
+  Caller -> Thank you. That helps. I'm going to put a sticker on the bottle. Celebrex, knee. Celexa, mood. || A1, A2
+  Nurse -> That's a great idea. Also, please call us right away if you notice black or bloody stools, if you vomit blood, or if you get severe stomach pain. And nine one one for chest pain or trouble breathing. || E2
+  Caller -> Black stool. Blood. Bad stomach pain. Chest pain. Breathing. Okay. I wrote it on the fridge.
+  Nurse -> Perfect. Any other questions, Yesenia?
+  Caller -> No. I feel better. I was spinning about it. I have anxiety. That's part of why I'm on the Celexa. And when it's a new medicine I spiral. || A1
+  Nurse -> That's understandable. It's good you called. We'd rather you ask.
+  Caller -> I will. Thank you, Colin. You're very patient.
+  Nurse -> My pleasure. Talk to you tomorrow morning.
+  Caller -> Okay. Bye.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Yesenia Valderrama, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1982-06-11", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Yesenia Valderrama, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550184", certainty: stated, heard_as: [], turns: [11]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked to confirm two similar-sounding medicines and reported mild stomach upset.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about my pills."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Celexa 20 mg every morning was taken, including this morning.
+      speaker: Caller
+      turns: [17]
+      quote: "The Celexa. It's for my mood. It's twenty milligrams."
+      explanation: Documents the daily medication.
+      facts:
+        - {type: medication, name: Celexa, dose: "20", unit: mg, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Celebrex 200 mg once a day as needed was started for the knee, with one taken yesterday.
+      speaker: Caller
+      turns: [19]
+      quote: "The Celebrex is new. The surgeon gave it to me for the knee. It's two hundred milligrams."
+      explanation: Documents the as-needed medication.
+      facts:
+        - {type: medication, name: Celebrex, dose: "200", unit: mg, frequency: once a day as needed, prn: true, last_dose: yesterday, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She had mild stomach queasiness for about three days.
+      speaker: Caller
+      turns: [28]
+      quote: "It's a mild queasy. Like a pit."
+      explanation: Documents the stomach upset.
+      facts:
+        - {type: symptom, name: mild stomach upset, present: true, onset: three days, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Knee pain was a five, down to a three for a few hours after the Celebrex.
+      speaker: Caller
+      turns: [38]
+      quote: "It's about a five."
+      explanation: Documents the knee pain.
+      facts:
+        - {type: symptom, name: knee pain, present: true, severity: "5", certainty: stated}
+      covers: [A4]
+    - text: She had no black stools or blood.
+      speaker: Caller
+      turns: [36]
+      quote: "No black. No blood."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: black stools or vomiting blood, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider to confirm the two medicines together and report the stomach upset.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'm going to message the provider to confirm that the Celexa and the Celebrex are okay together"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Updated the medication list with both medicines and the reason for each.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'm also updating your medication list right now"
+      explanation: Documents the chart update.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow morning with the provider's answer.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'll call you tomorrow morning with their answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised taking Celebrex with real food, no more than one a day, and continuing Celexa every morning.
+      speaker: Nurse
+      turns: [50]
+      quote: "And keep taking the Celexa every morning. Don't skip it."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for black or bloody stools, vomiting blood or severe stomach pain, and calling 911 for chest pain or trouble breathing.
+      speaker: Nurse
+      turns: [60]
+      quote: "please call us right away if you notice black or bloody stools"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

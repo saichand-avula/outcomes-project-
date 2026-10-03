@@ -1,0 +1,300 @@
+call_id: va-007
+split: val
+blueprint: "Medium call: a skilled-nursing-facility nurse gives contradictory reports about a resident's pain (3 then 6 out of 10) and intake (a quarter then half of meals); the hospice nurse clarifies what she can, advises the as-needed oxycodone when pain is above 4, and plans a visit tomorrow morning and a callback."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, hedging, split_turns, multi_issue]
+  clinical_domains: [pain, intake_appetite]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-18T20:10:00Z"
+  length_bucket: medium
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lucille Armitage
+  patient_name_spoken: Lucille Armitage
+  patient_name_certainty: stated
+  patient_dob_true: "1933-12-08"
+  patient_dob_spoken: "1933-12-08"
+  patient_dob_certainty: stated
+  caller_name_true: Tamika
+  caller_name_spoken: Tamika
+  caller_name_certainty: stated
+  relationship_to_patient: facility nurse
+  relationship_certainty: stated
+  callback_phone_true: "7045550186"
+  callback_phone_spoken: "7045550186"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Resident's pain and intake seem worse but the reports are inconsistent
+  reason_category: pain_intake
+  relevant_context: Resident at Cedar Crest Care Center
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 3 to 6 out of 10
+    body_location: left hip
+    certainty: unclear
+    unclear_detail: Caller first said 3, then 6, and was unsure which was right
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased intake
+    symptom_present: true
+    severity: a quarter to half of meals
+    certainty: unclear
+    unclear_detail: Caller gave two different estimates of how much she ate
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: prescribed
+    dose: "5"
+    unit: mg
+    frequency: every 4 hours
+    prn: true
+    last_dose_time: 2 this afternoon
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    reason_or_trigger: give if pain is above 4 and it has been at least 4 hours
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    reason_or_trigger: assess pain and intake
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow after the visit
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Record a pain score and facial expression every 4 hours, and a meal percentage after each meal
+    timing_or_threshold: every 4 hours
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Pillow between the knees, reposition every 2 hours, and offer favorite foods
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for pain above 7, very sleepy, fever, or a fall
+    trigger_condition: pain above 7; very sleepy; fever; fall
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Hi, Tom. This is Tamika, I'm a nurse at Cedar Crest Care Center. I'm calling about one of your residents. Lucille Armitage. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tamika. Lucille's date of birth?
+  Caller -> December eighth, nineteen thirty three. || patient_dob
+  Nurse -> And your number?
+  Caller -> The nurses' station. Seven oh four, five five five, zero one eight six. || callback_phone
+  Nurse -> Got it. What's going on with Lucille?
+  Caller -> I just took over from the day shift, and the report I got is confusing. I wanted to check with you. Her pain seems worse, and she's not eating well. || cc
+  Nurse -> Okay. Tell me what you know.
+  Caller -> So the day nurse said her pain was a three. A three out of ten. In her left hip. But when I went in to see her just now, she was grimacing, and she told me it's a six. || A1
+  Nurse -> Okay. So three earlier, and six now.
+  Caller -> Right. Or I think the three was this morning, and the six was this evening. I'm not sure. The day nurse is gone, I can't ask her. || A1
+  Nurse -> Okay. So the pain may have gone up during the day.
+  Caller -> Maybe. Or maybe she just reported it differently. I really don't know. || A1
+  Nurse -> Okay. What about her eating?
+  Caller -> The aide said she ate about a quarter of her lunch. But the dietary sheet says she ate half. So I don't know which is right. || A2
+  Nurse -> Okay. So between a quarter and half.
+  Caller -> Yes. I'm sorry that I can't be more precise.
+  Nurse -> No, that's fine, you're doing your best with what you have. Let me ask a few other things. Does she have a fever?
+  Caller -> No. I checked. Ninety eight point two. || A4
+  Nurse -> Any falls?
+  Caller -> No falls. || A5
+  Nurse -> Okay. What does she have for pain?
+  Caller -> She has oxycodone, five milligrams, every four hours as needed. The day nurse wrote that she gave one at two this afternoon. || A3
+  Nurse -> Okay. So the last dose was at two. It's after eight now, so it's been more than four hours.
+  Caller -> Right. So she could have another.
+  Nurse -> Yes. Since she's grimacing, and the pain is at least moderate, I'd give the oxycodone now. As long as the pain is above a four, and it's been at least four hours, she can have it. || R1
+  Caller -> Okay. It's above a four, for sure. I'll give it.
+  Nurse -> Good. And please start recording a pain score every four hours, along with her expression. Also, write down a percentage after each meal. That will help us see what's really going on. || E1
+  Caller -> I can do that. I'll put a note on the chart, for all the shifts.
+  Nurse -> Perfect. Reposition her every two hours, with a pillow between the knees. And offer her favorite foods. || E2
+  Caller -> She likes the pudding. And ice cream. I'll bring some.
+  Nurse -> Perfect. I'll send a nurse to see her tomorrow morning, to look at both the pain and the intake. || R2
+  Caller -> Oh good. That would help.
+  Nurse -> And I'll call you after the visit, to go over what she found. || R3
+  Caller -> Okay. Tomorrow. I'm on again at seven.
+  Nurse -> Great. Then I'll call you around nine.
+  Caller -> Perfect.
+  Nurse -> If her pain goes over a seven, or she gets very sleepy, or runs a fever, or falls, call us right away. || E3
+  Caller -> Okay. Over seven, sleepy, fever, fall. Got it.
+  Nurse -> Tamika, is she awake and alert, apart from the pain? Does she know who you are?
+  Caller -> She's alert. She knows me. She called me by name when I came in. She's a little tired, but she's oriented.
+  Nurse -> Good. That's reassuring. And her bowels? When was the last movement?
+  Caller -> Yesterday, I think. I'd have to check the flow sheet. I can look when we hang up.
+  Nurse -> Please do, and let me know if it's more than three days.
+  Caller -> I will. We're short staffed tonight, so I'm covering two halls. I'm sorry if I sound rushed.
+  Nurse -> You sound great. We appreciate your calling when something seems off.
+  Caller -> Thank you. That means a lot, after a long shift.
+  Nurse -> Is she comfortable now?
+  Caller -> She's resting. She seems okay. I'll give the medicine and sit with her a minute.
+  Nurse -> That's nice of you. Does she have family who visit?
+  Caller -> Her granddaughter comes on Sundays. She brings her little dog. Lucille lights up when she sees that dog.
+  Nurse -> Aw. That sounds like good medicine too.
+  Caller -> It is. The whole floor loves when the dog comes.
+  Nurse -> Ha. Is it okay for the dog to visit, with the other residents?
+  Caller -> Oh yes. The facility has a pet policy. Therapy dogs and family pets are welcome.
+  Nurse -> That's wonderful. Okay, Tamika. Thank you for calling, and for taking good care of her.
+  Caller -> Thank you, Tom. I'll write everything down. Goodnight.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "when I went in to see her just now", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucille Armitage, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1933-12-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tamika, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: facility nurse, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550186", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a resident's pain seemed worse and her intake was poor, with inconsistent reports from the previous shift.
+    speaker: Caller
+    turns: [8]
+    quote: "Her pain seems worse, and she's not eating well."
+    explanation: Documents the concerns prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Left hip pain was reported as 3 out of 10 earlier and 6 out of 10 when the caller saw her, with the caller unsure of the timing and which report was accurate.
+      speaker: Caller
+      turns: [10]
+      quote: "So the day nurse said her pain was a three. A three out of ten. In her left hip."
+      explanation: Documents the inconsistent pain reports with uncertainty preserved.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 3 to 6 out of 10, location: left hip, certainty: unclear}
+      covers: [A1]
+    - text: Intake was reported as a quarter of lunch by the aide and half by the dietary sheet, and the caller did not know which was correct.
+      speaker: Caller
+      turns: [16]
+      quote: "The aide said she ate about a quarter of her lunch. But the dietary sheet says she ate half."
+      explanation: Documents the conflicting intake reports.
+      facts:
+        - {type: symptom, name: decreased intake, present: true, severity: a quarter to half of meals, certainty: unclear}
+      covers: [A2]
+    - text: Oxycodone 5 mg every 4 hours as needed was ordered, with the last dose at 2 this afternoon.
+      speaker: Caller
+      turns: [24]
+      quote: "She has oxycodone, five milligrams, every four hours as needed. The day nurse wrote that she gave one at two this afternoon."
+      explanation: Documents the as-needed pain medication and last dose.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 4 hours, prn: true, last_dose: 2 this afternoon, med_status: prescribed, certainty: stated}
+      covers: [A3]
+    - text: No fever or falls were reported.
+      speaker: Caller
+      turns: [20]
+      quote: "No. I checked. Ninety eight point two."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A4]
+    - text: No falls were reported.
+      speaker: Caller
+      turns: [22]
+      quote: "No falls."
+      explanation: Documents a pertinent negative for falls.
+      facts:
+        - {type: pertinent_negative, name: falls, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised giving oxycodone now if pain was above 4 and at least 4 hours had passed since the last dose.
+      speaker: Nurse
+      turns: [27]
+      quote: "As long as the pain is above a four, and it's been at least four hours, she can have it."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: oxycodone, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow morning to assess pain and intake.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'll send a nurse to see her tomorrow morning, to look at both the pain and the intake."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back after the visit.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'll call you after the visit, to go over what she found."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow after the visit, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised recording a pain score and expression every 4 hours and a meal percentage after each meal.
+      speaker: Nurse
+      turns: [29]
+      quote: "please start recording a pain score every four hours, along with her expression."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised repositioning every 2 hours with a pillow between the knees and offering favorite foods.
+      speaker: Nurse
+      turns: [31]
+      quote: "Reposition her every two hours, with a pillow between the knees. And offer her favorite foods."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for pain above 7, severe sleepiness, fever, or a fall.
+      speaker: Nurse
+      turns: [39]
+      quote: "If her pain goes over a seven, or she gets very sleepy, or runs a fever, or falls, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,182 @@
+call_id: va-041
+split: val
+blueprint: "66-year-old calls herself: sudden worst headache of her life, 9/10, with blurred vision in one eye starting 40 minutes ago, vomited once. Nurse tells her to call 911 now, not drive, unlock the door, and not take more pills. Flags: uncontrolled_symptom and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [split_turns, late_answers, hedging]
+  clinical_domains: [pain, vision, nausea_vomiting]
+  relationship_group: self
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Lena
+  call_timestamp_utc: "2026-11-20T07:48:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Fabian Achterberg
+  patient_name_spoken: Fabian Achterberg
+  patient_name_certainty: stated
+  patient_dob_true: "1960-06-18"
+  patient_dob_spoken: "1960-06-18"
+  patient_dob_certainty: stated
+  caller_name_true: Fabian Achterberg
+  caller_name_spoken: Fabian Achterberg
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4145550188"
+  callback_phone_spoken: "4145550188"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a sudden severe headache with vision change
+  reason_category: pain
+  relevant_context: Home health patient recovering from surgery
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: sudden severe headache
+    symptom_present: true
+    severity: 9/10
+    onset_or_duration: about 40 minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: blurred vision in the right eye
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: vomiting
+    symptom_present: true
+    onset_or_duration: once
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: sudden severe headache with vision change
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, do not drive, unlock the front door, sit down, and take no more pills
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Headache is nine out of ten and sudden
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the patient to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Northstar Home Health, this is Lena.
+  Caller -> Lena, it's Fabian Achterberg. I'm a patient. I have the worst headache of my life. || patient_name, caller_name, relationship, cc
+  Nurse -> Okay, Fabian, I'm here. What's your date of birth?
+  Caller -> June eighteenth. Nineteen sixty. || patient_dob
+  Nurse -> And four one four, five five five, zero one eight eight? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> Tell me about the headache. When did it start?
+  Caller -> It was sudden. Like a thunderclap. About forty minutes ago. It's a nine. It's a nine out of ten. || A1, F1
+  Nurse -> Okay.
+  Nurse -> Any changes in your vision? Any weakness, trouble talking?
+  Caller -> My right eye is blurry. It's like I'm looking through water. My talking is okay. || A2
+  Nurse -> Okay. Any nausea or vomiting?
+  Caller -> I threw up once. A few minutes ago. || A3
+  Nurse -> Fabian, I want you to call 911 right now. This could be serious. || R1, F2
+  Caller -> Okay. Okay. Should I get a ride? My neighbor could.
+  Nurse -> No. Don't drive and don't wait for a ride. Call nine one one and unlock your front door. Sit down, and don't take any more pills. || E1
+  Caller -> Nine one one. Door. Sit. No pills. Okay.
+  Nurse -> Are you alone right now, Fabian?
+  Caller -> Yeah. Yes. Well, my neighbor's right next door. I could knock. But I don't want to, um, I don't want to bother her.
+  Nurse -> It's not a bother. If you can, ask her to come sit with you after you've called. But call first.
+  Caller -> Okay. Okay, I'm dialing. Hang on. My hand is, uh, my hand is shaking a little.
+  Nurse -> That's okay. Take your time. I'll stay on until you've called.
+  Caller -> Calling. Okay. It's ringing. Thank you, Lena.
+  Nurse -> You're doing the right thing. Go ahead.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Fabian Achterberg, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1960-06-18", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Fabian Achterberg, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550188", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a sudden severe headache with vision change.
+    speaker: Caller
+    turns: [2]
+    quote: "I have the worst headache of my life."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A sudden headache began about 40 minutes earlier and was rated 9/10.
+      speaker: Caller
+      turns: [8]
+      quote: "It was sudden. Like a thunderclap. About forty minutes ago. It's a nine. It's a nine out of ten."
+      explanation: Documents onset and severity.
+      facts:
+        - {type: symptom, name: sudden severe headache, present: true, severity: 9/10, duration: about 40 minutes ago, certainty: stated}
+      covers: [A1]
+    - text: The right eye was blurry.
+      speaker: Caller
+      turns: [11]
+      quote: "My right eye is blurry. It's like I'm looking through water."
+      explanation: Documents the vision change.
+      facts:
+        - {type: symptom, name: blurred vision in the right eye, present: true, certainty: stated}
+      covers: [A2]
+    - text: He vomited once a few minutes earlier.
+      speaker: Caller
+      turns: [13]
+      quote: "I threw up once. A few minutes ago."
+      explanation: Documents vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, duration: once, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [14]
+      quote: "I want you to call 911 right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised not driving, unlocking the front door, sitting down, and taking no more pills.
+      speaker: Nurse
+      turns: [16]
+      quote: "Don't drive and don't wait for a ride. Call nine one one and unlock your front door."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [8], quote: "It's a nine. It's a nine out of ten."}
+    - {category: escalation_request, turns: [14], quote: "I want you to call 911 right now."}

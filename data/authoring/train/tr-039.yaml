@@ -1,0 +1,413 @@
+call_id: tr-039
+split: train
+blueprint: "Long call: husband ran out of his wife's liquid morphine yesterday afternoon because the pharmacy said a new prescription was needed; pain now 7/10 with moaning; lorazepam helped a little; nurse pages the on-call physician (completed), contacts the emergency pharmacy, arranges delivery tonight, and calls back in 20 minutes. Flags: medication concern and uncontrolled symptom. Pharmacy confusion, crosstalk, and chatter."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [liquid_concentration, offtopic_chatter, crosstalk, multi_issue, split_turns, late_answers, phone_from_file]
+  clinical_domains: [pain, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-08-12T22:40:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Thelma Rasmussen
+  patient_name_spoken: Thelma Rasmussen
+  patient_name_certainty: stated
+  patient_dob_true: "1946-12-19"
+  patient_dob_spoken: "1946-12-19"
+  patient_dob_certainty: stated
+  caller_name_true: Oscar
+  caller_name_spoken: Oscar
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "2145550154"
+  callback_phone_spoken: "2145550154"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Ran out of liquid morphine yesterday and her pain is now severe
+  reason_category: medication_ran_out
+  relevant_context: Pharmacy told him a new prescription was needed
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: ran out
+    strength: 20 mg/mL
+    dose: "0.5"
+    unit: mL
+    route: under the tongue
+    last_dose_time: yesterday around 3 in the afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 7/10
+    body_location: belly and back
+    onset_or_duration: worse since this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: moaning and restlessness
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: The pharmacy told him the refill needed a new prescription from the doctor; he went twice and they were closed the second time
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    strength: 0.5 mg
+    last_dose_time: this morning
+    response_to_medication: Helped her rest a little
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased oral intake
+    symptom_present: true
+    severity: only sips of water and ice today
+    history_or_context_text: Dry mouth and cracked lips
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call physician
+    reason_or_trigger: new morphine prescription needed tonight
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: emergency pharmacy
+    reason_or_trigger: fill the morphine tonight
+    certainty: stated
+  - item_id: R3
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tonight within 2 hours
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 20 minutes
+    certainty: stated
+  - item_id: R5
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    reason_or_trigger: restlessness while waiting
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Pillow between the knees, warm pack on the belly on low, quiet room, cool cloth on the forehead
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: When the morphine arrives, give 0.5 mL under the tongue and write down the time; call when 3 doses are left so it never runs out again
+    timing_or_threshold: call at 3 doses left
+    certainty: stated
+  - item_id: E4
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Ice chips, mouth swabs dipped in water, and lip balm for dry mouth
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if the pain becomes unbearable, she is very hard to wake, or her breathing slows
+    trigger_condition: unbearable pain; hard to wake; slow breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller reports they ran out of liquid morphine yesterday
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Caller reports pain 7/10 with no breakthrough medication available
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Tom, thank God. It's Oscar Rasmussen. I'm calling about my wife, Thelma. || caller_name, relationship, patient_name
+  Nurse -> Hi, Oscar. What's her date of birth?
+  Caller -> December nineteenth, nineteen forty six. || patient_dob
+  Nurse -> And I have two one four, five five five, zero one five four on file for you. || callback_phone
+  Caller -> Yes. That's the house. That's right. || callback_phone
+  Nurse -> Okay. What's going on tonight, Oscar?
+  Caller -> We ran out of the morphine. Yesterday. And she's in terrible pain. I've been trying to get it refilled since yesterday afternoon. || cc, A1, F1
+  Nurse -> Okay. I'm sorry. Let's get this sorted. Tell me what happened.
+  Caller -> Okay. So, the bottle was almost empty. Yesterday around lunchtime. So I called the pharmacy, the one on Main. And they said, they can't refill it. They need a new prescription from the doctor. || A4
+  Nurse -> Okay.
+  Caller -> I said, but she's on hospice. They said, it's a controlled substance. They need a new script. I said, who do I call? They said, the doctor.
+  Nurse -> Okay. Did you call the doctor's office?
+  Caller -> I did. But it was after four by then, and they were closed. I got the answering machine. || A4
+  Nurse -> Okay. And you didn't call us?
+  Caller -> I thought the doctor's office was the right place. I didn't want to bother you. I know how busy you are.
+  Nurse -> Oscar, you're never bothering us. We're here twenty four hours a day, for exactly this.
+  Caller -> I know. I know that now. I'm sorry. I just, I wasn't thinking straight.
+  Nurse -> Okay. It's okay. When did she last get a dose?
+  Caller -> Yesterday. About three in the afternoon. I gave her the last little bit. Half a milliliter. || A1
+  Nurse -> Okay. And that was the twenty milligram per milliliter?
+  Caller -> Yes. Twenty milligrams per milliliter. Half a milliliter, under the tongue. || A1
+  Nurse -> Okay. So she's been without it for about, what, thirty one hours?
+  Caller -> Something like that. A day and a half, almost.
+  Nurse -> Okay. How's her pain right now?
+  Caller -> It's bad. It's a seven. She says it's a seven. She's crying. She's moaning. || A2, A3, F2
+  Nurse -> Okay. Where does it hurt?
+  Caller -> Her belly. And her back. It's been getting worse since this morning. || A2
+  Nurse -> Okay. Is she throwing up?
+  Caller -> No. She hasn't thrown up. || A6
+  Nurse -> Okay. Has she had anything else for comfort?
+  Caller -> She has the lorazepam. I gave her one, this morning. The point five. It helped her rest a little. But it doesn't do anything for the pain. || A5
+  Nurse -> Okay. That makes sense.
+  Caller -> Oscar? Oscar! Is Mom okay? Yes, honey. I'm on with the nurse. Go sit with her. Sorry. That's my daughter.
+  Nurse -> No problem. She's there too?
+  Caller -> Yes, she drove in tonight. Karen. She's sitting with her mother. She's the one who told me to call you. She said, Dad, call hospice, right now.
+  Nurse -> Karen sounds like a smart woman. I'm glad she's there.
+  Caller -> She's a nurse herself. A pediatric nurse. She's been so upset.
+  Nurse -> I understand. Okay, Oscar. Here's what we're going to do. I'm going to page our on-call doctor right now, for a new prescription tonight. Hold on. Okay. I've sent the page. || R1
+  Caller -> Okay. Thank you. Thank you.
+  Nurse -> And then I'm going to call our emergency pharmacy, the twenty four hour one, and have them fill it as soon as the doctor signs. || R2
+  Caller -> Okay. How long will that take?
+  Nurse -> Usually the doctor calls back within ten or fifteen minutes. Then the pharmacy fills it, and they deliver. I'm going to ask for delivery tonight, within two hours. || R3
+  Caller -> Two hours. Okay. Okay.
+  Nurse -> I know that feels long when she's in pain. But that's the fastest safe way.
+  Caller -> I understand. It's just, it's so hard to watch.
+  Nurse -> I know. I know it is. I'll call you back in twenty minutes with an update. || R4
+  Caller -> Twenty minutes. Okay.
+  Nurse -> In the meantime, there are some things we can try for comfort. Can you put a pillow between her knees, and one under her back? And a warm pack on her belly, on low. || E1
+  Caller -> I think we have a heating pad. Karen, get the heating pad. The one in the hall closet.
+  Nurse -> On low, wrapped in a towel. And a cool cloth on her forehead can feel good. And keep the room quiet. || E1
+  Caller -> Okay. Okay. Karen's getting it.
+  Nurse -> And you can give her another lorazepam, if it's been at least six hours since the last one. It won't help the pain, but it can help her feel calmer. || R5
+  Caller -> It's been about, since seven this morning, so more than six. Okay. I'll give her another one.
+  Nurse -> Good. Give it under the tongue, like before.
+  Caller -> Okay. Karen has it. She's doing it now.
+  Nurse -> Perfect. How are you doing, Oscar? Are you holding up?
+  Caller -> Honestly? Not great. I haven't slept. I've been up since five. I just feel like I failed her.
+  Nurse -> You didn't fail her. Oscar. You did what a lot of people would do. You called the pharmacy and the doctor. The system made it hard. That's on us, not you.
+  Caller -> Thank you. That means a lot.
+  Nurse -> Has she been eating or drinking today?
+  Caller -> Just sips of water. A little ice. She didn't touch her breakfast or her dinner. || A7
+  Nurse -> Okay. Is her mouth dry?
+  Caller -> Very. Her lips are cracked. She keeps asking for ice.
+  Nurse -> Ice chips are fine. And mouth swabs can help, the pink sponges, dipped in water. Does she have those? || E4
+  Caller -> We have a pack. Karen, can you get the mouth swabs? She's on it. Okay.
+  Nurse -> And a little lip balm feels good too. || E4
+  Caller -> Okay. Chapstick. We have that. I'll put some on her.
+  Caller -> I still don't understand why the pharmacy wouldn't give me a few days' worth, just to get us through. Nobody told me any of this.
+  Nurse -> Medicines like morphine can't be refilled the way other prescriptions are. The pharmacy needs a new signed prescription each time, and it's a rule they can't bend. That's why we usually send it to them ahead of time, before it runs low. || A4
+  Caller -> I understand. Nobody explained that to me.
+  Nurse -> That's on us. I'll make sure the nurse reviews the plan with you at the next visit.
+  Caller -> Thank you. Karen says to tell you she's grateful. She's been the one calling around all day.
+  Nurse -> Tell her thank you from me. How many kids does she have?
+  Caller -> Two. A boy and a girl. They're with her husband tonight. They wanted to come, but it's a school night.
+  Nurse -> That makes sense. It's good that she has help at home.
+  Caller -> She does. And they call every hour to ask about their grandma. They love her so much.
+  Nurse -> That's wonderful. She'll feel that.
+  Caller -> I tell her. I say, the kids called, they love you. She squeezes my hand. I think she hears.
+  Nurse -> I'm sure she does. Hearing is the last sense to go. Keep talking to her.
+  Caller -> I will. I read her the cards the kids made. She had a pile of them on the table.
+  Nurse -> That's lovely.
+  Nurse -> And going forward, I want to make sure this never happens again. We'll set up automatic refills, and when you get down to three doses, you call us. Not the pharmacy. Us. || E2
+  Caller -> Three doses. Okay. I'll write that on the bottle.
+  Nurse -> Perfect. When the morphine arrives, give her half a milliliter under the tongue, and write the time down. || E2
+  Caller -> Half a milliliter. And write the time. Okay.
+  Nurse -> And if the pain becomes unbearable before it comes, or she's very hard to wake, or her breathing slows down, call me right away. || E3
+  Caller -> Okay. I will.
+  Nurse -> Do you have any questions, Oscar?
+  Caller -> No. Just, thank you. Thank you for taking care of this.
+  Nurse -> Of course. I'm going to go make the calls now. Twenty minutes.
+  Caller -> Twenty minutes. Karen, they're getting it. Yes, tonight. Okay. Bye.
+  Nurse -> Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "daughter speaking to Oscar", heard_form: "Is Mom okay", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Thelma Rasmussen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-12-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Oscar, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "2145550154", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that they ran out of liquid morphine yesterday and his wife was in severe pain.
+    speaker: Caller
+    turns: [8]
+    quote: "We ran out of the morphine. Yesterday. And she's in terrible pain."
+    explanation: Documents the medication and symptom concerns prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The pharmacy would not refill the morphine without a new prescription, and the doctor's office was closed when the caller phoned.
+      speaker: Caller
+      turns: [12]
+      quote: "They said, it's a controlled substance. They need a new script."
+      explanation: Documents the barrier to refilling the medication.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: Morphine 20 mg/mL, 0.5 mL under the tongue, had run out; the last dose was given yesterday around 3 in the afternoon.
+      speaker: Caller
+      turns: [20]
+      quote: "Yesterday. About three in the afternoon. I gave her the last little bit. Half a milliliter."
+      explanation: Documents the last dose and the supply running out.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg/mL, dose: "0.5", unit: mL, route: under the tongue, last_dose: yesterday around 3 in the afternoon, med_status: ran out, certainty: stated}
+      covers: [A1]
+    - text: Pain was 7/10 in the belly and back, worse since this morning, with crying and moaning.
+      speaker: Caller
+      turns: [26]
+      quote: "It's a seven. She says it's a seven. She's crying. She's moaning."
+      explanation: Documents the reported pain severity.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 7/10, location: belly and back, onset: worse since this morning, certainty: stated}
+        - {type: symptom, name: moaning and restlessness, present: true, certainty: stated}
+      covers: [A2, A3]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [30]
+      quote: "No. She hasn't thrown up."
+      explanation: Documents a pertinent negative for vomiting.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A6]
+    - text: Oral intake was limited to sips of water and ice today, with a dry mouth and cracked lips.
+      speaker: Caller
+      turns: [62]
+      quote: "Just sips of water. A little ice. She didn't touch her breakfast or her dinner."
+      explanation: Documents decreased intake and dry mouth.
+      facts:
+        - {type: symptom, name: decreased oral intake, present: true, severity: only sips of water and ice today, certainty: stated}
+      covers: [A7]
+    - text: Lorazepam 0.5 mg was given this morning and helped her rest a little but not the pain.
+      speaker: Caller
+      turns: [32]
+      quote: "She has the lorazepam. I gave her one, this morning. The point five."
+      explanation: Documents the use and effect of lorazepam.
+      facts:
+        - {type: medication, name: lorazepam, strength: 0.5 mg, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Paged the on-call physician for a new morphine prescription.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to page our on-call doctor right now, for a new prescription tonight."
+      explanation: Documents the completed physician page.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact the 24-hour emergency pharmacy to fill the morphine once the doctor signed.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to call our emergency pharmacy, the twenty four hour one, and have them fill it as soon as the doctor signs."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to request delivery tonight within 2 hours.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to ask for delivery tonight, within two hours."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight within 2 hours, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in 20 minutes with an update.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you back in twenty minutes with an update."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 20 minutes, certainty: stated}
+      covers: [R4]
+    - text: Advised giving another lorazepam if at least 6 hours had passed since the last dose, for calmness while waiting.
+      speaker: Nurse
+      turns: [53]
+      quote: "you can give her another lorazepam, if it's been at least six hours since the last one."
+      explanation: Documents the interim medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: lorazepam, certainty: stated}
+      covers: [R5]
+  education:
+    - text: Advised a pillow between the knees, a low-setting warm pack on the belly, a cool cloth on the forehead, and a quiet room.
+      speaker: Nurse
+      turns: [49]
+      quote: "can you put a pillow between her knees, and one under her back? And a warm pack on her belly, on low."
+      explanation: Documents comfort measures while waiting for medication.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised giving 0.5 mL under the tongue when the morphine arrived, recording the time, and calling when 3 doses remained.
+      speaker: Nurse
+      turns: [83]
+      quote: "when you get down to three doses, you call us. Not the pharmacy. Us."
+      explanation: Documents medication administration and resupply instructions.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised ice chips, mouth swabs dipped in water, and lip balm for the dry mouth.
+      speaker: Nurse
+      turns: [65]
+      quote: "mouth swabs can help, the pink sponges, dipped in water."
+      explanation: Documents mouth-care comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E4]
+    - text: Advised calling right away if the pain became unbearable, she was very hard to wake, or her breathing slowed.
+      speaker: Nurse
+      turns: [87]
+      quote: "if the pain becomes unbearable before it comes, or she's very hard to wake, or her breathing slows down, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "We ran out of the morphine."}
+    - {category: uncontrolled_symptom, turns: [26], quote: "It's a seven."}

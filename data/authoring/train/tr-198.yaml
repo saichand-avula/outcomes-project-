@@ -1,0 +1,305 @@
+call_id: tr-198
+split: train
+blueprint: "55-year-old palliative patient with breast cancer, five days after chemotherapy: mouth sores, pain 6/10 when eating, white patches on her tongue, eating less but drinking; magic mouthwash helps briefly; no fever. Nurse messages the provider about possible thrush, plans a visit Thursday and a callback tomorrow, and reviews rinses, soft cold foods, and return precautions. Medium."
+setup:
+  scenario_category: routine
+  subtype: mouth_sores
+  secondary_tags: [multi_issue, prn_and_scheduled, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [oral_care, intake_appetite, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Aspen Grove Palliative Care
+  agency_type: palliative
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-08T15:30:00Z"
+  length_bucket: medium
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Roxanne Tavares
+  patient_name_spoken: Roxanne Tavares
+  patient_name_certainty: stated
+  patient_dob_true: "1971-06-30"
+  patient_dob_spoken: "1971-06-30"
+  patient_dob_certainty: stated
+  caller_name_true: Roxanne Tavares
+  caller_name_spoken: Roxanne Tavares
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5075550136"
+  callback_phone_spoken: "5075550136"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported painful mouth sores after chemotherapy
+  reason_category: oral_care
+  relevant_context: Palliative patient with breast cancer who had chemotherapy last Tuesday
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: mouth sores
+    symptom_present: true
+    onset_or_duration: five days
+    body_location: mouth
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: pain when eating
+    symptom_present: true
+    severity: 6/10
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: white patches on the tongue
+    symptom_present: true
+    body_location: tongue
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: magic mouthwash
+    medication_name_spoken: magic mouthwash
+    medication_status: taking
+    dose: "5"
+    unit: mL
+    frequency: every 4 hours as needed
+    prn: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: patient
+    symptom_name: eating less
+    symptom_present: true
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Chemotherapy last Tuesday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: painful mouth sores and possible thrush
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Rinse with a mix of salt and baking soda in warm water several times a day and use a soft toothbrush
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Eat cold or room-temperature soft foods, avoid acidic, spicy or crunchy foods, and drink through a straw
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature over 100.4, being unable to swallow liquids, or sores that bleed or spread
+    trigger_condition: temperature over 100.4; cannot swallow; bleeding sores; spreading sores
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Aspen Grove Palliative Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Roxanne Tavares. I'm a patient. My mouth is a mess. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Roxanne. I'm sorry to hear that. Let me get your date of birth.
+  Caller -> June thirtieth. Nineteen seventy one. || patient_dob
+  Nurse -> And is five oh seven, five five five, zero one three six your number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Tell me about your mouth.
+  Caller -> I had chemo last Tuesday. And about two days after, I started getting sores. Inside my cheeks, and on my gums, and the sides of my tongue. It's been five days now. They hurt so much. || A1, A7
+  Nurse -> Okay. How bad is the pain, zero to ten?
+  Caller -> When I eat or drink, about a six. Even water stings sometimes. When I'm not eating, it's more like a three. || A2
+  Nurse -> Okay. Are you eating?
+  Caller -> Less. I'm managing mashed potatoes and yogurt and ice cream. Anything with a texture, forget it. I had a piece of toast yesterday and I almost cried. || A6
+  Nurse -> Okay. Is it the pain that's stopping you from eating, or is food tasting different too?
+  Caller -> Both. Everything tastes like metal. Even the ice cream. I know it's the chemo, they warned me. But it still makes me sad. I used to love to cook. My family jokes that I never left the kitchen.
+  Nurse -> That's very common, and it usually fades after treatment. Okay. And drinking?
+  Caller -> I'm drinking. Slowly. I use a straw. I'm getting about six cups a day, I think. I'm trying. Water mostly.
+  Nurse -> Good. Roxanne, look in a mirror with a good light. What do you see on your tongue?
+  Caller -> Okay, hold on. I'm getting my phone flashlight. There are white patches. On the top of my tongue, and on the side. Kind of like cottage cheese. They're not coming off when I scrape them with my toothbrush. || A3
+  Nurse -> Okay. Thank you. Are you using anything for it?
+  Caller -> Magic mouthwash. The prescription kind. Five milliliters, swish and spit, every four hours if I need it. It helps for about twenty minutes. Then it comes right back. || A4
+  Nurse -> Okay. Any fever?
+  Caller -> No. I took it this morning. Ninety eight point two. || A5
+  Nurse -> Good. Roxanne, those white patches might be thrush, which is a yeast infection that can happen after chemo. I'm going to message your provider about the sores and the white patches. They may want to give you something for it. || R1
+  Caller -> Okay. That would be great. Can you do that today?
+  Nurse -> I'll send it right now. And a nurse will come see you Thursday. || R2
+  Caller -> Thursday. Okay. Is that when I get my next treatment? No, that's the following week. Okay.
+  Nurse -> No, Thursday is just a nurse visit. I'll also call you tomorrow with what the provider says. || R3
+  Caller -> Tomorrow. Okay. Thank you.
+  Nurse -> In the meantime, rinse your mouth several times a day with a mix of salt and baking soda in warm water, about a half teaspoon of each in a cup. And use a soft toothbrush. || E1
+  Caller -> Salt and baking soda. Warm water. Soft toothbrush. Okay. I have a baby toothbrush, which is the softest one I could find.
+  Nurse -> That's perfect. And for food, stick to cold or room temperature soft foods. Avoid anything acidic, spicy, or crunchy, like orange juice, tomato, chips. And keep using a straw. || E2
+  Caller -> No orange juice. I had some this morning and I regretted it. No tomatoes. Okay. Smoothies are good, I'll make those.
+  Nurse -> Smoothies are great. And call us if your temperature goes over one hundred point four, if you can't swallow even liquids, or if the sores bleed or spread. || E3
+  Caller -> Over one hundred point four. Can't swallow. Bleeding or spreading. Okay.
+  Nurse -> Is there anything else going on, any trouble sleeping, or other questions about your treatment?
+  Caller -> I sleep okay, I wake up when my mouth gets dry. I keep a glass of water and a little lip balm on the nightstand. And I wanted to ask, should I still go to my appointment next Tuesday? The oncologist's office said they'd decide after bloodwork.
+  Nurse -> Yes, keep it for now. The oncology team will decide after the labs. I'll mention the mouth sores to the provider so they know before then.
+  Caller -> Okay. That makes sense. Thank you.
+  Nurse -> Anything else?
+  Caller -> My husband is making me broth. He's trying so hard. It's sweet. He burned the first batch. And the second one he put too much pepper. The third one was almost okay. My daughter is eleven and she gives him a score out of ten for every batch.
+  Nurse -> Ha. What was the third one's score?
+  Caller -> A seven. She's a tough judge. She says he's improving.
+  Nurse -> That's a good sign for broth number four.
+  Caller -> I'm having to give up coffee, which is the real tragedy. Even decaf burns. I look at my coffee maker like it's an old friend who moved away.
+  Nurse -> Ha. It will be there when your mouth heals. Maybe iced coffee in a week, through the straw.
+  Nurse -> Ha. That's love. Tell him thank you from us.
+  Caller -> I will. Thanks, Naomi. I just needed somebody to say it's normal.
+  Nurse -> It's common, and we'll get you comfortable. Talk to you tomorrow.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Roxanne Tavares, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1971-06-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Roxanne Tavares, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5075550136", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported painful mouth sores after chemotherapy.
+    speaker: Caller
+    turns: [2]
+    quote: "My mouth is a mess."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Mouth sores began about two days after chemotherapy last Tuesday and had been present for five days.
+      speaker: Caller
+      turns: [8]
+      quote: "I had chemo last Tuesday. And about two days after, I started getting sores."
+      explanation: Documents the sores and the chemotherapy.
+      facts:
+        - {type: symptom, name: mouth sores, present: true, duration: five days, location: mouth, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A7]
+    - text: Pain was about 6/10 when eating or drinking.
+      speaker: Caller
+      turns: [10]
+      quote: "When I eat or drink, about a six."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain when eating, present: true, severity: 6/10, certainty: stated}
+      covers: [A2]
+    - text: She was eating less, managing only soft foods.
+      speaker: Caller
+      turns: [12]
+      quote: "Less. I'm managing mashed potatoes and yogurt and ice cream."
+      explanation: Documents reduced intake.
+      facts:
+        - {type: symptom, name: eating less, present: true, certainty: stated}
+      covers: [A6]
+    - text: White patches resembling cottage cheese were on the tongue and did not scrape off.
+      speaker: Caller
+      turns: [18]
+      quote: "There are white patches. On the top of my tongue, and on the side."
+      explanation: Documents the tongue findings.
+      facts:
+        - {type: symptom, name: white patches on the tongue, present: true, location: tongue, certainty: stated}
+      covers: [A3]
+    - text: Magic mouthwash 5 mL every 4 hours as needed was used and helped for about twenty minutes.
+      speaker: Caller
+      turns: [20]
+      quote: "Magic mouthwash. The prescription kind. Five milliliters, swish and spit, every four hours if I need it."
+      explanation: Documents the mouthwash.
+      facts:
+        - {type: medication, name: magic mouthwash, dose: "5", unit: mL, frequency: every 4 hours as needed, prn: true, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [22]
+      quote: "No. I took it this morning. Ninety eight point two."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about the sores and the white patches.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to message your provider about the sores and the white patches."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for Thursday.
+      speaker: Nurse
+      turns: [25]
+      quote: "a nurse will come see you Thursday."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+    - text: Planned to call tomorrow with the provider's reply.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'll also call you tomorrow with what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised rinsing with salt and baking soda in warm water several times a day and using a soft toothbrush.
+      speaker: Nurse
+      turns: [29]
+      quote: "rinse your mouth several times a day with a mix of salt and baking soda in warm water"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised cold or room-temperature soft foods, avoiding acidic, spicy or crunchy foods, and using a straw.
+      speaker: Nurse
+      turns: [31]
+      quote: "stick to cold or room temperature soft foods."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a temperature over 100.4, being unable to swallow liquids, or sores that bleed or spread.
+      speaker: Nurse
+      turns: [33]
+      quote: "call us if your temperature goes over one hundred point four, if you can't swallow even liquids, or if the sores bleed or spread."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

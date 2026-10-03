@@ -1,0 +1,224 @@
+call_id: tr-018
+split: train
+blueprint: "Wife's callback number is given twice with a different last digit and never resolved; her own name is heard as Marge/Margie; the caller's answer 'about two weeks' is mislabeled as the nurse; husband has a cough with clear sputum, no fever; nurse plans a callback tomorrow."
+setup:
+  scenario_category: asr_error
+  subtype: number_name_conflict
+  secondary_tags: [name_drift, identity_unresolved, speaker_label_errors, contradiction]
+  clinical_domains: [cough_uri]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-09-02T15:09:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Arthur Penhallow
+  patient_name_spoken: Arthur Penhallow
+  patient_name_certainty: stated
+  patient_dob_true: "1947-11-18"
+  patient_dob_spoken: "1947-11-18"
+  patient_dob_certainty: stated
+  caller_name_true: Marge
+  caller_name_spoken: Marge
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Margie]
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6155550125"
+  callback_phone_spoken: "6155550125"
+  callback_phone_certainty: unclear
+  callback_phone_heard_as: ["6155550126"]
+  patient_pronoun: his
+  reason_for_call: Husband has had a cough for about two weeks
+  reason_category: cough_uri
+  relevant_context: Palliative patient with COPD
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: cough
+    symptom_present: true
+    onset_or_duration: about two weeks
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sputum
+    symptom_present: true
+    severity: clear
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    history_or_context_text: Breathing at his baseline
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: palliative provider
+    reason_or_trigger: persistent cough
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Warm fluids, honey, humidifier, propping up with pillows
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, colored or bloody sputum, or breathing trouble; 911 for severe trouble breathing
+    trigger_condition: fever; colored sputum; blood; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hello, this is, my name is Marge. I'm calling about my husband. || caller_name, relationship
+  Nurse -> Hi, Margie. What's his name?
+  Caller -> Arthur Penhallow. P E N H A L L O W. || patient_name
+  Nurse -> And his birthday, Arthur's?
+  Caller -> November eighteenth, nineteen forty seven. || patient_dob
+  Nurse -> Thank you. And what's a good number for you, Margie?
+  Caller -> Six one five, five five five, oh one two five. || callback_phone
+  Nurse -> Okay, six one five, five five five, oh one two six. || callback_phone
+  Caller -> Okay.
+  Nurse -> What's going on with Arthur?
+  Caller -> He has a cough. He's been coughing and coughing. || cc, A1
+  Nurse -> How long?
+  Nurse -> About two weeks now. || A1, label_error
+  Nurse -> Okay. Is he bringing anything up?
+  Caller -> Some. It's clear. Clear, a little foamy. || A2
+  Nurse -> Any fever?
+  Caller -> No fever. I took it this morning and it was normal. || A3
+  Nurse -> Okay. Is he short of breath, more than usual?
+  Caller -> No. His breathing's the same as always. He's on the oxygen, he does fine. || A4
+  Nurse -> Okay. Good. Let me get this into the system. I'm going to send a note to the provider about the cough, since it's been two weeks. || R2
+  Caller -> Okay.
+  Nurse -> And I'll call you back tomorrow to see how he's doing. || R1
+  Caller -> Okay. At that number.
+  Nurse -> Yes. Okay. Meanwhile, warm fluids and a spoon of honey can soothe a cough. A humidifier helps too. And prop him up on pillows at night. || E1
+  Caller -> We have a humidifier. I'll turn it on.
+  Nurse -> If he gets a fever, or what he's coughing up turns yellow or green or has blood in it, or his breathing gets worse, call us. And if he's struggling to breathe, call nine one one. || E2
+  Caller -> Okay. I will.
+  Nurse -> Alright, Margie. Take care.
+  Caller -> Thank you, dear.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Marge, heard_form: Margie, fact_id: caller_name}
+  - {turn: auto, type: number_garble, true_form: "oh one two five", heard_form: "oh one two six", fact_id: callback_phone}
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "About two weeks now", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Arthur Penhallow, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1947-11-18", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Marge, certainty: unclear, heard_as: [Margie], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550125", certainty: unclear, heard_as: ["6155550126"], turns: [8, 9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had a persistent cough.
+    speaker: Caller
+    turns: [12]
+    quote: "He has a cough. He's been coughing and coughing."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Cough had been present for about two weeks.
+      speaker: Caller
+      turns: [14]
+      quote: "About two weeks now."
+      explanation: Documents the duration of the cough, attributed to the caller who answered the duration question.
+      facts:
+        - {type: symptom, name: cough, present: true, onset: about two weeks, certainty: stated}
+      covers: [A1]
+    - text: Clear, slightly foamy sputum was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "Some. It's clear. Clear, a little foamy."
+      explanation: Documents sputum characteristics.
+      facts:
+        - {type: symptom, name: sputum, present: true, severity: clear, certainty: stated}
+      covers: [A2]
+    - text: No fever was reported; the temperature was normal this morning.
+      speaker: Caller
+      turns: [18]
+      quote: "No fever. I took it this morning and it was normal."
+      explanation: Documents a pertinent negative for fever.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+    - text: Breathing was reported at his baseline with no increased shortness of breath.
+      speaker: Caller
+      turns: [20]
+      quote: "No. His breathing's the same as always. He's on the oxygen, he does fine."
+      explanation: Documents a pertinent negative for worsening dyspnea.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send a note to the provider about the persistent cough.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to send a note to the provider about the cough, since it's been two weeks."
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow to check on him.
+      speaker: Nurse
+      turns: [23]
+      quote: "And I'll call you back tomorrow to see how he's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised warm fluids, honey, a humidifier, and propping him up on pillows at night.
+      speaker: Nurse
+      turns: [25]
+      quote: "warm fluids and a spoon of honey can soothe a cough. A humidifier helps too. And prop him up on pillows at night."
+      explanation: Documents comfort measures for cough.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, yellow, green or bloody sputum, or worsening breathing, and calling 911 for severe breathing difficulty.
+      speaker: Nurse
+      turns: [27]
+      quote: "If he gets a fever, or what he's coughing up turns yellow or green or has blood in it, or his breathing gets worse, call us."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

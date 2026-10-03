@@ -1,0 +1,333 @@
+call_id: tr-135
+split: train
+blueprint: "Daughter of a palliative patient reports two days of nausea with vomiting twice yesterday, ondansetron helping only a little, eating a few bites, drinking little, darker urine; no fever or belly pain. A fentanyl patch was started last Thursday. Nurse messages the provider, plans a callback this afternoon and a visit tomorrow, and gives fluid and comfort tips. Medium length."
+setup:
+  scenario_category: routine
+  subtype: nausea_vomiting
+  secondary_tags: [multi_issue, prn_and_scheduled, hedging, late_answers, split_turns]
+  clinical_domains: [nausea_vomiting, intake_appetite, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Aspen Grove Palliative Care
+  agency_type: palliative
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-02T15:20:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Imelda Santoro
+  patient_name_spoken: Imelda Santoro
+  patient_name_certainty: stated
+  patient_dob_true: "1950-01-24"
+  patient_dob_spoken: "1950-01-24"
+  patient_dob_certainty: stated
+  caller_name_true: Gianna Santoro
+  caller_name_spoken: Gianna Santoro
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6105550177"
+  callback_phone_spoken: "6105550177"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother has had nausea for two days with vomiting
+  reason_category: nausea_vomiting
+  relevant_context: Palliative patient recently started on a pain patch
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: nausea
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    onset_or_duration: twice yesterday
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every 8 hours as needed
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating only a few bites
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: dark urine
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: belly pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl patch
+    medication_name_spoken: fentanyl patch
+    medication_status: taking
+    dose: "12"
+    unit: mcg per hour
+    frequency: every 72 hours
+    last_dose: put on last Thursday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: palliative provider
+    reason_or_trigger: nausea and vomiting after starting the patch
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of fluid, ice chips or popsicles every few minutes and bland foods such as crackers
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the room cool with fresh air, use a cool cloth on her forehead, and keep her head raised after she drinks
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she cannot keep any fluids down for 12 hours, passes no urine for 8 hours, has new belly pain, or becomes confused
+    trigger_condition: no fluids for 12 hours; no urine for 8 hours; belly pain; confusion
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Aspen Grove Palliative Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Gianna Santoro. I'm calling about my mom. Imelda Santoro. She's been throwing up. || caller_name, relationship, patient_name, cc, A2
+  Nurse -> Oh no. Okay, Gianna. I'm here. What's your mom's date of birth?
+  Caller -> January twenty fourth. Nineteen fifty. || patient_dob
+  Nurse -> And is six one oh, five five five, zero one seven seven a good number for you? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Tell me what's been happening.
+  Caller -> She's been nauseous for two days. Really queasy. And yesterday she threw up twice. Once in the morning and once in the evening. || A1, A2
+  Nurse -> Okay. Has she vomited today?
+  Caller -> Not today. Not yet. But she says she feels like she's going to. All the time. She just lies there with her eyes closed. || A1
+  Nurse -> Okay. Does she have anything for nausea?
+  Caller -> Yes, the ondansetron. The little melt-in-your-mouth ones. Four milligrams. She can have one every eight hours if she needs it. || A3
+  Nurse -> Okay. When did she last take the ondansetron? || A3
+  Caller -> This morning. About eight. It helps a little. It takes the edge off for a few hours, but it doesn't make it go away. || A3
+  Nurse -> Okay. Is she eating anything?
+  Caller -> A few bites. That's it. A bite of toast, a couple of crackers. Nothing else. She says the smell of food makes it worse. || A4
+  Nurse -> Okay. And how about drinking?
+  Caller -> Sips. Very small. I keep offering water and she keeps pushing it away. And her urine is dark. Dark yellow, almost brown. || A5
+  Nurse -> Okay. Any fever?
+  Caller -> No. I checked this morning. She was normal. || A6
+  Nurse -> Any belly pain, or cramping?
+  Caller -> No. No pain in her belly. She says it's just the nausea. || A7
+  Nurse -> Okay. Gianna, did anything change with her medicines recently?
+  Caller -> Well. Yes. She started the patch last Thursday. The fentanyl patch. The twelve one. For her back. We put one on and it's supposed to last three days. || A8
+  Nurse -> Okay. So the fentanyl patch, twelve micrograms an hour, changed every seventy two hours. That's useful to know, because nausea can be a side effect when we start one. || A8
+  Caller -> Oh. I didn't think of that. She's been on the other pain medicine for months and never got sick. I thought it was a stomach bug. Her neighbor's grandson had one.
+  Nurse -> It could be. I can't say for sure. I'll message her palliative provider about the nausea and the patch together. || R1
+  Caller -> Okay. Please. I just want her to stop feeling sick.
+  Nurse -> I know. I'll call you back this afternoon after I hear from the provider. || R2
+  Caller -> This afternoon. Okay. I'll be here. I'm working from home today so I'm right next to her.
+  Nurse -> That's good. And a nurse will come see her tomorrow. || R3
+  Caller -> Tomorrow. Okay. What time, do you know?
+  Nurse -> The scheduler will call you with a time window. Is that okay?
+  Caller -> Yes. That's fine. Thank you.
+  Nurse -> Now, in the meantime, offer very small amounts of fluid. A sip, or an ice chip, or a bite of a popsicle every few minutes. Crackers or dry toast if she wants something. || E1
+  Caller -> Ice chips. Popsicles. She might like that. She likes the orange ones.
+  Nurse -> Orange is a good choice. Cold things often go down easier than warm ones when she's queasy.
+  Caller -> That makes sense. She won't touch her tea anymore. She used to have it with honey, three times a day. Now she says the smell turns her stomach.
+  Nurse -> That's very common. Smells can be the worst part. If you can, keep cooking smells away from her room, and maybe let the food cool down before you bring it in.
+  Caller -> Okay. I made soup yesterday and the whole house smelled. I think that didn't help. I'll stop. I'll just do cold things.
+  Nurse -> Perfect. And keep the room cool with a little fresh air, a cool cloth on her forehead, and keep her head raised after she drinks. || E2
+  Caller -> Cool cloth. Head up. Okay. I'll open the window.
+  Nurse -> And Gianna, take care of yourself too. Are you eating, are you sleeping a little?
+  Caller -> Sort of. I keep waking up to check on her. My brother lives in Phoenix so it's mostly me. It's fine. I just worry.
+  Nurse -> It's a lot to carry. You're allowed to call us just to ask a question, you don't need a crisis to call.
+  Caller -> Thank you. That really helps. I always feel like I'm bothering somebody.
+  Nurse -> Good. Gianna, I want you to call us if she can't keep any fluids down for twelve hours, if she hasn't passed urine in eight hours, if she gets belly pain, or if she seems confused. || E3
+  Caller -> Twelve hours. Eight hours. Belly pain. Confused. Okay. I'm writing it on a sticky note.
+  Nurse -> Perfect. Anything else I can help you with?
+  Caller -> No. I don't think so. Thank you, Naomi. It helps just to talk to someone.
+  Nurse -> Of course. Hang in there. We'll talk this afternoon.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Imelda Santoro, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1950-01-24", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gianna Santoro, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550177", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother has had nausea for two days with vomiting.
+    speaker: Caller
+    turns: [2]
+    quote: "She's been throwing up."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nausea had been present for two days.
+      speaker: Caller
+      turns: [8]
+      quote: "She's been nauseous for two days. Really queasy."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: nausea, present: true, duration: two days, certainty: stated}
+      covers: [A1]
+    - text: She vomited twice yesterday, once in the morning and once in the evening.
+      speaker: Caller
+      turns: [8]
+      quote: "And yesterday she threw up twice."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, duration: twice yesterday, certainty: stated}
+      covers: [A2]
+    - text: Ondansetron 4 mg every 8 hours as needed was being taken, with the last dose this morning helping only a little.
+      speaker: Caller
+      turns: [12]
+      quote: "Four milligrams. She can have one every eight hours if she needs it."
+      explanation: Documents the nausea medication.
+      facts:
+        - {type: medication, name: ondansetron, dose: "4", unit: mg, frequency: every 8 hours as needed, prn: true, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She was eating only a few bites.
+      speaker: Caller
+      turns: [16]
+      quote: "A few bites. That's it."
+      explanation: Documents reduced intake.
+      facts:
+        - {type: symptom, name: eating only a few bites, present: true, certainty: stated}
+      covers: [A4]
+    - text: Her urine was dark.
+      speaker: Caller
+      turns: [18]
+      quote: "Dark yellow, almost brown."
+      explanation: Documents the urine color.
+      facts:
+        - {type: symptom, name: dark urine, present: true, certainty: stated}
+      covers: [A5]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [20]
+      quote: "No. I checked this morning. She was normal."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A6]
+    - text: No belly pain was reported.
+      speaker: Caller
+      turns: [22]
+      quote: "No pain in her belly."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: belly pain, certainty: stated}
+      covers: [A7]
+    - text: A fentanyl patch of 12 mcg per hour was started last Thursday and changed every 72 hours.
+      speaker: Caller
+      turns: [24]
+      quote: "She started the patch last Thursday. The fentanyl patch."
+      explanation: Documents the recent medication change.
+      facts:
+        - {type: medication, name: fentanyl patch, dose: "12", unit: mcg per hour, frequency: every 72 hours, last_dose: put on last Thursday, med_status: taking, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned to message the palliative provider about the nausea and the patch.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'll message her palliative provider about the nausea and the patch together."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'll call you back this afternoon after I hear from the provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [31]
+      quote: "a nurse will come see her tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering small sips, ice chips or popsicle bites every few minutes and crackers or dry toast.
+      speaker: Nurse
+      turns: [35]
+      quote: "offer very small amounts of fluid. A sip, or an ice chip, or a bite of a popsicle every few minutes."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the room cool with fresh air, a cool cloth on her forehead, and her head raised after drinking.
+      speaker: Nurse
+      turns: [41]
+      quote: "keep the room cool with a little fresh air, a cool cloth on her forehead, and keep her head raised after she drinks."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling if she could not keep fluids down for 12 hours, passed no urine for 8 hours, had belly pain, or seemed confused.
+      speaker: Nurse
+      turns: [47]
+      quote: "call us if she can't keep any fluids down for twelve hours, if she hasn't passed urine in eight hours, if she gets belly pain, or if she seems confused."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

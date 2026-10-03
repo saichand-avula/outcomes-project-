@@ -1,0 +1,190 @@
+call_id: tr-175
+split: train
+blueprint: "Son calls for an ondansetron refill for his mother (4 tablets left) while a TV and his father are talking in the background, so words are dropped and replies overlap; mother has had mild nausea since Saturday, ate toast today. Nurse sends the refill request and plans a callback tomorrow. ASR crosstalk, dropped words."
+setup:
+  scenario_category: asr_error
+  subtype: crosstalk_dropped_words
+  secondary_tags: [crosstalk, hedging, late_answers, split_turns]
+  clinical_domains: [medication, nausea_vomiting]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Hector
+  call_timestamp_utc: "2026-10-05T18:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Beatrix Valdez
+  patient_name_spoken: Beatrix Valdez
+  patient_name_certainty: stated
+  patient_dob_true: "1943-02-17"
+  patient_dob_spoken: "1943-02-17"
+  patient_dob_certainty: stated
+  caller_name_true: Cesar Valdez
+  caller_name_spoken: Cesar Valdez
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9515550149"
+  callback_phone_spoken: "9515550149"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested a refill of his mother's nausea medicine
+  reason_category: refill_request
+  relevant_context: Home health patient with intermittent nausea
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every 8 hours as needed
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: ondansetron tablets
+    supply_remaining: "4"
+    supply_unit: tablets
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild nausea
+    symptom_present: true
+    onset_or_duration: since Saturday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    reason_or_trigger: ondansetron refill
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips and bland foods, and call if she cannot keep fluids down
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Hector.
+  Caller -> Hector, hi, it's Cesar Valdez. I'm calling for my mother, Beatrix. Beatrix Valdez. || caller_name, relationship, patient_name
+  Nurse -> Hi, Cesar. I'm having trouble hearing you. There's a lot of noise.
+  Caller -> Sorry. The TV. Dad, turn it down. Dad. Can you hear me now?
+  Nurse -> A little better. What's her date of birth?
+  Caller -> February seventeenth, nineteen forty three. || patient_dob
+  Nurse -> And your number, nine five one, five five five, zero one four nine? || callback_phone
+  Caller -> Yes. That's, Dad, no, the other, that's mine. Yes. || callback_phone
+  Nurse -> What do you need?
+  Caller -> A refill. For her nausea pill. The ondansetron. We're, there are only four left. || cc, A1, A2
+  Nurse -> Okay. What dose is it, and how often?
+  Caller -> Four milligrams. Every eight hours if she needs it. She's been having, Dad, I'm on the phone, she's been having a little nausea. Since Saturday. Not bad. || A1, A3
+  Nurse -> I'm sorry, I missed part of that. Did you say since Saturday?
+  Caller -> Since Saturday. A little. She ate some toast today. She keeps it down. || A3
+  Nurse -> Okay. I'll send the ondansetron refill request to her prescriber. || R1
+  Caller -> What? Sorry, I couldn't, Dad, shh. I couldn't hear you.
+  Nurse -> I said the ondansetron refill is going to her prescriber today. || R1
+  Caller -> Oh. Thank you. Thank you.
+  Nurse -> And I'll call you tomorrow to let you know where it stands. || R2
+  Caller -> Tomorrow. Okay. Is that the same number?
+  Nurse -> Yes. In the meantime, offer her small sips and bland foods, and call us if she can't keep fluids down. || E1
+  Caller -> Small sips. Bland. Call if she can't keep it down. Okay. Thanks, Hector. Sorry about the noise. My dad, he can't hear the TV unless it's at full blast.
+  Nurse -> No problem at all. Take care.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "We're, there are only four left", heard_form: "We're, there are only four left", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beatrix Valdez, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-02-17", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Cesar Valdez, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9515550149", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested a refill of his mother's nausea medicine.
+    speaker: Caller
+    turns: [10]
+    quote: "A refill. For her nausea pill. The ondansetron."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ondansetron 4 mg every 8 hours as needed was being taken.
+      speaker: Caller
+      turns: [12]
+      quote: "Four milligrams. Every eight hours if she needs it."
+      explanation: Documents the medication.
+      facts:
+        - {type: medication, name: ondansetron, dose: "4", unit: mg, frequency: every 8 hours as needed, prn: true, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Four tablets remained.
+      speaker: Caller
+      turns: [10]
+      quote: "there are only four left."
+      explanation: Documents the supply left.
+      facts:
+        - {type: supply, item: ondansetron tablets, supply: 4 tablets, certainty: stated}
+      covers: [A2]
+    - text: Mild nausea had been present since Saturday, and she kept down toast today.
+      speaker: Caller
+      turns: [14]
+      quote: "Since Saturday. A little. She ate some toast today."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: mild nausea, present: true, duration: since Saturday, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to send the ondansetron refill request to the prescriber.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll send the ondansetron refill request to her prescriber."
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, medication: ondansetron, certainty: stated}
+      covers: [R1]
+    - text: Planned to call tomorrow with an update.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you tomorrow to let you know where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised offering small sips and bland foods and calling if she could not keep fluids down.
+      speaker: Nurse
+      turns: [21]
+      quote: "offer her small sips and bland foods, and call us if she can't keep fluids down."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+  risk_flags: []

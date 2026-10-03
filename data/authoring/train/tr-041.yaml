@@ -1,0 +1,426 @@
+call_id: tr-041
+split: train
+blueprint: "Long call: patient with chronic back pain says 'this pain is killing me' (figurative, not the risk statement) and later says some days she thinks about ending it; she denies a plan and tonight's intent and has no firearms; nurse stays on the line, provides 988, gets permission to call her sister, and plans a same-day counselor callback and a provider message. Flag: suicidal statement (only for the 'ending it' statement)."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [figurative_risk_language, hedging, split_turns, multi_issue, late_answers]
+  clinical_domains: [mood, pain, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-08-15T01:35:00Z"
+  length_bucket: long
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosalind Teague
+  patient_name_spoken: Rosalind Teague
+  patient_name_certainty: stated
+  patient_dob_true: "1975-07-04"
+  patient_dob_spoken: "1975-07-04"
+  patient_dob_certainty: stated
+  caller_name_true: Rosalind Teague
+  caller_name_spoken: Rosalind Teague
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4805550155"
+  callback_phone_spoken: "4805550155"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Severe chronic back pain and low mood, with some thoughts of ending her life
+  reason_category: mood_safety_pain
+  relevant_context: Lives alone; sister lives 15 minutes away
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: back pain
+    symptom_present: true
+    severity: 8/10
+    body_location: lower back
+    onset_or_duration: months, worse tonight
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: thoughts of ending her life
+    symptom_present: true
+    severity: some days she thinks about ending it
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: suicide plan
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: access to firearms
+    symptom_present: false
+    history_or_context_text: No guns in the house
+    certainty: stated
+  - item_id: A5
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Lives alone; her sister Dana lives 15 minutes away
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: patient
+    symptom_name: poor sleep
+    symptom_present: true
+    severity: about 3 hours a night
+    certainty: stated
+  - item_id: A7
+    item_type: medication
+    reporter: patient
+    medication_name_true: tramadol
+    medication_name_spoken: tramadol
+    medication_status: taking
+    strength: 50 mg
+    frequency: twice a day
+    response_to_medication: Not enough for the pain
+    certainty: stated
+  - item_id: A8
+    item_type: symptom
+    reporter: patient
+    symptom_name: hopelessness about the pain
+    symptom_present: true
+    certainty: stated
+  - item_id: A9
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: intent to act tonight
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: counselor
+    timeframe: callback within 2 hours
+    certainty: stated
+  - item_id: R2
+    action_type: physician_notification
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: pain regimen and safety concern
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient
+    timeframe: in 30 minutes
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient's sister, with her permission
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time; call 911 if she has a plan, an intent to act, or has taken something
+    trigger_condition: plan; intent; overdose
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have her sister stay tonight and keep medication only in daily amounts
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Heat pad on low, change position every 30 minutes, gentle stretches, warm shower
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call at any time if the thoughts get stronger or a plan forms
+    trigger_condition: stronger thoughts; plan
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient says some days she thinks about ending it
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Hi, Beth. It's Rosalind Teague. I'm a patient. I'm sorry for calling so late. || patient_name, caller_name, relationship
+  Nurse -> Hi, Rosalind. Don't apologize. We're here all night. Can I get your date of birth?
+  Caller -> July fourth, nineteen seventy five. || patient_dob
+  Nurse -> Okay. And a number for you? I have four eight oh, five five five, zero one five five. || callback_phone
+  Caller -> Yes. That's my cell. That's right. || callback_phone
+  Nurse -> Okay. What's going on tonight?
+  Caller -> It's my back. It's really bad tonight. I can't, I can't get comfortable. This pain is killing me. || cc, A1
+  Nurse -> I'm sorry. Tell me about the pain. How bad is it, zero to ten?
+  Caller -> An eight. An eight. It's been bad for months, but tonight is worse. || A1
+  Nurse -> Okay. Where is it?
+  Caller -> Lower back. Right here. It goes down my leg sometimes.
+  Nurse -> Okay. What are you taking for it?
+  Caller -> The tramadol. The fifty milligram. Twice a day. And it isn't enough. It's not even close. || A7
+  Nurse -> Okay. Have you taken extra tonight?
+  Caller -> No. No, I took what I'm supposed to. I took it at nine. || A7
+  Nurse -> Okay. Thank you for telling me. Have you been sleeping?
+  Caller -> Barely. Maybe three hours a night. I just lie there. || A6
+  Nurse -> That sounds exhausting.
+  Caller -> It is. I'm so tired, Beth. I'm so tired of this.
+  Nurse -> Okay. I hear you. Rosalind, how has your mood been?
+  Caller -> Not good. Some days I feel like it's never going to get better. The pain. Like, this is just my life now. || A8
+  Nurse -> Okay. Thank you for being honest. Have you been having any thoughts of hurting yourself, or ending your life?
+  Caller -> Some days, I do think about ending it. || A2, F1
+  Caller -> I mean, not like, I'm not going to. Not like I have a plan. It's just a thought. It comes and goes.
+  Nurse -> Okay. Thank you for telling me. That took courage. I'm really glad you did.
+  Caller -> I didn't mean to say it. It just came out.
+  Nurse -> I'm glad it did. I want to ask you a few more questions, so I can understand and help. Is that okay?
+  Caller -> Yeah. Okay.
+  Nurse -> Do you have a plan? Have you thought about how you might do it?
+  Caller -> No. No plan. I don't have a plan. || A3
+  Nurse -> Okay. Do you have any guns in the house?
+  Caller -> No. No guns. I've never had a gun. || A4
+  Nurse -> Okay. What about your medications? Do you keep a lot of them?
+  Caller -> No. Just what I take. The tramadol, and my vitamin. I don't have a stockpile or anything. || A7
+  Nurse -> Okay. Are you thinking of doing anything tonight?
+  Caller -> No. I'm not going to do anything tonight. I just needed to talk to somebody. || A9
+  Nurse -> Okay. I'm glad you called. Who's with you tonight?
+  Caller -> Nobody. I live alone. My sister, Dana, she lives about fifteen minutes away. || A5
+  Nurse -> Okay. Is Dana someone you trust?
+  Caller -> Yes. She's my best friend. She's the only one who really gets it.
+  Nurse -> Would it be okay if I called Dana, with your permission, and asked her to come over?
+  Caller -> I don't want to wake her. She has work in the morning.
+  Nurse -> I understand. But I think it would help to have someone with you tonight. And I think she'd want to be there. Would you let me call her?
+  Caller -> Okay. Yeah. Okay. You can call her. Her number is on my file. || R4
+  Nurse -> Thank you. I'll call her right after we talk. Is that okay?
+  Caller -> Yes. Okay.
+  Nurse -> Rosalind, I want you to know something. What you're feeling is real, and it matters. And there are people who can help, both with the pain and with how you're feeling. You don't have to carry this alone.
+  Caller -> I feel like I'm a burden. To Dana. To everyone.
+  Nurse -> You're not a burden. You called because you're reaching out, and that's strength, not weakness.
+  Caller -> I haven't worked in two years. I lost my job after the accident. I used to be a physical therapist assistant. I used to help people with exactly this kind of pain.
+  Nurse -> Oh, Rosalind. That must feel so painful. To be on the other side of it now.
+  Caller -> It is. It's really hard. I just, I feel like I lost myself.
+  Nurse -> That makes sense. A lot of people feel that way when chronic pain changes their life. It's not a failing.
+  Caller -> Thank you. I haven't told anyone that.
+  Nurse -> Have you talked with anyone about how you've been feeling? A counselor, or your doctor?
+  Caller -> I saw a therapist for a while, about a year ago. Then my insurance changed and I stopped going. And I never started again.
+  Nurse -> Would you be open to seeing someone again?
+  Caller -> I think so. I think I need to. I just didn't know where to start.
+  Nurse -> That's exactly what our counselor can help with. She'll work with you to find the right person.
+  Caller -> Okay. That actually makes me feel a little hopeful.
+  Nurse -> I'm glad. Hold on to that little bit.
+  Caller -> I will. I have my cat, too. Mochi. She sleeps on my feet every night. She's the reason I get out of bed some mornings.
+  Nurse -> Aw. Pets can be wonderful that way. How old is Mochi?
+  Caller -> She's six. She was a rescue. She was scared of everything when I got her, and now she follows me around the apartment.
+  Nurse -> That sounds like she's been good for you.
+  Caller -> She has. She's my little shadow.
+  Nurse -> I'm glad you have her. Is there anything else that helps you on the hard days? Music, a show, a walk?
+  Caller -> Music, a little. I used to play guitar. I haven't picked it up since the accident. My fingers go numb.
+  Nurse -> That's a loss too. Maybe we can talk about it with the counselor, there might be a way to ease back into it.
+  Caller -> Maybe. I'd like that. I miss it.
+  Nurse -> Okay. Here's what I'd like to do. First, I'm going to stay on the line with you while we figure out the next steps. I'm not going anywhere.
+  Caller -> Okay.
+  Nurse -> Second, I'm going to ask our counselor to call you today. She'll call within two hours. She's wonderful, she specializes in chronic pain and mood. || R1
+  Caller -> Okay. That sounds good.
+  Nurse -> Third, I'm going to let your provider know tonight, about the pain, and how you've been feeling. We may need to change your pain plan. || R2
+  Caller -> I'd like that. I really would.
+  Nurse -> And I'll call you back in thirty minutes to check on you, either way. || R3
+  Caller -> Okay. Thank you.
+  Nurse -> Rosalind, I want to give you a number. It's nine eight eight. It's a crisis line. You can call or text it any time, day or night. Even if you're not sure it's an emergency. || E1
+  Caller -> Nine eight eight. Okay. I know that one.
+  Nurse -> And if you ever have a plan, or you feel like you might act on the thoughts, or you've taken something, call nine one one. || E1
+  Caller -> Okay. I understand.
+  Nurse -> For the pain tonight, can you put a heating pad on low on your back? Change position every half hour or so. And a warm shower might help, if you feel steady. || E3
+  Caller -> I have a heating pad. I'll try that.
+  Nurse -> Good. And with Dana coming, ask her to stay the night. || E2
+  Caller -> I will. Okay.
+  Nurse -> And keep your medication to just the daily amounts, nothing extra. || E2
+  Caller -> I will. I only have a few days' worth anyway.
+  Nurse -> Perfect. And you can call us again tonight, at any time, if the thoughts get stronger, or you start to think about a plan. || E4
+  Caller -> Okay. I will.
+  Nurse -> How are you feeling right now, compared to when we started talking?
+  Caller -> A little better. A little calmer. Just talking helped.
+  Nurse -> I'm glad. That matters. Okay. I'm going to call Dana now. I'll talk to you in thirty minutes.
+  Caller -> Okay. Thank you, Beth. I mean it.
+  Nurse -> You're welcome, Rosalind. You did a brave thing tonight.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single statement", heard_form: "I mean, not like, I'm not going to", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosalind Teague, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1975-07-04", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Rosalind Teague, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4805550155", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported severe chronic back pain and later disclosed that some days she thinks about ending her life.
+    speaker: Caller
+    turns: [8]
+    quote: "It's my back. It's really bad tonight."
+    explanation: Documents the pain complaint prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lower back pain of 8/10 had been present for months and was worse tonight.
+      speaker: Caller
+      turns: [10]
+      quote: "An eight. An eight. It's been bad for months, but tonight is worse."
+      explanation: Documents pain severity and course.
+      facts:
+        - {type: symptom, name: back pain, present: true, severity: 8/10, location: lower back, onset: months, worse tonight, certainty: stated}
+      covers: [A1]
+    - text: Tramadol 50 mg twice a day was taken as prescribed and was not enough for the pain.
+      speaker: Caller
+      turns: [14]
+      quote: "The tramadol. The fifty milligram. Twice a day. And it isn't enough."
+      explanation: Documents the current analgesic and its limited effect.
+      facts:
+        - {type: medication, name: tramadol, strength: 50 mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A7]
+    - text: Sleep was poor, about 3 hours a night.
+      speaker: Caller
+      turns: [18]
+      quote: "Barely. Maybe three hours a night."
+      explanation: Documents the sleep disturbance.
+      facts:
+        - {type: symptom, name: poor sleep, present: true, severity: about 3 hours a night, certainty: stated}
+      covers: [A6]
+    - text: Hopelessness about the pain improving was reported.
+      speaker: Caller
+      turns: [22]
+      quote: "Some days I feel like it's never going to get better. The pain."
+      explanation: Documents the reported mood symptom.
+      facts:
+        - {type: symptom, name: hopelessness about the pain, present: true, certainty: stated}
+      covers: [A8]
+    - text: She reported that some days she thinks about ending it.
+      speaker: Caller
+      turns: [24]
+      quote: "Some days, I do think about ending it."
+      explanation: Documents the suicidal thoughts disclosed during the call.
+      facts:
+        - {type: symptom, name: thoughts of ending her life, present: true, severity: some days she thinks about ending it, certainty: stated}
+      covers: [A2]
+    - text: She denied having a plan.
+      speaker: Caller
+      turns: [31]
+      quote: "No. No plan. I don't have a plan."
+      explanation: Documents a pertinent negative from suicide screening.
+      facts:
+        - {type: pertinent_negative, name: suicide plan, certainty: stated}
+      covers: [A3]
+    - text: She reported no firearms in the house.
+      speaker: Caller
+      turns: [33]
+      quote: "No. No guns. I've never had a gun."
+      explanation: Documents means screening.
+      facts:
+        - {type: pertinent_negative, name: access to firearms, certainty: stated}
+      covers: [A4]
+    - text: She denied intent to act tonight.
+      speaker: Caller
+      turns: [37]
+      quote: "No. I'm not going to do anything tonight. I just needed to talk to somebody."
+      explanation: Documents a pertinent negative for imminent intent.
+      facts:
+        - {type: pertinent_negative, name: intent to act tonight, certainty: stated}
+      covers: [A9]
+    - text: She lived alone, and her sister Dana lived about 15 minutes away.
+      speaker: Caller
+      turns: [39]
+      quote: "Nobody. I live alone. My sister, Dana, she lives about fifteen minutes away."
+      explanation: Documents her support situation.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned for the counselor to call her today within 2 hours.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'm going to ask our counselor to call you today. She'll call within two hours."
+      explanation: Documents the planned counseling contact.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to notify the provider tonight about the pain and mood concerns.
+      speaker: Nurse
+      turns: [76]
+      quote: "I'm going to let your provider know tonight, about the pain, and how you've been feeling."
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: physician_notification, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 30 minutes.
+      speaker: Nurse
+      turns: [78]
+      quote: "And I'll call you back in thirty minutes to check on you, either way."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R3]
+    - text: Planned to call her sister, with the patient's permission, to ask her to come over.
+      speaker: Nurse
+      turns: [46]
+      quote: "Thank you. I'll call her right after we talk."
+      explanation: Documents the planned family contact after consent.
+      facts:
+        - {type: action, action_type: callback, status: planned, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 at any time and calling 911 if she had a plan, felt she might act, or had taken something.
+      speaker: Nurse
+      turns: [80]
+      quote: "It's nine eight eight. It's a crisis line. You can call or text it any time, day or night."
+      explanation: Documents crisis resources and emergency instructions.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised having her sister stay the night and keeping medication to daily amounts only.
+      speaker: Nurse
+      turns: [86]
+      quote: "ask her to stay the night."
+      explanation: Documents safety measures.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised a low-setting heating pad, changing position about every half hour, and a warm shower if she felt steady.
+      speaker: Nurse
+      turns: [84]
+      quote: "can you put a heating pad on low on your back? Change position every half hour or so."
+      explanation: Documents comfort measures for pain.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+    - text: Advised calling again at any time if the thoughts got stronger or a plan formed.
+      speaker: Nurse
+      turns: [90]
+      quote: "you can call us again tonight, at any time, if the thoughts get stronger, or you start to think about a plan."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: suicidal_statement, turns: [24], quote: "Some days, I do think about ending it."}

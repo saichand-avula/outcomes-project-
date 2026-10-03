@@ -1,0 +1,224 @@
+call_id: tr-024
+split: train
+blueprint: "Assisted-living nurse reports constipation 4 days after oxycodone started; no vomiting, abdomen soft; nurse advises senna 2 tablets at bedtime per standing order and plans a message to the provider for a scheduled regimen."
+setup:
+  scenario_category: medication
+  subtype: side_effect
+  secondary_tags: [tall_man_drug, pertinent_negatives, trap_phrasing]
+  clinical_domains: [constipation, pain]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-09-08T14:14:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: low
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Beatrice Lindgren
+  patient_name_spoken: Beatrice Lindgren
+  patient_name_certainty: stated
+  patient_dob_true: "1939-07-21"
+  patient_dob_spoken: "1939-07-21"
+  patient_dob_certainty: stated
+  caller_name_true: Aisha
+  caller_name_spoken: Aisha
+  caller_name_certainty: stated
+  relationship_to_patient: facility nurse
+  relationship_certainty: stated
+  callback_phone_true: "2065550131"
+  callback_phone_spoken: "2065550131"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Constipation since starting oxycodone
+  reason_category: constipation
+  relevant_context: Resident at Evergreen Assisted Living
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: constipation
+    symptom_present: true
+    onset_or_duration: 4 days
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every 6 hours
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: abdominal distension
+    symptom_present: false
+    history_or_context_text: Abdomen soft and non-tender; passing gas
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: senna
+    medication_name_spoken: senna
+    dose: "2"
+    unit: tablets
+    frequency: at bedtime
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: palliative provider
+    reason_or_trigger: scheduled bowel regimen with opioid
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Encourage fluids and prune juice, and get her up to the chair or walking as able
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, a hard or swollen belly, severe pain, or no bowel movement within 24 hours after senna
+    trigger_condition: vomiting; swollen belly; severe pain; no BM in 24 hours
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi, Denise. This is Aisha, I'm the nurse at Evergreen Assisted Living. || caller_name, relationship
+  Nurse -> Hi, Aisha. Which patient are you calling about?
+  Caller -> Beatrice Lindgren. || patient_name
+  Nurse -> And her date of birth?
+  Caller -> July twenty first, nineteen thirty nine. || patient_dob
+  Nurse -> Thank you. And your number? Is it two oh six, five five five, zero one three one? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's going on with Beatrice?
+  Caller -> She hasn't had a bowel movement in four days. She started the oxycodone five days ago, and it's been since then. || cc, A1
+  Nurse -> Okay. Let me see her orders. So she's on oxycodone five milligrams every six hours. Is that what she's getting? || A2
+  Caller -> Yes. Every six hours. She takes all of them. || A2
+  Nurse -> Okay. Any vomiting?
+  Caller -> No vomiting. || A3
+  Nurse -> What does her abdomen look like? Is it hard, or swollen?
+  Caller -> I just checked. It's soft. It's not distended. She isn't tender. She's passing a little gas. || A4
+  Nurse -> Okay, good. I'm not seeing a bowel regimen on her orders. Is she getting anything?
+  Caller -> No. That's the problem. Nothing was ordered when they started the oxycodone. || A2
+  Nurse -> Okay. We do have a standing order for senna. Two tablets at bedtime. Go ahead and start that tonight. || R1
+  Caller -> Senna, two tablets at bedtime. Okay. || R1
+  Nurse -> Yes. And I'm going to send a message to the provider to get her on a scheduled bowel regimen, so this doesn't keep happening while she's on the opioid. || R2
+  Caller -> Oh, thank you. That'd be great.
+  Nurse -> In the meantime, push fluids, prune juice if she likes it, and get her up in the chair or walking as much as she can. || E1
+  Caller -> Okay. We can do that.
+  Nurse -> And if she starts vomiting, or her belly gets hard or swollen, or she has severe pain, or she hasn't gone within twenty four hours after the senna, call us back. || E2
+  Caller -> Okay. I will.
+  Nurse -> Thanks, Aisha.
+  Caller -> Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beatrice Lindgren, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1939-07-21", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Aisha, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: facility nurse, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550131", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported constipation for 4 days since starting oxycodone.
+    speaker: Caller
+    turns: [10]
+    quote: "She hasn't had a bowel movement in four days. She started the oxycodone five days ago, and it's been since then."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Constipation had been present for 4 days.
+      speaker: Caller
+      turns: [10]
+      quote: "She hasn't had a bowel movement in four days."
+      explanation: Documents the duration of constipation.
+      facts:
+        - {type: symptom, name: constipation, present: true, onset: 4 days, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 5 mg every 6 hours was being given and taken.
+      speaker: Caller
+      turns: [12]
+      quote: "Yes. Every six hours. She takes all of them."
+      explanation: Documents the opioid regimen associated with the constipation.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 6 hours, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No vomiting."
+      explanation: Documents a pertinent negative for vomiting.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+    - text: The abdomen was soft, non-distended, and non-tender, and she was passing a little gas.
+      speaker: Caller
+      turns: [16]
+      quote: "It's soft. It's not distended. She isn't tender. She's passing a little gas."
+      explanation: Documents pertinent negative abdominal findings.
+      facts:
+        - {type: pertinent_negative, name: abdominal distension, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised starting senna 2 tablets at bedtime under the standing order.
+      speaker: Nurse
+      turns: [19]
+      quote: "We do have a standing order for senna. Two tablets at bedtime. Go ahead and start that tonight."
+      explanation: Documents the bowel regimen instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: senna, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider to arrange a scheduled bowel regimen while on the opioid.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to send a message to the provider to get her on a scheduled bowel regimen"
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised pushing fluids including prune juice and getting her up in the chair or walking as able.
+      speaker: Nurse
+      turns: [23]
+      quote: "push fluids, prune juice if she likes it, and get her up in the chair or walking as much as she can."
+      explanation: Documents supportive bowel-care guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for vomiting, a hard or swollen belly, severe pain, or no bowel movement within 24 hours after senna.
+      speaker: Nurse
+      turns: [25]
+      quote: "if she starts vomiting, or her belly gets hard or swollen, or she has severe pain, or she hasn't gone within twenty four hours after the senna, call us back."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,212 @@
+call_id: tr-233
+split: train
+blueprint: "66-year-old patient with COPD calls herself about a cough with yellow-green phlegm for three days and a low fever of 99.8. No chest pain, breathing at baseline (she explicitly says she does not feel she is dying and has no chest pain: negated phrases, no flag). Nurse messages the provider about possible infection, plans a nurse visit tomorrow morning, and gives fluid and return guidance."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [negated_risk_phrase, trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [cough_uri, fever]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-14T18:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lucille Marchetti
+  patient_name_spoken: Lucille Marchetti
+  patient_name_certainty: stated
+  patient_dob_true: "1960-02-12"
+  patient_dob_spoken: "1960-02-12"
+  patient_dob_certainty: stated
+  caller_name_true: Lucille Marchetti
+  caller_name_spoken: Lucille Marchetti
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6105550138"
+  callback_phone_spoken: "6105550138"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported a cough with yellow-green phlegm for three days
+  reason_category: cough_uri
+  relevant_context: Home health patient with COPD
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: cough with yellow-green phlegm
+    symptom_present: true
+    onset_or_duration: three days
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: patient
+    vital_name: temperature
+    vital_value: "99.8"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: worse shortness of breath than usual
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: possible chest infection
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink plenty of fluids and use warm drinks and a humidifier to loosen the phlegm
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of 101 or higher, blood in the phlegm, or worse breathing; call 911 for severe trouble breathing or chest pain
+    trigger_condition: fever 101 or higher; blood in phlegm; worse breathing; chest pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Lucille Marchetti. I've had this cough for three days, and now it's yellow-green. I wanted to check in before it gets worse. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Lucille. You did the right thing calling. What's your date of birth?
+  Caller -> February twelfth, nineteen sixty. || patient_dob
+  Nurse -> And I have six one oh, five five five, zero one three eight for you. || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> Okay. Tell me about the cough. What are you bringing up?
+  Caller -> Yellow-green phlegm. A lot more than usual. Thick. It started clear on Sunday and it turned yesterday. || A1
+  Nurse -> Okay. Do you have a fever? Have you taken your temperature?
+  Caller -> I did, just now. Ninety nine point eight. So it's not much. But I feel hot and cold. || A2
+  Nurse -> Okay. Any chest pain?
+  Caller -> No. No chest pain. I'm not, I don't feel like I'm dying or anything. It's just a bad cold on top of the COPD. || A3
+  Nurse -> Okay. And your breathing? Is it worse than your normal?
+  Caller -> About the same. I'm using the oxygen like always. I'm a little more winded on the stairs, but I'm not out of breath sitting here. || A4
+  Nurse -> Okay. That's good. I'm going to message your provider about the cough and the color change, because you might need to be checked for an infection. || R1
+  Caller -> Oh. Do you think I need antibiotics?
+  Nurse -> That's for the provider to decide. I'm also going to send a nurse out tomorrow morning to listen to your lungs and check your oxygen. || R2
+  Caller -> Tomorrow morning. Good. I'll be up. I'm always up by six.
+  Nurse -> In the meantime, drink plenty of fluids. Warm drinks and a humidifier can help loosen the phlegm. || E1
+  Caller -> Fluids. Warm tea. Humidifier. I have one in the closet. I'll put it in the bedroom.
+  Nurse -> And call us if the fever gets to a hundred and one or higher, if you see blood in the phlegm, or if your breathing gets worse. If you have severe trouble breathing or chest pain, call nine one one. || E2
+  Caller -> A hundred and one. Blood. Worse breathing. Nine one one for the chest. Okay. I have it.
+  Nurse -> Anything else, Lucille?
+  Caller -> No. Just thank you for calling me back so fast. Last time I waited all day.
+  Nurse -> I'm glad. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucille Marchetti, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1960-02-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Lucille Marchetti, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported a cough with yellow-green phlegm for three days.
+    speaker: Caller
+    turns: [2]
+    quote: "I've had this cough for three days, and now it's yellow-green."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Thick yellow-green phlegm was present, turning from clear since Sunday.
+      speaker: Caller
+      turns: [8]
+      quote: "Yellow-green phlegm. A lot more than usual. Thick."
+      explanation: Documents the sputum.
+      facts:
+        - {type: symptom, name: cough with yellow-green phlegm, present: true, duration: three days, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 99.8.
+      speaker: Caller
+      turns: [10]
+      quote: "Ninety nine point eight."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.8", certainty: stated}
+      covers: [A2]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A3]
+    - text: Breathing was about the same as usual, slightly more winded on stairs.
+      speaker: Caller
+      turns: [14]
+      quote: "About the same. I'm using the oxygen like always."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: worse shortness of breath than usual, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the provider about the cough and phlegm color change.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to message your provider about the cough and the color change"
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out tomorrow morning to listen to her lungs and check her oxygen.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm also going to send a nurse out tomorrow morning to listen to your lungs and check your oxygen."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised plenty of fluids, with warm drinks and a humidifier to loosen the phlegm.
+      speaker: Nurse
+      turns: [19]
+      quote: "drink plenty of fluids. Warm drinks and a humidifier can help loosen the phlegm."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever of 101 or higher, blood in the phlegm, or worse breathing, and calling 911 for severe trouble breathing or chest pain.
+      speaker: Nurse
+      turns: [21]
+      quote: "call us if the fever gets to a hundred and one or higher, if you see blood in the phlegm, or if your breathing gets worse."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

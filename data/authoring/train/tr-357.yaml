@@ -1,0 +1,277 @@
+call_id: tr-357
+split: train
+blueprint: "A church friend stops by to drive an elderly hospice patient to lunch and finds him foggier than usual and barely eating. She is not sure how he normally is, does not know his birth date or medicines, and the daughter lives out of state. No fall or chest pain or trouble breathing. Nurse arranges a same-day visit, a message to the team to reach the daughter, and a callback to the friend in an hour, with safety and fluid advice. Ambiguous (unclear baseline, DOB not known), friend caller, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: unclear_baseline
+  secondary_tags: [identity_unresolved, hedging, late_answers, split_turns]
+  clinical_domains: [cognition, intake_appetite]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Ines
+  call_timestamp_utc: "2026-10-23T16:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hubert Dunmore
+  patient_name_spoken: Hubert Dunmore
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Leona Fitch
+  caller_name_spoken: Leona Fitch
+  caller_name_certainty: stated
+  relationship_to_patient: friend
+  relationship_certainty: stated
+  callback_phone_true: "6105550116"
+  callback_phone_spoken: "6105550116"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that a friend seems more confused than usual and is barely eating
+  reason_category: cognition
+  relevant_context: Hospice patient living at home, caller is a friend from church
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: more confused or foggy than usual
+    symptom_present: true
+    certainty: unclear
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: barely eating
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or chest pain or trouble breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: She does not know his birth date or medicines and his daughter lives out of state
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: reach his daughter
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with him until the nurse arrives and do not let him drive or use the stove
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of water or juice and a few bites of something soft if he wants it
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he cannot be woken, his face droops, his speech slurs, or he has trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Ines.
+  Caller -> Oh, hi. Hello. I, um, I don't know if I'm calling the right place. I have the card on his fridge. For Hubert Dunmore. It says Pinecrest. || patient_name
+  Nurse -> Yes, that's us. Hubert Dunmore is one of our patients. And who am I speaking with?
+  Caller -> I'm Leona. Leona Fitch. I'm a friend. From church. I take him to lunch on Fridays. || caller_name, relationship
+  Nurse -> Okay Leona. Thank you for calling. What's going on?
+  Caller -> Well. I came to pick him up. And he's, I don't know. He's different. He's foggy. He kept asking me where we were going. I told him lunch. And then he asked again. || cc
+  Nurse -> Okay. Is he with you now?
+  Caller -> I'm in his kitchen. He's in his chair. He's watching the TV. He's got it on, but I don't think he's watching it.
+  Nurse -> Okay. Is he more confused than he usually is?
+  Caller -> I don't know. That's the thing. I don't know. He's always been a little forgetful, he'll say the same story twice. But this is different, I think. He didn't know me for a second. He said Leona who? And then he laughed and said of course. || A1
+  Nurse -> Okay. That's helpful. When did you last see him?
+  Caller -> Last Friday. We had lunch. He was sharp. He was telling a joke about a mule. He was fine. So it's been a week.
+  Nurse -> Okay. Is he eating?
+  Caller -> That's the other thing. There's a plate on the counter from yesterday. A sandwich, with maybe two bites gone. I asked him what he had today and he said coffee. Just coffee. || A2
+  Nurse -> Okay. Is he drinking anything?
+  Caller -> Coffee. And I gave him a glass of water just now and he drank about half.
+  Nurse -> Good. Has he fallen, hit his head, any chest pain, any trouble breathing?
+  Caller -> No. I would have seen. He's not out of breath. He walked to the chair on his own. He's steady. He didn't fall, as far as I know. I think. || A3
+  Nurse -> Okay. Do you know his date of birth, by any chance?
+  Caller -> No. I don't. He's older than me. I'm seventy four. He's eighty something. I never asked a man his birthday.
+  Nurse -> That's okay. I'll find it in the chart. What about his medicines? Do you know what he takes?
+  Caller -> No. I don't know any of that. There's a lot of bottles on the counter. A basket. I didn't touch them. His daughter handles that, she lives in Arizona. She calls every Sunday. || A4
+  Nurse -> Okay. That's fine. I'd like to get a nurse out to see him today. Will you be around for a while?
+  Caller -> I can stay. I canceled the lunch. I told the restaurant, it's fine. I'll sit with him. I brought my knitting.
+  Nurse -> What are you knitting?
+  Caller -> A scarf. For my grandson. It's blue. It's been blue for two years. I knit a row a month.
+  Nurse -> Ha. That's a patient scarf.
+  Nurse -> That's very kind. I'm going to send a nurse out today. Probably this afternoon. I'll call you when I know the time. || R1
+  Caller -> Okay. That's good. I was hoping you'd say that. I didn't know if I should call 911.
+  Nurse -> From what you're telling me, he doesn't need 911 right now. He's awake, he's talking, he's breathing normally. But I'm glad you called us.
+  Caller -> Okay. Good. I'm relieved.
+  Nurse -> What's a good number for you, Leona?
+  Caller -> My cell. Six one oh, five five five, zero one one six. || callback_phone
+  Nurse -> Six one oh, five five five, zero one one six. Is that right? || callback_phone
+  Caller -> Yes. That's it.
+  Nurse -> Okay. And I'm going to leave a message for the team to reach his daughter in Arizona, so she knows what's going on. || R2
+  Caller -> Oh, good. I have her number but I didn't want to scare her. She worries.
+  Nurse -> The team will take care of it. They know how to talk to families.
+  Caller -> Okay. Thank you.
+  Nurse -> In the meantime, Leona, stay with him until the nurse gets there. And please don't let him drive or use the stove. || E1
+  Caller -> He doesn't drive anymore. His daughter took the keys in the spring. The stove, I'll watch. I'll turn the knob off at the wall.
+  Caller -> He has one of those old stoves. With the dials. I'll pull the dials off and put them in my purse.
+  Nurse -> That works too.
+  Nurse -> That's smart. Is there a way to turn off the gas?
+  Caller -> I'll do the little valve. Behind the stove. I know where it is.
+  Nurse -> Perfect.
+  Caller -> And what about food? Should I make him something?
+  Nurse -> Offer small sips of water or juice, and a few bites of something soft, like applesauce or pudding, if he wants. Don't push. || E2
+  Caller -> There's applesauce. I saw it in the fridge. The little cups. I'll try.
+  Nurse -> And if he can't be woken, if his face droops on one side, if his speech slurs, or he has trouble breathing, call 911 right away. || E3
+  Caller -> Can't wake him. Face droops. Slurred. Trouble breathing. Call 911. Okay. I have it. I'll watch him.
+  Nurse -> I'll call you back in an hour to check in. || R3
+  Caller -> An hour. Okay. I'll be here. Do I stay on the line or hang up?
+  Caller -> Should I write down your name? Ines? How do you spell that?
+  Nurse -> I N E S. And the number is the one you called. It's on his fridge card.
+  Caller -> Oh, the card. Right. I'll get it. I put on my glasses.
+  Nurse -> You can hang up. I'll call.
+  Caller -> Okay. I'm sorry, I'm a little nervous. I've never done this before.
+  Nurse -> You're doing everything right. You noticed something was off, and you called.
+  Caller -> He's a good man. He always brings me tomatoes.
+  Nurse -> It sounds like you two look after each other.
+  Caller -> We do. He fixed my gate last spring. Seventy nine years old, up on a ladder. I yelled at him.
+  Nurse -> Ha. I bet.
+  Caller -> I'll let you go. Thank you, Ines.
+  Nurse -> Thank you, Leona. Talk to you in an hour.
+  Caller -> Bye bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hubert Dunmore, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Leona Fitch, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: friend, certainty: stated, turns: [4]}
+    callback_phone: {value: "6105550116", certainty: stated, heard_as: [], turns: [33, 34]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that a friend seemed more confused than usual and was barely eating.
+    speaker: Caller
+    turns: [6]
+    quote: "He's foggy. He kept asking me where we were going."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He seemed more foggy or confused than usual (unclear; the caller was not sure what his usual baseline was).
+      speaker: Caller
+      turns: [10]
+      quote: "I don't know. That's the thing. I don't know."
+      explanation: Documents the uncertain confusion.
+      facts:
+        - {type: symptom, name: more confused or foggy than usual, present: true, certainty: unclear}
+      covers: [A1]
+    - text: He was barely eating, with two bites of a sandwich from yesterday and only coffee today.
+      speaker: Caller
+      turns: [14]
+      quote: "A sandwich, with maybe two bites gone."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: barely eating, present: true, certainty: stated}
+      covers: [A2]
+    - text: He had no fall or chest pain or trouble breathing that she could see.
+      speaker: Caller
+      turns: [18]
+      quote: "He's not out of breath."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or chest pain or trouble breathing, certainty: stated}
+      covers: [A3]
+    - text: She did not know his medicines and his daughter lived in Arizona.
+      speaker: Caller
+      turns: [22]
+      quote: "His daughter handles that, she lives in Arizona."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: She does not know his birth date or medicines and his daughter lives out of state, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [28]
+      quote: "I'm going to send a nurse out today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team to reach his daughter.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'll call you back in an hour to check in."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying with him until the nurse arrived and not letting him drive or use the stove.
+      speaker: Nurse
+      turns: [40]
+      quote: "stay with him until the nurse gets there."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised offering small sips of water or juice and a few soft bites if he wanted them.
+      speaker: Nurse
+      turns: [48]
+      quote: "Offer small sips of water or juice"
+      explanation: Documents hydration and nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if he could not be woken, his face drooped, his speech slurred, or he had trouble breathing.
+      speaker: Nurse
+      turns: [50]
+      quote: "call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,304 @@
+call_id: tr-285
+split: train
+blueprint: "A daughter calls home health because her 79-year-old mother has been dizzy every time she stands for two days; this morning's pressure on the home cuff was 92 over 58 and pulse 54. The mother takes 'Metaprolol' (a confident garble of metoprolol, kept as stated) 25 mg twice a day, last dose at eight. No fainting, no falls. The nurse repeats the garbled name back, plans a message to the provider, tells her to hold the evening dose until the provider calls, plans a callback this evening, and coaches standing slowly. Drug garble on a blood pressure medicine, adult child, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [dizziness, blood_pressure, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverside Home Health
+  agency_type: home_health
+  nurse_name: Dante
+  call_timestamp_utc: "2026-10-30T14:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A3, R2]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Corinne Ostrowski
+  patient_name_spoken: Corinne Ostrowski
+  patient_name_certainty: stated
+  patient_dob_true: "1946-04-02"
+  patient_dob_spoken: "1946-04-02"
+  patient_dob_certainty: stated
+  caller_name_true: Beverly Hale
+  caller_name_spoken: Beverly Hale
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3035550118"
+  callback_phone_spoken: "3035550118"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother is dizzy on standing with a low blood pressure reading
+  reason_category: dizziness
+  relevant_context: Home health patient on a heart rate medicine
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness on standing
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "92/58"
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: Metaprolol
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose: eight this morning
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "54"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting or falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: dizziness with a pressure of 92/58 and pulse of 54
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: metoprolol
+    medication_name_spoken: Metaprolol
+    reason_or_trigger: hold the evening Metaprolol until the provider calls
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Sit on the edge of the bed for a minute before standing, stand slowly, and hold on to something sturdy
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check and write down the pressure and pulse sitting and again after standing, and have the numbers ready for the callback
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for fainting, chest pain, trouble breathing or a pulse under forty
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverside Home Health, this is Dante.
+  Caller -> Hi, Dante. This is Beverly Hale. I'm calling about my mother, Corinne Ostrowski. She's been dizzy. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Beverly. Sorry to hear that. Is she with you right now?
+  Caller -> She's right here at the kitchen table. I'm at her house. I come over on Thursdays. She's fine right now, she's sitting. It's when she stands up.
+  Nurse -> Okay. Let me pull up her chart. Can you give me her birth date?
+  Caller -> April second. Nineteen forty six. || patient_dob
+  Nurse -> Perfect. And your number?
+  Caller -> Three zero three, five five five, zero one one eight. || callback_phone
+  Nurse -> Got it. Okay. Tell me about the dizziness. When does it happen?
+  Caller -> It's when she stands. She gets up from the chair or from the bed and she says the room tilts. And she holds the wall. It's been, I think two days. Since Tuesday. She didn't tell me till today. She never tells me anything. || A1
+  Nurse -> Okay. Does it last long? Once she's up?
+  Caller -> A few seconds. She stands and waits and then it passes. It's not the room spinning, it's more like she's going to black out. But she hasn't.
+  Nurse -> Okay. Has she fainted or fallen? Any falls?
+  Caller -> No. No falls. She's careful. And she hasn't passed out. She just says she gets lightheaded. She hangs on to the counter. || A5
+  Nurse -> Good. Do you have a blood pressure cuff there?
+  Caller -> I do. I brought the one from my house. It's the wrist one. I took it this morning when I got here. Ninety two over fifty eight. And that's sitting. I took it twice. Same both times. || A2
+  Nurse -> Okay. Ninety two over fifty eight. And what's her pulse? Did the cuff give a pulse?
+  Caller -> Fifty four. It said fifty four. That's low, isn't it? She's usually in the sixties or seventies. || A4
+  Nurse -> It's lower than what she normally runs. Thank you for checking. What's her pressure usually?
+  Caller -> A hundred thirty something over seventy something. She's always been a little high. That's why she's on the pills.
+  Nurse -> Okay. Which pills? What does she take for the pressure and the heart?
+  Caller -> Let me look, it's in the pillbox, no, the bottles are on the windowsill. She takes the, I can't pronounce it. Metaprolol. Twenty five milligrams. Twice a day. Eight and eight. She took this morning's at eight. || A3
+  Nurse -> Okay. The Metaprolol, twenty five, twice a day, and she took this morning's at eight. Is there anything else for her heart or pressure? || A3, R2
+  Caller -> There's one for her cholesterol. And her aspirin, the baby one. That's all. I think. Mom, is that all? She says yes. That's all.
+  Nurse -> Okay. And has she been eating and drinking okay?
+  Caller -> Hold on. Mom, stop. Don't stand up. Stay there. Sorry. She tried to get up for the kettle.
+  Nurse -> That's exactly what we're talking about. Let her stay put and you do the kettle.
+  Caller -> I'm doing the kettle. Okay. Sorry. What did you ask?
+  Nurse -> Eating and drinking. How has she been?
+  Caller -> She's been eating. She's drinking, maybe not enough. She doesn't like to drink. I tell her. She says it makes her go to the bathroom too much.
+  Nurse -> That's common. Okay. Beverly, here's what I'm going to do. I'm going to send a message to her provider right now about the dizziness, the pressure of ninety two over fifty eight, and the pulse of fifty four. || R1
+  Caller -> Okay. Good. Will they call?
+  Nurse -> Yes. They'll call back, or I will. Until then, I'd like you to hold her evening Metaprolol. Don't give the eight o'clock one tonight until the provider calls. || R2
+  Caller -> Hold it. Don't give it. Okay. Is that safe? To skip?
+  Nurse -> For one dose, while we wait to hear from the provider, yes. Her pressure and pulse are low and we don't want to push them lower. But please don't stop it on your own after that. Let the provider decide.
+  Caller -> Okay. I won't. I'll wait for the call. I'll tell my brother too, he stays with her at night.
+  Nurse -> Good. Please do. What time will the evening dose be?
+  Caller -> Eight. Eight o'clock.
+  Nurse -> Okay. I'll call you back this evening, before eight, so you know what to do. || R3
+  Caller -> Before eight. Okay. I'll be at my house. I'll answer. I have my phone on me.
+  Nurse -> Perfect. In the meantime, a few safety things. When she gets up, have her sit on the edge of the bed or chair for a full minute first. Then stand slowly and hold on to something solid, like the counter. || E1
+  Caller -> Sit for a minute. Stand slow. Hold on. Okay. She does the opposite. She jumps up. She says she's not an invalid.
+  Nurse -> Ha. A lot of people say that. Tell her it's temporary.
+  Caller -> I'll tell her. Mom, you have to wait. Wait a minute. She's rolling her eyes.
+  Nurse -> That means she heard you. Also, can you check her pressure and pulse again before the callback? Once sitting, then again a minute after she stands. And write the numbers down so you can read them to me. || E2
+  Caller -> Sitting and standing. Okay. And write it down. I have the paper from the cuff, it has a place for notes.
+  Nurse -> Perfect.
+  Caller -> What if it's lower?
+  Nurse -> If it drops a lot, or she gets worse, call me right away. And call nine one one if she faints, has chest pain, trouble breathing, or if her pulse gets under forty. || E3
+  Caller -> Faints, chest pain, can't breathe, pulse under forty. Okay. Nine one one. Got it.
+  Nurse -> Good. Does she have anyone here overnight?
+  Caller -> My brother. Joe. He's there nights. He's a heavy sleeper. I'll make sure he knows.
+  Nurse -> Please do. Anything else you want me to pass along to the provider?
+  Caller -> I don't think so. Oh, she had some diarrhea last week. For a day. I forgot. It went away.
+  Nurse -> Okay. That could play a part if she was dry. I'll add that.
+  Caller -> Okay. Good. Thank you.
+  Nurse -> And did she eat lunch today?
+  Caller -> She had a sandwich. Half. And a banana. And some tea.
+  Nurse -> Good. Keep offering fluids. Water, tea, broth. Whatever she'll take.
+  Caller -> I'll make her a big glass and sit with her till she finishes it.
+  Nurse -> Ha. That works.
+  Caller -> Should I be worried about leaving her at night? With my brother? He's not a nurse or anything.
+  Nurse -> He doesn't need to be. As long as she stands slowly and he knows the warning signs, she'll be okay. Tell him to keep a light on in the hallway.
+  Caller -> A nightlight. We have one. I'll plug it in.
+  Caller -> Thank you, Dante. I was so worried when I saw that number.
+  Nurse -> You did the right thing checking. I'll call you before eight.
+  Caller -> Okay. Bye now.
+  Nurse -> Bye, Beverly.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: metoprolol, heard_form: Metaprolol, fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Corinne Ostrowski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-04-02", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Beverly Hale, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550118", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother was dizzy on standing with a low blood pressure reading.
+    speaker: Caller
+    turns: [2]
+    quote: "She's been dizzy."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Dizziness on standing began two days earlier, lasting a few seconds each time.
+      speaker: Caller
+      turns: [10]
+      quote: "It's been, I think two days. Since Tuesday."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness on standing, present: true, onset: two days, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure was 92/58 sitting, repeated with the same result.
+      speaker: Caller
+      turns: [16]
+      quote: "Ninety two over fifty eight."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "92/58", certainty: stated}
+      covers: [A2]
+    - text: Metaprolol 25 mg twice a day was taken, with the morning dose at eight.
+      speaker: Caller
+      turns: [22]
+      quote: "Metaprolol. Twenty five milligrams. Twice a day."
+      explanation: Documents the heart medication.
+      facts:
+        - {type: medication, name: Metaprolol, dose: "25", unit: mg, frequency: twice a day, last_dose: eight this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Pulse was 54, lower than her usual sixties or seventies.
+      speaker: Caller
+      turns: [18]
+      quote: "Fifty four. It said fifty four."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "54", certainty: stated}
+      covers: [A4]
+    - text: No fainting or falls were reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No falls. She's careful."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fainting or falls, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about the dizziness, pressure and pulse.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm going to send a message to her provider right now about the dizziness"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised holding the evening Metaprolol until the provider called.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'd like you to hold her evening Metaprolol."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Metaprolol, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening before eight.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'll call you back this evening, before eight"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised sitting on the edge of the bed or chair for a minute before standing slowly and holding something solid.
+      speaker: Nurse
+      turns: [41]
+      quote: "have her sit on the edge of the bed or chair for a full minute first."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised checking and writing down pressure and pulse sitting and after standing before the callback.
+      speaker: Nurse
+      turns: [45]
+      quote: "can you check her pressure and pulse again before the callback?"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for fainting, chest pain, trouble breathing or a pulse under forty.
+      speaker: Nurse
+      turns: [49]
+      quote: "call nine one one if she faints, has chest pain, trouble breathing, or if her pulse gets under forty."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

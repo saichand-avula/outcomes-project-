@@ -1,0 +1,376 @@
+call_id: tr-170
+split: train
+blueprint: "Son of a new hospice patient (admitted for heart failure five days ago) calls with first-week questions: she eats less, sleeps more, hip pain 3/10, mild ankle swelling; he has given morphine liquid twice. He asks what to expect, whether hospice means stopping all medicines, and who to call at night. The hospital bed came Monday. Nurse plans a visit Wednesday, a social worker call Tuesday, an aide twice a week, messages the provider about the swelling and appetite, and gives the after-hours number, small-meal tips, morphine guidance and bed safety. No flag. Long."
+setup:
+  scenario_category: routine
+  subtype: new_admission_questions
+  secondary_tags: [multi_issue, prn_and_scheduled, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [intake_appetite, pain, edema, end_of_life_changes]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-05T17:15:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Harriet Lowenstein
+  patient_name_spoken: Harriet Lowenstein
+  patient_name_certainty: stated
+  patient_dob_true: "1940-09-03"
+  patient_dob_spoken: "1940-09-03"
+  patient_dob_certainty: stated
+  caller_name_true: Saul Lowenstein
+  caller_name_spoken: Saul Lowenstein
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6465550133"
+  callback_phone_spoken: "6465550133"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Called with questions about what to expect in his mother's first week of hospice care
+  reason_category: end_of_life
+  relevant_context: Hospice patient admitted five days ago with heart failure
+assessment:
+  - item_id: A5
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Admitted to hospice five days ago for heart failure
+    certainty: stated
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating less
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping more
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip pain
+    symptom_present: true
+    severity: 3/10
+    body_location: hip
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: twice since admission
+    certainty: stated
+  - item_id: A8
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild ankle swelling
+    symptom_present: true
+    body_location: ankles
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Hospital bed was delivered on Monday
+    certainty: stated
+  - item_id: A6
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Wants to know what to expect and who to call at night
+    certainty: stated
+  - item_id: A10
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Asked whether hospice means stopping all of her medicines
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: social worker
+    timeframe: Tuesday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: ankle swelling and reduced appetite
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: home health aide
+    timeframe: twice a week
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call the main number any hour, day or night, and the on-call nurse will answer
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small frequent meals and favorite foods without pressure, and do not worry if she eats very little
+    certainty: stated
+  - item_id: E3
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give morphine for pain or trouble breathing, write down each dose and time, and call if she needs it more than every 4 hours
+    certainty: stated
+  - item_id: E4
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Keep the wheels of the hospital bed locked and the side rails up when she is in bed
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Beth.
+  Caller -> Hi, Beth. This is Saul Lowenstein. My mother is Harriet Lowenstein. She was admitted to your hospice last week. I have a bunch of questions, if you have a few minutes. I don't want to bother you. || caller_name, relationship, patient_name, cc
+  Nurse -> It's no bother at all, Saul. Questions are what this call is for. Let me start with her date of birth.
+  Caller -> September third. Nineteen forty. She turned eighty six last month. We had a little party. || patient_dob
+  Nurse -> And your number, is it six four six, five five five, zero one three three? || callback_phone
+  Caller -> Yes. That's my cell. I'm at her place. || callback_phone
+  Nurse -> Okay. Go ahead with your questions.
+  Caller -> Okay. So. She was admitted five days ago. It was Wednesday. They said her heart failure is, it's end stage, there isn't anything more the hospital can do. She's home now. And I'm still trying to figure out how this works. || A5
+  Nurse -> That is a lot to take in. I'm sorry. Let's go step by step. What's she like today?
+  Caller -> Quiet. She sleeps a lot more than she used to. Maybe sixteen hours a day. She wakes up for a little while in the morning, and in the afternoon. Mostly she dozes in the bed. || A2
+  Nurse -> Okay. And her eating?
+  Caller -> Much less. She used to love her breakfast. Now she takes two bites of toast and pushes it away. Dinner, three bites of anything. She drinks a little tea. I'm worried she's going to starve. || A1, A6
+  Nurse -> I understand that worry, Saul. It's one of the hardest parts for families. I'll talk about that in a minute. Does she have any pain?
+  Caller -> Some, in her hip. The left one. She said it's a three. Mostly when she shifts in bed. || A3
+  Nurse -> Okay. Have you given her anything for it?
+  Caller -> The morphine. The liquid. I gave her five milligrams, the little syringe, twice since she came home. Once on Friday and once last night. It helped. She settled down and went to sleep. || A4
+  Nurse -> Okay. Good. That's what it's for. Do you notice any swelling in her legs?
+  Caller -> A little. Her ankles. They look a bit puffy at the end of the day. They weren't like that last week. || A8
+  Nurse -> Okay. I'll let the provider know. Saul, did the hospital bed get delivered?
+  Caller -> Yes. Monday. The men came and set it up in the living room. She likes it. She can see the garden from there. || A7
+  Nurse -> Good. Now, tell me your other questions. I know you have a list.
+  Caller -> I do. I wrote it down. One. What does hospice actually do? Is it just you calling me back? Two. Does hospice mean we stop all her medicines? Because she's still on the water pill and the heart pill, and my aunt said that hospice takes everything away.
+  Nurse -> Those are great questions. Let me take them one at a time. Hospice is a team. A nurse, an aide, a social worker, a chaplain if you want one, and a provider who oversees her care. We focus on keeping her comfortable and supporting your family. And no, hospice does not take away all her medicines.
+  Caller -> Okay. That's a relief. So she can keep the water pill? || A10
+  Nurse -> Anything that helps her feel better can continue, like the pills for her heart and swelling, as long as they're comfortable for her. The provider will go over it with you at each visit. What we stop are the things that don't help her comfort anymore, like cholesterol pills and vitamins, and only with the provider's agreement.
+  Caller -> Okay. That makes sense. My aunt had it wrong, then. I'll tell her.
+  Nurse -> What was your third question?
+  Caller -> Three. Who do I call at night? If something happens at three in the morning. Do I call 911? Do I call you? I don't want to make the wrong decision. || A6
+  Nurse -> This is the most important one. Call us first. The main number you called today answers any hour, day or night, and the on-call nurse will pick up. We can usually help over the phone, and if needed we'll send someone to the house. || E1
+  Caller -> Any hour. The on-call nurse. Okay. Even for little things?
+  Nurse -> Even for little things. You never have to wonder whether it's important enough. Please call.
+  Caller -> I will. Thank you. That takes a load off. I'll put the number on the fridge.
+  Nurse -> Perfect. Now, about her eating. I want to tell you something, and I know it's hard. As the heart gets weaker, the body needs less food. Eating less is part of the illness. It isn't starvation, and she isn't suffering from it. || E2
+  Caller -> Okay. But I feel like I should be doing more. Like I should make her eat.
+  Nurse -> Please don't force her. Offer small amounts, whenever she's awake. A few bites of something she loves, ice cream, applesauce, a little soup. Let her tell you when she's had enough. The offering is the love, not the amount.
+  Caller -> The offering is the love. Okay. I'll try to keep that in mind. She does like ice cream. Butter pecan.
+  Nurse -> Then butter pecan it is.
+  Caller -> Ha. Okay. I'll go get some. There's a store down the street.
+  Nurse -> Good. Saul, about the morphine. You're doing it right. Give it for pain or when she has trouble breathing. Write down each dose and the time in a notebook. If she needs it more often than every four hours, call us, because that means we need to adjust the plan. || E3
+  Caller -> Every four hours at most. And write it down. I have a notebook. I wrote the two times already. Friday at nine and last night at ten.
+  Nurse -> That's perfect. Now, let me tell you what the team will do. A nurse will come out Wednesday. || R1
+  Caller -> Wednesday. Okay. This Wednesday?
+  Nurse -> Yes, in two days. Our social worker will also call you Tuesday to talk about how you're doing, and about anything the family needs. || R2
+  Caller -> Tuesday. Okay. That's tomorrow. That's nice. I could use someone to talk to.
+  Nurse -> That's what she's for. And a home health aide will come twice a week to help with bathing and personal care. || R4
+  Caller -> Twice a week. That's great. My mother is very modest, so I want to make sure the aide is a woman.
+  Nurse -> I'll make a note of that preference. Saul, I'm also going to message her provider about the ankle swelling and her eating less. || R3
+  Caller -> Okay. Thank you. Will they change anything?
+  Nurse -> It's possible. They may adjust her water pill or give you something for the appetite, though that often isn't needed. They'll tell the nurse on Wednesday, or I'll call you if it's sooner.
+  Caller -> Okay. Good. One more thing. The bed. It rolls. Yesterday I was changing her sheets and the whole bed moved a little. It scared me.
+  Nurse -> I'm glad you told me. Keep the wheels locked. There are foot levers on each wheel. Push them down, and the bed shouldn't move. And keep the side rails up when she's in the bed. || E4
+  Caller -> Wheels locked. Rails up. Okay. I think I forgot to lock them. I'll go check right now.
+  Nurse -> Good idea. Go ahead, I'll wait.
+  Caller -> Okay. Hold on. Mom, I'm just checking the bed. Okay. Two wheels were unlocked. Now they're locked. It doesn't move.
+  Nurse -> Great catch. Any other questions on your list?
+  Caller -> Just one. I'm not sure how to say it. Should I be telling my kids to come see her? Soon?
+  Nurse -> It's a good question, and a loving one. I can't give you a date, but she is declining, and I think now is a good time for the people who love her to visit, if they can. Many families are glad they did.
+  Caller -> Okay. I'll call them tonight. My daughter's in Boston and my son's in Seattle. I'll tell them this weekend.
+  Nurse -> That sounds right. And Saul, take care of yourself too. Eat something, sleep when you can.
+  Caller -> I'll try. Thank you, Beth. You've been so kind. I didn't know what to expect, and this helped so much.
+  Nurse -> You're welcome. Call me anytime.
+  Caller -> I will. Goodbye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Harriet Lowenstein, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-09-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Saul Lowenstein, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6465550133", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Called with questions about what to expect in his mother's first week of hospice care.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a bunch of questions, if you have a few minutes."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She was admitted to hospice five days ago for heart failure.
+      speaker: Caller
+      turns: [8]
+      quote: "She was admitted five days ago. It was Wednesday."
+      explanation: Documents her admission.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+    - text: She was sleeping more, about sixteen hours a day.
+      speaker: Caller
+      turns: [10]
+      quote: "She sleeps a lot more than she used to."
+      explanation: Documents increased sleep.
+      facts:
+        - {type: symptom, name: sleeping more, present: true, certainty: stated}
+      covers: [A2]
+    - text: She was eating much less, only a few bites at meals.
+      speaker: Caller
+      turns: [12]
+      quote: "Much less."
+      explanation: Documents reduced intake.
+      facts:
+        - {type: symptom, name: eating less, present: true, certainty: stated}
+      covers: [A1]
+    - text: Left hip pain was about 3/10, mostly when she shifted in bed.
+      speaker: Caller
+      turns: [14]
+      quote: "Some, in her hip. The left one. She said it's a three."
+      explanation: Documents pain level.
+      facts:
+        - {type: symptom, name: hip pain, present: true, severity: 3/10, location: hip, certainty: stated}
+      covers: [A3]
+    - text: Morphine liquid 5 mg had been given twice since she came home, with good relief.
+      speaker: Caller
+      turns: [16]
+      quote: "I gave her five milligrams, the little syringe, twice since she came home."
+      explanation: Documents the medication given.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: as needed, prn: true, last_dose: twice since admission, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Her ankles were mildly puffy at the end of the day.
+      speaker: Caller
+      turns: [18]
+      quote: "Her ankles. They look a bit puffy at the end of the day."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: mild ankle swelling, present: true, location: ankles, certainty: stated}
+      covers: [A8]
+    - text: The hospital bed was delivered on Monday.
+      speaker: Caller
+      turns: [20]
+      quote: "Yes. Monday. The men came and set it up in the living room."
+      explanation: Documents the equipment.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: He asked whether hospice meant stopping all of her medicines.
+      speaker: Caller
+      turns: [22]
+      quote: "Does hospice mean we stop all her medicines?"
+      explanation: Documents the caller's question.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A10]
+    - text: He wanted to know what to expect and who to call at night.
+      speaker: Caller
+      turns: [28]
+      quote: "Who do I call at night?"
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: A nurse visit was planned for Wednesday.
+      speaker: Nurse
+      turns: [41]
+      quote: "A nurse will come out Wednesday."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R1]
+    - text: A social worker call was planned for Tuesday.
+      speaker: Nurse
+      turns: [43]
+      quote: "Our social worker will also call you Tuesday"
+      explanation: Documents the planned social work contact.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: Tuesday, certainty: stated}
+      covers: [R2]
+    - text: A home health aide was planned to visit twice a week.
+      speaker: Nurse
+      turns: [45]
+      quote: "a home health aide will come twice a week to help with bathing and personal care."
+      explanation: Documents the planned aide visits.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: twice a week, certainty: stated}
+      covers: [R4]
+    - text: Planned to message the provider about the ankle swelling and reduced eating.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm also going to message her provider about the ankle swelling and her eating less."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling the main number at any hour, with the on-call nurse answering.
+      speaker: Nurse
+      turns: [29]
+      quote: "The main number you called today answers any hour, day or night, and the on-call nurse will pick up."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E1]
+    - text: Advised offering small amounts of favorite foods without forcing her, and said eating less was part of the illness.
+      speaker: Nurse
+      turns: [35]
+      quote: "Please don't force her. Offer small amounts, whenever she's awake."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised giving morphine for pain or trouble breathing, writing down each dose and time, and calling if she needed it more often than every 4 hours.
+      speaker: Nurse
+      turns: [39]
+      quote: "Give it for pain or when she has trouble breathing. Write down each dose and the time in a notebook."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E3]
+    - text: Advised keeping the bed wheels locked and the side rails up when she was in bed.
+      speaker: Nurse
+      turns: [51]
+      quote: "Keep the wheels locked."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E4]
+  risk_flags: []

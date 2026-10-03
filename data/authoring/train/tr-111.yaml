@@ -1,0 +1,235 @@
+call_id: tr-111
+split: train
+blueprint: "Wife unsure whether the anticoagulation clinic told her to skip or halve tonight's warfarin after an INR of 3.8; slight gum bleeding when brushing. Nurse reads the clinic note: hold tonight's 5 mg, give 2.5 mg tomorrow, INR recheck Friday. Short, hedged caller."
+setup:
+  scenario_category: medication
+  subtype: dose_clarification
+  secondary_tags: [hedging, tall_man_drug, chart_reading_distractor, late_answers, phone_from_file]
+  clinical_domains: [medication, bleeding]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-11-10T21:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [atorvastatin]
+chief_complaint:
+  patient_name_true: Lucius Fenwick
+  patient_name_spoken: Lucius Fenwick
+  patient_name_certainty: stated
+  patient_dob_true: "1943-07-25"
+  patient_dob_spoken: "1943-07-25"
+  patient_dob_certainty: stated
+  caller_name_true: Agatha Fenwick
+  caller_name_spoken: Agatha Fenwick
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "8645550162"
+  callback_phone_spoken: "8645550162"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked what to do about tonight's warfarin dose after a high INR
+  reason_category: medication_question
+  relevant_context: INR checked yesterday
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every evening
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: INR
+    vital_value: "3.8"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: gum bleeding when brushing
+    symptom_present: true
+    severity: slight
+    certainty: stated
+  - item_id: A4
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: She is not sure whether the clinic said to skip tonight's dose or halve it
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold tonight's warfarin 5 mg, give 2.5 mg tomorrow evening
+    certainty: stated
+  - item_id: R2
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    recipient_or_target: INR recheck
+    timeframe: Friday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: anticoagulation clinic
+    reason_or_trigger: confirm the plan and report the gum bleeding
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for a bleed that will not stop, black or bloody stool, vomiting blood, or a head injury; call us for more gum or nose bleeding
+    trigger_condition: bleeding that will not stop; black or bloody stool; vomiting blood; head injury
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use a soft toothbrush and an electric razor
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Agatha Fenwick. I'm calling about my husband, Lucius. Lucius Fenwick. || caller_name, relationship, patient_name
+  Nurse -> Hi, Agatha. His birthday?
+  Caller -> July twenty fifth. Nineteen forty three. || patient_dob
+  Nurse -> And I have eight six four, five five five, zero one six two. || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> It's his blood thinner. The warfarin. They checked his INR yesterday. And the clinic called and said it was high. Three point eight. || cc, A2
+  Nurse -> Okay.
+  Caller -> And they told me something about tonight's pill. But I was cooking, and I, I wrote it down wrong. I think they said skip it. Or was it half? I don't know. || A4
+  Nurse -> Mm-hm. What does he normally take?
+  Caller -> Five milligrams. Every evening. At six. || A1
+  Nurse -> Okay. Let me look at the clinic note in his chart. I'm seeing warfarin five milligrams. And the note from yesterday says, hold tonight's dose. Then two and a half milligrams tomorrow evening. And recheck the INR Friday. || A1, R1
+  Caller -> Hold tonight's. So skip it.
+  Nurse -> Skip it tonight, yes. Half a pill tomorrow. || R1
+  Caller -> Skip tonight. Half tomorrow. Okay. Oh, thank goodness. I almost gave it to him.
+  Nurse -> Good thing you called. Has he had any bleeding? Gums, nose, bruising?
+  Caller -> His gums. A little. When he brushes. There's a little pink on the toothbrush. || A3
+  Nurse -> Okay. Any nosebleeds, black stools, anything like that?
+  Caller -> No. No. Just the gums. A little.
+  Nurse -> Okay. I'm going to call the anticoagulation clinic and make sure that plan is right, and tell them about the gums. || R3
+  Caller -> Okay.
+  Nurse -> And the Friday INR is on the schedule. I'll make sure someone comes to draw it. || R2
+  Caller -> Okay. Friday. Good.
+  Nurse -> Use a soft toothbrush, and if he shaves, an electric razor. || E2
+  Caller -> He has an electric. And a soft brush. I'll get a softer one.
+  Nurse -> And call nine one one if the bleeding doesn't stop, if his stool is black or bloody, if he throws up blood, or if he hits his head. Call us for more gum or nose bleeding. || E1
+  Caller -> Black stool, throws up blood, hits his head. Nine one one. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Tom.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucius Fenwick, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-07-25", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Agatha Fenwick, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "8645550162", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked what to do about tonight's warfarin dose after a high INR.
+    speaker: Caller
+    turns: [8]
+    quote: "It's his blood thinner. The warfarin."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: INR checked yesterday was 3.8.
+      speaker: Caller
+      turns: [8]
+      quote: "They checked his INR yesterday. And the clinic called and said it was high. Three point eight."
+      explanation: Documents the lab result.
+      facts:
+        - {type: vital, name: INR, value: "3.8", certainty: stated}
+      covers: [A2]
+    - text: Warfarin 5 mg every evening was in use.
+      speaker: Caller
+      turns: [12]
+      quote: "Five milligrams. Every evening. At six."
+      explanation: Documents the current anticoagulant dose.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: every evening, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: She was unsure whether the clinic said to skip tonight's dose or halve it.
+      speaker: Caller
+      turns: [10]
+      quote: "I think they said skip it. Or was it half? I don't know."
+      explanation: Documents the caller's uncertainty.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: Slight gum bleeding occurred when he brushed his teeth.
+      speaker: Caller
+      turns: [18]
+      quote: "His gums. A little. When he brushes."
+      explanation: Documents minor bleeding.
+      facts:
+        - {type: symptom, name: gum bleeding when brushing, present: true, severity: slight, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised holding tonight's warfarin and giving 2.5 mg tomorrow evening per the clinic note.
+      speaker: Nurse
+      turns: [15]
+      quote: "Skip it tonight, yes. Half a pill tomorrow."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the anticoagulation clinic to confirm the plan and report the gum bleeding.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to call the anticoagulation clinic and make sure that plan is right, and tell them about the gums."
+      explanation: Documents the planned clinic contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned for someone to draw the INR on Friday.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll make sure someone comes to draw it."
+      explanation: Documents the planned INR recheck.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised using a soft toothbrush and an electric razor.
+      speaker: Nurse
+      turns: [25]
+      quote: "Use a soft toothbrush, and if he shaves, an electric razor."
+      explanation: Documents bleeding prevention.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for bleeding that would not stop, black or bloody stool, vomiting blood, or a head injury, and calling the agency for more gum or nose bleeding.
+      speaker: Nurse
+      turns: [27]
+      quote: "call nine one one if the bleeding doesn't stop, if his stool is black or bloody, if he throws up blood, or if he hits his head."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

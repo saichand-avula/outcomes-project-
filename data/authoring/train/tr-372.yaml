@@ -1,0 +1,425 @@
+call_id: tr-372
+split: train
+blueprint: "A 57-year-old man with type 2 diabetes calls home health after his pharmacy changed the label on his refill: the bottle says metoprolol 25 twice a day but his list from the doctor says metformin 500 twice a day. He has taken it for four days and today has a sugar of 312, a pulse of 54, and feels dizzy and tired. He reads the other bottles (lisinopril, atorvastatin, aspirin) and they match. No chest pain or fainting. Nurse has him stop the metoprolol, pages on-call, plans to call the pharmacy, a nurse visit tomorrow morning and a callback in an hour, and gives sugar monitoring and warning signs. High risk (look-alike drug wrong medication, tall-man), self caller, 18-64, name spelled, chart reading, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [tall_man_drug, chart_reading_distractor, name_spelled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, glucose, dizziness, blood_pressure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Anneliese
+  call_timestamp_utc: "2026-10-26T18:50:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [lisinopril, atorvastatin, aspirin]
+chief_complaint:
+  patient_name_true: Tomasz Wierzbicki
+  patient_name_spoken: Tomasz Wierzbicki
+  patient_name_certainty: stated
+  patient_dob_true: "1969-10-29"
+  patient_dob_spoken: "1969-10-29"
+  patient_dob_certainty: stated
+  caller_name_true: Tomasz Wierzbicki
+  caller_name_spoken: Tomasz Wierzbicki
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4045550192"
+  callback_phone_spoken: "4045550192"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his refill bottle has a different medicine than his doctor's list
+  reason_category: medication
+  relevant_context: Home health patient with type 2 diabetes and high blood pressure
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: prescribed
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: blood sugar
+    vital_value: "312"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: pulse
+    vital_value: "54"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: dizzy and tired
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: chest pain or fainting
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: medication
+    reporter: patient
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong medicine for four days with a sugar of 312 and a pulse of 54
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    reason_or_trigger: do not take any more metoprolol until the clinician calls
+    certainty: stated
+  - item_id: R3
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R5
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his blood sugar every four hours while awake, write down each number with the time, and check his pulse with it
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink plenty of water and keep to his usual meals without extra sweets
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the sugar is over four hundred, he is vomiting, confused or very thirsty, or the pulse drops below fifty, and call 911 for fainting or chest pain
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Wrong medicine taken twice a day for four days from a mislabeled refill
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Anneliese.
+  Caller -> Hi. Hi, Anneliese. This is Tomasz Wierzbicki. It's a mouthful. T O M A S Z. Wierzbicki is W I E R Z B I C K I. I'm one of your patients. || caller_name, patient_name, relationship
+  Nurse -> Hi Tomasz. I have you. Thank you for spelling it. What can I do for you?
+  Caller -> I think there's a mistake with my medicine. My refill. I think the pharmacy gave me the wrong pill. || cc, F1
+  Nurse -> Okay. Let's look at it together. Do you have the bottle in front of you?
+  Caller -> I do. I'm holding it. I got it five days ago. The label says metoprolol. M E T O P R O L O L. Twenty five milligrams. One tablet twice a day. || A1
+  Nurse -> Okay. Metoprolol twenty five, twice a day. And what do you think it should be? || A1, R2
+  Caller -> Metformin. M E T F O R M I N. For the sugar. I'm diabetic. My list from the doctor says metformin five hundred milligrams twice a day. It looks almost the same on paper. Metformin, metoprolol. I mean, I didn't even notice at first. || A2
+  Nurse -> It does look similar. Those two get mixed up a lot. When did you start the new bottle?
+  Caller -> Five days ago. No. I think I took it four days. I took the first one the next morning. So four days. Twice a day. Eight, eight pills. Seven. I don't know. It's been about four days. || A1
+  Nurse -> Do you remember anything that was different with the pills themselves? The color, the size?
+  Caller -> Now that you say it, they're smaller than the old ones. And white. The old ones were white too but bigger, and a little oval. I thought they changed the manufacturer. They do that.
+  Nurse -> They do. It's a common reason people don't notice.
+  Caller -> That's what I told myself. Different maker, same medicine. Wrong.
+  Nurse -> Okay. Four days is fine. When did you last take one?
+  Caller -> This morning. Around eight. I took it with breakfast. I haven't taken the night one. I just noticed the label an hour ago. I was getting my pills out. || A1
+  Nurse -> What was breakfast?
+  Caller -> Oatmeal. And the donuts. Two donuts. I'm not proud.
+  Nurse -> No judgment. I just like to know.
+  Nurse -> Okay. Good that you noticed. Tomasz, how have you been feeling?
+  Caller -> Not great. I'm tired. And dizzy, a little, when I stand up. I thought it was the flu. I thought, I'm coming down with something. || A5
+  Nurse -> Okay. Have you checked your sugar?
+  Caller -> Yes. I check in the morning. This morning it was three twelve. Three hundred and twelve. That's high for me. I'm usually one forty, one fifty. || A3
+  Nurse -> That's quite high. Okay. And have you checked your pulse, or your blood pressure?
+  Caller -> I have the wrist machine. It does both. It said fifty four for the pulse. Fifty four. I was surprised. I'm usually seventy something. || A4
+  Nurse -> Okay. That's slow. That makes sense with the dizziness. Do you have chest pain? Have you fainted, or nearly?
+  Caller -> No. No chest pain. No fainting. I held the counter once yesterday. When I got up too fast. But I didn't pass out. || A6
+  Nurse -> Okay. Thank you for being so clear. Now. Are you taking any other medicines? Can you read me the other bottles on your counter?
+  Caller -> Sure. I have them all out. It's like a pharmacy in here. Okay. Here's the first. Lisinopril. Ten milligrams. Once a day. That's the blood pressure one. I took it this morning. || A7
+  Nurse -> Ha. Take your time with each one.
+  Caller -> Okay. I'm putting on my reading glasses. They're on top of my head. I always do that. My wife says I look for them for ten minutes and they're sitting there like a hat.
+  Nurse -> Everyone does that. Don't feel bad.
+  Nurse -> Okay. Lisinopril ten, once a day. That matches your list? || A7
+  Caller -> Yes. Lisinopril, ten. It matches. Next. Atorvastatin. Forty milligrams. Once a day at night. I haven't taken it yet today. || A7
+  Nurse -> Okay. That's the cholesterol one. Does that match?
+  Caller -> It does. And the aspirin. Eighty one milligrams. Every morning. Took it. And then there's the metformin I'm supposed to have, which I don't have. It's the one that's missing. || A2
+  Nurse -> Okay. So the lisinopril, atorvastatin, and aspirin all match your list, and the metformin is the one that was switched for metoprolol. || A1, A2, A7, R2
+  Caller -> Right. That's it. Exactly.
+  Nurse -> Okay. Tomasz, here's what I want. Don't take any more of the metoprolol. Not tonight, not tomorrow. Not until a clinician calls you. Keep the bottle. || R2
+  Caller -> Okay. Don't take the metoprolol. Keep the bottle. And what about the sugar? I haven't had my metformin in four days. || A1, A2, R2
+  Nurse -> That's what the clinician will decide. I'm going to page the on-call clinician right now. Your sugar is high, your pulse is slow, and you've been on the wrong medicine. They'll call you back. || R1
+  Caller -> Okay. Thank you. I'm a little scared. My brother has had heart trouble.
+  Nurse -> I'm sorry to hear about your brother. Is he doing okay?
+  Caller -> He's okay now. He had a stent two years ago. He's in Pittsburgh. We talk on Sundays.
+  Nurse -> It's good you have each other.
+  Caller -> He's going to tell me I told you so about the diabetes. He's been after me for years.
+  Nurse -> I understand. You did the right thing by calling. Your pulse of fifty four is slow, but you're not having chest pain, and you're awake and talking. We just want to be careful.
+  Caller -> Okay. Okay. I'll be careful.
+  Nurse -> I'm also going to call your pharmacy to find out what happened and to get the right medicine. || R3
+  Caller -> Good. Because I'll tell you, I called them yesterday about something else and the guy on the phone was rude. He said they don't make mistakes.
+  Nurse -> Well. We'll see about that. I'll talk to the pharmacist.
+  Caller -> Thank you.
+  Nurse -> I need some information for the chart. What's your date of birth?
+  Caller -> October twenty ninth. Nineteen sixty nine. || patient_dob
+  Nurse -> And a number I can call you back on?
+  Caller -> Four oh four, five five five, zero one nine two. || callback_phone
+  Nurse -> Four oh four, five five five, zero one nine two. Is that right? || callback_phone
+  Caller -> Yes. It's my cell. I'm home all day. I work from home.
+  Nurse -> What do you do?
+  Caller -> I'm an accountant. Taxes. This is the slow season, thankfully. Or it will be.
+  Nurse -> Ha. I'm sure.
+  Caller -> Wait till April. I'll be a zombie.
+  Nurse -> Perfect. I'm also going to send a nurse out tomorrow morning, to check your sugar and your pulse and go through all your bottles with you. || R4
+  Caller -> Tomorrow morning. Okay. That's good. I'll be here.
+  Nurse -> And I'll call you back in an hour, after I talk to the clinician. If they call you first, take that call. || R5
+  Caller -> An hour. Okay. I'll keep the phone close.
+  Nurse -> In the meantime, I'd like you to check your sugar every four hours while you're awake. Write down each number with the time. And check your pulse each time too. || E1
+  Caller -> Every four hours. Sugar and pulse. Write it down. I have a notebook. I'll start now. Should I check it right now again?
+  Caller -> And the meter is acting strange. It says error sometimes. I need to put in a new strip. Hold on. I'm opening the vial. There. It's in.
+  Nurse -> That's fine. Take your time.
+  Nurse -> You checked this morning. Let's check again now, to see where it is. Go ahead.
+  Caller -> Okay. Hold on. Let me get the meter. Okay, I'm pricking. Hold on. It's, three oh one. Three oh one.
+  Nurse -> Okay. Three oh one. Slightly lower than the morning. Write it down.
+  Caller -> Writing it. Three oh one. And the time is, it's six fifty five.
+  Nurse -> Good. And drink plenty of water. Keep your meals like usual, but skip the extra sweets until the clinician talks to you. || E2
+  Caller -> Water. No sweets. I had a donut this morning. Two. Oops.
+  Nurse -> Ha. We'll start fresh.
+  Caller -> Starting fresh. Yes.
+  Nurse -> And Tomasz, I want you to call us if your sugar goes over four hundred, if you start vomiting, feel confused or very thirsty, or if your pulse drops below fifty. And call 911 right away for fainting or chest pain. || E3
+  Caller -> Over four hundred. Vomiting. Confused. Thirsty. Pulse under fifty. 911 for fainting or chest pain. I wrote it down.
+  Nurse -> Good. Is there someone with you at home?
+  Caller -> My wife is at work. She gets home at six thirty. Oh, it's nearly seven. She should be here any minute.
+  Nurse -> Good. Tell her what happened. Have her stay close.
+  Caller -> I will. She's going to be furious at the pharmacy. She's a lawyer.
+  Nurse -> Ha. That might help.
+  Caller -> She'll be on the phone with them all night.
+  Nurse -> I'll try to get there first.
+  Caller -> Ha. Good luck. She's fast.
+  Nurse -> What does your wife do, as a lawyer?
+  Caller -> Contracts. She reads fine print for a living. She would have caught the label in two seconds. I handle the pills because I'm home. I'm the one who messed up.
+  Nurse -> It's not on you. The label is where the mistake began.
+  Caller -> That's what she'll say too. Right before she calls them.
+  Nurse -> Tomasz, how's the dizziness right now? Sitting down?
+  Caller -> I'm sitting at the kitchen table. It's okay. It's not bad when I sit. I just feel kind of floaty.
+  Caller -> The cat is on my lap. She doesn't like it when I'm up and down. She keeps digging in.
+  Nurse -> Ha. A built in seat belt.
+  Nurse -> Okay. Stay seated. When you need to stand, go slow.
+  Caller -> I will. I'm not going anywhere.
+  Caller -> Honestly the worst part is I feel stupid. I read labels for a living, sort of. Numbers, fine print. And I missed it.
+  Nurse -> The names are very close. Even pharmacists mix them up on the shelf sometimes.
+  Caller -> That's kind of you to say.
+  Nurse -> Do you need anything to eat? Have you had dinner?
+  Caller -> Not yet. I was going to make some pasta. Maybe that's not good.
+  Nurse -> A small portion is fine. Maybe add some vegetables and a protein. Keep it simple.
+  Caller -> Chicken and broccoli. I have leftover chicken.
+  Nurse -> Good. Do you cook most nights?
+  Caller -> Mostly my wife does. Tonight's my night, since she's late. She makes me do Mondays.
+  Nurse -> Ha. A fair deal.
+  Caller -> She leaves a recipe on the counter. It's like a test.
+  Nurse -> That sounds good.
+  Caller -> Okay. I'll heat that up.
+  Caller -> I'll set my phone timer for the hour. So I don't miss your call.
+  Nurse -> Good idea.
+  Caller -> I have like five timers going already. A chorus of beeps.
+  Nurse -> Ha. Another one won't hurt.
+  Nurse -> Is there anything else you want to ask me?
+  Caller -> Just, will I be okay? Four days on the wrong one.
+  Nurse -> The clinician will go over that. What I can say is, you caught it, you've told us everything, and you have no chest pain or fainting. That's good.
+  Caller -> Okay. That helps. Thank you, Anneliese.
+  Nurse -> You're welcome. I'll call you in an hour.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Tomasz Wierzbicki, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1969-10-29", certainty: stated, heard_as: [], turns: [54]}
+    caller_name: {value: Tomasz Wierzbicki, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550192", certainty: stated, heard_as: [], turns: [56, 57]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his refill bottle had a different medicine than his doctor's list.
+    speaker: Caller
+    turns: [4]
+    quote: "I think the pharmacy gave me the wrong pill."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol 25 mg twice a day was taken from the new bottle for about four days, last dose this morning at eight.
+      speaker: Caller
+      turns: [6]
+      quote: "The label says metoprolol."
+      explanation: Documents the medicine on the label.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Metformin 500 mg twice a day was the medicine on his doctor's list.
+      speaker: Caller
+      turns: [8]
+      quote: "My list from the doctor says metformin five hundred milligrams twice a day."
+      explanation: Documents the prescribed medicine.
+      facts:
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: Blood sugar was 312 this morning.
+      speaker: Caller
+      turns: [23]
+      quote: "This morning it was three twelve."
+      explanation: Documents the blood sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "312", certainty: stated}
+      covers: [A3]
+    - text: Pulse was 54.
+      speaker: Caller
+      turns: [25]
+      quote: "It said fifty four for the pulse."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "54", certainty: stated}
+      covers: [A4]
+    - text: He felt tired and dizzy when standing.
+      speaker: Caller
+      turns: [21]
+      quote: "I'm tired. And dizzy, a little, when I stand up."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: dizzy and tired, present: true, certainty: stated}
+      covers: [A5]
+    - text: He had no chest pain or fainting.
+      speaker: Caller
+      turns: [27]
+      quote: "No chest pain. No fainting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or fainting, certainty: stated}
+      covers: [A6]
+    - text: Lisinopril 10 mg once a day was taken this morning.
+      speaker: Caller
+      turns: [29]
+      quote: "Lisinopril. Ten milligrams. Once a day."
+      explanation: Documents the blood pressure medicine.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: once a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised not taking any more metoprolol until a clinician called.
+      speaker: Nurse
+      turns: [39]
+      quote: "Don't take any more of the metoprolol."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: metoprolol, certainty: stated}
+      covers: [R2]
+    - text: Planned to call the pharmacy.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'm also going to call your pharmacy"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [63]
+      quote: "I'm also going to send a nurse out tomorrow morning"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+    - text: Planned to call back in an hour after talking to the clinician.
+      speaker: Nurse
+      turns: [65]
+      quote: "I'll call you back in an hour"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R5]
+  education:
+    - text: Advised checking blood sugar and pulse every four hours while awake and writing down each number with the time.
+      speaker: Nurse
+      turns: [67]
+      quote: "check your sugar every four hours while you're awake."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised drinking plenty of water and skipping extra sweets.
+      speaker: Nurse
+      turns: [75]
+      quote: "drink plenty of water."
+      explanation: Documents hydration and nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling if sugar went over 400, he vomited, was confused or very thirsty, or his pulse dropped below 50, and 911 for fainting or chest pain.
+      speaker: Nurse
+      turns: [79]
+      quote: "call us if your sugar goes over four hundred"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [4], quote: "I think the pharmacy gave me the wrong pill."}

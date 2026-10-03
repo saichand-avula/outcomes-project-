@@ -1,0 +1,250 @@
+call_id: tr-417
+split: train
+blueprint: "A father gives a routine update on his 9-year-old son with cystic fibrosis: airway clearance vest twice a day, cough producing clear to light yellow mucus, Pulmozyme daily, appetite good, weight steady, no fever. The nurse keeps saying Callum for Colm, which the father spelled once and never corrects. Nurse plans a callback Friday and reviews hydration and when to call. Routine, pediatric, parent caller, name drift on the patient, name spelled, v2 short."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [name_drift, name_spelled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [cough_uri, medication, intake_appetite]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Pebble Creek Pediatric Home Nursing
+  agency_type: pediatric_home_care
+  nurse_name: Odile
+  call_timestamp_utc: "2026-11-08T16:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Colm Fennessy
+  patient_name_spoken: Colm Fennessy
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Callum Fennessy]
+  patient_dob_true: "2016-12-05"
+  patient_dob_spoken: "2016-12-05"
+  patient_dob_certainty: stated
+  caller_name_true: Declan Fennessy
+  caller_name_spoken: Declan Fennessy
+  caller_name_certainty: stated
+  relationship_to_patient: father
+  relationship_certainty: stated
+  callback_phone_true: "7135550115"
+  callback_phone_spoken: "7135550115"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on his son's cystic fibrosis care
+  reason_category: cough_uri
+  relevant_context: Pediatric home care patient with cystic fibrosis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: cough with clear to light yellow mucus
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Pulmozyme
+    medication_name_spoken: Pulmozyme
+    medication_status: taking
+    dose: "2.5"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: good appetite and steady weight
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Keep up lots of fluids and the high calorie snacks, and add extra salt on hot or sweaty days
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of one hundred point four or higher, more mucus or a change to green or bloody, new fast breathing, or a drop in appetite
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pebble Creek Pediatric Home Nursing, this is Odile.
+  Caller -> Hi, Odile. This is Declan Fennessy. I'm calling about my son. Colm. C O L M. Colm Fennessy. It's an Irish name. || caller_name, relationship, patient_name
+  Nurse -> It's a lovely name. I've never heard it spelled that way.
+  Caller -> Most people read it as Colm like column. It's said Collum. Everyone gets it wrong.
+  Nurse -> Hi, Declan. Good to hear from you. And how is Callum today?
+  Caller -> He's good. Really good. I just wanted to check in. Nothing urgent. || cc
+  Nurse -> That's what I like to hear on a Sunday.
+  Caller -> I'm doing laundry. I figured I'd call while it's tumbling.
+  Nurse -> I'm glad. Let me open his chart. Can I confirm his date of birth?
+  Caller -> December fifth. Two thousand sixteen. || patient_dob
+  Nurse -> Thanks. And your number, Declan?
+  Caller -> Sure. It's the cell. It's the one on his forms.
+  Caller -> Seven one three, five five five, zero one one five. || callback_phone
+  Nurse -> Perfect. So tell me how his chest is.
+  Caller -> He's coughing in the mornings. After the vest. He brings up some mucus. It's clear, mostly. Sometimes a little light yellow. Not green. || A1
+  Nurse -> How much, would you say?
+  Caller -> A couple of spoonfuls. After the morning vest. Less in the evening.
+  Nurse -> And does he cough at night at all?
+  Caller -> A little at the start, then he settles. He sleeps with the humidifier on.
+  Nurse -> That sounds about the same as last week.
+  Caller -> Maybe a bit less. He's doing the vest twice a day, thirty minutes each. He doesn't complain too much.
+  Nurse -> That's great. And his medicines?
+  Caller -> The Pulmozyme. The nebulizer. Two point five milligrams, once a day. We did it this morning before the vest. || A2
+  Nurse -> Good. Any trouble getting him to do it?
+  Caller -> He likes the steam. He pretends he's a dragon.
+  Caller -> He has a dragon puppet that he brings to the vest. It sits on the couch and watches.
+  Nurse -> Ha. A cheering section.
+  Nurse -> Ha. A dragon. I love that.
+  Caller -> He named it Sparky. Sparky is not allowed to skip the vest either.
+  Caller -> He roars between breaths. The neighbors must think we have a zoo.
+  Nurse -> Ha. And how is his appetite?
+  Caller -> Great. He eats like a teenager. He had two breakfasts yesterday. We weighed him on Sunday. Same as last week. Sixty one pounds. || A3
+  Nurse -> That's good. Steady weight is what we want.
+  Caller -> My wife keeps a chart on the fridge. It has stickers.
+  Nurse -> Ha. Stickers make everything better.
+  Caller -> She buys them in bulk. Dinosaurs for him, unicorns for his sister.
+  Nurse -> Any fever, or trouble breathing?
+  Caller -> No fever. I check when he's flushed. And he's not short of breath. He plays soccer at recess. He was out of breath after, but only like the other kids. || A4
+  Nurse -> Good. That sounds normal.
+  Caller -> I worry anyway. It's a dad thing. My wife says I read too much online.
+  Nurse -> Ha. A little worry is part of the job.
+  Caller -> His teacher says he's the fastest in the class.
+  Nurse -> Ha. A dragon and a sprinter.
+  Caller -> I was going to ask. The cold weather is coming. Should I do anything different?
+  Nurse -> Make sure he drinks lots of fluids. Keep up the high calorie snacks. And on hot or sweaty days, he needs extra salt. || E1
+  Caller -> Extra salt. Right. In summer. The soccer. He gets salty on his face.
+  Nurse -> That's very common with cystic fibrosis. Keep a bag of salty snacks in his backpack.
+  Caller -> Pretzels. He likes the big ones.
+  Caller -> The soft ones from the mall. With the cheese. He would eat them for every meal.
+  Nurse -> Perfect.
+  Nurse -> And remember, call us if he gets a fever of one hundred point four or higher, if his mucus gets green or bloody or there's a lot more of it, if he's breathing fast, or if his appetite drops. || E2
+  Caller -> Fever. Mucus green. Fast breathing. Appetite. Okay. I'll tell my wife. She'll put it on the chart.
+  Nurse -> Great. I'll plan to call you Friday to see how things are going. || R1
+  Caller -> Friday is good. After five. I'm at work till then.
+  Caller -> If I don't answer, leave a message. The warehouse is loud.
+  Nurse -> I'll leave a message with a good time to try again.
+  Nurse -> I'll try after five.
+  Caller -> Perfect. Oh, one more thing. His sister has a cold. Should I keep her away from him?
+  Nurse -> A mild cold is usually okay with good handwashing, but try to keep their sleeping spaces apart. Let us know if he starts coughing more.
+  Caller -> Okay. She's seven. She doesn't wash her hands. She says they're clean.
+  Nurse -> Ha. I'll bet.
+  Caller -> She told me yesterday that germs are a myth. She's seven.
+  Nurse -> Ha. Bold claim.
+  Caller -> I'll make it a game. Soap bubbles.
+  Nurse -> Good idea.
+  Caller -> Okay. Thank you, Odile. I feel better. We're lucky to have you.
+  Nurse -> It's my pleasure. Say hello to Callum for me.
+  Caller -> I will. He's right here. He says hello. He's roaring.
+  Nurse -> Ha. Tell him I heard it.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Colm, heard_form: Callum, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Colm Fennessy, certainty: unclear, heard_as: [Callum Fennessy], turns: [2]}
+    patient_dob: {value: "2016-12-05", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Declan Fennessy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: father, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550115", certainty: stated, heard_as: [], turns: [13]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on his son's cystic fibrosis care.
+    speaker: Caller
+    turns: [6]
+    quote: "I just wanted to check in. Nothing urgent."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He coughed in the mornings after the vest, bringing up a couple of spoonfuls of clear to light yellow mucus.
+      speaker: Caller
+      turns: [15]
+      quote: "It's clear, mostly. Sometimes a little light yellow."
+      explanation: Documents the cough and mucus.
+      facts:
+        - {type: symptom, name: cough with clear to light yellow mucus, present: true, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: Pulmozyme 2.5 mg was given once a day, most recently this morning.
+      speaker: Caller
+      turns: [23]
+      quote: "Two point five milligrams, once a day."
+      explanation: Documents the daily nebulizer medicine.
+      facts:
+        - {type: medication, name: Pulmozyme, dose: "2.5", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: His appetite was good and his weight was steady at sixty one pounds.
+      speaker: Caller
+      turns: [32]
+      quote: "Great. He eats like a teenager."
+      explanation: Documents appetite and weight.
+      facts:
+        - {type: symptom, name: good appetite and steady weight, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no fever or shortness of breath.
+      speaker: Caller
+      turns: [38]
+      quote: "No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call back Friday.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'll plan to call you Friday"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised plenty of fluids, high calorie snacks and extra salt on hot or sweaty days.
+      speaker: Nurse
+      turns: [45]
+      quote: "Make sure he drinks lots of fluids."
+      explanation: Documents hydration and nutrition teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever of 100.4 or higher, green or bloody or increased mucus, fast breathing, or a drop in appetite.
+      speaker: Nurse
+      turns: [51]
+      quote: "call us if he gets a fever of one hundred point four or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

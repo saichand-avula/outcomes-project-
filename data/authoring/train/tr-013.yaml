@@ -1,0 +1,364 @@
+call_id: tr-013
+split: train
+blueprint: "Assisted-living med aide relays night staff's report that a 91-year-old resident was confused and up at night; the aide was not present and is unsure whether haloperidol was given; nurse plans a visit today and asks the facility to send the MAR; long call with interruptions, chart reading, and facility chatter."
+setup:
+  scenario_category: ambiguous
+  subtype: second_hand_report
+  secondary_tags: [hedging, chart_reading_distractor, offtopic_chatter, multi_issue, split_turns, late_answers, tall_man_drug]
+  clinical_domains: [agitation_delirium, sleep, intake_appetite]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-08-02T13:27:00Z"
+  length_bucket: long
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: [metoprolol, atorvastatin, famotidine, levothyroxine]
+chief_complaint:
+  patient_name_true: Ernestine Kowalewski
+  patient_name_spoken: Ernestine Kowalewski
+  patient_name_certainty: stated
+  patient_dob_true: "1935-03-08"
+  patient_dob_spoken: "1935-03-08"
+  patient_dob_certainty: stated
+  caller_name_true: Shanice
+  caller_name_spoken: Shanice
+  caller_name_certainty: stated
+  relationship_to_patient: medication aide
+  relationship_certainty: stated
+  callback_phone_true: "2155550150"
+  callback_phone_spoken: "2155550150"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Night staff reported the resident was confused and up during the night; the aide was not present
+  reason_category: delirium_second_hand
+  relevant_context: Hospice patient living at Oak Terrace Assisted Living
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: confusion and night wakefulness
+    symptom_present: true
+    severity: up and wandering in the hallway
+    onset_or_duration: last night
+    certainty: unclear
+    unclear_detail: Second-hand report from night staff; the caller was not present
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    medication_status: prescribed
+    dose: "0.5"
+    unit: mg
+    route: by mouth
+    frequency: every 6 hours
+    prn: true
+    last_dose_time: unknown
+    certainty: unclear
+    unclear_detail: Caller does not know whether any dose was given overnight
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased intake
+    symptom_present: true
+    severity: ate about a quarter of breakfast
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall
+    symptom_present: false
+    history_or_context_text: Staff reported no fall
+    certainty: unclear
+    unclear_detail: Second-hand; the caller believes there was no fall
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: calm and sleeping now
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    history_or_context_text: Temperature 98.4 this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today before noon
+    reason_or_trigger: assess delirium and review medications
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: planned
+    actor: facility
+    recipient_or_target: send MAR to hospice by fax
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice physician
+    reason_or_trigger: new nighttime confusion
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Have the night staff write down times she is awake and any doses given; check for pain, constipation, and a full bladder
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give haloperidol again until the nurse reviews the MAR
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep a night light, low bed, and call the hospice line for any fall
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she becomes hard to wake, is agitated or combative, falls, or has trouble breathing
+    trigger_condition: hard to wake; agitation; combative; fall; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Hi, Tom, this is Shanice, I'm one of the med aides over at Oak Terrace Assisted Living. || caller_name, relationship
+  Nurse -> Hi, Shanice. What can I do for you?
+  Caller -> I'm calling about one of your residents. Ernestine Kowalewski. || patient_name
+  Nurse -> Can you spell that last name?
+  Caller -> K O W A L E W S K I. || patient_name
+  Nurse -> Thanks. And do you have her date of birth?
+  Caller -> Um. Hang on. I have it right here on the face sheet. March eighth, nineteen thirty five. || patient_dob
+  Nurse -> Okay. And a number for you, Shanice?
+  Caller -> The main desk. It's two one five, five five five, zero one five zero. || callback_phone
+  Nurse -> Okay, got it. Two one five, five five five, zero one five zero. || callback_phone
+  Caller -> Yes. Yes, that's it.
+  Nurse -> So what's going on with Ernestine?
+  Caller -> Okay, so, I just came on at seven this morning. And the night girls told me she was up. Most of the night. || cc
+  Caller -> They said she was confused, and walking in the hallway, and she didn't know where she was. || cc, A1
+  Nurse -> Okay. So you weren't there overnight.
+  Caller -> No, no, I was not. I'm just giving you what they told me. Sorry. I wish I had more. || A1
+  Nurse -> No, that's fine. Did they say what time it started?
+  Caller -> I think around, what did she say, maybe two? Two or three in the morning. I'm not sure. || A1
+  Nurse -> Okay. And is she still confused now?
+  Caller -> No. She's sleeping now. She's calm. I just checked on her. || A5
+  Nurse -> Okay, good. Did she fall, or did the staff say anything about a fall?
+  Caller -> No. I don't think so. They didn't say anything about a fall. I'd have heard. || A4
+  Nurse -> Okay. Does she have a fever?
+  Caller -> I took her temperature when I checked on her. Ninety eight point four. || A6
+  Nurse -> Okay. That's normal. How's she been eating?
+  Caller -> She hardly touched breakfast. I'd say a quarter, maybe. She ate the applesauce and a few bites of toast. || A3
+  Nurse -> Okay. Okay. Let me pull up her orders. Hang on a second.
+  Caller -> Sure.
+  Nurse -> I'm just going to read through. Metoprolol. Atorvastatin. Famotidine. Levothyroxine.
+  Caller -> Yeah, those are the morning pills. We gave those at seven thirty. She took them with the applesauce.
+  Nurse -> Okay. And for comfort, I'm seeing haloperidol, point five milligram, by mouth, every six hours as needed for agitation or restlessness. || A2
+  Caller -> Mm hmm. Yes. That's on her list.
+  Nurse -> Do you know if any was given overnight?
+  Caller -> I, I don't know. I'm not sure. The night girls didn't say. I'd have to look at the, the book. || A2
+  Nurse -> Okay. The MAR, the medication record?
+  Caller -> Yes. The MAR. It's in the office. I can go get it. Hang on.
+  Caller -> Marcy? Marcy, can you check the MAR for Mrs. Kowalewski, whether they gave the haloperidol last night? Okay. She's looking. || A2
+  Nurse -> Thank you.
+  Caller -> Sorry, it's a little crazy here. We've got a new resident moving in today, and there's boxes everywhere.
+  Nurse -> Oh, that sounds busy. Is this a new move in on the first floor?
+  Caller -> Second floor. A gentleman. His son's been here since eight, hauling furniture. A recliner the size of a car.
+  Nurse -> Ha. Those always take forever.
+  Caller -> Tell me about it. The elevator has been out since Tuesday, so everything has to go up the stairs lift, one at a time.
+  Nurse -> Oh no. That's rough. Hopefully they fix it soon.
+  Caller -> They said Friday. We'll see.
+  Nurse -> Is Ernestine usually like this at night? Or is this new?
+  Caller -> It's new, I think. She's usually a very sweet lady. She loves her soap operas. She'll tell you the whole plot of what happened yesterday, even though she can't remember what she had for breakfast.
+  Nurse -> Ha. That's how it goes. Does she have any friends in the building?
+  Caller -> She has Dolores down the hall. They play cards on Tuesdays. Dolores was asking about her this morning, actually, because Ernestine wasn't at the table.
+  Nurse -> That's sweet. It sounds like she has a good community there.
+  Caller -> She does. We all love her. That's why it worried me.
+  Caller -> Okay, Marcy's back. She says, it just says, there's no initials for last night. For the haloperidol. || A2
+  Nurse -> Okay. No initials. So it looks like it wasn't given, or it wasn't documented.
+  Caller -> Right. We don't know which. The night nurse isn't here, she went home. She'll be back at eleven tonight. || A2
+  Nurse -> Okay. So we can't be sure. That's all I need to know for now. Shanice, I think I should have a nurse come see her. Today. || R1
+  Caller -> Oh, okay. That'd be good. When would that be?
+  Nurse -> I'm going to try for before noon. She'll look at Ernestine, and go over the medications, and the whole picture. || R1
+  Caller -> Before noon. Okay. I'll tell the family.
+  Nurse -> Is the family involved? Who's her contact?
+  Caller -> Her daughter. She lives in Florida. She calls every Sunday. I'll call her today.
+  Nurse -> Good. Please do. And in the meantime, could you fax me the MAR for the last week? That helps the nurse a lot. || R2
+  Caller -> Sure. I can do that. What's your fax number?
+  Nurse -> It's on your hospice contact sheet, the one at the front of her binder. Or Marcy can call the main line and ask the front desk. || R2
+  Caller -> Okay. I'll have Marcy do that, she's good at that stuff.
+  Nurse -> Perfect. I'm also going to let our hospice doctor know about the new confusion at night. || R3
+  Caller -> Okay. Thank you.
+  Nurse -> Shanice, for the haloperidol, please don't give any more until the nurse has looked at the MAR and talked with the doctor. || E2
+  Caller -> Okay. Not until the nurse says. Got it. I'll tell the other aides.
+  Nurse -> Thank you. And for tonight, ask the night staff to write down every time she's up, what time, and if anyone gave her any medication. That'll help us figure out a pattern. || E1
+  Caller -> I'll write a note for them. A note on her door.
+  Nurse -> Good. And ask them to check if she might be in pain, or constipated, or needs to use the bathroom. Sometimes that looks like confusion. || E1
+  Caller -> That makes sense. Honestly, I wonder if she needs to go. She was a bit like that a few weeks ago, and it turned out she had a UTI.
+  Nurse -> That's good to remember. I'll mention that to the nurse so she can ask about urinary symptoms. We can check.
+  Caller -> Okay. I'd feel better if somebody looked.
+  Nurse -> Totally. Also, keep a night light on, keep her bed low if you can, and call the hospice line for any fall at all, even a small one. || E3
+  Caller -> We have the low bed. And the night light. Yes.
+  Nurse -> If she gets hard to wake up, or agitated, or combative, or she falls, or has trouble breathing, call us right away. || E4
+  Caller -> Okay. Hard to wake, agitated, falls, breathing. I'm writing it down.
+  Nurse -> Thank you. You're doing a good job, Shanice, thinking to call.
+  Caller -> Thanks. I just felt like something wasn't right.
+  Nurse -> That's what we want. Always call when something doesn't feel right.
+  Caller -> Okay. Oh, hold on one second. Yes? Okay. Marcy says the fax number is on the second page. Got it.
+  Nurse -> Perfect. So you've got that covered.
+  Caller -> I do. Marcy is a lifesaver. She's been here eleven years. She knows where every single thing is.
+  Nurse -> Those people are gold. Hold on to her.
+  Caller -> Oh, believe me. We try.
+  Caller -> I do. Okay, I'll let you go. Thank you, Tom.
+  Nurse -> Thank you. Take care. Good luck with the move in.
+  Caller -> Ha. Thanks. We'll need it. Oh, wait. One more thing. The son just asked me if there's a good place to park a moving truck, and I have no idea.
+  Nurse -> Ha. I don't think I can help with that one. The front loading zone, maybe?
+  Caller -> That's what I told him. The front loading zone. Okay. Thank you again, Tom. Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "And the night girls told me she was up. Most of the night", fact_id: cc}
+  - {turn: auto, type: late_answer, true_form: "reply from Marcy", heard_form: "Okay, Marcy's back", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ernestine Kowalewski, certainty: stated, heard_as: [], turns: [4, 6]}
+    patient_dob: {value: "1935-03-08", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Shanice, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: medication aide, certainty: stated, turns: [2]}
+    callback_phone: {value: "2155550150", certainty: stated, heard_as: [], turns: [10, 11]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported, second-hand from night staff, that the resident was confused and awake during the night.
+    speaker: Caller
+    turns: [15]
+    quote: "They said she was confused, and walking in the hallway, and she didn't know where she was."
+    explanation: Documents the concern prompting the call, as relayed by the caller who was not present.
+    covers: [cc]
+  assessment:
+    - text: Night staff reportedly found her confused and walking in the hallway, starting around 2 or 3 in the morning; the caller was not present and was unsure of the time.
+      speaker: Caller
+      turns: [19]
+      quote: "I think around, what did she say, maybe two? Two or three in the morning. I'm not sure."
+      explanation: Documents the second-hand onset time with uncertainty preserved.
+      facts:
+        - {type: symptom, name: confusion and night wakefulness, present: true, severity: up and wandering in the hallway, onset: last night, certainty: unclear}
+      covers: [A1]
+    - text: She was calm and sleeping at the time of the call.
+      speaker: Caller
+      turns: [21]
+      quote: "No. She's sleeping now. She's calm. I just checked on her."
+      explanation: Documents her current state.
+      facts:
+        - {type: symptom, name: calm and sleeping now, present: true, certainty: stated}
+      covers: [A5]
+    - text: The caller did not think there had been a fall, based on what the night staff reported.
+      speaker: Caller
+      turns: [23]
+      quote: "No. I don't think so. They didn't say anything about a fall. I'd have heard."
+      explanation: Documents a pertinent negative with the caller's uncertainty preserved.
+      facts:
+        - {type: pertinent_negative, name: fall, certainty: unclear}
+      covers: [A4]
+    - text: Temperature was 98.4 this morning.
+      speaker: Caller
+      turns: [25]
+      quote: "Ninety eight point four."
+      explanation: Documents a pertinent negative for fever.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A6]
+    - text: Intake was reduced, with about a quarter of breakfast eaten.
+      speaker: Caller
+      turns: [27]
+      quote: "She hardly touched breakfast. I'd say a quarter, maybe."
+      explanation: Documents reduced oral intake.
+      facts:
+        - {type: symptom, name: decreased intake, present: true, severity: ate about a quarter of breakfast, certainty: stated}
+      covers: [A3]
+    - text: Haloperidol 0.5 mg by mouth every 6 hours as needed was ordered; it was unknown whether any dose was given overnight, as the medication record showed no initials for last night.
+      speaker: Caller
+      turns: [55]
+      quote: "Right. We don't know which. The night nurse isn't here, she went home."
+      explanation: Documents the unknown administration status with uncertainty preserved.
+      facts:
+        - {type: medication, name: haloperidol, dose: "0.5", unit: mg, route: by mouth, frequency: every 6 hours, prn: true, last_dose: unknown, med_status: prescribed, certainty: unclear}
+      covers: [A2]
+  response:
+    - text: Planned a nurse visit today before noon to assess the resident and review her medications.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'm going to try for before noon. She'll look at Ernestine, and go over the medications, and the whole picture."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today before noon, certainty: stated}
+      covers: [R1]
+    - text: The facility planned to fax the past week's medication record to the hospice.
+      speaker: Nurse
+      turns: [62]
+      quote: "could you fax me the MAR for the last week? That helps the nurse a lot."
+      explanation: Documents the requested medication record.
+      facts:
+        - {type: action, action_type: documentation, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to notify the hospice physician about the new nighttime confusion.
+      speaker: Nurse
+      turns: [66]
+      quote: "I'm also going to let our hospice doctor know about the new confusion at night."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised asking night staff to record every time she was awake and any medication given, and to check for pain, constipation, or a need to use the bathroom.
+      speaker: Nurse
+      turns: [70]
+      quote: "ask the night staff to write down every time she's up, what time, and if anyone gave her any medication."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised not giving any more haloperidol until the nurse reviewed the medication record and spoke with the doctor.
+      speaker: Nurse
+      turns: [68]
+      quote: "please don't give any more until the nurse has looked at the MAR and talked with the doctor."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised a night light, a low bed, and calling the hospice line for any fall.
+      speaker: Nurse
+      turns: [76]
+      quote: "keep a night light on, keep her bed low if you can, and call the hospice line for any fall at all, even a small one."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+    - text: Advised calling right away if she became hard to wake, agitated, combative, fell, or had trouble breathing.
+      speaker: Nurse
+      turns: [78]
+      quote: "If she gets hard to wake up, or agitated, or combative, or she falls, or has trouble breathing, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags: []

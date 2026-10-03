@@ -1,0 +1,223 @@
+call_id: tr-237
+split: train
+blueprint: "Night aide at an assisted-living facility: a 91-year-old resident is gasping, cannot finish a sentence, lips look gray-blue, and his oxygen reads seventy-eight. The aide panics, does not know if he has a DNR (the paper is in the office), and has to be told twice to call 911. Nurse stays on the line, has her sit him up, and tells her to send his paperwork with the paramedics. Flags: breathing_concern and escalation_request. Long, messy v2 emergency call with the nurse coaching the caller through to the ambulance arriving."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [hedging, late_answers, split_turns, crosstalk, trap_phrasing]
+  clinical_domains: [dyspnea]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-15T07:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lyle Chambers
+  patient_name_spoken: Lyle Chambers
+  patient_name_certainty: stated
+  patient_dob_true: "1935-04-03"
+  patient_dob_spoken: "1935-04-03"
+  patient_dob_certainty: stated
+  caller_name_true: Beverly
+  caller_name_spoken: Beverly
+  caller_name_certainty: stated
+  relationship_to_patient: aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "3365550111"
+  callback_phone_spoken: "3365550111"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that a resident is gasping and has gray-blue lips
+  reason_category: dyspnea
+  relevant_context: Home health patient living in an assisted-living facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: gasping and unable to finish a sentence
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: gray-blue lips
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "78"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: severe breathing difficulty with a very low oxygen reading
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, sit him upright, keep his oxygen on, send his paperwork with the paramedics, and stay with him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Resident is gasping with gray-blue lips and an oxygen reading of 78
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hello? Hello, is this the nurse? I need a nurse. I'm sorry. I'm so sorry.
+  Nurse -> This is Tom, I'm a nurse. Take a breath. Who am I talking to, and what's happening?
+  Caller -> It's Beverly. I'm the night aide at Fernwood Commons. It's Mr. Chambers, Lyle Chambers, in room twelve. He can't breathe right. He's gasping. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Beverly. I'm here. Is he awake?
+  Caller -> He's awake. He's sitting on the side of the bed. He's, he's trying to talk but he can't finish. He says, "I can't," and then he stops. || A1
+  Nurse -> Okay. Look at his lips for me. What color are they?
+  Caller -> They're, oh. They're gray. Kind of blue. Gray-blue. I've never seen that. I've been here six years, I've never seen that. || A2
+  Nurse -> Okay. Do you have a finger oxygen meter?
+  Caller -> Yes, we have, hold on. It's in the cart. Hold on. Hold on, don't go anywhere.
+  Nurse -> I'm right here.
+  Caller -> Okay. Okay. I got it. I put it on his finger. It's, it's going. It says, it keeps changing. Seventy eight. Seventy eight now. || A3
+  Nurse -> Okay, Beverly. Seventy eight is very low. I need you to call nine one one right now. Not after this, right now. || R1, F2
+  Caller -> Nine one one. Okay. Should I, do I, I have to call the director first. She said always call her before we call anybody.
+  Nurse -> No. Beverly, listen to me. Call nine one one first. You can call the director after. This is an emergency.
+  Caller -> Okay. Okay. Nine one one first. Okay. Oh my God. Okay.
+  Nurse -> Is he on oxygen right now?
+  Caller -> Yes, he has the concentrator. He's got the nasal thing in. It's on two liters, I think. Two.
+  Nurse -> Okay. Leave it on. Don't take it off. Is he sitting up?
+  Caller -> Yes. On the edge of the bed. I'm holding him. I'm holding his back so he doesn't tip.
+  Nurse -> Good. Keep him sitting up straight. Don't lay him down. Do you have another staff member nearby who can make the call while you stay with him?
+  Caller -> Marisol is on, she's on the other hall. I can yell. Marisol! Marisol, come to twelve! Come now!
+  Nurse -> Good. Tell her to call nine one one.
+  Caller -> Marisol, call nine one one! Mr. Chambers, he can't breathe! Okay. Okay, she's going. She's calling. She ran.
+  Nurse -> Good. Stay with him. Talk to him. Tell him help is coming.
+  Caller -> Mr. Chambers, help is coming. I'm here. I'm not going anywhere. You're okay. Okay, he's looking at me. His eyes are huge.
+  Nurse -> That's good, he's looking at you. Beverly, does he have a DNR? Do you know if he has a do-not-resuscitate order?
+  Caller -> Oh. I, I don't know. I don't know. I think there's a paper. It's in the office, in his chart. I don't have the key to the office, the supervisor has the key. I don't know.
+  Nurse -> Okay. That's all right. Don't worry about that right now. The paramedics will look for the paperwork, and the facility will get it to them. Send whatever he has with him, if someone can find it.
+  Caller -> Okay. His face sheet is here. I have a copy of his face sheet in the cart. It has his medicines on it. I'll give them that.
+  Nurse -> Perfect. That's exactly right. What's his date of birth, Beverly? I'll write it down in case they call us.
+  Caller -> Um. It's on the face sheet, hold on. Hold on. April third. Nineteen thirty five. || patient_dob
+  Nurse -> Got it. And what's the number there at the facility?
+  Caller -> Three three six, five five five, zero one one one. That's the station phone. || callback_phone
+  Nurse -> Okay. I'll stay on the line with you, but if the dispatcher calls back, answer that one first.
+  Caller -> Okay. Okay. Marisol is here. She's, she's on the phone with them. She's saying the address.
+  Nurse -> Good. How's he doing right now?
+  Caller -> Same. He's still gasping. He's holding my arm. His hand is cold. His hand is really cold.
+  Nurse -> Okay. Try to keep him calm. Slow breaths, if he can do it with you. In through the nose, out slowly through the mouth.
+  Caller -> In, Mr. Chambers. In through your nose. And out. Out slow. There you go. There. He's doing it. Kind of.
+  Nurse -> Good. That's good. Keep doing that with him. Sit him up and keep his oxygen on, and stay right with him. || E1
+  Caller -> Sit up. Oxygen on. Stay with him. Okay. I'm doing it. I'm doing it.
+  Caller -> Marisol says they're sending the ambulance. Four minutes. They said four minutes.
+  Nurse -> Four minutes. Okay. Tell Marisol to unlock the front door and turn on the lights, and have someone wait at the door to bring them to room twelve.
+  Caller -> Marisol, go to the front door! Open it! Wait for them! Okay. She went.
+  Nurse -> Good. Beverly, you're doing great. How are his lips now?
+  Caller -> They're, I think they're a little better? Not as blue. More gray. Or maybe I'm just, I don't know. Maybe it's the light.
+  Nurse -> It's hard to tell. Check the meter again if you can.
+  Caller -> Okay. It says, eighty one. Eighty one. Is that better?
+  Nurse -> It's a little better, but it's still low. We still want them to come. Keep him sitting up.
+  Caller -> Okay. Okay. He's, he's trying to say something. What, Mr. Chambers? What? He says, "Don't let them take me." Oh. He says don't let them take me.
+  Nurse -> Okay. That's something the paramedics and his family will need to talk about. Tell him you're staying with him and no one is going to rush him. They'll just help him breathe.
+  Caller -> I'm staying. I'm right here. They're just going to help you breathe, Mr. Chambers. Okay.
+  Nurse -> Does he have family you can call after the paramedics get there?
+  Caller -> Yes. His daughter. It's on the face sheet. I'll call her. I'll call the director too.
+  Nurse -> That's right. Do that once he's in good hands. For now, just him.
+  Nurse -> Good. While we wait, has he had any chest pain, or a fall tonight? Anything unusual today?
+  Caller -> I don't think so. He ate dinner. Not much. He had a cough, I think, the day shift said he was coughing a little. Nobody said anything about a fall.
+  Nurse -> Okay. Tell the paramedics about the cough too.
+  Caller -> The cough. Okay. I'll tell them. Oh, Marisol's back. She says the dispatcher wants to know if the door is unlocked. It's unlocked. I told her it's unlocked.
+  Nurse -> Perfect.
+  Caller -> Okay. I hear them. I hear the siren. They're here. They're here, Tom.
+  Nurse -> Good. Give them the face sheet and tell them what you told me. Gasping, gray-blue lips, oxygen seventy eight, on two liters.
+  Caller -> Seventy eight, two liters, gasping, gray lips. Okay. Okay, they're coming down the hall. Thank you. Thank you so much. I'm sorry I froze.
+  Nurse -> You didn't freeze. You did everything right. Go ahead and let them in.
+  Caller -> Okay. Bye. Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply to the question about the director", heard_form: "She said always call her before we call anybody", fact_id: R1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lyle Chambers, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1935-04-03", certainty: stated, heard_as: [], turns: [32]}
+    caller_name: {value: Beverly, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: aide at the facility, certainty: stated, turns: [4]}
+    callback_phone: {value: "3365550111", certainty: stated, heard_as: [], turns: [34]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that a resident was gasping and had gray-blue lips.
+    speaker: Caller
+    turns: [4]
+    quote: "He can't breathe right. He's gasping."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was gasping and could not finish a sentence.
+      speaker: Caller
+      turns: [6]
+      quote: "He's trying to talk but he can't finish."
+      explanation: Documents the breathing difficulty.
+      facts:
+        - {type: symptom, name: gasping and unable to finish a sentence, present: true, certainty: stated}
+      covers: [A1]
+    - text: His lips were gray-blue.
+      speaker: Caller
+      turns: [8]
+      quote: "They're gray. Kind of blue. Gray-blue."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: gray-blue lips, present: true, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation read 78.
+      speaker: Caller
+      turns: [12]
+      quote: "Seventy eight. Seventy eight now."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "78", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [13]
+      quote: "I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised sitting him upright, keeping his oxygen on, and staying with him.
+      speaker: Nurse
+      turns: [41]
+      quote: "Sit him up and keep his oxygen on, and stay right with him."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: breathing_concern, turns: [4], quote: "He can't breathe right. He's gasping."}
+    - {category: escalation_request, turns: [13], quote: "I need you to call nine one one right now."}

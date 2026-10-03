@@ -1,0 +1,200 @@
+call_id: tr-219
+split: train
+blueprint: "Wife reports her husband feels warm and the thermometer showed 100.4, but the screen is cracked and she is not sure if it said 100.4 or 100.8. He is more tired than usual, no cough, drinking fine. Nurse asks her to recheck with the backup thermometer, plans a callback in an hour, and gives fever precautions. Unclear vital value recorded as unclear."
+setup:
+  scenario_category: ambiguous
+  subtype: unclear_measurement
+  secondary_tags: [hedging, contradiction, late_answers, split_turns]
+  clinical_domains: [fever, fatigue]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Samantha
+  call_timestamp_utc: "2026-10-11T18:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clifford Pike
+  patient_name_spoken: Clifford Pike
+  patient_name_certainty: stated
+  patient_dob_true: "1950-02-23"
+  patient_dob_spoken: "1950-02-23"
+  patient_dob_certainty: stated
+  caller_name_true: Odessa Pike
+  caller_name_spoken: Odessa Pike
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9195550131"
+  callback_phone_spoken: "9195550131"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband feels warm and may have a low fever
+  reason_category: fever
+  relevant_context: Home care patient
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.4"
+    certainty: unclear
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: more tired than usual
+    symptom_present: true
+    onset_or_duration: today
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: cough
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble drinking fluids
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Recheck his temperature with the backup thermometer and write down the reading and the time
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a reading of 101 or higher, shaking chills, confusion, or trouble breathing
+    trigger_condition: temperature 101 or higher; shaking chills; confusion; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Samantha.
+  Caller -> Hi, Samantha. This is Odessa Pike. My husband Clifford feels warm. I took his temperature but I'm not sure about the number. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Odessa. Let me get his chart up. What's Clifford's date of birth?
+  Caller -> February twenty third. Nineteen fifty. || patient_dob
+  Nurse -> And I have nine one nine, five five five, zero one three one for you. || callback_phone
+  Caller -> That's right. That's the house phone.  || callback_phone
+  Nurse -> Okay. What number did you get on the thermometer?
+  Caller -> It said one hundred point four. I think. The screen is cracked, it's got a line right through the last number. It might have been a hundred point eight. I couldn't tell. Hundred point four or eight. || A1
+  Nurse -> Okay. Where did you take it? Under the arm, in the mouth?
+  Caller -> In the mouth. Under the tongue. I waited for the beep.
+  Nurse -> Okay. And how is he otherwise? Does he seem different?
+  Caller -> He's more tired than usual. Today. He's been lying on the couch since lunch, and he's never on the couch. || A2
+  Nurse -> Okay. Any cough, runny nose, sore throat?
+  Caller -> No cough. Nothing like that. He says he just feels, you know, blah. || A3
+  Nurse -> Okay. Is he drinking?
+  Caller -> Yes. He had a whole glass of juice and some tea. He's fine with the drinking. Not eating much, but drinking. || A4
+  Nurse -> Okay. Odessa, because the screen is cracked, I don't want to go by that reading. Do you have another thermometer in the house?
+  Caller -> I think there's one in the bathroom drawer. The old ear one. Or the forehead one, I'm not sure which.
+  Nurse -> Either one is fine. Please take his temperature again with that one, and write down the number and the time. || E1
+  Caller -> Okay. Write down the number and the time. Okay. I'll go look for it.
+  Nurse -> I'll call you back in an hour to see what you got and how he's doing. || R1
+  Caller -> In an hour. Okay. Should I give him something for it?
+  Nurse -> Let's see the new reading first. If it's a hundred and one or higher, or he gets shaking chills, or seems confused, or has any trouble breathing, call us right away. || E2
+  Caller -> A hundred and one. Chills. Confused. Breathing. Okay. I wrote it on the back of the envelope.
+  Nurse -> Good. Anything else?
+  Caller -> No. I'm just going to get him a blanket. He says he's cold now. Which is funny, because he felt so warm.
+  Nurse -> That's useful to know. Write that down too.
+  Caller -> Okay. Thank you, Samantha.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clifford Pike, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1950-02-23", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Odessa Pike, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550131", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband felt warm and may have had a low fever.
+    speaker: Caller
+    turns: [2]
+    quote: "My husband Clifford feels warm."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was read as 100.4 by mouth (unclear; the thermometer screen was cracked and the last digit may have been 8).
+      speaker: Caller
+      turns: [8]
+      quote: "It said one hundred point four. I think."
+      explanation: Documents the temperature while preserving the uncertain reading.
+      facts:
+        - {type: vital, name: temperature, value: "100.4", certainty: unclear}
+      covers: [A1]
+    - text: He was more tired than usual today.
+      speaker: Caller
+      turns: [12]
+      quote: "He's more tired than usual. Today."
+      explanation: Documents the fatigue.
+      facts:
+        - {type: symptom, name: more tired than usual, present: true, onset: today, certainty: stated}
+      covers: [A2]
+    - text: No cough or other cold symptoms were reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No cough. Nothing like that."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: cough, certainty: stated}
+      covers: [A3]
+    - text: He was drinking fluids without trouble.
+      speaker: Caller
+      turns: [16]
+      quote: "He's fine with the drinking."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble drinking fluids, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you back in an hour to see what you got and how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised rechecking his temperature with another thermometer and writing down the reading and the time.
+      speaker: Nurse
+      turns: [19]
+      quote: "Please take his temperature again with that one, and write down the number and the time."
+      explanation: Documents symptom monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a reading of 101 or higher, shaking chills, confusion, or trouble breathing.
+      speaker: Nurse
+      turns: [23]
+      quote: "If it's a hundred and one or higher, or he gets shaking chills, or seems confused, or has any trouble breathing, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

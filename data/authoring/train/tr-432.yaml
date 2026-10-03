@@ -1,0 +1,295 @@
+call_id: tr-432
+split: train
+blueprint: "A 70-year-old man calls home health himself: he ran out of metoprolol two days ago because the mail-order shipment never arrived, and his heart has been racing and fluttering since this morning, pulse one hundred ten on his wrist monitor, mild lightheadedness, no chest pain or fainting. Nurse arranges an urgent local pharmacy supply through the on-call clinician, plans a nurse visit this afternoon and a callback in an hour, and tells him when to call 911. Ran out of a heart medicine (medication concern), self caller, v2 short."
+setup:
+  scenario_category: medication
+  subtype: ran_out_medication
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [medication, cardiac, dizziness]
+  relationship_group: self
+  na_reason: null
+  agency_name: Cottonwood Home Health
+  agency_type: home_health
+  nurse_name: Ruth
+  call_timestamp_utc: "2026-11-18T15:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Barnaby Lindqvist
+  patient_name_spoken: Barnaby Lindqvist
+  patient_name_certainty: stated
+  patient_dob_true: "1956-01-26"
+  patient_dob_spoken: "1956-01-26"
+  patient_dob_certainty: stated
+  caller_name_true: Barnaby Lindqvist
+  caller_name_spoken: Barnaby Lindqvist
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6155550181"
+  callback_phone_spoken: "6155550181"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported running out of metoprolol with a racing heartbeat
+  reason_category: medication
+  relevant_context: Home health patient on a heart rate medicine whose mail-order shipment never arrived
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: missed
+    dose: "50"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: two days ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: racing and fluttering heartbeat
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "110"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain or fainting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: out of metoprolol for two days with a racing heart
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: local pharmacy
+    reason_or_trigger: urgent supply of metoprolol today
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, fainting, trouble breathing, or a pulse over one hundred thirty
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Sit or lie down when lightheaded, rise slowly and avoid caffeine until the medicine is back
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Ran out of metoprolol two days ago and now has a racing heartbeat
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cottonwood Home Health, this is Ruth.
+  Caller -> Ruth, hi. It's Barnaby Lindqvist. L I N D Q V I S T. I'm a patient. I ran out of my heart pill, the metoprolol, two days ago. And now my heart is acting up. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> Barnaby, thanks for calling. Let's sort this out. What's your date of birth?
+  Caller -> I hope I'm not interrupting anything. I know it's a weekday.
+  Nurse -> You're not. I'm glad you called.
+  Caller -> January twenty sixth. Nineteen fifty six. || patient_dob
+  Nurse -> And a number I can reach you at?
+  Caller -> Six one five, five five five, zero one eight one. || callback_phone
+  Nurse -> Got it. Tell me about the pill. What's the dose?
+  Caller -> I have the empty bottle in my hand. It's got my name on it. I keep looking at it as if it will refill itself.
+  Nurse -> Ha. If only.
+  Caller -> Fifty milligrams of the metoprolol. Twice a day. I take it morning and night. My last one was Sunday night. || A1
+  Nurse -> And why did you run out?
+  Caller -> The mail order. The pharmacy that ships. They said it went out last Tuesday and it never came. I called them yesterday and they said wait another day. I should have called you then.
+  Caller -> I switched to mail order in the summer. It was supposed to be cheaper. It's been nothing but trouble.
+  Nurse -> Okay. It happens. How is your heart feeling?
+  Caller -> Honestly, I'm a bit embarrassed. I'm seventy years old. I should know to reorder before I run out.
+  Nurse -> It's the shipping company's fault. Not yours.
+  Caller -> It's fluttering. Racing. Since this morning. Like a bird in my chest. It comes and goes, but it's mostly there. || A2
+  Nurse -> Can you check your pulse?
+  Caller -> I have the watch. It says one hundred ten. A minute ago it said one oh eight. || A3
+  Nurse -> Okay. And what's it usually?
+  Caller -> I got the watch for my birthday. It tells me everything. My heart rate, my sleep, my steps. Too much information.
+  Nurse -> Ha. But it's useful today.
+  Caller -> Sixty something. Sixty eight. On the pill.
+  Nurse -> Any chest pain? Pressure, tightness?
+  Caller -> My wife had a heart attack two years ago. So I know what that feels like when it's described to me. This isn't that.
+  Nurse -> Thank you for telling me. I'll keep that in mind.
+  Caller -> No. No pain. No pressure. Just the fluttering. || A4
+  Nurse -> Have you fainted, or felt like you might?
+  Caller -> No fainting. A little lightheaded when I stand up. But I sit back down and it passes.
+  Nurse -> Any shortness of breath?
+  Caller -> No. I'm breathing fine. I'm sitting at the kitchen table. I can talk without trouble.
+  Caller -> I took my blood pressure too, but the machine is in the other room. I can go get it.
+  Nurse -> Don't get up quickly. The nurse will check it later.
+  Nurse -> Okay. That's good. Barnaby, stopping metoprolol suddenly can make the heart race. I want to get you your medicine today. I'm going to page the on-call clinician right now. || R1
+  Caller -> Today? Oh good. I was afraid you'd say to wait.
+  Caller -> I almost drove myself to the urgent care. My daughter took my keys.
+  Nurse -> She did the right thing.
+  Nurse -> No waiting. I'll also contact a local pharmacy and ask them to fill an urgent supply today. || R2
+  Caller -> There's a Walgreens on Elm. Five minutes from here. I can pick it up if my daughter drives.
+  Nurse -> Is your daughter nearby?
+  Caller -> She's in the other room. She's visiting for the week. She came for the holidays early.
+  Nurse -> Perfect. Let me confirm with the clinician. I'm also going to send a nurse out this afternoon to check your heart rate and blood pressure. || R3
+  Caller -> She's good. She makes me eat vegetables. I don't know where she gets it.
+  Caller -> This afternoon. That's wonderful. Thank you.
+  Caller -> I'll have the front door unlocked. And the dog put away. He barks at nurses.
+  Nurse -> Ha. Thank you for the warning.
+  Nurse -> I'll call you back in an hour with the pharmacy plan. || R4
+  Caller -> An hour. Okay. I'll be right here.
+  Nurse -> In the meantime, if you feel lightheaded, sit or lie down. Rise slowly. And skip the coffee until the medicine is back. || E2
+  Caller -> No coffee. Ugh. I've had two cups already. That might be part of it.
+  Caller -> I'll make decaf. My daughter has some in the back of the pantry.
+  Nurse -> It could be. No more today.
+  Caller -> Okay. I'll switch to water. And I'll rest on the couch.
+  Nurse -> And I want you to call 911 right away if you get chest pain, if you faint, if you have trouble breathing, or if your pulse goes over one hundred thirty. || E1
+  Caller -> Chest pain. Faint. Breathing. One thirty. Okay. I'll watch the watch.
+  Nurse -> Perfect.
+  Caller -> I'm sorry for the trouble. I feel like I'm always calling about something.
+  Nurse -> You call when you need to. That's what we're here for.
+  Caller -> My daughter says I'm a worrier. She says I should relax.
+  Nurse -> Ha. Easier said than done.
+  Caller -> She's making soup. Smells like heaven. Chicken noodle. She puts dill in it.
+  Nurse -> That sounds lovely. Have a little, if you feel up to it.
+  Caller -> I will. Thank you, Ruth.
+  Nurse -> Talk soon, Barnaby. Bye.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Barnaby Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1956-01-26", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Barnaby Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550181", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported running out of metoprolol with a racing heartbeat.
+    speaker: Caller
+    turns: [2]
+    quote: "I ran out of my heart pill, the metoprolol, two days ago."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol 50 mg twice a day ran out, with the last dose Sunday night.
+      speaker: Caller
+      turns: [12]
+      quote: "Fifty milligrams of the metoprolol. Twice a day."
+      explanation: Documents the missed medicine.
+      facts:
+        - {type: medication, name: metoprolol, dose: "50", unit: mg, frequency: twice a day, prn: false, last_dose: two days ago, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: His heart was fluttering and racing since this morning.
+      speaker: Caller
+      turns: [19]
+      quote: "It's fluttering. Racing."
+      explanation: Documents the palpitations.
+      facts:
+        - {type: symptom, name: racing and fluttering heartbeat, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Pulse was 110 on his watch.
+      speaker: Caller
+      turns: [21]
+      quote: "It says one hundred ten."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "110", certainty: stated}
+      covers: [A3]
+    - text: He had no chest pain or fainting.
+      speaker: Caller
+      turns: [29]
+      quote: "No. No pain. No pressure."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or fainting, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact a local pharmacy for an urgent supply today.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'll also contact a local pharmacy"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'm also going to send a nurse out this afternoon"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll call you back in an hour"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling 911 for chest pain, fainting, trouble breathing or a pulse over 130.
+      speaker: Nurse
+      turns: [56]
+      quote: "call 911 right away if you get chest pain"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised sitting or lying down when lightheaded, rising slowly and avoiding caffeine.
+      speaker: Nurse
+      turns: [51]
+      quote: "if you feel lightheaded, sit or lie down."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I ran out of my heart pill, the metoprolol, two days ago."}

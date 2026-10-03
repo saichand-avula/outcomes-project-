@@ -1,0 +1,389 @@
+call_id: tr-470
+split: train
+blueprint: "A mother calls the pediatric home nurse on day five of ten of her 7-year-old's amoxicillin for an ear infection: the pain is gone except a little tugging at bedtime, temperature ninety nine point one, no drainage, and she is thinking of stopping the antibiotic because he feels fine. Amoxicillin is seven and a half milliliters of the four hundred per five liquid twice a day, plus Motrin five milliliters as needed (last dose last night). Nurse explains finishing the full course, reviews measuring and storage, and plans a callback Friday. Antibiotic course and liquid concentration, pediatric, parent caller, v2 long."
+setup:
+  scenario_category: medication
+  subtype: antibiotic_course
+  secondary_tags: [liquid_concentration, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [medication, fever, ear_pain]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Maple Hollow Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Jerome
+  call_timestamp_utc: "2026-11-14T00:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Tavish Okonkwo
+  patient_name_spoken: Tavish Okonkwo
+  patient_name_certainty: stated
+  patient_dob_true: "2019-03-22"
+  patient_dob_spoken: "2019-03-22"
+  patient_dob_certainty: stated
+  caller_name_true: Chiamaka Okonkwo
+  caller_name_spoken: Chiamaka Okonkwo
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "4045550113"
+  callback_phone_spoken: "4045550113"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked whether to stop the antibiotic early because he feels better
+  reason_category: medication
+  relevant_context: Pediatric home care patient on day five of an antibiotic for an ear infection
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    medication_status: taking
+    dose: "7.5"
+    unit: mL
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Motrin
+    medication_name_spoken: Motrin
+    medication_status: taking
+    dose: "5"
+    unit: mL
+    frequency: every six hours as needed
+    prn: true
+    last_dose: last night
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: ear tugging at bedtime
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.1"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or ear drainage
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: Day five of a ten day course and she is thinking of stopping because he feels fine
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    reason_or_trigger: finish all ten days even though he feels better
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Shake the bottle, measure seven and a half milliliters with an oral syringe, keep it in the refrigerator, and give it with food twice a day about twelve hours apart
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, ear pain that returns, drainage from the ear, a rash, or diarrhea that lasts
+    certainty: stated
+  - item_id: E3
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his temperature if he feels warm and write down every dose of the Motrin and the time
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Hollow Pediatric Home Care, this is Jerome.
+  Caller -> Hi, Jerome. This is Chiamaka Okonkwo. I'm calling about my son Tavish Okonkwo. He's seven. He's on an antibiotic for his ear and I have a question about whether he still needs it. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Chiamaka. Sure. Tell me what's going on.
+  Caller -> Sorry about the time. I just got the kids settled.
+  Nurse -> No problem. The evening line is open until midnight.
+  Caller -> Good to know. I always forget that.
+  Caller -> So he was diagnosed Monday. A double ear infection. The doctor gave us amoxicillin, the liquid. It's day five. Today. And honestly he's fine. He's totally back to himself. || A1
+  Nurse -> That's good news. Which day is it of how many?
+  Caller -> I wrote it on the calendar. With an X for every day. Tavish likes making the X.
+  Nurse -> Ha. That's a nice way to keep track.
+  Caller -> Five of ten. Ten days. That's what the bottle says. But he's playing soccer in the yard and he's eating dinner and he isn't complaining about his ear at all. So I'm wondering, do I really have to give the rest? || A6
+  Nurse -> Good question. I'm glad you asked instead of just stopping. Let me ask a few things first.
+  Caller -> Okay. Sure.
+  Nurse -> I just want to make sure I give you the right answer.
+  Nurse -> What is the dose, and how often are you giving it?
+  Caller -> Seven and a half milliliters. Twice a day. Morning and night. I measure it with the little syringe that came with it. || A1
+  Nurse -> Okay.
+  Nurse -> Okay. And what does the label say for the strength?
+  Caller -> Four hundred milligrams per five milliliters. That's what it says on the front. I don't know what that means exactly. I just follow the dose.
+  Nurse -> That's the concentration. It's how much medicine is in each five milliliters. So seven and a half milliliters is about six hundred milligrams in a dose. You're following it right. || A1
+  Caller -> Oh. Okay. That helps. I always wondered.
+  Nurse -> It confuses a lot of people. Did he get this morning's dose?
+  Caller -> I thought I was the only one.
+  Nurse -> You're definitely not.
+  Caller -> Yes. At seven thirty. With his cereal. I gave it at seven thirty last night too. So he's on track.
+  Nurse -> Good. A regular schedule helps.
+  Caller -> It's the only time the house is calm. Before the bus.
+  Nurse -> Good. Now, how are the ears? You said he isn't complaining.
+  Caller -> He's been telling me about a video he saw. Something about a shark. I couldn't follow.
+  Nurse -> Ha. That's a good sign. He's chatty.
+  Caller -> Right. The pain's gone. Mostly. At bedtime he tugs at the left one a little. Just tugging. He doesn't cry or anything. He did that the first night too. Maybe it's a habit. || A3
+  Nurse -> Okay. That's good to hear.
+  Nurse -> Okay. A little tugging at bedtime. Any fever?
+  Caller -> I took his temperature a few minutes ago. Ninety nine point one. Under the arm. He said he feels hot but it's not hot. || A4
+  Nurse -> Ninety nine point one is not a fever. Any drainage from the ear? Fluid, pus, anything on the pillow?
+  Caller -> He said he felt hot. I think he just wants to stay up.
+  Nurse -> Ha. Probably.
+  Caller -> No. The pillow's clean. I checked it this morning. Nothing in the ear. He hasn't had a fever since Tuesday. || A5
+  Nurse -> Good. Is he taking anything else for pain or fever?
+  Caller -> I also gave him a big glass of water at dinner. I'm trying to push fluids.
+  Nurse -> That's a good idea.
+  Caller -> The Motrin. The children's liquid. Five milliliters when he needs it. I gave it last night before bed. Just once. Not today. || A2
+  Nurse -> Okay. Motrin, five milliliters, as needed, every six hours. Last given last night. || A2
+  Caller -> Right. I haven't needed it today.
+  Caller -> He didn't even ask for it. I almost wish he would, so I'd know he's okay.
+  Nurse -> Ha. I understand that feeling.
+  Nurse -> That's a good sign. Let me get his chart. What's his date of birth?
+  Caller -> Take your time. I'm on the couch. The house is finally quiet.
+  Caller -> March twenty second. Twenty nineteen. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> Four oh four, five five five, oh one one three. || callback_phone
+  Nurse -> Four oh four, five five five, oh one one three. Right? || callback_phone
+  Caller -> Oh, wait. It's my cell. The home phone is disconnected.
+  Nurse -> That's fine. The cell it is.
+  Caller -> Yes.
+  Nurse -> Okay, now to your question. It's very natural to wonder. The answer is, yes, please finish all ten days. || R1
+  Caller -> All ten. Even though he's better.
+  Caller -> Okay. That makes sense. I just hate giving him medicine. He makes a face.
+  Nurse -> What does he do?
+  Caller -> He holds his nose and says, I'm being brave. Every time.
+  Nurse -> Ha. A brave guy.
+  Nurse -> Even though he's better. The medicine starts working in the first couple of days, so he feels fine. But the bacteria aren't all gone yet. If you stop now, the infection can come back, and it can be harder to treat.
+  Caller -> Oh. I didn't know that. My mother always said stop when they feel better. She said you save the rest for next time.
+  Nurse -> A lot of people grew up with that idea. But it's not right. Don't save leftovers.
+  Caller -> She also says to put onions in his socks.
+  Nurse -> Ha. I've heard that one too.
+  Caller -> I draw the line.
+  Caller -> Okay. I'll tell her. She'll argue. She's very opinionated.
+  Nurse -> Ha. Tell her the nurse said so.
+  Caller -> She respects anyone in scrubs. Even the pizza guy once.
+  Nurse -> Ha.
+  Caller -> I will. I'll blame you.
+  Nurse -> Please do.
+  Caller -> She's already texting me. She wants to know if he's wearing a hat.
+  Nurse -> Ha. Grandmothers.
+  Caller -> What if he forgets, or I miss one? Like if we're out late.
+  Nurse -> Give it as soon as you remember, then go back to your usual times. Don't double up.
+  Caller -> Okay. Good.
+  Caller -> I'll put a reminder on my phone for the night dose. I always forget it when it's a late evening.
+  Nurse -> Let me go over the medicine with you so we're sure. Shake the bottle well before every dose. Measure seven and a half milliliters with the oral syringe, not a kitchen spoon. Keep the bottle in the refrigerator. And give it with food, about twelve hours apart. || E1
+  Caller -> Shake. Syringe. Fridge. With food. Twelve hours. Yes. Do I have to refrigerate? I left it on the counter today.
+  Nurse -> Yes. It should be in the refrigerator. If it's been out for a few hours it's probably fine. Put it back now.
+  Caller -> I'm standing up. Going to the fridge. Hang on.
+  Nurse -> Take your time.
+  Caller -> Okay. It's in the door, next to the milk.
+  Caller -> Okay. I'll do that as soon as we hang up. It's right next to me.
+  Nurse -> Thank you. I'll wait.
+  Nurse -> Good.
+  Caller -> Also, the syringe is stained pink. Is that okay?
+  Nurse -> It's fine. Rinse it with warm water after each use. And let it air dry.
+  Caller -> It was pink from the start. They gave us a free one with the bottle.
+  Caller -> Okay. I do rinse it. I just don't dry it well. I'll put it on a napkin.
+  Nurse -> That's perfect.
+  Caller -> He gets a little loose in the stomach. A little soft. Is that from the medicine?
+  Nurse -> That can happen with this kind of antibiotic. Soft stools are common. It's something to mention if it's watery, or goes on after the course is done.
+  Caller -> Okay. It's soft. Not watery. Twice a day maybe. He thinks it's funny.
+  Nurse -> Ha. Seven year olds.
+  Caller -> He told his sister that his poop was a gift to the toilet.
+  Nurse -> Ha. Poetry.
+  Caller -> Everything's funny. Especially anything to do with bathrooms.
+  Nurse -> I know. I have a nephew.
+  Caller -> I can tell.
+  Caller -> How old is he?
+  Nurse -> Eight. He's obsessed with a game I can't pronounce.
+  Caller -> Ha. Mine too. It's like they all play the same thing.
+  Caller -> Then you understand.
+  Nurse -> Completely. Chiamaka, please keep checking his temperature if he feels warm. And write down each time you give the Motrin, with the time. That way you'll know when he can have the next one. || E3
+  Caller -> Temperature if warm. Write down the Motrin and the time. Okay. I have a notebook by the fridge. A pink one. || A2
+  Nurse -> Good. You'll be a pro by tomorrow.
+  Caller -> I hope so. I've been doing this for years and I still feel like I'm winging it.
+  Nurse -> Most parents do.
+  Caller -> I hope so. I'm so tired. I've had a cold myself. I've been coughing since Sunday.
+  Nurse -> I'm sorry to hear that. Get some rest if you can.
+  Caller -> I would love to. Two kids. A husband who works nights. You know.
+  Nurse -> I do. It's a lot.
+  Caller -> It is. But I'm okay. Thanks for asking.
+  Nurse -> You're welcome. I'd like to follow up with you after the weekend. I'll call you Friday to see how he's doing and make sure the doses are going well. || R2
+  Caller -> Friday. Okay. What time?
+  Nurse -> Mid morning, around ten.
+  Caller -> I'll set an alarm so I don't miss your call. I have a thing with phones and the laundry.
+  Nurse -> Ha. Same.
+  Caller -> Ten works. I'll be home. The kids are at school then.
+  Nurse -> Perfect.
+  Caller -> Is there anything I should look for before then?
+  Nurse -> Yes. Call us if he gets a fever, if the ear pain comes back, if you see any drainage from the ear, if he gets a rash, or if the loose stools get worse or last. || E2
+  Caller -> Fever. Ear pain. Drainage. Rash. Stools get worse. Okay. Rash. Like hives?
+  Nurse -> Any rash, or itching, or swelling of the face or lips. If his lips swell or he has trouble breathing, call 911 right away.
+  Caller -> Okay. He's had amoxicillin before, when he was three. No reaction. But I'll watch. || A1, R1
+  Nurse -> That's good to know. Thank you.
+  Caller -> Is soccer okay? He wants to go to practice tomorrow.
+  Nurse -> Sure. Ask him how his ears feel first.
+  Nurse -> If he feels well and has no fever, that's fine.
+  Caller -> Okay. He'll be thrilled. He's been moping about missing the game Saturday.
+  Nurse -> Hopefully he can play it.
+  Caller -> He has his cleats by the door already. He sleeps with one of his shin guards.
+  Nurse -> That's dedication.
+  Caller -> Fingers crossed. His coach is very strict about attendance.
+  Nurse -> Ha. Hopefully he gets to play.
+  Nurse -> Ha. Soccer coaches.
+  Caller -> This one blows a whistle at everything. Even at snack time.
+  Caller -> Anything else I need to know?
+  Nurse -> I think we covered it. Call anytime if you have questions.
+  Caller -> Thank you, Jerome. You made me feel better. I was ready to quit the medicine tonight.
+  Nurse -> I'm glad you called first. Take care of yourself, too.
+  Caller -> Me too. I'll tell my husband when he gets home from work.
+  Nurse -> Please do. Good night to you both.
+  Caller -> I will. Good night.
+  Caller -> Thanks again. Sleep well.
+  Nurse -> Good night.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Tavish Okonkwo, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2019-03-22", certainty: stated, heard_as: [], turns: [49]}
+    caller_name: {value: Chiamaka Okonkwo, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550113", certainty: stated, heard_as: [], turns: [51, 52]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether to stop the antibiotic early because he feels better.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about whether he still needs it."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Amoxicillin 7.5 mL was given twice a day, last dose this morning.
+      speaker: Caller
+      turns: [16]
+      quote: "Seven and a half milliliters. Twice a day."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: amoxicillin, dose: "7.5", unit: mL, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Motrin 5 mL was given as needed, last given last night.
+      speaker: Caller
+      turns: [42]
+      quote: "Five milliliters when he needs it."
+      explanation: Documents the as-needed medication.
+      facts:
+        - {type: medication, name: Motrin, dose: "5", unit: mL, frequency: every six hours as needed, prn: true, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He tugged at his left ear a little at bedtime.
+      speaker: Caller
+      turns: [31]
+      quote: "At bedtime he tugs at the left one a little."
+      explanation: Documents the ear tugging.
+      facts:
+        - {type: symptom, name: ear tugging at bedtime, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Temperature was 99.1 under the arm.
+      speaker: Caller
+      turns: [34]
+      quote: "Ninety nine point one."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.1", certainty: stated}
+      covers: [A4]
+    - text: He had no fever since Tuesday and no ear drainage.
+      speaker: Caller
+      turns: [38]
+      quote: "He hasn't had a fever since Tuesday."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or ear drainage, certainty: stated}
+      covers: [A5]
+    - text: She was considering stopping because he felt fine on day five of ten.
+      speaker: Caller
+      turns: [11]
+      quote: "do I really have to give the rest?"
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: Day five of a ten day course and she is thinking of stopping because he feels fine, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised finishing all ten days of the amoxicillin.
+      speaker: Nurse
+      turns: [56]
+      quote: "please finish all ten days."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback Friday.
+      speaker: Nurse
+      turns: [117]
+      quote: "I'll call you Friday to see how he's doing"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised shaking the bottle, measuring with an oral syringe, refrigerating it, and giving it with food about twelve hours apart.
+      speaker: Nurse
+      turns: [80]
+      quote: "Shake the bottle well before every dose."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, returning ear pain, ear drainage, a rash, or persistent loose stools.
+      speaker: Nurse
+      turns: [125]
+      quote: "Call us if he gets a fever, if the ear pain comes back"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised checking his temperature if warm and writing down each Motrin dose with the time.
+      speaker: Nurse
+      turns: [107]
+      quote: "write down each time you give the Motrin, with the time."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E3]
+  risk_flags: []

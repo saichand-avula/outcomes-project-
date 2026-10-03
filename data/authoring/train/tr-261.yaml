@@ -1,0 +1,299 @@
+call_id: tr-261
+split: train
+blueprint: "55-year-old patient calls himself, spelling his surname Przybylski twice because the nurse keeps mangling it, to report on day four of seven of cephalexin for leg cellulitis: redness and warmth are smaller than Monday, temperature 98.9, no fever or chills, and explicitly no chest pain or shortness of breath. He jokes that he is 'dying to get out of the house' (trap phrase, no flag). Nurse messages the provider with his update, plans a nurse visit Thursday and a callback tomorrow, and reinforces finishing the antibiotic and keeping the leg raised. Routine symptom update, name spelled, negated risk phrase, trap phrasing, v2 short."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [name_spelled, negated_risk_phrase, trap_phrasing, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [wound_skin, fever, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-26T15:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bohdan Przybylski
+  patient_name_spoken: Bohdan Przybylski
+  patient_name_certainty: stated
+  patient_dob_true: "1971-07-28"
+  patient_dob_spoken: "1971-07-28"
+  patient_dob_certainty: stated
+  caller_name_true: Bohdan Przybylski
+  caller_name_spoken: Bohdan Przybylski
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7735550145"
+  callback_phone_spoken: "7735550145"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave an update on his leg infection on day four of antibiotics
+  reason_category: wound_skin
+  relevant_context: Home health patient treated for a leg skin infection
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: redness and warmth on the left shin
+    symptom_present: true
+    severity: smaller than Monday
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: cephalexin
+    medication_name_spoken: cephalexin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: four times a day
+    last_dose: noon today
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: temperature
+    vital_value: "98.9"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever or chills
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: chest pain or shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: update on improving leg infection on day four of antibiotics
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take every dose of the cephalexin until it is finished even if the leg looks better
+    certainty: stated
+  - item_id: E2
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Keep the leg raised above the heart when sitting and do not scratch or pop anything
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of 101 or higher, redness spreading beyond the marked line, pus, or chills
+    trigger_condition: fever 101 or higher; spreading redness; pus; chills
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Bohdan. Bohdan Przybylski. P R Z Y B Y L S K I. || caller_name, relationship, patient_name
+  Nurse -> Okay. Thanks, Bohdan. I always want to say that wrong. Prizzy, Prizzy-bill-ski?
+  Caller -> It's Pshih-BILL-skee. Close enough. Everybody says it wrong. I don't mind.
+  Nurse -> Pshih-BILL-skee. I'll get it. What's your date of birth?
+  Caller -> July twenty eighth. Nineteen seventy one. || patient_dob
+  Nurse -> And is seven seven three, five five five, zero one four five still good? || callback_phone
+  Caller -> That's it. That's my cell.
+  Nurse -> Great. What can I do for you today?
+  Caller -> Just an update, really. On my leg. You said to call if it was better or worse. || cc
+  Nurse -> Right. I appreciate that. Are you still staying off the leg mostly?
+  Caller -> Mostly. I get up for the bathroom and to heat soup. That's it.
+  Nurse -> Good.
+  Nurse -> I did. Tell me.
+  Caller -> It's better. It's definitely better. The red patch on my shin is smaller. Monday it was about the size of my hand. Now it's like a, a couple of fingers wide. || A1
+  Nurse -> Okay. That's good news. And the warmth?
+  Caller -> Still a little warm. But not like Monday. Monday it was hot. Now it's just warm. Like warm compared to the other leg. || A1
+  Nurse -> Okay. And did you mark the edge with a pen, like the nurse showed you?
+  Caller -> I did. I drew the line. The redness is inside the line now. It's about a half inch inside, all the way around.
+  Nurse -> That's excellent. That's exactly what we want to see.
+  Caller -> Yeah. I'm pleased. I was nervous it'd spread.
+  Nurse -> What about your temperature? Have you taken it today?
+  Caller -> I did. Ninety eight point nine. This morning. And again at lunch, ninety eight nine. || A3
+  Nurse -> Okay. No fever. Any chills, any sweats?
+  Caller -> No. No chills. No fever. Nothing. I feel normal. Better than normal. I'm just bored. || A4
+  Nurse -> Ha. Okay. And any chest pain, shortness of breath? Anything like that?
+  Caller -> No. Nothing like that. No chest pain. My breathing's totally fine. || A5
+  Nurse -> Good. How's the antibiotic going? Are you taking it every time?
+  Caller -> Every time. The cephalexin. Five hundred milligrams. Four times a day. I set an alarm on my phone. I took the last one at noon. || A2
+  Nurse -> Perfect. And you're on day four, is that right?
+  Caller -> Day four. Of seven. I counted. I've got three more days. And I'm dying to get out of the house, honestly. I've been stuck on the couch since Saturday.
+  Nurse -> Ha. Well, hold on a bit longer. Keep the leg up.
+  Caller -> I know, I know. Elevated. I've got it on a pillow right now. I'm elevated as we speak.
+  Nurse -> Good. Above the level of your heart if you can.
+  Caller -> I'll try. I'm on the couch with three pillows. It's a whole arrangement.
+  Nurse -> Ha. That's what I like to hear.
+  Caller -> My neighbor brought soup. It's been the highlight.
+  Nurse -> What kind?
+  Caller -> Chicken and dumplings. She puts way too much pepper. I love it.
+  Nurse -> Ha. That sounds good.
+  Nurse -> Soup is a good highlight. Okay, Bohdan. I'm going to send a message to the provider with your update, just so they know it's improving. || R1
+  Caller -> Okay. Do they need to change anything?
+  Nurse -> Probably not. But I like them to hear when it's going well. And I'm going to have a nurse come out Thursday to look at it and do a recheck. || R2
+  Caller -> Thursday. Okay. Is that morning?
+  Nurse -> The scheduler will call you with a time. Do you have a preference?
+  Caller -> Morning is better. I'm more awake. Before noon.
+  Nurse -> I'll pass that along. And I'll call you tomorrow to check in. || R3
+  Caller -> Tomorrow. Okay. Great.
+  Nurse -> In the meantime, keep taking every dose of the cephalexin until it's finished, even if the leg looks completely better. || E1, A2
+  Caller -> Every dose. Until it's done. Even if it looks great. I won't stop early. I know people do that.
+  Nurse -> It's important. And keep the leg raised when you're sitting, and try not to scratch it or pick at anything. || E2
+  Caller -> Raised. Don't scratch. Don't pick. I want to scratch it, though. It itches sometimes.
+  Nurse -> That's normal as it heals. A cool cloth over it can help instead of scratching.
+  Caller -> A cool cloth. Okay. I'll try that.
+  Nurse -> And call us if you get a fever of a hundred and one or higher, if the redness spreads past your pen line, if you see pus, or if you get chills. || E3
+  Caller -> A hundred and one. Past the line. Pus. Chills. Okay. I have it on the fridge.
+  Nurse -> Anything else you want to ask?
+  Caller -> Just, when can I shower? I haven't had a real shower.
+  Nurse -> Short showers are fine. Just pat the leg dry, don't scrub it, and avoid soaking in a tub.
+  Caller -> Short shower. Pat dry. No tub. Great. Thank you. That's going to feel amazing.
+  Nurse -> And if you have to wrap the leg, use a bag, not a tight bandage.
+  Caller -> A bag. Not tight. I've got a bag. Okay.
+  Nurse -> Perfect.
+  Nurse -> Ha. Enjoy. Take care, Bohdan.
+  Caller -> You too, Marcus. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bohdan Przybylski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1971-07-28", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Bohdan Przybylski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7735550145", certainty: stated, heard_as: [], turns: [7]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave an update on his leg infection on day four of antibiotics.
+    speaker: Caller
+    turns: [10]
+    quote: "Just an update, really. On my leg."
+    explanation: Documents the update prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The red patch on his shin was smaller than Monday and only warm, with the redness a half inch inside his pen line.
+      speaker: Caller
+      turns: [15]
+      quote: "It's better. It's definitely better. The red patch on my shin is smaller."
+      explanation: Documents the improving skin findings.
+      facts:
+        - {type: symptom, name: redness and warmth on the left shin, present: true, severity: smaller than Monday, certainty: stated}
+      covers: [A1]
+    - text: Cephalexin 500 mg four times a day was taken on schedule on day four of seven, the last dose at noon.
+      speaker: Caller
+      turns: [29]
+      quote: "The cephalexin. Five hundred milligrams. Four times a day."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: cephalexin, dose: "500", unit: mg, frequency: four times a day, last_dose: noon today, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Temperature was 98.9.
+      speaker: Caller
+      turns: [23]
+      quote: "Ninety eight point nine. This morning."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.9", certainty: stated}
+      covers: [A3]
+    - text: No fever or chills were reported.
+      speaker: Caller
+      turns: [25]
+      quote: "No. No chills. No fever. Nothing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or chills, certainty: stated}
+      covers: [A4]
+    - text: No chest pain or shortness of breath was reported.
+      speaker: Caller
+      turns: [27]
+      quote: "No. Nothing like that. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or shortness of breath, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider with the update.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to send a message to the provider with your update"
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to have a nurse come out Thursday to recheck the leg.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to have a nurse come out Thursday to look at it and do a recheck."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow to check in.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you tomorrow to check in."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised taking every dose of the cephalexin until finished even if the leg looked better.
+      speaker: Nurse
+      turns: [49]
+      quote: "keep taking every dose of the cephalexin until it's finished, even if the leg looks completely better."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the leg raised and not scratching or picking at it.
+      speaker: Nurse
+      turns: [51]
+      quote: "keep the leg raised when you're sitting, and try not to scratch it or pick at anything."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a fever of 101 or higher, redness spreading past the pen line, pus, or chills.
+      speaker: Nurse
+      turns: [55]
+      quote: "call us if you get a fever of a hundred and one or higher, if the redness spreads past your pen line, if you see pus, or if you get chills."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

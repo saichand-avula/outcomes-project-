@@ -1,0 +1,390 @@
+call_id: tr-428
+split: train
+blueprint: "A son calls in the morning: before giving his 77-year-old mother her morning pills he checked her pressure and got ninety four over fifty eight with mild lightheadedness on standing. Her orders say to hold lisinopril if the top number is under one hundred. She also takes furosemide each morning. He is unsure whether to hold both. Nurse reads the parameters, tells him to hold the lisinopril and the furosemide until the clinician calls back, messages the team, plans a nurse visit today and a callback in two hours, and reviews rising slowly, fluids and warning signs. Medication hold parameters, scheduled meds, adult child caller, long v2."
+setup:
+  scenario_category: medication
+  subtype: hold_parameters
+  secondary_tags: [trap_phrasing, hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [medication, blood_pressure, dizziness]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Brightwater Home Health
+  agency_type: home_health
+  nurse_name: Priya
+  call_timestamp_utc: "2026-11-15T14:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Evangeline Sorensen
+  patient_name_spoken: Evangeline Sorensen
+  patient_name_certainty: stated
+  patient_dob_true: "1948-09-07"
+  patient_dob_spoken: "1948-09-07"
+  patient_dob_certainty: stated
+  caller_name_true: Magnus Sorensen
+  caller_name_spoken: Magnus Sorensen
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6025550152"
+  callback_phone_spoken: "6025550152"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether to give or hold her morning blood pressure pills after a low reading
+  reason_category: blood_pressure
+  relevant_context: Home health patient on lisinopril with a hold parameter and furosemide
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "94/58"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: lightheaded on standing
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every morning
+    prn: false
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: every morning
+    prn: false
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The order says to hold lisinopril if the top number is under one hundred
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team and clinician
+    reason_or_trigger: low blood pressure with lightheadedness on lisinopril and furosemide
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Hold the lisinopril and the furosemide until the clinician calls back, and give nothing else new without checking
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have her sit up slowly, wait a minute before standing, use the walker, and stay with her when she gets up
+    certainty: stated
+  - item_id: E3
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer a glass of water or broth and a light breakfast
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if she faints, has chest pain, is confused, or the top number drops below ninety
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Brightwater Home Health, this is Priya.
+  Caller -> Hi, Priya. It's Magnus Sorensen. I'm calling about my mother, Evangeline Sorensen. I have a question before I give her pills. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Magnus. Happy Sunday. I'm glad you called before giving anything.
+  Caller -> Thanks. It's been a quiet morning. The sun is out. The birds are at the feeder.
+  Nurse -> That sounds peaceful.
+  Caller -> Me too. I almost didn't. I was standing there with the pills in my hand.
+  Nurse -> That's exactly the right moment to call.
+  Nurse -> Hi, Magnus. Of course. What's going on this morning?
+  Caller -> I took her blood pressure and it's low. It's lower than usual. I'm not sure what to do with the pills.
+  Caller -> It's an automatic cuff. The kind with the arm band. I bought it last spring at the pharmacy.
+  Nurse -> Those are good. Was she sitting when you took it?
+  Caller -> Yes. Sitting, feet flat, arm on the table. Like they showed me.
+  Caller -> I waited five minutes before I took it. I read that online. Then I did it twice.
+  Nurse -> Perfect technique. You could teach a class.
+  Nurse -> Okay. What did the cuff say?
+  Caller -> Ninety four over fifty eight. Ninety four. Fifty eight. I did it twice. The second time was ninety six over sixty. || A1
+  Nurse -> And what's her usual?
+  Caller -> About one thirty over eighty. She's almost never under a hundred.
+  Nurse -> And does she have a headache, or any chest pain?
+  Caller -> No headache. No chest pain. She would have said something loudly.
+  Nurse -> Okay. Is she feeling okay?
+  Caller -> She's sitting at the kitchen table. She says she's fine. But when she stood up to get the juice she said she felt woozy. She held the counter. It passed after a few seconds. || A2
+  Caller -> She's doing her word search. She does one every morning. She's on the fifth one this week.
+  Nurse -> Ha. A busy mind.
+  Caller -> It's all animals this week. She found a wolverine.
+  Caller -> She taught me what a wolverine is. I thought it was a mascot.
+  Nurse -> Ha. A fierce one.
+  Nurse -> That's lightheadedness when she stands. Okay. Let me get her chart open. What's her date of birth?
+  Caller -> September seventh. Nineteen forty eight. || patient_dob
+  Nurse -> Thank you. And your number? The one on file is the cell?
+  Caller -> Sure thing. I always forget which number is on the form.
+  Caller -> Yes, the cell. Six oh two, five five five, zero one five two. || callback_phone
+  Nurse -> Good. Now, tell me what pills she takes in the morning.
+  Caller -> I fill the box on Saturdays. I use the big one with the days and times. Morning, noon, evening, bedtime.
+  Nurse -> That's a great setup. It makes this much easier.
+  Caller -> There's a bunch. I'm looking at the box. Let me read. The lisinopril, ten milligrams. And the furosemide, twenty milligrams. And a thyroid pill. And a vitamin. And the baby aspirin. || A3, A4
+  Nurse -> Okay. The lisinopril and the furosemide are the ones I'm looking at. Both can lower her blood pressure. Did she take them yesterday? || A3, A4
+  Caller -> I know the lisinopril is for pressure. The water pill is for her ankles. The thyroid one is for the tired. || A3
+  Caller -> Yes. Yesterday morning. Both. Like always. || A3, A4
+  Nurse -> Let me check her orders. I see a note here. Hold the lisinopril if the top number is under one hundred. Does that match what you have? || A3
+  Caller -> I have a sheet on the fridge. Hold on. Let me go look. Okay. It says hold lisinopril if systolic is under one hundred. Systolic is the top number, right? || A5
+  Nurse -> Right. The top number. Ninety four is under one hundred, so by that order, we hold the lisinopril this morning. || A3
+  Caller -> I have it highlighted in yellow. Hold if under one hundred. The nurse who came last month did that for me.
+  Nurse -> Good. Highlighting is smart.
+  Caller -> Okay. So I don't give it. But what about the water pill? The furosemide? || A4
+  Nurse -> That one has no hold parameter written, but it can lower her pressure even more by making her lose fluid. I want the clinician to look at this. I'd rather you hold both until they call you back.
+  Caller -> Hold both. Okay. Is that safe? I don't want her swelling up. She had that last year.
+  Caller -> She had swollen ankles last year. They were like balloons. I don't want to go back there.
+  Nurse -> I understand. We'll watch her weight and her ankles too.
+  Nurse -> It's safe for a few hours. Her pressure is the bigger concern right now. We'll decide about the furosemide when the clinician calls. || E1
+  Caller -> Okay. I trust you. I just don't want to make a mistake.
+  Nurse -> It's not a mistake to ask. That's what we're here for.
+  Caller -> Okay. So no lisinopril. No furosemide. The rest is okay? The thyroid? The aspirin? || A3, A4
+  Nurse -> The thyroid pill and the vitamin are fine. The aspirin, give it with food.
+  Caller -> With food. Okay. I'll make her a piece of toast.
+  Caller -> Wheat toast or white? She likes the wheat with butter.
+  Nurse -> Wheat is fine. A little butter is okay.
+  Nurse -> Good. Offer a glass of water or some broth, too. A light breakfast helps. || E3
+  Caller -> She doesn't like to drink much. She says it makes her go to the bathroom too much.
+  Nurse -> That's a common worry. Small sips through the morning are better than big glasses.
+  Caller -> Broth. We have chicken broth. In the cupboard. The carton.
+  Caller -> It's the low sodium kind. She's supposed to watch the salt.
+  Nurse -> Perfect. Low sodium is the right choice.
+  Nurse -> Perfect. How much has she had to drink this morning?
+  Caller -> One cup of coffee. And the juice, half a glass. That's all so far.
+  Nurse -> Then a little extra fluid will help.
+  Caller -> I'll fill her water bottle too. The one with the straw. She keeps it by her chair.
+  Caller -> I'll warm the broth. She likes it in her teacup.
+  Nurse -> Ha. A fancy tea cup.
+  Caller -> It's the one with the roses. She's very particular.
+  Nurse -> Okay. I'm going to message our team and the clinician about the low reading, and the two medicines. They'll tell us whether to restart them or change the dose. || R1
+  Caller -> Thank you. How long will that take?
+  Caller -> I know the doctors don't always call back quickly on weekends.
+  Nurse -> The on-call clinician is quick for medicine questions. I'll push for it.
+  Nurse -> I'll call you back within two hours. Sooner if I hear. || R3
+  Caller -> Two hours. Okay. I'll keep my phone on.
+  Caller -> I'll put it on loud. I have it on vibrate usually and my dog steps on it.
+  Nurse -> Ha. A dog mishap. Loud is better.
+  Nurse -> And I'd like to send a nurse out today to check her pressure, her heart rate, and her fluid status. || R2
+  Caller -> Today? On a Sunday? That's wonderful.
+  Nurse -> We have weekend coverage. A nurse will call before arriving.
+  Caller -> That's a relief. I was going to take her to urgent care but she hates that place.
+  Nurse -> There's no need to go. A nurse will come to you.
+  Caller -> I'll be here. I'm not going anywhere. I took the day off.
+  Nurse -> Good. Now, let's talk about keeping her safe until then. When she gets up, have her sit up slowly first. Dangle her legs for a minute. Then stand with the walker, and stay close. || E2
+  Caller -> She was a nurse's aide herself, thirty years. She knows all this. She just doesn't like being told.
+  Nurse -> Ha. The best patients are the hardest.
+  Caller -> Sit. Wait. Walker. Stay close. Okay. She usually pops right up. She hates waiting.
+  Caller -> I moved the rug out of the way. The one by the sink. It always bunches up.
+  Nurse -> Good. Fewer trip hazards the better.
+  Nurse -> I know. That's when falls happen. A slow start is the safest.
+  Caller -> She tried to carry the laundry basket yesterday. I took it from her. She was mad.
+  Nurse -> Good for you. Less carrying for now.
+  Caller -> I'll hover. She'll hate it.
+  Nurse -> Ha. Hover anyway.
+  Caller -> She says I'm like a helicopter. I say, Mama, I'm a Black Hawk. Because they're more serious.
+  Nurse -> Ha. A Black Hawk is a good call.
+  Caller -> I can't believe I said that. I think I'm a little nervous.
+  Nurse -> It's okay. Humor helps.
+  Nurse -> And call us right away if she faints, if she has chest pain, if she gets confused, or if the top number drops below ninety. || E4
+  Caller -> Faints. Chest pain. Confused. Below ninety. I'll write it down. I have a pen. Okay. Did you say ninety?
+  Caller -> I have a roll of blue tape. I put the paper on the cuff box. There. It's not going anywhere.
+  Nurse -> Yes. Ninety. If it goes below, call immediately.
+  Caller -> Okay. Ninety. It's written. I'll tape it by the blood pressure cuff.
+  Nurse -> Great idea.
+  Caller -> I feel better having a plan. I was frozen. I almost gave her everything.
+  Caller -> I told her we're checking in with the doctor and she said, the doctor is younger than my shoes.
+  Nurse -> Ha. She has a way with words.
+  Caller -> It's my first time handling this alone. My sister usually does the medicine talks.
+  Nurse -> You're doing great. Truly.
+  Nurse -> You did the right thing. You checked first. Many people don't.
+  Caller -> My sister told me to check. She's a nurse in Denver. She calls every morning.
+  Nurse -> Smart sister.
+  Caller -> She thinks I work too hard. I'm an accountant. It's tax prep season soon. I'll be buried.
+  Nurse -> Ha. Then you'll appreciate the help we can send.
+  Caller -> She's bossy. But she knows her stuff.
+  Nurse -> Ha. I think we'd get along.
+  Caller -> She'd talk your ear off. You'd have to hang up on her.
+  Nurse -> Ha. I've been known to talk back.
+  Caller -> Everyone does. She's got a very big personality.
+  Nurse -> Okay, Magnus. Anything else before I let you go?
+  Caller -> Just one. Is it okay if she has her coffee? She had one cup. She wants another.
+  Nurse -> Coffee is fine in moderation. It might even nudge her pressure up a little. But pair it with water.
+  Caller -> She drinks it black. Very strong. Her father drank it like tar.
+  Caller -> One more cup and a glass of water. I'll tell her.
+  Caller -> Oh, and she's asking if she can take a shower. It's her routine. Before lunch.
+  Nurse -> Not until the nurse sees her. Let's wait on the shower. A sponge bath is fine.
+  Caller -> She'll complain. But okay.
+  Nurse -> Perfect. Talk soon.
+  Caller -> Actually, hold on. She's saying something. She wants to know if you're the nurse with the red hair.
+  Nurse -> Ha. No, that must be someone else on the team.
+  Caller -> She says that nurse was nice. She says you sound nice too.
+  Nurse -> Tell her thank you. I'll look forward to meeting her.
+  Caller -> Thank you, Priya. Bye.
+  Nurse -> Bye, Magnus.
+  Caller -> Wait, one last thing. Will the nurse bring a new cuff? Mine squeezes a little loud.
+  Nurse -> She'll bring her own and compare it to yours. That's a good check.
+  Caller -> Perfect. I'll leave mine on the table.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Evangeline Sorensen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-09-07", certainty: stated, heard_as: [], turns: [29]}
+    caller_name: {value: Magnus Sorensen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550152", certainty: stated, heard_as: [], turns: [32]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether to give or hold her morning blood pressure pills after a low reading.
+    speaker: Caller
+    turns: [9]
+    quote: "I took her blood pressure and it's low."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Blood pressure was 94/58 and 96/60 on a repeat.
+      speaker: Caller
+      turns: [16]
+      quote: "Ninety four over fifty eight."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "94/58", certainty: stated}
+      covers: [A1]
+    - text: She felt woozy when she stood up and held the counter, passing after a few seconds.
+      speaker: Caller
+      turns: [22]
+      quote: "she said she felt woozy."
+      explanation: Documents the lightheadedness.
+      facts:
+        - {type: symptom, name: lightheaded on standing, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Lisinopril 10 mg every morning was taken yesterday morning.
+      speaker: Caller
+      turns: [36]
+      quote: "The lisinopril, ten milligrams."
+      explanation: Documents the scheduled medicine.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: every morning, prn: false, last_dose: yesterday morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Furosemide 20 mg every morning was taken yesterday morning.
+      speaker: Caller
+      turns: [36]
+      quote: "And the furosemide, twenty milligrams."
+      explanation: Documents the water pill.
+      facts:
+        - {type: medication, name: furosemide, dose: "20", unit: mg, frequency: every morning, prn: false, last_dose: yesterday morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: The order on the fridge says to hold lisinopril if the top number is under one hundred.
+      speaker: Caller
+      turns: [41]
+      quote: "It says hold lisinopril if systolic is under one hundred."
+      explanation: Documents the hold parameter.
+      facts:
+        - {type: context, text: The order says to hold lisinopril if the top number is under one hundred, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the team and clinician about the low pressure and the two medicines.
+      speaker: Nurse
+      turns: [71]
+      quote: "I'm going to message our team and the clinician about the low reading"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [79]
+      quote: "I'd like to send a nurse out today"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back within two hours.
+      speaker: Nurse
+      turns: [75]
+      quote: "I'll call you back within two hours."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in two hours, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised holding the lisinopril and furosemide until the clinician called back.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'd rather you hold both until they call you back."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised sitting up slowly, waiting before standing, using the walker and staying close.
+      speaker: Nurse
+      turns: [85]
+      quote: "have her sit up slowly first."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised a glass of water or broth and a light breakfast.
+      speaker: Nurse
+      turns: [58]
+      quote: "Offer a glass of water or some broth, too."
+      explanation: Documents hydration teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E3]
+    - text: Advised calling right away for fainting, chest pain, confusion or a top number below ninety.
+      speaker: Nurse
+      turns: [100]
+      quote: "call us right away if she faints"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags: []

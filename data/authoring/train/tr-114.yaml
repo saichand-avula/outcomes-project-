@@ -1,0 +1,464 @@
+call_id: tr-114
+split: train
+blueprint: "LONG pediatric routine call: mother of a 7-year-old with cerebral palsy and a G-tube reports three nights of worse spasms (baclofen 5 mg three times a day), no bowel movement for 3 days (MiraLAX daily), more drooling and a mild wet cough, temp 98.9, a flat wheelchair cushion, a school medication form due Monday, and exhaustion. Formula 4 cans a day tolerated, no vomiting. Nurse messages the physician, plans a Friday visit, orders a cushion, plans the school form, gives MiraLAX and positioning advice. No flags."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [name_spelled, phone_from_file, late_answers, split_turns, offtopic_chatter, multi_issue, prn_and_scheduled, hedging]
+  clinical_domains: [spasticity, constipation, swallowing, equipment, caregiver_stress, sleep]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-11-13T19:10:00Z"
+  length_bucket: long
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [levetiracetam]
+chief_complaint:
+  patient_name_true: Zuri Mbeki
+  patient_name_spoken: Zuri Mbeki
+  patient_name_certainty: stated
+  patient_dob_true: "2019-04-09"
+  patient_dob_spoken: "2019-04-09"
+  patient_dob_certainty: stated
+  caller_name_true: Thandiwe Mbeki
+  caller_name_spoken: Thandiwe Mbeki
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6785550193"
+  callback_phone_spoken: "6785550193"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Gave an update on her daughter's spasms, constipation and equipment needs
+  reason_category: general_update
+  relevant_context: Child has cerebral palsy and a G-tube
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: worse muscle spasms and stiffness at night
+    symptom_present: true
+    onset_or_duration: past 3 nights
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: three times a day
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: 3 days
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: MiraLAX
+    medication_name_spoken: MiraLAX
+    medication_status: taking
+    dose: "1"
+    unit: capful
+    frequency: once a day
+    certainty: stated
+  - item_id: A5
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Receives 4 cans of formula a day by G-tube and tolerates the feeds
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: more drooling and mild wet cough
+    symptom_present: true
+    onset_or_duration: since a cold last week
+    certainty: stated
+  - item_id: A8
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "98.9"
+    certainty: stated
+  - item_id: A9
+    item_type: supply
+    reporter: caller
+    supply_item: usable wheelchair cushion
+    supply_remaining: none
+    supply_unit: cushion
+    certainty: stated
+  - item_id: A10
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: She is exhausted from being up at night with the spasms
+    certainty: stated
+  - item_id: A11
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: The school nurse needs an updated medication form by Monday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: worse night spasms and constipation
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+  - item_id: R3
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: new wheelchair cushion
+    certainty: stated
+  - item_id: R4
+    action_type: documentation
+    action_status: planned
+    actor: nurse
+    recipient_or_target: school medication form
+    timeframe: by Friday
+    certainty: stated
+  - item_id: R5
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give a capful of MiraLAX tonight with extra water flushes and do not change the baclofen
+    certainty: stated
+  - item_id: R6
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: A warm bath and gentle stretching before bed, and pillows to keep her legs apart and supported
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Add an extra water flush after each feed to help the stool move
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, a hard swollen belly, a fever of 100.4 or higher, or a cough that turns wet and noisy with fast breathing; call 911 for choking or blue lips
+    trigger_condition: vomiting; hard swollen belly; fever 100.4 or higher; fast breathing; choking; blue lips
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi, Priya. It's Thandiwe Mbeki. I'm Zuri's mom. Zuri Mbeki. || caller_name, relationship, patient_name
+  Nurse -> Hi, Thandiwe. How do you spell Zuri's last name?
+  Caller -> M B E K I. || patient_name
+  Nurse -> Thanks. Her birthday?
+  Caller -> April ninth. Twenty nineteen. || patient_dob
+  Nurse -> And I've got six seven eight, five five five, zero one nine three. || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What's going on?
+  Caller -> Okay, so it's several things. I made a list. I'm sorry. It's been a week. || cc
+  Nurse -> No, go ahead. I'm listening.
+  Caller -> Number one is the spasms. At night. They're worse. Three nights now. She's all stiff, and her legs are crossing, and she cries. || A1
+  Nurse -> Mm-hm. Three nights.
+  Caller -> Yeah. She wakes up around two and she's arched and she can't settle. I've been up with her. || A1
+  Nurse -> Okay. And what is she taking for the spasms?
+  Caller -> The baclofen. Five milligrams. Three times a day. || A2
+  Nurse -> Okay. And you've been giving it on time?
+  Caller -> Every time. Eight, two, and eight. I have an alarm.
+  Nurse -> Good. Okay.
+  Caller -> I was wondering if we could bump it up. The dose. Just a little. Or give her an extra one at night.
+  Nurse -> I understand why you're asking. But I don't want to change that on my own. Baclofen has to be adjusted carefully by her doctor. I'll ask them. || R5, R1
+  Caller -> Okay. That's fair.
+  Nurse -> Don't stop it or skip any doses either. That can make the spasms a lot worse.
+  Caller -> No. I wouldn't. I know that one.
+  Nurse -> Okay. What's number two?
+  Caller -> The bowels. She hasn't gone in three days. || A3
+  Nurse -> Three days. And is she on anything?
+  Caller -> The MiraLAX. One capful, once a day, in her feeds. I gave it yesterday and today. || A4
+  Nurse -> Okay. And is her belly hard? Swollen?
+  Caller -> A little round. It's not hard. She's not crying when I touch it. It's just kind of full.
+  Nurse -> Okay. Any vomiting?
+  Caller -> No. No vomiting. She's tolerating everything. She's getting four cans a day. Every one of them. || A5, A6
+  Nurse -> Good. That's good news. Okay.
+  Caller -> Yeah.
+  Nurse -> What's number three?
+  Caller -> Her mouth. She's drooling more than usual. And she has a little cough. A wet one. Since the cold last week. || A7
+  Nurse -> Mm-hm. Any fever?
+  Caller -> I took it before I called. Ninety eight point nine. || A8
+  Nurse -> Okay. Good. How's her breathing? Is she working hard?
+  Caller -> No. She's breathing normal. The cough is just in the morning. It sounds like she needs to clear her throat. A little rattly.
+  Nurse -> Okay. That's something to watch with her. I'll look at that Friday.
+  Caller -> Okay.
+  Nurse -> And four?
+  Caller -> Her wheelchair cushion. It's totally flat. It's been flat for months. She's sliding and I think it's hurting her. And the company hasn't come. || A9
+  Nurse -> Okay. Is her skin okay, around her bottom? Any red spots?
+  Caller -> No. Her skin's fine. I check it every night. It's just, it's not supporting her.
+  Nurse -> Okay. I'll order a new one. I'll follow up with the equipment company too. || R3
+  Caller -> Oh, thank you.
+  Nurse -> And five?
+  Caller -> The school nurse. She needs an updated medication form. By Monday. The doctor has to sign it and I don't know where to start. || A11
+  Nurse -> I can help with that. I'll fill out the nursing part of the form and have it ready by Friday when I come, and then we'll get the doctor to sign. || R4
+  Caller -> Oh my gosh. That would be a huge help. Thank you.
+  Nurse -> Of course. That's what I'm here for. Is that all the list?
+  Caller -> That's the list. But, I also just, I'm tired. I'm so tired, Priya. || A10
+  Nurse -> I hear you.
+  Caller -> I haven't slept more than three hours in a row this whole week. My husband works nights. It's just me. || A10
+  Nurse -> That's really hard. You are doing so much.
+  Caller -> I'm okay. I'm okay. I just wanted to say it out loud.
+  Nurse -> I'm glad you did. Let's see what we can do to give you some relief. Let me start with what we can fix tonight.
+  Caller -> Okay.
+  Nurse -> For the constipation, give her another capful of MiraLAX tonight in her feed, and do an extra water flush after each feed. That helps the stool move. || R5, E2
+  Caller -> An extra flush after every feed. Okay. How much?
+  Caller -> Is sixty enough?
+  Nurse -> Sixty milliliters is good.
+  Caller -> Okay. Sixty after each one.
+  Nurse -> For the spasms tonight, a warm bath before bed, and some gentle stretching. Nice and slow. And put pillows between her knees and under her legs so she's supported and her legs aren't crossing. || E1
+  Caller -> A warm bath. Okay. We do that sometimes. I'll do it tonight. And the pillows.
+  Nurse -> And I'm going to message her doctor tonight about the spasms and the constipation. || R1
+  Caller -> Okay.
+  Nurse -> I'll call you tomorrow and tell you what they say. || R6
+  Caller -> Tomorrow. Okay.
+  Nurse -> And I'm coming Friday. We'll check her belly, listen to her chest, and go over the form. || R2
+  Caller -> Friday. Okay. Perfect.
+  Nurse -> How is she in the daytime, besides the nights? Is she smiling, engaging with you?
+  Caller -> She's great in the daytime. She's laughing. She loves her tablet, she's watching the animal videos. She smiles when her brother comes home.
+  Nurse -> That's wonderful. And therapy, is she still getting her physical therapy?
+  Caller -> Tuesdays and Fridays. The therapist is great. She said Zuri's tone has been a little tighter though. That's why I think it's all connected.
+  Nurse -> It might be. I'll pass that along to the doctor too.
+  Caller -> Thank you. That'd be good.
+  Nurse -> Does Zuri have any pain that you can tell? Any grimacing, a certain place she holds?
+  Caller -> At night when she arches, yes. She cries out. In the daytime, no. She's comfortable.
+  Nurse -> Okay. That fits with the spasms.
+  Caller -> Yeah.
+  Nurse -> And how's her sleep position? What does she sleep in?
+  Caller -> On her side, with the wedge. But she keeps rolling out of it when she's stiff. I put her back four or five times a night.
+  Nurse -> That's exhausting. The pillows between her knees should help her stay put a little better.
+  Caller -> Okay. I'll try the pillows and the wedge both.
+  Nurse -> Now call us if she starts vomiting, if her belly gets hard or really swollen, if her fever gets to a hundred point four, or if the cough gets wet and noisy with fast breathing. || E3
+  Caller -> Vomiting. Belly. Fever. Cough and fast breathing. Okay.
+  Nurse -> And call nine one one if she's choking or her lips turn blue. || E3
+  Caller -> Choking. Blue. Okay.
+  Nurse -> And how is her brother handling all this? You said he's around.
+  Caller -> He's ten. He's good. He helps with her. He puts her socks on and reads her stories. He's honestly my best helper. But he gets woken up too, when she cries, and he has school.
+  Nurse -> That's a lot for a ten year old.
+  Caller -> It is. He doesn't say much about it, but I think he worries. He asked me last week if Zuri's going to be okay, and I didn't know what to say.
+  Nurse -> That's such a hard question to answer.
+  Nurse -> Is she due for her seizure medicine tonight? I just want to make sure nothing's been missed.
+  Caller -> She got the levetiracetam at seven. That's all done.
+  Nurse -> Perfect. Okay.
+  Caller -> Yeah.
+  Nurse -> Is there someone who can sit with her so you can take a nap tomorrow?
+  Caller -> My mother-in-law comes Thursday. She'll take her for a few hours.
+  Nurse -> That's great. Take that nap.
+  Caller -> I will. I'll try.
+  Nurse -> Anything else?
+  Caller -> No. I think that's everything. Thank you, Priya. You always make me feel like I'm not crazy.
+  Nurse -> You're not crazy. You're an amazing mom. Talk tomorrow.
+  Caller -> Thank you. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Zuri Mbeki, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "2019-04-09", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Thandiwe Mbeki, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "6785550193", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Gave an update on her daughter's spasms, constipation and equipment needs.
+    speaker: Caller
+    turns: [10]
+    quote: "Okay, so it's several things. I made a list."
+    explanation: Documents the multi-topic update prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Muscle spasms and stiffness at night were worse for 3 nights, with waking around 2 and arching.
+      speaker: Caller
+      turns: [12]
+      quote: "They're worse. Three nights now. She's all stiff, and her legs are crossing, and she cries."
+      explanation: Documents the spasticity.
+      facts:
+        - {type: symptom, name: worse muscle spasms and stiffness at night, present: true, duration: past 3 nights, certainty: stated}
+      covers: [A1]
+    - text: Baclofen 5 mg three times a day was given on schedule.
+      speaker: Caller
+      turns: [16]
+      quote: "The baclofen. Five milligrams. Three times a day."
+      explanation: Documents the current antispasticity medication.
+      facts:
+        - {type: medication, name: baclofen, dose: "5", unit: mg, frequency: three times a day, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She had no bowel movement for 3 days despite daily MiraLAX.
+      speaker: Caller
+      turns: [26]
+      quote: "She hasn't gone in three days."
+      explanation: Documents constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: 3 days, certainty: stated}
+      covers: [A3]
+    - text: MiraLAX 1 capful once a day was given in her feeds.
+      speaker: Caller
+      turns: [28]
+      quote: "The MiraLAX. One capful, once a day, in her feeds."
+      explanation: Documents the bowel medication.
+      facts:
+        - {type: medication, name: MiraLAX, dose: "1", unit: capful, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: She tolerated 4 cans of formula a day by G-tube without vomiting.
+      speaker: Caller
+      turns: [32]
+      quote: "No vomiting. She's tolerating everything. She's getting four cans a day."
+      explanation: Documents feeding tolerance.
+      facts:
+        - {type: context, certainty: stated}
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A5, A6]
+    - text: Drooling and a mild wet cough had increased since a cold last week.
+      speaker: Caller
+      turns: [36]
+      quote: "She's drooling more than usual. And she has a little cough. A wet one. Since the cold last week."
+      explanation: Documents the respiratory and oral symptoms.
+      facts:
+        - {type: symptom, name: more drooling and mild wet cough, present: true, duration: since a cold last week, certainty: stated}
+      covers: [A7]
+    - text: Temperature was 98.9.
+      speaker: Caller
+      turns: [38]
+      quote: "Ninety eight point nine."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.9", certainty: stated}
+      covers: [A8]
+    - text: Her wheelchair cushion was flat and not supporting her.
+      speaker: Caller
+      turns: [44]
+      quote: "Her wheelchair cushion. It's totally flat."
+      explanation: Documents the equipment problem.
+      facts:
+        - {type: supply, item: usable wheelchair cushion, supply: none, certainty: stated}
+      covers: [A9]
+    - text: The school nurse needed an updated medication form by Monday.
+      speaker: Caller
+      turns: [50]
+      quote: "She needs an updated medication form. By Monday."
+      explanation: Documents the paperwork need.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A11]
+    - text: The caller was exhausted, having slept no more than 3 hours at a time all week.
+      speaker: Caller
+      turns: [56]
+      quote: "I haven't slept more than three hours in a row this whole week."
+      explanation: Documents caregiver strain.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A10]
+  response:
+    - text: Advised giving a capful of MiraLAX tonight with an extra water flush after each feed, and not changing the baclofen.
+      speaker: Nurse
+      turns: [61]
+      quote: "give her another capful of MiraLAX tonight in her feed, and do an extra water flush after each feed."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R5]
+    - text: Planned to message her doctor tonight about the spasms and the constipation.
+      speaker: Nurse
+      turns: [68]
+      quote: "I'm going to message her doctor tonight about the spasms and the constipation."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to order a new wheelchair cushion.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll order a new one."
+      explanation: Documents the planned equipment order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned to fill out the nursing part of the school medication form by Friday.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll fill out the nursing part of the form and have it ready by Friday when I come"
+      explanation: Documents the planned paperwork.
+      facts:
+        - {type: action, action_type: documentation, status: planned, timeframe: by Friday, certainty: stated}
+      covers: [R4]
+    - text: Planned to call back tomorrow with the doctor's response.
+      speaker: Nurse
+      turns: [70]
+      quote: "I'll call you tomorrow and tell you what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R6]
+    - text: Planned a nurse visit Friday to check her belly and chest and go over the form.
+      speaker: Nurse
+      turns: [72]
+      quote: "I'm coming Friday. We'll check her belly, listen to her chest, and go over the form."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a warm bath, gentle stretching, and pillows between and under her legs before bed.
+      speaker: Nurse
+      turns: [66]
+      quote: "a warm bath before bed, and some gentle stretching."
+      explanation: Documents spasm comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised an extra water flush of 60 mL after each feed to help the stool move.
+      speaker: Nurse
+      turns: [64]
+      quote: "Sixty milliliters is good."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for vomiting, a hard swollen belly, a fever of 100.4, or a wet noisy cough with fast breathing, and 911 for choking or blue lips.
+      speaker: Nurse
+      turns: [88]
+      quote: "call us if she starts vomiting, if her belly gets hard or really swollen, if her fever gets to a hundred point four, or if the cough gets wet and noisy with fast breathing."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

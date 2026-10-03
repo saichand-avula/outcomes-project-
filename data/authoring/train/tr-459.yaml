@@ -1,0 +1,267 @@
+call_id: tr-459
+split: train
+blueprint: "A hospice patient's daughter is unsure how much of the liquid morphine concentrate is a five milligram dose: the bottle says twenty milligrams per milliliter and the syringe has marks she cannot read well. Her father's pain is about a four, last dose two hours ago, and he has not had a bowel movement in three days. Nurse confirms a quarter of a milliliter is five milligrams, has her read the syringe back, plans a message to the team about a bowel regimen, and calls back tomorrow. Liquid concentration, opioid and constipation, adult child caller, patient 65+, v2 short."
+setup:
+  scenario_category: medication
+  subtype: liquid_concentration_dosing
+  secondary_tags: [liquid_concentration, hedging, late_answers, split_turns, multi_issue, prn_and_scheduled]
+  clinical_domains: [medication, pain, constipation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lantern Hill Hospice
+  agency_type: hospice
+  nurse_name: Gretchen
+  call_timestamp_utc: "2026-11-08T02:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ferdinand Oyelaran
+  patient_name_spoken: Ferdinand Oyelaran
+  patient_name_certainty: stated
+  patient_dob_true: "1939-05-22"
+  patient_dob_spoken: "1939-05-22"
+  patient_dob_certainty: stated
+  caller_name_true: Adaeze Oyelaran
+  caller_name_spoken: Adaeze Oyelaran
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6155550113"
+  callback_phone_spoken: "6155550113"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked how much liquid morphine equals a five milligram dose and reported constipation
+  reason_category: medication
+  relevant_context: Hospice patient with pain managed with liquid morphine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: two hours ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset: three days
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    reason_or_trigger: a quarter of a milliliter of the concentrate is five milligrams
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask the team about a bowel regimen
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw to the marked line for a quarter of a milliliter, have a second person read the syringe, and write the time of each dose on the log
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Offer small sips of water or prune juice and a warm drink in the morning, and help him sit up for meals
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lantern Hill Hospice, this is Gretchen.
+  Caller -> Hi, Gretchen. It's Adaeze Oyelaran. My father is Ferdinand Oyelaran. I have a question about the morphine. The liquid one. I don't want to get it wrong. || caller_name, patient_name, relationship, cc, A1
+  Nurse -> Hi, Adaeze. I'm glad you called instead of guessing. What's your question?
+  Caller -> The bottle says twenty milligrams per milliliter. And the nurse said his dose is five milligrams. And I don't know how much that is. On the syringe. There are little lines and they're very small. I'm squinting.
+  Nurse -> Take your time.
+  Caller -> I took my glasses off and put them on again. It didn't help.
+  Nurse -> Okay. Is the syringe the clear one with the purple tip?
+  Caller -> Hang on. Let me get it. It's in the little basket with the log.
+  Caller -> Yes. Purple. And it says one milliliter on it. And then lines. Lots of lines.
+  Nurse -> Okay. And when did you last give a dose?
+  Caller -> About two hours ago. I gave him the morphine at eleven forty. Five milligrams. And I think I gave the right amount. But I'm not sure. I want to be sure for the next one. || A1
+  Nurse -> What did you give him at eleven forty? How much did you draw up?
+  Caller -> I filled it up to the line that said point two five. Because the nurse wrote that on the box. Is that right?
+  Nurse -> Yes. A quarter of a milliliter of that concentrate is five milligrams. So you gave the right dose.
+  Caller -> Oh. Oh, thank you. Thank goodness. I've been worried for two hours.
+  Nurse -> That's a long time to worry.
+  Caller -> I kept checking on him every ten minutes. He's probably sick of me.
+  Nurse -> I understand. It's a strength that confuses a lot of people. The bottle number is per milliliter, and the dose is a small part of a milliliter.
+  Caller -> Exactly. The numbers look huge. Twenty. And I'm giving him five.
+  Nurse -> They do.
+  Nurse -> Right. Twenty milligrams of morphine in a whole milliliter, and a quarter of that is five. Draw up to the line marked point two five. Have someone else read it before you give it. Write the time down on the log. || E1, R1
+  Caller -> Draw to point two five. Have someone read it. Write the time. Okay. My husband can read it. He has better eyes than me.
+  Nurse -> Good. Two sets of eyes.
+  Caller -> He says he'll use his magnifying glass.
+  Nurse -> Perfect. How is your father's pain now?
+  Caller -> About a four, I think. He said four an hour ago. Before he fell asleep. He's sleeping now. He looks comfortable. || A2
+  Nurse -> Good. Rest is the best thing.
+  Caller -> He snores. It's the best sound I've heard all week.
+  Nurse -> Okay. A four. And how long can he go between doses?
+  Caller -> Every four hours if he needs it. The nurse said that. I wrote it on the log. As needed.
+  Nurse -> Good, you're keeping it organized.
+  Caller -> The log is on a clipboard. It's by the bed.
+  Nurse -> Good. That's right. Now, anything else bothering him? How is he eating? His bowels?
+  Caller -> That's the other thing. He hasn't had a bowel movement in three days. Three. And he's uncomfortable. He's straining and nothing happens. || A3
+  Nurse -> I'm sorry. That is uncomfortable.
+  Nurse -> Okay. Is his belly hard or swollen?
+  Caller -> A little tight, I think. But he didn't say it hurts. And he's not throwing up.
+  Nurse -> Okay. Good.
+  Nurse -> That's helpful. Constipation is very common with this medicine. I'd like the team to look at a bowel regimen for him. I'm going to send them a message tonight. || R2
+  Caller -> Tonight? Thank you. I'm so glad. He's so uncomfortable. And he won't ask.
+  Nurse -> In the meantime, offer small sips of water or prune juice. A warm drink in the morning can help. And help him sit up for meals if he can. || E2
+  Caller -> Prune juice. Warm drink. Sit up. Okay. He hates prune juice. He says it tastes like sadness.
+  Nurse -> Ha.
+  Nurse -> Ha. Try a little. Or a warm tea.
+  Caller -> I'll try the tea. He likes the ginger one.
+  Nurse -> That's fine. Let me get his chart. What is his date of birth?
+  Caller -> May twenty second. Nineteen thirty nine. || patient_dob
+  Nurse -> And a good number for tomorrow?
+  Caller -> Six one five, five five five, oh one one three. || callback_phone
+  Nurse -> Six one five, five five five, oh one one three. Right? || callback_phone
+  Caller -> Yes. Thank you.
+  Nurse -> Of course.
+  Caller -> Sorry, I'm writing this all down.
+  Nurse -> I'll call you tomorrow to see how his bowels are and how his pain is. || R3
+  Caller -> What time?
+  Nurse -> Morning, around ten.
+  Caller -> Ten. Okay. I'll put it on the fridge.
+  Caller -> I'll be here. I'm staying with him all week. I took off work.
+  Nurse -> That's wonderful for him. And for you.
+  Caller -> It's hard but I wouldn't want to be anywhere else.
+  Nurse -> I know.
+  Caller -> My brother is coming Friday. He's driving from Memphis.
+  Nurse -> It'll be good to have help.
+  Caller -> Yes. We take turns. I do nights, he'll do afternoons.
+  Nurse -> Make sure you sleep too.
+  Caller -> I try. I nap when he naps.
+  Nurse -> That's the best way.
+  Caller -> Is there anything else I should know about the dose?
+  Nurse -> Only that you can call me any time. Day or night. If you're unsure, call, don't guess.
+  Caller -> Okay. I will. Thank you, Gretchen.
+  Nurse -> You're welcome. Good night.
+  Caller -> Good night. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ferdinand Oyelaran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-05-22", certainty: stated, heard_as: [], turns: [47]}
+    caller_name: {value: Adaeze Oyelaran, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550113", certainty: stated, heard_as: [], turns: [49, 50]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked how much liquid morphine equals a five milligram dose and reported constipation.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about the morphine."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine concentrate was given as five milligrams every four hours as needed, last given about two hours ago.
+      speaker: Caller
+      turns: [11]
+      quote: "I gave him the morphine at eleven forty. Five milligrams."
+      explanation: Documents the medication and dose.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: two hours ago, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Pain was about a four.
+      speaker: Caller
+      turns: [26]
+      quote: "About a four, I think."
+      explanation: Documents the pain level.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: He had no bowel movement in three days.
+      speaker: Caller
+      turns: [34]
+      quote: "He hasn't had a bowel movement in three days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, onset: three days, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that a quarter of a milliliter of the concentrate is the five milligram dose.
+      speaker: Nurse
+      turns: [21]
+      quote: "Twenty milligrams of morphine in a whole milliliter, and a quarter of that is five."
+      explanation: Documents the dosing clarification.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the team about a bowel regimen.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to send them a message tonight."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback tomorrow.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll call you tomorrow to see how his bowels are and how his pain is."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised drawing to the marked line, having someone else read the syringe, and logging the time of each dose.
+      speaker: Nurse
+      turns: [21]
+      quote: "Have someone else read it before you give it."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised small sips of water or prune juice, a warm drink in the morning, and sitting up for meals.
+      speaker: Nurse
+      turns: [41]
+      quote: "offer small sips of water or prune juice."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags: []

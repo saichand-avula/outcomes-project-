@@ -1,0 +1,184 @@
+call_id: tr-143
+split: train
+blueprint: "Patient takes her levothyroxine 75 mcg with her morning coffee and calcium tablets together and asks if that is okay. Nurse says take it with water on an empty stomach, wait before coffee, and separate the calcium by four hours; messages the prescriber to confirm the dose. Short."
+setup:
+  scenario_category: medication
+  subtype: timing_question
+  secondary_tags: [hedging, split_turns]
+  clinical_domains: [medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Samantha
+  call_timestamp_utc: "2026-10-02T14:25:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Juanita Espinoza
+  patient_name_spoken: Juanita Espinoza
+  patient_name_certainty: stated
+  patient_dob_true: "1957-03-03"
+  patient_dob_spoken: "1957-03-03"
+  patient_dob_certainty: stated
+  caller_name_true: Juanita Espinoza
+  caller_name_spoken: Juanita Espinoza
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5055550119"
+  callback_phone_spoken: "5055550119"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether she can take her thyroid pill with coffee and calcium
+  reason_category: medication_question
+  relevant_context: Home care patient on a thyroid medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: levothyroxine
+    medication_name_spoken: levothyroxine
+    medication_status: taking
+    dose: "75"
+    unit: mcg
+    frequency: every morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: calcium
+    medication_name_spoken: calcium
+    medication_status: taking
+    frequency: every morning
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Takes the thyroid pill and calcium together with her morning coffee
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: take levothyroxine with water on an empty stomach and separate the calcium
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: confirm the levothyroxine dose
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take the thyroid pill with water, wait 30 to 60 minutes before coffee or food, and take calcium at least 4 hours later
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Samantha.
+  Caller -> Hi. This is Juanita Espinoza. I'm one of your patients. I have a question about my pills. || caller_name, relationship, patient_name
+  Nurse -> Hi, Juanita. Could I have your date of birth?
+  Caller -> March third. Nineteen fifty seven. || patient_dob
+  Nurse -> And is five oh five, five five five, zero one one nine a good number? || callback_phone
+  Caller -> Yes. The cell. || callback_phone
+  Nurse -> Great. What's your question?
+  Caller -> I take my thyroid pill every morning. The levothyroxine. Seventy five micrograms. And I take it with my coffee. And my calcium. All together at breakfast. Is that okay? || cc, A1, A2, A3
+  Nurse -> Okay. Thank you for asking. Let me check the chart. Levothyroxine, seventy five micrograms in the morning. That's what you're taking? || A1
+  Caller -> Yes. That's the one. Every morning.
+  Nurse -> And the calcium. Is that a tablet, a chew?
+  Caller -> A tablet. A big one. I take it with the thyroid one so I don't forget either of them. || A2
+  Nurse -> I understand. It makes sense to pair them. But the thyroid medicine doesn't work as well when it's taken with coffee or with calcium. || R1, A1, A2
+  Caller -> Oh. I didn't know that. Is that why I'm still so tired?
+  Nurse -> It could be part of it. I can't say for sure. I'm going to message your prescriber to confirm the dose, because they may want to check your levels. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> In the meantime, take the levothyroxine first thing with a glass of water. Wait thirty to sixty minutes before you have coffee or breakfast. And take your calcium at least four hours later, with lunch or dinner. || E1, A1, A2
+  Caller -> Thirty to sixty minutes. Water only. Calcium at lunch. Okay. I can do that. I'll put the calcium next to my lunch plate so I don't forget.
+  Nurse -> That's a great idea. Anything else?
+  Caller -> No. That's all. Thank you for explaining it. Nobody ever told me.
+  Nurse -> You're welcome. We're glad you asked.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Juanita Espinoza, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1957-03-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Juanita Espinoza, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550119", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether she can take her thyroid pill with coffee and calcium.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about my pills."
+    explanation: Documents the question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Levothyroxine 75 mcg was taken every morning.
+      speaker: Caller
+      turns: [8]
+      quote: "The levothyroxine. Seventy five micrograms."
+      explanation: Documents the thyroid medicine.
+      facts:
+        - {type: medication, name: levothyroxine, dose: "75", unit: mcg, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Calcium was taken every morning with the thyroid pill.
+      speaker: Caller
+      turns: [12]
+      quote: "A tablet. A big one."
+      explanation: Documents the calcium supplement.
+      facts:
+        - {type: medication, name: calcium, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She took the thyroid pill and calcium together with her morning coffee.
+      speaker: Caller
+      turns: [8]
+      quote: "I take it with my coffee. And my calcium. All together at breakfast."
+      explanation: Documents how the pills are taken.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that levothyroxine works less well with coffee or calcium.
+      speaker: Nurse
+      turns: [13]
+      quote: "the thyroid medicine doesn't work as well when it's taken with coffee or with calcium."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber to confirm the dose.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to message your prescriber to confirm the dose"
+      explanation: Documents the planned prescriber message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking levothyroxine first thing with water, waiting 30 to 60 minutes before coffee or breakfast, and taking calcium at least 4 hours later.
+      speaker: Nurse
+      turns: [17]
+      quote: "take the levothyroxine first thing with a glass of water."
+      explanation: Documents medication timing guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

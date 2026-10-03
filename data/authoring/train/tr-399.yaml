@@ -1,0 +1,270 @@
+call_id: tr-399
+split: train
+blueprint: "A mother with her husband on speaker calls the pediatric home nurse about her 14-month-old son's fever of 101.8 and fussiness: they disagree about whether he got his one dose of Tylenol drops (3.75 mL of the 160 mg per 5 mL liquid) at two or at four this afternoon. He is drinking, wet diapers normal, no rash or stiff neck or trouble breathing. Nurse tells them to count from the later time, plans a message to the team, a callback in two hours, and reviews dosing and warning signs. Ambiguous (contradiction on dose time), liquid concentration, parent caller, crosstalk, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, liquid_concentration, crosstalk, trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [fever, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-11-03T22:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wesley Thibodeaux
+  patient_name_spoken: Wesley Thibodeaux
+  patient_name_certainty: stated
+  patient_dob_true: "2025-08-30"
+  patient_dob_spoken: "2025-08-30"
+  patient_dob_certainty: stated
+  caller_name_true: Alina Thibodeaux
+  caller_name_spoken: Alina Thibodeaux
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "3125550179"
+  callback_phone_spoken: "3125550179"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported her toddler's fever and asked when he can have more fever medicine
+  reason_category: fever
+  relevant_context: Pediatric home care patient, 14 months old
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "101.8"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    strength: 160 mg per 5 mL
+    dose: "3.75"
+    unit: mL
+    frequency: every six hours as needed
+    prn: true
+    last_dose: two o'clock or four o'clock this afternoon
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: fussy but drinking
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: rash or stiff neck or trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: report the fever and the dose timing
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Count from the later time of four, so the next Tylenol is not before ten tonight, use only the syringe that came with that bottle, and write each dose and time on a paper by the bottle
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small frequent drinks and keep him lightly dressed
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature of one hundred four or higher, a fever past three days, very sleepy or hard to wake, fewer wet diapers, a rash or stiff neck, and call 911 for a seizure or trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Alina Thibodeaux. T H I B O D E A U X. I'm calling about Wesley. He's fourteen months. He has a fever. I have my husband on speaker. || caller_name, patient_name, relationship
+  Nurse -> Hi Alina. Hi to your husband. Wesley Thibodeaux. Let me pull him up. Tell me what's going on.
+  Caller -> He's been a little off since breakfast. I thought it was teething. He has two molars coming in.
+  Nurse -> That can cause a low fever. Let's see what else.
+  Caller -> He's hot. He's fussy. Since this afternoon. I took his temperature just now. A hundred and one point eight. || cc, A1
+  Nurse -> Okay. A hundred and one point eight. How did you take it?
+  Caller -> Under the arm. And then the forehead one. Both said about the same. One oh one eight.
+  Nurse -> Okay. Is he drinking? Wet diapers?
+  Caller -> He's drinking. Not as much as usual. But he took his bottle. Two diapers since noon. Both wet.
+  Nurse -> What color is the urine? Pale, or dark?
+  Caller -> Pale. Like lemonade. Greg checked the second one.
+  Nurse -> Good.
+  Nurse -> Good. Has he had anything for the fever?
+  Caller -> Yes. Tylenol. The drops. The liquid. It's, the concentration is on the box, hold on. It says one sixty milligrams per five mL. And he got three point seven five mL. That's the dose on the card from the doctor. Once. This afternoon. || A2
+  Nurse -> Okay. Three point seven five of the one sixty per five. That's right for his weight. What time did he get it?
+  Caller -> Two o'clock. I gave it at two.
+  Caller -> No you didn't. I gave it. It was after nap. It was four.
+  Nurse -> Is that your husband?
+  Caller -> Yes, that's Greg. He says four. I say two. I was at the pharmacy at two. Wait, maybe I was at the pharmacy at four. I don't know. We're not sure.
+  Caller -> I gave it at four. I remember because the Daniel Tiger had just started.
+  Caller -> Daniel Tiger is at three. Greg, it's at three.
+  Nurse -> Okay. I hear two different times. That's fine. We can work with that. Neither of you is sure, right?
+  Caller -> No. We're not sure. Two or four.
+  Nurse -> Okay. Here's what we'll do. We'll count from the later time. Treat it as four. That way we don't give the next dose too early. The next Tylenol wouldn't be until ten tonight. Is that okay? || E1
+  Caller -> Ten tonight. Okay. Yes. Count from four. Greg, you heard. Ten.
+  Caller -> We have the card from the doctor on the fridge. Weight and dose. It says nine kilograms.
+  Nurse -> Good. That matches what I have.
+  Caller -> Ten. Got it.
+  Nurse -> Good. How's he acting right now? Besides fussy.
+  Caller -> He's fussy, he's clingy. But he's playful for a minute, and then he's whiny. He took a few sips of juice. He's in my lap. He's not lethargic. He looks at me. || A3
+  Caller -> He grabbed my glasses and tried to eat them. So he's himself.
+  Nurse -> That's a good sign.
+  Nurse -> Okay. Any rash? Any stiff neck, vomiting, trouble breathing, pulling at the ears?
+  Caller -> No rash. No stiff neck, he turns his head. No vomiting. His breathing is normal. He's pulling at his left ear a little, maybe. No. He's pulling at his hair. I can't tell. || A4
+  Nurse -> Okay. That's good. Alina, what's Wesley's date of birth?
+  Caller -> August thirtieth. Twenty twenty five. || patient_dob
+  Nurse -> And your cell?
+  Caller -> Three one two, five five five, zero one seven nine. || callback_phone
+  Nurse -> Three one two, five five five, zero one seven nine. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. I'm going to leave a message for the team about the fever and the dose timing. They may want to look at his ear. || R1
+  Caller -> Okay. Good. Would they send someone?
+  Nurse -> That depends on what they say. I'll call you back in two hours with an update, or sooner. || R2
+  Caller -> Two hours. Okay. We'll be here.
+  Nurse -> In the meantime, use only the syringe that came with that bottle. And write each dose and the time on a piece of paper next to the bottle. That way you both see it. || E1
+  Caller -> Paper by the bottle. Write the time. I'm doing it now. Greg, get a pen. Four o'clock. Tylenol. Three point seven five. || A2
+  Caller -> I'm writing it. Four. I put a star next to it because we aren't sure.
+  Nurse -> That works. And offer small, frequent drinks. Keep him lightly dressed, not bundled. || E2
+  Caller -> Small drinks. Lightly dressed. He's in a onesie. Okay.
+  Nurse -> And call us if his temperature goes to one hundred four or higher, if the fever goes past three days, if he gets very sleepy or hard to wake, has fewer wet diapers, a rash, or a stiff neck. Call 911 for a seizure or trouble breathing. || E3
+  Caller -> A hundred four. Three days. Sleepy. Fewer diapers. Rash. Stiff neck. 911 for seizure or breathing. Okay. I have a magnet on the fridge with all that.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. Thank you, Naomi. I'm sorry about the arguing.
+  Caller -> We argue about everything. The thermostat. The dishwasher. The cartoon.
+  Nurse -> Ha. Welcome to parenting.
+  Caller -> It never ends.
+  Nurse -> It's very common. Parents remember times differently. That's why we write it down.
+  Caller -> Greg says he'll write it from now on.
+  Nurse -> Does Wesley go to day care?
+  Caller -> No, he stays home with Greg. Greg works from the garage. He's a woodworker. Wesley bangs on a drum next to him.
+  Nurse -> Ha. A busy shop.
+  Caller -> I will. I promise.
+  Nurse -> Good. Talk to you in two hours.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wesley Thibodeaux, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2025-08-30", certainty: stated, heard_as: [], turns: [37]}
+    caller_name: {value: Alina Thibodeaux, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550179", certainty: stated, heard_as: [], turns: [39, 40]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported her toddler's fever and asked when he could have more fever medicine.
+    speaker: Caller
+    turns: [6]
+    quote: "He's hot. He's fussy. Since this afternoon."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was 101.8 under the arm and on the forehead thermometer.
+      speaker: Caller
+      turns: [6]
+      quote: "A hundred and one point eight."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "101.8", certainty: stated}
+      covers: [A1]
+    - text: Tylenol 160 mg per 5 mL, 3.75 mL once this afternoon, at either two or four (unclear; the parents disagreed on the time).
+      speaker: Caller
+      turns: [15]
+      quote: "And he got three point seven five mL."
+      explanation: Documents the fever medicine and the uncertain time.
+      facts:
+        - {type: medication, name: Tylenol, strength: 160 mg per 5 mL, dose: "3.75", unit: mL, frequency: every six hours as needed, prn: true, last_dose: two o'clock or four o'clock this afternoon, med_status: taking, certainty: unclear}
+      covers: [A2]
+    - text: He was fussy and clingy but playful in moments and sipping juice.
+      speaker: Caller
+      turns: [31]
+      quote: "He's fussy, he's clingy."
+      explanation: Documents his behavior.
+      facts:
+        - {type: symptom, name: fussy but drinking, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no rash, stiff neck, vomiting or trouble breathing.
+      speaker: Caller
+      turns: [35]
+      quote: "No rash. No stiff neck, he turns his head."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: rash or stiff neck or trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to leave a message for the team about the fever and the dose timing.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in two hours.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'll call you back in two hours"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in two hours, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised counting from the later time of four so the next Tylenol was not before ten tonight, using only the bottle's syringe, and writing down each dose and time.
+      speaker: Nurse
+      turns: [25]
+      quote: "We'll count from the later time. Treat it as four."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised small frequent drinks and keeping him lightly dressed.
+      speaker: Nurse
+      turns: [49]
+      quote: "offer small, frequent drinks."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a temperature of 104 or higher, fever past three days, very sleepy, fewer wet diapers, rash or stiff neck, and 911 for a seizure or trouble breathing.
+      speaker: Nurse
+      turns: [51]
+      quote: "call us if his temperature goes to one hundred four or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

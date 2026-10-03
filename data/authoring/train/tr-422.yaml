@@ -1,0 +1,250 @@
+call_id: tr-422
+split: train
+blueprint: "A medication technician at an assisted living facility calls home health because a 91-year-old resident on two liters of oxygen has only two nasal cannulas and no humidifier bottles left, and the portable tank gauge is in the yellow. Resident is comfortable, no shortness of breath, oxygen saturation ninety four. Nurse orders cannulas, tubing and humidifier bottles, coordinates a portable tank swap and delivery Friday, and reviews oxygen safety. Supply (oxygen), facility staff caller, patient 90+, v2 short."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [name_spelled, phone_from_file, chart_reading_distractor, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Linden Park Home Health
+  agency_type: home_health
+  nurse_name: Mei
+  call_timestamp_utc: "2026-11-11T16:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 90+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hortense Abernethy
+  patient_name_spoken: Hortense Abernethy
+  patient_name_certainty: stated
+  patient_dob_true: "1934-05-09"
+  patient_dob_spoken: "1934-05-09"
+  patient_dob_certainty: stated
+  caller_name_true: Terrence Boateng
+  caller_name_spoken: Terrence Boateng
+  caller_name_certainty: stated
+  relationship_to_patient: medication technician at the facility
+  relationship_certainty: stated
+  callback_phone_true: "2065550122"
+  callback_phone_spoken: "2065550122"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested oxygen supplies and a portable tank swap for a resident
+  reason_category: equipment
+  relevant_context: Home health patient living in an assisted living facility on continuous oxygen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: nasal cannulas and oxygen tubing
+    supply_remaining: two cannulas left
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: humidifier bottles
+    supply_remaining: none
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: portable oxygen tank
+    supply_remaining: gauge in the yellow
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oxygen supply company for cannulas, tubing and humidifier bottles
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Replace the cannula and tubing every two weeks, fill the humidifier bottle with distilled water only, and check the tank gauge each shift
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: No smoking or open flames near oxygen, keep tubing out of walkways, and do not use petroleum jelly on her nose
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Linden Park Home Health, this is Mei.
+  Caller -> Hi, Mei. This is Terrence Boateng. B O A T E N G. I'm the med tech at Maplewood Assisted Living. I'm calling about one of our residents. Mrs. Hortense Abernethy. || caller_name, relationship, patient_name
+  Nurse -> Hi, Terrence. Good to hear from you. What do you need for Mrs. Abernethy?
+  Caller -> You too. It's been busy here. We have a flu shot clinic today. The hallway smells like rubbing alcohol.
+  Caller -> Oxygen supplies. We're running low. I'm doing inventory and it looks bad. || cc
+  Nurse -> Is anything urgent? Is she in distress?
+  Caller -> No, no. She's fine. It's just a count.
+  Nurse -> Okay. Let's go through it. Can you confirm her date of birth first?
+  Caller -> May ninth. Nineteen thirty four. She'll be ninety two in the spring. || patient_dob
+  Nurse -> Thanks. And I have your number on file. Is it still the front desk line, ending in oh one two two?
+  Caller -> I hope I'm not interrupting your lunch.
+  Nurse -> Not at all. I eat at my desk anyway.
+  Caller -> Yes, that's it. Two oh six, five five five, zero one two two. || callback_phone
+  Nurse -> Great. So tell me what you have.
+  Caller -> The cannulas. The nasal ones. I count two in the drawer. One on her face, one spare. And the tubing, there's one spare, but it has a kink in it. || A1
+  Nurse -> So two cannulas, and tubing in questionable condition.
+  Caller -> The tubing is the green kind. The long kind. Twenty five feet. She likes to move around.
+  Caller -> Yes. I'd feel better with a new box. They're supposed to change every two weeks. The last order was in October. I'm looking at the date sheet. October third.
+  Nurse -> Okay. What about the humidifier bottle?
+  Caller -> None. Zero. The last one ran dry yesterday. I topped it up with distilled but the bottle itself is cloudy. I'd like a new one. || A2
+  Nurse -> Yes, that's right. Cloudy means it needs replacing. And her tank?
+  Caller -> I found a gallon of distilled water in the supply closet. Expired in August though. I won't use it.
+  Nurse -> Good call. Use fresh.
+  Caller -> The portable one. For when she goes to dinner. The gauge is in the yellow. It says about a quarter full. The concentrator in the room is fine. It's just the portable. || A3
+  Nurse -> Got it. Is Mrs. Abernethy comfortable on the oxygen?
+  Caller -> She's the only one in the building who still has her own typewriter. She uses it for her letters.
+  Caller -> She's very comfortable. She's at two liters. Her saturation is ninety four. She's not short of breath. She's watching a movie in the common room with a blanket. || A4
+  Nurse -> Perfect. That's what I like to hear. Let me place the order. I'll order a box of cannulas, tubing, and humidifier bottles from the oxygen supply company. || R1
+  Caller -> She's wrapped up like a burrito. Three blankets. She says the common room is freezing.
+  Nurse -> Ha. It's November.
+  Caller -> Wonderful. Thank you.
+  Caller -> I'll write it on the whiteboard in the med room so the next shift knows the order is in.
+  Nurse -> And I'll coordinate a swap for the portable tank, along with the delivery. They usually come Fridays in your area. || R2
+  Caller -> Friday works. Our receiving door is around the back. There's a buzzer. Tell them to ask for me, or Dolores at the front desk.
+  Nurse -> I'll add that to the delivery notes. Terrence, how long can the portable last until Friday?
+  Caller -> I think about a day. If she only uses it for dinner. It's about fifteen minutes each way. I'll keep her on the concentrator in her room otherwise.
+  Nurse -> That sounds good. Please check the gauge before every trip. If it drops into the red, don't use it for a trip.
+  Caller -> Check the gauge. Red means stay put. Okay.
+  Caller -> I printed the little chart. Green, yellow, red. It's taped to the cart.
+  Nurse -> Perfect. That's exactly the kind of thing that helps.
+  Nurse -> A few reminders while I have you. Change the cannula and tubing about every two weeks. Only use distilled water in the humidifier. And check the tank gauge each shift. || E1
+  Caller -> Distilled only. Every two weeks. Gauge each shift. We have a sheet for that. I'll make sure the night crew sees it.
+  Caller -> I do the walk-through at six every morning and six at night. I check all the oxygen residents.
+  Nurse -> Perfect. And keep the oxygen safe. No smoking or open flames nearby. Keep the tubing out of walkways so no one trips. And please don't use petroleum jelly on her nose. Use a water based gel. || E2
+  Caller -> Water based. Yes. We have the little tubes. No petroleum. Okay.
+  Caller -> We had a resident last year who tripped on the tubing. Since then, I'm a fanatic.
+  Caller -> It was Mr. Delgado. He's fine now. He broke his wrist. But it was a scare.
+  Nurse -> That's smart. A good habit.
+  Caller -> I tape it along the wall. It looks silly but it works.
+  Nurse -> It doesn't look silly. It looks safe.
+  Caller -> The new aide thought it was a mistake. I explained it was on purpose.
+  Caller -> Mrs. Abernethy tells me every day I'm too cautious. She says, Terrence, I've been on oxygen for six years, I know what I'm doing.
+  Nurse -> Ha. She does.
+  Caller -> She taught me how to play gin rummy. She wins every time.
+  Nurse -> Ha. You're in good company.
+  Caller -> I bet her a dollar. I owe her eleven dollars.
+  Caller -> I think she lets me win the first hand just to hook me.
+  Nurse -> Ha. A card shark.
+  Nurse -> Ha. That adds up.
+  Caller -> It does. She has a ledger.
+  Nurse -> Of course she does.
+  Caller -> Okay. Anything else you need from me?
+  Nurse -> No. I'll send you a confirmation when the order is in. Call us if the concentrator alarms, or if her breathing changes.
+  Caller -> Will do. Thanks, Mei. Have a good one.
+  Nurse -> You too, Terrence. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hortense Abernethy, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1934-05-09", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Terrence Boateng, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: medication technician at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550122", certainty: stated, heard_as: [], turns: [13]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested oxygen supplies and a portable tank swap for a resident.
+    speaker: Caller
+    turns: [5]
+    quote: "Oxygen supplies. We're running low."
+    explanation: Documents the supply problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two nasal cannulas were left and the spare tubing was kinked.
+      speaker: Caller
+      turns: [15]
+      quote: "I count two in the drawer."
+      explanation: Documents the cannula supply.
+      facts:
+        - {type: supply, item: nasal cannulas and oxygen tubing, supply: two cannulas left, certainty: stated}
+      covers: [A1]
+    - text: There were no humidifier bottles and the last was cloudy.
+      speaker: Caller
+      turns: [20]
+      quote: "None. Zero."
+      explanation: Documents the humidifier supply.
+      facts:
+        - {type: supply, item: humidifier bottles, supply: none, certainty: stated}
+      covers: [A2]
+    - text: The portable tank gauge was in the yellow, about a quarter full.
+      speaker: Caller
+      turns: [24]
+      quote: "The gauge is in the yellow."
+      explanation: Documents the portable tank.
+      facts:
+        - {type: supply, item: portable oxygen tank, supply: gauge in the yellow, certainty: stated}
+      covers: [A3]
+    - text: She was comfortable on two liters with no shortness of breath.
+      speaker: Caller
+      turns: [27]
+      quote: "She's not short of breath."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order cannulas, tubing and humidifier bottles.
+      speaker: Nurse
+      turns: [28]
+      quote: "I'll order a box of cannulas, tubing, and humidifier bottles"
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to coordinate a portable tank swap and delivery Friday.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'll coordinate a swap for the portable tank"
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised changing the cannula and tubing every two weeks, using distilled water only and checking the tank gauge each shift.
+      speaker: Nurse
+      turns: [41]
+      quote: "Change the cannula and tubing about every two weeks."
+      explanation: Documents equipment teaching.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised no smoking or open flames, keeping tubing out of walkways and avoiding petroleum jelly.
+      speaker: Nurse
+      turns: [44]
+      quote: "No smoking or open flames nearby."
+      explanation: Documents oxygen safety.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

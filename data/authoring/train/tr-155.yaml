@@ -1,0 +1,207 @@
+call_id: tr-155
+split: train
+blueprint: "Son mixed up mg and mL and gave his hospice mother 1 mL of oxycodone solution (20 mg) instead of 0.25 mL (5 mg); she is very sleepy but wakes to touch, breathing about 10 a minute. Nurse pages on-call, plans a callback in 5 minutes, tells him to give nothing more, stay with her, and call 911 if she cannot be woken or breathing slows. Flag: medication_concern."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [liquid_concentration, hedging, late_answers, split_turns]
+  clinical_domains: [medication, sedation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-03T22:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gerda Lindholm
+  patient_name_spoken: Gerda Lindholm
+  patient_name_certainty: stated
+  patient_dob_true: "1938-06-22"
+  patient_dob_spoken: "1938-06-22"
+  patient_dob_certainty: stated
+  caller_name_true: Nils Lindholm
+  caller_name_spoken: Nils Lindholm
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6515550117"
+  callback_phone_spoken: "6515550117"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that he gave his mother too much of her oxycodone liquid
+  reason_category: medication
+  relevant_context: Hospice patient on oxycodone solution
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: extra_dose
+    dose: "20"
+    unit: mg
+    frequency: one dose
+    last_dose: about 10 minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: very sleepy but wakes to touch
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "10"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: oxycodone overdose by mistake
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 5 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Give nothing more, stay beside her, and keep checking her breathing and whether she wakes to touch
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she cannot be woken, her breathing drops below 8 a minute, or her lips turn blue
+    trigger_condition: cannot be woken; breathing under 8; blue lips
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller gave a dose four times larger than ordered by mixing up milligrams and milliliters
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Gwen.
+  Caller -> Gwen, it's Nils Lindholm. It's my mother. Gerda Lindholm. I gave her too much of the oxycodone. I think. I mixed something up. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Nils. I'm here. Stay with me. Her date of birth?
+  Caller -> June twenty second. Nineteen thirty eight. || patient_dob
+  Nurse -> And is six five one, five five five, zero one one seven your number? || callback_phone
+  Caller -> Yes. Yes. || callback_phone
+  Nurse -> Okay. Tell me what you gave her.
+  Caller -> The oxycodone liquid. The label says five milligrams. And the syringe says milliliters. I filled the syringe to one. One milliliter. And then I looked at the paper, and it says point two five. So I gave her four times. Twenty milligrams. || A1, F1
+  Nurse -> Okay. When did you give it?
+  Caller -> Ten minutes ago. About. I looked at the clock. || A1
+  Nurse -> Okay. How is she right now? Is she awake?
+  Caller -> She's very sleepy. She's not talking. But when I touch her shoulder she opens her eyes a little. And closes them. || A2
+  Nurse -> Okay. Can you count her breaths for a full minute?
+  Caller -> Hold on. One. Two. Okay. About ten. Ten in a minute. || A3
+  Nurse -> Okay. Nils, I'm going to page our on-call nurse right now. || R1
+  Caller -> Okay. Please. Should I call nine one one?
+  Nurse -> Not yet, because she's waking to touch and breathing ten times a minute. But if that changes, yes. I'll call you back in five minutes. || R2
+  Caller -> Five minutes. Okay.
+  Nurse -> Don't give her anything else. Stay right next to her. Keep touching her shoulder and watch her breathing. || E1
+  Caller -> Nothing else. Stay. Watch. Okay.
+  Nurse -> If you can't wake her, if her breathing drops below eight a minute, or her lips turn blue, call nine one one right away. || E2
+  Caller -> Can't wake. Below eight. Blue. Nine one one. Okay.
+  Nurse -> I'll call you in five.
+  Caller -> I'm so sorry. I'm so sorry, Mom.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gerda Lindholm, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-06-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Nils Lindholm, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6515550117", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that he gave his mother too much of her oxycodone liquid.
+    speaker: Caller
+    turns: [2]
+    quote: "I gave her too much of the oxycodone."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A 20 mg dose of oxycodone liquid was given about 10 minutes earlier by mistake, four times the ordered dose.
+      speaker: Caller
+      turns: [8]
+      quote: "So I gave her four times. Twenty milligrams."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: oxycodone, dose: "20", unit: mg, frequency: one dose, last_dose: about 10 minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was very sleepy but opened her eyes when her shoulder was touched.
+      speaker: Caller
+      turns: [12]
+      quote: "when I touch her shoulder she opens her eyes a little."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: very sleepy but wakes to touch, present: true, certainty: stated}
+      covers: [A2]
+    - text: Her breathing rate was about 10 a minute.
+      speaker: Caller
+      turns: [14]
+      quote: "About ten. Ten in a minute."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "10", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in 5 minutes.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back in five minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 5 minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving nothing more, staying beside her, and watching her breathing and response to touch.
+      speaker: Nurse
+      turns: [19]
+      quote: "Don't give her anything else. Stay right next to her."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if she could not be woken, her breathing dropped below 8 a minute, or her lips turned blue.
+      speaker: Nurse
+      turns: [21]
+      quote: "If you can't wake her, if her breathing drops below eight a minute, or her lips turn blue, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I gave her too much of the oxycodone."}

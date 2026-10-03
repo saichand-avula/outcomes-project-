@@ -1,0 +1,248 @@
+call_id: tr-014
+split: train
+blueprint: "Patient is unsure of her insulin glargine dose (10 or 12 units) and reports fasting sugar 210; nurse confirms 10 units at bedtime from the chart (explicit resolution) and plans a message to the PCP."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [hedging, phone_from_file, self_correction]
+  clinical_domains: [glucose, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-08-28T12:48:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Patricia Nwosu
+  patient_name_spoken: Patricia Nwosu
+  patient_name_certainty: stated
+  patient_dob_true: "1966-02-27"
+  patient_dob_spoken: "1966-02-27"
+  patient_dob_certainty: stated
+  caller_name_true: Patricia Nwosu
+  caller_name_spoken: Patricia Nwosu
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7135550122"
+  callback_phone_spoken: "7135550122"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Unsure of her insulin dose and fasting sugars running high
+  reason_category: glucose
+  relevant_context: Type 2 diabetes on bedtime insulin glargine
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: patient
+    vital_name: fasting blood sugar
+    vital_value: "210"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: insulin glargine
+    medication_name_spoken: insulin glargine
+    medication_status: taking
+    dose: "10"
+    unit: units
+    route: injection
+    frequency: at bedtime
+    certainty: stated
+    unclear_detail: Patient unsure between 10 and 12 units; nurse confirmed 10 units from the chart
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: increased thirst
+    symptom_present: true
+    severity: mild
+    onset_or_duration: past few days
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: insulin glargine
+    medication_name_spoken: insulin glargine
+    dose: "10"
+    unit: units
+    frequency: at bedtime
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: primary care doctor
+    reason_or_trigger: fasting sugars in the 200s
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check sugar every morning before eating and write it down
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if sugar over 300 or under 70, or with vomiting, confusion, or heavy thirst
+    trigger_condition: sugar over 300; sugar under 70; vomiting; confusion
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: If under 70 and shaky or sweaty, drink half a cup of juice and recheck in 15 minutes; call 911 if she passes out
+    trigger_condition: sugar under 70 with symptoms; passing out
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, Rhonda. This is Patricia Nwosu. I'm a patient of yours. || patient_name, caller_name, relationship
+  Nurse -> Hi, Patricia. Can you give me your date of birth?
+  Caller -> February twenty seventh, nineteen sixty six. || patient_dob
+  Nurse -> Thank you. And your number is seven one three, five five five, zero one two two? || callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> So, I'm confused about my insulin. The long acting one. The glargine. || cc, A2
+  Caller -> I think I take ten units at night. But my sister told me twelve. And now I'm, I'm second guessing. || A2
+  Nurse -> Okay. Let me pull up your orders. Hang on one second.
+  Caller -> Sure.
+  Nurse -> Okay. I'm showing insulin glargine, ten units, injection at bedtime. || A2, R1
+  Caller -> Ten. Okay. So I've been right. I was doing ten.
+  Nurse -> Yes. Ten units at bedtime. That's what your doctor ordered. || R1
+  Caller -> Okay. Good. Thank you.
+  Nurse -> Why are you asking today? Is something going on with your sugars?
+  Caller -> Well, yeah. This morning, before breakfast, I was two ten. And yesterday it was two oh five, I think. || A1
+  Nurse -> Okay. So two ten this morning. Is that higher than usual for you?
+  Caller -> Yeah. I'm usually like, a hundred forty, hundred fifty.
+  Nurse -> Okay. Are you throwing up, or feeling sick to your stomach?
+  Caller -> No, nothing like that. || A3
+  Nurse -> Any extra thirst, or going to the bathroom a lot?
+  Caller -> A little more thirsty. The last few days. || A4
+  Nurse -> Okay. So, here's the plan. Don't change the dose on your own. Keep taking ten units at bedtime, like it's ordered. || R1
+  Caller -> Okay. Ten.
+  Nurse -> And I'm going to send a message to your doctor about the morning numbers, since they've been in the two hundreds. They may want to adjust it. || R2
+  Caller -> Okay. That makes sense.
+  Nurse -> Keep checking every morning, before you eat, and write it down. So when the doctor calls, you have the numbers. || E1
+  Caller -> I do write them down.
+  Nurse -> Good. And call us if it goes over three hundred, or if you start vomiting, or you feel confused, or you're really thirsty. || E2
+  Caller -> Okay.
+  Nurse -> Also, if it ever drops under seventy and you feel shaky or sweaty, drink half a cup of juice and recheck in fifteen minutes. And if you ever pass out, that's nine one one. || E3
+  Caller -> Okay. Juice, recheck, nine one one if I pass out. I got it.
+  Nurse -> Alright, Patricia. Anything else?
+  Caller -> No. Thank you so much.
+  Nurse -> You're welcome. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Patricia Nwosu, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1966-02-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Patricia Nwosu, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550122", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested confirmation of her insulin glargine dose and reported high fasting blood sugars.
+    speaker: Caller
+    turns: [8]
+    quote: "So, I'm confused about my insulin. The long acting one. The glargine."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The patient was unsure whether her insulin glargine dose was 10 or 12 units at bedtime; the nurse confirmed 10 units at bedtime from the chart.
+      speaker: Nurse
+      turns: [12]
+      quote: "Okay. I'm showing insulin glargine, ten units, injection at bedtime."
+      explanation: Documents the dose clarified against the order in the chart.
+      facts:
+        - {type: medication, name: insulin glargine, dose: "10", unit: units, route: injection, frequency: at bedtime, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Fasting blood sugar was 210 this morning.
+      speaker: Caller
+      turns: [17]
+      quote: "This morning, before breakfast, I was two ten."
+      explanation: Documents the reported fasting glucose.
+      facts:
+        - {type: vital, name: fasting blood sugar, value: "210", certainty: stated}
+      covers: [A1]
+    - text: No vomiting or nausea was reported.
+      speaker: Caller
+      turns: [21]
+      quote: "No, nothing like that."
+      explanation: Documents a pertinent negative for gastrointestinal symptoms.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+    - text: Mildly increased thirst was reported over the last few days.
+      speaker: Caller
+      turns: [23]
+      quote: "A little more thirsty. The last few days."
+      explanation: Documents a symptom associated with elevated glucose.
+      facts:
+        - {type: symptom, name: increased thirst, present: true, severity: mild, onset: past few days, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised continuing insulin glargine 10 units at bedtime as ordered without changing the dose.
+      speaker: Nurse
+      turns: [24]
+      quote: "Don't change the dose on your own. Keep taking ten units at bedtime, like it's ordered."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: insulin glargine, certainty: stated}
+      covers: [R1]
+    - text: Planned to message her doctor about the morning glucose values in the 200s.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'm going to send a message to your doctor about the morning numbers, since they've been in the two hundreds."
+      explanation: Documents the planned physician communication.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised checking glucose every morning before eating and recording it.
+      speaker: Nurse
+      turns: [28]
+      quote: "Keep checking every morning, before you eat, and write it down."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a glucose over 300, vomiting, confusion, or heavy thirst.
+      speaker: Nurse
+      turns: [30]
+      quote: "call us if it goes over three hundred, or if you start vomiting, or you feel confused, or you're really thirsty."
+      explanation: Documents return precautions for hyperglycemia.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised that for a glucose under 70 with shakiness or sweating she should drink half a cup of juice and recheck in 15 minutes, and that passing out requires calling 911.
+      speaker: Nurse
+      turns: [32]
+      quote: "if it ever drops under seventy and you feel shaky or sweaty, drink half a cup of juice and recheck in fifteen minutes."
+      explanation: Documents hypoglycemia and emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

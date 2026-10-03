@@ -1,0 +1,246 @@
+call_id: tr-462
+split: train
+blueprint: "A neighbor from church calls home care worried about an 84-year-old woman who lives alone: she has not been coming to the door, seemed sleepier than usual and is eating very little, but he is not sure of details and did not see her fall. He gives her name as Miriam Halvorsen; the nurse hears it as Marian, he is not sure of the spelling, and he does not know her birth date. Nurse plans a nurse visit today and a message to the team and asks him to call 911 if she is hard to wake. Vague ambiguous concern, identity partly unresolved, neighbor caller, patient 65+, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: vague_concern_neighbor
+  secondary_tags: [name_drift, identity_unresolved, hedging, late_answers, split_turns]
+  clinical_domains: [intake_appetite, confusion]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Foxglove Home Care
+  agency_type: home_care
+  nurse_name: Anselm
+  call_timestamp_utc: "2026-11-09T21:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Miriam Halvorsen
+  patient_name_spoken: Miriam Halvorsen
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Marian Halvorsen]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Gideon Pruitt
+  caller_name_spoken: Gideon Pruitt
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "6025550173"
+  callback_phone_spoken: "6025550173"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Worried that an elderly neighbor who lives alone seems sleepier and is eating very little
+  reason_category: intake_appetite
+  relevant_context: Home care client who lives alone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepier than usual
+    symptom_present: true
+    certainty: unclear
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating very little
+    symptom_present: true
+    certainty: unclear
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: She lives alone and has not been coming to the door
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: known fall
+    symptom_present: false
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: tell the team a neighbor is worried about her
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she is hard to wake, confused, or on the floor, and unlock nothing unless he has her permission
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Foxglove Home Care, this is Anselm.
+  Caller -> Hi. Hello. My name is Gideon Pruitt. I'm calling about a neighbor. Miriam Halvorsen. She's one of yours. I think. I'm worried about her. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi there. Take your time.
+  Caller -> I wasn't sure if I should call. My wife said call. So I'm calling.
+  Nurse -> Hi, Gideon. Thanks for calling. Marian Halvorsen. Can you spell that?
+  Caller -> It's Miriam. M I R I A M. Halvorsen. H A L V O R S E N. I think. She's Norwegian. Or her husband was. He passed.
+  Nurse -> Okay. Marian Halvorsen. I'm looking now. Give me a moment.
+  Caller -> Take your time. I'm not going anywhere.
+  Caller -> Miriam. With an I.
+  Nurse -> Got it, thank you.
+  Caller -> Sorry. Everybody gets it wrong. Even the mailman.
+  Nurse -> I have a Marian Halvorsen. Is she in her eighties, lives on the corner of Pike?
+  Caller -> That's her. Yes. The yellow house. I'm next door. I'm in the gray one.
+  Caller -> She has the wind chimes on the porch. You can hear them from my yard.
+  Nurse -> Okay. I see the address.
+  Nurse -> Okay. Tell me what's got you worried.
+  Caller -> She hasn't been coming to the door. I've been bringing her the paper for years. Every morning. She opens the door and takes it. Today she didn't. I knocked. She came after a long time. || A3
+  Nurse -> Okay. How did she look when she came?
+  Caller -> Tired. Sleepy. Slow. She was in her robe. She said she was fine. But she didn't look fine. She seemed sleepier than usual. I think. I'm not a doctor. || A1
+  Nurse -> Okay.
+  Caller -> She held on to the door frame. I don't know if that means anything.
+  Nurse -> Okay. Was she confused? Did she know who you were?
+  Caller -> She knew me. She said my name. She said the paper was late. It wasn't late.
+  Nurse -> That's good.
+  Caller -> She asked after my wife. She always does.
+  Nurse -> Okay. Is she eating?
+  Caller -> I don't know. I don't think she eats much. Her daughter said last week she hardly eats. I don't know. I'm just a neighbor. I see her bring in the groceries and they just sit on the counter. || A2
+  Nurse -> That's helpful anyway.
+  Caller -> I wish I knew more.
+  Nurse -> Okay. Did you see her fall, or any bruises?
+  Caller -> No. I didn't see a fall. I don't think she fell. She didn't say. She was walking. Slow, but walking. || A4
+  Nurse -> Okay. Does she have family close by?
+  Caller -> A daughter. In Tucson. She calls on Sundays. I don't have her number. I'm sorry.
+  Nurse -> Okay.
+  Caller -> Her name is Karin, I think. K A R I N. Or with a C.
+  Nurse -> That's all right. We have her on file.
+  Caller -> Good. I figured you would.
+  Caller -> I'm so sorry. I don't want to cause trouble.
+  Nurse -> You're not. Thank you for calling. Gideon, do you know her date of birth?
+  Caller -> No. No, no. I have no idea. She's old. Eighty something.
+  Nurse -> That's fine. And a number for you?
+  Caller -> Six oh two, five five five, oh one seven three. || callback_phone
+  Nurse -> Six oh two, five five five, oh one seven three. Right? || callback_phone
+  Caller -> Right. It's my cell. I'm home.
+  Nurse -> Perfect. Keep it handy.
+  Caller -> It's on the counter. I'm at the kitchen table. I can see her house.
+  Nurse -> Okay. Have you seen her any other times this week?
+  Caller -> Tuesday. She was in her garden. Out front. Doing something with the pots.
+  Nurse -> So Tuesday she was out and about.
+  Caller -> She waved. She waved at me.
+  Caller -> Yes. That's why this is strange.
+  Nurse -> Okay. I'd like a nurse to go out and see her today. Check on her. || R1
+  Caller -> Today? Oh, good. Good. Will she mind? She's very private.
+  Nurse -> We'll call before we come. And I'll send a message to the team about your concern. || R2
+  Caller -> Please tell them it's not an emergency. I don't want her to think I called the police.
+  Nurse -> I'll let them know.
+  Nurse -> I'll tell them. They'll be gentle.
+  Caller -> Thank you. She's a sweet lady. She bakes. She gave me a pie at Thanksgiving.
+  Nurse -> Ha. Those are the best neighbors.
+  Caller -> Cherry. Best I ever had.
+  Nurse -> I'm jealous.
+  Caller -> Ha. She might share the recipe. She won't.
+  Nurse -> Gideon, if you go back over and she's hard to wake, confused, or on the floor, please call 911 right away. And please don't go into her house unless she lets you in. || E1
+  Caller -> Hard to wake. Confused. On the floor. Call 911. Don't go in. Okay. I will. Should I check on her tonight? Knock?
+  Nurse -> A knock is fine. If she answers, that's good. Just be kind about it.
+  Caller -> I'll bring a bag of rolls. I have extra.
+  Nurse -> Wonderful.
+  Nurse -> That's nice of you.
+  Caller -> It's no trouble.
+  Nurse -> Thanks for calling, Gideon. You did the right thing.
+  Caller -> Thank you. I feel better. I hope she's okay.
+  Nurse -> We'll find out soon.
+  Caller -> Okay. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Miriam, heard_form: Marian, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Miriam Halvorsen, certainty: unclear, heard_as: [Marian Halvorsen], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Gideon Pruitt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550173", certainty: stated, heard_as: [], turns: [42, 43]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Worried that an elderly neighbor who lives alone seems sleepier and is eating very little.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm worried about her."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She seemed sleepier than usual (unclear; caller is not sure).
+      speaker: Caller
+      turns: [19]
+      quote: "She seemed sleepier than usual."
+      explanation: Documents the neighbor's impression.
+      facts:
+        - {type: symptom, name: sleepier than usual, present: true, certainty: unclear}
+      covers: [A1]
+    - text: She may be eating very little (unclear; secondhand).
+      speaker: Caller
+      turns: [27]
+      quote: "I don't think she eats much."
+      explanation: Documents the possible poor intake.
+      facts:
+        - {type: symptom, name: eating very little, present: true, certainty: unclear}
+      covers: [A2]
+    - text: She lives alone and had not been coming to the door.
+      speaker: Caller
+      turns: [17]
+      quote: "She hasn't been coming to the door."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: She lives alone and has not been coming to the door, certainty: stated}
+      covers: [A3]
+    - text: He did not see a fall (unclear).
+      speaker: Caller
+      turns: [31]
+      quote: "I didn't see a fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: known fall, certainty: unclear}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'd like a nurse to go out and see her today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the team about his concern.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll send a message to the team about your concern."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911 if she was hard to wake, confused, or on the floor, and not entering her house without her permission.
+      speaker: Nurse
+      turns: [63]
+      quote: "please call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

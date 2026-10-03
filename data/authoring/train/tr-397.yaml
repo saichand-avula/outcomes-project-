@@ -1,0 +1,365 @@
+call_id: tr-397
+split: train
+blueprint: "A daughter sorting her mother's pain medicines after a refill calls hospice, confused: the new morphine liquid bottle says 20 mg per mL and point two five mL, but the old bottle was weaker and she measured two mL; she also still has hydromorphone tablets in the cabinet and MS Contin every twelve hours. Nothing has been given wrong yet; her mother's afternoon pain is a five. She cannot remember her own number, corrects her mother's birth year, and the nurse uses the number on file. Nurse reviews each bottle, tells her to use only the new bottle with the new syringe, set aside the hydromorphone, plans a message to the team and a visit tomorrow. Medication clarification (liquid concentration, prn and scheduled, tall-man opioids), adult child, long v2."
+setup:
+  scenario_category: medication
+  subtype: concentration_clarification
+  secondary_tags: [liquid_concentration, prn_and_scheduled, tall_man_drug, chart_reading_distractor, dob_self_corrected, phone_not_given, phone_from_file, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Seaport Hospice
+  agency_type: hospice
+  nurse_name: Tobias
+  call_timestamp_utc: "2026-11-02T20:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [lorazepam, senna]
+chief_complaint:
+  patient_name_true: Estelle Castellanos
+  patient_name_spoken: Estelle Castellanos
+  patient_name_certainty: stated
+  patient_dob_true: "1943-04-29"
+  patient_dob_spoken: "1943-04-29"
+  patient_dob_certainty: stated
+  caller_name_true: Noreen Castellanos
+  caller_name_spoken: Noreen Castellanos
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Asked how to give the new stronger morphine liquid and which pain medicines to use
+  reason_category: medication
+  relevant_context: Hospice patient on scheduled and as-needed pain medicines
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: MS Contin
+    medication_name_spoken: MS Contin
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    frequency: every twelve hours
+    last_dose: this morning at eight
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    strength: 20 mg per mL
+    dose: "0.25"
+    unit: mL
+    frequency: every two hours as needed
+    prn: true
+    last_dose: one o'clock this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydromorphone
+    medication_name_spoken: hydromorphone
+    medication_status: given_previously
+    dose: "2"
+    unit: mg
+    frequency: every four hours as needed
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: afternoon pain
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The new morphine liquid bottle is stronger than the old one and she is unsure how to measure it
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    reason_or_trigger: use only the new bottle with the new oral syringe at point two five mL, discard the old measuring syringe, and give a dose now for the pain of five
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: hydromorphone
+    medication_name_spoken: hydromorphone
+    reason_or_trigger: set the hydromorphone tablets aside and do not give them
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: confirm the pain plan and arrange pickup of the old medicine
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw only point two five mL, which is the very first small line, with the new syringe, give it slowly into the cheek, write down the time, and wait at least two hours before another dose
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the new liquid and the old bottle in separate bags labeled in marker, store them out of sight, and never use the old syringe
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she is very sleepy, hard to wake, breathing slowly, or if the pain stays above a seven after a dose
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Seaport Hospice, this is Tobias.
+  Caller -> Hi, Tobias. It's Noreen Castellanos. C A S T E L L A N O S. I'm calling about my mother, Estelle Castellanos. I have a question about her morphine. I don't want to mess it up. || caller_name, patient_name, relationship, cc, A2
+  Nurse -> Hi Noreen. I'm glad you called before giving anything. Let's go through it slowly. Do you have all the bottles in front of you?
+  Caller -> I'm so sorry to call on a Monday night. I was going to wait until morning but my mother woke up and said her back hurt and I panicked.
+  Nurse -> You did the right thing. The line is for exactly this.
+  Caller -> I feel like I've called you ten times this month.
+  Nurse -> You've called three times. And I'm glad each time.
+  Caller -> I do. I laid them out on the table. Like a pharmacy. There's three. Well, four if you count the one in the cabinet.
+  Nurse -> A whole shelf. Okay. Is there a good light where you are? The labels can be tiny.
+  Caller -> I'm at the dining table with the lamp. I have my reading glasses on. Plus the magnifying glass from my husband's stamp collection.
+  Nurse -> Ha. Perfect.
+  Nurse -> Okay. Start with whichever you want. Let's go one at a time. What's the first?
+  Caller -> The first is the MS Contin. The pills. Fifteen milligrams. It says every twelve hours. I give it at eight in the morning and eight at night. I gave this morning's at eight. || A1
+  Nurse -> Okay. MS Contin fifteen, every twelve hours. That's her scheduled one. Good. And the next? || A1
+  Caller -> The second is the new bottle. The morphine liquid. The pharmacy sent it Friday. It says morphine oral solution, twenty milligrams per mL. And the directions say, point two five mL every two hours as needed for pain. || A2
+  Nurse -> Okay. Twenty milligrams per mL, point two five mL, every two hours as needed. That's her as needed one. And it came Friday?
+  Caller -> Friday. The old bottle was different. The old one is also on the table. It says morphine, ten milligrams per five mL. And the old directions said two mL. Two mL, every two hours. And I've been measuring two mL for a month. With the old syringe. The one with the pink plunger. || A2, R1
+  Caller -> It was easy. The syringe had big numbers. Two was a big line, right in the middle. This one has tiny numbers. Point two. Point four. I can barely see them.
+  Nurse -> That's why I'm walking you through it.
+  Nurse -> Okay. Noreen, stop right there. That's the important part. The old bottle was a weaker concentration. Ten milligrams in five mL. The new one is much stronger, twenty milligrams in one mL. So the amount you give has to be smaller with the new one.
+  Caller -> That's what I was afraid of. I thought, wait, why does it say point two five? That's tiny. I thought maybe it was a typo. I thought the pharmacy made a mistake. || A5
+  Nurse -> It's not a typo. It's correct. Point two five mL of the new one equals about the same as the two mL of the old one. If you gave two mL of the new one, that would be about eight times too much.
+  Caller -> Oh my God. I haven't. I haven't given the new one. I didn't dare. I haven't given any since Friday. Wait. I gave one. Today at one. I gave one today. Did I give it right?
+  Nurse -> Tell me what you did. Which bottle did you use today at one?
+  Caller -> The new one. But I measured it with the new syringe, the little one that came with it. I drew it up to the first line. The tiny line. And I gave it. I wasn't sure what the first line meant. It said point two five on the box. I looked at the syringe and I thought, that's the first line, that must be it.
+  Nurse -> Okay. That was exactly right. The first small line on the new syringe is point two five. You gave the right dose.
+  Caller -> I did? Oh, thank goodness. I was so nervous. I almost didn't do it.
+  Nurse -> You did it correctly. Good for you for being careful.
+  Caller -> Thank you. I was shaking.
+  Caller -> I stood in the kitchen for ten minutes before I did it. My husband said, you don't have to do it alone, call somebody. I said who. He said the hospice nurse.
+  Nurse -> He's right. You can always call.
+  Caller -> I know. I just hate to bother.
+  Nurse -> Noreen, let me make sure I have this right. Today at one o'clock, you gave point two five mL of the new morphine liquid with the new syringe. That's it? || A2, R1
+  Caller -> That's it. At one o'clock. Point two five.
+  Nurse -> Okay. And how is her pain now?
+  Nurse -> Where is your mother right now? Is she awake?
+  Caller -> She's in the recliner in the den. With her blanket. She's awake. She's watching the weather channel with the sound off.
+  Nurse -> Okay. Good.
+  Caller -> She says a five. In the back and the hip. It's worst in the afternoons. She says the pill wears off by two. That's why I wanted to give the liquid. || A4
+  Nurse -> Okay. A five now. Let me finish the bottles, and then we'll talk about whether she's due. What's the third bottle?
+  Caller -> The third is hydromorphone. H Y D R O M O R P H O N E. Two milligrams. It says every four hours as needed. It's tablets. From the older prescription. They look so similar, the names. Hydromorphone, morphine. I can't tell which to give. || A3
+  Caller -> The pharmacist told me once, the one with the long name is the strong one. But they both have long names.
+  Nurse -> Ha. That would confuse anyone.
+  Nurse -> That's a very good concern. Those are two different strong pain medicines, and the names are close. Let me check her current orders. Hold on. Okay. Hydromorphone was discontinued last week, when the new morphine liquid was started. It's not on her list anymore. || A2, A3, R1, R2
+  Caller -> It's not? Nobody told me. I've been keeping it just in case.
+  Nurse -> It's okay. It's not your fault. Please set the hydromorphone tablets aside and don't give them. We'll have the team arrange to take them. || R2
+  Caller -> Set aside. Don't give. Okay. I'll put them in a bag. Away from the others. Should I write on it?
+  Caller -> I'm putting them in a freezer bag. The zipper kind. Away from the other stuff. In the top cabinet where my mother can't reach.
+  Nurse -> Perfect.
+  Nurse -> Yes. Write do not use on the bag, with a marker. And the same for the old morphine bottle, the weaker one. || A2, R1
+  Caller -> Do not use. The old morphine too. Okay. I'm writing. Wait. I need a marker. I have a Sharpie. There. Done. Two bags. Do not use. || E2
+  Caller -> Okay. I'll tape the bags to the cabinet door. So I can't forget. And my husband can see them too.
+  Nurse -> Smart. Tell him what the bags are.
+  Caller -> I will. He thinks everything is vitamins.
+  Nurse -> Ha. He'll learn.
+  Nurse -> Perfect. And the old syringe, the one with the pink plunger, throw it out. Don't use it with the new bottle.
+  Caller -> The pink one. Out. It's in the trash. Okay. The fourth bottle is the one in the cabinet. It's lorazepam. And a senna. I know those. Those are fine. The lorazepam is for anxiety. The senna is for her bowels. They aren't confused with anything.
+  Nurse -> Right. Those are fine. Now, the new morphine. Because it's strong, I want you to only use the new syringe. Draw up exactly point two five mL, the very first small line. Give it slowly, into the cheek, between the gum and the cheek. Write down the time. Wait at least two hours before another dose. || E1, R1
+  Caller -> First small line. Slowly into the cheek. Write the time. Wait two hours. Okay. I'm writing on the sheet. The time today is one o'clock. Last given at one.
+  Caller -> I keep the sheet on a clipboard. I got it from the dollar store. With a pen on a string.
+  Nurse -> Great system.
+  Nurse -> Right. It's coming up on five hours since the last dose. So she can have another now if she needs it. Her pain is a five. Do you want to give her one?
+  Caller -> Yes. I think so. She's wincing. She said, it's coming back.
+  Nurse -> Okay. Do it now, with the new syringe. I'll stay on the line.
+  Caller -> Okay. Getting the syringe. The little one. In the bottle. Pulling back. First line. Is this the line? It's at the line. The black part is at the first line.
+  Nurse -> Look from the side. Is the top edge of the black rubber exactly on the first line?
+  Caller -> I'm holding it up to the lamp. I put it at eye level. Hold on. It's right on the line. It's a hair above, maybe? No. On it.
+  Nurse -> If it's a hair above, push the plunger in slightly until it's exactly on it.
+  Caller -> Okay. I pushed a tiny bit. It's right on the line now.
+  Caller -> Yes. Right on it. Okay. Mom, open. Into the cheek. Slowly. There. She swallowed. It's done.
+  Nurse -> Perfect. What time is it?
+  Caller -> Six fifteen. Six fifteen. I'm writing. Done.
+  Nurse -> Good. That was perfect, Noreen.
+  Caller -> Thank you. I felt so stupid.
+  Nurse -> You weren't stupid. It's a confusing situation. The pharmacy should have told you.
+  Caller -> My mother raised six kids and never made a mistake with a pill. I feel like I'm letting her down.
+  Nurse -> You aren't. You've been caring for her carefully for a month.
+  Caller -> It's been five weeks. It feels like five years.
+  Nurse -> I know. It's a lot.
+  Caller -> They did. They said something at pickup. But the counter was loud, and I was in a rush. I didn't hear.
+  Nurse -> It happens. I'm going to leave a message for the team, to confirm the pain plan and to arrange for the old bottles and the hydromorphone to be picked up. || R3
+  Caller -> Thank you. I'd love to get them out of the house. They make me nervous.
+  Nurse -> I'd also like a nurse to visit tomorrow, to go over everything with you in person. || R4
+  Caller -> Tomorrow. Yes. Please. That would help. I'm here all day.
+  Nurse -> Is there anyone helping you, Noreen? Your husband? Siblings?
+  Caller -> My husband in the evenings. My brother Saturdays. The others are far.
+  Nurse -> Okay. That's something.
+  Caller -> It's enough. We manage. My mother says she's in good hands.
+  Nurse -> She is.
+  Nurse -> Noreen, what's your mother's date of birth? For the chart.
+  Caller -> April twenty ninth. Nineteen forty two. No. Forty three. Nineteen forty three. She's eighty three. Forty three. || patient_dob
+  Nurse -> April twenty ninth, nineteen forty three. And a number for you?
+  Caller -> My number. Oh, I never remember it. It's a new phone. I just got it. I can't. It's saved as Me. Do you have a number for me already?
+  Nurse -> I have a number on file in your mother's chart. I'll use that one. Is that still good?
+  Caller -> I think so. Yes. I think it's the same. Use that one.
+  Nurse -> Okay. I'll use the number on file. Now, call us if she gets very sleepy, hard to wake, if her breathing slows, or if the pain stays above a seven after a dose. || E3
+  Caller -> Very sleepy. Hard to wake. Breathing slows. Pain above seven after a dose. Okay. I wrote it on the sheet.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. That's it. You've been so patient.
+  Nurse -> Anytime, Noreen. Call if you have any questions at all.
+  Caller -> One more thing. Do I need to wake her at night for the dose?
+  Nurse -> No. Let her sleep. Give the as needed dose only when she's hurting.
+  Caller -> Okay. Only when she hurts. Thank you.
+  Caller -> Thank you, Tobias. Bye.
+  Nurse -> Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Estelle Castellanos, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-04-29", certainty: stated, heard_as: [], turns: [91]}
+    caller_name: {value: Noreen Castellanos, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked how to give the new stronger morphine liquid and which pain medicines to use.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about her morphine. I don't want to mess it up."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: MS Contin 15 mg every twelve hours, last given this morning at eight.
+      speaker: Caller
+      turns: [13]
+      quote: "The first is the MS Contin. The pills. Fifteen milligrams."
+      explanation: Documents the scheduled pain medicine.
+      facts:
+        - {type: medication, name: MS Contin, dose: "15", unit: mg, frequency: every twelve hours, last_dose: this morning at eight, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Morphine liquid 20 mg per mL, point two five mL every two hours as needed, last given at one this afternoon.
+      speaker: Caller
+      turns: [15]
+      quote: "twenty milligrams per mL. And the directions say, point two five mL every two hours as needed for pain."
+      explanation: Documents the as-needed morphine.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg per mL, dose: "0.25", unit: mL, frequency: every two hours as needed, prn: true, last_dose: one o'clock this afternoon, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Hydromorphone 2 mg tablets every four hours as needed were left from an older prescription.
+      speaker: Caller
+      turns: [41]
+      quote: "Two milligrams. It says every four hours as needed."
+      explanation: Documents the older pain medicine.
+      facts:
+        - {type: medication, name: hydromorphone, dose: "2", unit: mg, frequency: every four hours as needed, med_status: given_previously, certainty: stated}
+      covers: [A3]
+    - text: Back and hip pain was a five, worst in the afternoons when the pill wore off.
+      speaker: Caller
+      turns: [39]
+      quote: "She says a five. In the back and the hip."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: afternoon pain, present: true, severity: "5", certainty: stated}
+      covers: [A4]
+    - text: The new morphine bottle was a stronger concentration than the old one and she was unsure how to measure it.
+      speaker: Caller
+      turns: [21]
+      quote: "I thought maybe it was a typo."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: The new morphine liquid bottle is stronger than the old one and she is unsure how to measure it, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised using only the new bottle with the new syringe at point two five mL, discarding the old syringe, and giving a dose now for the pain.
+      speaker: Nurse
+      turns: [58]
+      quote: "I want you to only use the new syringe."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: morphine, certainty: stated}
+      covers: [R1]
+    - text: Advised setting the hydromorphone tablets aside and not giving them.
+      speaker: Nurse
+      turns: [46]
+      quote: "Please set the hydromorphone tablets aside and don't give them."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: hydromorphone, certainty: stated}
+      covers: [R2]
+    - text: Planned to leave a message for the team to confirm the pain plan and arrange pickup of the old medicine.
+      speaker: Nurse
+      turns: [81]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [83]
+      quote: "I'd also like a nurse to visit tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised drawing exactly point two five mL at the first small line, giving it slowly into the cheek, writing down the time and waiting at least two hours between doses.
+      speaker: Nurse
+      turns: [58]
+      quote: "Draw up exactly point two five mL, the very first small line."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the old bottle and the hydromorphone in separate bags labeled do not use and throwing out the old syringe.
+      speaker: Nurse
+      turns: [50]
+      quote: "Write do not use on the bag, with a marker."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling if she was very sleepy, hard to wake, breathing slowly, or her pain stayed above seven after a dose.
+      speaker: Nurse
+      turns: [96]
+      quote: "call us if she gets very sleepy, hard to wake"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

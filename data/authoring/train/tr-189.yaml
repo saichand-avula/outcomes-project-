@@ -1,0 +1,345 @@
+call_id: tr-189
+split: train
+blueprint: "Wife calls because her husband's catheter bag has had no urine for about six hours, with lower belly pressure and some leaking around the catheter; urine earlier looked cloudy. Catheter was placed three weeks ago. Temperature 98.9, no fever. Nurse walks her through checking for kinks and bag position; a kink under his leg is found and fixed, about 300 mL drains, and the pressure eases. Nurse still messages the provider about the cloudy urine, plans a visit tomorrow and a callback this evening, and reviews bag care and return precautions. No flag. Long."
+setup:
+  scenario_category: routine
+  subtype: catheter_troubleshooting
+  secondary_tags: [multi_issue, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [urinary_catheter, equipment, pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Dennis
+  call_timestamp_utc: "2026-10-07T18:00:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ambrose Whitlow
+  patient_name_spoken: Ambrose Whitlow
+  patient_name_certainty: stated
+  patient_dob_true: "1939-12-17"
+  patient_dob_spoken: "1939-12-17"
+  patient_dob_certainty: stated
+  caller_name_true: Maxine Whitlow
+  caller_name_spoken: Maxine Whitlow
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "8505550131"
+  callback_phone_spoken: "8505550131"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband's catheter bag has had no urine for six hours
+  reason_category: urinary
+  relevant_context: Home health patient with a urinary catheter placed three weeks ago
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no urine in the catheter bag
+    symptom_present: true
+    onset_or_duration: about six hours
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: lower belly pressure
+    symptom_present: true
+    body_location: lower belly
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: leaking around the catheter
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: cloudy urine earlier
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "98.9"
+    certainty: stated
+  - item_id: A6
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Catheter placed three weeks ago
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Tubing was kinked under his leg and about 300 mL drained once she straightened it
+    certainty: stated
+  - item_id: A8
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blood in the urine
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: cloudy urine and leaking around the catheter
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Keep the bag below the level of his bladder, keep the tubing free of kinks especially when he sits or lies down, and empty the bag when half full
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Encourage water throughout the day, about six to eight cups
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for no urine for 4 hours after checking the tubing, blood in the urine, fever, chills, or worse belly pain or confusion
+    trigger_condition: no urine for 4 hours; blood in urine; fever; chills; belly pain; confusion
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Dennis.
+  Caller -> Dennis, hi, it's Maxine Whitlow. I'm calling about my husband, Ambrose Whitlow. His catheter bag. There's nothing in it. Nothing for hours. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Maxine. Let's figure it out together. First, his date of birth?
+  Caller -> December seventeenth. Nineteen thirty nine. || patient_dob
+  Nurse -> And your number, eight five oh, five five five, zero one three one? || callback_phone
+  Caller -> Yes. The house phone. || callback_phone
+  Nurse -> Okay. How long has it been since there was urine in the bag?
+  Caller -> About six hours. I emptied it at noon, there was a good amount then, and now it's six o'clock and the bag is dry. There's nothing at the bottom. Not a drop. || A1
+  Nurse -> Okay. How is Ambrose feeling?
+  Caller -> Uncomfortable. He's pressing on his lower belly. He says there's a pressure. Like he has to go but can't. || A2
+  Nurse -> Okay. Is any urine coming out around the catheter, around the tube itself?
+  Caller -> Yes. A little. His underwear was damp when I checked. It's been leaking a bit around where the tube goes in. || A3
+  Nurse -> Okay. What did the urine look like earlier today?
+  Caller -> Cloudy. Yes. This morning it looked cloudy. Not red. Kind of like dishwater. I thought that was strange. || A4
+  Nurse -> Okay. Any blood in the urine? Any red or pink?
+  Caller -> No blood. Not that I've seen. It was pale and cloudy, not red. || A8
+  Nurse -> Okay. Do you have a thermometer? Could you take his temperature?
+  Caller -> I have one. Hold on. I'll go get it. Ambrose, open up. Okay. Ninety eight point nine. || A5
+  Nurse -> Okay. No fever. That's good. When was the catheter put in?
+  Caller -> Three weeks ago on Friday. In the hospital. They said it was temporary, until he gets stronger. || A6
+  Nurse -> Okay. Why did he need the catheter, do you remember what they told you at the hospital?
+  Caller -> He had trouble emptying his bladder after the surgery. They said his prostate is big and the anesthesia made it worse. They said the catheter would stay until he sees the urologist. That's in two weeks. I keep counting the days.
+  Nurse -> That's helpful. Okay. Maxine, let's try a few simple things. Where is the bag right now?
+  Caller -> It's hanging on the side of the bed. On the frame.
+  Nurse -> Okay. Is the bag lower than his bladder? Lower than his belly, I mean.
+  Caller -> Yes. It's hanging down below the mattress. It's lower.
+  Nurse -> Good. And has he been eating and drinking today?
+  Caller -> He ate breakfast and lunch. He drank about a cup of tea and a glass of juice. Not a lot of water. He says he doesn't like the taste, it tastes like metal to him since the surgery.
+  Nurse -> That can happen after anesthesia. We'll talk about it. Now, follow the tubing from the catheter down to the bag. Slowly. Is there any place where it's bent, kinked, or pinched?
+  Caller -> Okay. I'm following it. It goes from here, under the blanket, and down over the side. Hold on. Ambrose, lift your leg. Ambrose. Lift your leg. Oh. Oh my goodness. There. It's folded. The tube is folded under his leg. He's lying on it.
+  Nurse -> Okay. Gently straighten it out. Move his leg off of it, and make sure the tube runs straight downhill.
+  Caller -> Okay. I'm moving him. Okay, straight. There. It's straight. It's running down. Oh! There's urine coming through! It's filling the tube. It's going into the bag. Look at that. It's running. Ambrose, you're going to feel better. || A7
+  Nurse -> That's great. Let it drain. Is it flowing steadily?
+  Caller -> Yes. It's coming fast. A lot. The bag is filling. I can see it going up. Maybe, I'd say three hundred milliliters already. It's about at the three hundred line. || A7
+  Nurse -> Okay. How does he feel?
+  Caller -> He says the pressure is going away. He just said, oh, that's better. He's relaxing. His face is relaxed.
+  Nurse -> Good. That sounds like the kink was the problem. Maxine, I still want to look into the cloudy urine and the leaking. A kink would explain the no-urine, but not those. || R2
+  Caller -> Okay. Will you message his doctor?
+  Nurse -> Yes. I'm going to message his provider about the cloudy urine and the leaking around the catheter. They may want a urine test.
+  Caller -> Okay. Thank you.
+  Nurse -> And a nurse will come out tomorrow to check the catheter and the insertion site. || R1
+  Caller -> Tomorrow. Thank you. I was going to ask, is it normal for the catheter to be a little uncomfortable? He says it pulls when he gets out of bed.
+  Nurse -> A little pulling is common, especially when he moves. There should be a strap on his thigh holding the tube in place, so it doesn't tug. Does he have one?
+  Caller -> I think so. A white strap with Velcro. It's a bit loose. I'll tighten it.
+  Nurse -> Good. Snug, not tight. The nurse will check it tomorrow too.
+  Caller -> Tomorrow. What time, do you know?
+  Nurse -> The scheduler will call with a window. Is there a time that works better?
+  Caller -> Mornings. After nine. He takes his pills at eight and it takes him a while to get going.
+  Nurse -> I'll ask for after nine. I'll also call you back this evening to see how the drainage is going and what the provider says. || R3
+  Caller -> This evening. Okay. I'll be here. I'm not going anywhere.
+  Nurse -> Now, Maxine, some things to remember for the tubing. Keep the bag below the level of his bladder, always. Keep the tube free of kinks, especially when he's sitting or lying down. And empty the bag when it's about half full. || E1
+  Caller -> Below the bladder. No kinks. Empty at half. Okay. I should check under his leg every time I turn him. I'll put a reminder on the bed.
+  Nurse -> That's a great idea. Also, encourage him to drink water through the day. About six to eight cups. || E2
+  Caller -> Six to eight cups. He doesn't like water. He likes his tea. Can tea count?
+  Nurse -> Tea counts, but go easy on caffeine. Decaf is better. And water when he can.
+  Caller -> I'll make him some decaf and I'll add a little lemon.
+  Nurse -> Perfect. And call us if there's no urine for four hours even after you've checked the tubing, if you see blood in the urine, if he gets a fever or chills, or if his belly pain gets worse or he seems confused. || E3
+  Caller -> No urine in four hours even after checking. Blood. Fever, chills. Belly pain, confusion. Okay. I'll write it on the whiteboard.
+  Nurse -> Good. Is there anything else you want to ask while I have you? Medicines, dressings, anything?
+  Caller -> Just one thing. He has a bit of constipation, he hasn't gone in two days. Is that related to the catheter?
+  Nurse -> It can be, since the bowel and bladder sit close together. More fluids and fiber help. If it goes beyond three days, tell the nurse tomorrow and we'll talk about a stool softener.
+  Caller -> Two days now. I'll watch it. Prunes. He likes prunes.
+  Nurse -> Prunes are perfect. Anything else?
+  Caller -> I feel so silly. A folded tube. And I got so worried. I was about to put him in the car and drive to the emergency room. I had my keys in my hand.
+  Nurse -> Please don't feel silly. A kinked tube is the number one reason a bag goes dry. You found it, and you fixed it.
+  Caller -> Thank you for talking me through it. I would have panicked and called an ambulance.
+  Nurse -> No need to be sorry. That's what we're here for. How are you doing, Maxine?
+  Caller -> I'm okay. Tired. We were up late last night. The neighbor's dog kept barking and Ambrose kept waking up. Then he was up early. I'll nap when he does.
+  Nurse -> That's a good plan. Take care of yourself too.
+  Caller -> I will. You always make me feel calm, Dennis. My daughter says I get like this because I never learned to ask for help. My mother was the same. We just do everything ourselves until we can't.
+  Nurse -> It's a family trait, then. But you did ask for help today, and it worked out.
+  Caller -> It did. I'll call you sooner next time, I promise. Even if it turns out to be a kink.
+  Nurse -> Please do. Kinks are my favorite kind of call. They're easy to fix.
+  Caller -> Ha. Mine too, now. Okay. Thank you, Dennis.
+  Nurse -> Thank you. I'll talk to you this evening.
+  Caller -> Okay. Goodbye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ambrose Whitlow, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-12-17", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Maxine Whitlow, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "8505550131", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband's catheter bag has had no urine for six hours.
+    speaker: Caller
+    turns: [2]
+    quote: "His catheter bag. There's nothing in it. Nothing for hours."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: No urine had collected in the catheter bag for about six hours.
+      speaker: Caller
+      turns: [8]
+      quote: "About six hours. I emptied it at noon"
+      explanation: Documents the lack of drainage.
+      facts:
+        - {type: symptom, name: no urine in the catheter bag, present: true, duration: about six hours, certainty: stated}
+      covers: [A1]
+    - text: He had lower belly pressure, like needing to go but being unable to.
+      speaker: Caller
+      turns: [10]
+      quote: "He's pressing on his lower belly. He says there's a pressure."
+      explanation: Documents the discomfort.
+      facts:
+        - {type: symptom, name: lower belly pressure, present: true, location: lower belly, certainty: stated}
+      covers: [A2]
+    - text: A little urine was leaking around the catheter.
+      speaker: Caller
+      turns: [12]
+      quote: "It's been leaking a bit around where the tube goes in."
+      explanation: Documents the leaking.
+      facts:
+        - {type: symptom, name: leaking around the catheter, present: true, certainty: stated}
+      covers: [A3]
+    - text: Urine looked cloudy earlier this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "This morning it looked cloudy. Not red."
+      explanation: Documents the urine appearance.
+      facts:
+        - {type: symptom, name: cloudy urine earlier, present: true, certainty: stated}
+      covers: [A4]
+    - text: No blood in the urine was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No blood. Not that I've seen."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blood in the urine, certainty: stated}
+      covers: [A8]
+    - text: Temperature was 98.9.
+      speaker: Caller
+      turns: [18]
+      quote: "Ninety eight point nine."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.9", certainty: stated}
+      covers: [A5]
+    - text: The catheter had been placed three weeks ago in the hospital.
+      speaker: Caller
+      turns: [20]
+      quote: "Three weeks ago on Friday. In the hospital."
+      explanation: Documents the history.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+    - text: The tubing was folded under his leg, and about 300 mL drained once it was straightened, easing the pressure.
+      speaker: Caller
+      turns: [30]
+      quote: "The tube is folded under his leg. He's lying on it."
+      explanation: Documents the kink and the result.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to message the provider about the cloudy urine and the leaking around the catheter.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to message his provider about the cloudy urine and the leaking around the catheter."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [41]
+      quote: "a nurse will come out tomorrow to check the catheter and the insertion site."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll also call you back this evening to see how the drainage is going and what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping the bag below his bladder, keeping the tubing free of kinks, and emptying the bag when half full.
+      speaker: Nurse
+      turns: [51]
+      quote: "Keep the bag below the level of his bladder, always."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised encouraging water through the day, about six to eight cups.
+      speaker: Nurse
+      turns: [53]
+      quote: "encourage him to drink water through the day. About six to eight cups."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for no urine for 4 hours after checking the tubing, blood in the urine, fever or chills, or worse belly pain or confusion.
+      speaker: Nurse
+      turns: [57]
+      quote: "call us if there's no urine for four hours even after you've checked the tubing, if you see blood in the urine"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

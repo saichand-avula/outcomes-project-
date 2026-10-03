@@ -1,0 +1,221 @@
+call_id: tr-249
+split: train
+blueprint: "69-year-old patient asks for a refill of her 'hydroxyzine' for blood pressure, quickly catches herself and says hydralazine, then admits she mixes the two up because both bottles start with H and are both small yellow pills. The nurse reads the chart, confirms hydralazine 25 mg three times a day with four tablets left, notes the hydroxyzine is a separate as-needed itching pill with plenty left, sends the hydralazine refill request (completed), and plans a callback tomorrow. Tall-man sound-alike confusion, v2 short, self-corrections, a long tangent about her pill organizer."
+setup:
+  scenario_category: medication
+  subtype: refill_name_mixup
+  secondary_tags: [tall_man_drug, contradiction, chart_reading_distractor, hedging, late_answers, split_turns]
+  clinical_domains: [medication, blood_pressure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Kim
+  call_timestamp_utc: "2026-10-20T15:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [metformin, atorvastatin]
+chief_complaint:
+  patient_name_true: Estelle Ferrante
+  patient_name_spoken: Estelle Ferrante
+  patient_name_certainty: stated
+  patient_dob_true: "1957-05-30"
+  patient_dob_spoken: "1957-05-30"
+  patient_dob_certainty: stated
+  caller_name_true: Estelle Ferrante
+  caller_name_spoken: Estelle Ferrante
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4155550148"
+  callback_phone_spoken: "4155550148"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested a refill of her blood pressure medicine
+  reason_category: refill_request
+  relevant_context: Home care patient who takes a blood pressure pill three times a day
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    supply_remaining: "4"
+    supply_unit: tablets
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: taking
+    frequency: as needed for itching
+    prn: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: completed
+    actor: nurse
+    recipient_or_target: prescriber
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    reason_or_trigger: hydralazine refill with four tablets left
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep the hydralazine and hydroxyzine in separate bags with large labels, take the hydralazine three times a day, and use the hydroxyzine only for itching
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Kim.
+  Caller -> Hi, Kim. It's Estelle Ferrante. I need a refill for my blood pressure pill. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Estelle. Let me pull up your chart. What's your date of birth?
+  Caller -> May thirtieth. Nineteen fifty seven. || patient_dob
+  Nurse -> Thanks. And I have four one five, five five five, zero one four eight for you. || callback_phone
+  Caller -> Yes. That's the house. I'm always here.
+  Nurse -> Good. And how have you been feeling lately? Any dizziness, headaches?
+  Caller -> No. I'm good. My head's been fine. A little tired in the afternoons, but I'm seventy, nearly.
+  Nurse -> Ha. Okay. That's all right then.
+  Nurse -> Okay. Which pill is it? Do you have the bottle in front of you?
+  Caller -> I do. Hold on. It's the, the hydroxyzine. No. Hydralazine. Hydro, hydralazine. It's the one I take three times a day. || A1
+  Nurse -> Okay. So hydralazine. Let me look at your list. I see two that start with H. || A1, R1
+  Caller -> I know. I know. I always get them mixed up. That's why I said it wrong. There's two H ones. They're both little yellow pills, almost the same yellow.
+  Nurse -> It happens a lot with those two. The names are close.
+  Caller -> My daughter bought me a magnifying glass for the labels. It's in the drawer. I never use it.
+  Nurse -> Maybe start using it. Ha.
+  Nurse -> I see hydralazine, twenty five milligrams, three times a day. That's the blood pressure one. And I see hydroxyzine, for itching, as needed. || A1, A2
+  Caller -> Yes. That's right. The hydroxyzine is for when my skin itches at night. I only take it when I need it. || A2
+  Nurse -> Okay. So the refill you're asking about is the hydralazine. || A1, R1
+  Caller -> Yes. The hydralazine. Twenty five milligrams. Three times a day. || A1
+  Nurse -> How many tablets do you have left?
+  Caller -> Let me count. I put them in my pill organizer on Sundays. I did it this past Sunday, so, I put in, hold on. The bottle. There's four. Four in the bottle. And whatever's in the organizer, which is today and tomorrow. || A1
+  Nurse -> Okay. So four in the bottle plus what's in the organizer. That's enough for how long, do you think?
+  Caller -> Maybe, two days? Two and a half. Because it's three times a day. Four tablets is a day and a third. Then the organizer is two days. I don't know. I'm not good at the math.
+  Nurse -> That's okay. Let me do it for you. It's tight, so I don't want to wait.
+  Caller -> Oh, I appreciate that. I'd hate to run out on a Saturday.
+  Nurse -> That's okay. We'll get it going today so you don't run out.
+  Caller -> Oh, good. Thank you.
+  Nurse -> And how is the hydroxyzine? Do you have plenty left? || A2
+  Caller -> Oh, plenty. I have a whole bottle. I don't use it much. A few nights a week. I don't need a refill on that. || A2
+  Nurse -> Okay. Good. I'll leave that one alone. I'm sending the hydralazine refill request to your prescriber now. It's done. || R1, A1
+  Caller -> Oh, wonderful. Thank you, dear. How long does it take?
+  Nurse -> Usually a day or two. I'll call you tomorrow to let you know where it stands. || R2
+  Caller -> Tomorrow. Okay. I'll be here. Well, I have the beauty shop at ten, but I'll have my phone.
+  Nurse -> That's fine. Leave the phone on loud.
+  Caller -> I will. Though in the dryer chair I can't hear a thing. Ha. I'll check it after.
+  Nurse -> That's fine. Leave a message if I miss you.
+  Caller -> I will. I will. Oh, you know what I did the other day? I put the wrong pill bottle in the wrong bag. In my purse. I had my, what do you call it, my pocketbook, and I put the one bottle in with the other.
+  Nurse -> Okay. That's what I was going to ask you about. How do you keep them straight?
+  Caller -> I don't. That's the problem. They're both in the cabinet next to each other. And they look the same. And they start with the same letter. I read the label every time but I'm squinting.
+  Nurse -> Let's fix that. Can you put the hydralazine in one bag and the hydroxyzine in another, each with a big label? Write on a piece of tape in marker, in big letters. || E1, A1, A2
+  Caller -> Two bags. Big labels. Marker. I can do that. I have a marker. I have a bag from the pharmacy.
+  Nurse -> And put them in different places. The hydralazine where you keep your daily pills, and the hydroxyzine on your nightstand, since it's the one for night itching. || A1, A2, R1
+  Caller -> Different places. Hydralazine in the kitchen, hydroxyzine by the bed. Oh, that's smart. That's very smart. || A1, A2, R1
+  Nurse -> And if you ever see a pill and aren't sure what it is, don't take it. Call me or call the pharmacy.
+  Caller -> Don't guess. Okay. I never guess. Well. Once. Ha. It was one of those vitamins.
+  Nurse -> Let's not guess.
+  Caller -> I know, I know.
+  Caller -> No. Agreed.
+  Nurse -> That way you'll never grab the wrong one in the night.
+  Caller -> Right. I won't. Because I won't be in the kitchen at night. I'm not a late-night snacker. Ha. Well, sometimes. A cookie.
+  Nurse -> Ha. A cookie is allowed.
+  Caller -> Okay. Is there anything else I should do?
+  Nurse -> Keep taking the hydralazine three times a day, and use the hydroxyzine only for itching. || E1, A1, A2
+  Caller -> Three times a day. Only for itching. Okay. And if I forget, what do I do? Do I take two?
+  Nurse -> No. Don't double up. If you miss one, take it when you remember, and skip it if it's close to the next one.
+  Caller -> Don't double up. Okay. That's what I thought. My sister takes two when she misses. She says it's fine. I told her to ask.
+  Nurse -> It's a good thing you told her to ask.
+  Caller -> She never listens. She's older. Seventy-four. She thinks she knows everything.
+  Nurse -> Ha. We all have one of those.
+  Caller -> We do. Well, I'm glad I called.
+  Nurse -> Tell her to ask her nurse or her pharmacist. It's different for every medicine.
+  Caller -> I will. I will tell her. Okay. That's it, dear. Thank you.
+  Nurse -> You're welcome, Estelle. I'll call you tomorrow.
+  Caller -> Okay. Bye now. Have a good one.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Estelle Ferrante, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1957-05-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Estelle Ferrante, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4155550148", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested a refill of her blood pressure medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "I need a refill for my blood pressure pill."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hydralazine 25 mg three times a day was being taken, with four tablets left in the bottle plus the pill organizer.
+      speaker: Caller
+      turns: [20]
+      quote: "Yes. The hydralazine. Twenty five milligrams. Three times a day."
+      explanation: Documents the blood pressure medication.
+      facts:
+        - {type: medication, name: hydralazine, dose: "25", unit: mg, frequency: three times a day, supply: 4 tablets, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Hydroxyzine was taken as needed for itching at night, with a full bottle left.
+      speaker: Caller
+      turns: [30]
+      quote: "Oh, plenty. I have a whole bottle. I don't use it much."
+      explanation: Documents the separate as-needed medication.
+      facts:
+        - {type: medication, name: hydroxyzine, frequency: as needed for itching, prn: true, med_status: taking, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Sent the hydralazine refill request to the prescriber.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm sending the hydralazine refill request to your prescriber now. It's done."
+      explanation: Documents the completed refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: completed, medication: hydralazine, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'll call you tomorrow to let you know where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping the hydralazine and hydroxyzine in separate labeled bags in different places, taking the hydralazine three times a day, and using the hydroxyzine only for itching.
+      speaker: Nurse
+      turns: [41]
+      quote: "Can you put the hydralazine in one bag and the hydroxyzine in another, each with a big label?"
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

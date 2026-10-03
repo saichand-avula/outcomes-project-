@@ -1,0 +1,259 @@
+call_id: tr-067
+split: train
+blueprint: "Chemo patient (54) calls about nausea but, after a pause, says some nights she wishes she wouldn't wake up; denies any plan or intent. Nurse screens calmly, gives 988, arranges a same-day social worker call and next-day visit. Flag: suicidal_statement (passive ideation)."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [passive_ideation, late_answers, split_turns, hedging, multi_issue]
+  clinical_domains: [mood, nausea_vomiting, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-27T21:10:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Colette Ashworth
+  patient_name_spoken: Colette Ashworth
+  patient_name_certainty: stated
+  patient_dob_true: "1972-03-08"
+  patient_dob_spoken: "1972-03-08"
+  patient_dob_certainty: stated
+  caller_name_true: Colette Ashworth
+  caller_name_spoken: Colette Ashworth
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5125550189"
+  callback_phone_spoken: "5125550189"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported ongoing nausea after chemotherapy and, later, thoughts of not waking up
+  reason_category: mood
+  relevant_context: Receiving chemotherapy; lives with her sister
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: nausea
+    symptom_present: true
+    severity: 5/10
+    onset_or_duration: since her last chemo 4 days ago
+    certainty: stated
+  - item_id: A2
+    item_type: caller_concern
+    reporter: patient
+    caller_concern_text: Said some nights she wishes she would not wake up
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: plan or intent to harm herself
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: poor sleep
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    reason_or_trigger: mood and passive thoughts of death
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oncologist
+    reason_or_trigger: nausea and mood
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 at any time, or call 911 if she thinks she might act on the thoughts
+    trigger_condition: thoughts get stronger; plan forms
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep her sister with her tonight
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call the agency any hour if she needs to talk
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient says some nights she wishes she would not wake up
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Joanne.
+  Caller -> Hi. Hi, Joanne. It's Colette. Colette Ashworth. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Colette. Can I get your date of birth?
+  Caller -> March eighth, nineteen seventy two. || patient_dob
+  Nurse -> Thanks. And is five one two, five five five, zero one eight nine your cell? || callback_phone
+  Caller -> Yeah. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> I've just, I've been so nauseous. Since the chemo. It's been four days and it's not getting better. || cc, A1
+  Nurse -> I'm sorry. How bad is it, zero to ten?
+  Caller -> Like a five. Five, five and a half. I can eat a little. Crackers. || A1
+  Nurse -> Okay. Are you vomiting?
+  Caller -> No. Not tonight.
+  Nurse -> Okay. Are you sleeping at all?
+  Caller -> Not really. Hardly. I lie there. || A4
+  Nurse -> Mm-hm.
+  Caller -> I lie there and I just think. And I, I don't know.
+  Nurse -> Take your time.
+  Caller -> I just. Some nights I just wish I wouldn't wake up. || A2, F1
+  Nurse -> Thank you for telling me that, Colette. I'm really glad you said it. Can I ask you a couple of questions?
+  Caller -> Okay.
+  Nurse -> When you think that, are you thinking about hurting yourself, or ending your life?
+  Caller -> No. No, I'm not going to do anything. I wouldn't. I just think it. I'm just so tired. || A3
+  Nurse -> Do you have a plan, or anything you've thought about using?
+  Caller -> No. No plan. Nothing like that. || A3
+  Nurse -> Okay. Is somebody there with you?
+  Caller -> My sister. She's in the other room.
+  Nurse -> Good. I'd like her to stay with you tonight. Is that okay?
+  Caller -> Yeah. She'd do that. || E2
+  Nurse -> Colette, I'm going to ask our social worker to call you tonight, because I want somebody to talk with you about how you've been feeling. || R1
+  Caller -> Okay. Okay.
+  Nurse -> And I'll send a nurse to see you tomorrow. I'll also message your oncologist about the nausea and your mood. || R2, R3
+  Caller -> Okay. Thank you.
+  Nurse -> I want you to have a number, too. If those thoughts get stronger, or you ever think you might act on them, call or text nine eight eight, any time. And call nine one one if it's an emergency. || E1
+  Caller -> Nine eight eight. Okay.
+  Nurse -> And you can call us here any hour, even just to talk. Okay?
+  Caller -> Okay. Thank you for, for not freaking out.
+  Nurse -> You did the right thing calling. We're going to take good care of you. || E3
+  Caller -> Okay.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Colette Ashworth, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1972-03-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Colette Ashworth, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5125550189", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported ongoing nausea after chemotherapy and, later, thoughts of not waking up.
+    speaker: Caller
+    turns: [8]
+    quote: "I've just, I've been so nauseous. Since the chemo."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nausea was rated 5/10 and had lasted 4 days since chemotherapy.
+      speaker: Caller
+      turns: [8]
+      quote: "It's been four days and it's not getting better."
+      explanation: Documents the nausea duration.
+      facts:
+        - {type: symptom, name: nausea, present: true, severity: 5/10, duration: since her last chemo 4 days ago, certainty: stated}
+      covers: [A1]
+    - text: She slept hardly at all.
+      speaker: Caller
+      turns: [14]
+      quote: "Not really. Hardly. I lie there."
+      explanation: Documents sleep difficulty.
+      facts:
+        - {type: symptom, name: poor sleep, present: true, certainty: stated}
+      covers: [A4]
+    - text: She said some nights she wished she would not wake up.
+      speaker: Caller
+      turns: [18]
+      quote: "Some nights I just wish I wouldn't wake up."
+      explanation: Documents the passive thoughts of death.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: She denied any plan or intent to harm herself.
+      speaker: Caller
+      turns: [22]
+      quote: "No. No, I'm not going to do anything. I wouldn't. I just think it."
+      explanation: Documents the denial of intent.
+      facts:
+        - {type: pertinent_negative, name: plan or intent to harm herself, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned for the social worker to call her tonight about her mood.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm going to ask our social worker to call you tonight"
+      explanation: Documents the planned psychosocial follow-up.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'll send a nurse to see you tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the oncologist about the nausea and her mood.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'll also message your oncologist about the nausea and your mood."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling or texting 988 any time if the thoughts got stronger or she thought she might act, and calling 911 in an emergency.
+      speaker: Nurse
+      turns: [33]
+      quote: "call or text nine eight eight, any time. And call nine one one if it's an emergency."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised that her sister stay with her tonight.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'd like her to stay with you tonight."
+      explanation: Documents the safety recommendation.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Invited her to call the agency at any hour, even just to talk.
+      speaker: Nurse
+      turns: [35]
+      quote: "you can call us here any hour, even just to talk."
+      explanation: Documents the open invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [18], quote: "Some nights I just wish I wouldn't wake up."}

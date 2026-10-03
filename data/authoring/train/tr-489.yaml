@@ -1,0 +1,493 @@
+call_id: tr-489
+split: train
+blueprint: "A husband calls home health to reconcile his 74-year-old wife's medicines the day after she came home from the hospital: metoprolol twenty five twice a day is new, furosemide was cut to twenty once a day, warfarin was stopped and Eliquis started, lisinopril is on hold until the heart doctor visit, and Tylenol as needed. The Eliquis line on the discharge paper is smudged and he cannot tell whether it says five or two point five milligrams twice a day, and he gave this morning's dose. Tired but no bleeding or black stools. Nurse pages on-call, contacts the pharmacy, plans a callback within the hour and a nurse visit tomorrow, holds tonight's Eliquis until verified, and has him set the stopped medicines aside. Discharge medication reconciliation with stopped, new and changed drugs and an unresolved anticoagulant dose (medication concern), spouse caller, patient 65+, v2 long."
+setup:
+  scenario_category: medication
+  subtype: discharge_medication_reconciliation
+  secondary_tags: [contradiction, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, bleeding_risk, fatigue]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Kestrel Home Health
+  agency_type: home_health
+  nurse_name: Lucinda
+  call_timestamp_utc: "2026-11-22T20:20:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Genoveva Plunkett
+  patient_name_spoken: Genoveva Plunkett
+  patient_name_certainty: stated
+  patient_dob_true: "1952-05-27"
+  patient_dob_spoken: "1952-05-27"
+  patient_dob_certainty: stated
+  caller_name_true: Ambrose Plunkett
+  caller_name_spoken: Ambrose Plunkett
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "5055550179"
+  callback_phone_spoken: "5055550179"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Needs help sorting out his wife's medicines after a hospital stay
+  reason_category: medication
+  relevant_context: Home health patient recently discharged from the hospital on new heart medicines
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Eliquis
+    medication_name_spoken: Eliquis
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: unclear
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: stopped
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: the night before she went to the hospital
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: stopped
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: the day before she went to the hospital
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: every six hours as needed
+    prn: true
+    last_dose: yesterday evening
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: tiredness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A8
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: bleeding or black stools
+    symptom_present: false
+    certainty: stated
+  - item_id: A9
+    item_type: context
+    reporter: caller
+    history_or_context_text: The Eliquis line on the discharge paper is smudged and could say five or two point five milligrams
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: confirm the Eliquis dose from the discharge
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: verify the dispensed Eliquis strength
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Hold tonight's Eliquis until the clinician confirms the dose, and give the other medicines as listed
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put the warfarin and the lisinopril in a separate bag marked stopped and keep them away from the pill box
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for black or bloody stools, vomiting blood, a bad nosebleed, a fall with a head injury, or a sudden severe headache
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Unclear Eliquis dose after a switch from warfarin, with a dose already given
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Kestrel Home Health, this is Lucinda.
+  Caller -> Hi. Is this home health? I'm calling about my wife. I'm sorry, I'm a little overwhelmed.
+  Nurse -> You're in the right place. Take a breath.
+  Caller -> Hi, Lucinda. This is Ambrose Plunkett. My wife is Genoveva Plunkett. She came home from the hospital yesterday and I'm trying to sort out her medicines. I have the discharge paper. The new Eliquis line is smudged and I don't know if it's five or two point five. || caller_name, patient_name, relationship, cc, F1, A3, A9
+  Nurse -> Hi, Ambrose. Okay. Let's go through the whole list together. I'm glad you called. Do you have the paper in front of you?
+  Caller -> I should say, I'm not good with medicine. I'm good with numbers. Not the same thing.
+  Nurse -> Ha. You're doing well.
+  Caller -> I wrote everything on a legal pad. Three pages. My handwriting is awful.
+  Nurse -> That's fine. We'll go slowly.
+  Caller -> I do. And the bottles. I laid them all out on the kitchen table. There are nine bottles. I counted.
+  Nurse -> Perfect. That's the best way to do it.
+  Caller -> I used the whole table. The dog is confused.
+  Nurse -> Ha.
+  Nurse -> Nine. Okay. Let's start with the new ones. What did they start her on?
+  Caller -> I'm good at counting things. I was an accountant.
+  Nurse -> That'll help today.
+  Caller -> Okay. The new ones are in the white bag. The pharmacy bag.
+  Caller -> The metoprolol. Twenty five milligrams. Twice a day. That's new. She wasn't on it before. I gave her the morning one at eight. || A1
+  Nurse -> Metoprolol, twenty five, twice a day, new. Last dose this morning. Good. Next? || A1
+  Caller -> I wrote new next to it with a star. I'm using stars.
+  Nurse -> Stars are great.
+  Caller -> The Eliquis. It's the blood thinner. They stopped the old one, the warfarin. And started the Eliquis. Twice a day. That's the one with the smudge. It says twice a day, and then a number, and the number is smudged. It could be a five or a two and a half. I held it up to the light. I can't tell. || A3, A9
+  Nurse -> Mm hm. Go on.
+  Caller -> I have the little leaflet that came with it. It's in a language I don't understand. Medical.
+  Nurse -> Ha. Leaflets are like that.
+  Nurse -> Okay. Is there a number on the bottle?
+  Caller -> Let me read it from the label. Hold on. My glasses are in the other room.
+  Nurse -> Take your time.
+  Caller -> Okay. Got them.
+  Caller -> The bottle says five milligrams. The label. But the paper might say two point five. I don't know. If it says two point five, then the bottle is wrong. Or the paper is wrong. I can't tell which. || A9
+  Nurse -> That's exactly the kind of thing we need to confirm. Did you give her any Eliquis yet? || A3
+  Caller -> I felt so stupid. I should be able to read my own wife's paper.
+  Nurse -> You're not stupid. The paper is smudged.
+  Caller -> Yes. One this morning at eight. The five milligram tablet from the bottle. And I was going to give another tonight at eight. || A3
+  Nurse -> Okay.
+  Nurse -> Okay. I'll come back to that. Let's keep going with the list. Now, the water pill.
+  Caller -> Okay. I'm sorry. I'm listening.
+  Caller -> The furosemide. It used to be forty. Now the paper says twenty. Once a day. In the morning. I gave her twenty this morning. I cut the old forty tablets in half. Was that right? || A2
+  Nurse -> Twenty milligrams once a day. Cutting the forty in half would make twenty, if they're scored. Are the new bottles twenty milligram tablets?
+  Caller -> I used a pill cutter. She had one from before. It's the kind with the little blade.
+  Nurse -> Those are fine.
+  Caller -> There's a new bottle. Twenty. I'm using the new one. I threw the old halves back in the old bottle. It's confusing.
+  Nurse -> Okay. Good. The twenty milligram bottle is the one to use. Next?
+  Caller -> I'll put the old one in the stopped bag too. Is that right?
+  Nurse -> Yes. Good idea.
+  Caller -> The warfarin. Stopped. The paper says discontinue. I still have the bottle. She took her last one the night before she went into the hospital. That was Monday. Five milligrams, once a day. || A4
+  Nurse -> Warfarin, five milligrams, stopped. Last dose Monday night. Good. Anything else stopped? || A4
+  Caller -> It hurts to see the bottle. She took that for ten years.
+  Nurse -> I understand. It's a big change.
+  Caller -> The lisinopril. It says hold. Hold until the cardiology visit. Ten milligrams, once a day. She took her last one the day before the hospital. So that's on hold. || A5
+  Nurse -> Lisinopril on hold. Okay. And the Tylenol? || A5, A6
+  Caller -> I just want to be sure it's on hold and not stopped forever.
+  Nurse -> The clinician will clarify that tomorrow.
+  Caller -> Yes. Tylenol. Five hundred. As needed. Every six hours. She had one yesterday evening for a headache. Just one. || A6
+  Nurse -> Okay. One yesterday evening.
+  Nurse -> Okay. And how is she feeling?
+  Nurse -> Okay.
+  Caller -> She's asleep right now. She's in the recliner with a blanket. The dog is on her feet.
+  Nurse -> That sounds peaceful.
+  Caller -> Tired. Very tired. She sleeps a lot. The hospital said that's normal. She's walking to the bathroom with the walker. She's a little pale. But she's eating. || A7
+  Nurse -> Okay.
+  Caller -> She's slept eleven hours a night since she got home. The hospital kept waking her.
+  Nurse -> Rest is good for her.
+  Nurse -> Okay. Is there any bleeding? Nosebleeds, bleeding gums, black stools, bruising?
+  Caller -> I check her skin every day. Her ankles, her arms. I'm looking for anything.
+  Caller -> No. Not that I've seen. No black stools. I asked her. She said no. And no bleeding from the incision. There's one small bruise on her arm, from the IV. That's old. || A8
+  Nurse -> Good.
+  Nurse -> Okay. Ambrose, what's her date of birth?
+  Caller -> Of course. One second.
+  Caller -> May twenty seventh. Nineteen fifty two. || patient_dob
+  Caller -> She turned seventy four in May. We had a cake in the hospital. They sang.
+  Nurse -> What a nice memory.
+  Nurse -> And your number?
+  Caller -> Five oh five, five five five, oh one seven nine. || callback_phone
+  Nurse -> Five oh five, five five five, oh one seven nine. Right? || callback_phone
+  Caller -> Yes. That's the house phone and my cell. Same number.
+  Caller -> I'll carry the cell with me. Even to the bathroom.
+  Nurse -> Ha. Good.
+  Nurse -> Great.
+  Nurse -> Okay. Here's what I'm going to do about the Eliquis. I don't want you to guess. I'm going to page the on-call clinician right now, to confirm the right dose from her discharge. || R1
+  Caller -> Okay. Thank you. I was so afraid to guess.
+  Nurse -> Not guessing was the right call.
+  Nurse -> I'll also call the pharmacy, and ask what strength they dispensed and what the prescription says. || R2
+  Caller -> Okay. They close at nine. It's twenty past eight.
+  Nurse -> I know. I'm moving fast.
+  Nurse -> Then I'll call them first, right away.
+  Caller -> I appreciate that. I'm a nervous wreck.
+  Nurse -> You're doing fine.
+  Caller -> Thank you.
+  Nurse -> I'll call you back within the hour with an answer. || R3
+  Caller -> What number will you call from? In case it shows as unknown.
+  Nurse -> It may show as private. Please answer anyway.
+  Caller -> I will. I'll answer everything tonight.
+  Caller -> Within the hour. Okay. I'll keep my phone on.
+  Nurse -> Good.
+  Caller -> I'll sit right next to it. With the dog.
+  Nurse -> In the meantime, please hold tonight's Eliquis dose until the clinician confirms it. Give the other medicines as listed. The metoprolol tonight, as scheduled. || E1
+  Caller -> Okay. Can I ask why it's so complicated? The doctor said just two pills.
+  Nurse -> Switching blood thinners is a delicate change. The details matter.
+  Caller -> Hold tonight's Eliquis. Give the metoprolol. Okay. Wait. Won't she be unprotected, without the blood thinner? || A1, A3
+  Nurse -> That's a fair worry.
+  Nurse -> Mm hm.
+  Nurse -> A short delay while we confirm is safer than a wrong dose. The clinician will decide. I expect to reach them quickly.
+  Caller -> I understand. Thank you for explaining.
+  Caller -> Okay. I trust you. I just don't want her to have a stroke. She's had one TIA already. That's why she's on it.
+  Nurse -> I appreciate that.
+  Nurse -> I understand. We will not leave this hanging. I promise.
+  Caller -> Thank you. You have no idea how much that helps.
+  Nurse -> I'm glad.
+  Caller -> Thank you.
+  Nurse -> Next, take the warfarin and the lisinopril out of the pile. Put them in a separate bag marked stopped, and keep them away from the pill box. || E2
+  Caller -> Wait. Let me get a bag first. A big one. Hold on.
+  Nurse -> Take your time.
+  Caller -> Okay. Back.
+  Caller -> Okay. I'm reaching for them. They're by the sugar bowl.
+  Caller -> Got them. One has a blue cap. The other has a yellow one.
+  Nurse -> Perfect. Both go in the bag.
+  Caller -> And the old forty milligram bottle too? I forgot to ask.
+  Nurse -> Yes. All of the stopped ones.
+  Caller -> Separate bag. Marked stopped. Away from the pill box. Okay. I'll use a gallon bag. I'm writing STOPPED with a marker. Done. I'm putting it in the cabinet over the fridge.
+  Nurse -> Good.
+  Nurse -> That's it.
+  Nurse -> That's perfect. I'd also like a nurse to come out tomorrow, to go over every bottle with you in person. || R4
+  Caller -> Thank you. I'll feel better with someone in the house who knows.
+  Caller -> Tomorrow. Yes please. What time?
+  Caller -> Should I have the bottles in the same order? Or does it matter?
+  Nurse -> Leave them as they are. The nurse will sort them.
+  Nurse -> Morning. I'll ask for ten.
+  Caller -> Ten works.
+  Caller -> I'll make sure the dog is out of the room. She barks at the door.
+  Nurse -> Ha. Thank you.
+  Nurse -> And Ambrose, call 911 right away if she has black or bloody stools, vomits blood, has a nosebleed that won't stop, falls and hits her head, or gets a sudden, severe headache. || E3
+  Caller -> Black stools. Vomiting blood. Nosebleed. Head injury. Sudden headache. Okay. I'm writing it on the same bag. No, a different piece of paper.
+  Nurse -> Perfect. Keep that where you can see it.
+  Nurse -> Different paper is better.
+  Caller -> I put it on the fridge with the pineapple magnet.
+  Nurse -> Perfect.
+  Caller -> Okay.
+  Nurse -> You've done a great job today. It's a lot of medicines to manage.
+  Caller -> I'm trying. My daughter is flying in tomorrow. She'll help.
+  Nurse -> That'll make a difference.
+  Caller -> Thank you. I've never done anything like this. She always handled her own pills. Now I'm the one.
+  Nurse -> I know. It's a lot, and you're handling it.
+  Nurse -> You're doing it carefully. Asking questions is the best thing.
+  Caller -> I'm learning. Slowly.
+  Nurse -> That's how everyone learns it.
+  Nurse -> I'll call the pharmacy now.
+  Caller -> Thank you, Lucinda. I'll wait for your call.
+  Nurse -> And Ambrose, you're doing a good job.
+  Caller -> Thank you. I didn't think I could do this. I'm still not sure.
+  Nurse -> You can.
+  Nurse -> Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Genoveva Plunkett, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1952-05-27", certainty: stated, heard_as: [], turns: [70]}
+    caller_name: {value: Ambrose Plunkett, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: husband, certainty: stated, turns: [4]}
+    callback_phone: {value: "5055550179", certainty: stated, heard_as: [], turns: [74, 75]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Needs help sorting out his wife's medicines after a hospital stay.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm trying to sort out her medicines."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol 25 mg twice a day was new, with the morning dose given at eight.
+      speaker: Caller
+      turns: [18]
+      quote: "The metoprolol. Twenty five milligrams. Twice a day."
+      explanation: Documents the new medication.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Furosemide 20 mg once a day in the morning, reduced from forty, given this morning.
+      speaker: Caller
+      turns: [38]
+      quote: "The furosemide. It used to be forty. Now the paper says twenty."
+      explanation: Documents the changed dose.
+      facts:
+        - {type: medication, name: furosemide, dose: "20", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: (unclear; the dose line is smudged) Eliquis twice a day, with the bottle saying 5 mg, given this morning.
+      speaker: Caller
+      turns: [30]
+      quote: "The bottle says five milligrams. The label."
+      explanation: Documents the uncertain anticoagulant dose.
+      facts:
+        - {type: medication, name: Eliquis, dose: "5", unit: mg, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: unclear}
+      covers: [A3]
+    - text: Warfarin 5 mg once a day was stopped, last taken the night before the hospital.
+      speaker: Caller
+      turns: [46]
+      quote: "The warfarin. Stopped."
+      explanation: Documents the stopped medication.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: once a day, prn: false, last_dose: the night before she went to the hospital, med_status: stopped, certainty: stated}
+      covers: [A4]
+    - text: Lisinopril 10 mg once a day was on hold until the cardiology visit.
+      speaker: Caller
+      turns: [50]
+      quote: "The lisinopril. It says hold."
+      explanation: Documents the held medication.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: once a day, prn: false, last_dose: the day before she went to the hospital, med_status: stopped, certainty: stated}
+      covers: [A5]
+    - text: Tylenol 500 mg was used as needed every six hours, one yesterday evening.
+      speaker: Caller
+      turns: [54]
+      quote: "Tylenol. Five hundred. As needed."
+      explanation: Documents the as-needed medication.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, frequency: every six hours as needed, prn: true, last_dose: yesterday evening, med_status: taking, certainty: stated}
+      covers: [A6]
+    - text: She was very tired and slept a lot.
+      speaker: Caller
+      turns: [60]
+      quote: "Tired. Very tired. She sleeps a lot."
+      explanation: Documents the tiredness.
+      facts:
+        - {type: symptom, name: tiredness, present: true, severity: mild, certainty: stated}
+      covers: [A7]
+    - text: She had no bleeding or black stools.
+      speaker: Caller
+      turns: [66]
+      quote: "No black stools. I asked her."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: bleeding or black stools, certainty: stated}
+      covers: [A8]
+    - text: (unclear) The Eliquis line on the discharge paper was smudged and could say five or two point five milligrams.
+      speaker: Caller
+      turns: [22]
+      quote: "It could be a five or a two and a half."
+      explanation: Documents the unresolved dose on the paper.
+      facts:
+        - {type: context, text: The Eliquis line on the discharge paper is smudged and could say five or two point five milligrams, certainty: unclear}
+      covers: [A9]
+  response:
+    - text: Planned to page the on-call clinician to confirm the Eliquis dose.
+      speaker: Nurse
+      turns: [80]
+      quote: "I'm going to page the on-call clinician right now, to confirm the right dose from her discharge."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy about the dispensed strength.
+      speaker: Nurse
+      turns: [83]
+      quote: "I'll also call the pharmacy, and ask what strength they dispensed"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback within the hour.
+      speaker: Nurse
+      turns: [90]
+      quote: "I'll call you back within the hour with an answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit tomorrow to go over every bottle.
+      speaker: Nurse
+      turns: [123]
+      quote: "I'd also like a nurse to come out tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised holding tonight's Eliquis until the clinician confirms the dose and giving the other medicines as listed.
+      speaker: Nurse
+      turns: [97]
+      quote: "please hold tonight's Eliquis dose until the clinician confirms it."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised bagging the warfarin and lisinopril separately marked stopped and away from the pill box.
+      speaker: Nurse
+      turns: [111]
+      quote: "Put them in a separate bag marked stopped"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for black or bloody stools, vomiting blood, a nosebleed that would not stop, a fall with a head injury, or a sudden severe headache.
+      speaker: Nurse
+      turns: [132]
+      quote: "call 911 right away if she has black or bloody stools"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [4], quote: "The new Eliquis line is smudged and I don't know if it's five or two point five."}

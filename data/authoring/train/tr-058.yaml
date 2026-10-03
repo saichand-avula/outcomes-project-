@@ -1,0 +1,222 @@
+call_id: tr-058
+split: train
+blueprint: "Post knee-replacement patient (43) is unsure how many oxycodone she took today and when; scheduled acetaminophen is due at four. Pain 5/10. Nurse sorts out the schedule, advises one oxycodone only if four hours have passed since her best guess of last dose, and warns against other acetaminophen products. Counts stay uncertain."
+setup:
+  scenario_category: medication
+  subtype: prn_scheduled_confusion
+  secondary_tags: [prn_and_scheduled, hedging, late_answers, phone_from_file]
+  clinical_domains: [pain, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-17T18:40:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Renata Voskuijlen
+  patient_name_spoken: Renata Voskuijlen
+  patient_name_certainty: stated
+  patient_dob_true: "1983-05-30"
+  patient_dob_spoken: "1983-05-30"
+  patient_dob_certainty: stated
+  caller_name_true: Renata Voskuijlen
+  caller_name_spoken: Renata Voskuijlen
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2065550194"
+  callback_phone_spoken: "2065550194"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked when she can take her next pain medicine
+  reason_category: medication_question
+  relevant_context: Knee replacement surgery 6 days ago
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: patient
+    onset_or_duration: 6 days
+    history_or_context_text: Knee replacement surgery 6 days ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: knee pain
+    symptom_present: true
+    severity: 5/10
+    body_location: knee
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every 4 hours
+    prn: true
+    last_dose: unsure; thinks around 11
+    certainty: unclear
+    unclear_detail: Patient is unsure how many she took today and when the last one was
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "1000"
+    unit: mg
+    frequency: every 8 hours
+    last_dose: 8 this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: take one oxycodone only if at least 4 hours since the last one; acetaminophen is due at 4
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: note the uncertain dose count and suggest a written log
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Write down each dose and time; avoid other products that contain acetaminophen
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for pain that is not controlled, a hot red swollen knee, or fever
+    trigger_condition: uncontrolled pain; hot red swollen knee; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Renata Voskuijlen. I'm a patient. Um, sorry, it's V O S K U I J L E N. || patient_name, caller_name, relationship
+  Nurse -> No problem, Renata. Date of birth?
+  Caller -> May thirtieth, nineteen eighty three. || patient_dob
+  Nurse -> Okay. And is two oh six, five five five, zero one nine four still your cell? || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> What can I help with?
+  Caller -> I'm trying to figure out when I can take my next pain pill and I, I lost track. I honestly lost track of what I took today. || cc, A3
+  Nurse -> Okay. That's okay, let's sort it out. How's your knee?
+  Caller -> It hurts. It's like a five right now. I had the replacement six days ago. || A1, A2
+  Nurse -> Okay. So you have the oxycodone, five milligrams, every four hours as needed. Is that right? || A3
+  Caller -> Yes. The oxycodone. || A3
+  Nurse -> How many have you had today?
+  Caller -> Um. Three? Maybe four. I think three. || A3
+  Nurse -> And when was the last one?
+  Caller -> I think it was around eleven. Eleven-ish. I fell asleep after. I really don't know. || A3
+  Nurse -> Okay. And the Tylenol, the thousand milligrams every eight hours? || A4
+  Caller -> Yes, the Tylenol. And I took that at eight this morning. I know that one because I set an alarm. || A4
+  Nurse -> Good. So the Tylenol is due at four. Take that at four. For the oxycodone, if it's been at least four hours since your last one, and it has, since it's after two now, you can take one. Just one. || R1
+  Caller -> One. Okay.
+  Nurse -> And don't take anything else with Tylenol in it. A lot of cold medicines and sleep aids have it hidden in there. || E1
+  Caller -> Oh. Okay. I didn't know that. I do have some of the, the nighttime stuff.
+  Nurse -> Skip those for now. And from here on, grab a piece of paper and write down every dose and the time. Then we're not guessing. || E1
+  Caller -> Yeah. Yeah, I should do that.
+  Nurse -> I'll make a note in your chart that you weren't sure about today's count. || R2
+  Caller -> Okay. Is that bad?
+  Nurse -> No, it's just so the team knows. If your pain is not controlled, or the knee gets hot, red and swollen, or you get a fever, call us. || E2
+  Caller -> Okay. Hot, red, swollen, fever. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Tom.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Renata Voskuijlen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1983-05-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Renata Voskuijlen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550194", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked when she can take her next pain medicine.
+    speaker: Caller
+    turns: [8]
+    quote: "I'm trying to figure out when I can take my next pain pill and I, I lost track."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Knee replacement surgery was 6 days ago, with knee pain rated 5/10.
+      speaker: Caller
+      turns: [10]
+      quote: "It hurts. It's like a five right now. I had the replacement six days ago."
+      explanation: Documents the surgical context and current pain.
+      facts:
+        - {type: context, onset: 6 days, certainty: stated}
+        - {type: symptom, name: knee pain, present: true, severity: 5/10, location: knee, certainty: stated}
+      covers: [A1, A2]
+    - text: Oxycodone 5 mg every 4 hours as needed was in use, but the number of doses today and the last dose time were unclear (she thought 3 doses, last around 11).
+      speaker: Caller
+      turns: [16]
+      quote: "I think it was around eleven. Eleven-ish. I fell asleep after. I really don't know."
+      explanation: Documents the uncertain PRN dosing history.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 4 hours, prn: true, last_dose: unsure; thinks around 11, med_status: taking, certainty: unclear}
+      covers: [A3]
+    - text: Tylenol 1000 mg every 8 hours was taken at 8 this morning.
+      speaker: Caller
+      turns: [18]
+      quote: "I took that at eight this morning."
+      explanation: Documents the scheduled acetaminophen dose.
+      facts:
+        - {type: medication, name: Tylenol, dose: "1000", unit: mg, frequency: every 8 hours, last_dose: 8 this morning, med_status: taking, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised taking Tylenol at 4 and one oxycodone now, since at least 4 hours had passed.
+      speaker: Nurse
+      turns: [19]
+      quote: "Take that at four."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to note in the chart that she was unsure about the day's dose count.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll make a note in your chart that you weren't sure about today's count."
+      explanation: Documents the planned chart note.
+      facts:
+        - {type: action, action_type: documentation, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised avoiding other products containing acetaminophen and writing down every dose with its time.
+      speaker: Nurse
+      turns: [21]
+      quote: "don't take anything else with Tylenol in it."
+      explanation: Documents medication safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for uncontrolled pain, a hot red swollen knee, or fever.
+      speaker: Nurse
+      turns: [27]
+      quote: "If your pain is not controlled, or the knee gets hot, red and swollen, or you get a fever, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

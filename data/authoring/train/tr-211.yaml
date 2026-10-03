@@ -1,0 +1,306 @@
+call_id: tr-211
+split: train
+blueprint: "Daughter of a 71-year-old hospice patient: left hip pain is a nine out of ten, she has had two doses of liquid morphine ten mg today (last about forty minutes ago) with no relief, no fall, not sleepy, breathing fine. Nurse pages the on-call clinician, plans a nurse visit within the hour and a callback in thirty minutes, says no extra morphine until the on-call clinician advises, and gives positioning and return precautions. Flag: uncontrolled_symptom."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Sofia
+  call_timestamp_utc: "2026-10-09T22:15:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Nadine Pellegrino
+  patient_name_spoken: Nadine Pellegrino
+  patient_name_certainty: stated
+  patient_dob_true: "1955-09-02"
+  patient_dob_spoken: "1955-09-02"
+  patient_dob_certainty: stated
+  caller_name_true: Gianna Pellegrino
+  caller_name_spoken: Gianna Pellegrino
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3135550188"
+  callback_phone_spoken: "3135550188"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported severe hip pain not relieved by her mother's pain medicine
+  reason_category: pain
+  relevant_context: Hospice patient with bone pain
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: left hip pain
+    symptom_present: true
+    severity: 9 out of 10
+    onset_or_duration: worse since noon
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: about forty minutes ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: no relief from morphine
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or injury today
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: sleepiness or trouble breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: sharp pain when she moves
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: hip pain 9 out of 10 not relieved by morphine
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no extra morphine beyond her schedule until the on-call clinician advises
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Take weight off the hip with a pillow between her knees, use a warm blanket but no heat directly on the hip
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if she becomes hard to wake or her breathing becomes slow or shallow
+    trigger_condition: hard to wake; slow breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Hip pain rated nine out of ten after two doses of morphine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Sofia.
+  Caller -> Sofia, it's Gianna Pellegrino. It's my mom, Nadine. She's in so much pain. It's her hip. I don't know what to do. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Gianna, I'm here. We're going to get her some help. What's her date of birth?
+  Caller -> Uh, September second. Nineteen fifty five. || patient_dob
+  Nurse -> Thanks. And I have three one three, five five five, zero one eight eight for you. || callback_phone
+  Caller -> Yes. Yes, that's my cell. || callback_phone
+  Nurse -> Okay. How bad is the pain right now, on a scale of zero to ten?
+  Caller -> She says nine. Nine out of ten. She's crying. She keeps saying it's a nine. || A1, F1
+  Nurse -> Okay. Where is it exactly?
+  Caller -> Her left hip. It goes down into the thigh. She had it this morning, too, but it was manageable. A five, maybe. It got worse around noon. || A1
+  Nurse -> Okay. What kind of pain is it? Aching, burning, sharp?
+  Caller -> Aching all the time. But when she moves it's sharp. Like a knife, she says. She can't turn at all. || A6
+  Nurse -> Okay. What has she taken for it?
+  Caller -> The morphine. The liquid. Ten milligrams. She had one at noon and another one at, um, I think two. The last one was about forty minutes ago, and it hasn't touched it. || A2, A3
+  Nurse -> Okay. So two doses today and the pain is still a nine.
+  Caller -> Yes. It's not helping. Not even a little.
+  Nurse -> And how often is she allowed to have it?
+  Caller -> Every four hours if she needs it. That's what the bottle says. || A2
+  Nurse -> Okay. Did she fall, or twist it, or have any kind of injury today?
+  Caller -> No. Nothing. She was in her recliner and she got up to use the commode, and that's when it got really bad. || A4
+  Nurse -> Okay. And is she sleepy at all? Any trouble breathing, any confusion?
+  Caller -> No. Breathing's fine. She's awake. She's the opposite of sleepy. She's wide awake and hurting. || A5
+  Nurse -> Okay, Gianna. This isn't being controlled at home. I'm going to page the on-call clinician right now. || R1
+  Caller -> Please. Please. Is somebody coming to the house?
+  Nurse -> Yes. I'm also going to send a nurse out to you. I'm asking for it within the hour. || R2
+  Caller -> Within the hour. Okay. Okay. Thank you. Thank you, Sofia.
+  Nurse -> While you wait, please don't give any extra morphine on top of her schedule. The on-call clinician will tell you if she can have more and how much. || E1, A2
+  Caller -> No extra. Wait for the call. Okay. I don't want to make it worse. I just want it to stop for her.
+  Nurse -> I know. Let's help her get comfortable in the meantime. Can she lie on her right side, so the left hip is on top?
+  Caller -> She's in the recliner. Mom, can you, hold on. Mom, let me move your leg. I'm sorry. I'm sorry. Okay. She says it's a little better if the leg is straight.
+  Nurse -> Okay. Put a pillow between her knees if she's on her side. And a warm blanket over her is fine, but no heating pad, nothing hot directly on the hip. || E2
+  Caller -> Pillow between the knees. Blanket. No heating pad. Okay. I'm doing it. Okay, the pillow's in. She's, I think it's maybe a seven now. She says maybe a seven if she doesn't move.
+  Nurse -> Okay. That's good to hear, but we still want the clinician to weigh in. I'll call you back in thirty minutes if you haven't heard from them. || R3
+  Caller -> Thirty minutes. Okay. And they'll call from where? My phone doesn't pick up unknown numbers.
+  Nurse -> It may come up as unknown or blocked. Please answer anything for the next hour.
+  Caller -> I'll answer anything. I'll turn it all the way up.
+  Nurse -> Good. Is there someone there with you?
+  Caller -> My dad. He's in the kitchen. He can't watch her cry. He's been in there making tea nobody's drinking.
+  Nurse -> That's hard on all of you. Gianna, one more thing. If she becomes hard to wake up, or her breathing gets slow or shallow, call nine one one right away. || E3
+  Caller -> Hard to wake up. Slow breathing. Nine one one. Okay. But she's wide awake right now. Wide awake. Okay.
+  Nurse -> I know. It's just so you have it. You're doing a good job. You called at exactly the right time.
+  Caller -> Thank you. I just can't stand it. She's my mom.
+  Nurse -> I know. I'm here. Keep your phone near you.
+  Caller -> Okay. Okay. I will.
+  Nurse -> Gianna, while we wait, have you had anything to eat or drink tonight yourself?
+  Caller -> No. I had coffee at lunch. I haven't thought about it. I've just been sitting next to her since noon.
+  Nurse -> Please get a glass of water, and a cracker if you can. You need to be steady for her tonight.
+  Caller -> Okay. I'll have my dad bring me something. He needs a job anyway.
+  Nurse -> That's a good idea. Give him that one.
+  Caller -> I will. Thank you, Sofia. Really.
+  Nurse -> Anytime. Talk to you soon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Nadine Pellegrino, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-09-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gianna Pellegrino, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3135550188", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported severe hip pain not relieved by her mother's pain medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "She's in so much pain. It's her hip."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Left hip pain was rated nine out of ten, worse since noon.
+      speaker: Caller
+      turns: [8]
+      quote: "She says nine. Nine out of ten."
+      explanation: Documents the pain severity.
+      facts:
+        - {type: symptom, name: left hip pain, present: true, severity: 9 out of 10, onset: worse since noon, certainty: stated}
+      covers: [A1]
+    - text: Morphine 10 mg every four hours as needed was being used, with two doses taken today and the last about forty minutes earlier.
+      speaker: Caller
+      turns: [14]
+      quote: "The last one was about forty minutes ago, and it hasn't touched it."
+      explanation: Documents the medication use.
+      facts:
+        - {type: medication, name: morphine, dose: "10", unit: mg, frequency: every four hours as needed, prn: true, last_dose: about forty minutes ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: The morphine had given no relief.
+      speaker: Caller
+      turns: [16]
+      quote: "It's not helping. Not even a little."
+      explanation: Documents the lack of relief.
+      facts:
+        - {type: symptom, name: no relief from morphine, present: true, certainty: stated}
+      covers: [A3]
+    - text: No fall or injury occurred today.
+      speaker: Caller
+      turns: [20]
+      quote: "No. Nothing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or injury today, certainty: stated}
+      covers: [A4]
+    - text: She was not sleepy and her breathing was fine.
+      speaker: Caller
+      turns: [22]
+      quote: "No. Breathing's fine. She's awake."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: sleepiness or trouble breathing, certainty: stated}
+      covers: [A5]
+    - text: The pain was sharp when she moved.
+      speaker: Caller
+      turns: [12]
+      quote: "But when she moves it's sharp."
+      explanation: Documents the character of the pain.
+      facts:
+        - {type: symptom, name: sharp pain when she moves, present: true, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out within the hour.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm also going to send a nurse out to you."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes if the on-call clinician had not called.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'll call you back in thirty minutes if you haven't heard from them."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving no extra morphine beyond her schedule until the on-call clinician advised.
+      speaker: Nurse
+      turns: [27]
+      quote: "please don't give any extra morphine on top of her schedule."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised a pillow between her knees and a warm blanket, with no heat directly on the hip.
+      speaker: Nurse
+      turns: [31]
+      quote: "Put a pillow between her knees if she's on her side."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if she became hard to wake or her breathing became slow or shallow.
+      speaker: Nurse
+      turns: [39]
+      quote: "If she becomes hard to wake up, or her breathing gets slow or shallow, call nine one one right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [8], quote: "She says nine. Nine out of ten."}

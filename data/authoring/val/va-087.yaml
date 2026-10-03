@@ -1,0 +1,245 @@
+call_id: va-087
+split: val
+blueprint: "A mother, Soledad Quintanilla, calls about her five-year-old son Mateo's ear infection. She calls his antibiotic 'amoxicillan' (amoxicillin liquid, five milliliters twice a day, day four of ten). The ear pain is much better, temperature ninety nine point one, and he has no vomiting or rash. She asks if she can stop early because he feels fine. Nurse says to finish all ten days, reviews measuring the liquid with the oral syringe, and plans a callback in two days. ASR drug garble, pediatric parent caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble_pediatric
+  secondary_tags: [drug_garble, parent, pediatric, liquid_concentration, late_answers, split_turns]
+  clinical_domains: [ear_pain, fever, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Tidewater Pediatric Home Health
+  agency_type: pediatric_home_care
+  nurse_name: Hortensia
+  call_timestamp_utc: "2026-12-14T21:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mateo Quintanilla
+  patient_name_spoken: Mateo Quintanilla
+  patient_name_certainty: stated
+  patient_dob_true: "2021-10-12"
+  patient_dob_spoken: "2021-10-12"
+  patient_dob_certainty: stated
+  caller_name_true: Soledad Quintanilla
+  caller_name_spoken: Soledad Quintanilla
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "4145550110"
+  callback_phone_spoken: "4145550110"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked whether to stop her son's antibiotic early because his ear infection seems better
+  reason_category: medication_question
+  relevant_context: Pediatric home care patient on day four of ten of an antibiotic for an ear infection
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillan
+    medication_status: taking
+    dose: "5"
+    unit: mL
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: ear pain
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.1"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or rash
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in two days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Finish all ten days even if he feels fine, use the oral syringe to measure the liquid, shake the bottle first, and give it with food
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fever of one hundred two or higher, a rash, vomiting that keeps the medicine from staying down, or worse ear pain
+    trigger_condition: fever 102 or higher; rash; vomiting; worse ear pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Tidewater Pediatric Home Health, this is Hortensia.
+  Caller -> Hi, Hortensia. This is Soledad Quintanilla. I'm calling about my son, Mateo Quintanilla. He has the ear infection. And I have a question about his amoxicillan. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Soledad. Amoxicillin, is that the pink liquid? || A1
+  Caller -> Sorry, I'm in the car, in the school pickup line. The kids are loud.
+  Nurse -> No problem. I can hear you fine.
+  Caller -> Yes, the pink one. It says amoxicillan on the bottle. The pharmacy label. Four hundred milligrams in five milliliters. And he takes five milliliters twice a day. || A1
+  Nurse -> Okay. And what day is he on?
+  Caller -> Day four. Of ten. He's had it since Friday. He had a dose this morning, at eight. || A1
+  Nurse -> Good. How's his ear?
+  Caller -> Sorry, I lost my train of thought.
+  Nurse -> That's okay. We were just getting started.
+  Caller -> Much better. He was crying Thursday night. He kept pulling at it. Now he doesn't touch it. He says it doesn't hurt. Maybe a little when I press behind the ear. || A2
+  Nurse -> That's a good sign. Does he have a fever?
+  Caller -> I took it before I called. Ninety nine point one. Normal. He had a hundred and one on Friday. || A3
+  Nurse -> Good. Any vomiting, diarrhea, rash, hives?
+  Caller -> Sorry, I keep going back and forth. It's been a long day.
+  Nurse -> I understand. Take a breath.
+  Caller -> No. His stomach's fine. He's eating. No spots. Nothing. He's a little cranky, but that's him. || A4
+  Nurse -> Is he sleeping through the night?
+  Caller -> Mostly. He wakes up once and comes into our bed. That's been going on since the ear started.
+  Nurse -> That's understandable.
+  Nurse -> Okay. What's his date of birth?
+  Caller -> October twelfth, twenty twenty one. He's five. || patient_dob
+  Nurse -> And your number?
+  Caller -> Four one four, five five five, zero one one zero. || callback_phone
+  Nurse -> Got it. What was your question?
+  Caller -> Okay. I've got a notebook now. Go ahead.
+  Nurse -> Alright.
+  Caller -> He feels so much better. Can I stop the medicine? He hates it. He fights me every time. I have to hold his nose. I feel terrible.
+  Nurse -> I understand, Soledad. But please keep going for all ten days. If you stop early, the infection can come back, and sometimes it comes back stronger.
+  Caller -> All ten. Even though he's fine.
+  Nurse -> Yes. The ear can still have infection even when it stops hurting. The medicine needs the full course to clear it out.
+  Caller -> Okay. I figured you'd say that. I just hoped.
+  Nurse -> Ha. Of course. Let's make it easier. Do you use the oral syringe that came with it?
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> I use a spoon. A teaspoon. Because the syringe makes him gag.
+  Nurse -> A kitchen teaspoon isn't accurate. A real teaspoon is five milliliters, but kitchen spoons vary. Please use the syringe, but squirt it slowly into the side of his cheek, not at the back of the throat. Shake the bottle first. And give it with a little food, like applesauce or a cracker. || E1
+  Caller -> Syringe. Slow. In the cheek. Shake it. With food. Okay. I can try that. He might gag less.
+  Nurse -> A sticker or a small treat afterward can help too.
+  Caller -> He loves stickers. I'll give him a dinosaur one.
+  Nurse -> Perfect.
+  Caller -> What if he spits some out?
+  Nurse -> If he spits out a little, don't repeat the dose. If he throws up within fifteen minutes, call us.
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> Okay. Fifteen minutes. Call you.
+  Nurse -> And call us if he gets a fever of one hundred two or higher, a rash, if he vomits and can't keep it down, or if the ear pain gets worse. || E2
+  Caller -> A hundred two. A rash. Vomiting. Ear pain worse. Okay.
+  Nurse -> I'll call you in two days to see how he's doing and whether he's taking it. || R1
+  Caller -> Two days. That's Wednesday. Okay. Call after four. I pick him up from school.
+  Nurse -> After four on Wednesday. Got it.
+  Caller -> Thank you so much. You made me feel less guilty.
+  Nurse -> No guilt. You're doing a good job. It's hard to give medicine to a five year old.
+  Caller -> He told me yesterday he was going to throw it out the window. Ha.
+  Nurse -> Ha. Kids are creative.
+  Caller -> His teacher says he told her the medicine is poison. I was mortified.
+  Nurse -> Ha. He's testing you. Stay calm and consistent.
+  Caller -> Sorry, somebody's at the door. Hang on a second.
+  Nurse -> No problem, I'll hold.
+  Caller -> Oh, he's very creative. He drew a picture of me with a giant spoon.
+  Nurse -> Ha. Hang that on the fridge.
+  Caller -> It's already there.
+  Nurse -> Take care, Soledad.
+  Caller -> Bye. Thanks again.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: amoxicillin, heard_form: amoxicillan, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mateo Quintanilla, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2021-10-12", certainty: stated, heard_as: [], turns: [23]}
+    caller_name: {value: Soledad Quintanilla, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550110", certainty: stated, heard_as: [], turns: [25]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether to stop her son's antibiotic early because his ear infection seems better.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about his amoxicillan."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Amoxicillan, five milliliters twice a day, day four of ten, with the last dose at eight this morning.
+      speaker: Caller
+      turns: [6]
+      quote: "he takes five milliliters twice a day."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: amoxicillan, dose: "5", unit: mL, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Ear pain was much better, with slight tenderness behind the ear.
+      speaker: Caller
+      turns: [12]
+      quote: "Much better."
+      explanation: Documents the ear pain.
+      facts:
+        - {type: symptom, name: ear pain, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Temperature was 99.1.
+      speaker: Caller
+      turns: [14]
+      quote: "Ninety nine point one."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.1", certainty: stated}
+      covers: [A3]
+    - text: He had no vomiting or rash.
+      speaker: Caller
+      turns: [18]
+      quote: "No spots. Nothing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or rash, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a callback in two days.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll call you in two days"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in two days, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised finishing all ten days, using the oral syringe slowly into the cheek, shaking the bottle, and giving it with food.
+      speaker: Nurse
+      turns: [30]
+      quote: "please keep going for all ten days."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fever of 102 or higher, rash, vomiting, or worse ear pain.
+      speaker: Nurse
+      turns: [48]
+      quote: "call us if he gets a fever of one hundred two or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

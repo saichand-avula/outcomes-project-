@@ -1,0 +1,271 @@
+call_id: tr-392
+split: train
+blueprint: "A wife calls home health before giving her husband's morning digoxin: she took his pulse as the nurse taught her and it is 48, below the hold number of 50 written on the sheet. He feels fine, no dizziness or chest pain. She reads the chart sheet for the nurse, including his other pills. Nurse tells her to hold the digoxin this morning, plans a message to the team, a callback within the hour and a nurse visit today. Medication hold parameter, no flag, spouse caller, chart reading, v2 short."
+setup:
+  scenario_category: medication
+  subtype: hold_parameters
+  secondary_tags: [chart_reading_distractor, trap_phrasing, negated_risk_phrase, hedging, late_answers, split_turns]
+  clinical_domains: [medication, cardiac, blood_pressure]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cottonwood Home Health
+  agency_type: home_health
+  nurse_name: Ruth
+  call_timestamp_utc: "2026-11-01T13:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [metoprolol, furosemide, warfarin]
+chief_complaint:
+  patient_name_true: Alvin Pruett
+  patient_name_spoken: Alvin Pruett
+  patient_name_certainty: stated
+  patient_dob_true: "1945-12-30"
+  patient_dob_spoken: "1945-12-30"
+  patient_dob_certainty: stated
+  caller_name_true: Imogene Pruett
+  caller_name_spoken: Imogene Pruett
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3035550196"
+  callback_phone_spoken: "3035550196"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked whether to give his digoxin when his pulse is below the hold number
+  reason_category: medication
+  relevant_context: Home health patient with a heart rhythm problem on digoxin
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: digoxin
+    medication_name_spoken: digoxin
+    medication_status: taking
+    dose: "0.125"
+    unit: mg
+    frequency: once a day
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "48"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: dizziness or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: digoxin
+    medication_name_spoken: digoxin
+    reason_or_trigger: hold the digoxin this morning because the pulse is below fifty
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: report the slow pulse and held digoxin
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Recheck his pulse for a full minute after he has rested fifteen minutes and write it down with the time
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for dizziness, fainting, chest pain, nausea, yellow halos around lights or a pulse below forty, and call 911 for fainting or chest pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cottonwood Home Health, this is Ruth.
+  Caller -> Ruth, hello. It's Imogene Pruett. I'm calling about Alvin. Alvin Pruett. My husband. I need to ask about his heart pill. || caller_name, patient_name, relationship, cc
+  Nurse -> Sorry, let me pull him up. Pruett, P R U E T T?
+  Caller -> Two Ts. P R U E T T. People always drop one.
+  Nurse -> Hi Imogene. Sure. What's the question?
+  Caller -> I took his pulse like you taught me, and it's low. It's forty eight. And the sheet says if it's under fifty don't give the digoxin. So I'm not sure if I give it or not. || A2
+  Nurse -> Okay. You did the right thing to check. Let me ask a few things. How long did you count?
+  Caller -> A full minute. I used the kitchen clock. The second hand. I counted forty eight. I did it twice. Forty eight, forty eight.
+  Nurse -> Which fingers did you use? Not your thumb?
+  Caller -> Two fingers. On the inside of his wrist, like you showed me. I never use the thumb.
+  Nurse -> That's right. Good technique.
+  Nurse -> Good. Was he resting when you took it?
+  Caller -> He was sitting at the table. Having his coffee. He'd been sitting a while. Maybe twenty minutes.
+  Nurse -> Okay. How does he feel? Any dizziness, light headedness, chest pain?
+  Caller -> No. He feels fine. He says he feels the same as always. No dizzy. No chest pain. He's reading the paper and telling me about the weather. || A3
+  Nurse -> What's the weather?
+  Caller -> Cold. He says it's going to snow. It's not going to snow. It's fifty degrees.
+  Nurse -> Ha. A man of opinions.
+  Nurse -> Good. What's the dose of digoxin on the bottle? || A1, R1
+  Caller -> Point one two five. Milligrams. One tablet once a day in the morning. He took yesterday's at eight. Yesterday morning. Today's is the one I'm holding. || A1
+  Nurse -> Okay. Digoxin point one two five, once a day. Imogene, can you read me the hold instructions on the sheet? || A1, R1
+  Caller -> It says, check pulse before giving. If the pulse is less than fifty, hold the digoxin and call the nurse. That's what it says. I'm looking at it. The sheet is on the fridge. || A1, R1
+  Nurse -> Perfect. That's exactly what we want. Since his pulse is forty eight, please hold the digoxin this morning. Don't give it. || R1
+  Caller -> Hold it. Don't give it. Okay. I wasn't sure if I was being silly.
+  Nurse -> Not silly. You followed the sheet exactly.
+  Caller -> Okay. Good. I'm putting the pill back in the bottle. Wait. I'll put it on the saucer. So I don't lose it.
+  Nurse -> Put it back in the bottle. Don't leave loose pills around.
+  Caller -> Back in the bottle. Okay.
+  Nurse -> What are his other medicines this morning? Did he take those?
+  Caller -> Let me read the list. Metoprolol, twenty five, in the morning. He took it. Furosemide, twenty, in the morning. He took it. And the warfarin. At night. That's later. Those he took already. I only held the digoxin because I hadn't given it yet. || A1, R1
+  Nurse -> Which pill box do you use? The weekly kind?
+  Caller -> A big one. With the little doors. Morning, noon, evening, bedtime. I fill it on Sundays at the kitchen table with a cup of tea.
+  Nurse -> Good system. It's easy to check.
+  Nurse -> Okay. Thank you. I'm going to leave a message for the team about the slow pulse and the held digoxin. They may want to look at his other heart pills too. || R2
+  Caller -> Okay. That would be good. I wasn't going to say, but the metoprolol also lowers the pulse. I read that on the paper.
+  Nurse -> It can. That's something the clinician will look at. Don't change anything else yourself.
+  Caller -> I won't.
+  Caller -> Is it bad that I'm nervous? My hands are a little shaky.
+  Nurse -> It's not bad. You're being careful with someone you love.
+  Caller -> That's the thing. Fifty one years. I don't want to mess it up.
+  Nurse -> You're not messing anything up. You did exactly right.
+  Nurse -> I'd like a nurse to visit today, to check his pulse and his pressure. || R3
+  Caller -> Today. Okay. What time?
+  Nurse -> The scheduler will call you in the next hour with a window.
+  Caller -> Okay. I'm here. I'm always here.
+  Caller -> We have the grandkids coming at four. Do I tell them to cancel?
+  Nurse -> No need. The nurse will come before or after. They'll work around you.
+  Nurse -> And I'll call you back within the hour with what the team says. || R4
+  Caller -> Within the hour. Okay.
+  Nurse -> In the meantime, let him rest. In about fifteen minutes, take his pulse again for a full minute, and write it down with the time. || E1
+  Caller -> Fifteen minutes. Pulse again. A full minute. Write it. I have a notebook. I'll do it.
+  Nurse -> And call us if he gets dizzy, faints, has chest pain or nausea, sees yellow halos around lights, or if his pulse drops below forty. Call 911 for fainting or chest pain. || E2
+  Caller -> Dizzy. Faint. Chest. Nauseous. Yellow halos. Under forty. 911 for faint or chest. Yes. I wrote it on the notepad.
+  Nurse -> Perfect. What's his date of birth, for the chart?
+  Caller -> December thirtieth. Nineteen forty five. || patient_dob
+  Nurse -> And a number?
+  Caller -> Three oh three, five five five, zero one nine six. || callback_phone
+  Nurse -> Three oh three, five five five, zero one nine six. Is that right? || callback_phone
+  Caller -> Yes. It's the house.
+  Nurse -> Great. Anything else?
+  Caller -> No. Thank you for letting me ask. I always feel like I'm bothering you.
+  Nurse -> You're never bothering us.
+  Caller -> Alvin says hello. He says you're a good nurse.
+  Nurse -> Ha. Tell him thank you.
+  Caller -> Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alvin Pruett, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1945-12-30", certainty: stated, heard_as: [], turns: [55]}
+    caller_name: {value: Imogene Pruett, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550196", certainty: stated, heard_as: [], turns: [57, 58]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether to give his digoxin when his pulse was below the hold number.
+    speaker: Caller
+    turns: [2]
+    quote: "I need to ask about his heart pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Digoxin 0.125 mg once a day, last given yesterday morning at eight.
+      speaker: Caller
+      turns: [20]
+      quote: "Point one two five. Milligrams. One tablet once a day in the morning."
+      explanation: Documents the digoxin.
+      facts:
+        - {type: medication, name: digoxin, dose: "0.125", unit: mg, frequency: once a day, last_dose: yesterday morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Pulse was 48 on a full minute count, twice.
+      speaker: Caller
+      turns: [6]
+      quote: "it's low. It's forty eight."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "48", certainty: stated}
+      covers: [A2]
+    - text: He had no dizziness or chest pain.
+      speaker: Caller
+      turns: [15]
+      quote: "No dizzy. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: dizziness or chest pain, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised holding the digoxin this morning because the pulse was below fifty.
+      speaker: Nurse
+      turns: [23]
+      quote: "please hold the digoxin this morning."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: digoxin, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team about the slow pulse and held digoxin.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'd like a nurse to visit today"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back within the hour.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'll call you back within the hour"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised letting him rest and rechecking his pulse for a full minute in fifteen minutes and writing it down with the time.
+      speaker: Nurse
+      turns: [50]
+      quote: "In about fifteen minutes, take his pulse again for a full minute"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for dizziness, fainting, chest pain, nausea, yellow halos around lights or a pulse below forty, and 911 for fainting or chest pain.
+      speaker: Nurse
+      turns: [52]
+      quote: "call us if he gets dizzy, faints, has chest pain or nausea"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

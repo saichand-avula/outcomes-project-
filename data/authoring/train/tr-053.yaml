@@ -1,0 +1,245 @@
+call_id: tr-053
+split: train
+blueprint: "Wife calls at night: husband's cancer pain is 9/10 despite his oxycodone an hour ago and a fentanyl patch changed two days ago; she asks for a nurse to come now. Nurse pages on-call, promises a visit within the hour, tells her not to add a second patch. Flags: uncontrolled_symptom and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [tall_man_drug, prn_and_scheduled, late_answers, split_turns, multi_issue]
+  clinical_domains: [pain, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-09-12T03:12:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Desmond Halloran
+  patient_name_spoken: Desmond Halloran
+  patient_name_certainty: stated
+  patient_dob_true: "1947-12-03"
+  patient_dob_spoken: "1947-12-03"
+  patient_dob_certainty: stated
+  caller_name_true: Bernice Halloran
+  caller_name_spoken: Bernice Halloran
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9185550177"
+  callback_phone_spoken: "9185550177"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported severe pain not relieved by medication and asked for a nurse to come now
+  reason_category: pain
+  relevant_context: Hospice patient with cancer pain
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: cancer pain
+    symptom_present: true
+    severity: 9/10
+    body_location: hip and back
+    onset_or_duration: since about midnight
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: given_previously
+    dose: "5"
+    unit: mg
+    prn: true
+    last_dose: about an hour ago
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl
+    medication_name_spoken: fentanyl
+    medication_status: taking
+    strength: 50 mcg
+    route: patch
+    last_dose: changed 2 days ago
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: moaning and unable to get comfortable
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: severe uncontrolled pain
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: on-call nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not apply a second fentanyl patch or give extra doses until the on-call nurse calls
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition with pillows and keep the room quiet and dim while waiting
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call back right away if he becomes hard to wake or his breathing slows
+    trigger_condition: hard to wake; slowed breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Pain is nine out of ten despite recent breakthrough medication and a patch
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Caller asks for a nurse to come to the home now
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Rhonda.
+  Caller -> Rhonda, hi, I need somebody to come out. It's my husband, Desmond. Desmond Halloran. I'm Bernice. || caller_name, relationship, patient_name, F2
+  Nurse -> Okay, Bernice, I'm here. What's his date of birth?
+  Caller -> Twelve, three, forty seven. December third, nineteen forty seven. || patient_dob
+  Nurse -> Thank you. And the number you're on? I have nine one eight, five five five, zero one seven seven. || callback_phone
+  Caller -> Yes. Yes, that's the house. That's the right one. || callback_phone
+  Nurse -> Tell me what's happening.
+  Caller -> It's his pain. It's so bad. He's, he's been moaning since about midnight and he can't, he can't get comfortable, he keeps shifting. || cc, A1, A4
+  Nurse -> On a scale of zero to ten, what would you say it is?
+  Caller -> He said nine. He told me a nine. In the hip. And his back. || A1, F1
+  Nurse -> What have you given him?
+  Caller -> I gave him the oxycodone. The five milligram. About an hour ago. It didn't do anything. || A2
+  Nurse -> Okay. And he has the fentanyl patch on? || A3
+  Caller -> Yes. The fifty. You changed it, or the other nurse changed it, two days ago. || A3
+  Nurse -> Right. Is the patch still on his skin, is it stuck down?
+  Caller -> It's, yeah. It's on. I checked it.
+  Caller -> Can somebody come? Please. I can't, I can't watch him like this. || F2
+  Nurse -> I hear you, Bernice. I'm going to page the on-call nurse as soon as we hang up. She'll be at your house within the hour. || R1, R2
+  Caller -> Within the hour. Okay. Okay.
+  Nurse -> I do want you to hold off for now. Don't put on a second patch, and don't give him anything extra until she calls you, because she'll tell you exactly what's safe on top of the oxycodone and the fentanyl. || R3
+  Caller -> Okay. I won't. I'll wait.
+  Nurse -> In the meantime, try to prop him with pillows so the hip is supported. Keep the room quiet and the lights low. || E1
+  Caller -> Pillows. Okay. Lights low.
+  Nurse -> And if he gets really hard to wake up, or his breathing gets slow, call us right back. || E2
+  Caller -> Okay. I will.
+  Nurse -> Alright. Hang in there, Bernice. Somebody will be with you soon.
+  Caller -> Thank you, Rhonda. Thank you.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: December third nineteen forty seven, heard_form: Twelve, three, forty seven, fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Desmond Halloran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-12-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Bernice Halloran, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550177", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported severe pain not relieved by medication and asked for a nurse to come now.
+    speaker: Caller
+    turns: [8]
+    quote: "It's his pain. It's so bad."
+    explanation: Documents the symptom prompting the urgent call.
+    covers: [cc]
+  assessment:
+    - text: Pain in the hip and back was rated 9/10, with moaning and inability to get comfortable since about midnight.
+      speaker: Caller
+      turns: [10]
+      quote: "He said nine. He told me a nine. In the hip. And his back."
+      explanation: Documents pain severity and location.
+      facts:
+        - {type: symptom, name: cancer pain, present: true, severity: 9/10, location: hip and back, duration: since about midnight, certainty: stated}
+        - {type: symptom, name: moaning and unable to get comfortable, present: true, certainty: stated}
+      covers: [A1, A4]
+    - text: Oxycodone 5 mg was given about an hour earlier without relief.
+      speaker: Caller
+      turns: [12]
+      quote: "I gave him the oxycodone. The five milligram. About an hour ago. It didn't do anything."
+      explanation: Documents the breakthrough dose and lack of effect.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, prn: true, last_dose: about an hour ago, med_status: given_previously, certainty: stated}
+      covers: [A2]
+    - text: A fentanyl 50 mcg patch was in place, last changed 2 days earlier.
+      speaker: Caller
+      turns: [14]
+      quote: "Yes. The fifty. You changed it, or the other nurse changed it, two days ago."
+      explanation: Documents the scheduled analgesic patch.
+      facts:
+        - {type: medication, name: fentanyl, strength: 50 mcg, route: patch, last_dose: changed 2 days ago, med_status: taking, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call nurse for the severe pain.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'm going to page the on-call nurse as soon as we hang up."
+      explanation: Documents the planned escalation.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: The on-call nurse would arrive within the hour.
+      speaker: Nurse
+      turns: [18]
+      quote: "She'll be at your house within the hour."
+      explanation: Documents the planned urgent visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Advised not to apply a second patch or give anything extra until the on-call nurse called.
+      speaker: Nurse
+      turns: [20]
+      quote: "Don't put on a second patch, and don't give him anything extra until she calls you"
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised propping him with pillows to support the hip and keeping the room quiet with low lighting.
+      speaker: Nurse
+      turns: [22]
+      quote: "try to prop him with pillows so the hip is supported. Keep the room quiet and the lights low."
+      explanation: Documents comfort measures while waiting.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back right away if he became hard to wake or his breathing slowed.
+      speaker: Nurse
+      turns: [24]
+      quote: "if he gets really hard to wake up, or his breathing gets slow, call us right back."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [10], quote: "He said nine. He told me a nine."}
+    - {category: escalation_request, turns: [17], quote: "Can somebody come? Please."}

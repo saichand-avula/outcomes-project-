@@ -1,0 +1,385 @@
+call_id: tr-199
+split: train
+blueprint: "Wife of a 62-year-old man with ALS on a ventilator by tracheostomy and a feeding tube lists low supplies: 5 suction catheters, 2 spare inner cannulas, 3 trach ties, 10 saline vials, 8 cartons of formula, 3 feeding syringes, no distilled water for the humidifier, 1 spare ventilator circuit. His secretions have been thicker and need suctioning more often, no fever. The backup battery now lasts about two hours instead of four. Nurse orders supplies for Tuesday, messages the respiratory therapist about the battery and secretions, plans a nurse visit Wednesday, and reviews cannula care and the power-outage plan. No flag. Long."
+setup:
+  scenario_category: supply
+  subtype: ventilator_and_trach_supplies
+  secondary_tags: [multi_issue, phone_from_file, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [equipment, secretions, dyspnea, intake_appetite]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-08T14:00:00Z"
+  length_bucket: long
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bertrand Leclair
+  patient_name_spoken: Bertrand Leclair
+  patient_name_certainty: stated
+  patient_dob_true: "1964-10-02"
+  patient_dob_spoken: "1964-10-02"
+  patient_dob_certainty: stated
+  caller_name_true: Giselle Leclair
+  caller_name_spoken: Giselle Leclair
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3035550138"
+  callback_phone_spoken: "3035550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested ventilator, tracheostomy and feeding tube supplies and reported a weak backup battery
+  reason_category: supply_request
+  relevant_context: Palliative patient with ALS on a ventilator through a tracheostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: suction catheters
+    supply_remaining: "5"
+    supply_unit: catheters
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: inner cannulas
+    supply_remaining: "2"
+    supply_unit: cannulas
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: trach ties
+    supply_remaining: "3"
+    supply_unit: ties
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: saline vials
+    supply_remaining: "10"
+    supply_unit: vials
+    certainty: stated
+  - item_id: A5
+    item_type: supply
+    reporter: caller
+    supply_item: formula
+    supply_remaining: "8"
+    supply_unit: cartons
+    certainty: stated
+  - item_id: A6
+    item_type: supply
+    reporter: caller
+    supply_item: feeding syringes
+    supply_remaining: "3"
+    supply_unit: syringes
+    certainty: stated
+  - item_id: A7
+    item_type: supply
+    reporter: caller
+    supply_item: distilled water
+    supply_remaining: none
+    supply_unit: jugs
+    certainty: stated
+  - item_id: A8
+    item_type: supply
+    reporter: caller
+    supply_item: ventilator circuits
+    supply_remaining: "1"
+    supply_unit: circuits
+    certainty: stated
+  - item_id: A9
+    item_type: symptom
+    reporter: caller
+    symptom_name: thicker secretions needing more suctioning
+    symptom_present: true
+    onset_or_duration: this week
+    certainty: stated
+  - item_id: A10
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A11
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: The ventilator backup battery now lasts about two hours instead of four
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: suction catheters, inner cannulas, trach ties, feeding syringes, distilled water and ventilator circuits
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Tuesday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: respiratory therapist
+    reason_or_trigger: weak backup battery and thicker secretions
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Change the inner cannula once a day and whenever it is crusted, fill the humidifier with distilled water only, and keep the spare circuit sealed
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: If the power goes out, switch to the backup battery and call the agency and the power company; call 911 if the ventilator alarms and cannot be fixed or he cannot be ventilated by hand
+    trigger_condition: power outage; ventilator alarm that cannot be fixed; cannot ventilate by hand
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any hour for ventilator alarms or questions about the equipment
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi, Denise. It's Giselle Leclair. I'm calling about my husband, Bertrand Leclair. I'm doing the supply check and some things are low. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Giselle. You're so organized. Let me get his date of birth first.
+  Caller -> October second. Nineteen sixty four. || patient_dob
+  Nurse -> And is three oh three, five five five, zero one three eight still your number? || callback_phone
+  Caller -> Yes. The house phone. I never leave the house much anyway. || callback_phone
+  Nurse -> Okay. Go ahead with your list.
+  Caller -> Okay. I have it on a clipboard. Suction catheters. The size fourteen. I have five. Five left. We use eight to ten a day lately. || A1
+  Nurse -> Okay. Eight to ten a day is more than usual. We'll talk about that. Next.
+  Caller -> The inner cannulas. For his trach. I have two spares. Two. We change them daily. || A2
+  Nurse -> Okay. Next.
+  Caller -> The trach ties, the Velcro ones. I have three. And the saline vials, the little ones for the suctioning, I have ten. I think that's enough for two or three days. || A3, A4
+  Nurse -> Okay. Next.
+  Caller -> The formula. For the feeding tube. Eight cartons. We use four a day, so that's two days. And the syringes, the big ones. Three. || A5, A6
+  Nurse -> Okay. Next.
+  Caller -> Distilled water. For the humidifier on the ventilator. I'm out. Totally out. I've been using boiled water that I let cool, because I didn't want to run it dry. || A7
+  Nurse -> Okay. Please don't use boiled tap water in the humidifier. We'll get you distilled right away. Next.
+  Caller -> The ventilator circuits. The tubing. I have one spare. One. I should change the one he has on in about a week. || A8
+  Nurse -> Okay. How is the supply closet organized? Do you rotate the oldest supplies to the front?
+  Caller -> I do. I labeled the shelves with a marker. First in, first out. I used to work in a pharmacy, so it's second nature. The ventilator things are on the top shelf, the feeding things on the middle, and the suctioning at eye level because that's the one I reach for most.
+  Nurse -> That's a better system than most hospitals. Okay. That's everything on the list?
+  Caller -> That's the list. And then I have a couple of other things to tell you.
+  Nurse -> Okay. Tell me.
+  Caller -> His secretions are thicker. This week. Yellowish. Sticky. And there's more of it. I'm suctioning him maybe every hour. Last month it was every three or four hours. That's why the catheters are going so fast. || A9
+  Nurse -> Okay. That's important. Does he have a fever?
+  Caller -> No. I take it every morning. Ninety eight point one this morning. Normal. || A10
+  Nurse -> Okay. Has anything else changed with his feeds, his skin, or his sleep?
+  Caller -> His feeds are fine. He's tolerating the four a day, no vomiting. His skin is good, I check under the trach ties every morning. He's sleeping okay, a bit more in the afternoon. Nothing unusual.
+  Nurse -> Good. Is the color changing, green, or bloody?
+  Caller -> Pale yellow. Not green. Not bloody. Just thick. Like mucus after a cold.
+  Nurse -> Okay. Does he seem more uncomfortable, or is his breathing different?
+  Caller -> No. He's calm. His numbers are the same on the monitor. I think he's just dry. I wondered about the water. Maybe that's why the secretions are thick, because of the humidifier.
+  Nurse -> That's a very good thought. Dry air can thicken secretions. Getting the distilled water in will help, and I'll ask the respiratory therapist too.
+  Caller -> Okay. Thank you. He says, well, he blinks, that he's comfortable. We have a code. One blink for yes, two for no. He just blinked once at me. I asked if he was comfortable.
+  Nurse -> I love that. Tell him I said hello. And the other thing you mentioned was the battery.
+  Caller -> Yes. And the other thing is the battery. The backup battery for the ventilator. It's supposed to last four hours. Yesterday I tested it, I do it once a month, and it died after two hours. About two. || A11
+  Nurse -> Okay. That's a serious one, Giselle. Thank you for testing it. I'll get the respiratory therapist on that today. || R3
+  Caller -> Thank you. I got scared. We had a power outage last winter for six hours and I don't know what we would have done.
+  Nurse -> What did you do last winter?
+  Caller -> The battery lasted four hours then. And then the ambulance people brought a generator. The fire department. It was such a night. My son slept on the floor next to Bertrand's bed with a flashlight, and I counted his breaths on the monitor. The neighbors brought us hot coffee and a space heater at three in the morning.
+  Nurse -> I'm glad that worked out. We'll make sure you have a better plan this time. I'm going to order the suction catheters, the inner cannulas, the trach ties, the feeding syringes, the distilled water, and the ventilator circuits. || R1
+  Caller -> What about the formula and the saline? Do I need to order those?
+  Nurse -> You have two days of formula, so I'll ask the pharmacy for a delivery too. I'll put it on the same order and make a note.
+  Caller -> Okay. Thank you.
+  Nurse -> It all comes Tuesday. || R2
+  Caller -> Tuesday. That's four days. Is there any way sooner? I'm okay on most, but the distilled water and the catheters worry me.
+  Nurse -> I understand. Let me ask if the distilled water can come tomorrow. Meanwhile, if you can, buy a few jugs at the grocery store. Any store sells it.
+  Caller -> The grocery store. I can ask my son. He's coming by after work. He's twenty six, he works at the hospital in the billing office, so he understands about medical supplies more than most.
+  Nurse -> That's a big help. And does he help with Bertrand's care too?
+  Caller -> On weekends. He does the morning suctioning on Saturday so I can sleep till eight. It's the best gift. I also have a niece who comes on Wednesdays for the afternoon.
+  Nurse -> That's a good team. It matters to have people you trust.
+  Nurse -> Perfect. And a nurse will come Wednesday to check the equipment and look at him. || R4
+  Caller -> Wednesday. Okay. Thank you.
+  Nurse -> Giselle, a few reminders. Change the inner cannula once a day, and any time it's crusted. Use only distilled water in the humidifier. And keep the spare circuit in its package until you need it. || E1
+  Caller -> Daily. Crusted. Distilled only. Spare sealed. Okay. I knew most of that. I just needed to hear it again.
+  Nurse -> It's a lot to keep straight. Also, here's the power outage plan. If the power goes out, switch to the backup battery, then call us and the power company. If the ventilator alarms and you can't fix it, or you can't ventilate him by hand with the bag, call nine one one. || E2
+  Caller -> Power out, battery, call you and the power company. Alarm I can't fix or the bag doesn't work, nine one one. Okay. I have a laminated card with that. It's on the wall by the machine.
+  Nurse -> A laminated card is perfect. And call us any hour if the ventilator alarms or you have questions about the equipment. || E3
+  Caller -> Any hour. Okay. Thank you, Denise. You always remember everything about us.
+  Nurse -> It's easy to remember people like you. How is Bertrand doing otherwise?
+  Caller -> He's good. Mentally sharp as ever. He's using his eye-gaze computer. Yesterday he wrote me a poem. It was about the tomatoes in our garden.
+  Nurse -> That's wonderful. Tell him I'd love to read it someday.
+  Caller -> I will. He'd be thrilled. He says the nurses are his favorite audience. He's working on a second poem right now, about the lake where we got married. It's taking him all afternoon, one letter at a time. But he insists.
+  Nurse -> It sounds worth the wait. Take care of both of you.
+  Nurse -> Ha. We're happy to be. Talk to you soon, Giselle.
+  Caller -> Thank you. Goodbye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bertrand Leclair, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-10-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Giselle Leclair, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested ventilator, tracheostomy and feeding tube supplies and reported a weak backup battery.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm doing the supply check and some things are low."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Five suction catheters remained, with eight to ten used per day lately.
+      speaker: Caller
+      turns: [8]
+      quote: "I have five. Five left."
+      explanation: Documents the catheter supply.
+      facts:
+        - {type: supply, item: suction catheters, supply: 5 catheters, certainty: stated}
+      covers: [A1]
+    - text: Two spare inner cannulas remained.
+      speaker: Caller
+      turns: [10]
+      quote: "I have two spares. Two."
+      explanation: Documents the cannula supply.
+      facts:
+        - {type: supply, item: inner cannulas, supply: 2 cannulas, certainty: stated}
+      covers: [A2]
+    - text: Three trach ties and ten saline vials remained.
+      speaker: Caller
+      turns: [12]
+      quote: "I have three. And the saline vials, the little ones for the suctioning, I have ten."
+      explanation: Documents the tie and saline supplies.
+      facts:
+        - {type: supply, item: trach ties, supply: 3 ties, certainty: stated}
+        - {type: supply, item: saline vials, supply: 10 vials, certainty: stated}
+      covers: [A3, A4]
+    - text: Eight cartons of formula and three feeding syringes remained.
+      speaker: Caller
+      turns: [14]
+      quote: "Eight cartons. We use four a day, so that's two days."
+      explanation: Documents the formula and syringe supplies.
+      facts:
+        - {type: supply, item: formula, supply: 8 cartons, certainty: stated}
+        - {type: supply, item: feeding syringes, supply: 3 syringes, certainty: stated}
+      covers: [A5, A6]
+    - text: Distilled water for the ventilator humidifier was gone.
+      speaker: Caller
+      turns: [16]
+      quote: "I'm out. Totally out."
+      explanation: Documents the water supply.
+      facts:
+        - {type: supply, item: distilled water, supply: none, certainty: stated}
+      covers: [A7]
+    - text: One spare ventilator circuit remained.
+      speaker: Caller
+      turns: [18]
+      quote: "I have one spare. One."
+      explanation: Documents the circuit supply.
+      facts:
+        - {type: supply, item: ventilator circuits, supply: 1 circuits, certainty: stated}
+      covers: [A8]
+    - text: Secretions were thicker this week and needed suctioning about every hour.
+      speaker: Caller
+      turns: [24]
+      quote: "His secretions are thicker. This week. Yellowish. Sticky."
+      explanation: Documents the secretion change.
+      facts:
+        - {type: symptom, name: thicker secretions needing more suctioning, present: true, duration: this week, certainty: stated}
+      covers: [A9]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [26]
+      quote: "No. I take it every morning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A10]
+    - text: The ventilator backup battery lasted about two hours instead of four.
+      speaker: Caller
+      turns: [36]
+      quote: "it died after two hours."
+      explanation: Documents the equipment concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A11]
+  response:
+    - text: Planned to order suction catheters, inner cannulas, trach ties, feeding syringes, distilled water, and ventilator circuits.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to order the suction catheters, the inner cannulas, the trach ties, the feeding syringes, the distilled water, and the ventilator circuits."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Tuesday.
+      speaker: Nurse
+      turns: [45]
+      quote: "It all comes Tuesday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Tuesday, certainty: stated}
+      covers: [R2]
+    - text: Planned to get the respiratory therapist involved about the weak battery and thick secretions.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'll get the respiratory therapist on that today."
+      explanation: Documents the planned contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+    - text: A nurse visit was planned for Wednesday.
+      speaker: Nurse
+      turns: [52]
+      quote: "a nurse will come Wednesday to check the equipment and look at him."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised changing the inner cannula once a day and whenever crusted, using only distilled water in the humidifier, and keeping the spare circuit sealed.
+      speaker: Nurse
+      turns: [54]
+      quote: "Change the inner cannula once a day, and any time it's crusted."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised switching to the backup battery in a power outage, calling the agency and the power company, and calling 911 if an alarm could not be fixed or he could not be ventilated by hand.
+      speaker: Nurse
+      turns: [56]
+      quote: "If the power goes out, switch to the backup battery, then call us and the power company."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+    - text: Advised calling at any hour for ventilator alarms or equipment questions.
+      speaker: Nurse
+      turns: [58]
+      quote: "call us any hour if the ventilator alarms or you have questions about the equipment."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags: []

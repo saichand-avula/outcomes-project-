@@ -1,0 +1,281 @@
+call_id: tr-401
+split: train
+blueprint: "A personal care aide calls home health about her client, a 52-year-old man with a spinal cord injury and a pressure sore at the base of his spine: foam dressings are down to three, saline and gauze are fine, drainage on the last dressing was more than usual with a mild odor, no fever, redness around it is the same size. Nurse plans a supply order and delivery tomorrow, a message to the team about the drainage, and a nurse visit tomorrow, and reminds her to reposition him and keep pressure off the area. Supply and wound, paid caregiver caller, patient 18-64, v2 short."
+setup:
+  scenario_category: supply
+  subtype: dressing_supplies
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, negated_risk_phrase]
+  clinical_domains: [wound_skin, equipment, infection_risk]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Cottonwood Home Health
+  agency_type: home_health
+  nurse_name: Ruth
+  call_timestamp_utc: "2026-11-04T19:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Terrence Okamoto
+  patient_name_spoken: Terrence Okamoto
+  patient_name_certainty: stated
+  patient_dob_true: "1974-06-18"
+  patient_dob_spoken: "1974-06-18"
+  patient_dob_certainty: stated
+  caller_name_true: Marisol Fuentes
+  caller_name_spoken: Marisol Fuentes
+  caller_name_certainty: stated
+  relationship_to_patient: personal care aide
+  relationship_certainty: stated
+  callback_phone_true: "5035550133"
+  callback_phone_spoken: "5035550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported low wound dressing supplies and more drainage from a pressure sore
+  reason_category: wound_skin
+  relevant_context: Home health patient with a spinal cord injury and a sacral pressure injury
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: foam dressings
+    supply_remaining: three left
+    supply_unit: dressings
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: more drainage with a mild odor from the pressure sore
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or spreading redness
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: saline and gauze
+    supply_remaining: plenty
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: foam dressings
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: report the increased drainage and odor
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Keep him off his back, change position at least every two hours, change the dressing only if it is soiled or leaking, and clean around the sore with saline
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, chills, spreading redness, a strong smell, pus, or if he feels unwell or his blood pressure spikes with a pounding headache
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cottonwood Home Health, this is Ruth.
+  Caller -> Hi, Ruth. It's Marisol Fuentes. I'm the personal care aide for Mr. Okamoto. Terrence Okamoto. I work the evening shift. I have a supply question and a wound question. || caller_name, patient_name, relationship, cc
+  Nurse -> How long have you been with Mr. Okamoto?
+  Caller -> Eight months. Since March. He's my favorite. He teaches me chess. I lose every game.
+  Nurse -> Ha. That's a good client to have.
+  Nurse -> Hi Marisol. Go ahead. Supplies first?
+  Caller -> The foam dressings. For the sore on his tailbone. There's only three left in the box. We change them every other day. So that's six days. Maybe less. || A1
+  Nurse -> Okay. Three foam dressings. How about the saline and gauze?
+  Caller -> Plenty of those. A whole case of saline. The gauze, we have like twenty packs. It's the foam that's low. || A4
+  Nurse -> Who usually orders the supplies? The nurse?
+  Caller -> The nurse does. But she's been out sick. So nobody noticed.
+  Nurse -> I'll take care of it.
+  Nurse -> Good. I'll order the foam. Marisol, tell me about the wound.
+  Caller -> I changed the dressing tonight. There was more drainage than usual. It was soaked through. And it had a smell. A mild smell. Not terrible. But I noticed it. It's different from last week. || A2
+  Nurse -> Did you take a picture of it, by chance?
+  Caller -> I did. On my phone. But I can't send it. The agency said no pictures on personal phones.
+  Nurse -> That's fine. The nurse will see it tomorrow.
+  Nurse -> Okay. Was the drainage clear, yellow, green, bloody?
+  Caller -> Yellowish. Like pale yellow. Not green. Not bloody. A lot more than last week.
+  Nurse -> Okay. What about the skin around it? Redness, warmth, swelling?
+  Caller -> The redness is the same. About the size of a, like a silver dollar around the open part. I measured it with the paper ruler. Same as Monday. Not bigger. Not hot. No fever, he feels normal. I checked his temperature before I called. Ninety eight point eight. || A3
+  Caller -> I took it under his arm. I don't have the oral one. The oral one is at the other apartment.
+  Nurse -> The underarm is fine.
+  Nurse -> Okay. Thank you for measuring. That's very helpful. How is he feeling in general?
+  Caller -> He's fine. In a good mood. Complaining about the football game. He doesn't feel the sore, you know, with his injury. He can't tell.
+  Caller -> I tell him every shift. I say, Terrence, how's your back? He says, what back? He jokes.
+  Nurse -> Humor helps. But we keep checking.
+  Nurse -> Right. That's why we watch it. Marisol, I need his date of birth.
+  Caller -> June eighteenth. Nineteen seventy four. || patient_dob
+  Nurse -> And your number?
+  Caller -> Five oh three, five five five, zero one three three. || callback_phone
+  Nurse -> Five oh three, five five five, zero one three three. Is that right? || callback_phone
+  Caller -> Yes. It's my cell.
+  Nurse -> Okay. I'll place an order with the supply company for foam dressings. And I'll arrange delivery tomorrow. || R1, R2
+  Caller -> Tomorrow. That's great. I'm here till eleven tonight. Tomorrow I'm back at three.
+  Nurse -> I'll ask them to deliver to the front desk of the building. Is that okay?
+  Caller -> Yes, there's a doorman. He signs for packages. His name is Elias.
+  Nurse -> Perfect. I'm also going to leave a message for the team about the increased drainage and the smell. I'd like them to take a look. || R3
+  Caller -> Good. I wasn't sure if I was overreacting.
+  Nurse -> You weren't. And I'd like a nurse to see him tomorrow. To look at the wound and change the dressing with you. || R4
+  Caller -> Okay. Tomorrow. I'll be there at three. Is that okay?
+  Nurse -> I'll ask for an afternoon visit.
+  Caller -> Great.
+  Nurse -> What's the unit number, so the delivery goes to the right place?
+  Caller -> Four fourteen. Fourth floor. The doorman is Elias. He knows everybody.
+  Nurse -> Got it.
+  Nurse -> In the meantime, keep him off his back as much as you can. Change his position at least every two hours. Only change the dressing if it's soiled or leaking, and clean around the sore with saline. || E1
+  Caller -> Off his back. Every two hours. Only if soiled or leaking. Saline around. He has the air mattress. And the turning schedule is on the wall.
+  Nurse -> Good. And call us if he has a fever or chills, if the redness spreads, if the smell gets strong, if you see pus. Also, if he gets a pounding headache or his face is flushed and sweaty, call right away. That can be a sign of a problem for people with his injury. || E2
+  Caller -> Fever. Chills. Spreading. Smell. Pus. Pounding headache, flushed, sweaty. Yes. I know that one. It's the dysreflexia. Autonomic. They trained us.
+  Nurse -> Good. You know what to look for.
+  Caller -> Yes, ma'am.
+  Caller -> He's got a big day Thursday. His niece is getting married and he wants to go. In the wheelchair. We've been practicing the transfer.
+  Nurse -> That's wonderful. We'll make sure the wound is protected.
+  Caller -> He bought a new suit. He wears it around the apartment to break it in.
+  Nurse -> Ha. A man with priorities.
+  Nurse -> Anything else?
+  Caller -> No, just that. Wait, actually, can you tell the nurse tomorrow to bring the good tape? The paper one. The cheap tape pulls his skin.
+  Nurse -> I'll put that in the note.
+  Caller -> No. That's all. Thank you for answering so fast.
+  Nurse -> You're welcome. Take care.
+  Caller -> Oh, wait. One more thing. His mother wants to visit Sunday. She's flying in.
+  Nurse -> That's nice. Just keep the same routine while she's there.
+  Caller -> I will. She's going to try to cook for him. I'll watch.
+  Nurse -> Ha. Please do.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Terrence Okamoto, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1974-06-18", certainty: stated, heard_as: [], turns: [29]}
+    caller_name: {value: Marisol Fuentes, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: personal care aide, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550133", certainty: stated, heard_as: [], turns: [31, 32]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported low wound dressing supplies and more drainage from a pressure sore.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a supply question and a wound question."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Three foam dressings were left in the box.
+      speaker: Caller
+      turns: [7]
+      quote: "There's only three left in the box."
+      explanation: Documents the dressing supply.
+      facts:
+        - {type: supply, item: foam dressings, supply: three left, certainty: stated}
+      covers: [A1]
+    - text: More drainage than usual that was pale yellow with a mild odor.
+      speaker: Caller
+      turns: [14]
+      quote: "There was more drainage than usual."
+      explanation: Documents the increased drainage.
+      facts:
+        - {type: symptom, name: more drainage with a mild odor from the pressure sore, present: true, certainty: stated}
+      covers: [A2]
+    - text: The redness was the same size as Monday and he had no fever.
+      speaker: Caller
+      turns: [21]
+      quote: "Not bigger. Not hot. No fever, he feels normal."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or spreading redness, certainty: stated}
+      covers: [A3]
+    - text: There was plenty of saline and gauze.
+      speaker: Caller
+      turns: [9]
+      quote: "Plenty of those. A whole case of saline."
+      explanation: Documents the other supplies.
+      facts:
+        - {type: supply, item: saline and gauze, supply: plenty, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order foam dressings from the supply company.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll place an order with the supply company for foam dressings."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to arrange delivery tomorrow.
+      speaker: Nurse
+      turns: [34]
+      quote: "And I'll arrange delivery tomorrow."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to leave a message for the team about the drainage and smell.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'm also going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'd like a nurse to see him tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised keeping him off his back, changing position every two hours, changing the dressing only if soiled or leaking, and cleaning with saline.
+      speaker: Nurse
+      turns: [47]
+      quote: "keep him off his back as much as you can."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, chills, spreading redness, strong smell, pus, or a pounding headache with flushing and sweating.
+      speaker: Nurse
+      turns: [49]
+      quote: "call us if he has a fever or chills"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

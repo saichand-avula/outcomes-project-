@@ -1,0 +1,187 @@
+call_id: tr-197
+split: train
+blueprint: "Wife of a 51-year-old palliative patient: 30 minutes after his first dose of Bactrim his lips and tongue are swelling, he has hives, his throat feels tight, and he is wheezing. Nurse tells her to call 911 now, use his epinephrine auto-injector if he has one (he does), sit him up, and stay with him. Flags: breathing_concern and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [dyspnea, skin, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-07T19:05:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dmitri Volkov
+  patient_name_spoken: Dmitri Volkov
+  patient_name_certainty: stated
+  patient_dob_true: "1975-03-17"
+  patient_dob_spoken: "1975-03-17"
+  patient_dob_certainty: stated
+  caller_name_true: Anya Volkov
+  caller_name_spoken: Anya Volkov
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7345550127"
+  callback_phone_spoken: "7345550127"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband's lips are swelling and he is wheezing after a new antibiotic
+  reason_category: allergic_reaction
+  relevant_context: Palliative patient who just started a new antibiotic
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Bactrim
+    medication_name_spoken: Bactrim
+    medication_status: given_previously
+    last_dose: first dose 30 minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: swelling of the lips and tongue
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: hives and tight throat
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: wheezing
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: swelling, hives, tight throat and wheezing after a new antibiotic
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, use the epinephrine auto-injector in his thigh, sit him upright, and stay with him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Husband has lip and tongue swelling, a tight throat and wheezing after a new antibiotic
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Carla.
+  Caller -> Carla, it's Anya Volkov. It's my husband, Dmitri. He took the new antibiotic, the Bactrim, thirty minutes ago, and his lips are swelling. His tongue. He's wheezing. || caller_name, relationship, patient_name, cc, A1, A2, A4, F1
+  Nurse -> Okay, Anya, I'm here. Is he having trouble breathing right now?
+  Caller -> Yes. He says his throat is tight. And he has hives, all over his chest and arms. Big red welts. || A3, F1
+  Nurse -> Okay. Anya, I want you to call nine one one right now. This sounds like an allergic reaction. || R1, F2
+  Caller -> Nine one one. Okay. Should I hang up?
+  Nurse -> Yes. But first, does he have an epinephrine pen? An auto-injector?
+  Caller -> Yes. We have one in the kitchen drawer. From when he had the bee sting.
+  Nurse -> Get it. Use it on the outside of his thigh, through his pants if you have to, and hold it in place for the time on the label. Then call nine one one. || E1
+  Caller -> The pen. Thigh. Hold it. Nine one one. Okay. I'm getting it. Dmitri, sit up. Sit up. I'm coming.
+  Nurse -> Sit him upright. Stay with him. Tell the dispatcher it's an allergic reaction to a new antibiotic. And quickly, in case we get cut off, his date of birth and your number.
+  Caller -> March seventeenth, nineteen seventy five. And seven three four, five five five, zero one two seven. || patient_dob, callback_phone
+  Nurse -> Got it. Use the pen first, then call. If he stops breathing or goes limp, tell the dispatcher right away.
+  Caller -> Okay. Okay. Allergic reaction. Antibiotic. I have the pen. Okay. I'm doing it. He's looking at me. His eyes are scared. Thank you, Carla.
+  Nurse -> Go. Call right after the pen.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dmitri Volkov, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1975-03-17", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Anya Volkov, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7345550127", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband's lips are swelling and he is wheezing after a new antibiotic.
+    speaker: Caller
+    turns: [2]
+    quote: "his lips are swelling. His tongue. He's wheezing."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Bactrim was taken for the first time 30 minutes earlier.
+      speaker: Caller
+      turns: [2]
+      quote: "He took the new antibiotic, the Bactrim, thirty minutes ago"
+      explanation: Documents the new medication.
+      facts:
+        - {type: medication, name: Bactrim, last_dose: first dose 30 minutes ago, med_status: given_previously, certainty: stated}
+      covers: [A1]
+    - text: His lips and tongue were swelling.
+      speaker: Caller
+      turns: [2]
+      quote: "his lips are swelling. His tongue."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: swelling of the lips and tongue, present: true, certainty: stated}
+      covers: [A2]
+    - text: He was wheezing.
+      speaker: Caller
+      turns: [2]
+      quote: "He's wheezing."
+      explanation: Documents the wheezing.
+      facts:
+        - {type: symptom, name: wheezing, present: true, certainty: stated}
+      covers: [A4]
+    - text: He had a tight throat and hives over his chest and arms.
+      speaker: Caller
+      turns: [4]
+      quote: "He says his throat is tight. And he has hives, all over his chest and arms."
+      explanation: Documents the throat tightness and hives.
+      facts:
+        - {type: symptom, name: hives and tight throat, present: true, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately for a possible allergic reaction.
+      speaker: Nurse
+      turns: [5]
+      quote: "I want you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised using the epinephrine auto-injector on the outside of his thigh, sitting him upright, and staying with him.
+      speaker: Nurse
+      turns: [9]
+      quote: "Use it on the outside of his thigh, through his pants if you have to"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: breathing_concern, turns: [4], quote: "he says his throat is tight"}
+    - {category: escalation_request, turns: [5], quote: "I want you to call nine one one right now."}

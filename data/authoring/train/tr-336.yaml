@@ -1,0 +1,323 @@
+call_id: tr-336
+split: train
+blueprint: "A wife gave her 74-year-old husband 5 mL of a new bottle of liquid morphine from the pharmacy, not realizing the new bottle is the concentrate (20 mg per mL) and the old bottle was 5 mg per 5 mL; he got about 100 mg instead of 5 mg twenty minutes ago and is now very hard to wake with breathing slowed to about eight a minute and tiny pupils. The nurse recognizes a likely overdose, tells her to call 911 immediately, stays on the line while she calls on a second phone, coaches rousing him, positioning on his side, unlocking the door, saving the bottle for the paramedics, pages on-call, and calls back. Wrong concentration, medication concern plus breathing concern and escalation, spouse caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [liquid_concentration, tall_man_drug, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, sedation, dyspnea]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Northgate Hospice
+  agency_type: hospice
+  nurse_name: Lorenzo
+  call_timestamp_utc: "2026-10-25T10:05:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [morphine]
+chief_complaint:
+  patient_name_true: Everhart Delgado
+  patient_name_spoken: Everhart Delgado
+  patient_name_certainty: stated
+  patient_dob_true: "1952-08-21"
+  patient_dob_spoken: "1952-08-21"
+  patient_dob_certainty: stated
+  caller_name_true: Marguerite Delgado
+  caller_name_spoken: Marguerite Delgado
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3035550115"
+  callback_phone_spoken: "3035550115"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported giving a far larger dose of morphine than intended and that he is hard to wake with slow breathing
+  reason_category: medication
+  relevant_context: Hospice patient with cancer pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine concentrate
+    medication_name_spoken: morphine
+    medication_status: extra_dose
+    strength: 20 mg per mL
+    dose: "5"
+    unit: mL
+    frequency: given once this morning
+    last_dose: twenty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: The new bottle is 20 mg per mL while the old bottle was 5 mg per 5 mL and she gave the same 5 mL
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: very hard to wake
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "8"
+    vital_unit: breaths per minute
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: tiny pupils
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: large overdose of morphine with slow breathing and hard to wake
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep rousing him by calling his name and rubbing his chest, turn him onto his side, and stay with him
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Unlock the front door, give the paramedics both morphine bottles and the medicine list, and tell them the amount and the time
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Gave five mL of the new concentrated morphine instead of the old weaker bottle
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: breathing_concern
+    trigger_description: Breathing about eight a minute and very hard to wake after the large dose
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F3
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Northgate Hospice, this is Lorenzo.
+  Caller -> Lorenzo, it's Marguerite Delgado. I think I gave my husband, Everhart Delgado, too much morphine. I think something's wrong. He's hard to wake. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Marguerite. I'm here. Tell me exactly what you gave and when.
+  Caller -> The morphine. The liquid. From the new bottle. The pharmacy delivered a new bottle yesterday. I gave him five mL. Like always. Twenty minutes ago. || A1, F1
+  Nurse -> Okay. The new bottle. Do you know what strength it says?
+  Caller -> Hold on. I have it here. It says twenty milligrams per mL. And the old one said five milligrams per five mL. Oh. Oh no. It's different. It's concentrated. I gave him five mL of the strong one. That's a hundred milligrams. That's twenty times what he usually gets. || A2
+  Nurse -> Marguerite, listen to me. We're going to get help right now. You did the right thing calling.
+  Caller -> I'm so stupid. I'm so stupid.
+  Nurse -> You're not. Let's focus on Ev.
+  Nurse -> Okay. Marguerite, I need you to hang up and call nine one one right now. This is an emergency. Is Ev breathing? || F3, R1
+  Caller -> He's breathing. It's slow. It's very slow. He's hard to wake up. I called his name. I shook him. He opened his eyes for a second and closed them. || A3
+  Nurse -> Is he making any sound? Snoring, gurgling?
+  Caller -> A little snore. And a groan. It's a low sound.
+  Nurse -> Okay. That's helpful.
+  Nurse -> Okay. Call nine one one. Do you have another phone so I can stay on with you?
+  Caller -> I have my cell and the house phone. I'm on the house phone. I'll use the cell. Hold on.
+  Nurse -> Put me on speaker and call from the other phone. Go.
+  Caller -> Okay. I'm dialing. Hello? My husband took too much morphine. He's seventy four. He's hard to wake and his breathing is slow. Yes. Hospice patient. Yes. Twenty two Larkspur Drive. Yes. Yes. They're coming. They said six minutes. || A1
+  Caller -> They said stay on the line but I need to be with him. They said they're sending the engine and the ambulance.
+  Nurse -> That's right. They send both. Stay with Ev.
+  Nurse -> Good. Stay on with them if they ask. Marguerite, count his breaths for me. For a full minute if you can. Watch his chest.
+  Caller -> The dispatcher is on the other phone. She says unlock the door and clear a path. I did the door. I'll move the coffee table.
+  Nurse -> Good. Do that. I'll wait.
+  Caller -> The table is moved. The dog is in the bedroom. I closed the door.
+  Caller -> Okay. I'm looking at his chest. I'm counting. One. Two. Hold on. Long pause. Three. Pause. Four. This is so slow. I counted eight. In the minute. Eight. || A4, F2
+  Nurse -> Okay. Eight breaths a minute. That's too slow. Keep rousing him. Call his name loudly. Rub his chest firmly with your knuckles. Don't let him fall asleep. || E1
+  Caller -> Ev! Ev, wake up! Look at me! Ev! I'm rubbing his chest. He's moaning. He opened his eyes a little. He said what. He's falling back.
+  Caller -> Ev! Ev, I'm sorry! Wake up! He squeezed my hand. He squeezed.
+  Nurse -> Good. That's a response. Keep going.
+  Nurse -> Keep doing it. Keep rousing him. Is his color okay? His lips?
+  Caller -> His lips are a little blue. Gray, maybe. And his eyes. His pupils. They're tiny. Like pinpoints. I've never seen that. || A5
+  Nurse -> Marguerite, how long has he been on this morphine? || A1
+  Caller -> Three weeks. The old bottle was fine. I gave him five mL. It was the same every time. I don't know how I missed it.
+  Nurse -> It's an easy mistake. The packaging was probably similar.
+  Caller -> It was. The same box. The same label color.
+  Nurse -> Okay. That's what we see with too much morphine. The paramedics will have a medicine to reverse it. Keep him awake. Marguerite, is the front door unlocked? || A1
+  Caller -> Will he wake up? Will they bring him back?
+  Nurse -> They will do everything they can. The medicine they carry works quickly. Stay with him and keep talking.
+  Caller -> I'm talking. I'm telling him about the lake house.
+  Caller -> No. It's locked. I'll go. Ev, I'm just going to the door. Stay awake. Ev! Okay. Oh my God. Okay. The door's unlocked. I put on the light.
+  Nurse -> Good. Now, get both morphine bottles. The new one and the old one. And his medicine list. When the paramedics come, hand them everything and tell them exactly how much and when. || E2
+  Caller -> Both bottles. Okay. I have them. The old one and the new one. On the counter. And the list from the fridge. I have it. A hundred milligrams. Twenty minutes ago. Ten oh five. No. It was nine forty five. Nine forty five.
+  Nurse -> And Marguerite, don't put anything else in his mouth. No water, no pills.
+  Caller -> No. Nothing. I won't. I put the cups away.
+  Nurse -> Good.
+  Nurse -> Does he usually take other medicines at the same time? Any pills this morning?
+  Caller -> His morning pills. At eight. He took those. A heart pill and a stool softener. And the morphine at nine forty five. That was the extra. || A1
+  Nurse -> Okay. Tell the paramedics all of it.
+  Caller -> I will. I've got the list.
+  Nurse -> Marguerite, you're doing everything right. Breathe.
+  Caller -> I'm breathing. I'm crying.
+  Nurse -> That's okay. Keep going.
+  Caller -> The old one is almost empty. The new one is full. I'm putting them both in a bag. I'm holding the bag.
+  Nurse -> Good. Keep them together.
+  Nurse -> Nine forty five. Tell them that. Is Ev still breathing?
+  Caller -> It was nine forty five. I looked at the clock when I gave it. I always do. I write the time. I wrote nine forty five.
+  Nurse -> Good. Show them the sheet.
+  Caller -> He's breathing. It's slow. Seven. Maybe seven. Ev! Ev!
+  Nurse -> Is he still on his side?
+  Caller -> Yes. I have my hand on his back. I'm patting him. I'm talking to him. His skin is cool.
+  Nurse -> Okay. Cover him with a light blanket. Don't overheat him.
+  Caller -> There's the quilt. I'll get it. Hold on. Okay. It's over him.
+  Nurse -> Keep rousing him. Turn him on his side if you can, so if he vomits he doesn't choke. Can you roll him?
+  Caller -> I'll try. He's heavy. Ev, roll over. Help me. Okay. I got his shoulder. There. He's on his side. His left side. I have a pillow behind him.
+  Caller -> Okay. His face is toward me. His mouth is open a little. He's still breathing.
+  Nurse -> Count again for me.
+  Caller -> One. Two. A long gap. Three. It's slow. Maybe six or seven.
+  Nurse -> Okay. Keep rousing him. The siren is close.
+  Nurse -> Good. Keep talking to him. Don't stop rubbing his chest. I'm paging the on-call clinician right now. || R2
+  Caller -> Ev, you're going to be okay. Remember our trip to Maine? The lobster? You ate three. You said you'd never eat again.
+  Nurse -> That's good. Keep him hearing your voice.
+  Caller -> He's moaning again. He's trying to say something.
+  Caller -> Okay. Okay. I hear the siren.
+  Caller -> The dog is barking. It's the siren. Biscuit, hush. He thinks they're here for him.
+  Nurse -> Ha. Let him bark. They're used to it.
+  Caller -> I'll get the door as soon as they pull in.
+  Nurse -> Is there anyone else at home?
+  Caller -> No. Just us. Our son lives in Tucson. I'll call him after.
+  Nurse -> Okay. After the paramedics arrive.
+  Nurse -> Good. Go to the door and let them in. Tell them about the concentration, twenty milligrams per mL, and that he got five mL. I'll call you in fifteen minutes. || R3
+  Caller -> Twenty per mL. Five mL. Nine forty five. Okay. Okay. They're here. They're coming in. Oh thank God.
+  Nurse -> Marguerite, one more thing. What's Ev's date of birth, and your number?
+  Caller -> August twenty first. Nineteen fifty two. And three oh three, five five five, zero one one five. || patient_dob, callback_phone
+  Nurse -> Got it. Go be with Ev. I'll call you in fifteen.
+  Caller -> Thank you. Thank you, Lorenzo. Bye.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everhart Delgado, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-08-21", certainty: stated, heard_as: [], turns: [83]}
+    caller_name: {value: Marguerite Delgado, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550115", certainty: stated, heard_as: [], turns: [83]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported giving a far larger dose of morphine than intended and that he was hard to wake with slow breathing.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I gave my husband, Everhart Delgado, too much morphine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Five mL of the new morphine concentrate was given twenty minutes earlier.
+      speaker: Caller
+      turns: [4]
+      quote: "I gave him five mL. Like always. Twenty minutes ago."
+      explanation: Documents the dose given.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg per mL, dose: "5", unit: mL, frequency: given once this morning, last_dose: twenty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: The new bottle was 20 mg per mL while the old bottle was 5 mg per 5 mL, so the same 5 mL was about 100 mg.
+      speaker: Caller
+      turns: [6]
+      quote: "It says twenty milligrams per mL."
+      explanation: Documents how the error happened.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: He was very hard to wake and opened his eyes only briefly.
+      speaker: Caller
+      turns: [11]
+      quote: "He's hard to wake up."
+      explanation: Documents the sedation.
+      facts:
+        - {type: symptom, name: very hard to wake, present: true, certainty: stated}
+      covers: [A3]
+    - text: Breathing was eight breaths a minute.
+      speaker: Caller
+      turns: [25]
+      quote: "I counted eight. In the minute. Eight."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "8", unit: breaths per minute, certainty: stated}
+      covers: [A4]
+    - text: His lips looked bluish gray and his pupils were pinpoint.
+      speaker: Caller
+      turns: [31]
+      quote: "His pupils. They're tiny. Like pinpoints."
+      explanation: Documents the pupils and lip color.
+      facts:
+        - {type: symptom, name: tiny pupils, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [10]
+      quote: "I need you to hang up and call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [69]
+      quote: "I'm paging the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [80]
+      quote: "I'll call you in fifteen minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised rousing him by calling his name and rubbing his chest, turning him onto his side, and staying with him.
+      speaker: Nurse
+      turns: [26]
+      quote: "Keep rousing him. Call his name loudly."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised unlocking the door and handing the paramedics both morphine bottles and the medicine list with the amount and time.
+      speaker: Nurse
+      turns: [41]
+      quote: "get both morphine bottles."
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I gave my husband, Everhart Delgado, too much morphine."}
+    - {category: breathing_concern, turns: [25], quote: "I counted eight. In the minute. Eight."}
+    - {category: escalation_request, turns: [10], quote: "I need you to hang up and call nine one one right now."}

@@ -1,0 +1,177 @@
+call_id: va-019
+split: val
+blueprint: "Daughter has only 2 doses of liquid morphine left; nurse sends the refill during the call (completed), and delivery is planned for tonight by 9."
+setup:
+  scenario_category: supply
+  subtype: med_refill
+  secondary_tags: [liquid_concentration, trap_phrasing]
+  clinical_domains: [pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-09-24T19:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philip Armstrong
+  patient_name_spoken: Philip Armstrong
+  patient_name_certainty: stated
+  patient_dob_true: "1941-08-30"
+  patient_dob_spoken: "1941-08-30"
+  patient_dob_certainty: stated
+  caller_name_true: Tess
+  caller_name_spoken: Tess
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4235550178"
+  callback_phone_spoken: "4235550178"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Down to two doses of liquid morphine
+  reason_category: medication_refill
+  relevant_context: null
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    strength: 20 mg/mL
+    dose: "0.25"
+    unit: mL
+    route: under the tongue
+    supply_remaining: "2"
+    supply_unit: doses
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 4/10
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: completed
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: pharmacy
+    timeframe: tonight by 9
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: callback_plan
+    speaker: nurse
+    instruction_content: Call if the delivery has not arrived by 9 or if only one dose remains
+    timing_or_threshold: 9 tonight; one dose left
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Lena.
+  Caller -> Hi, Lena. It's Tess Armstrong. I'm calling about my dad, Philip. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tess. Philip's date of birth?
+  Caller -> August thirtieth, nineteen forty one. || patient_dob
+  Nurse -> And I have four two three, five five five, zero one seven eight. || callback_phone
+  Caller -> Yep. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> We're almost out of the morphine. I have two doses left. The liquid, twenty milligrams per milliliter, point two five milliliters under the tongue. || cc, A1
+  Nurse -> Okay. How's his pain right now?
+  Caller -> About a four. He's okay right now. But I don't want to run out. || A2
+  Nurse -> Totally understand. I've sent the refill request for the morphine to the pharmacy while we were talking. || R1
+  Caller -> Oh wow. Thank you.
+  Nurse -> They said they'll deliver tonight, by nine. || R2
+  Caller -> By nine. Okay. That's great.
+  Nurse -> If it hasn't come by nine, or if you get down to one dose, call me right away. || E1
+  Caller -> I will. Nine o'clock or one dose.
+  Nurse -> And please call us when you're down to three doses next time, so it never gets this low.
+  Caller -> Okay. I'll do that. I didn't realize how fast it goes.
+  Nurse -> It's easy to lose track. How's he doing otherwise? Eating and sleeping?
+  Caller -> He's eating a little. He sleeps most of the afternoon, and he's up in the evenings. He likes to watch the ball game with me.
+  Nurse -> That sounds like a good routine. Keep doing what works.
+  Caller -> We will. His team is on tonight.
+  Nurse -> Then he'll be happy. Anything else?
+  Caller -> No. Thank you, Lena.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philip Armstrong, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-08-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tess, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "4235550178", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported being down to two doses of her father's liquid morphine.
+    speaker: Caller
+    turns: [8]
+    quote: "We're almost out of the morphine. I have two doses left."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine 20 mg/mL, 0.25 mL under the tongue, was in use with 2 doses remaining.
+      speaker: Caller
+      turns: [8]
+      quote: "The liquid, twenty milligrams per milliliter, point two five milliliters under the tongue."
+      explanation: Documents the medication strength, dose, and remaining supply.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg/mL, dose: "0.25", unit: mL, route: under the tongue, supply: 2 doses, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Pain was currently about 4/10.
+      speaker: Caller
+      turns: [10]
+      quote: "About a four. He's okay right now."
+      explanation: Documents the current pain level.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 4/10, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Sent the morphine refill request to the pharmacy during the call.
+      speaker: Nurse
+      turns: [11]
+      quote: "I've sent the refill request for the morphine to the pharmacy while we were talking."
+      explanation: Documents the completed refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: completed, medication: morphine, certainty: stated}
+      covers: [R1]
+    - text: The pharmacy planned to deliver tonight by 9.
+      speaker: Nurse
+      turns: [13]
+      quote: "They said they'll deliver tonight, by nine."
+      explanation: Documents the planned delivery time.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight by 9, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling if the delivery had not arrived by 9 or if only one dose remained.
+      speaker: Nurse
+      turns: [15]
+      quote: "If it hasn't come by nine, or if you get down to one dose, call me right away."
+      explanation: Documents the follow-up plan.
+      facts:
+        - {type: education, education_type: callback_plan, certainty: stated}
+      covers: [E1]
+  risk_flags: []

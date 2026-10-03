@@ -1,0 +1,283 @@
+call_id: va-003
+split: val
+blueprint: "Medium call: father of a 7-year-old with a tracheostomy reports more clear secretions needing suction every 2 hours, no fever, not working to breathe; also running low on suction catheters; nurse advises suction as needed, orders catheters (planned), and arranges a respiratory therapist visit."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [negated_risk_phrase, name_spelled, multi_issue, split_turns]
+  clinical_domains: [trach_secretions, equipment]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-09-17T13:30:00Z"
+  length_bucket: medium
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Nico Marchetti
+  patient_name_spoken: Nico Marchetti
+  patient_name_certainty: stated
+  patient_dob_true: "2019-04-03"
+  patient_dob_spoken: "2019-04-03"
+  patient_dob_certainty: stated
+  caller_name_true: Paolo
+  caller_name_spoken: Paolo
+  caller_name_certainty: stated
+  relationship_to_patient: father
+  relationship_certainty: stated
+  callback_phone_true: "3475550185"
+  callback_phone_spoken: "3475550185"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: More secretions from his son's tracheostomy and low suction supplies
+  reason_category: trach_care
+  relevant_context: 7-year-old with a tracheostomy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased tracheal secretions
+    symptom_present: true
+    severity: clear and needing suction every 2 hours instead of every 4
+    onset_or_duration: past 2 days
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "98.6"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: increased work of breathing
+    symptom_present: false
+    history_or_context_text: Color is normal and he is playing
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: suction catheters
+    supply_remaining: "6"
+    supply_unit: catheters
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild cough
+    symptom_present: true
+    severity: mild
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: respiratory therapist
+    timeframe: tomorrow afternoon
+    reason_or_trigger: check secretions and humidification
+    certainty: stated
+  - item_id: R2
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: suction catheters
+    timeframe: delivery tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Suction as needed when he sounds wet or coughs, and note the color and amount
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Check that the humidifier or heated moisture exchanger is working and give extra fluids
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for yellow or green or bloody secretions, fever, or more work to breathe; 911 if he turns blue or the tube is blocked and cannot be cleared
+    trigger_condition: yellow or green or bloody secretions; fever; work of breathing; blocked tube
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Ana.
+  Caller -> Hi, Ana. It's Paolo. I'm calling about my son, Nico. N I C O. Marchetti. || caller_name, relationship, patient_name
+  Nurse -> Hi, Paolo. Nico's date of birth?
+  Caller -> April third, twenty nineteen. || patient_dob
+  Nurse -> And I have three four seven, five five five, zero one eight five for you. || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What's going on?
+  Caller -> It's his trach. He has a lot more secretions. For the last two days. || cc, A1
+  Caller -> I'm suctioning him about every two hours now. Before, it was every four. || A1
+  Nurse -> Okay. What color are the secretions?
+  Caller -> Clear. Thin and clear. Not yellow, not green. || A1
+  Nurse -> Okay. Does he have a fever?
+  Caller -> No. I took it a few minutes ago. Ninety eight point six. || A2
+  Nurse -> Okay, good. And how's his breathing? Is he working hard to breathe?
+  Caller -> No, no. His breathing is easy. His color is good. He's playing with his trains right now. He's fine. || A3
+  Nurse -> Okay. Is he coughing?
+  Caller -> A little. A mild cough. Just when the secretions build up. || A5
+  Nurse -> Okay. That all sounds reassuring. Clear secretions, no fever, and breathing easily. Sometimes the secretions go up when the air is dry, or when he's coming down with a cold.
+  Caller -> He did have the sniffles on Sunday. Maybe that's it.
+  Nurse -> It could be. Is his humidifier working?
+  Caller -> I think so. The heated one, the one that attaches to the trach. Let me look. Yes. It's on. The water is low, though. I'll refill it.
+  Nurse -> Good idea. Keep it filled. And give him extra fluids, as much as he'll take. || E2
+  Caller -> He loves juice. I'll give him some.
+  Nurse -> Perfect. Suction him as needed, whenever he sounds wet or coughs. And write down the color and amount, so we can see if it changes. || E1
+  Caller -> I'll keep notes. Okay.
+  Nurse -> I'd like our respiratory therapist to see him tomorrow, just to check everything. Humidification, the trach tube, and his secretions. || R1
+  Caller -> That would be great. What time?
+  Nurse -> Tomorrow afternoon. She'll call you before she comes.
+  Caller -> Okay. Tomorrow afternoon. I'm home all day.
+  Nurse -> Now, you mentioned you're running low on something?
+  Caller -> Oh, yes. Suction catheters. I have about six left. At this rate, that's just a couple of days. || A4
+  Nurse -> Okay. Let me order those now. What size does he use?
+  Caller -> Ten French. Same as always.
+  Nurse -> Okay. I'll put in an order for ten French catheters. They should come tomorrow. || R2
+  Caller -> Tomorrow. Okay. Thank you.
+  Nurse -> In the meantime, use a fresh catheter each time, as usual. If you run short before they come, call me and I'll see about getting a few from the on-call stock.
+  Caller -> I will. That's good to know.
+  Nurse -> If his secretions turn yellow or green, or have blood, or he gets a fever, or he's working harder to breathe, call us. And if he turns blue, or the tube is blocked and you can't clear it, call nine one one. || E3
+  Caller -> Yellow, green, blood, fever, harder breathing. And nine one one if blue or blocked. I know the drill.
+  Nurse -> You do. You're a pro.
+  Caller -> It's been four years. I guess I'd better be.
+  Nurse -> And how are the nights? Is the pulse oximeter on while he sleeps?
+  Caller -> Yes. Every night. It reads ninety seven, ninety eight. No alarms in the last few days, thankfully.
+  Nurse -> That's great. Keep it on. And who's covering overnight?
+  Caller -> My wife and I take turns. We alternate nights. It's tiring, but we manage.
+  Nurse -> You're both amazing. Tell your wife I said so.
+  Caller -> I will. She'll appreciate that. She always says you're her favorite.
+  Nurse -> Ha. Mutual. How's Nico doing at school? Is he going in person?
+  Caller -> He's going three days a week. His teacher is amazing. She learned to suction him, and she has a nurse in the classroom too.
+  Nurse -> That's wonderful. Is he enjoying it?
+  Caller -> He loves it. He has a best friend, Marcus. They sit together and build things. The two of them are always making trains out of blocks.
+  Nurse -> Ha. That's so sweet. Does he have a favorite?
+  Caller -> The big blue one, Thomas. He sleeps with him at night. Thomas goes everywhere.
+  Nurse -> Perfect. Well, tell him I said hello.
+  Caller -> I will. He'll want to say hi himself, he always asks for you.
+  Nurse -> Ha. Put him on.
+  Caller -> Hang on. Nico, say hi to Ana. He's shaking his head. He's shy today.
+  Nurse -> That's okay. Hello, Nico. I'll see you soon.
+  Caller -> He waved. Okay. Thank you, Ana.
+  Caller -> Oh, before I go. His sister has a recital Saturday and he wants to go. Is that okay with the secretions?
+  Nurse -> It should be fine if he's well and you bring the suction machine and supplies. Sit near the back so you can step out.
+  Caller -> That's the plan. We'll bring the whole kit.
+  Nurse -> Perfect. Take care, Paolo.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "I'm suctioning him about every two hours now", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Nico Marchetti, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2019-04-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Paolo, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: father, certainty: stated, turns: [2]}
+    callback_phone: {value: "3475550185", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported increased secretions from his son's tracheostomy over the last two days.
+    speaker: Caller
+    turns: [8]
+    quote: "It's his trach. He has a lot more secretions. For the last two days."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Secretions were clear and thin, requiring suction about every 2 hours instead of every 4.
+      speaker: Caller
+      turns: [9]
+      quote: "I'm suctioning him about every two hours now. Before, it was every four."
+      explanation: Documents the change in suction frequency.
+      facts:
+        - {type: symptom, name: increased tracheal secretions, present: true, severity: clear and needing suction every 2 hours instead of every 4, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 98.6.
+      speaker: Caller
+      turns: [13]
+      quote: "No. I took it a few minutes ago. Ninety eight point six."
+      explanation: Documents the reported temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.6", certainty: stated}
+      covers: [A2]
+    - text: His breathing was easy and his color good; he was playing.
+      speaker: Caller
+      turns: [15]
+      quote: "No, no. His breathing is easy. His color is good. He's playing with his trains right now."
+      explanation: Documents a pertinent negative for increased work of breathing.
+      facts:
+        - {type: pertinent_negative, name: increased work of breathing, certainty: stated}
+      covers: [A3]
+    - text: A mild cough occurred when secretions built up.
+      speaker: Caller
+      turns: [17]
+      quote: "A little. A mild cough. Just when the secretions build up."
+      explanation: Documents the cough.
+      facts:
+        - {type: symptom, name: mild cough, present: true, severity: mild, certainty: stated}
+      covers: [A5]
+    - text: About 6 suction catheters remained, which would last a couple of days at the current rate.
+      speaker: Caller
+      turns: [31]
+      quote: "Suction catheters. I have about six left. At this rate, that's just a couple of days."
+      explanation: Documents the supply status.
+      facts:
+        - {type: supply, item: suction catheters, supply: 6 catheters, certainty: stated}
+      covers: [A4]
+  response:
+    - text: A respiratory therapist visit was planned for tomorrow afternoon to check the secretions and humidification.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'd like our respiratory therapist to see him tomorrow, just to check everything."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to order 10 French suction catheters for delivery tomorrow.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll put in an order for ten French catheters. They should come tomorrow."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, timeframe: delivery tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised suctioning as needed when he sounded wet or coughed, and noting the color and amount.
+      speaker: Nurse
+      turns: [24]
+      quote: "Suction him as needed, whenever he sounds wet or coughs. And write down the color and amount"
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the humidifier filled and giving extra fluids.
+      speaker: Nurse
+      turns: [22]
+      quote: "Keep it filled. And give him extra fluids, as much as he'll take."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for yellow, green, or bloody secretions, fever, or increased work of breathing, and calling 911 if he turned blue or the tube was blocked and could not be cleared.
+      speaker: Nurse
+      turns: [38]
+      quote: "If his secretions turn yellow or green, or have blood, or he gets a fever, or he's working harder to breathe, call us."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,270 @@
+call_id: tr-387
+split: train
+blueprint: "A daughter calls home health with a routine update on her 78-year-old father three weeks after a hip fracture repair: walking to the kitchen with a walker, pain a three on Tylenol, incision dry and closed, eating well. She asks if he can shower yet. The nurse hears her name as 'Lynn Chan' instead of Linh Tran and uses it throughout. Nurse plans a visit Wednesday, asks the team about a physical therapy visit, and reviews shower and hip safety. Routine update with name drift on the caller, adult child, v2 short."
+setup:
+  scenario_category: routine
+  subtype: post_op_update
+  secondary_tags: [name_drift, name_spelled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [mobility, pain, wound_skin, intake_appetite]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Summit Home Health
+  agency_type: home_health
+  nurse_name: Emmett
+  call_timestamp_utc: "2026-10-30T18:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hoang Tran
+  patient_name_spoken: Hoang Tran
+  patient_name_certainty: stated
+  patient_dob_true: "1948-03-05"
+  patient_dob_spoken: "1948-03-05"
+  patient_dob_certainty: stated
+  caller_name_true: Linh Tran
+  caller_name_spoken: Linh Tran
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Lynn Chan]
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2065550113"
+  callback_phone_spoken: "2065550113"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on her father after hip surgery and asked about showering
+  reason_category: mobility
+  relevant_context: Home health patient three weeks after a hip fracture repair
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip pain
+    symptom_present: true
+    severity: "3"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    frequency: twice a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: walking to the kitchen with a walker
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: redness or drainage at the incision
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating well
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask about a physical therapy visit
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use a shower chair and handheld shower, have someone with him, keep the walker next to the tub, and avoid bending his hip past ninety degrees
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, new hip pain, a leg that looks shorter or turned out, fever, or redness or drainage at the incision
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Home Health, this is Emmett.
+  Caller -> Hi. Good afternoon. My name is Linh Tran. L I N H. Tran. T R A N. I'm calling for my father. Hoang Tran. H O A N G. || caller_name, patient_name, relationship
+  Nurse -> Hi Lynn. Okay. Lynn Chan. And your father is, sorry, Wong Tran?
+  Caller -> Hoang. Hoang Tran. H O A N G. It's pronounced like Hwong. And I'm Linh, it's like Lin.
+  Nurse -> Got it, Lynn. Thank you. Hoang Tran. Let me pull him up.
+  Caller -> Okay. Thank you.
+  Nurse -> And how long have you been helping with his care?
+  Caller -> Since the fall. Three weeks. I moved into the spare room. My mother passed two years ago, so it's just us.
+  Nurse -> I'm sorry about your mother. It's good he has you.
+  Nurse -> Can I have his date of birth?
+  Caller -> March fifth. Nineteen forty eight. || patient_dob
+  Nurse -> And a number for you, Lynn?
+  Caller -> Two oh six, five five five, zero one one three. || callback_phone
+  Nurse -> Two oh six, five five five, zero one one three. Did I get that right, Lynn? || callback_phone
+  Caller -> Yes. That's right.
+  Nurse -> Great. What can I help you with today?
+  Caller -> It's mostly an update. And a question. He's doing so well, and I wanted to make sure I'm doing everything right. || cc
+  Nurse -> Go ahead.
+  Caller -> So it's three weeks since the surgery. His hip. He had the fracture. He walks to the kitchen now. With the walker. By himself. I walk behind him but he doesn't need me. He makes his own tea. || A3
+  Nurse -> Does he carry the cup himself? That can be tricky with a walker.
+  Caller -> He has a walker bag. A little pouch. He puts the cup in the bag and slides it. Clever, right?
+  Nurse -> Very. I'll tell the therapist.
+  Nurse -> That's wonderful progress. How's his pain?
+  Caller -> He says a three. A three out of ten. In the hip. Mostly in the morning when he stands. He takes the Tylenol twice a day, morning and night. This morning at eight. || A1, A2
+  Nurse -> Okay. Pain is a three, with Tylenol twice a day. Is it getting better, same, worse? || A2
+  Caller -> Better. It was a seven in the first week. Then a five. Now a three.
+  Nurse -> That's a good trend. How's the incision?
+  Caller -> It's good. It's closed. It's dry. No redness. No drainage. No bad smell. It's a long line on the side of his hip. It's turning from pink to white. || A4
+  Nurse -> Good. And his appetite?
+  Caller -> Good. He eats everything. Rice, fish soup. He had two bowls of pho on Sunday. I was worried he'd lost his appetite, but no. He's back. || A5
+  Nurse -> Is he drinking enough? Water, tea?
+  Caller -> Lots of tea. Jasmine. And water with every meal.
+  Nurse -> That is great news. So what's the question, Lynn?
+  Caller -> Showering. Can he shower yet? He's been sponge bathing. He hates it. He keeps asking when he can take a real shower. He says he smells like a hospital.
+  Caller -> He told the dog to stay away because he smells like a hospital. The dog doesn't care.
+  Nurse -> Ha. Dogs are forgiving.
+  Caller -> He's a corgi. He forgives everything for a piece of chicken.
+  Nurse -> Ha. That's a common complaint. The answer depends on his incision and how steady he is. Is the incision fully closed, no scab?
+  Caller -> Closed. No scab. No stitches. The surgeon took the staples out two weeks ago.
+  Nurse -> Okay. Then I think he can shower, with precautions. I'd want a nurse or the therapist to look at the setup first. Do you have a shower chair?
+  Caller -> We have one. From the rental. And the handheld shower. We installed it Friday.
+  Nurse -> Great. Here's what I'd say. Use the shower chair, the handheld shower, have someone with him, and keep the walker right next to the tub. And no bending the hip past ninety degrees, so no leaning forward to wash his feet. || E1
+  Caller -> Chair. Handheld. Someone with him. Walker next to the tub. Don't bend past ninety. I'll wash his feet. Okay.
+  Nurse -> Perfect. I'll send a nurse out Wednesday to look at the incision and check the bathroom. || R1
+  Caller -> Wednesday. Okay. What time?
+  Nurse -> The scheduler will call you in the morning with a window.
+  Caller -> Okay. I take Wednesday off. I'm a pharmacist. I can change my schedule.
+  Nurse -> Does he take any other medicines you want to ask about?
+  Caller -> No, I handle them. I'm a pharmacist. I set up the pill box. I have the list.
+  Nurse -> That helps a lot.
+  Nurse -> A pharmacist. That helps. I'm also going to leave a message for the team about a physical therapy visit, since he's walking so well. They may want to progress him. || R2
+  Caller -> Yes! That's great. He's been doing his exercises from the paper. But he'd like someone to watch him.
+  Nurse -> I'll ask.
+  Caller -> Thank you, Emmett.
+  Nurse -> And, Lynn, call us if he falls, if he has new pain in the hip, if the leg looks shorter or turned out, if he gets a fever, or if the incision gets red or starts to drain. || E2
+  Caller -> Fall. New pain. Leg looks different. Fever. Red, drain. Okay. I wrote it on a sticky note.
+  Nurse -> Perfect. Anything else, Lynn?
+  Caller -> No. That's it. Thank you. And it's Linh. But it's okay. Lynn is fine.
+  Nurse -> I'm sorry. Linh. I'll get it right next time.
+  Caller -> It's okay. Everybody does that.
+  Caller -> It's okay. At the pharmacy it's the same. Lynn, Lin, Leen. I answer to all of them.
+  Nurse -> Ha. A good attitude.
+  Caller -> Practice.
+  Nurse -> Take care, Lynn. Linh. Sorry.
+  Caller -> Ha. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Linh, heard_form: Lynn Chan, fact_id: caller_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hoang Tran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-03-05", certainty: stated, heard_as: [], turns: [11]}
+    caller_name: {value: Linh Tran, certainty: unclear, heard_as: [Lynn Chan], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550113", certainty: stated, heard_as: [], turns: [13, 14]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on her father after hip surgery and asked about showering.
+    speaker: Caller
+    turns: [17]
+    quote: "It's mostly an update. And a question."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Hip pain was a three, better than the seven in the first week.
+      speaker: Caller
+      turns: [24]
+      quote: "He says a three. A three out of ten."
+      explanation: Documents the hip pain.
+      facts:
+        - {type: symptom, name: hip pain, present: true, severity: "3", certainty: stated}
+      covers: [A1]
+    - text: Tylenol twice a day, last taken this morning at eight.
+      speaker: Caller
+      turns: [24]
+      quote: "He takes the Tylenol twice a day, morning and night."
+      explanation: Documents the pain medicine.
+      facts:
+        - {type: medication, name: Tylenol, frequency: twice a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He walked to the kitchen with a walker by himself.
+      speaker: Caller
+      turns: [19]
+      quote: "He walks to the kitchen now. With the walker."
+      explanation: Documents the mobility.
+      facts:
+        - {type: symptom, name: walking to the kitchen with a walker, present: true, certainty: stated}
+      covers: [A3]
+    - text: The incision was closed and dry with no redness or drainage.
+      speaker: Caller
+      turns: [28]
+      quote: "No redness. No drainage."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: redness or drainage at the incision, certainty: stated}
+      covers: [A4]
+    - text: He was eating well, including two bowls of pho on Sunday.
+      speaker: Caller
+      turns: [30]
+      quote: "He eats everything."
+      explanation: Documents the appetite.
+      facts:
+        - {type: symptom, name: eating well, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit Wednesday.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'll send a nurse out Wednesday"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team about a physical therapy visit.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm also going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a shower chair and handheld shower, someone with him, the walker next to the tub, and no bending the hip past ninety degrees.
+      speaker: Nurse
+      turns: [42]
+      quote: "Use the shower chair, the handheld shower, have someone with him"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fall, new hip pain, a shorter or turned out leg, fever, or redness or drainage at the incision.
+      speaker: Nurse
+      turns: [55]
+      quote: "call us if he falls, if he has new pain in the hip"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,283 @@
+call_id: tr-339
+split: train
+blueprint: "A son whose 66-year-old mother Henrietta has a wound vac for a diabetic foot wound calls home health because they have two canisters and one dressing kit left, and the drainage has been a little heavier since yesterday. He says he is not saying it is an emergency and that they do not need an ambulance. No fever, no bad smell, no bleeding, the machine is running without alarms. Next dressing change is Friday. The nurse orders canisters and kits (completed), arranges delivery tomorrow, messages the wound nurse about the heavier drainage, and reviews what to do if the machine alarms. Supply, adult child caller, negated risk phrases, v2 short."
+setup:
+  scenario_category: supply
+  subtype: wound_vac_supplies
+  secondary_tags: [negated_risk_phrase, phone_from_file, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [wound_skin, equipment]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Millbrook Home Health
+  agency_type: home_health
+  nurse_name: Anjali
+  call_timestamp_utc: "2026-10-24T13:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Henrietta Moxley
+  patient_name_spoken: Henrietta Moxley
+  patient_name_certainty: stated
+  patient_dob_true: "1960-04-10"
+  patient_dob_spoken: "1960-04-10"
+  patient_dob_certainty: stated
+  caller_name_true: Barrett Moxley
+  caller_name_spoken: Barrett Moxley
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7045550193"
+  callback_phone_spoken: "7045550193"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported low wound vac canisters and dressing kits and slightly heavier drainage
+  reason_category: supply
+  relevant_context: Home health patient with a wound vac on a diabetic foot wound
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: wound vac canisters
+    supply_remaining: two left
+    supply_unit: canisters
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: dressing kits
+    supply_remaining: one left
+    supply_unit: kits
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: heavier wound drainage
+    symptom_present: true
+    onset_or_duration: since yesterday
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or foul smell
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The next dressing change by the nurse is due Friday and the machine is running without alarms
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: wound vac canisters and dressing kits
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wound care nurse
+    reason_or_trigger: heavier drainage since yesterday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: If the machine alarms, check the tubing for kinks, that the clamps are open and the canister is seated, and if it cannot be restarted within two hours call right away so the dressing can be changed
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, a bad smell, bright red blood in the tubing or canister, or a canister filling in a day
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Millbrook Home Health, this is Anjali.
+  Caller -> Hi, Anjali. It's Barrett Moxley. B A R R E T T. I'm calling about my mother. Henrietta Moxley. The wound vac. I'm not saying it's an emergency. I'm just calling about supplies. || caller_name, relationship, patient_name, cc
+  Nurse -> I'm glad you called. Supplies matter, and so does the drainage. Let me open her chart.
+  Nurse -> Hi, Mr. Moxley. I'm glad you called. Let me get your mom's chart open. What's her date of birth?
+  Caller -> April tenth. Nineteen sixty. || patient_dob
+  Nurse -> And I have a number on file. Is it seven zero four, five five five, zero one nine three? || callback_phone
+  Caller -> That's mine. Yes. That's me.
+  Nurse -> And is your mom home with you now?
+  Caller -> She's in the recliner with her leg up on the pillow. The machine is on the end table next to her. She carries it in a little bag when she walks.
+  Nurse -> Does she walk much?
+  Caller -> To the bathroom, to the kitchen. With the walker. She's careful.
+  Nurse -> Great. So what supplies are you low on?
+  Caller -> The canisters. The little canisters that collect the, you know, the fluid. We have two. Two spare. And the one on the machine, which is about half full. || A1
+  Nurse -> What size canister is it? Three hundred, five hundred?
+  Caller -> The little one. Three hundred. It says three hundred mL on the side. It's marked.
+  Nurse -> Okay. That's helpful.
+  Nurse -> Okay. Two spares. How often do they change it?
+  Caller -> The nurse changes the canister and the dressing three times a week. Monday, Wednesday, Friday. But if the canister gets full, we can change the canister ourselves. They showed me. I know how.
+  Nurse -> Have you ever changed one yourself?
+  Caller -> Once. At two in the morning. The nurse walked me through it on the phone. Clamp, pull, twist, new one. I did it in four minutes.
+  Nurse -> Perfect. You're a pro.
+  Nurse -> Okay. Good. And the dressing kits?
+  Caller -> One. One kit. In the box. With the foam and the drape. The nurse brings her own on visit days, but there's supposed to be a spare kit here. For emergencies. I'm not saying we need it. But there's one. || A2
+  Nurse -> Okay. One spare kit. That's low. Let's fix that. How is the drainage?
+  Caller -> That's the other thing. It's a little heavier. Since yesterday. The canister fills faster. Yesterday it was maybe a quarter full after a day. Today it's half. It's still yellow, clear yellow. It's not red. It's not cloudy. || A3
+  Nurse -> Has the color changed at all since last week?
+  Caller -> A little darker yellow. Honey. Not brown. It looks like iced tea with milk. No, that's wrong. It looks like straw. Light.
+  Nurse -> Okay. Straw colored. That's normal.
+  Nurse -> Okay. Heavier drainage since yesterday. Any fever?
+  Caller -> No fever. Her temperature was ninety eight point two. No chills. She's not sick. She's eating. She's in good spirits.
+  Nurse -> What's she eating? Is she getting enough protein?
+  Caller -> I make her eggs every morning. Chicken at dinner. She drinks the protein shakes. The vanilla ones. She hates them but she drinks them.
+  Nurse -> That's wonderful. Protein helps healing.
+  Nurse -> Any bad smell from the wound or the dressing?
+  Caller -> No smell. I smelled the canister. I smelled around the dressing. Nothing. Just the plastic smell.
+  Nurse -> Okay. Any bright red blood in the tube or the canister?
+  Caller -> No blood. No red. It's yellow. I wouldn't be calling for supplies if there was blood. I'd be calling nine one one. We don't need an ambulance. It's not like that. || A4
+  Nurse -> Right. I appreciate that. And the machine? Is it running okay?
+  Caller -> It's running. No alarms. The screen says therapy active. It's humming. The seal is good. It's tight. It's holding. The next change is Friday. The nurse is coming Friday. || A5
+  Nurse -> Okay. Good. Barrett, I'm going to order the supplies. I'll put in a box of canisters and a few dressing kits. Let me place it. One second.
+  Caller -> Take your time. I'm just standing here. My mom's watching her shows.
+  Nurse -> What's she watching?
+  Caller -> The cooking competition. She yells at the screen when someone burns the risotto. She's a retired caterer. She knows food.
+  Nurse -> Ha. A critic.
+  Nurse -> It's in. I just placed the order with the supply company for canisters and dressing kits. || R1
+  Caller -> Wonderful. When will they come?
+  Nurse -> I'll arrange delivery for tomorrow. Is someone home during the day?
+  Caller -> I'm here. I work from the spare room. I'll be here all day.
+  Caller -> I do insurance claims. On the computer. I've got three monitors. She says it looks like a spaceship.
+  Nurse -> Ha. A spaceship command center.
+  Nurse -> Great. I'll ask them to deliver tomorrow, and call before they arrive. || R2
+  Caller -> Perfect. They never call. But okay.
+  Nurse -> I'll try. Now, since the drainage is heavier, I'm going to message the wound care nurse about it so she knows before Friday's visit. || R3
+  Caller -> Oh good. Yes. Please. I didn't want to worry her, but it's a change.
+  Nurse -> It's good you noticed. You did right. Barrett, if the machine alarms, there are a few things to check. Look at the tubing for kinks. Check that the clamps are open. Make sure the canister is seated all the way. If you can't get it running again within two hours, call us right away. The dressing has to be changed. || E1
+  Caller -> Kinks. Clamps open. Canister seated. Two hours. Call. Okay. I know the drill. We had an alarm in September and the nurse walked me through it. It was the clamp.
+  Nurse -> It often is. Also, call us for a fever, a bad smell, bright red blood in the tubing or canister, or if the canister fills up in a day. || E2
+  Caller -> Fever. Smell. Red blood. Full in a day. Okay. It's not close. It's about half a day.
+  Caller -> If I get nervous can I call anytime? Even at night?
+  Nurse -> Yes. Anytime. The same number. Night calls forward to the on-call nurse.
+  Caller -> Good. That helps.
+  Nurse -> Right. Good. Anything else?
+  Caller -> No. That's it. Thank you, Anjali.
+  Nurse -> You're welcome. Talk to you soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Henrietta Moxley, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1960-04-10", certainty: stated, heard_as: [], turns: [5]}
+    caller_name: {value: Barrett Moxley, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550193", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported low wound vac canisters and dressing kits and slightly heavier drainage.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm just calling about supplies."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two spare canisters were left plus the one on the machine, about half full.
+      speaker: Caller
+      turns: [13]
+      quote: "We have two. Two spare."
+      explanation: Documents the canister supply.
+      facts:
+        - {type: supply, item: wound vac canisters, supply: two left, certainty: stated}
+      covers: [A1]
+    - text: One spare dressing kit was left.
+      speaker: Caller
+      turns: [23]
+      quote: "One. One kit. In the box."
+      explanation: Documents the dressing kit supply.
+      facts:
+        - {type: supply, item: dressing kits, supply: one left, certainty: stated}
+      covers: [A2]
+    - text: Drainage was heavier since yesterday, clear yellow, filling the canister to half in a day.
+      speaker: Caller
+      turns: [25]
+      quote: "It's a little heavier. Since yesterday."
+      explanation: Documents the heavier drainage.
+      facts:
+        - {type: symptom, name: heavier wound drainage, present: true, onset: since yesterday, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: There was no fever or bad smell.
+      speaker: Caller
+      turns: [30]
+      quote: "No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or foul smell, certainty: stated}
+      covers: [A4]
+    - text: The machine was running without alarms and the next dressing change was due Friday.
+      speaker: Caller
+      turns: [39]
+      quote: "It's running. No alarms."
+      explanation: Documents the machine status.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Placed an order with the supply company for canisters and dressing kits.
+      speaker: Nurse
+      turns: [45]
+      quote: "I just placed the order with the supply company for canisters and dressing kits."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery tomorrow with a call beforehand.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll ask them to deliver tomorrow, and call before they arrive."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the wound care nurse about the heavier drainage before Friday's visit.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'm going to message the wound care nurse about it"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking for kinks, open clamps and a seated canister if the machine alarmed, and calling if it could not be restarted within two hours.
+      speaker: Nurse
+      turns: [55]
+      quote: "if the machine alarms, there are a few things to check."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, a bad smell, bright red blood or a canister that filled in a day.
+      speaker: Nurse
+      turns: [57]
+      quote: "call us for a fever, a bad smell, bright red blood in the tubing or canister"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

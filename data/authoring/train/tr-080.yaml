@@ -1,0 +1,291 @@
+call_id: tr-080
+split: train
+blueprint: "MEDIUM ambiguous call: son of two hospice patients (both parents on service) starts talking about his mother, then corrects himself: the problem is his father Arturo. Father has a fever of 100.9 and painful urination since last night. Mother's details (sleeping, fine) must stay out of the summary. Nurse plans a visit this afternoon and message to the doctor, gives fluids and Tylenol guidance."
+setup:
+  scenario_category: ambiguous
+  subtype: wrong_patient_reference
+  secondary_tags: [self_correction, hedging, offtopic_chatter, split_turns, late_answers, multi_issue]
+  clinical_domains: [fever, urinary, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-10-09T16:10:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Arturo Zielinski
+  patient_name_spoken: Arturo Zielinski
+  patient_name_certainty: stated
+  patient_dob_true: "1940-07-07"
+  patient_dob_spoken: "1940-07-07"
+  patient_dob_certainty: stated
+  caller_name_true: Gideon Zielinski
+  caller_name_spoken: Gideon Zielinski
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6065550158"
+  callback_phone_spoken: "6065550158"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a fever and painful urination in his father
+  reason_category: fever
+  relevant_context: Both parents are hospice patients living together
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.9"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: painful urination
+    symptom_present: true
+    onset_or_duration: since last night
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: dark strong-smelling urine
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: given_during_call
+    dose: "650"
+    unit: mg
+    last_dose: about 10 this morning
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: confusion
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating and drinking less
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    reason_or_trigger: assess for a urinary infection
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: fever and painful urination
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: may give another Tylenol 650 mg after 6 hours from the last dose
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of water or juice every hour
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature of 102 or higher, shaking chills, new confusion, or severe pain
+    trigger_condition: temperature 102 or higher; shaking chills; new confusion; severe pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Rhonda.
+  Caller -> Hi, Rhonda. It's Gideon. Gideon Zielinski. I'm calling about my mom, um, my mother's been, she has a. || caller_name, relationship
+  Nurse -> Okay, Gideon. What's your mom's name?
+  Caller -> Helena. Helena Zielinski. But, no wait. No, no, sorry. I'm calling about my dad. I'm sorry. My dad. Arturo. || patient_name
+  Nurse -> Okay. So it's Arturo and not Helena.
+  Caller -> Right. Yes. Arturo. Mom is fine. She's asleep. They're both on your service and I, I get them mixed up when I'm tired. Sorry. || patient_name
+  Nurse -> That's okay. It happens. Arturo Zielinski. What's his date of birth?
+  Caller -> July seventh. Nineteen forty. || patient_dob
+  Nurse -> And I'll use six oh six, five five five, zero one five eight for you? || callback_phone
+  Caller -> Yeah. That's me. || callback_phone
+  Nurse -> What's going on with your dad?
+  Caller -> He has a fever. I took it a few minutes ago. It was a hundred point nine. || cc, A1
+  Nurse -> Okay. Hundred point nine. And has he got any other symptoms?
+  Caller -> He says it burns. When he pees. Since last night. He said it burns. || A2
+  Nurse -> Mm-hm.
+  Caller -> And it's dark. His urine. It's really dark. And it smells. It smells strong. || A3
+  Nurse -> Okay.
+  Caller -> I mean I only know because he's in the bathroom, I help him. Sorry. That's too much information.
+  Nurse -> No, no. That's exactly what I need. Has he had anything for the fever?
+  Caller -> I gave him a Tylenol. Six fifty. The, the two of the three twenty-fives. Around ten this morning. || A4
+  Nurse -> Okay. About ten. So that was about, what, six hours ago?
+  Caller -> I think so. It's a little after four now, right?
+  Nurse -> Yes. Okay. How's his thinking? Is he confused, or is he himself?
+  Caller -> He's himself. He knows who I am, he knows where he is. He's just tired. He's really tired. || A5
+  Nurse -> Mm. And is he eating and drinking?
+  Caller -> Barely. He had some toast. He's not drinking much. I keep telling him to drink. || A6
+  Nurse -> Okay.
+  Caller -> Mom's the one who, she's the one who always makes him drink. And now she's asleep, so.
+  Nurse -> How much has he had to drink today, would you say? Like a cup? Two cups?
+  Caller -> Um. Honestly, maybe a cup. A cup and a half. I'm not great at keeping track. I should have a chart or something.
+  Nurse -> That's okay. We'll sort it out. Is he up and walking around, or is he mostly in bed today?
+  Caller -> Bed. Mostly in bed today. He got up to the bathroom twice with me holding him and that was it.
+  Nurse -> Okay. That's helpful. And do you have help at the house today? Is anybody there with you?
+  Caller -> My wife is coming at five after work. Until then it's just me. And Mom, who's asleep.
+  Nurse -> Okay. Is your mom okay?
+  Caller -> She's fine. She's okay today. She's sleeping. She slept through all this. Yeah.
+  Nurse -> Okay. Good. Gideon, I'm going to send a nurse to see your dad this afternoon. She'll check him and see if this looks like a urinary infection. || R1
+  Caller -> Okay. This afternoon. Good.
+  Nurse -> And I'm going to message his doctor about the fever and the burning. If he needs an antibiotic, they can order it. || R2
+  Caller -> Okay. That would be great.
+  Nurse -> Since it's been about six hours, you can give him another Tylenol, the same six fifty. || R3
+  Caller -> Okay. Six fifty. Okay.
+  Nurse -> And get fluids in. Small sips, water or juice, every hour. Even just a few sips. || E1
+  Caller -> Every hour. Okay. I'll set a timer.
+  Nurse -> That's a good idea. And call us if his temperature goes to a hundred and two or higher, if he gets shaking chills, if he gets confused, or if the pain gets bad. || E2
+  Caller -> A hundred and two. Chills. Confused. Pain. Okay.
+  Nurse -> Does your dad usually have trouble with his urine, or is this new?
+  Caller -> New. It's new. He had an infection like a year ago, before hospice, I think. He ended up in the hospital for it. So I'm, I'm a little nervous.
+  Nurse -> I understand. We're going to get on this early, so hopefully it doesn't come to that. And he told us he doesn't want to go back to the hospital, so we'll do everything we can here.
+  Caller -> Yeah. That's what he wants. He's said that a lot.
+  Nurse -> Okay. I'll also let the visiting nurse know your mom is a separate chart, so she knows to check them both while she's there.
+  Caller -> Oh, that's good. Yeah. Mom's been a little more tired too, but I think that's just, you know. It's been a long week.
+  Nurse -> We'll look at her as well. Let's keep this call about your dad. Anything else I can do?
+  Caller -> No. Just, thanks. I'm sorry about the mix up at the start.
+  Nurse -> Don't worry about it. You're doing great.
+  Caller -> Thanks, Rhonda. Okay. Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: father Arturo, heard_form: "But, no wait. No, no, sorry. I'm calling about my dad.", fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Arturo Zielinski, certainty: stated, heard_as: [], turns: [4, 6]}
+    patient_dob: {value: "1940-07-07", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Gideon Zielinski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6065550158", certainty: stated, heard_as: [], turns: [9, 10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a fever and painful urination in his father.
+    speaker: Caller
+    turns: [12]
+    quote: "He has a fever. I took it a few minutes ago."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was 100.9.
+      speaker: Caller
+      turns: [12]
+      quote: "It was a hundred point nine."
+      explanation: Documents the temperature reading.
+      facts:
+        - {type: vital, name: temperature, value: "100.9", certainty: stated}
+      covers: [A1]
+    - text: Burning with urination since last night.
+      speaker: Caller
+      turns: [14]
+      quote: "He says it burns. When he pees. Since last night."
+      explanation: Documents the urinary symptom.
+      facts:
+        - {type: symptom, name: painful urination, present: true, duration: since last night, certainty: stated}
+      covers: [A2]
+    - text: Urine was dark and strong smelling.
+      speaker: Caller
+      turns: [16]
+      quote: "it's dark. His urine. It's really dark. And it smells. It smells strong."
+      explanation: Documents the urine changes.
+      facts:
+        - {type: symptom, name: dark strong-smelling urine, present: true, certainty: stated}
+      covers: [A3]
+    - text: Tylenol 650 mg was given around 10 this morning.
+      speaker: Caller
+      turns: [20]
+      quote: "I gave him a Tylenol. Six fifty."
+      explanation: Documents the recent antipyretic dose.
+      facts:
+        - {type: medication, name: Tylenol, dose: "650", unit: mg, last_dose: about 10 this morning, med_status: given_previously, certainty: stated}
+      covers: [A4]
+    - text: He was not confused, only tired.
+      speaker: Caller
+      turns: [24]
+      quote: "He's himself. He knows who I am, he knows where he is."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: confusion, certainty: stated}
+      covers: [A5]
+    - text: He was eating and drinking very little.
+      speaker: Caller
+      turns: [26]
+      quote: "Barely. He had some toast. He's not drinking much."
+      explanation: Documents reduced intake.
+      facts:
+        - {type: symptom, name: eating and drinking less, present: true, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned a nurse visit this afternoon to assess for a urinary infection.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to send a nurse to see your dad this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the doctor about the fever and burning with urination.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to message his doctor about the fever and the burning."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Advised that he could have another Tylenol 650 mg since about 6 hours had passed.
+      speaker: Nurse
+      turns: [41]
+      quote: "Since it's been about six hours, you can give him another Tylenol, the same six fifty."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering small sips of water or juice every hour.
+      speaker: Nurse
+      turns: [43]
+      quote: "Small sips, water or juice, every hour."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a temperature of 102 or higher, shaking chills, new confusion, or severe pain.
+      speaker: Nurse
+      turns: [45]
+      quote: "call us if his temperature goes to a hundred and two or higher, if he gets shaking chills, if he gets confused, or if the pain gets bad."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

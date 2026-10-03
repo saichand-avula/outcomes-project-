@@ -1,0 +1,237 @@
+call_id: tr-350
+split: train
+blueprint: "A mother calls the pediatric home nurse with a routine update on her 2-year-old, who is recovering from a chest cold: cough is dry now, appetite back, sleeping through, temperature 98.2, using a cool mist humidifier. She asks whether he can go back to day care Monday. Nurse says yes if he is fever free for twenty-four hours, reminds her about handwashing and fluids, plans to check in Monday morning. Routine update, pediatric, parent caller, v2 short."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [cough_uri, fever, intake_appetite, sleep]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Pebble Creek Pediatric Home Nursing
+  agency_type: pediatric_home_care
+  nurse_name: Henrik
+  call_timestamp_utc: "2026-10-22T17:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [Tylenol]
+chief_complaint:
+  patient_name_true: Dashiell Orloff
+  patient_name_spoken: Dashiell Orloff
+  patient_name_certainty: stated
+  patient_dob_true: "2024-08-09"
+  patient_dob_spoken: "2024-08-09"
+  patient_dob_certainty: stated
+  caller_name_true: Annelise Orloff
+  caller_name_spoken: Annelise Orloff
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "4145550175"
+  callback_phone_spoken: "4145550175"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on her son's recovery from a chest cold and asked about day care
+  reason_category: cough_uri
+  relevant_context: Pediatric home care patient recovering from a chest cold
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: dry cough
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "98.2"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: appetite back and sleeping through the night
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: Monday morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: He can return to day care Monday if he has been fever free for twenty-four hours without fever medicine and is eating and drinking
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fever of one hundred one or higher, fast or noisy breathing, or refusing drinks
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pebble Creek Pediatric Home Nursing, this is Henrik.
+  Caller -> Hi, Henrik. It's Annelise Orloff. I'm calling about my son. Dashiell Orloff. D A S H I E L L. We spoke Tuesday about his cold. || caller_name, relationship, patient_name
+  Nurse -> Hi, Annelise. Good to hear from you. Dashiell, D A S H I E L L, right? Like the detective?
+  Caller -> Like Dashiell Hammett. My husband's a mystery nut. Everyone thinks it's a typo.
+  Nurse -> Ha. It's a great name.
+  Nurse -> Hi, Annelise. Yes, I remember. How is he doing?
+  Caller -> So much better. I wanted to give you an update. And ask about day care. || cc
+  Nurse -> I'm so glad. Tuesday you were pretty worried.
+  Caller -> I was a wreck. He was coughing so hard he threw up. I thought it was pneumonia. It turned out to be just a bad cold.
+  Nurse -> That's a relief.
+  Nurse -> Good. Let me pull up his chart. What's his date of birth?
+  Caller -> August ninth. Two thousand twenty four. He's two. || patient_dob
+  Nurse -> And your number?
+  Caller -> Four one four, five five five, zero one seven five. || callback_phone
+  Nurse -> Perfect. Tell me about the cough.
+  Caller -> It's mostly gone. It's dry now. Just a little tickle in the morning. It was wet and rattly on Tuesday. Now it's just a cough here and there. Maybe five times a day. || A1
+  Nurse -> Does it wake him at night?
+  Caller -> No. Not since Thursday. He sleeps through. He wakes up at six and yells for waffles.
+  Nurse -> Ha. Waffles are a good sign.
+  Nurse -> Okay. That's improving. Any fever?
+  Caller -> No fever. I took it this morning. Ninety eight point two. And last night ninety eight point five. He's been normal since Wednesday. || A2
+  Nurse -> What kind of thermometer?
+  Caller -> The forehead one. The kind you swipe. It beeps. He tries to eat it.
+  Nurse -> Ha. A toddler.
+  Nurse -> Good. And his appetite?
+  Caller -> Back to normal. He ate me out of house and home. Pancakes, an egg, a banana, half my toast. He's sleeping through the night too. Since Thursday. He's back to waking at six like a rooster. || A3
+  Nurse -> That's wonderful. Is he breathing comfortably? No fast breathing or wheezing?
+  Caller -> No. Totally normal. He's running around. He's climbing on the couch. He's a monkey. He's totally himself. || A4
+  Nurse -> Is he using a lot of tissues, runny nose?
+  Caller -> A little runny. Clear. I wipe it about ten times a day. We've gone through three boxes.
+  Nurse -> That's normal for a cold.
+  Nurse -> Great. Are you still using the humidifier?
+  Caller -> Yes. The cool mist. At night. I clean it every day. Like you said.
+  Nurse -> Do you use plain water in it?
+  Caller -> Distilled. The gallon jugs. It's in the garage. I'm rinsing it with vinegar like the nurse showed me.
+  Nurse -> Perfect.
+  Nurse -> Perfect. So what's your day care question?
+  Caller -> Can he go back Monday? He's missed a week. And I have to go back to work. I'm a dental assistant. I took four days off. I'm out of time. Do I have to keep him home longer?
+  Nurse -> Does the day care have a policy sheet?
+  Caller -> They do. Twenty four hours fever free. I don't know if it's with or without medicine.
+  Nurse -> Without. That's the standard.
+  Nurse -> It sounds like he's doing great. The usual rule is he can return when he's been fever free for twenty four hours without any fever medicine, and he's eating and drinking normally. Does that sound like him?
+  Caller -> Yes. No fever since Wednesday. No Tylenol since Tuesday. So that's well over twenty four hours. He's eating and drinking. So he should be okay.
+  Nurse -> It sounds like he qualifies. If he's still fever free Monday morning, he can go. Check his temperature before you leave. And keep an ear on that cough. || E1
+  Caller -> Okay. Check the temperature Monday. And listen to the cough. Okay. Thank you. That's a relief.
+  Nurse -> Remind the day care about the cough, so they don't worry. And wash hands often, his and yours. Offer lots of fluids.
+  Caller -> I will. Handwashing. Fluids. I'm a dental assistant. I wash my hands about two hundred times a day.
+  Nurse -> Ha. You're the right person for this.
+  Caller -> Ha. Yes.
+  Caller -> I do worry about him going back. He picks everything up there. Last winter he got four colds.
+  Nurse -> That's very typical for a kid in day care. The first year is rough.
+  Caller -> I know. It's a sneeze factory.
+  Nurse -> And call us if his temperature goes to one hundred one or higher, if his breathing gets fast or noisy, or if he stops drinking. || E2
+  Caller -> One hundred one. Fast or noisy breathing. Not drinking. Okay. I wrote it on a sticky note.
+  Caller -> I put it on the fridge. Right next to the magnet of the moon.
+  Nurse -> Ha. A lunar fridge.
+  Nurse -> Perfect. I'll check in with you Monday morning, to see how the first day goes. || R1
+  Caller -> Oh, that's nice. Thank you. Monday morning. I'll be at work by then. Call my cell. It's the same number.
+  Nurse -> Will do. Anything else?
+  Caller -> No. I just wanted to say thanks. You helped me not panic on Tuesday.
+  Nurse -> Anytime. Glad he's better.
+  Caller -> Henrik, one more thing. He's been chewing on a pacifier again. He's two. Is that a problem?
+  Nurse -> It's not an emergency. Many kids go back to old habits when they're sick. It will pass.
+  Caller -> That's what I thought. Okay.
+  Caller -> Me too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dashiell Orloff, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2024-08-09", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Annelise Orloff, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550175", certainty: stated, heard_as: [], turns: [14]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on her son's recovery from a chest cold and asked about day care.
+    speaker: Caller
+    turns: [7]
+    quote: "I wanted to give you an update. And ask about day care."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: His cough was mostly gone and dry, about five times a day.
+      speaker: Caller
+      turns: [16]
+      quote: "It's mostly gone. It's dry now."
+      explanation: Documents the improving cough.
+      facts:
+        - {type: symptom, name: dry cough, present: true, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 98.2 this morning.
+      speaker: Caller
+      turns: [21]
+      quote: "Ninety eight point two."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.2", certainty: stated}
+      covers: [A2]
+    - text: His appetite was back to normal and he slept through the night since Thursday.
+      speaker: Caller
+      turns: [26]
+      quote: "Back to normal."
+      explanation: Documents the recovery.
+      facts:
+        - {type: symptom, name: appetite back and sleeping through the night, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no fever or trouble breathing.
+      speaker: Caller
+      turns: [28]
+      quote: "No. Totally normal. He's running around."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to check in Monday morning after his first day back.
+      speaker: Nurse
+      turns: [57]
+      quote: "I'll check in with you Monday morning"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: Monday morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised he could return to day care Monday if fever free for twenty-four hours without medicine and eating and drinking, checking his temperature first.
+      speaker: Nurse
+      turns: [44]
+      quote: "If he's still fever free Monday morning, he can go."
+      explanation: Documents monitoring and return-to-day-care guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a temperature of 101 or higher, fast or noisy breathing, or refusing drinks.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if his temperature goes to one hundred one or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

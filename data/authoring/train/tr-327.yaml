@@ -1,0 +1,273 @@
+call_id: tr-327
+split: train
+blueprint: "A home care aide calls the agency nurse because her client Juanita, 69, who has type 2 diabetes, is down to five test strips, no lancets and about ten pen needles. Fasting sugar this morning was 131. Juanita checks three times a day; the aide has been reusing a lancet which Juanita finds painful. The aide is unsure of the supplier and the exact names of the items. The nurse orders strips, lancets and pen needles (completed), arranges delivery Thursday, and gives lancet and strip tips. Supply, paid caregiver caller, v2 short."
+setup:
+  scenario_category: supply
+  subtype: diabetic_supplies
+  secondary_tags: [phone_from_file, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [glucose, equipment]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Maplewood Home Care
+  agency_type: home_care
+  nurse_name: Giorgio
+  call_timestamp_utc: "2026-10-26T14:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Juanita Echeverria
+  patient_name_spoken: Juanita Echeverria
+  patient_name_certainty: stated
+  patient_dob_true: "1957-12-12"
+  patient_dob_spoken: "1957-12-12"
+  patient_dob_certainty: stated
+  caller_name_true: Rhoda Pettibone
+  caller_name_spoken: Rhoda Pettibone
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "6105550115"
+  callback_phone_spoken: "6105550115"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that a client is running low on diabetes testing and injection supplies
+  reason_category: supply
+  relevant_context: Home care client with type 2 diabetes
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: test strips
+    supply_remaining: five left
+    supply_unit: strips
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: lancets
+    supply_remaining: none
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: pen needles
+    supply_remaining: about ten left
+    supply_unit: needles
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "131"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: sore fingertips from reused lancet
+    symptom_present: true
+    severity: mild
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: test strips, lancets and pen needles
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Use a new lancet for every check and never reuse one, prick the side of the fingertip, and rotate fingers
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call if the supplies have not come by Thursday afternoon, or if her sugar reads over three hundred or under seventy
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maplewood Home Care, this is Giorgio.
+  Caller -> Hi, Giorgio. This is Rhoda Pettibone. P E T T I B O N E. I'm one of the aides. I'm with Mrs. Echeverria today. Juanita Echeverria. || caller_name, relationship, patient_name
+  Nurse -> Hi, Rhoda. What can I do for you?
+  Caller -> First, is this a good time? I know you're probably in the middle of a hundred things.
+  Nurse -> This is a good time. I'm all yours.
+  Caller -> Okay good. Because I wrote this down so I wouldn't forget.
+  Caller -> I'm checking her supplies and we're low. On the diabetes things. Her testing stuff. I wanted to tell you before she runs out. || cc
+  Nurse -> Where are you right now? In her kitchen?
+  Caller -> In her bedroom. She's in the recliner. I'm standing by the dresser where she keeps the kit. She keeps it in a zipper bag. A blue one.
+  Nurse -> Okay. That's helpful.
+  Nurse -> Good thinking. Let me pull up her chart. Can I have her date of birth?
+  Caller -> December twelfth. Nineteen fifty seven. || patient_dob
+  Nurse -> And I think I have a number for you on file. Is it six one oh, five five five, zero one one five? || callback_phone
+  Caller -> That's the agency cell. Yes. That's me when I'm out.
+  Nurse -> Perfect. Which supplies are low?
+  Caller -> The strips. The test strips. I counted. There's five left. In the box. And she checks three times a day. So that's less than two days.
+  Nurse -> What times does she usually check?
+  Caller -> Before breakfast, before supper and at bedtime. She's very regular. She writes it all down in a little book. With a gold pen.
+  Nurse -> Ha. Good habit.
+  Nurse -> Okay. Five test strips. What about the lancets?
+  Caller -> That's the thing. There's none. We ran out of the little needles for the finger. Lancets. The nurse said they're called lancets. There are none. I've been using the same one over and over. For a couple days. || A1, A2
+  Nurse -> Did you tell her the lancet was reused?
+  Caller -> She knows. She said it's okay. But I could tell she didn't like it.
+  Nurse -> It's not okay. But you're fixing it, so don't feel bad.
+  Nurse -> Oh. Okay. We don't want to reuse them. That's no good. Does it hurt her?
+  Caller -> It does. A little. She says her fingers are sore. They're tender. The tips. She winces. She has little red spots on her fingers. But no infection. They look okay. || A5
+  Nurse -> No pus, swelling, warmth?
+  Caller -> No. Just a little pink. Like a pinprick, only a lot of them. She says it's like having tiny paper cuts.
+  Nurse -> Okay. They should heal fast with new lancets.
+  Nurse -> Okay. We'll fix that. And what about the insulin pen needles?
+  Caller -> The pen needles. The ones for the pen. There's about ten left in the box. She uses two a day. So five days. Maybe more. I didn't count exactly. || A3
+  Nurse -> Okay. About ten left. Good. Rhoda, what was her sugar this morning?
+  Caller -> I did it before breakfast. A hundred and thirty one. That's a good one for her. She was proud. || A4
+  Nurse -> Good for her. Is she eating well, taking her medicines on time?
+  Caller -> She eats like a bird, but regularly. She does her own pen. I just watch. She doesn't let me touch it.
+  Nurse -> That's wonderful that she's independent.
+  Nurse -> That's a great number. Okay. Let me place the order. Do you know who her supplier is?
+  Caller -> No. I don't. I'm sorry. The box says something. Hold on. Let me look. It says, hmm, it's a long name. Midland Diabetic. I think. Midland something.
+  Nurse -> That's okay. I have it in her chart. Midland Diabetic Supply. I'll use that.
+  Caller -> Oh good. That's it. Thank you.
+  Nurse -> I'm going to order a box of test strips, a box of lancets, a box of pen needles, and I'll mark it urgent. Give me a minute.
+  Caller -> Take your time. I'm sitting with her. She's watching her shows.
+  Nurse -> What does she like to watch?
+  Caller -> Her stories. Day time. And the cooking shows. She doesn't cook anymore but she watches everyone else.
+  Nurse -> Ha. A fellow connoisseur.
+  Nurse -> It's in. I just placed the order with the supply company for the strips, lancets and pen needles. || R1
+  Caller -> Oh wonderful. How fast?
+  Nurse -> I'm going to arrange delivery for Thursday. Is somebody going to be there?
+  Caller -> Thursday. Yes. I work Thursdays. Eight to four. I'll be here.
+  Nurse -> Perfect. I'll ask them to deliver Thursday, and I'll make a note about calling the agency if they can't find the house. || R2
+  Caller -> Good. Because last time they went to the wrong house. Two doors down. The lady had to walk it over. Ha.
+  Nurse -> Ha. I'll note the address. Rhoda, until Thursday, you have five strips and no lancets. Is there a spare lancet somewhere? A different brand?
+  Nurse -> Is the house number clearly visible from the street?
+  Caller -> It's on the mailbox. In big silver stickers. And on the porch light. It's number eleven.
+  Nurse -> Good. I'll note it.
+  Caller -> I don't know. Let me check her kit. In the drawer. Hold on. Let me look. There's a few lancets. In the bottom of the bag. They're a different kind. Little ones with a cap. Twelve of them. Oh good. Twelve.
+  Caller -> They're from the old kit. From the hospital. I forgot she had them.
+  Nurse -> That's lucky. They'll tide her over until Thursday.
+  Nurse -> Perfect. Use a new one every time. Never reuse. Prick the side of her fingertip, not the pad. And rotate fingers, so she's not hitting the same one. || E1
+  Caller -> New one each time. Side of the fingertip. Rotate. Okay. I'll show her. She's been using the pad. Right on the middle.
+  Nurse -> The side hurts less and heals faster.
+  Caller -> Good. She'll be thrilled. She hates this.
+  Caller -> She tells me every time she'd rather have her teeth pulled. But she does it. She never skips.
+  Nurse -> She sounds tough.
+  Nurse -> Ha. Of course. Okay. And call us if the supplies haven't come by Thursday afternoon, or if her sugar is ever over three hundred or under seventy. || E2
+  Caller -> Over three hundred. Under seventy. Or no supplies by Thursday afternoon. Okay. I got it.
+  Nurse -> Great. Anything else, Rhoda?
+  Caller -> No. That's it. Thank you, Giorgio. You're always so helpful.
+  Nurse -> You're welcome. Take care of Juanita.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Juanita Echeverria, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1957-12-12", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Rhoda Pettibone, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550115", certainty: stated, heard_as: [], turns: [13]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a client was running low on diabetes testing and injection supplies.
+    speaker: Caller
+    turns: [7]
+    quote: "I'm checking her supplies and we're low."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Five test strips were left in the box.
+      speaker: Caller
+      turns: [16]
+      quote: "There's five left. In the box."
+      explanation: Documents the strip supply.
+      facts:
+        - {type: supply, item: test strips, supply: five left, certainty: stated}
+      covers: [A1]
+    - text: There were no lancets left and one had been reused for a couple of days.
+      speaker: Caller
+      turns: [21]
+      quote: "There are none."
+      explanation: Documents the lancet supply.
+      facts:
+        - {type: supply, item: lancets, supply: none, certainty: stated}
+      covers: [A2]
+    - text: About ten pen needles were left, enough for about five days.
+      speaker: Caller
+      turns: [31]
+      quote: "There's about ten left in the box."
+      explanation: Documents the pen needle supply.
+      facts:
+        - {type: supply, item: pen needles, supply: about ten left, certainty: stated}
+      covers: [A3]
+    - text: Fasting blood sugar was 131 this morning.
+      speaker: Caller
+      turns: [33]
+      quote: "A hundred and thirty one."
+      explanation: Documents the glucose reading.
+      facts:
+        - {type: vital, name: blood sugar, value: "131", certainty: stated}
+      covers: [A4]
+    - text: Her fingertips were sore and tender with small red spots from the reused lancet, with no infection.
+      speaker: Caller
+      turns: [26]
+      quote: "She says her fingers are sore."
+      explanation: Documents the sore fingertips.
+      facts:
+        - {type: symptom, name: sore fingertips from reused lancet, present: true, severity: mild, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Placed an order with the supply company for test strips, lancets and pen needles.
+      speaker: Nurse
+      turns: [46]
+      quote: "I just placed the order with the supply company for the strips, lancets and pen needles."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery on Thursday.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll ask them to deliver Thursday"
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised using a new lancet each time, pricking the side of the fingertip and rotating fingers.
+      speaker: Nurse
+      turns: [59]
+      quote: "Use a new one every time. Never reuse."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if supplies had not come by Thursday afternoon or if her sugar was over 300 or under 70.
+      speaker: Nurse
+      turns: [65]
+      quote: "call us if the supplies haven't come by Thursday afternoon"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

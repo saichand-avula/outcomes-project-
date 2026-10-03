@@ -1,0 +1,211 @@
+call_id: va-009
+split: val
+blueprint: "Husband self-corrects his wife's birth year and the time of her last dose; pain 'maybe a five, six'; nurse advises the as-needed dose timing and plans a note to the provider."
+setup:
+  scenario_category: ambiguous
+  subtype: self_correction
+  secondary_tags: [dob_self_corrected, hedging, self_correction, prn_and_scheduled]
+  clinical_domains: [pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-09-19T20:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Opal Kensington
+  patient_name_spoken: Opal Kensington
+  patient_name_certainty: stated
+  patient_dob_true: "1948-12-09"
+  patient_dob_spoken: "1948-12-09"
+  patient_dob_certainty: stated
+  caller_name_true: Rufus
+  caller_name_spoken: Rufus
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "6155550171"
+  callback_phone_spoken: "6155550171"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Wife's pain is up and he is unsure when she last took her pain pill
+  reason_category: pain
+  relevant_context: null
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 5 to 6
+    body_location: lower back
+    certainty: unclear
+    unclear_detail: Caller unsure ("maybe a five, six")
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: taking
+    strength: 650 mg
+    frequency: every 6 hours
+    prn: true
+    last_dose_time: around 5, corrected from 3
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    timeframe: next dose around 11
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: palliative provider
+    reason_or_trigger: pain higher than usual
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Heating pad on low, pillows under the knees, change positions every hour
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if pain goes above 7, she cannot get comfortable, or has a fever
+    trigger_condition: pain above 7; cannot get comfortable; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi, Denise. This is Rufus Kensington. I'm calling for my wife, Opal. || caller_name, relationship, patient_name
+  Nurse -> Hi, Rufus. Opal's date of birth?
+  Caller -> December ninth, nineteen forty seven. No, wait. Forty eight. Nineteen forty eight. She's going to be mad at me. || patient_dob
+  Nurse -> Ha. Forty eight. And I've got six one five, five five five, zero one seven one for you. || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> What's going on?
+  Caller -> Her back is hurting more than usual. Her lower back. || cc, A1
+  Nurse -> How bad would you say it is?
+  Caller -> I'd say maybe a five. Or a six. Five or six. || A1
+  Nurse -> Okay. What has she taken?
+  Caller -> The acetaminophen. The six fifty. I gave her one at three. No, five. Five o'clock. I looked at the clock wrong. || A2
+  Nurse -> Okay. So five o'clock. The acetaminophen is every six hours as needed, so her next dose would be around eleven tonight. || R1, A2
+  Caller -> Eleven. Okay.
+  Nurse -> Does she have a fever?
+  Caller -> No fever. || A3
+  Nurse -> Okay. I'll send a note to her provider that her pain is higher than usual, in case they want to adjust the plan. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> In the meantime, a heating pad on low on her back, pillows under her knees, and have her change positions every hour. || E1
+  Caller -> We have a heating pad. I'll get it.
+  Nurse -> If her pain goes over a seven, or she can't get comfortable, or she runs a fever, call us. || E2
+  Caller -> Okay. Over seven, can't get comfortable, fever.
+  Nurse -> Is she eating and drinking okay?
+  Caller -> She ate a little soup at dinner. She's drinking her tea. She's tired, but she's okay.
+  Nurse -> Good. That's what I like to hear.
+  Caller -> She says to say thank you, she's listening from the couch. She's fine, she says, I'm making a fuss.
+  Nurse -> Ha. Tell her it's fine to fuss a little.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Denise.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Opal Kensington, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-12-09", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Rufus, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550171", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife's lower back pain was higher than usual.
+    speaker: Caller
+    turns: [8]
+    quote: "Her back is hurting more than usual. Her lower back."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lower back pain was estimated at 5 to 6, with the caller unsure of the exact number.
+      speaker: Caller
+      turns: [10]
+      quote: "I'd say maybe a five. Or a six. Five or six."
+      explanation: Documents the pain severity with uncertainty preserved.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 5 to 6, location: lower back, certainty: unclear}
+      covers: [A1]
+    - text: Acetaminophen 650 mg every 6 hours as needed was last given at 5 o'clock; the caller first said 3 and corrected it.
+      speaker: Caller
+      turns: [12]
+      quote: "I gave her one at three. No, five. Five o'clock. I looked at the clock wrong."
+      explanation: Documents the last dose with the caller's self-correction.
+      facts:
+        - {type: medication, name: acetaminophen, strength: 650 mg, frequency: every 6 hours, prn: true, last_dose: around 5, corrected from 3, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that the next acetaminophen dose could be given around 11 tonight.
+      speaker: Nurse
+      turns: [13]
+      quote: "The acetaminophen is every six hours as needed, so her next dose would be around eleven tonight."
+      explanation: Documents the dosing-interval instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: acetaminophen, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a note to her provider that her pain was higher than usual.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll send a note to her provider that her pain is higher than usual"
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a low-setting heating pad, pillows under her knees, and changing positions every hour.
+      speaker: Nurse
+      turns: [19]
+      quote: "a heating pad on low on her back, pillows under her knees, and have her change positions every hour."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the pain went over 7, she could not get comfortable, or she ran a fever.
+      speaker: Nurse
+      turns: [21]
+      quote: "If her pain goes over a seven, or she can't get comfortable, or she runs a fever, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

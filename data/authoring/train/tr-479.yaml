@@ -1,0 +1,434 @@
+call_id: tr-479
+split: train
+blueprint: "A 63-year-old woman with type 2 diabetes calls home health herself, unsure how to use her mealtime sliding scale: sugar was two hundred eighty seven before dinner and she took six units of Humalog (first saying four, then correcting to six) in addition to her bedtime Lantus twenty four units; morning sugar was one hundred forty two. Mildly thirsty, no nausea, vomiting or confusion. Nurse walks through the scale, asks her to read the card, plans an on-call page and a callback within the hour and a nurse visit tomorrow, and reviews checking sugar, low-sugar signs and when to call 911. Scheduled plus sliding-scale insulin with an explicit self-correction, self caller, patient 18-64, v2 long."
+setup:
+  scenario_category: medication
+  subtype: sliding_scale_insulin
+  secondary_tags: [prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, contradiction]
+  clinical_domains: [medication, glucose]
+  relationship_group: self
+  na_reason: null
+  agency_name: Pelican Bay Home Health
+  agency_type: home_health
+  nurse_name: Augustus
+  call_timestamp_utc: "2026-11-17T23:05:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Philomena Radcliffe
+  patient_name_spoken: Philomena Radcliffe
+  patient_name_certainty: stated
+  patient_dob_true: "1963-02-27"
+  patient_dob_spoken: "1963-02-27"
+  patient_dob_certainty: stated
+  caller_name_true: Philomena Radcliffe
+  caller_name_spoken: Philomena Radcliffe
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9185550122"
+  callback_phone_spoken: "9185550122"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked how to use her mealtime sliding scale after a high sugar before dinner
+  reason_category: medication
+  relevant_context: Home health patient with type 2 diabetes on two kinds of insulin
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lantus
+    medication_name_spoken: Lantus
+    medication_status: taking
+    dose: "24"
+    unit: units
+    frequency: once a day at bedtime
+    prn: false
+    last_dose: last night
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Humalog
+    medication_name_spoken: Humalog
+    medication_status: taking
+    dose: "6"
+    unit: units
+    frequency: with meals on a sliding scale
+    prn: true
+    last_dose: before dinner tonight
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood glucose before dinner
+    vital_value: "287"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood glucose this morning
+    vital_value: "142"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased thirst
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vomiting or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: high sugar and questions about the sliding scale
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Read the sugar reading against the card before every mealtime dose, take only that dose, and do not add extra to catch up
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check the sugar again at bedtime and before breakfast, write each number down, and drink water
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: For shaking, sweating, or confusion treat with juice and recheck in fifteen minutes, and call 911 if she cannot swallow or is unresponsive
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pelican Bay Home Health, this is Augustus.
+  Caller -> Hello? Is this the night line? I wasn't sure which number to call so I called the one on the fridge.
+  Nurse -> You've got the right place.
+  Caller -> Hi, Augustus. This is Philomena Radcliffe. I'm a patient. I'm calling because I think I'm confused about my insulin. Specifically the one I take at meals. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Philomena.
+  Nurse -> Hi, Philomena. Is it okay that I call you Philomena?
+  Caller -> Phil is fine. Everyone says Phil.
+  Nurse -> Phil it is.
+  Nurse -> Hi, Philomena. Okay. Tell me what's confusing.
+  Caller -> I appreciate you picking up. I know it's late.
+  Nurse -> Never a problem.
+  Caller -> It's silly. I've done this for years. But tonight I froze.
+  Nurse -> It's not silly. Let's go slowly.
+  Caller -> Thank you for being patient. My last doctor made me feel stupid.
+  Nurse -> You're not stupid. This is complicated.
+  Caller -> I have two insulins. The Lantus, that's the long one. Twenty four units at bedtime. That I understand. I took it last night at ten. || A1
+  Nurse -> Okay. Lantus, twenty four units, at bedtime. Last night at ten. || A1
+  Caller -> Yes. And I use the purple pen for that one. The mealtime one is the orange pen. I got them mixed up once.
+  Nurse -> The colors help.
+  Caller -> Right. And then the other one is the Humalog. The mealtime one. I have a card. A sliding scale. You check your sugar, and the card tells you how many units. || A2
+  Nurse -> Okay.
+  Nurse -> Okay. Did you use the card tonight?
+  Caller -> I did. I keep it on the refrigerator, under a magnet shaped like a pineapple.
+  Nurse -> Ha. A fruit magnet is a fine place.
+  Caller -> I did. My sugar was two hundred eighty seven before dinner. I looked at the card, and the card says, hold on, let me find it. The row for two fifty to two ninety nine says four units. No. Six units. It's six. Sorry. I read the wrong row. Six. || A3
+  Nurse -> Take your time with the card.
+  Caller -> It's laminated. It has a coffee ring on it. Ha.
+  Nurse -> Okay. So you took six units. And the row for two eighty seven is six.
+  Caller -> Yes. I'm fairly sure. I'm looking at the card now. It says two fifty to two ninety nine, six units. Yes. I took six.
+  Nurse -> Okay.
+  Caller -> Sorry. I'm squinting. The print is tiny.
+  Nurse -> Thank you.
+  Nurse -> Good. That's what the card says. So you did it right.
+  Caller -> I should go lie down, if it's all right. I'll keep the phone on.
+  Nurse -> That's fine. Rest, and I'll call.
+  Caller -> Thank you. I just needed someone to say it out loud.
+  Caller -> Oh. Okay. I wasn't sure. I second guessed myself. I was afraid I'd given too little, or too much.
+  Nurse -> Second guessing is natural when you're tired.
+  Caller -> I'd had a long day. My sister's car broke down and I drove forty minutes to get her.
+  Nurse -> It sounds like you gave the right amount. When did you take it?
+  Caller -> At about six. Right before I ate. My dinner was chicken and rice, and a salad. And a piece of cake. I had a little cake. It was my neighbor's birthday.
+  Nurse -> Okay.
+  Caller -> I'm trying to be good about the timing. The card says take it fifteen minutes before. I took it right before. Is that bad?
+  Nurse -> Fifteen minutes before is ideal, but it's not a disaster.
+  Nurse -> Ha. That could explain a high sugar.
+  Caller -> I know. I know. But it was a very small piece.
+  Nurse -> Ha. We all say that.
+  Caller -> Right. But the number before dinner was already high. It was high before I even had the cake. That's why I'm worried.
+  Nurse -> Mm hm.
+  Caller -> I wonder if I was sick. I felt fine. But the number says otherwise.
+  Nurse -> Okay. That's useful to know.
+  Nurse -> What was your sugar this morning?
+  Caller -> One forty two. Fasting. That's good for me. That's pretty normal. || A4
+  Nurse -> Okay.
+  Caller -> I felt proud of that number. I wrote it in big letters.
+  Nurse -> How are you feeling?
+  Caller -> Honestly, a bit embarrassed. Calling at this hour.
+  Nurse -> Please don't be. This is exactly what the night line is for.
+  Caller -> Thirsty. A little. I've had three glasses of water since dinner. I keep going to the bathroom. But no stomach trouble. No nausea. No throwing up. And I'm thinking clearly, I think. You tell me. Ha. || A5
+  Caller -> I keep the glass right here by the phone.
+  Nurse -> Okay.
+  Caller -> It's not a terrible thirst. It's more like my mouth is dry.
+  Nurse -> That fits with a higher sugar.
+  Nurse -> You sound very clear to me. Any blurry vision, headache?
+  Caller -> I made tea. Decaf. I'm trying to be good.
+  Nurse -> Perfect.
+  Caller -> No. No. Just thirsty. And tired. But I'm always tired at night. || A6
+  Nurse -> Okay. Philomena, what's your date of birth?
+  Caller -> Oh, you need my date of birth? Sure.
+  Caller -> February twenty seventh. Nineteen sixty three. || patient_dob
+  Nurse -> And your number?
+  Caller -> Nine one eight, five five five, oh one two two. || callback_phone
+  Nurse -> Nine one eight, five five five, oh one two two. Right? || callback_phone
+  Caller -> That's my cell. The landline hasn't worked since the storm.
+  Nurse -> Cell it is.
+  Caller -> Yes.
+  Nurse -> Okay. I'd like to page the on-call clinician about the high numbers and about how you use the scale. I'm going to do that right now. || R1
+  Caller -> Okay.
+  Caller -> Okay. Is something wrong?
+  Caller -> Because if it's serious I'd rather know.
+  Nurse -> It isn't serious. I just want it looked at.
+  Nurse -> I don't think so. I want them to take a look at the pattern. You'll hear from me within the hour. || R2
+  Caller -> Within the hour. Okay. I'll stay up.
+  Caller -> I'll set a timer on the stove so I don't lose track.
+  Nurse -> If you don't hear from me, call back.
+  Caller -> Okay. Thank you.
+  Caller -> I have a movie on. A bad one. It's perfect for waiting.
+  Nurse -> Ha.
+  Nurse -> Good. I'd also like a nurse to come out tomorrow and watch you use the scale. So you feel sure about it. || R3
+  Caller -> Oh, I'd love that. I'm a visual learner. I need someone to show me.
+  Nurse -> Then it's a good fit.
+  Caller -> My doctor just handed me the card and said good luck.
+  Nurse -> That's a lot to take in.
+  Nurse -> That's what we'll do.
+  Caller -> What time? I work Tuesdays and Thursdays. Tomorrow is Wednesday. I'm free.
+  Nurse -> Wonderful.
+  Caller -> I'll have coffee ready. Decaf. For the nurse.
+  Nurse -> Ha. Thank you.
+  Nurse -> Perfect. They'll call before they come.
+  Caller -> Should I have my meter and my notebook ready?
+  Nurse -> Yes. And both pens.
+  Caller -> Both pens. Okay.
+  Caller -> Great.
+  Nurse -> They'll bring the new card too, if there is one.
+  Nurse -> Now, here's the main rule about the scale. Before every mealtime dose, check your sugar. Read the number against the card. Take only that dose. Don't add extra to catch up. || E1
+  Caller -> Check. Read the card. Take only that. Don't add extra. Okay. I do that. I just had one moment of doubt.
+  Nurse -> That's it.
+  Caller -> I'm going to write that on a sticky note and stick it on the meter.
+  Nurse -> Perfect.
+  Nurse -> That's normal. If you ever doubt, call us. Don't guess.
+  Caller -> I'll write that on the card. If in doubt, call.
+  Nurse -> That's a great note.
+  Caller -> Okay. I will.
+  Caller -> I mean it. I'll call if I'm unsure.
+  Nurse -> Good. Please do.
+  Nurse -> Thank you.
+  Nurse -> And check your sugar again at bedtime, and before breakfast. Write each number down. And keep drinking water. || E2
+  Caller -> Bedtime. Before breakfast. Write it. Water. I have a little notebook. It's purple.
+  Caller -> I put stickers next to the numbers. Gold for good ones.
+  Nurse -> Ha. Whatever works.
+  Caller -> I got them at the dollar store. A hundred of them for two dollars.
+  Nurse -> A bargain.
+  Nurse -> Perfect.
+  Caller -> Should I take extra tonight, to bring it down faster?
+  Nurse -> Good question to ask.
+  Nurse -> No. Please don't add any extra. Wait for the clinician to call you.
+  Caller -> Okay. I won't.
+  Nurse -> Thank you. That matters.
+  Nurse -> Also, I want you to know the signs of low sugar. If you get shaky, sweaty, or confused, drink half a cup of juice, and check again in fifteen minutes. And call 911 if you can't swallow or you're not responding. || E3
+  Caller -> Shaky. Sweaty. Confused. Juice. Fifteen minutes. 911 if I can't swallow. Okay. I live alone. So I should keep my phone close.
+  Nurse -> Exactly.
+  Caller -> My daughter says I should get one of those necklace buttons. I keep saying no.
+  Nurse -> It's worth thinking about.
+  Nurse -> Yes. Keep it next to your bed.
+  Nurse -> Good.
+  Caller -> I'll charge it right now. It's at forty percent.
+  Caller -> It's always there. I have a little stand.
+  Nurse -> Good. Do you have juice in the house?
+  Caller -> Orange juice in the fridge. And glucose tablets in the drawer.
+  Nurse -> And do you have a way to get back up if you feel weak?
+  Caller -> I sit down first. Always. I learned that the hard way.
+  Nurse -> Good habit.
+  Caller -> And honey. If all else fails I can eat a spoonful of honey.
+  Nurse -> That works too.
+  Nurse -> That's helpful.
+  Caller -> The little cartons. I buy them in bulk. They don't go bad.
+  Nurse -> Smart.
+  Nurse -> Perfect. You're well prepared.
+  Caller -> Thank you. Compliments are rare.
+  Nurse -> Ha. You earned it.
+  Caller -> I try. I've had diabetes eleven years. But I still get confused about the scale. The doctor changed the numbers in the fall.
+  Nurse -> That's a long time to manage this.
+  Caller -> It is. I've gotten better at it. The first year I cried every morning.
+  Nurse -> That can throw anybody off. The new card should be the only one you use.
+  Caller -> It really did. I'm still unlearning the old numbers.
+  Caller -> I threw the old one out. I think. Let me check the drawer. No. Wait. It's gone.
+  Nurse -> Good.
+  Caller -> I have a daughter in Tulsa. She calls every night at nine. I'll tell her.
+  Nurse -> That's far.
+  Caller -> It is. But she calls and she visits at Thanksgiving.
+  Nurse -> That's nice. She can check in on you.
+  Caller -> She'll laugh when I tell her I called the night nurse.
+  Nurse -> Tell her she's welcome to call us too.
+  Caller -> She's a worrier. She gets it from me.
+  Caller -> She makes me text her a thumbs up every morning.
+  Nurse -> That's a nice habit.
+  Nurse -> Ha.
+  Caller -> Thank you for staying on the phone with me. It helps to hear a voice.
+  Nurse -> Of course.
+  Caller -> My phone is at sixty percent so I can talk as long as you need.
+  Nurse -> We're nearly done.
+  Nurse -> Any time. That's what the night line is for.
+  Caller -> I'll remember that. Thank you.
+  Caller -> I feel better already. I'll wait for your call.
+  Caller -> I'll put the kettle on. It helps me think.
+  Nurse -> Sounds good.
+  Nurse -> Perfect. Talk soon.
+  Caller -> Good night, Augustus. Thank you again.
+  Nurse -> Good night, Phil.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philomena Radcliffe, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1963-02-27", certainty: stated, heard_as: [], turns: [70]}
+    caller_name: {value: Philomena Radcliffe, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "9185550122", certainty: stated, heard_as: [], turns: [72, 73]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked how to use her mealtime sliding scale after a high sugar before dinner.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm calling because I think I'm confused about my insulin."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Lantus 24 units was taken at bedtime, last given last night at ten.
+      speaker: Caller
+      turns: [16]
+      quote: "The Lantus, that's the long one. Twenty four units at bedtime."
+      explanation: Documents the long-acting insulin.
+      facts:
+        - {type: medication, name: Lantus, dose: "24", unit: units, frequency: once a day at bedtime, prn: false, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Humalog 6 units was taken before dinner on a sliding scale, after she corrected herself from four to six.
+      speaker: Caller
+      turns: [25]
+      quote: "The row for two fifty to two ninety nine says four units. No. Six units. It's six."
+      explanation: Documents the mealtime insulin and the self-correction. The drug is named in the earlier tagged turn.
+      facts:
+        - {type: medication, name: Humalog, dose: "6", unit: units, frequency: with meals on a sliding scale, prn: true, last_dose: before dinner tonight, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Blood glucose before dinner was 287.
+      speaker: Caller
+      turns: [25]
+      quote: "My sugar was two hundred eighty seven before dinner."
+      explanation: Documents the pre-dinner glucose.
+      facts:
+        - {type: vital, name: blood glucose before dinner, value: "287", certainty: stated}
+      covers: [A3]
+    - text: Fasting blood glucose this morning was 142.
+      speaker: Caller
+      turns: [53]
+      quote: "One forty two. Fasting."
+      explanation: Documents the morning glucose.
+      facts:
+        - {type: vital, name: blood glucose this morning, value: "142", certainty: stated}
+      covers: [A4]
+    - text: She was a little thirsty and urinating often.
+      speaker: Caller
+      turns: [59]
+      quote: "Thirsty. A little."
+      explanation: Documents the thirst.
+      facts:
+        - {type: symptom, name: increased thirst, present: true, severity: mild, certainty: stated}
+      covers: [A5]
+    - text: She had no nausea, vomiting or confusion.
+      speaker: Caller
+      turns: [67]
+      quote: "No. No. Just thirsty."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vomiting or confusion, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician about the high numbers and the scale.
+      speaker: Nurse
+      turns: [77]
+      quote: "I'd like to page the on-call clinician about the high numbers"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback within the hour.
+      speaker: Nurse
+      turns: [82]
+      quote: "You'll hear from me within the hour."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to watch her use the scale.
+      speaker: Nurse
+      turns: [89]
+      quote: "I'd also like a nurse to come out tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking the sugar against the card before every mealtime dose and taking only that dose without adding extra.
+      speaker: Nurse
+      turns: [105]
+      quote: "Before every mealtime dose, check your sugar."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised rechecking sugar at bedtime and before breakfast, writing numbers down, and drinking water.
+      speaker: Nurse
+      turns: [117]
+      quote: "check your sugar again at bedtime, and before breakfast."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised juice and a recheck in fifteen minutes for shakiness, sweating or confusion, and calling 911 if she could not swallow.
+      speaker: Nurse
+      turns: [129]
+      quote: "If you get shaky, sweaty, or confused, drink half a cup of juice"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

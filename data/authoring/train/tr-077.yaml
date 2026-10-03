@@ -1,0 +1,214 @@
+call_id: tr-077
+split: train
+blueprint: "Paid overnight caregiver calls about her client, a 79-year-old hospice patient with bone pain at 8/10 despite his scheduled and PRN medicine, moaning and grimacing. She doesn't know the exact med names, reads the bottle labels aloud. Nurse pages on-call, arranges a visit within 45 minutes, tells her what she may give per orders. Flag: uncontrolled_symptom."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [hedging, late_answers, split_turns, phone_not_given, prn_and_scheduled]
+  clinical_domains: [pain, medication]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-07T04:25:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Calvin Bridgewater
+  patient_name_spoken: Calvin Bridgewater
+  patient_name_certainty: stated
+  patient_dob_true: "1947-01-26"
+  patient_dob_spoken: "1947-01-26"
+  patient_dob_certainty: stated
+  caller_name_true: Odalys
+  caller_name_spoken: Odalys
+  caller_name_certainty: stated
+  relationship_to_patient: overnight caregiver
+  relationship_certainty: stated
+  callback_phone_true: "3475550104"
+  callback_phone_spoken: "3475550104"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her client has severe pain that is not controlled
+  reason_category: pain
+  relevant_context: Hospice patient with bone pain from cancer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: bone pain
+    symptom_present: true
+    severity: 8/10
+    body_location: hips and legs
+    onset_or_duration: since about 2 in the morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: moaning and grimacing
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: given_previously
+    dose: "10"
+    unit: mg
+    prn: true
+    last_dose: about 2 hours ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: severe uncontrolled pain
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: on-call nurse
+    timeframe: within 45 minutes
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: wait for the on-call nurse's call before giving another oxycodone
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Support the hips and legs with pillows, keep the room calm, and stay with him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Pain is eight out of ten despite his recent oxycodone
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi. Hi, Gwen. It's, it's Odalys. I'm the night aide for Mr. Bridgewater. Calvin Bridgewater. || caller_name, relationship, patient_name
+  Nurse -> Hi, Odalys. What's his date of birth?
+  Caller -> Um. January twenty sixth. Nineteen forty seven. || patient_dob
+  Nurse -> Thanks. Best number?
+  Caller -> Three four seven, five five five, zero one zero four. || callback_phone
+  Nurse -> Okay. What's happening?
+  Caller -> He's in a lot of pain. A lot. He's been moaning since like two. His face, he's, like, grimacing. || cc, A2
+  Nurse -> Okay.
+  Caller -> I asked him, I said what is it from zero to ten. He said an eight. || A1, F1
+  Nurse -> Is he able to talk to you? Is he awake, answering you?
+  Caller -> Yeah. He's awake. He talks. He just, he keeps saying it hurts. He says it hurts so much, Odalys, it hurts. And I don't, I don't know what to do for him.
+  Nurse -> Okay. That's okay. Where does it hurt?
+  Caller -> His hips. And his legs. Down his legs. || A1
+  Nurse -> Mm-hm. Has he had anything for it?
+  Caller -> I gave him the, hold on, I'm looking at the bottle. Oxycodone. The ten milligram. About two hours ago. || A3
+  Nurse -> Okay.
+  Caller -> It didn't really, it didn't help. || A3
+  Nurse -> Alright. Odalys, I'm going to page our on-call nurse right now. || R1
+  Caller -> Okay. Okay.
+  Nurse -> She'll get there within forty five minutes. || R2
+  Caller -> Forty five. Okay.
+  Nurse -> Before you give him anything else, wait for her to call you. She'll tell you what's safe on top of what he's had. || R3
+  Caller -> Okay. I won't give anything. I'll wait.
+  Nurse -> In the meantime, put pillows under his hips and between his legs, keep the room quiet, and stay with him. || E1
+  Caller -> Pillows. Quiet. I'm right here. Okay.
+  Nurse -> You're doing a good job. Okay?
+  Caller -> Okay. Thank you, Gwen.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Calvin Bridgewater, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-01-26", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Odalys, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: overnight caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "3475550104", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her client has severe pain that is not controlled.
+    speaker: Caller
+    turns: [8]
+    quote: "He's in a lot of pain. A lot."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Moaning and grimacing were reported since about 2 in the morning.
+      speaker: Caller
+      turns: [8]
+      quote: "He's been moaning since like two. His face, he's, like, grimacing."
+      explanation: Documents the pain behaviors.
+      facts:
+        - {type: symptom, name: moaning and grimacing, present: true, certainty: stated}
+      covers: [A2]
+    - text: Pain in the hips and legs was rated 8/10.
+      speaker: Caller
+      turns: [10]
+      quote: "He said an eight."
+      explanation: Documents the pain severity.
+      facts:
+        - {type: symptom, name: bone pain, present: true, severity: 8/10, location: hips and legs, duration: since about 2 in the morning, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 10 mg was given about 2 hours earlier without much relief.
+      speaker: Caller
+      turns: [16]
+      quote: "Oxycodone. The ten milligram. About two hours ago."
+      explanation: Documents the recent breakthrough dose.
+      facts:
+        - {type: medication, name: oxycodone, dose: "10", unit: mg, prn: true, last_dose: about 2 hours ago, med_status: given_previously, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned escalation.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: The on-call nurse would arrive within 45 minutes.
+      speaker: Nurse
+      turns: [21]
+      quote: "She'll get there within forty five minutes."
+      explanation: Documents the planned urgent visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within 45 minutes, certainty: stated}
+      covers: [R2]
+    - text: Advised waiting for the on-call nurse's call before giving anything else.
+      speaker: Nurse
+      turns: [23]
+      quote: "Before you give him anything else, wait for her to call you."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised placing pillows under his hips and between his legs, keeping the room quiet, and staying with him.
+      speaker: Nurse
+      turns: [25]
+      quote: "put pillows under his hips and between his legs, keep the room quiet, and stay with him."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [10], quote: "He said an eight."}

@@ -1,0 +1,326 @@
+call_id: tr-032
+split: train
+blueprint: "Patient has 2 foam dressings left and small clear drainage, no redness or fever; also constipation from pain pills for 2 days; nurse orders dressings (completed), advises the senna she has at home, and plans a wound nurse visit Friday."
+setup:
+  scenario_category: supply
+  subtype: wound_supplies
+  secondary_tags: [multi_issue, pertinent_negatives, phone_from_file, split_turns, name_spelled]
+  clinical_domains: [wound_skin, constipation]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-01T15:44:00Z"
+  length_bucket: medium
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Natalia Voss
+  patient_name_spoken: Natalia Voss
+  patient_name_certainty: stated
+  patient_dob_true: "1976-11-30"
+  patient_dob_spoken: "1976-11-30"
+  patient_dob_certainty: stated
+  caller_name_true: Natalia Voss
+  caller_name_spoken: Natalia Voss
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7205550140"
+  callback_phone_spoken: "7205550140"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Running low on wound dressings; also constipated
+  reason_category: supply_wound
+  relevant_context: Healing abdominal surgical wound, dressing changed every 3 days
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: foam dressings
+    supply_remaining: "2"
+    supply_unit: dressings
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: wound drainage
+    symptom_present: true
+    severity: small and clear
+    body_location: abdominal incision
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: redness or warmth around the wound
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: temperature
+    vital_value: "98.2"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: constipation
+    symptom_present: true
+    onset_or_duration: 2 days
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: patient
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: prescribed
+    history_or_context_text: Has it at home and has not taken any
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: foam dressings
+    timeframe: delivery tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: wound nurse
+    timeframe: Friday morning
+    reason_or_trigger: dressing change and wound check
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: senna
+    medication_name_spoken: senna
+    reason_or_trigger: constipation
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change the dressing if it is soaked or peeling, wash hands first, keep the area dry
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for redness, warmth, pus or a bad smell, bleeding, or fever of 100.4 or higher
+    trigger_condition: redness; warmth; pus; smell; bleeding; fever 100.4+
+    certainty: stated
+  - item_id: E4
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Quick showers only, back to the water, change the dressing if soaked, no baths or swimming until the surgeon clears
+    certainty: stated
+  - item_id: E3
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink more fluids, eat fiber, and walk several times a day
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. This is Natalia Voss. V O S S. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Natalia. Your date of birth?
+  Caller -> November thirtieth, nineteen seventy six. || patient_dob
+  Nurse -> Okay. And I have seven two oh, five five five, zero one four oh for you. Right? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What do you need today?
+  Caller -> Two things. First, I'm almost out of dressings. For my incision. || cc, A1
+  Caller -> I have two left. The foam ones. I change them every three days, so that's like six days. But I would feel better with more. || A1
+  Nurse -> Okay. That makes sense. I'll order those for you. How's the incision looking?
+  Caller -> It's okay. There's a little drainage. It's clear. A small amount on the dressing when I take it off. || A2
+  Nurse -> Okay. Any redness around it? Does it feel warm?
+  Caller -> No. No redness, and it doesn't feel warm. || A3
+  Nurse -> Any fever?
+  Caller -> No. I took my temperature this morning. It was ninety eight point two. || A4
+  Nurse -> Okay. That's all reassuring. Let me get the order in. Foam dressings, the same size you've been using?
+  Caller -> Yes. The four by four.
+  Nurse -> Okay. One moment. Alright. I've put the order in now. They'll deliver tomorrow. || R1
+  Caller -> Oh good. Thank you.
+  Nurse -> And the wound nurse is scheduled to see you Friday morning, to change the dressing and look at everything. || R2
+  Caller -> Okay. Friday. Good.
+  Nurse -> You said two things. What's the other one?
+  Caller -> Oh. This is kind of embarrassing. I'm constipated. I haven't gone in two days. || A5
+  Nurse -> It's not embarrassing, it's really common after surgery, especially with pain medicine. Are you in pain? Is your belly hard?
+  Caller -> No, my belly's okay. I just feel backed up.
+  Nurse -> Okay. Do you have anything at home?
+  Caller -> The doctor sent me home with some senna. But I haven't taken any, because I didn't know if I should. || A6
+  Nurse -> Yes, go ahead and take the senna. Two tablets at bedtime tonight. || R3
+  Caller -> Two tablets at bedtime. Okay.
+  Nurse -> And drink more water than you think you need. Eat some fiber, like fruit, oatmeal, prunes. And walk a little several times a day. Walking really helps. || E3
+  Caller -> I've been mostly on the couch. I'll walk more.
+  Nurse -> Even short walks. Around the house is fine. But no heavy lifting, remember. Nothing over ten pounds.
+  Caller -> I know. I haven't been lifting anything. My sister has been doing the laundry.
+  Nurse -> Good. How are you feeling overall? Energy, appetite?
+  Caller -> Pretty good, actually. I've been eating okay. My appetite is back.
+  Nurse -> That's great. That's a good sign.
+  Caller -> I have a question about showering. Can I get the dressing wet? || E4
+  Nurse -> Foam dressings are usually okay in a quick shower, but don't let the water hit it directly. If it does get soaked, change it right away. || E4
+  Caller -> Okay. So quick showers, with my back to the water.
+  Nurse -> Exactly. And no baths or swimming until the surgeon says so. || E4
+  Caller -> My surgeon said six weeks. I haven't been in the pool since.
+  Nurse -> Right, so you're following that. When's your follow up with the surgeon?
+  Caller -> Next Wednesday. My sister is driving me.
+  Nurse -> Good. Bring a list of questions, and mention the constipation if it hasn't resolved.
+  Caller -> I will. I'm writing everything down in a notebook.
+  Caller -> Oh, can I drive yet?
+  Nurse -> Not while you're taking pain medicine, and not until your surgeon clears you. You need to be able to slam on the brakes if you have to.
+  Caller -> Makes sense. I'm not ready anyway.
+  Nurse -> Is somebody staying with you at night, in case you need anything?
+  Caller -> My sister sleeps over most nights. And my neighbor checks on me in the morning. I'm really lucky.
+  Nurse -> You are. That kind of support makes a big difference when you're healing.
+  Caller -> I know. I made her a big pot of soup yesterday, well, I supervised. She did the lifting.
+  Nurse -> Ha. That's the right way to do it.
+  Caller -> Yeah. I just want to be sure I'm doing this right.
+  Nurse -> You're doing great. When you change the dressing, wash your hands first, and change it sooner if it gets soaked or starts peeling. Keep the area dry. || E1
+  Caller -> Okay. Wash hands, and change it if it's soaked.
+  Nurse -> Right. And if you see redness, or it feels warm, or you notice pus, or a bad smell, or any bleeding, or you get a fever of one hundred point four or higher, call us right away. || E2
+  Caller -> Okay. Redness, warmth, pus, smell, bleeding, fever. I'll write it on the fridge.
+  Nurse -> That's a good idea. Anything else, Natalia?
+  Caller -> No. That's everything. Thank you so much, Marcus.
+  Nurse -> You're welcome. See you Friday, well, the wound nurse will.
+  Caller -> Ha. Right. Thank you. Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "two thirds of one sentence", heard_form: "I have two left. The foam ones", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Natalia Voss, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1976-11-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Natalia Voss, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7205550140", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported running low on dressings for her surgical incision and also reported constipation.
+    speaker: Caller
+    turns: [8]
+    quote: "First, I'm almost out of dressings. For my incision."
+    explanation: Documents the supply need prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two foam dressings remained, with dressings changed every 3 days.
+      speaker: Caller
+      turns: [9]
+      quote: "I have two left. The foam ones. I change them every three days, so that's like six days."
+      explanation: Documents the remaining wound supplies.
+      facts:
+        - {type: supply, item: foam dressings, supply: 2 dressings, certainty: stated}
+      covers: [A1]
+    - text: A small amount of clear drainage was present on the dressing.
+      speaker: Caller
+      turns: [11]
+      quote: "It's okay. There's a little drainage. It's clear. A small amount on the dressing when I take it off."
+      explanation: Documents wound drainage characteristics.
+      facts:
+        - {type: symptom, name: wound drainage, present: true, severity: small and clear, location: abdominal incision, certainty: stated}
+      covers: [A2]
+    - text: No redness or warmth around the wound was reported.
+      speaker: Caller
+      turns: [13]
+      quote: "No. No redness, and it doesn't feel warm."
+      explanation: Documents pertinent negatives for wound infection.
+      facts:
+        - {type: pertinent_negative, name: redness or warmth around the wound, certainty: stated}
+      covers: [A3]
+    - text: Temperature this morning was 98.2.
+      speaker: Caller
+      turns: [15]
+      quote: "I took my temperature this morning. It was ninety eight point two."
+      explanation: Documents the reported temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.2", certainty: stated}
+      covers: [A4]
+    - text: Constipation had been present for 2 days.
+      speaker: Caller
+      turns: [23]
+      quote: "I'm constipated. I haven't gone in two days."
+      explanation: Documents the bowel concern.
+      facts:
+        - {type: symptom, name: constipation, present: true, onset: 2 days, certainty: stated}
+      covers: [A5]
+    - text: Senna had been prescribed and was available at home, but she had not taken any.
+      speaker: Caller
+      turns: [27]
+      quote: "The doctor sent me home with some senna. But I haven't taken any, because I didn't know if I should."
+      explanation: Documents availability and non-use of a bowel medication.
+      facts:
+        - {type: medication, name: senna, med_status: prescribed, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Ordered foam dressings during the call, with delivery tomorrow.
+      speaker: Nurse
+      turns: [18]
+      quote: "Alright. I've put the order in now. They'll deliver tomorrow."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, timeframe: delivery tomorrow, certainty: stated}
+      covers: [R1]
+    - text: A wound nurse visit was planned for Friday morning to change the dressing and assess the wound.
+      speaker: Nurse
+      turns: [20]
+      quote: "And the wound nurse is scheduled to see you Friday morning, to change the dressing and look at everything."
+      explanation: Documents the planned wound visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday morning, certainty: stated}
+      covers: [R2]
+    - text: Advised taking senna 2 tablets at bedtime tonight.
+      speaker: Nurse
+      turns: [28]
+      quote: "Yes, go ahead and take the senna. Two tablets at bedtime tonight."
+      explanation: Documents the bowel medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: senna, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised washing hands before changing the dressing, changing it sooner if soaked or peeling, and keeping the area dry.
+      speaker: Nurse
+      turns: [55]
+      quote: "wash your hands first, and change it sooner if it gets soaked or starts peeling. Keep the area dry."
+      explanation: Documents dressing care instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for redness, warmth, pus, a bad smell, bleeding, or a fever of 100.4 or higher.
+      speaker: Nurse
+      turns: [57]
+      quote: "if you see redness, or it feels warm, or you notice pus, or a bad smell, or any bleeding, or you get a fever of one hundred point four or higher, call us right away."
+      explanation: Documents return precautions for wound infection.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised quick showers with her back to the water, changing the dressing right away if soaked, and no baths or swimming until the surgeon cleared it.
+      speaker: Nurse
+      turns: [38]
+      quote: "Foam dressings are usually okay in a quick shower, but don't let the water hit it directly."
+      explanation: Documents bathing instructions for the dressing.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E4]
+    - text: Advised drinking more fluids, eating fiber, and walking several times a day.
+      speaker: Nurse
+      turns: [30]
+      quote: "drink more water than you think you need. Eat some fiber, like fruit, oatmeal, prunes. And walk a little several times a day."
+      explanation: Documents supportive bowel-care guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E3]
+  risk_flags: []

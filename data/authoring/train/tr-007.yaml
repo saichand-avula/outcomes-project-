@@ -1,0 +1,384 @@
+call_id: tr-007
+split: train
+blueprint: "Daughter of a 94-year-old hospice patient: sleeping more, eating very little, small reddened area on the heel; nurse reads the med list (several meds not discussed), explains expected changes, advises heel offloading, orders heel protectors, plans visit tomorrow; long call with family chatter."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [chart_reading_distractor, offtopic_chatter, crosstalk, multi_issue, late_answers, split_turns, prn_and_scheduled, tall_man_drug]
+  clinical_domains: [end_of_life_changes, intake_appetite, wound_skin]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-08-21T20:05:00Z"
+  length_bucket: long
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: [furosemide, metoprolol, atorvastatin, famotidine]
+chief_complaint:
+  patient_name_true: Eleanor Castellano
+  patient_name_spoken: Eleanor Castellano
+  patient_name_certainty: stated
+  patient_dob_true: "1932-02-14"
+  patient_dob_spoken: "1932-02-14"
+  patient_dob_certainty: stated
+  caller_name_true: Gina
+  caller_name_spoken: Gina
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8455550117"
+  callback_phone_spoken: "8455550117"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Sleeping more, eating very little, and a reddened area on the heel
+  reason_category: end_of_life_changes
+  relevant_context: Hospice patient, family gathered at home this week
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased sleeping
+    symptom_present: true
+    severity: sleeping most of the day
+    onset_or_duration: about 4 days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased oral intake
+    symptom_present: true
+    severity: a few spoonfuls of pudding and sips of water
+    onset_or_duration: since the weekend
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: reddened area
+    symptom_present: true
+    severity: about the size of a quarter
+    body_location: left heel
+    history_or_context_text: Skin not open and no blister
+    onset_or_duration: noticed today
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: grimacing or moaning
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain
+    symptom_present: false
+    history_or_context_text: Has not needed morphine
+    certainty: unclear
+    unclear_detail: Caller hedged (I don't think)
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    route: under the tongue
+    frequency: every 6 hours
+    prn: true
+    last_dose_time: last night around 9
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    reason_or_trigger: assess heel and comfort
+    certainty: stated
+  - item_id: R2
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: heel protector boots
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    reason_or_trigger: restlessness
+    certainty: stated
+  - item_id: R4
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: chaplain
+    reason_or_trigger: family requested a visit
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Sleeping more and eating less are expected changes; do not force food, offer sips and mouth swabs
+    certainty: stated
+  - item_id: E2
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Reposition every 2 hours, float the heels on a pillow under the calves, do not rub or massage the red area
+    timing_or_threshold: every 2 hours
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the skin opens or blisters, she grimaces or moans, or her breathing becomes noisy or labored
+    trigger_condition: skin opens or blisters; grimacing or moaning; noisy or labored breathing
+    certainty: stated
+  - item_id: E4
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any time day or night
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom, how can I help you?
+  Caller -> Hi, Tom. Um, hi. This is Gina, I'm calling about my mother. || caller_name, relationship
+  Nurse -> Hi, Gina. What's your mother's name?
+  Caller -> Eleanor Castellano. || patient_name
+  Nurse -> Okay, Eleanor Castellano. And her date of birth?
+  Caller -> Februar. Sorry. February fourteenth, nineteen thirty two. || patient_dob
+  Nurse -> Thank you. And a good call back number for you?
+  Caller -> Um, eight four five, five five five, oh one one seven. || callback_phone
+  Nurse -> Okay, eight four five, five five five, zero one one seven. || callback_phone
+  Caller -> That's right.
+  Nurse -> Alright. So, what's going on with your mom today?
+  Caller -> Well, I, I don't know if this is a big deal or not. || cc
+  Caller -> She's just been sleeping so much. Like, most of the day. For about four days now. || cc, A1
+  Nurse -> Okay. Four days.
+  Caller -> Yeah. And she's not eating. Hardly anything. || A2
+  Nurse -> Okay. When you say hardly anything, what has she had today?
+  Caller -> Um. A few spoonfuls of pudding this morning. And she'll take a sip of water if I put the straw up. || A2
+  Caller -> That's about it. It's been like that since the weekend. || A2
+  Nurse -> Okay, since the weekend. I'm sorry, Gina. That's hard to see.
+  Caller -> It is. Thank you.
+  Caller -> Mom? Mom, can you hear me? No. She's just sleeping. Sorry.
+  Nurse -> That's okay. You take your time.
+  Caller -> And then today, when I was changing her socks, I saw her heel. || A3
+  Caller -> The left one. It's red. A red spot, about the size of a quarter, I'd say. || A3
+  Nurse -> Okay. Is the skin open, or is it just red?
+  Caller -> It's just red. It's not open. No blister or anything. || A3
+  Nurse -> Okay. And does she seem uncomfortable when you touch it? Is she grimacing, or moaning?
+  Caller -> No. She doesn't, she doesn't make a face or anything. She's just sleeping. || A4
+  Nurse -> Okay. That's good.
+  Caller -> Is that what it is? Is that, like, a bed sore?
+  Nurse -> It could be the beginning of a pressure area, yes. Especially with her being in bed more. The good news is it's not open, so we can really help with that.
+  Caller -> Oh. Okay. Good.
+  Nurse -> Let me get her medication list up here so I can see everything she's on.
+  Caller -> Sure. Take your time.
+  Nurse -> Okay. So, I'm looking at her list. I see furosemide, that's her water pill. Metoprolol. Atorvastatin. Famotidine.
+  Caller -> Yeah, we stopped those. The hospice nurse who came last week said we could stop all the pills she can't swallow anymore.
+  Nurse -> Okay, that makes sense. So those are all off. Now what I'm showing for comfort is lorazepam, point five milligrams, under the tongue every six hours as needed. || A5
+  Caller -> Mhm. Yes. I have that. || A5
+  Nurse -> And she also has the morphine liquid, but that's for pain or breathing. Has she needed any of that? || A6
+  Caller -> No. No, she hasn't needed the morphine. She's not in pain, I don't think. || A6
+  Caller -> I gave her the lorazepam once. Last night around nine. She was kind of restless, picking at the blanket. || A5
+  Nurse -> Okay. And did that help?
+  Caller -> Yes, she settled down and slept. || A5
+  Nurse -> Good. So that's the right use for it. If she gets restless like that again, go ahead and give her the lorazepam, point five milligrams under the tongue, like you did. || R3
+  Caller -> Okay. Even if it's been less than six hours? Because it was last night.
+  Nurse -> It's been way more than six hours, so you're fine. Just don't give it more often than every six hours. || R3
+  Caller -> Okay. Got it. Thank you.
+  Caller -> Oh, my sister's here. Hi, Maria. It's the hospice nurse. I'm asking about Mom's heel. Yes. Okay, I'll ask.
+  Caller -> Maria wants to know if she should stop trying to feed her.
+  Nurse -> That's a really good question. What I'd tell you both is, it's normal, at this stage, for her to sleep more and eat less. Her body is slowing down, and it doesn't need the same amount. So please don't push food. If she wants a spoonful of pudding or a sip, great. But don't force it. || E1
+  Caller -> Okay. So we're not starving her.
+  Nurse -> No, no. You're not. Not at all. It's really the opposite. Forcing it can make her uncomfortable. You can offer sips, and you can use a little mouth swab to keep her lips and mouth moist. That feels good to people. || E1
+  Caller -> Mouth swabs. Okay, we have those pink sponge things in the kit.
+  Nurse -> Yes, exactly those.
+  Caller -> Okay. I'll tell Maria.
+  Caller -> She says thank you. She said she's been so worried.
+  Nurse -> Of course. Is anybody else with you today?
+  Caller -> Yeah, we're all here. My brother flew in from Phoenix last night, and my sister from Tampa. And the grandkids are coming this weekend. Mom has nine grandkids. She'd be thrilled, if she were awake.
+  Nurse -> Nine! That's wonderful. I bet she knows they're there, even sleeping.
+  Caller -> I hope so. We keep talking to her. We play her old records, the Sinatra.
+  Nurse -> Oh, I love that. Hearing is the last thing to go, so please keep doing that. Keep talking to her.
+  Caller -> We will. My brother reads her the newspaper. The sports page. She never cared about sports, ha, but he does it anyway.
+  Nurse -> Ha. That's sweet.
+  Caller -> Okay. So. What do we do about the heel?
+  Nurse -> Okay. So, a few things. First, we want to take the pressure off that heel. Put a pillow under her calves, so the heels are floating, not touching the mattress. || E2
+  Caller -> A pillow under her calves. Okay.
+  Nurse -> Right. And turn her every two hours, side to side, with a pillow between the knees. || E2
+  Caller -> Every two hours. Okay. We can do that. We have enough people.
+  Nurse -> That's perfect. And please don't rub or massage the red spot. That can actually hurt the skin. Just leave it alone. || E2
+  Caller -> Don't rub it. Okay.
+  Nurse -> I'm also going to order heel protector boots for her. They're soft foam boots that keep the heels off the bed. We can usually get those out the same day or the next day. || R2
+  Caller -> Oh, that would be great. Thank you.
+  Nurse -> And I'm going to send our nurse out tomorrow morning to take a look at the heel, and to check on her comfort. || R1
+  Caller -> Tomorrow morning. Okay. Good.
+  Nurse -> Mm hmm. Now, if the skin opens up, or blisters, or if she starts to groan or grimace, or if her breathing gets noisy or hard, you call us right away. Okay? || E3
+  Caller -> Skin opens, groaning, breathing. Okay.
+  Nurse -> Right. And you can call us any time, day or night. You don't have to wait. || E4
+  Caller -> Okay. Thank you. I feel better, honestly.
+  Caller -> Oh, one more thing. Is it possible to have the chaplain come? Our mother's very religious, and we'd love to have somebody come and pray with her. || R4
+  Nurse -> Absolutely. I'll send a message to our chaplain and ask him to reach out to you today or tomorrow. || R4
+  Caller -> Oh, thank you. Thank you so much. That would mean a lot.
+  Caller -> Sorry, my brother just walked in. Dave, shh, I'm on with hospice. He wants to know if he can sit with her tonight.
+  Nurse -> Of course. Tell him he can sit with her as long as he likes. Hold her hand, talk to her. She'll know he's there.
+  Caller -> He says okay. He's such a softie. He's been crying out in the garage all morning, and he thinks nobody knows.
+  Nurse -> That's very normal. Everybody grieves in their own way, and that's okay.
+  Caller -> Yeah. And the neighbors keep dropping off food, we have like four casseroles. We can't possibly eat it all.
+  Nurse -> Ha. That's what people do when they care. Freeze what you can, you'll be glad to have it later this week.
+  Caller -> That's a good idea. Okay. I'll tell Maria to start labeling things.
+  Nurse -> Of course, Gina. Is there anything else I can do for you?
+  Caller -> No, I think that's it. You've been so kind.
+  Nurse -> You're very welcome. Take care of yourself, too. And give your mom a kiss from me.
+  Caller -> I will. Thank you. Bye.
+  Nurse -> Bye now.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "February", heard_form: "Februar", fact_id: patient_dob}
+  - {turn: auto, type: late_answer, true_form: "reply to nurse", heard_form: "Mom, can you hear me", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eleanor Castellano, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1932-02-14", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Gina, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8455550117", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the patient was sleeping most of the day, eating very little, and had a reddened area on the left heel.
+    speaker: Caller
+    turns: [13]
+    quote: "She's just been sleeping so much. Like, most of the day. For about four days now."
+    explanation: Documents the primary changes prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Increased sleeping for about 4 days was reported, with sleeping most of the day.
+      speaker: Caller
+      turns: [13]
+      quote: "She's just been sleeping so much. Like, most of the day. For about four days now."
+      explanation: Documents the reported change in alertness and its duration.
+      facts:
+        - {type: symptom, name: increased sleeping, present: true, severity: sleeping most of the day, onset: about 4 days, certainty: stated}
+      covers: [A1]
+    - text: Oral intake was decreased since the weekend, limited to a few spoonfuls of pudding and sips of water.
+      speaker: Caller
+      turns: [17]
+      quote: "A few spoonfuls of pudding this morning. And she'll take a sip of water if I put the straw up."
+      explanation: Documents the reported decrease in food and fluid intake.
+      facts:
+        - {type: symptom, name: decreased oral intake, present: true, severity: a few spoonfuls of pudding and sips of water, onset: since the weekend, certainty: stated}
+      covers: [A2]
+    - text: A reddened area about the size of a quarter was noted on the left heel, with the skin not open and no blister.
+      speaker: Caller
+      turns: [24]
+      quote: "The left one. It's red. A red spot, about the size of a quarter, I'd say."
+      explanation: Documents the skin finding identified today.
+      facts:
+        - {type: symptom, name: reddened area, present: true, severity: about the size of a quarter, location: left heel, onset: noticed today, certainty: stated}
+      covers: [A3]
+    - text: No grimacing or moaning was reported when the heel was touched.
+      speaker: Caller
+      turns: [28]
+      quote: "She doesn't make a face or anything."
+      explanation: Documents a pertinent negative for discomfort.
+      facts:
+        - {type: pertinent_negative, name: grimacing or moaning, certainty: stated}
+      covers: [A4]
+    - text: The caller did not think the patient was in pain and reported that no morphine had been needed.
+      speaker: Caller
+      turns: [40]
+      quote: "No, she hasn't needed the morphine. She's not in pain, I don't think."
+      explanation: Documents the absence of pain and as-needed opioid use with the caller's uncertainty preserved.
+      facts:
+        - {type: pertinent_negative, name: pain, certainty: unclear}
+      covers: [A6]
+    - text: Lorazepam 0.5 mg under the tongue was ordered every 6 hours as needed, and one dose was given last night around 9 for restlessness with good effect.
+      speaker: Caller
+      turns: [41]
+      quote: "I gave her the lorazepam once. Last night around nine. She was kind of restless, picking at the blanket."
+      explanation: Documents the as-needed medication use and its response.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, route: under the tongue, frequency: every 6 hours, prn: true, last_dose: last night around 9, med_status: taking, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised giving lorazepam under the tongue as needed for restlessness, no more often than every 6 hours.
+      speaker: Nurse
+      turns: [44]
+      quote: "If she gets restless like that again, go ahead and give her the lorazepam, point five milligrams under the tongue, like you did."
+      explanation: Documents the medication instruction for restlessness.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: lorazepam, certainty: stated}
+      covers: [R3]
+    - text: Planned to order heel protector boots.
+      speaker: Nurse
+      turns: [71]
+      quote: "I'm also going to order heel protector boots for her."
+      explanation: Documents the planned equipment order to offload the heels.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow morning to assess the heel and check her comfort.
+      speaker: Nurse
+      turns: [73]
+      quote: "And I'm going to send our nurse out tomorrow morning to take a look at the heel, and to check on her comfort."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the chaplain to contact the family today or tomorrow.
+      speaker: Nurse
+      turns: [80]
+      quote: "I'll send a message to our chaplain and ask him to reach out to you today or tomorrow."
+      explanation: Documents the planned spiritual-care referral requested by the family.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Explained that sleeping more and eating less are expected at this stage, advised not to force food, and offered sips and mouth swabs for comfort.
+      speaker: Nurse
+      turns: [52]
+      quote: "You can offer sips, and you can use a little mouth swab to keep her lips and mouth moist."
+      explanation: Documents education about expected changes and comfort feeding.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised floating the heels on a pillow under the calves, turning her every 2 hours, and not rubbing or massaging the red area.
+      speaker: Nurse
+      turns: [65]
+      quote: "Put a pillow under her calves, so the heels are floating, not touching the mattress."
+      explanation: Documents pressure-relief instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if the skin opened or blistered, if she groaned or grimaced, or if her breathing became noisy or hard.
+      speaker: Nurse
+      turns: [75]
+      quote: "if the skin opens up, or blisters, or if she starts to groan or grimace, or if her breathing gets noisy or hard, you call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+    - text: Advised that the family could call any time, day or night.
+      speaker: Nurse
+      turns: [77]
+      quote: "you can call us any time, day or night."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E4]
+  risk_flags: []

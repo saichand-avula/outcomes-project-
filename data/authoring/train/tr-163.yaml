@@ -1,0 +1,308 @@
+call_id: tr-163
+split: train
+blueprint: "Wife of a 66-year-old hospice patient with prostate cancer and bone metastases: low back pain 8/10 since this morning, oxycodone 10 mg at seven and eleven without relief, steroid taken. No new leg weakness, numbness, or trouble urinating. She asks for someone to come out today and fears the cancer is spreading. Nurse pages on-call, plans a visit within two hours and a callback in 20 minutes. Flags: uncontrolled_symptom and escalation_request. Medium."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [multi_issue, prn_and_scheduled, hedging, late_answers, split_turns]
+  clinical_domains: [pain, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-04T18:50:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Zlatko Marinkovic
+  patient_name_spoken: Zlatko Marinkovic
+  patient_name_certainty: stated
+  patient_dob_true: "1960-02-08"
+  patient_dob_spoken: "1960-02-08"
+  patient_dob_certainty: stated
+  caller_name_true: Jelena Marinkovic
+  caller_name_spoken: Jelena Marinkovic
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "5715550126"
+  callback_phone_spoken: "5715550126"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported severe back pain that his medicine is not controlling
+  reason_category: pain
+  relevant_context: Hospice patient with prostate cancer that has spread to the bones
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: low back pain
+    symptom_present: true
+    severity: 8/10
+    onset_or_duration: since this morning
+    body_location: low back
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every 4 hours
+    last_dose: at eleven
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Prostate cancer that has spread to the bones
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: new leg weakness
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: dexamethasone
+    medication_name_spoken: dexamethasone
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A6
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Afraid the cancer is spreading and the pain will not stop
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: uncontrolled back pain
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 20 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any extra oxycodone until the on-call nurse says whether and how much
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Help him into the position that eases his back, such as lying on his side with a pillow between his knees, and use a warm pack
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if his legs become weak or numb or he cannot pass urine
+    trigger_condition: weak legs; numb legs; cannot pass urine
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Back pain is eight out of ten despite two doses of oxycodone this morning
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Caller asks for someone to come out today
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Carla.
+  Caller -> Carla, it's Jelena Marinkovic. It's my husband, Zlatko. Zlatko Marinkovic. His back is killing him. It's so bad. It won't stop. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Jelena. I'm here. Let me get his date of birth.
+  Caller -> February eighth. Nineteen sixty. || patient_dob
+  Nurse -> And your number, five seven one, five five five, zero one two six? || callback_phone
+  Caller -> Yes. That's my cell. I'm in the house. || callback_phone
+  Nurse -> Okay. Tell me about the back pain. Where exactly is it?
+  Caller -> The low back. Here, across the bottom of his back. He says it feels like a knife. It started this morning when he woke up. He says it's an eight. An eight out of ten. || A1, F1
+  Nurse -> Okay. What has he taken?
+  Caller -> The oxycodone. Ten milligrams. He's supposed to take it every four hours. He took one at seven this morning, and then another one at eleven. It didn't help. It didn't touch it. || A2, F1
+  Nurse -> Okay. Is he on anything else for the pain? A steroid, maybe?
+  Caller -> Yes. The dexamethasone. Four milligrams every morning. He took it already. At seven with the first pill. || A5
+  Nurse -> Okay. And Jelena, remind me of his diagnosis.
+  Caller -> The prostate cancer. It went to his bones. In his spine, his hip, a rib. That's why he's with you. || A3
+  Nurse -> Okay. Now this is important. Has he had any new weakness in his legs, any numbness or tingling, or any trouble passing urine?
+  Caller -> No. His legs are the same. He can move them. He can feel when I touch his feet. And he went to the bathroom an hour ago. It was normal. I asked him all of those things already, because the nurse told us last time. || A4
+  Nurse -> You did exactly the right thing. Okay. Jelena, how long has he been with us?
+  Caller -> Four months. Since June. He was in the hospital for the bone biopsy in March, and then they said there wasn't anything else to do, and they sent him home with you. He's been strong. He walks the dog every morning. Until this week.
+  Nurse -> I remember him telling me about the dog. What's the dog's name?
+  Caller -> Bruno. A big dumb lab. He's lying outside the bedroom door right now, he won't leave. He knows.
+  Nurse -> Dogs do know. Okay. Jelena, how are you doing? I can hear you're upset.
+  Caller -> I'm scared. I'm so scared. Is the cancer spreading? Is this it? He was fine yesterday. He ate dinner. He watched the football game. And today he's curled up on his side and he can't talk. || A6
+  Nurse -> I understand. I can't tell you what's causing it over the phone, but I do know that pain this severe, with the oxycodone not helping, needs to be dealt with right now. I'm going to page our on-call nurse. || R1
+  Caller -> Please. Can someone come out today? Please. I can't see him like this. || F2
+  Nurse -> Yes. A nurse will come to the house, and she'll be there within two hours. || R2
+  Caller -> Two hours. Okay. Okay. That's, okay.
+  Nurse -> And I'll call you back in twenty minutes with the plan for his pain. || R3
+  Caller -> Twenty minutes. Okay. Thank you.
+  Nurse -> Until then, please don't give him any extra oxycodone until the on-call nurse tells you whether to give more and how much. || E1
+  Caller -> Okay. No extra. I'll wait for the call. His next one isn't due until three anyway.
+  Nurse -> Right. Meanwhile, help him find the position that eases his back the most. Lying on his side with a pillow between his knees helps many people. And a warm pack on the low back, if he can stand the warmth. || E2
+  Caller -> Side. Pillow between the knees. Warm pack. We have the heating pad with the cover. I'll put it on low.
+  Nurse -> Low and with the cover, and check his skin every few minutes. And Jelena, if his legs get weak or numb, or if he can't pass urine, call me right away. That's very important with this kind of pain. || E3
+  Caller -> Weak legs, numb, can't pee. Right away. Okay. I know. I'll check.
+  Nurse -> Good. Has he had anything to eat or drink since this morning?
+  Caller -> A little water. He took a sip with the pill and that's all. He says he's not hungry. He doesn't want to talk much, it hurts too much to move his mouth, he says, which doesn't make sense, but that's how bad it is.
+  Nurse -> That's okay. When pain is severe, people go inward. Is anyone with you?
+  Caller -> My son is on his way. He lives twenty minutes away. He's coming now.
+  Nurse -> That's good. Let him help you. Is the door unlocked for the nurse?
+  Caller -> I'll unlock it now. Hold on. Done. The porch light is on. The house is the yellow one at the end of the street.
+  Nurse -> Perfect. I'll talk to you in twenty minutes.
+  Caller -> Okay. Thank you, Carla. Thank you so much. He says to tell you thank you too. He can hear me. He's nodding.
+  Nurse -> Tell him I said hang in there, we're on it.
+  Caller -> I'll tell him. Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Zlatko Marinkovic, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1960-02-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Jelena Marinkovic, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "5715550126", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported severe back pain that his medicine is not controlling.
+    speaker: Caller
+    turns: [2]
+    quote: "It won't stop."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Low back pain began this morning and was rated 8/10.
+      speaker: Caller
+      turns: [8]
+      quote: "It started this morning when he woke up. He says it's an eight. An eight out of ten."
+      explanation: Documents onset and severity.
+      facts:
+        - {type: symptom, name: low back pain, present: true, severity: 8/10, duration: since this morning, location: low back, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 10 mg every 4 hours was taken at seven and eleven this morning without relief.
+      speaker: Caller
+      turns: [10]
+      quote: "He took one at seven this morning, and then another one at eleven. It didn't help."
+      explanation: Documents the doses taken.
+      facts:
+        - {type: medication, name: oxycodone, dose: "10", unit: mg, frequency: every 4 hours, last_dose: at eleven, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Dexamethasone 4 mg every morning was taken this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "The dexamethasone. Four milligrams every morning. He took it already."
+      explanation: Documents the steroid.
+      facts:
+        - {type: medication, name: dexamethasone, dose: "4", unit: mg, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: He had prostate cancer that had spread to the bones.
+      speaker: Caller
+      turns: [14]
+      quote: "The prostate cancer. It went to his bones."
+      explanation: Documents his diagnosis.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: No new leg weakness was reported, and he could still feel his feet and pass urine.
+      speaker: Caller
+      turns: [16]
+      quote: "No. His legs are the same. He can move them."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: new leg weakness, certainty: stated}
+      covers: [A4]
+    - text: She was afraid the cancer was spreading and the pain would not stop.
+      speaker: Caller
+      turns: [22]
+      quote: "I'm scared. I'm so scared. Is the cancer spreading?"
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to page our on-call nurse."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned within two hours.
+      speaker: Nurse
+      turns: [25]
+      quote: "A nurse will come to the house, and she'll be there within two hours."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 20 minutes with the pain plan.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'll call you back in twenty minutes with the plan for his pain."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 20 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving no extra oxycodone until the on-call nurse said whether and how much.
+      speaker: Nurse
+      turns: [29]
+      quote: "please don't give him any extra oxycodone until the on-call nurse tells you whether to give more and how much."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised a position that eased his back, such as lying on his side with a pillow between his knees, and a warm pack.
+      speaker: Nurse
+      turns: [31]
+      quote: "help him find the position that eases his back the most."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if his legs became weak or numb or he could not pass urine.
+      speaker: Nurse
+      turns: [33]
+      quote: "if his legs get weak or numb, or if he can't pass urine, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [8], quote: "He says it's an eight. An eight out of ten."}
+    - {category: escalation_request, turns: [24], quote: "Can someone come out today?"}

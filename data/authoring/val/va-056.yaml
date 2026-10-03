@@ -1,0 +1,435 @@
+call_id: va-056
+split: val
+blueprint: "A daughter, Ruthanne Gallagher, calls the hospice line late evening, alone overnight with her father Cornelius Mabry. She cannot work out how much liquid morphine to draw up: the bottle says twenty milligrams per milliliter and the order is five milligrams every two hours as needed. Nurse walks her through drawing a quarter of a milliliter, checks pain (six), constipation (no bowel movement for three days, on scheduled senna), poor intake, and mouth care, orders more oral syringes, and plans a nurse visit in the morning. Liquid concentration, PRN plus scheduled, long, v2."
+setup:
+  scenario_category: medication
+  subtype: liquid_concentration
+  secondary_tags: [liquid_concentration, prn_and_scheduled, adult_child, multi_issue, late_answers, split_turns]
+  clinical_domains: [pain, constipation, intake_appetite, medication, equipment]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Genevieve
+  call_timestamp_utc: "2026-11-28T03:40:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelius Mabry
+  patient_name_spoken: Cornelius Mabry
+  patient_name_certainty: stated
+  patient_dob_true: "1940-10-26"
+  patient_dob_spoken: "1940-10-26"
+  patient_dob_certainty: stated
+  caller_name_true: Ruthanne Gallagher
+  caller_name_spoken: Ruthanne Gallagher
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2125550185"
+  callback_phone_spoken: "2125550185"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked how much liquid morphine to draw up for her father's pain
+  reason_category: medication_question
+  relevant_context: Hospice patient on liquid morphine with pain and constipation
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every two hours as needed
+    prn: true
+    last_dose: ten o'clock tonight
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: six out of ten
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: constipation
+    symptom_present: true
+    onset: no bowel movement for three days
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "8.6"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this evening
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: poor intake with only sips
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: gurgling or labored breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: supply
+    reporter: caller
+    supply_item: oral syringes
+    supply_remaining: "2"
+    supply_unit: syringes
+    certainty: stated
+  - item_id: A8
+    item_type: context
+    reporter: caller
+    history_or_context_text: She is alone with him overnight and her brother arrives in the morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R2
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oral syringes
+    certainty: stated
+  - item_id: R3
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: with the nurse in the morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw up a quarter of a milliliter, which is five milligrams, with the oral syringe, give it between cheek and gum, and write down the time
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Moisten his mouth with a swab and sips of water, and reposition him gently with a pillow behind the back
+    certainty: stated
+  - item_id: E3
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Keep giving the senna twice a day and tell the nurse in the morning about the constipation
+    certainty: stated
+  - item_id: E4
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call back any time tonight if the pain is not controlled or she is unsure about a dose
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Genevieve.
+  Caller -> Hi, Genevieve. It's Ruthanne Gallagher. I'm calling about my father, Cornelius Mabry. || caller_name, relationship, patient_name
+  Nurse -> Hi, Ruthanne. It's the middle of the night. Is he all right?
+  Caller -> He's, he's okay. I think. He's hurting. And I can't figure out the morphine. The measuring. || cc, A1
+  Nurse -> Okay. Let's take it one thing at a time. I'm here.
+  Caller -> Thank you. I've been staring at this bottle for twenty minutes. I'm sorry to call so late.
+  Nurse -> Never apologize. That's what the line is for.
+  Caller -> I keep thinking I'll wake him. The house is so quiet.
+  Nurse -> Speak softly. He'll hear your voice and feel safer.
+  Caller -> My brother usually does the medicines. He's on a flight. He's flying in tonight, he lands at seven. So tonight it's me. Alone with Dad. || A8
+  Nurse -> Okay. You've got me. Let's go through it. Can you read me the label on the morphine bottle? || A1
+  Caller -> Hang on. I'm turning the light on. Okay. It says morphine sulfate oral solution. Twenty milligrams per milliliter. And then it says, concentrate. In bold. And then the directions say, give point two five milliliters every two hours as needed for pain. || A1
+  Nurse -> Okay. And do you remember what the dose is in milligrams?
+  Caller -> The paper from the nurse says five milligrams. Five milligrams every two hours as needed. || A1
+  Nurse -> That matches. Point two five milliliters is five milligrams, because the bottle has twenty milligrams in every full milliliter.
+  Caller -> Okay. But I don't understand. Five milligrams or point two five? Which one do I give?
+  Nurse -> Both mean the same thing. Five milligrams is the dose. Point two five milliliters, or a quarter of a milliliter, is how much liquid that is.
+  Caller -> Oh. So the milliliters is the amount of liquid. And the milligrams is the amount of medicine.
+  Nurse -> Exactly right.
+  Caller -> Okay. That helps. I was thinking milligrams meant I had to measure five of something.
+  Nurse -> It's a common mix up. Do you have the little oral syringe?
+  Caller -> I have two. The ones with the purple tops. They have lines on the side. There's a one, and a point five, and a lot of little lines.
+  Nurse -> Those are the ones. Look at the syringe. Which line is a quarter of a milliliter?
+  Caller -> There's, hold on, there's a line between the zero and the point five. A little one in the middle. Is that it?
+  Nurse -> That's it. Halfway to the point five line. That's a quarter.
+  Caller -> Okay. Halfway. I see it.
+  Nurse -> Draw the liquid up until the top of the black plunger tip lines up with that line. Not the end of the plunger, the top edge of the black part.
+  Caller -> The black part. Okay. Okay. Hold on. I drew some up. It's a little past. It's past the line.
+  Nurse -> Push a tiny bit back into the bottle until it lines up.
+  Caller -> Okay. Pushing. Okay. It's on the line. I think. Can you see it? Sorry. That's a silly question.
+  Nurse -> Ha. I can't, but it sounds like you've got it. Check at eye level.
+  Caller -> Eye level. Yes. It's on the line.
+  Nurse -> Now, when did he last have a dose?
+  Caller -> Ten o'clock tonight. It was a long time ago. It's almost four. No, it's three forty. I looked at the clock.
+  Nurse -> Okay. That's well over two hours. So he can have the dose now.
+  Caller -> Okay. Good. Where do I put it? Do I put it in his mouth?
+  Nurse -> Yes. Squirt it slowly in the pocket between his cheek and his gum. Not straight to the back of the throat. A little at a time.
+  Caller -> Cheek and gum. Slowly. Okay. He's awake, so he can swallow.
+  Nurse -> Good. Tell me how he's doing. How bad is his pain right now?
+  Caller -> He says a six. I asked him. He mumbled six. He's grimacing when I move him. || A2
+  Nurse -> Where is the pain?
+  Caller -> I wish I could take it for him.
+  Nurse -> I know. That's what love does.
+  Caller -> He taught me to ride a bike on this street. Now I'm learning how to do this.
+  Nurse -> You're learning fast. And you don't have to do it perfectly.
+  Caller -> His back. Down low. And his hip. It's the same place it always is.
+  Nurse -> Okay. Go ahead and give the dose, and I'll stay on the line.
+  Caller -> Okay. I'm giving it. Slowly. Okay. He swallowed. He's making a face.
+  Nurse -> It tastes bitter. That's normal.
+  Caller -> Should I give him a sip of water after?
+  Nurse -> A tiny sip is fine, to rinse his mouth.
+  Caller -> Yes. He said yuck. That's a good sign. He's got some spunk.
+  Nurse -> Ha. Absolutely. Write down the time and the amount. A quarter of a milliliter. Five milligrams. || E1
+  Caller -> I have the log. It's three forty five. Quarter milliliter. Five milligrams. Okay.
+  Nurse -> Perfect. The pain should ease in about twenty to thirty minutes. How many syringes do you have left? You said two.
+  Caller -> Two. I think. Let me look. Yes. Two. The one I just used and a clean one. || A7
+  Nurse -> Okay. Rinse the used one with warm water, let it air dry, and reuse it. And I'll order more. I'll send a pack of syringes with the nurse in the morning. || R2
+  Caller -> Oh, thank you. I was worried about that.
+  Nurse -> No need to worry. I'll make sure.
+  Caller -> I'm so glad I called. I almost didn't. I thought I'd figure it out.
+  Caller -> I kept saying, it's just a measuring thing, I'm a grown woman.
+  Nurse -> And a tired one. It's three forty in the morning.
+  Caller -> Ha. True.
+  Nurse -> You did figure it out. You just needed someone to say yes.
+  Caller -> Ha. Yes.
+  Nurse -> Can I get his date of birth, Ruthanne? I want to make sure I'm in the right chart.
+  Caller -> October twenty sixth, nineteen forty. || patient_dob
+  Nurse -> Thank you. And a number to reach you, in case I need to call back?
+  Caller -> Two one two, five five five, zero one eight five. That's my cell. || callback_phone
+  Nurse -> Got it. Now, I'd like to ask a few more things while I have you. Has he had a bowel movement?
+  Caller -> No. Not for three days. Three. I'm counting. He strains and nothing comes. || A3
+  Nurse -> Is he on anything for that?
+  Caller -> The senna. The eight point six milligram. Twice a day. He had it tonight with dinner. Or with his applesauce, I guess. He didn't eat dinner. || A4
+  Nurse -> Okay. Keep giving the senna twice a day. Don't skip it. And tell the nurse about the constipation when she comes in the morning, so she can add something if it's needed. || E3
+  Caller -> Senna twice a day. Tell the nurse. Okay. || A4
+  Nurse -> Is he on any other medicine tonight? Anything we haven't talked about?
+  Caller -> Just the usual. The anti-nausea one at bedtime. He took it.
+  Nurse -> Good.
+  Nurse -> You said he didn't eat dinner. What did he have today?
+  Caller -> Just sips. Water. A few spoons of applesauce, and he threw away the rest. A sip of ginger ale. That's all. || A5
+  Nurse -> Okay. That's common with the constipation and the pain. Don't force him. Offer small sips if he wants. Are his lips and mouth dry?
+  Caller -> Yes. They're cracked. He keeps licking them.
+  Nurse -> Do you have the little pink mouth swabs?
+  Caller -> I do. In the comfort box. And the lip balm, the one that's not petroleum.
+  Nurse -> Perfect. Wet the swab with water and wipe the inside of his mouth and his lips. Then put a bit of balm on. Do it every hour or two. It feels good to him. || E2
+  Caller -> Swab. Water. Lips. Balm. Every hour or two. Okay.
+  Nurse -> And turn him gently from side to side every couple of hours. A pillow behind his back.
+  Caller -> I'll do that. He likes the pillow shaped like a banana.
+  Nurse -> Is the bed rail up on the side he's turning toward?
+  Caller -> Yes. I keep both up. My brother showed me.
+  Nurse -> Ha. A banana pillow. That's perfect.
+  Caller -> My mother bought it. It's the only thing he'll sleep on.
+  Nurse -> Then use it. Is his breathing okay? Any gurgling or noisy breathing? Hard work to breathe?
+  Caller -> No. It's quiet. He's snoring a little, but that's him. It's the normal snoring. || A6
+  Nurse -> Does he wake easily?
+  Caller -> When I say his name, yes. He opens his eyes and goes back.
+  Nurse -> Good. That's what I like to hear.
+  Caller -> He's lucky to have you all. Honestly. I don't know what we'd do.
+  Nurse -> Thank you. That's kind.
+  Caller -> Can I tell you something? My dad was a pharmacist. For forty years. And he can't tell me how to measure his own morphine. || A1
+  Nurse -> Oh, that's an irony. Did he try to help?
+  Caller -> He said, in his sleep, something about milliliters. That's all I got.
+  Nurse -> Ha. Some habits are strong.
+  Caller -> I laughed. Then I cried.
+  Nurse -> That's allowed.
+  Caller -> Dad would hate me crying. He'd say, go count something.
+  Nurse -> Ha. Count the syringes, then.
+  Caller -> Two. Still two.
+  Caller -> I know. Okay. I'm better now.
+  Nurse -> Good. I'm sending a nurse to see him in the morning. She should be there around nine. || R1
+  Caller -> Around nine. Okay. My brother will be there by then, I hope. He lands at seven. The airport's an hour away.
+  Nurse -> He'll make it. Tell him to take a car, not the train, if he's tired.
+  Caller -> I texted him. He said he'll sleep on the plane.
+  Nurse -> That works. She'll check the pain and the bowels, and bring the syringes. || R3
+  Caller -> Good. Perfect. Thank you.
+  Nurse -> Ruthanne, one more thing. If his pain isn't better in an hour, or you're unsure about a dose at any point tonight, call us right back. Any hour. Don't wait. || E4
+  Caller -> Any hour. Okay. I will.
+  Nurse -> The next dose can be given at five forty five if he needs it. Not before.
+  Caller -> Five forty five. I'll set my phone alarm.
+  Nurse -> Perfect. And write it all down. It helps the morning nurse.
+  Caller -> I'm writing. Quarter ml. Five mg. Three forty five.
+  Nurse -> Read me the whole line from your log, so I know it's right.
+  Caller -> Three forty five. Morphine. Quarter milliliter. Five milligrams. By mouth. || A1
+  Nurse -> That's perfect.
+  Nurse -> Beautiful. How is he now?
+  Caller -> He's calmer. He's lying back. His face looks softer. I think it's starting to work.
+  Nurse -> That's wonderful. Stay close to him. Hold his hand if he wants.
+  Caller -> I'm going to sit on the bed. Is that okay? I won't bump him.
+  Nurse -> Sit by his good side. Slowly. That's fine.
+  Caller -> I am. He's holding mine. He squeezed it.
+  Caller -> You know, he hasn't done that in two days.
+  Nurse -> Then the pain is easing. Stay with him.
+  Nurse -> That's a good sign. Anything else I can help with tonight?
+  Caller -> Should I wake him for his bedtime pills?
+  Nurse -> No. He's had them. Let him rest unless he wakes on his own.
+  Caller -> Okay. I'll let him sleep.
+  Caller -> No. I think that's it. Thank you so much, Genevieve. I really mean it.
+  Nurse -> You're doing a beautiful job. Call if you need anything.
+  Caller -> I will. Goodnight.
+  Nurse -> Goodnight, Ruthanne.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelius Mabry, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-10-26", certainty: stated, heard_as: [], turns: [67]}
+    caller_name: {value: Ruthanne Gallagher, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550185", certainty: stated, heard_as: [], turns: [69]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked how much liquid morphine to draw up for her father's pain.
+    speaker: Caller
+    turns: [4]
+    quote: "I can't figure out the morphine."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine 5 mg every two hours as needed, last given at ten tonight, as a 20 mg per mL concentrate.
+      speaker: Caller
+      turns: [14]
+      quote: "Five milligrams every two hours as needed."
+      explanation: Documents the morphine order.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: every two hours as needed, prn: true, last_dose: ten o'clock tonight, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Pain was a six in the low back and hip.
+      speaker: Caller
+      turns: [40]
+      quote: "He says a six."
+      explanation: Documents the pain level.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: six out of ten, certainty: stated}
+      covers: [A2]
+    - text: He had no bowel movement for three days and strained.
+      speaker: Caller
+      turns: [71]
+      quote: "Not for three days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: constipation, present: true, onset: no bowel movement for three days, certainty: stated}
+      covers: [A3]
+    - text: Senna 8.6 mg twice a day, last given this evening.
+      speaker: Caller
+      turns: [73]
+      quote: "The senna. The eight point six milligram."
+      explanation: Documents the scheduled senna.
+      facts:
+        - {type: medication, name: senna, dose: "8.6", unit: mg, frequency: twice a day, prn: false, last_dose: this evening, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: He took only sips of water, a few spoons of applesauce, and a sip of ginger ale.
+      speaker: Caller
+      turns: [80]
+      quote: "Just sips."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: poor intake with only sips, present: true, certainty: stated}
+      covers: [A5]
+    - text: He had no gurgling or labored breathing, only his usual snoring.
+      speaker: Caller
+      turns: [94]
+      quote: "No. It's quiet."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: gurgling or labored breathing, certainty: stated}
+      covers: [A6]
+    - text: Two oral syringes remained.
+      speaker: Caller
+      turns: [56]
+      quote: "Two. I think."
+      explanation: Documents the syringe supply.
+      facts:
+        - {type: supply, item: oral syringes, supply: 2 syringes, certainty: stated}
+      covers: [A7]
+    - text: She was alone with him overnight and her brother arrives in the morning.
+      speaker: Caller
+      turns: [10]
+      quote: "So tonight it's me. Alone with Dad."
+      explanation: Documents relevant context.
+      facts:
+        - {type: context, text: She is alone with him overnight and her brother arrives in the morning, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [110]
+      quote: "I'm sending a nurse to see him in the morning."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+    - text: Planned to order more oral syringes.
+      speaker: Nurse
+      turns: [57]
+      quote: "I'll order more."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned for the nurse to bring the syringes in the morning.
+      speaker: Nurse
+      turns: [114]
+      quote: "She'll check the pain and the bowels, and bring the syringes."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: with the nurse in the morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Taught drawing up a quarter milliliter, which is five milligrams, giving it between cheek and gum, and logging the time.
+      speaker: Nurse
+      turns: [37]
+      quote: "Squirt it slowly in the pocket between his cheek and his gum."
+      explanation: Documents medication administration teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised mouth care with a swab and lip balm, and gentle turning with a pillow.
+      speaker: Nurse
+      turns: [85]
+      quote: "Wet the swab with water and wipe the inside of his mouth and his lips."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised continuing the senna twice a day and telling the morning nurse about the constipation.
+      speaker: Nurse
+      turns: [74]
+      quote: "Keep giving the senna twice a day."
+      explanation: Documents symptom monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E3]
+    - text: Invited her to call back any hour if pain was uncontrolled or a dose was unclear.
+      speaker: Nurse
+      turns: [116]
+      quote: "call us right back."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E4]
+  risk_flags: []

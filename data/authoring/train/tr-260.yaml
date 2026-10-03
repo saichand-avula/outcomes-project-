@@ -1,0 +1,441 @@
+call_id: tr-260
+split: train
+blueprint: "Daughter of an 86-year-old hospice patient spells the surname (Reinholt) and works through a long list: right hip pain at a five, extended-release morphine fifteen mg twice a day plus liquid morphine (twenty mg per mL, a quarter mL every two hours as needed, last given three hours ago), constipation for two days, and a pill mix-up worry between Zyrtec and Zyprexa (she says Zyprexa, then corrects to Zyrtec for his allergies; Zyprexa is his bedtime pill). He told her he is 'ready to go', which she explains means ready to leave for church. No shortness of breath or chest pain. Nurse reads the chart (furosemide and atorvastatin listed, not discussed), messages the provider, plans a nurse visit tomorrow and a callback tomorrow morning, and orders a stool softener supply. Long, messy v2 call with name spelled, tall-man sound-alike, scheduled plus as-needed opioid, liquid concentration, negated risk phrase and a trap phrase."
+setup:
+  scenario_category: medication
+  subtype: dose_question
+  secondary_tags: [name_spelled, tall_man_drug, prn_and_scheduled, liquid_concentration, chart_reading_distractor, negated_risk_phrase, trap_phrasing, contradiction, multi_issue, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [pain, medication, constipation, agitation_delirium]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Eleanor
+  call_timestamp_utc: "2026-10-25T15:00:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: [furosemide, atorvastatin]
+chief_complaint:
+  patient_name_true: Gunther Reinholt
+  patient_name_spoken: Gunther Reinholt
+  patient_name_certainty: stated
+  patient_dob_true: "1940-02-06"
+  patient_dob_spoken: "1940-02-06"
+  patient_dob_certainty: stated
+  caller_name_true: Annika Reinholt
+  caller_name_spoken: Annika Reinholt
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6125550192"
+  callback_phone_spoken: "6125550192"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked about his pain medicines and reported hip pain and constipation
+  reason_category: medication_question
+  relevant_context: Hospice patient living with his daughter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: right hip pain
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine extended-release
+    medication_name_spoken: morphine extended-release
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    frequency: twice a day
+    last_dose: eight this morning
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine liquid
+    medication_name_spoken: morphine liquid
+    medication_status: taking
+    strength: 20 mg per mL
+    dose: "0.25"
+    unit: mL
+    frequency: every two hours as needed
+    prn: true
+    last_dose: three hours ago
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zyrtec
+    medication_name_spoken: Zyrtec
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zyprexa
+    medication_name_spoken: Zyprexa
+    medication_status: taking
+    dose: "2.5"
+    unit: mg
+    frequency: at bedtime
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath or chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: context
+    reporter: caller
+    history_or_context_text: He said he was ready to go, meaning ready to leave for church on Sunday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: hip pain at five on current opioids and two days without a bowel movement
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: stool softener
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the morphine liquid only at a quarter mL on the syringe, wait two hours between doses, and keep the Zyrtec and Zyprexa in separate labeled bags
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer fluids and prune juice and note any bowel movement on the sheet
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Place a pillow between his knees when on his side and help him change position every couple of hours
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for pain above a six after a dose, vomiting, a hard swollen belly, trouble waking him, or slow breathing
+    trigger_condition: pain above six; vomiting; hard swollen belly; hard to wake; slow breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Eleanor.
+  Caller -> Hi, Eleanor. This is Annika Reinholt. My father is Gunther Reinholt. That's R E I N H O L T. I have a bunch of questions about his medicines. || caller_name, relationship, patient_name, cc
+  Nurse -> Thank you for spelling it. Okay, Annika. Let me pull up his chart. What's his date of birth?
+  Caller -> February sixth. Nineteen forty. || patient_dob
+  Nurse -> Great. And I have six one two, five five five, zero one nine two for you. || callback_phone
+  Caller -> That's right. That's my cell.
+  Nurse -> Is your dad able to hear you right now? Are you somewhere private?
+  Caller -> I'm in the laundry room. The dryer's running, so he can't hear. I'm sorry about the noise.
+  Nurse -> No problem. I can hear you fine.
+  Nurse -> Okay. Go ahead. What are your questions?
+  Caller -> Okay. So I wrote them down. But I wrote them on a grocery list, so there's also eggs on here. Ha.
+  Nurse -> Ha. We'll skip the eggs.
+  Caller -> Okay. First. His hip. His right hip is hurting. He says it's about a five. It's been like that for two days. || A1
+  Nurse -> A five. Is it worse than usual, or is that his normal?
+  Caller -> It's worse. His normal is a two or a three. Now it's a five, and he's wincing when I move him. I think I'm not giving the right things at the right times. || A1
+  Nurse -> Okay. Where exactly in the hip? The side, the groin, the back of it?
+  Caller -> The side. Where the bone sticks out. He puts his hand right there. It's an ache. And when he stands it's sharp.
+  Nurse -> Okay. Has he had any falls or bumps?
+  Caller -> No. None. He's very careful. He uses the walker for the five steps to the bathroom.
+  Nurse -> Good.
+  Nurse -> Okay. Let's go through what he's taking. Start with the long-acting morphine. || A2, A3
+  Caller -> The morphine extended-release. Fifteen milligrams. Twice a day. I gave it at eight this morning. And the next one is at eight tonight. || A2
+  Nurse -> Okay. That matches what I have. And the liquid morphine? || A2, A3
+  Caller -> The liquid. The morphine liquid. The little bottle. It says twenty milligrams per milliliter. And the dose is a quarter of a milliliter. Every two hours if he needs it. || A3
+  Nurse -> That's right. And when was the last time you gave the liquid?
+  Caller -> Three hours ago. About three. At noon. I gave it at noon and it didn't really help. || A3
+  Nurse -> Okay. So it's been three hours since his last liquid dose. And he's at a five. Is he able to have another one?
+  Caller -> That's my question. Can I give another? It says every two hours. It's been three. So I can. Right?
+  Nurse -> Yes. It's been more than two hours, so you can give another quarter milliliter. || A3
+  Caller -> Okay. Okay. But then I worry about giving too much. Because he's also on the extended-release.
+  Nurse -> That's what the liquid is for. It's for the pain that breaks through. The extended-release works in the background. They're meant to work together. || A2, A3
+  Caller -> Okay. Okay. That's what the other nurse said, too. I just get nervous.
+  Nurse -> That's normal. Do you have the syringe?
+  Caller -> I do. The oral syringe. It's got the lines. The quarter is, which line?
+  Nurse -> The quarter milliliter is the smallest line near the tip. Draw it up to that line and no further. || E1, A3
+  Caller -> Smallest line near the tip. Okay. I'll do it after we hang up. I don't want to do it while I'm on the phone.
+  Nurse -> That sounds wise. Okay. What's your next question?
+  Caller -> Okay. The pills. I have a worry. I think I mixed up his Zyprexa. Or I was going to mix it up. The Zyprexa. The allergy one. No. The, wait. || A5
+  Nurse -> Take your time.
+  Caller -> I mean the Zyrtec. The allergy one. Zyrtec. The one for his allergies is Zyrtec. And the Zyprexa is the one for the, for the evenings. When he gets restless. || A4, A5
+  Nurse -> Okay. So let me make sure I have it right. Zyrtec for allergies, once a day, ten milligrams. And Zyprexa at bedtime, two and a half milligrams. || A4, A5
+  Caller -> Yes. That's it. That's right. They look so alike on the list. Z-Y-R and Z-Y-P. I can't tell them apart.
+  Nurse -> It's a very common mix-up, and the names are close. Which one did you give him today?
+  Caller -> The Zyrtec. This morning. With breakfast. And that's all. I haven't given the Zyprexa. That's tonight. || A4
+  Nurse -> Okay. That's exactly right. Zyrtec in the morning, Zyprexa at bedtime. || A4, A5
+  Caller -> Okay. Good. So I didn't mess up. I thought I'd given the wrong one yesterday, but I think I had it right.
+  Nurse -> It sounds like you did. Let me suggest something to make it easier. Keep the Zyrtec and the Zyprexa in two different bags, each with a big label. And keep them in different places. || E1, A4, A5
+  Caller -> Two bags. Big labels. Different places. I'll do that today. The Zyrtec in the kitchen and the Zyprexa by his bed. || A4, A5
+  Nurse -> That's a good plan. Next question.
+  Caller -> Okay. Number three on the list. His bowels. He hasn't gone in two days. || A6
+  Nurse -> Two days. What's he been eating and drinking?
+  Caller -> Not much. He drinks his tea and a little juice. He picks at his food. I think the morphine is making him constipated. || A2, A3
+  Nurse -> It can. Is he on something for it?
+  Caller -> He's on, there's a stool softener. The little pink one. But it ran out. I think we're out. I didn't want to say.
+  Nurse -> Okay. I'll order more. I've put in the order for the stool softener just now. It's done. || R3
+  Caller -> Oh. Oh good. Thank you. How soon?
+  Nurse -> It'll come with the regular delivery tomorrow. In the meantime, offer him fluids and prune juice, and note any bowel movement on the sheet. || E2
+  Caller -> Prune juice. We have that. Fluids. And write it on the sheet. Okay.
+  Nurse -> And does he get any exercise, even walking to the kitchen?
+  Caller -> A little. Bathroom and back. And the chair by the window. He doesn't walk much.
+  Nurse -> That's okay. Just keep him moving a little as he's able.
+  Nurse -> Is his belly soft, or hard? Any belly pain?
+  Caller -> It's soft. He doesn't say it hurts. It's just that he hasn't gone.
+  Nurse -> Okay. Any nausea or vomiting?
+  Caller -> No. No nausea. He's fine that way. Eating less, but no nausea.
+  Nurse -> How's his appetite compared to last week?
+  Caller -> Less. Maybe half of what he ate last week. He used to eat two eggs. Now it's one. Or half.
+  Nurse -> Okay. That's useful for the nurse to know.
+  Caller -> He says everything tastes like paper.
+  Nurse -> Good. Annika, how is his breathing? Any shortness of breath, any chest pain?
+  Caller -> No. He's not short of breath. No chest pain. Nothing like that. He breathes fine. He's just got the hip. || A7
+  Nurse -> Okay. That's reassuring.
+  Caller -> Okay. Next question. This one's a little embarrassing. He said something yesterday and I didn't know how to take it.
+  Nurse -> Okay. What did he say?
+  Caller -> He said, "I'm ready to go." And I froze. I thought, oh no. Is he saying he's ready to die? || A8
+  Nurse -> Okay. What was the context?
+  Caller -> I asked him a few minutes later what he meant, and he said, "Ready to go to church. Sunday." He wants to go to church on Sunday. In his wheelchair. He's been asking for two weeks. || A8
+  Nurse -> Oh. Okay. So he meant he's ready to go to church.
+  Caller -> Yes. He was getting his coat. He had his coat on the chair. I felt so silly.
+  Nurse -> It's okay. I'm glad you asked. And actually, it sounds wonderful. Let's see if the nurse can help plan that.
+  Caller -> Could they? Could he go? He misses it so much.
+  Nurse -> It depends on his pain and his energy that day. But if his pain is better controlled, it might be possible. We can talk with the team about it.
+  Caller -> Oh. That would make him so happy. Thank you.
+  Nurse -> Does he have his own wheelchair, or would you need one for the trip?
+  Caller -> We have one. A folding one. It's from the loan closet. We'd need help with the ramp at church, though.
+  Nurse -> I'll make a note. The social worker might be able to help with that, too.
+  Caller -> Oh, that would be wonderful. The church has a ramp but the door sticks.
+  Nurse -> Let's get his pain better first. For the hip, when he's on his side, put a pillow between his knees. And help him change position every couple of hours. || E3
+  Caller -> Pillow between the knees. Change position every couple of hours. Okay. He does like the pillow. Sometimes he kicks it out.
+  Nurse -> Ha. Put it back. Annika, I'm going to message the hospice provider about the hip pain and the constipation. || R1
+  Caller -> Okay. Please. Will they change the medicine?
+  Nurse -> They might adjust the doses or the timing. It's their decision. I'll make sure they know the pain is a five and that it's been two days.
+  Caller -> Okay. That's all I want. For him to be comfortable.
+  Nurse -> I'm also going to send a nurse tomorrow. To see him, look at the hip, and go through the medicines with you. || R2
+  Caller -> Tomorrow? Oh good. I'd like someone to go through all the pills. I'm a mess with them.
+  Nurse -> The nurse can set up a chart for you with times and colors. It can make it much simpler.
+  Caller -> That'd be wonderful. I'll have all the bottles on the table.
+  Nurse -> And I'll call you tomorrow morning, before the nurse comes, to see how the night went. || R4
+  Caller -> Tomorrow morning. Okay. I'll be up. I'm always up at six.
+  Nurse -> Perfect. One more thing. Call us if his pain stays above a six after a dose, if he starts vomiting, if his belly gets hard and swollen, if he's hard to wake, or if his breathing slows down. || E4
+  Caller -> Above a six. Vomiting. Hard belly. Hard to wake. Slow breathing. Okay. I wrote it on the list. Next to the eggs.
+  Nurse -> Ha. Perfect.
+  Caller -> Okay. Is that everything? I think I've asked everything.
+  Nurse -> I think so. Is there anything else on your mind?
+  Caller -> No. Well. Maybe. Is it normal that he's sleeping more in the afternoon? He sleeps two, three hours after lunch.
+  Nurse -> It can be. As people get weaker they sleep more. I'll mention it to the nurse. As long as he wakes up and is himself when he's awake, that's okay.
+  Caller -> He does. He's himself. He told me my hair looked messy this morning.
+  Nurse -> Ha. That's a very good sign.
+  Caller -> Ha. Yes. He's still got his opinions.
+  Nurse -> Does he have any questions he'd like to ask us himself? Is he able to talk?
+  Caller -> He's napping right now. But I'll ask him when he wakes. He likes to be asked.
+  Nurse -> That's lovely. Please do.
+  Nurse -> Well, I'll let you go give him that dose. Do it now, before the pain climbs.
+  Caller -> I will. I'll do it right now. Thank you, Eleanor. You've been so patient.
+  Nurse -> And Annika, how are you holding up? You sound tired.
+  Caller -> I am. I have a brother who lives in Tucson who says he'll come, but he hasn't. So it's me. But I'm okay.
+  Nurse -> I'm glad you called. I'm going to ask the social worker to check in with you, too.
+  Caller -> That would be nice. Nobody asks me anything.
+  Nurse -> We will. I'll put it in the note.
+  Nurse -> Of course. Take care, Annika.
+  Caller -> You too. Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply about whether another liquid dose is allowed", heard_form: "That's my question. Can I give another? It says every two hours. It's been three. So I can. Right?", fact_id: A3}
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "The Zyprexa. The allergy one. No. The, wait", fact_id: A5}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gunther Reinholt, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-02-06", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Annika Reinholt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6125550192", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked about his pain medicines and reported hip pain and constipation.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a bunch of questions about his medicines."
+    explanation: Documents the questions prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Right hip pain was rated a five, worse than his usual two or three, for two days.
+      speaker: Caller
+      turns: [13]
+      quote: "His right hip is hurting. He says it's about a five."
+      explanation: Documents the pain severity.
+      facts:
+        - {type: symptom, name: right hip pain, present: true, severity: "5", certainty: stated}
+      covers: [A1]
+    - text: Morphine extended-release 15 mg twice a day was being given, with the last dose at eight this morning.
+      speaker: Caller
+      turns: [22]
+      quote: "The morphine extended-release. Fifteen milligrams. Twice a day."
+      explanation: Documents the scheduled opioid.
+      facts:
+        - {type: medication, name: morphine extended-release, dose: "15", unit: mg, frequency: twice a day, last_dose: eight this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Morphine liquid at 20 mg per mL, a quarter of a milliliter every two hours as needed, was last given three hours earlier.
+      speaker: Caller
+      turns: [24]
+      quote: "The morphine liquid. The little bottle. It says twenty milligrams per milliliter."
+      explanation: Documents the breakthrough opioid.
+      facts:
+        - {type: medication, name: morphine liquid, strength: 20 mg per mL, dose: "0.25", unit: mL, frequency: every two hours as needed, prn: true, last_dose: three hours ago, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Zyrtec 10 mg once a day for allergies was given this morning with breakfast.
+      speaker: Caller
+      turns: [44]
+      quote: "The Zyrtec. This morning. With breakfast."
+      explanation: Documents the allergy medication.
+      facts:
+        - {type: medication, name: Zyrtec, dose: "10", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Zyprexa 2.5 mg at bedtime was for evening restlessness and was not yet given today.
+      speaker: Caller
+      turns: [40]
+      quote: "And the Zyprexa is the one for the, for the evenings. When he gets restless."
+      explanation: Documents the bedtime medication.
+      facts:
+        - {type: medication, name: Zyprexa, dose: "2.5", unit: mg, frequency: at bedtime, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: There had been no bowel movement for two days.
+      speaker: Caller
+      turns: [50]
+      quote: "His bowels. He hasn't gone in two days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: two days, certainty: stated}
+      covers: [A6]
+    - text: No shortness of breath or chest pain was reported.
+      speaker: Caller
+      turns: [71]
+      quote: "No. He's not short of breath. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath or chest pain, certainty: stated}
+      covers: [A7]
+    - text: His remark that he was ready to go meant he was ready to go to church on Sunday.
+      speaker: Caller
+      turns: [77]
+      quote: "Ready to go to church. Sunday."
+      explanation: Documents the clarified context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned to message the hospice provider about the hip pain and the constipation.
+      speaker: Nurse
+      turns: [90]
+      quote: "I'm going to message the hospice provider about the hip pain and the constipation."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse tomorrow to see him and go through the medicines.
+      speaker: Nurse
+      turns: [94]
+      quote: "I'm also going to send a nurse tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Placed the order for the stool softener.
+      speaker: Nurse
+      turns: [55]
+      quote: "I've put in the order for the stool softener just now. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back tomorrow morning before the nurse arrived.
+      speaker: Nurse
+      turns: [98]
+      quote: "I'll call you tomorrow morning, before the nurse comes, to see how the night went."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised drawing the liquid morphine to the quarter-milliliter line only and keeping the Zyrtec and Zyprexa in separate labeled bags.
+      speaker: Nurse
+      turns: [35]
+      quote: "Draw it up to that line and no further."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised offering fluids and prune juice and noting any bowel movement.
+      speaker: Nurse
+      turns: [57]
+      quote: "offer him fluids and prune juice, and note any bowel movement on the sheet."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised a pillow between his knees when on his side and changing position every couple of hours.
+      speaker: Nurse
+      turns: [88]
+      quote: "put a pillow between his knees. And help him change position every couple of hours."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+    - text: Advised calling for pain above a six after a dose, vomiting, a hard swollen belly, trouble waking him, or slow breathing.
+      speaker: Nurse
+      turns: [100]
+      quote: "Call us if his pain stays above a six after a dose, if he starts vomiting, if his belly gets hard and swollen, if he's hard to wake, or if his breathing slows down."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags: []

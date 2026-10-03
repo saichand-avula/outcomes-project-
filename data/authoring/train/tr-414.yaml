@@ -1,0 +1,269 @@
+call_id: tr-414
+split: train
+blueprint: "A 52-year-old woman with type 1 diabetes calls home health herself, shaky and sweating: she took ten units of Humalog before lunch, got distracted and did not eat, and her meter now reads forty eight. She is alone, awake and able to drink. Nurse walks her through four ounces of juice and a recheck in fifteen minutes, stays on the line, pages the on-call clinician and plans a callback. The nurse's page announcement is transcribed under the Caller label. Hypoglycemia (other urgent), self caller, patient 18-64, speaker label error, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: hypoglycemia
+  secondary_tags: [speaker_label_errors, hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [glucose, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Orchard Lane Home Health
+  agency_type: home_health
+  nurse_name: Samir
+  call_timestamp_utc: "2026-11-07T18:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gretchen Halvorsen
+  patient_name_spoken: Gretchen Halvorsen
+  patient_name_certainty: stated
+  patient_dob_true: "1973-06-02"
+  patient_dob_spoken: "1973-06-02"
+  patient_dob_certainty: stated
+  caller_name_true: Gretchen Halvorsen
+  caller_name_spoken: Gretchen Halvorsen
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3125550174"
+  callback_phone_spoken: "3125550174"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported a low blood sugar of forty eight with shakiness and sweating after taking insulin without eating
+  reason_category: glucose
+  relevant_context: Home health patient with type 1 diabetes
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "48"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: shakiness and sweating
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Humalog
+    medication_name_spoken: Humalog
+    medication_status: taking
+    dose: "10"
+    unit: units
+    frequency: before meals
+    prn: false
+    last_dose: before lunch today
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: passing out or trouble swallowing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: low blood sugar of forty eight with symptoms
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Drink four ounces of juice or regular soda now, recheck the sugar in fifteen minutes, and call 911 if she passes out or cannot swallow
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Eat a snack with protein after the sugar comes up and check the sugar again in an hour
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Low blood sugar of forty eight with shakiness and sweating after insulin without eating
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Orchard Lane Home Health, this is Samir.
+  Caller -> Samir, hi. It's Gretchen Halvorsen. H A L V O R S E N. I'm a patient. My blood sugar is low. It's forty eight. And I'm shaky. || caller_name, patient_name, relationship, cc, A1, F1
+  Nurse -> Gretchen, thank you for calling. Forty eight is low. Are you awake and able to drink something?
+  Caller -> Yes. I'm awake. I'm sitting at the table. I'm sweating. My hands are trembling. I can hold the phone but it's shaking. || A2
+  Nurse -> Before we go on, what's your date of birth, so I have the right chart?
+  Caller -> June second. Nineteen seventy three. || patient_dob
+  Nurse -> Okay. I need you to drink something sweet right now. Do you have orange juice, or regular soda, anything with sugar?
+  Caller -> I have orange juice. In the fridge. Hold on. I have to stand up. I'm a little dizzy.
+  Nurse -> Take your time. Hold on to the counter. Don't rush.
+  Caller -> I'm at the fridge. I have the juice. I'm pouring a glass. My hand is shaking so much, it's going on the counter.
+  Nurse -> That's fine. Spill it. Just get some in a glass.
+  Caller -> Okay. I have about, um, half a glass. Is that enough?
+  Nurse -> About four ounces is what we want. Half a cup. Drink it now.
+  Caller -> Drinking. Okay. It's cold. It's good. I'm drinking it.
+  Nurse -> Good. Drink it slowly but steadily.
+  Caller -> It's the kind with pulp. I hate pulp. But today I love pulp.
+  Nurse -> Ha. Pulp is your friend.
+  Nurse -> Sit back down. I'm going to stay right here with you. While you sit, tell me what happened. How did you get low?
+  Caller -> I took my insulin before lunch. The Humalog. Ten units. And then the phone rang and I got distracted and I never ate. It was my sister. She talks. Three hours later I felt this. || A3
+  Nurse -> Okay. So ten units of Humalog before lunch, and no lunch. That will do it. Is that your usual dose? || A3
+  Caller -> It's my usual dose with a meal. I've been doing it for years. I never skip a meal. I don't know how I did it.
+  Nurse -> It happens to everyone. When did you last check before this?
+  Caller -> My sister was telling me about her cruise. Forty five minutes about a buffet. I should have said I have to go eat.
+  Nurse -> Ha. That's the ironic part.
+  Caller -> This morning. It was one forty. A hundred forty. I mean, one hundred forty. Sorry. I'm foggy.
+  Nurse -> No problem. Now, have you passed out, or felt like you were going to? Any trouble swallowing?
+  Caller -> No. No passing out. I haven't passed out. I can swallow fine. I just drank it. I'm shaky and sweaty and my head feels light. || A4
+  Nurse -> Good. That's very good. Gretchen, I'm going to page the on-call clinician right now, so they know. Stay on with me.
+  Caller -> I'm paging the on-call clinician now. Give me one moment. I'll get a call back to them. || R1, label_error
+  Caller -> Okay. Thank you. I'm still here. I feel a little better already.
+  Nurse -> That's the juice working. It takes about ten or fifteen minutes. Let's talk while we wait. How is your head?
+  Caller -> I'm checking the clock on the stove. It's four oh five. So fifteen minutes is four twenty.
+  Nurse -> Perfect. You're thinking clearly already.
+  Caller -> It's okay. The dizzy is getting less. I'm warm. My shirt is wet.
+  Nurse -> That's the sweating. It will pass.
+  Caller -> I feel silly. I've done this for thirty years.
+  Nurse -> You're not silly. A phone call can derail anyone. Would you like me to stay on the line the whole fifteen minutes?
+  Caller -> I'd like that. It's nice to have someone. I live alone. My cat is staring at me.
+  Nurse -> Ha. What's his name?
+  Caller -> Pickles. He's a gray one. He knows something is wrong. He sat on my feet.
+  Nurse -> Ha. A good nurse.
+  Caller -> He's a better listener than my ex-husband.
+  Nurse -> Ha. That's a high bar.
+  Caller -> He's the best one. He's also a thief. He stole my sandwich last week.
+  Nurse -> Ha. Well, we'll make you a better one soon.
+  Caller -> I do have crackers. And peanut butter. I could have those after.
+  Nurse -> Yes, that's exactly right. In fifteen minutes, recheck your sugar. If it's above seventy, eat a snack with some protein, like the crackers and peanut butter. Then check again in an hour. || E2
+  Caller -> I have a granola bar too. The chewy kind. The chocolate chip.
+  Nurse -> Crackers and peanut butter is better for staying steady, the granola bar is fine for a quick fix.
+  Caller -> Above seventy. Crackers and peanut butter. And check in an hour. Okay.
+  Nurse -> And if you ever feel like you're going to pass out, or you can't swallow, you hang up and call 911. Don't wait. || E1
+  Caller -> Call 911. Okay. I have my phone. I'm not going to pass out. I think.
+  Caller -> Do I have a glucose gel somewhere? I think I have one in the bathroom drawer. Expired maybe.
+  Nurse -> Check the date later and replace it. For now, juice is fine.
+  Nurse -> Good. Tell me when you've got your meter in front of you.
+  Caller -> It's here. On the table. It's been fifteen minutes. Or twelve. I'll check now.
+  Nurse -> A couple more minutes would be better. Let's wait. I'll call you back in fifteen minutes either way.
+  Caller -> Okay. You call me back in fifteen. I'll check my sugar when you call. Is that okay?
+  Nurse -> That's perfect. I'll call you in fifteen minutes. || R2
+  Caller -> What's your name again?
+  Nurse -> Samir.
+  Caller -> Samir. I'm writing it on the napkin. With the juice. Thank you.
+  Caller -> I'm going to take a picture of the napkin. I never remember names. My doctor says it's the stress.
+  Nurse -> Ha. A napkin is as good as any chart.
+  Nurse -> Anytime. I'll call at the number on file. It's still the one ending in oh one seven four? || callback_phone
+  Caller -> Yes. Three one two, five five five, zero one seven four. || callback_phone
+  Nurse -> Great. Sit tight. Sip some water too, if you want.
+  Caller -> I will. Bye for now.
+  Nurse -> Talk to you soon, Gretchen.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Nurse statement", heard_form: "I'm paging the on-call clinician now", fact_id: R1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gretchen Halvorsen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1973-06-02", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Gretchen Halvorsen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550174", certainty: stated, heard_as: [], turns: [65, 66]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported a low blood sugar of forty eight with shakiness and sweating after taking insulin without eating.
+    speaker: Caller
+    turns: [2]
+    quote: "My blood sugar is low. It's forty eight."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Blood sugar was 48.
+      speaker: Caller
+      turns: [2]
+      quote: "It's forty eight."
+      explanation: Documents the low reading.
+      facts:
+        - {type: vital, name: blood sugar, value: "48", certainty: stated}
+      covers: [A1]
+    - text: She was shaky and sweating with trembling hands.
+      speaker: Caller
+      turns: [4]
+      quote: "I'm sweating. My hands are trembling."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: shakiness and sweating, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Humalog 10 units was taken before lunch today without eating.
+      speaker: Caller
+      turns: [19]
+      quote: "The Humalog. Ten units."
+      explanation: Documents the insulin dose.
+      facts:
+        - {type: medication, name: Humalog, dose: "10", unit: units, frequency: before meals, prn: false, last_dose: before lunch today, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She had not passed out and could swallow.
+      speaker: Caller
+      turns: [27]
+      quote: "No passing out. I haven't passed out."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: passing out or trouble swallowing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm paging the on-call clinician now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [59]
+      quote: "I'll call you in fifteen minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised four ounces of juice now, rechecking in fifteen minutes and calling 911 if she passed out or could not swallow.
+      speaker: Nurse
+      turns: [13]
+      quote: "About four ounces is what we want."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised a protein snack once the sugar was above seventy and rechecking in an hour.
+      speaker: Nurse
+      turns: [47]
+      quote: "eat a snack with some protein"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "My blood sugar is low. It's forty eight."}

@@ -1,0 +1,200 @@
+call_id: tr-146
+split: train
+blueprint: "Son calls about his father's warfarin: first says 5 mg at night, later says 2.5 mg, then says the pillbox is filled by a visiting aide and he is not sure. Dose never resolved. Father has a nosebleed that stopped. Nurse will check the chart and call the pharmacy; asks him to hold tonight's dose until she calls back. Ambiguous, short."
+setup:
+  scenario_category: ambiguous
+  subtype: contradictory_dose
+  secondary_tags: [contradiction, hedging, late_answers, split_turns]
+  clinical_domains: [medication, bleeding]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-02T21:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bjorn Halvorsen
+  patient_name_spoken: Bjorn Halvorsen
+  patient_name_certainty: stated
+  patient_dob_true: "1937-10-11"
+  patient_dob_spoken: "1937-10-11"
+  patient_dob_certainty: stated
+  caller_name_true: Anders Halvorsen
+  caller_name_spoken: Anders Halvorsen
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9075550118"
+  callback_phone_spoken: "9075550118"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked what dose of warfarin his father should take tonight and mentioned a nosebleed
+  reason_category: medication_question
+  relevant_context: Home health patient on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: at night
+    certainty: unclear
+    unclear_detail: Caller said 5 mg then 2.5 mg and then said the aide fills the pillbox and he is not sure
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: nosebleed
+    symptom_present: true
+    onset_or_duration: this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nosebleed now
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: confirm the warfarin dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give tonight's warfarin until the nurse calls back with the correct dose
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the nosebleed returns and does not stop after 10 minutes of pressure; 911 for heavy bleeding
+    trigger_condition: nosebleed that does not stop after 10 minutes; heavy bleeding
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Anders Halvorsen. I'm calling about my dad, Bjorn Halvorsen. It's about his warfarin. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Anders. Date of birth for your dad?
+  Caller -> October eleventh. Nineteen thirty seven. || patient_dob
+  Nurse -> And nine oh seven, five five five, zero one one eight for you? || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> What's your question about the warfarin? || A1
+  Caller -> I'm not sure what dose he takes at night. I thought it was five milligrams. But then I look at the pill, and it's a different color, and I think that's the two and a half. So maybe it's two and a half. || A1
+  Nurse -> Okay. Who fills his pillbox?
+  Caller -> The aide. The one who comes Mondays. She does the whole week. I don't touch it. So I'm not sure. I'm sorry. I should know. || A1
+  Nurse -> It's okay. Has anything happened tonight that made you call?
+  Caller -> He had a nosebleed. This afternoon. It was kind of a lot, a paper towel soaked. But it stopped after about ten minutes. He's fine now. No bleeding now. || A2, A3
+  Nurse -> Okay. Thank you for telling me. Anders, please don't give him tonight's warfarin yet. || E1, A1
+  Caller -> Okay. Hold the warfarin. Okay. || A1
+  Nurse -> I'm going to check his chart, and I'll call his pharmacy to confirm the dose. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> I'll call you back within the hour. || R2
+  Caller -> Within the hour. Okay.
+  Nurse -> If the nosebleed comes back and doesn't stop after ten minutes of pressure, call us. If it's heavy, call nine one one. || E2
+  Caller -> Ten minutes. Pressure. Heavy, nine one one. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Just that. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bjorn Halvorsen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1937-10-11", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Anders Halvorsen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9075550118", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked what dose of warfarin his father should take tonight and mentioned a nosebleed.
+    speaker: Caller
+    turns: [2]
+    quote: "It's about his warfarin."
+    explanation: Documents the question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The nightly warfarin dose was unclear; the caller said 5 mg, then thought it might be 2.5 mg, and said the aide fills the pillbox (unclear; dose not resolved).
+      speaker: Caller
+      turns: [8]
+      quote: "I thought it was five milligrams. But then I look at the pill, and it's a different color, and I think that's the two and a half."
+      explanation: Documents the unresolved medication dose.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: at night, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: A nosebleed occurred this afternoon and stopped after about ten minutes.
+      speaker: Caller
+      turns: [12]
+      quote: "He had a nosebleed. This afternoon."
+      explanation: Documents the bleeding.
+      facts:
+        - {type: symptom, name: nosebleed, present: true, duration: this afternoon, certainty: stated}
+      covers: [A2]
+    - text: There was no bleeding at the time of the call.
+      speaker: Caller
+      turns: [12]
+      quote: "He's fine now. No bleeding now."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nosebleed now, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to check the chart and call the pharmacy to confirm the dose.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to check his chart, and I'll call his pharmacy to confirm the dose."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back within the hour.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back within the hour."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within an hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not giving tonight's warfarin until the nurse called back.
+      speaker: Nurse
+      turns: [13]
+      quote: "please don't give him tonight's warfarin yet."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the nosebleed returned and did not stop after ten minutes of pressure, and calling 911 if it was heavy.
+      speaker: Nurse
+      turns: [19]
+      quote: "If the nosebleed comes back and doesn't stop after ten minutes of pressure, call us. If it's heavy, call nine one one."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

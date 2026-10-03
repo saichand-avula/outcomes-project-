@@ -1,0 +1,314 @@
+call_id: va-099
+split: val
+blueprint: "A mother, Camille Winterbourne, calls late at night because she gave her seven-month-old daughter Odessa five milliliters of infant acetaminophen drops, meant for point eight milliliter, after mixing up the infant drops with the children's syrup. Odessa weighs seventeen pounds, has a temperature of one hundred one point two from teething, and is awake and fussy, with no vomiting and normal color. Nurse explains the concentrations, tells her to stop giving any more, to call poison control now and take her to the emergency room, pages on-call and calls back. Liquid concentration overdose, pediatric parent caller, medication concern plus escalation flags, v2 short."
+setup:
+  scenario_category: medication
+  subtype: liquid_concentration_overdose
+  secondary_tags: [liquid_concentration, parent, pediatric, extra_dose, escalation_ed, late_answers, split_turns]
+  clinical_domains: [medication, fever, pediatric_safety]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Harborlight Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ottilie
+  call_timestamp_utc: "2026-12-20T03:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [Tylenol]
+chief_complaint:
+  patient_name_true: Odessa Winterbourne
+  patient_name_spoken: Odessa Winterbourne
+  patient_name_certainty: stated
+  patient_dob_true: "2026-05-14"
+  patient_dob_spoken: "2026-05-14"
+  patient_dob_certainty: stated
+  caller_name_true: Camille Winterbourne
+  caller_name_spoken: Camille Winterbourne
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "3125550161"
+  callback_phone_spoken: "3125550161"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported giving her infant too much acetaminophen after mixing up two liquid concentrations
+  reason_category: medication
+  relevant_context: Seven-month-old on pediatric home care
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: extra_dose
+    dose: "5"
+    unit: mL
+    frequency: once
+    prn: true
+    last_dose: given at two forty tonight
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: weight
+    vital_value: "17 lb"
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "101.2"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: fussiness from teething
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or unusual sleepiness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    recipient_or_target: emergency room
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more acetaminophen or any cold medicine, call poison control now, and bring both bottles and the dropper to the emergency room
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she vomits repeatedly, becomes very sleepy or hard to wake, has trouble breathing, or turns yellow
+    trigger_condition: repeated vomiting; very sleepy; hard to wake; trouble breathing; yellow color
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep only one concentration in the house, write the dose on the bottle, and use only the syringe that came with it
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Gave five milliliters of concentrated infant acetaminophen drops when the dose was point eight milliliter
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised an emergency room visit after an acetaminophen overdose in an infant
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Harborlight Pediatric Home Care, this is Ottilie.
+  Caller -> Ottilie, hi, it's Camille Winterbourne. My baby is Odessa Winterbourne. I think I gave her too much Tylenol. I mixed up the bottles. I'm freaking out. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Camille. Take a breath. I'm going to help you. Is Odessa awake and breathing okay?
+  Caller -> I'm sorry. I don't want to waste your time. I'm not making sense.
+  Nurse -> You're making perfect sense. Keep going.
+  Caller -> She's awake. She's fussy. She's in my arms. She's breathing normally. She looks fine. I'm the one who isn't fine.
+  Nurse -> That's okay. Tell me exactly what happened. Slowly. What did you give her?
+  Caller -> She had a fever. A hundred and one point two. And she's teething. She's been up since midnight crying. I went to give her the Tylenol. We have two bottles. The infant drops and the children's syrup. They're both in the cabinet. In the dark I grabbed the infant drops, and I used the syringe from the children's syrup. And I gave her five milliliters. A full five. || A1, A3
+  Nurse -> Okay. Five milliliters of the infant drops, the concentrated ones. Is that correct?
+  Caller -> Yes. The infant drops. The little bottle. It says eighty milligrams per point eight milliliter. And I gave her five milliliters. I only realized when I read the bottle after. The dose for her is point eight. I just, I used the wrong syringe.
+  Nurse -> Okay. I understand. When did you give it?
+  Caller -> Twenty minutes ago. Two forty. It's three now. Almost.
+  Nurse -> Did she spit any of it out?
+  Caller -> A little dribbled down her chin. Maybe a milliliter. Not much.
+  Nurse -> Okay. We'll assume she got most of it.
+  Nurse -> Okay. How much does Odessa weigh?
+  Caller -> Seventeen pounds. We weighed her at the pediatrician last Tuesday. Seventeen pounds even. || A2
+  Nurse -> Okay. Thank you. I'm going to explain what this means. The concentrated drops are much stronger than the children's syrup. Five milliliters of the drops is about four hundred milligrams. For a baby her size, a safe dose is much less than that. So she needs to be seen right away.
+  Caller -> Oh my God. Oh my God. She's going to die. I killed my baby.
+  Nurse -> Camille, stay with me. I'm right here.
+  Caller -> I'm sorry. I'm here. I'm here.
+  Nurse -> Camille, listen to me. She is not going to die. We caught this early. Acetaminophen overdose can be treated, and the sooner she's seen, the better. That's why I'm telling you what to do now. Okay? || A1
+  Caller -> Okay. Okay. What do I do?
+  Nurse -> First, don't give her any more acetaminophen, or any cold or fever medicine, tonight. Second, call poison control now. The number is one eight hundred, two two two, one two two two. They'll tell you what to do and confirm. Third, take her to the emergency room. Bring both bottles and the syringe. || E1
+  Caller -> No more medicine. Poison control. The emergency room. Both bottles and the syringe. Okay. I'm writing it. My hands are shaking.
+  Nurse -> I'm going to stay on the line while you write. Take your time.
+  Caller -> Okay. Okay. One eight hundred two two two one two two two. Is that right?
+  Nurse -> That's right. Now, is there another adult at home who can drive you?
+  Caller -> My husband. He's upstairs. He's asleep. I'll wake him. Dom! Dom! Wake up! We have to go to the hospital!
+  Caller -> He's coming. He's in his boxers. He's getting the car.
+  Nurse -> Good. Tell him the car seat and the bottles.
+  Nurse -> Good. Is Odessa vomiting? Is she unusually sleepy? Is her color okay?
+  Caller -> No. No vomiting. She's alert. She's looking at me. She's grabbing my hair. Her color's normal. A little flushed from crying. || A5
+  Nurse -> Good. That's a good sign. Her fussiness?
+  Caller -> She's been fussy since midnight. It's the teeth. Her gums are red and swollen. She's been chewing on everything. || A4
+  Nurse -> Okay. Camille, I'm going to page the on-call clinician right now, and ask them to call the emergency room so they're expecting you. || R2
+  Caller -> Thank you. Thank you. Please.
+  Nurse -> Can I have her date of birth?
+  Caller -> May fourteenth, twenty twenty six. She's seven months. || patient_dob
+  Nurse -> And the best number for you?
+  Caller -> Three one two, five five five, zero one six one. That's my cell. || callback_phone
+  Nurse -> Does your phone have good battery? Is it charging?
+  Caller -> Sixty percent. I'll plug it in the car.
+  Nurse -> Got it. I'd like you to leave for the hospital now. Don't wait for poison control to call you back. You can call them from the car. || R1, F2
+  Caller -> Okay. Dom is up. He's getting the car seat. I'm putting on my shoes. Odessa, baby, we're going for a ride.
+  Nurse -> Good. Keep her in the car seat. Don't give her anything by mouth. If she vomits, turn her on her side. If she vomits repeatedly, gets very sleepy or hard to wake, has trouble breathing, or turns yellow, pull over and call nine one one. || E2
+  Caller -> Should I sit in the back with her?
+  Nurse -> Yes. One adult in the back watching her face the whole way.
+  Caller -> I'll sit with her. Dom will drive carefully.
+  Caller -> Vomiting. Sleepy. Breathing. Yellow. Nine one one. Okay. I have my phone.
+  Nurse -> I'll call you back within fifteen minutes to see where you are and what the emergency room says. || R3
+  Caller -> Fifteen minutes. Okay. Please do.
+  Nurse -> Camille, you caught this quickly. Your quick call is what matters.
+  Caller -> I'm so stupid. I do this for a living. I'm a dental hygienist. I read labels all day.
+  Nurse -> This isn't about being stupid. It's three in the morning and you were exhausted. It happens in the best families.
+  Caller -> I feel awful. She trusts me.
+  Nurse -> She does, and that won't change. She'll just remember snuggles and a fun car ride.
+  Caller -> I hope so.
+  Nurse -> She does. And you're doing exactly what she needs. After this, we'll talk about how to prevent it.
+  Caller -> What should we do? To prevent it?
+  Nurse -> Keep only one concentration in the house. Write the dose on the bottle with a marker. And always use the syringe that came with the bottle. || E3
+  Caller -> One bottle. Dose on it. Its own syringe. Okay. I'll throw out the syrup.
+  Nurse -> Bring it to the hospital with you, so they can see it. Don't throw it away yet.
+  Caller -> Right. I'll take it. We're in the car. Dom's driving. The seat is buckled.
+  Nurse -> Good. Call poison control now.
+  Caller -> I'm dialing. It's ringing. Hello? I have to go. Thank you, Ottilie.
+  Nurse -> Go. I'll call you back.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odessa Winterbourne, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2026-05-14", certainty: stated, heard_as: [], turns: [39]}
+    caller_name: {value: Camille Winterbourne, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550161", certainty: stated, heard_as: [], turns: [41]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported giving her infant too much acetaminophen after mixing up two liquid concentrations.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I gave her too much Tylenol."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Five milliliters of concentrated infant acetaminophen drops were given at two forty instead of the intended point eight milliliter.
+      speaker: Caller
+      turns: [8]
+      quote: "And I gave her five milliliters. A full five."
+      explanation: Documents the overdose.
+      facts:
+        - {type: medication, name: acetaminophen, dose: "5", unit: mL, frequency: once, prn: true, last_dose: given at two forty tonight, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Weight was 17 pounds.
+      speaker: Caller
+      turns: [17]
+      quote: "Seventeen pounds."
+      explanation: Documents the weight.
+      facts:
+        - {type: vital, name: weight, value: "17 lb", certainty: stated}
+      covers: [A2]
+    - text: Temperature was 101.2.
+      speaker: Caller
+      turns: [8]
+      quote: "A hundred and one point two."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "101.2", certainty: stated}
+      covers: [A3]
+    - text: She was fussy from teething with red swollen gums.
+      speaker: Caller
+      turns: [35]
+      quote: "It's the teeth."
+      explanation: Documents the fussiness.
+      facts:
+        - {type: symptom, name: fussiness from teething, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: She had no vomiting and no unusual sleepiness, and her color was normal.
+      speaker: Caller
+      turns: [33]
+      quote: "No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or unusual sleepiness, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised going to the emergency room now.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'd like you to leave for the hospital now."
+      explanation: Documents the emergency room advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician and have them call the emergency room.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback within fifteen minutes.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you back within fifteen minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within fifteen minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving no more acetaminophen, calling poison control, and bringing both bottles and the syringe to the emergency room.
+      speaker: Nurse
+      turns: [24]
+      quote: "don't give her any more acetaminophen"
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for repeated vomiting, severe sleepiness, trouble breathing, or yellow color.
+      speaker: Nurse
+      turns: [46]
+      quote: "pull over and call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+    - text: Advised keeping one concentration at home, writing the dose on the bottle, and using the syringe that came with it.
+      speaker: Nurse
+      turns: [61]
+      quote: "Keep only one concentration in the house."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I gave her too much Tylenol."}
+    - {category: escalation_request, turns: [44], quote: "I'd like you to leave for the hospital now."}

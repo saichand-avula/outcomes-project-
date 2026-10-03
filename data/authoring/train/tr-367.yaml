@@ -1,0 +1,279 @@
+call_id: tr-367
+split: train
+blueprint: "A 44-year-old man with epilepsy, receiving home health after surgery, tells the nurse he stopped his seizure medicine Keppra five days ago because it makes him angry and moody; he feels fine and has had no seizure, but had a funny tingling in his hand yesterday that he is not sure about. Nurse tells him not to stay off it, pages on-call, plans a callback in thirty minutes, and reviews seizure safety and 911 instructions. High risk (medication concern, stopped anticonvulsant), self caller, 18-64, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [hedging, late_answers, split_turns, trap_phrasing, multi_issue]
+  clinical_domains: [medication, seizure, mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Colette
+  call_timestamp_utc: "2026-10-25T16:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Jerome Castellano
+  patient_name_spoken: Jerome Castellano
+  patient_name_certainty: stated
+  patient_dob_true: "1982-07-11"
+  patient_dob_spoken: "1982-07-11"
+  patient_dob_certainty: stated
+  caller_name_true: Jerome Castellano
+  caller_name_spoken: Jerome Castellano
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3145550136"
+  callback_phone_spoken: "3145550136"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Said he stopped his seizure medicine five days ago
+  reason_category: medication
+  relevant_context: Home health patient with epilepsy recovering from surgery
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: levetiracetam
+    medication_name_spoken: Keppra
+    medication_status: stopped
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    last_dose: five days ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: anger and mood swings on the medicine
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: tingling in his right hand
+    symptom_present: true
+    onset_or_duration: yesterday
+    certainty: unclear
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: seizure since stopping
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: stopped seizure medicine and a tingling episode
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: levetiracetam
+    medication_name_spoken: Keppra
+    reason_or_trigger: do not stay off it and wait for the clinician's instructions on restarting
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not drive, bathe alone, climb or use the stove alone until the clinician calls, and have someone stay with him
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for a seizure lasting more than five minutes, a second seizure, trouble breathing afterward, or injury
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient stopped his seizure medicine on his own five days ago
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Colette.
+  Caller -> Hey. Colette? It's Jerome. Jerome Castellano. I'm the guy with the shoulder surgery. Yeah. I have a question. Kind of a confession. || caller_name, patient_name, relationship
+  Nurse -> How's the shoulder doing, by the way?
+  Caller -> Sore. I'm doing the exercises. Mostly.
+  Nurse -> Mostly. Ha. We'll talk about that.
+  Nurse -> Hi Jerome. I remember. A confession, huh? Go ahead.
+  Caller -> Okay. So. Don't be mad. I stopped taking my Keppra. || cc, A1, F1
+  Nurse -> Okay. I'm not mad. I'm glad you told me. When did you stop?
+  Caller -> Five days ago. Last Tuesday. I took the morning one and then I just didn't take the night one. And I haven't since.
+  Nurse -> Okay. Five days. What made you stop?
+  Caller -> It makes me mean. I swear. I snap at my wife. I yelled at the guy at the pharmacy over nothing. I felt like a different person. My wife said, you're a jerk on that stuff. So I stopped. || A2
+  Nurse -> Okay. That's a real side effect. It's good to say. Did you talk to your neurologist before you stopped?
+  Caller -> No. I thought, I'll just skip it for a week and see. I feel fine. I haven't had a seizure in, like, three years.
+  Nurse -> Okay. And you've had no seizure at all since you stopped?
+  Caller -> No. None. Nothing. I feel great actually. I'm calm. || A4
+  Nurse -> Calm is nice. I'd still like to keep you safe.
+  Caller -> I know. I know. I figured you'd say that.
+  Nurse -> Okay. Good. What's the dose you were on?
+  Caller -> Five hundred milligrams. Twice a day. The generic. I call it Keppra. || A1
+  Nurse -> Okay. Jerome, I need to ask a few more questions. Have you had anything odd? Any twitching, any strange feeling, any blank moments?
+  Caller -> Um. Not really. Wait. Yesterday I had a funny feeling in my right hand. A tingling. Like it fell asleep. For a minute. Maybe two. Then it went away. I figured I slept on it. I don't know. || A3
+  Nurse -> Okay. Thank you for telling me. That's important. Did it spread up your arm, or did you feel strange anywhere else?
+  Caller -> No. Just the hand. I don't think. I wasn't really paying attention.
+  Nurse -> Okay. Jerome, I'm going to be honest with you. Stopping seizure medicine suddenly, without a plan, can be risky, even if you've been seizure free for a long time. It can bring on a seizure. The tingling may be nothing. But I don't want to take a chance.
+  Caller -> Oh. Man. I didn't think. Okay.
+  Nurse -> I'm paging the on-call clinician now. They'll call you to talk about whether to restart it and how. In the meantime, don't stay off the Keppra on your own, and don't restart the Keppra on your own either. Wait for their instructions. || R1, R2
+  Caller -> Wait for the call. Okay. Don't restart and don't stay off. Okay. That's confusing but okay.
+  Nurse -> It is confusing. What I mean is, the clinician may tell you to start it at a lower dose, or a different medicine. They need to decide.
+  Caller -> Oh. Right. A different one. That would be great. That's what I wanted.
+  Nurse -> That's a good thing to ask them. Now, I need your date of birth.
+  Caller -> July eleventh, nineteen eighty two. || patient_dob
+  Nurse -> And your number?
+  Caller -> Three one four, five five five, zero one three six. || callback_phone
+  Nurse -> Three one four, five five five, zero one three six. Is that right? || callback_phone
+  Caller -> Yep.
+  Nurse -> I'll call you back in thirty minutes to let you know what they said. If the clinician calls you first, take that call. || R3
+  Caller -> Thirty minutes. Got it. I'll keep the phone on me.
+  Nurse -> Now, until you hear from them, Jerome, I need you to be careful. Don't drive. Don't take a bath alone, and don't use the stove or climb a ladder alone. And is someone with you today? || E1
+  Caller -> My wife's home. She's in the kitchen. She's making a casserole. I'm in the garage, on the couch. No ladders. I'm not going anywhere.
+  Caller -> Tuna noodle. The one with the potato chips on top. She makes it every time somebody's sick.
+  Nurse -> Comfort food. Ha.
+  Caller -> I'm not even sick. I'm just a jerk. But I get the casserole anyway.
+  Nurse -> Good. Have her stay close. And tell her about the medicine, so she knows.
+  Caller -> I will. She's going to say I told you so. She's going to say it for a week.
+  Nurse -> Ha. Let her. She's probably right.
+  Caller -> She's always right. It's annoying.
+  Nurse -> Jerome, you also need to know what to do if you do have a seizure. Call 911 if it lasts more than five minutes, if you have a second one, if you have trouble breathing afterward, or if you get hurt. || E2
+  Caller -> More than five minutes. A second one. Trouble breathing. Hurt. 911. Okay. I'll tell my wife that too. She knows. She's seen one. Years ago.
+  Nurse -> Good. She'll know what to do.
+  Caller -> She'll time it. She's a timer person. She has a stopwatch app for everything.
+  Caller -> She timed my kid's tantrums. She timed the oven. She timed the dog's walks.
+  Nurse -> Sounds useful.
+  Caller -> Mostly it's just loud. The thing beeps. Our house is a chorus of beeps.
+  Nurse -> Perfect. Anything else going on?
+  Caller -> No. Just the shoulder. It's okay. It's sore.
+  Nurse -> We'll cover that on the visit. Right now, the medicine is the priority.
+  Caller -> Should I tell the doctor about the hand when they call?
+  Nurse -> Yes, tell them everything you told me. The hand, the mood, the days.
+  Caller -> Okay. I wrote it on my phone. Hand. Mood. Five days.
+  Nurse -> Perfect. That's what they need.
+  Caller -> Okay. I'm sorry. I should've called before I stopped.
+  Nurse -> You called now. That's what counts.
+  Caller -> Thanks, Colette.
+  Nurse -> Talk to you in thirty minutes.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Jerome Castellano, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1982-07-11", certainty: stated, heard_as: [], turns: [31]}
+    caller_name: {value: Jerome Castellano, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550136", certainty: stated, heard_as: [], turns: [33, 34]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Said he stopped his seizure medicine five days ago.
+    speaker: Caller
+    turns: [7]
+    quote: "I stopped taking my Keppra."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Keppra 500 mg twice a day was stopped five days ago on his own.
+      speaker: Caller
+      turns: [19]
+      quote: "Five hundred milligrams. Twice a day."
+      explanation: Documents the stopped medicine.
+      facts:
+        - {type: medication, name: Keppra, dose: "500", unit: mg, frequency: twice a day, last_dose: five days ago, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: He felt angry and mean on the medicine.
+      speaker: Caller
+      turns: [11]
+      quote: "It makes me mean."
+      explanation: Documents the side effect.
+      facts:
+        - {type: symptom, name: anger and mood swings on the medicine, present: true, certainty: stated}
+      covers: [A2]
+    - text: Had tingling in his right hand yesterday for a minute or two (unclear; he was not sure if it was from sleeping on it).
+      speaker: Caller
+      turns: [21]
+      quote: "Yesterday I had a funny feeling in my right hand."
+      explanation: Documents the uncertain hand tingling.
+      facts:
+        - {type: symptom, name: tingling in his right hand, present: true, duration: yesterday, certainty: unclear}
+      covers: [A3]
+    - text: He had no seizure since stopping.
+      speaker: Caller
+      turns: [15]
+      quote: "No. None. Nothing. I feel great actually."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: seizure since stopping, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'm paging the on-call clinician now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised not to stay off the Keppra or restart it on his own and to wait for the clinician's instructions.
+      speaker: Nurse
+      turns: [26]
+      quote: "don't stay off the Keppra on your own, and don't restart the Keppra on your own either."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Keppra, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll call you back in thirty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not driving, bathing alone, using the stove or climbing alone, and having someone with him.
+      speaker: Nurse
+      turns: [38]
+      quote: "Don't drive. Don't take a bath alone"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for a seizure over five minutes, a second seizure, trouble breathing afterward, or injury.
+      speaker: Nurse
+      turns: [47]
+      quote: "Call 911 if it lasts more than five minutes"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [7], quote: "I stopped taking my Keppra."}

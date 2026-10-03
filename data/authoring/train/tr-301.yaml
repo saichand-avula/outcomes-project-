@@ -1,0 +1,385 @@
+call_id: tr-301
+split: train
+blueprint: "A husband and his adult daughter share one speakerphone and talk over each other about the husband's wife Linh, 58, who has MS: she slid from the edge of the bed to the floor around six this morning. The husband says she bumped her head on the nightstand, the daughter (who was in the room) says she did not, and Linh herself says she does not think so. No bleeding, no headache, left hip a little sore, no blood thinners. Two lines come through with swapped labels. The nurse sorts out the account without picking a side, plans a visit within two hours, a message to the provider and an evening callback, and gives head-injury watch instructions. Ambiguous, contradiction, crosstalk, speaker-label errors, age 18-64, long v2."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, crosstalk, speaker_label_errors, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [falls_safety, neurologic, pain, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Redwood Home Health
+  agency_type: home_health
+  nurse_name: Alicia
+  call_timestamp_utc: "2026-10-30T14:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Linh Nguyen
+  patient_name_spoken: Linh Nguyen
+  patient_name_certainty: stated
+  patient_dob_true: "1968-11-09"
+  patient_dob_spoken: "1968-11-09"
+  patient_dob_certainty: stated
+  caller_name_true: Bao Nguyen
+  caller_name_spoken: Bao Nguyen
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8165550162"
+  callback_phone_spoken: "8165550162"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his wife slid to the floor this morning and may have bumped her head
+  reason_category: falls_safety
+  relevant_context: Home health patient with multiple sclerosis
+assessment:
+  - item_id: A1
+    item_type: context
+    reporter: caller
+    history_or_context_text: She slid from the edge of the bed to the floor around six this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: possible bump to the head
+    symptom_present: true
+    certainty: unclear
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: headache or vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: left hip soreness
+    symptom_present: true
+    severity: "2"
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "126/78"
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: tizanidine
+    medication_name_spoken: tizanidine
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: three times a day
+    last_dose: eight this morning
+    certainty: stated
+  - item_id: A7
+    item_type: context
+    reporter: caller
+    history_or_context_text: She does not take a blood thinner
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: fall with a possible head bump
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check on her every hour for the next day for headache, vomiting, drowsiness, confusion or weakness, and wake her once tonight
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep her in the recliner or bed with someone nearby, lower the bed, and help her whenever she stands
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for vomiting, a worsening headache, being hard to wake, confusion, new weakness or a seizure
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Redwood Home Health, this is Alicia.
+  Caller -> Hello? Alicia? It's Bao. Bao Nguyen. We're on the speaker, my daughter and me. About Linh. My wife. She fell this morning. || caller_name, relationship, cc
+  Caller -> Dad, she didn't fall. She slid. Hi, I'm Mai, I'm the daughter.
+  Nurse -> Hi, Bao. Hi, Mai. I can hear you both. Let me get Linh's chart open. What's her full name and date of birth?
+  Caller -> Linh Nguyen. L I N H. N G U Y E N. November ninth, nineteen sixty eight. || patient_name, patient_dob
+  Nurse -> Got it. And a number I can call you at?
+  Caller -> It's my cell. It's eight one six, five five five, zero one six two. || callback_phone
+  Nurse -> Thanks. And is Linh near the phone? I'd like to hear from her too, if she's comfortable talking.
+  Caller -> She's on the couch. Mai, hold the phone closer to your mom. Linh, say hello.
+  Caller -> Hello, nurse. I'm fine. Everybody's fussing.
+  Nurse -> Great. So tell me what happened this morning. One at a time, if you can.
+  Caller -> So she was sitting on the edge of the bed. At six. I was in the bathroom. And I heard a bang. || A1
+  Caller -> It wasn't a bang. It was a thump. Dad, you weren't there. I was in the room.
+  Caller -> I was in the bathroom, I heard it. A bang. And I came out and she was on the floor and her head was by the nightstand.
+  Caller -> Her head was not by the nightstand. Her legs were by the nightstand. Her head was on the rug.
+  Nurse -> Okay. Let me see if I've got this. Linh was sitting on the edge of the bed, and she ended up on the floor. Mai, you were in the room?
+  Caller -> I was in the hallway. I came in when I heard it. I was maybe five seconds behind Dad. I saw her slide down. Like her legs gave out. She slid off the side and sat down on the floor, and then she lay back.
+  Nurse -> Okay. And Bao, you said you heard a bang. Do you think she hit her head?
+  Caller -> I think she hit her head on the nightstand. I heard it. There's a little mark on the nightstand, a scuff. || A2
+  Caller -> That scuff has been there for a year.
+  Caller -> Mai, you don't even live here. How would you know about the scuff?
+  Caller -> I'm here every weekend, Dad. I see it. It's been there since the Christmas you moved the dresser.
+  Caller -> Nobody moved the dresser at Christmas. That was Easter.
+  Nurse -> Okay. Let's leave the scuff for now. The important thing is what we do next.
+  Caller -> No, it's new.
+  Nurse -> Okay. I hear you both. Linh, are you there? Can you hear me?
+  Nurse -> I can hear you. I don't think I hit my head. I don't remember hitting it. My hip hurts a little. || A2, label_error
+  Nurse -> Thank you, Linh. Okay. So Linh doesn't think she hit her head, Mai didn't see her hit it, and Bao heard a bang. Is that fair?
+  Caller -> That's fair. I just heard a bang.
+  Caller -> Yes. That's fair.
+  Nurse -> Okay. Here's what we'll do. We'll treat it as possible, just to be safe. Was there any bleeding? Any bump you could feel on her head?
+  Caller -> No blood. I looked. I looked through her hair. I didn't feel a bump. Her hair is thick.
+  Caller -> I checked too. Nothing. No lump.
+  Nurse -> Good. Is she having a headache? Any nausea, vomiting? Is she acting like herself?
+  Caller -> No headache. She says no. No vomiting. She had her tea this morning. She's talking normally. She was complaining about my driving. || A3
+  Caller -> She's herself. She's bossing everybody.
+  Caller -> I'm right here, you two.
+  Nurse -> Ha. That's a good sign. Okay. Linh, how's the hip?
+  Nurse -> It's sore. On the left. It's a two. Mostly when I move. I can bear weight. I can walk with the walker. || A4, label_error
+  Nurse -> Okay. A two. Thank you. Has she tried to walk since?
+  Caller -> She walked to the bathroom with the walker. With me next to her. She did okay.
+  Caller -> She held the grab bar. I was behind her with my hands out. In case.
+  Caller -> I did the same on the other side. We looked like a parade.
+  Nurse -> A parade is good. Better too many hands than too few.
+  Caller -> She was slow. But okay.
+  Nurse -> Good. Do you have a blood pressure cuff? Could you check her pressure?
+  Caller -> We have one. Mai, get the cuff. It's in the drawer. Okay. We did it twice. It was one twenty six over seventy eight. Second time one twenty four over seventy something. || A5
+  Nurse -> That's a normal reading. Thank you. Does Linh take any blood thinners? Aspirin, anything like that?
+  Caller -> No. No blood thinners. Not since the doctor stopped the aspirin last year. Nothing like that. Right, Linh? No blood thinner. || A7
+  Nurse -> I'm here. No. No blood thinners.
+  Nurse -> Okay. And her MS medicines. What does she take, and did she take it this morning?
+  Caller -> She takes the tizanidine. Four milligrams. Three times a day. For the stiffness. She took the morning one at eight. || A6
+  Nurse -> Okay. Tizanidine, four, three times a day, last at eight. Does that make her sleepy? || A6
+  Caller -> A little. It makes her tired. But she's been taking it for a year. She's used to it.
+  Caller -> She slides down sometimes. Her legs get weak in the morning. That's why she needs help getting up. We were all just trying to help her stand and it went wrong.
+  Caller -> This morning she said she was dizzy a second, when she sat up. Just a second. That's why her legs went.
+  Nurse -> That's helpful. Linh, did you feel dizzy when you sat up?
+  Nurse -> A little. For a second. The room tipped. Then my knees went.
+  Nurse -> Okay. I'll make sure the provider hears that, too.
+  Nurse -> Okay. Is that something that's been happening? The legs giving out in the mornings?
+  Caller -> Sometimes. Not every day. Maybe twice a week. It's worse when she's tired.
+  Nurse -> Okay. I'll let the provider know about that, too.
+  Caller -> Can I ask? Is it safe to leave her alone? I have to go to work at two.
+  Nurse -> I'd rather someone stay with her today. Can your daughter stay?
+  Caller -> I can stay. I have class online. I can do it from here.
+  Caller -> What are you studying again?
+  Caller -> Dad. Nursing. I've told you four times.
+  Caller -> Right. Nursing. Good. You'll be good at it.
+  Caller -> Good. Thank you, Mai. That settles it.
+  Nurse -> Perfect. Okay. Here's the plan. Bao, I'm sending a nurse to examine Linh today. I want someone there within two hours. They'll check her head, her hip, and her neurologic status. || R1
+  Caller -> Two hours. Okay. That's good. That makes me feel better.
+  Nurse -> I'm also going to message her provider about the fall, the possible bump, and the morning weakness. || R2
+  Caller -> Okay.
+  Nurse -> And I'll call you back this evening to see how she's doing. || R3
+  Caller -> This evening. What time?
+  Nurse -> Around six or seven. I'll call this number.
+  Caller -> Okay. We'll be home.
+  Nurse -> Now, because we're not sure about the head, I'd like you to keep a close eye on her for the next day. Check on her every hour. Look for a headache that gets worse, vomiting, being sleepy or hard to wake, confusion, or any new weakness. And wake her once tonight to make sure she's easy to wake. || E1
+  Caller -> Every hour. Headache, vomiting, sleepy, confused, weak. And wake her once tonight. Okay. I'll set an alarm.
+  Caller -> I'll write it on a sticky note and put it on the fridge.
+  Nurse -> Perfect. Also, keep her in the recliner or in bed with someone nearby. If you have a hospital bed or the bed adjusts, lower it. And help her any time she stands. Don't let her stand alone today. || E2
+  Caller -> The bed does go lower. I'll put it down. And she can stay on the recliner. She likes it anyway.
+  Nurse -> And Linh, please let them help you today. I know you like to do things yourself.
+  Nurse -> I'll try. They fuss too much.
+  Nurse -> Ha. Just for today.
+  Caller -> She's rolling her eyes. I can hear it.
+  Nurse -> One more thing. Call nine one one if she vomits, if her headache gets worse, if she's hard to wake up or confused, if she gets new weakness or has a seizure. Don't wait for me. || E3
+  Caller -> Vomit, worse headache, hard to wake, confused, weak, seizure. Nine one one. Okay. Mai, did you get that?
+  Caller -> I wrote it down.
+  Nurse -> Great. Do you have any questions for me?
+  Caller -> Just, will she be okay? Is this something to worry about?
+  Nurse -> I think she's likely okay. She's alert, she's talking, no bleeding, and her pressure is normal. But we want to be careful and have a nurse look at her. That's why I'm sending someone.
+  Caller -> Okay. Okay. I appreciate it. I panicked this morning. I thought, oh no.
+  Caller -> He did panic. He called me three times. I was in the next room.
+  Caller -> Mai! I called you once. Then I came out.
+  Nurse -> Ha. It's okay. It's scary when someone falls.
+  Caller -> Mai said I should have called her first. Before I called you. I said you're the nurse.
+  Nurse -> You did the right thing. Calling us was exactly right.
+  Caller -> It was. It was very scary.
+  Nurse -> How are you doing, Bao? Are you holding up?
+  Caller -> I'm okay. I'm tired. I haven't slept well since the weekend. Linh's been having bad nights.
+  Nurse -> That's a lot. I'll mention it to the nurse. Maybe we can talk about getting you some help.
+  Caller -> That would be good. I'm not complaining.
+  Nurse -> You're not complaining. You're telling me the truth.
+  Caller -> Thank you.
+  Nurse -> Okay. The nurse will be there within two hours. I'll call this evening. In the meantime, call me if anything changes.
+  Caller -> We will. Thank you, Alicia.
+  Caller -> Thank you.
+  Caller -> Alicia, sorry, one more thing. The neighbor wants to bring a casserole. Is that okay? She's been asking all morning. She heard the ambulance. I mean, there wasn't an ambulance, but she heard Dad yelling.
+  Nurse -> A casserole is lovely. Just keep the visit short today so Linh can rest.
+  Caller -> I'll tell her to leave it on the porch. She'll be offended. She likes to see the inside of the house.
+  Caller -> Dad. Be nice. Mrs. Okafor means well.
+  Caller -> She means to find out everything. Okay. Porch. I'll tell her tomorrow.
+  Nurse -> Ha. That works. Anything else on your mind?
+  Caller -> Linh wants to know if she can still do her stretches. The physical therapy ones.
+  Nurse -> Gentle ones, lying down, are fine. Nothing standing today. The nurse can show her what's okay.
+  Caller -> Okay. I'll just do the arm ones. And my ankles.
+  Caller -> That sounds right.
+  Nurse -> And Mai, since you're studying nursing, you already know the hourly checks. But if you ever feel unsure, call us. Don't second guess yourself.
+  Caller -> I won't. Honestly, I'm glad it's not just me deciding.
+  Nurse -> That's what we're here for. You and your dad did well today. You called early and you kept her still.
+  Caller -> Thank you. That means a lot. I was so nervous when you picked up.
+  Nurse -> Take care, all of you.
+  Caller -> Bye bye.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "I can hear you. I don't think I hit my head", fact_id: A2}
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "It's sore. On the left. It's a two", fact_id: A4}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Linh Nguyen, certainty: stated, heard_as: [], turns: [5]}
+    patient_dob: {value: "1968-11-09", certainty: stated, heard_as: [], turns: [5]}
+    caller_name: {value: Bao Nguyen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550162", certainty: stated, heard_as: [], turns: [7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife slid to the floor this morning and may have bumped her head.
+    speaker: Caller
+    turns: [2]
+    quote: "She fell this morning."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She slid from the edge of the bed to the floor around six that morning.
+      speaker: Caller
+      turns: [12]
+      quote: "She was sitting on the edge of the bed. At six."
+      explanation: Documents the fall.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A1]
+    - text: A bump to her head was possible (unclear; the husband heard a bang while the daughter and patient did not think she hit it).
+      speaker: Caller
+      turns: [19]
+      quote: "I heard it. There's a little mark on the nightstand, a scuff."
+      explanation: Documents the uncertain head bump.
+      facts:
+        - {type: symptom, name: possible bump to the head, present: true, certainty: unclear}
+      covers: [A2]
+    - text: There was no headache or vomiting.
+      speaker: Caller
+      turns: [35]
+      quote: "No headache. She says no. No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: headache or vomiting, certainty: stated}
+      covers: [A3]
+    - text: Left hip soreness was a two, mostly when moving, and she could bear weight.
+      speaker: Caller
+      turns: [39]
+      quote: "It's sore. On the left. It's a two."
+      explanation: Documents the hip soreness.
+      facts:
+        - {type: symptom, name: left hip soreness, present: true, severity: "2", certainty: stated}
+      covers: [A4]
+    - text: Blood pressure was 126/78, then 124/70-something.
+      speaker: Caller
+      turns: [47]
+      quote: "It was one twenty six over seventy eight."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "126/78", certainty: stated}
+      covers: [A5]
+    - text: Tizanidine 4 mg three times a day was taken, last at eight that morning.
+      speaker: Caller
+      turns: [52]
+      quote: "She takes the tizanidine. Four milligrams. Three times a day."
+      explanation: Documents the stiffness medication.
+      facts:
+        - {type: medication, name: tizanidine, dose: "4", unit: mg, frequency: three times a day, last_dose: eight this morning, med_status: taking, certainty: stated}
+      covers: [A6]
+    - text: She did not take a blood thinner.
+      speaker: Caller
+      turns: [49]
+      quote: "No. No blood thinners."
+      explanation: Documents the anticoagulant status.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned a nurse visit within two hours to examine her head, hip and neurologic status.
+      speaker: Nurse
+      turns: [70]
+      quote: "I'm sending a nurse to examine Linh today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the fall, the possible bump and the morning weakness.
+      speaker: Nurse
+      turns: [72]
+      quote: "I'm also going to message her provider about the fall"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening around six or seven.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'll call you back this evening to see how she's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking on her every hour for the next day for a worsening headache, vomiting, drowsiness, confusion or weakness, and waking her once overnight.
+      speaker: Nurse
+      turns: [78]
+      quote: "I'd like you to keep a close eye on her for the next day."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping her in the recliner or bed with someone nearby, lowering the bed and helping her whenever she stood.
+      speaker: Nurse
+      turns: [81]
+      quote: "keep her in the recliner or in bed with someone nearby."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for vomiting, a worsening headache, being hard to wake, confusion, new weakness or a seizure.
+      speaker: Nurse
+      turns: [87]
+      quote: "Call nine one one if she vomits"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

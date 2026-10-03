@@ -1,0 +1,287 @@
+call_id: tr-270
+split: train
+blueprint: "Mother of a 6-year-old with a G-tube and type 1 diabetes pump issues, calling because his insulin pump alarmed 'occlusion' at supper, his sugar was 312, and he has moderate ketones on a strip. He is a little nauseated but awake, drinking water, no vomiting yet. She changed the site once already and it alarmed again. The nurse coaches site change and bolus by pump, advises fluids, pages on-call, and plans a callback in thirty minutes. Pediatric, sugar over 300 with ketones, v2 short. Name spelled, tall-man none."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [name_spelled, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [glucose, equipment, nausea_vomiting]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-30T00:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Callum Wetherell
+  patient_name_spoken: Callum Wetherell
+  patient_name_certainty: stated
+  patient_dob_true: "2020-03-18"
+  patient_dob_spoken: "2020-03-18"
+  patient_dob_certainty: stated
+  caller_name_true: Fiona Wetherell
+  caller_name_spoken: Fiona Wetherell
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "9185550133"
+  callback_phone_spoken: "9185550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a high blood sugar with ketones and an insulin pump occlusion alarm
+  reason_category: glucose
+  relevant_context: Pediatric home care patient with diabetes on an insulin pump
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "312"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: moderate ketones on a urine strip
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: insulin pump occlusion alarm
+    symptom_present: true
+    onset_or_duration: since supper
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: nausea
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or trouble waking
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: sugar of 312 with moderate ketones and a pump occlusion
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Change the pump site and tubing with a fresh set, prime it, and give a correction by injection with a pen if the pump will not deliver
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water in small frequent sips and no sugary drinks
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he vomits repeatedly, is hard to wake, breathes fast and deep, or is confused
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Blood sugar of 312 with moderate ketones that persists despite a site change
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Beth.
+  Caller -> Beth, it's Fiona Wetherell. It's Callum. It's his sugar. And the pump. I don't know what's going on. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Fiona. I'm here. Let's take it one step at a time. Callum is spelled C A L L U M?
+  Caller -> Yes. C A L L U M. And Wetherell is W E T H E R E L L. Double L.
+  Nurse -> Got it. What's his date of birth?
+  Caller -> March eighteenth. Twenty twenty. || patient_dob
+  Nurse -> Thank you. And your number is nine one eight, five five five, zero one three three? || callback_phone
+  Caller -> Yes. Yes. That's my cell.
+  Nurse -> Okay. Is anyone there with you? Another adult?
+  Caller -> My husband is on night shift. He's at the plant until six. It's just me and the kids. His sister is asleep in the other room.
+  Nurse -> Okay. That's good to know. Let's go.
+  Nurse -> Okay. Fiona. Is Callum awake?
+  Caller -> He's awake. He's on the couch with his stuffed dog. He's quiet. He's not himself. He's a little sleepy.
+  Nurse -> Okay. What's his sugar?
+  Caller -> It's three twelve. Three hundred and twelve. I checked it ten minutes ago. It was two forty at supper, and I gave a correction on the pump, and it's gone up. || A1, F1
+  Nurse -> Okay. And you said the pump?
+  Caller -> The pump has been beeping. It says "occlusion." It started at supper. I changed the site. I put a new set in his belly, the other side. And it beeped again. || A3
+  Nurse -> Okay. You changed the set once already, and it alarmed again.
+  Caller -> Yes. I'm so tired. I'm sorry. I did the whole thing. I filled the reservoir. I primed it. And after I put it in, it started again. Occlusion, occlusion.
+  Nurse -> No apologies. You did it right. What's the infusion set you're using? Is it the same brand as always?
+  Caller -> Same. The ones with the little tube. The nurse says they sometimes kink. I used one from a new box.
+  Nurse -> Okay. Good to know.
+  Nurse -> Okay. That's frustrating. Did you check for ketones?
+  Caller -> I did. I have the urine strips. It's moderate. It's the dark pink. Almost purple. It's moderate. || A2
+  Nurse -> Okay. Moderate ketones. Thank you for checking. How is his tummy? Is he nauseated?
+  Caller -> A little. He said his tummy hurts. He said he feels like throwing up. But he hasn't. He hasn't thrown up. || A4
+  Nurse -> Okay. Is he drinking?
+  Caller -> He drank some water. He had half a cup. I'm trying to get him to drink more.
+  Nurse -> Good. Does he have a fever?
+  Caller -> No. I took it. Ninety eight. Normal. He feels cool.
+  Nurse -> Okay.
+  Nurse -> Good. Is he breathing normally? Or is it fast and deep?
+  Caller -> Normal. I think. I'm counting. It's normal. He's not breathing hard. He's just tired. And he's awake. He answered me. I asked him what his dog's name was and he said "Biscuit." || A5
+  Nurse -> Okay. That's very reassuring. Fiona, I'm going to page the on-call clinician right now, because his sugar's over three hundred with moderate ketones, and the pump isn't delivering. || R1
+  Caller -> Please. Please. I don't know whether to go to the hospital. Do I take him in?
+  Nurse -> The on-call clinician will help decide. He's awake, he's drinking, and he's not vomiting, so we have a little time. But I want you to do a few things right now.
+  Caller -> Okay. Yes. Tell me.
+  Nurse -> Change the set one more time, with a brand new set, not the one you already opened. Use a different spot, and prime it. And if the pump still won't deliver, give a correction dose with a pen, by injection. Do you have a pen? || E1
+  Caller -> I have a pen. The rapid acting one. In the fridge. The nurse showed us.
+  Nurse -> Good. Do you remember the correction amount? Is it on his sheet?
+  Caller -> It's on the sheet. On the fridge. For three hundred it's, hold on. Let me look. It says, one unit for every fifty over a hundred and fifty. Hmm. Three twelve. Let me do the math.
+  Nurse -> Take your time. I'll stay right here. Or wait. Actually, let's wait for the on-call clinician before you give a dose. They'll tell you the exact number.
+  Caller -> Wait for them. Okay. But change the site.
+  Nurse -> Right. Don't worry about the math right now.
+  Caller -> Okay. I'm terrible at math when I'm scared.
+  Nurse -> Yes. Change the set, new spot, prime. That's the first step.
+  Caller -> Okay. I have a new set. Hold on. Let me do it. I have to put the phone down. Don't hang up.
+  Nurse -> I won't. I'm here.
+  Caller -> Okay. Callum, honey, Mama has to do your tummy again. Just one more. One more, I promise. Okay. Okay. It's in. I primed it. I'm connecting it. Okay.
+  Nurse -> Good. Does the pump show an alarm now?
+  Caller -> No. It says, "delivering." No alarm. It's working. Oh. Oh, thank God. It's not beeping.
+  Nurse -> Okay. That was likely a bad set. Keep a close eye on it. Offer him water in small sips, often. No sugary drinks. || E2
+  Caller -> Water. Small sips. No juice. Okay. I'll get him water. Callum, drink, baby.
+  Nurse -> And Fiona, call nine one one if he vomits more than once, if he gets hard to wake, if he's breathing fast and deep, or if he seems confused. || E3
+  Caller -> Vomiting, hard to wake, breathing fast and deep, confused. Okay. I'll watch him. I'm not leaving him.
+  Nurse -> Does he have any other symptoms I should know about? Thirsty, going to the bathroom a lot?
+  Caller -> He's been peeing a lot since dinner. And he's thirsty. He keeps asking for water.
+  Nurse -> Okay. That fits with the high sugar. I'll tell the on-call clinician.
+  Nurse -> Good. I'll call you back in thirty minutes with what the on-call clinician says. || R2
+  Caller -> Thirty minutes. Okay. And I'll recheck his sugar in thirty. And the ketones.
+  Nurse -> Perfect. Write it down.
+  Caller -> I will. I'll write the time. Thank you, Beth. I was about to lose it.
+  Nurse -> You're doing everything right.
+  Caller -> I'm so tired. I've been up since five.
+  Nurse -> I know. Hang in there. I'm paging now.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Callum Wetherell, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2020-03-18", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Fiona Wetherell, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550133", certainty: stated, heard_as: [], turns: [7]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a high blood sugar with ketones and an insulin pump occlusion alarm.
+    speaker: Caller
+    turns: [2]
+    quote: "It's his sugar. And the pump. I don't know what's going on."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Blood sugar was 312 ten minutes earlier, up from 240 at supper despite a correction.
+      speaker: Caller
+      turns: [15]
+      quote: "It's three twelve. Three hundred and twelve."
+      explanation: Documents the high glucose.
+      facts:
+        - {type: vital, name: blood sugar, value: "312", certainty: stated}
+      covers: [A1]
+    - text: Moderate ketones were present on a urine strip.
+      speaker: Caller
+      turns: [24]
+      quote: "It's moderate. It's the dark pink."
+      explanation: Documents the ketones.
+      facts:
+        - {type: symptom, name: moderate ketones on a urine strip, present: true, certainty: stated}
+      covers: [A2]
+    - text: The pump alarmed occlusion since supper and again after one site change.
+      speaker: Caller
+      turns: [17]
+      quote: "It says \"occlusion.\" It started at supper."
+      explanation: Documents the pump alarm.
+      facts:
+        - {type: symptom, name: insulin pump occlusion alarm, present: true, onset: since supper, certainty: stated}
+      covers: [A3]
+    - text: He had mild nausea without vomiting.
+      speaker: Caller
+      turns: [26]
+      quote: "He said his tummy hurts. He said he feels like throwing up."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: nausea, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: He had not vomited, was awake, and was breathing normally.
+      speaker: Caller
+      turns: [33]
+      quote: "Normal. I think. I'm counting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or trouble waking, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in thirty minutes with the on-call clinician's advice.
+      speaker: Nurse
+      turns: [59]
+      quote: "I'll call you back in thirty minutes with what the on-call clinician says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised changing the pump set to a new one in a new spot, priming it, and waiting for the on-call clinician before giving a correction by pen.
+      speaker: Nurse
+      turns: [38]
+      quote: "Change the set one more time, with a brand new set, not the one you already opened."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised small frequent sips of water and no sugary drinks.
+      speaker: Nurse
+      turns: [52]
+      quote: "Offer him water in small sips, often. No sugary drinks."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if he vomited more than once, was hard to wake, breathed fast and deep, or seemed confused.
+      speaker: Nurse
+      turns: [54]
+      quote: "call nine one one if he vomits more than once, if he gets hard to wake, if he's breathing fast and deep, or if he seems confused."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [15], quote: "It's three twelve. Three hundred and twelve."}

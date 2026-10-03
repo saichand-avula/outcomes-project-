@@ -1,0 +1,386 @@
+call_id: tr-471
+split: train
+blueprint: "A wife calls home health at three in the morning: her husband with heart failure woke up gasping, cannot lie flat, is coughing up pink frothy sputum, oxygen reading eighty four and pulse one hundred eighteen, no chest pain; she is talking over him and repeating herself. He took furosemide forty milligrams yesterday morning. Nurse tells her to call 911 immediately, has her sit him upright with legs down, unlock the door and gather his medicine list, and pages on-call. Acute breathing emergency (breathing concern and escalation), spouse caller, patient 65+, v2 long."
+setup:
+  scenario_category: high_risk
+  subtype: acute_pulmonary_edema
+  secondary_tags: [crosstalk, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [dyspnea, cardiac, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Greywell Home Health
+  agency_type: home_health
+  nurse_name: Dolores
+  call_timestamp_utc: "2026-11-14T08:05:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alistair Whitcombe
+  patient_name_spoken: Alistair Whitcombe
+  patient_name_certainty: stated
+  patient_dob_true: "1955-12-08"
+  patient_dob_spoken: "1955-12-08"
+  patient_dob_certainty: stated
+  caller_name_true: Rhoda Whitcombe
+  caller_name_spoken: Rhoda Whitcombe
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2125550187"
+  callback_phone_spoken: "2125550187"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband woke up gasping and cannot breathe
+  reason_category: dyspnea
+  relevant_context: Home health patient with heart failure
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe shortness of breath and cannot lie flat
+    symptom_present: true
+    severity: severe
+    onset: woke up gasping about half an hour ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pink frothy sputum
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "84"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "118"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: yesterday morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: severe shortness of breath with low oxygen and pink frothy sputum
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: tell them he is being taken to the hospital
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Sit him upright with his legs down, keep him calm, unlock the door for the crew, and give him nothing to eat or drink
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Gather his medicine list and bottles and his oxygen and bring them to the hospital
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Woke up gasping, cannot lie flat, coughing pink frothy sputum, oxygen eighty four
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse told her to call 911 immediately
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Greywell Home Health, this is Dolores.
+  Caller -> Dolores, it's Rhoda Whitcombe. My husband Alistair Whitcombe. He can't breathe. He woke up gasping and he can't lie down. I don't know what to do. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Rhoda, take a breath. I'm right here with you.
+  Caller -> I'm trying. I'm trying. I can't think.
+  Nurse -> Rhoda, I'm here. Is he awake? Can he talk to you?
+  Caller -> He's awake. He's sitting on the edge of the bed. He's, he's gulping air. Alistair, can you tell her? He can't talk. He can only say a word or two.
+  Nurse -> Okay. Keep him sitting up.
+  Caller -> Yes. He won't lie down. He keeps pushing me away.
+  Nurse -> Okay. When did this start?
+  Caller -> About half an hour ago. He woke up at two thirty with this terrible gasp. Like he was drowning. He sat straight up. He couldn't catch his breath. And it hasn't stopped. || A1
+  Nurse -> Okay.
+  Caller -> Or maybe forty minutes. I looked at the clock when I woke up and then I forgot.
+  Nurse -> Rhoda, I'm going to ask you to do something in a moment. First, is he coughing anything up?
+  Caller -> Okay. Okay. Hurry.
+  Caller -> Yes. Yes. Pink. It's pink and foamy. Like froth. He coughed it into a tissue. I'm looking at it. It's pink. It's like strawberry milkshake. Oh my God. || A2
+  Nurse -> Okay. I hear you.
+  Caller -> I'm sorry I'm yelling. I'm sorry.
+  Nurse -> Okay. Thank you. Is there chest pain?
+  Caller -> Alistair, do you have chest pain? He's shaking his head. No. He says no. Just can't breathe. || A5
+  Caller -> Alistair, tell her. Tell her. He's shaking his head again.
+  Nurse -> That's fine. Thank you.
+  Nurse -> Do you have the pulse oximeter, the finger clip?
+  Caller -> Yes. It's on the nightstand. Hold on. I put it on his finger. It's beeping. It says eighty four. Eighty four. That's low, isn't it? || A3
+  Nurse -> Yes, that's low. Rhoda, I need you to call 911 right now. Hang up with me and call 911. Tell them he cannot breathe. Then call me back. || R1, F2
+  Caller -> What? Say that again. I'm sorry. Say it again.
+  Nurse -> Call 911 right now. Say your husband can't breathe.
+  Caller -> Right now? Right now? Okay. But wait. Wait, what's his pulse? It says one hundred eighteen. It went up. It was ninety this afternoon. || A4
+  Caller -> I'm so sorry. I'm just scared.
+  Nurse -> I know. It's okay to be scared. Now call.
+  Nurse -> Rhoda. Rhoda, listen to me. That doesn't matter right now. Call 911. Please. This is an emergency.
+  Caller -> Okay. I'm sorry. Calling.
+  Caller -> Okay. I'm listening. I'm listening.
+  Caller -> Okay. Okay. I'm calling. I'm hanging up. Wait, can you stay on the phone?
+  Nurse -> Don't hang up on me. Put me on speaker.
+  Caller -> Right. Right. Speaker. Where's the button? Here. Okay, you're on speaker.
+  Nurse -> I will stay on the line while you call 911 from another phone. Do you have a second phone?
+  Caller -> I have the cell. And the house phone. I'll use the house phone. It's in the kitchen.
+  Nurse -> No. Don't leave him. Use your cell. Put me on speaker, and put 911 on the cell.
+  Caller -> Okay. Okay. I'm doing it. I'm dialing.
+  Caller -> Do I put the phone down? Where do I put it?
+  Nurse -> Put me on the bed next to you. Keep both hands free.
+  Caller -> Is nine one one the right number? Of course it is. Sorry.
+  Nurse -> It's the right number. Go ahead.
+  Nurse -> Good. Keep me on the speaker.
+  Caller -> It's ringing. It's ringing. Hello? Yes. My husband can't breathe. He has heart failure. We're at, oh. Alistair, what's the address? Forty one Larkin Road. Yes. Larkin. L A R K I N.
+  Nurse -> Good. Tell them his oxygen is eighty four.
+  Caller -> They want me to say it again. The address.
+  Nurse -> Say it clearly. Slowly.
+  Caller -> His oxygen is eighty four. He's coughing up pink foam. Yes. Yes, I'll stay on. Okay. They say stay on with them. They're sending an ambulance. They said ten minutes.
+  Nurse -> Good. Rhoda, stay with 911. I'll stay with you until they say you can hang up. Tell me when they've said it's all right to talk to me.
+  Caller -> They keep asking me questions. I can't answer and talk to you at the same time.
+  Nurse -> Answer them. I can wait.
+  Caller -> They said I can put them on speaker too. I'll put both. I have two phones.
+  Caller -> The dog is barking. Hold on. Sit! Sit, Biscuit! Sorry.
+  Nurse -> That's okay.
+  Nurse -> That works.
+  Caller -> Dolores, what do I do for him? What do I do right now?
+  Caller -> I feel so useless.
+  Nurse -> You're not useless. You're doing everything right.
+  Nurse -> Sit him upright, with his feet down on the floor. Not lying back. Keep him calm. Talk quietly to him. Unlock the front door for the crew. And don't give him anything to eat or drink. || E1
+  Caller -> Upright. Feet down. Calm. Unlock the door. Nothing to eat or drink. Okay. Alistair, sit up. Feet on the floor. You're doing fine. It's okay, honey. Help is coming.
+  Nurse -> Good. Rhoda, is his oxygen machine on? The home oxygen?
+  Caller -> The what? Oh. The oxygen. Hold on, I'm thinking.
+  Nurse -> Take your time.
+  Caller -> He has the concentrator. It's in the living room. He's not wearing it right now. Should I get it?
+  Nurse -> Is the tubing long enough to reach the bedroom?
+  Caller -> No. It's too short. He'd have to walk to it. He can't walk.
+  Nurse -> Okay. Don't move him. The crew will bring oxygen.
+  Caller -> Dolores, I think I hear his breathing getting louder.
+  Nurse -> That's okay. Keep him upright. They're almost there.
+  Caller -> Okay. Okay. Alistair, they're going to bring oxygen. Hold on.
+  Caller -> Okay. Okay. He's looking at me. He's scared. I'm scared.
+  Nurse -> I understand.
+  Caller -> I've never seen him like this. Never. Not once in forty years.
+  Nurse -> I know. You're doing exactly the right thing. Stay with him. Hold his hand.
+  Caller -> I keep wanting to put him on the bed. But I won't.
+  Nurse -> Good. Sitting up is right.
+  Caller -> I'm holding it. It's wet. He's sweating. His hand is clammy.
+  Nurse -> That's okay. Keep holding it.
+  Nurse -> Okay. Thank you for telling me. Now, has he taken his medicines today? Especially his water pill?
+  Caller -> Medicines. Medicines. Why are you asking about medicines?
+  Nurse -> The crew will ask. I want you to be ready.
+  Caller -> Okay. Okay.
+  Caller -> He takes the furosemide. Forty milligrams. Every morning. He took it yesterday morning. Today he hasn't yet, because it's the middle of the night. || A6
+  Nurse -> Okay. Did he miss any days this week?
+  Caller -> No. I give it to him. He's very regular. But he had pizza on Tuesday. And chips. He loves chips. I told him no.
+  Nurse -> Okay. That's helpful to know.
+  Caller -> I don't know why I'm telling you about the pizza.
+  Nurse -> It's all right. Whatever you remember helps.
+  Caller -> Is it because of the chips? Did I do something wrong?
+  Nurse -> No. Rhoda, no. This is not your fault. Please don't think that.
+  Caller -> He always said I worry too much. This time I didn't worry enough.
+  Nurse -> That isn't true.
+  Caller -> I should have taken the chips.
+  Nurse -> Rhoda. Rhoda. Stay with me here.
+  Caller -> I'm here. I'm here.
+  Nurse -> You didn't do anything wrong.
+  Caller -> Alistair, you're okay. The ambulance is coming. Okay. Okay. Sorry. What did you say?
+  Caller -> What time is it? Is it three? I can't see the clock.
+  Nurse -> It doesn't matter. Stay with him.
+  Nurse -> I said it's not your fault. Now, what's his date of birth? The crew will ask.
+  Caller -> December eighth. Nineteen fifty five. || patient_dob
+  Nurse -> And your number, in case we get cut off?
+  Caller -> Two one two, five five five, oh one eight seven. || callback_phone
+  Nurse -> Two one two, five five five, oh one eight seven. Right? || callback_phone
+  Caller -> Yes. That's my cell. I'm using it. And the house phone for 911.
+  Nurse -> Okay. Now, can you gather his medicine list and his pill bottles into a bag? Quickly. And his oxygen tubing and the portable oxygen if you have it. Just put them near the door. || E2
+  Caller -> I can't leave him. He's right here.
+  Nurse -> Don't leave him. Is there anything within arm's reach? A bag, or a basket?
+  Caller -> No. It's in the kitchen. The bag is in the kitchen.
+  Nurse -> Then wait. When the crew arrives, tell them to bring the bag. Or have a neighbor, someone.
+  Caller -> My son is on his way. He lives eight minutes away. I called him first. Before you. I'm sorry.
+  Nurse -> Good. What's his name?
+  Caller -> Cormac. He'll know what to bring.
+  Nurse -> That's all right. He can bring the bag.
+  Caller -> He's coming. He'll be here in a few minutes.
+  Nurse -> Good. Then you won't be alone with the crew.
+  Caller -> He's very calm. He's an electrician. He doesn't panic.
+  Nurse -> Good. Rhoda, I'm going to page our on-call clinician and tell them he is being taken to the hospital. I'll stay on with you. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> Is he still sitting up? Still breathing?
+  Caller -> What? Yes. Sorry. Yes, he's sitting. Alistair, sit up.
+  Caller -> Yes. He's still gulping. He's sitting. His lips look a little blue. Is that bad? Dolores?
+  Nurse -> Tell 911 his lips are turning blue. Tell them now.
+  Caller -> His lips are turning blue. Yes. Yes, I told them. They say the ambulance is on the way. Almost there.
+  Caller -> They're asking if the front door is open. Alistair, is the door open? I'll open it. Hold on.
+  Nurse -> Open the door now if you can do it safely.
+  Caller -> I can see it from here. It's unlocked. I did it earlier.
+  Nurse -> Good. Keep him sitting up. Keep talking to him.
+  Caller -> I am. I am. I'm telling him about the garden. The tomatoes.
+  Nurse -> That's good. Keep telling him.
+  Caller -> Alistair, look at me. Look at me. Breathe. Breathe with me. In. Out. In. Out.
+  Nurse -> Good. Keep talking in a calm voice.
+  Nurse -> That's good. That's exactly right.
+  Caller -> My hands are shaking so much.
+  Nurse -> That's all right. Keep going.
+  Caller -> I hear something. I hear a siren. Dolores, I hear it. They're here.
+  Nurse -> Go to the door. Open it. Let them in.
+  Caller -> Is it all right to leave him? He's sitting.
+  Nurse -> Yes. The crew is outside. Go.
+  Caller -> Okay. I'm putting the phone down. I'm opening the door. They're in the driveway. They're here. They're here.
+  Nurse -> Good. Go. I'm here.
+  Caller -> Okay. Okay.
+  Caller -> They're coming in. Thank you. Thank you, Dolores.
+  Nurse -> Go ahead. Help them.
+  Caller -> They have a stretcher. They have oxygen. They're putting the mask on.
+  Nurse -> Rhoda, tell them everything you told me. His heart failure, the oxygen eighty four, the pink foam, the furosemide. || A6
+  Caller -> Okay. I will. Thank you. Thank you.
+  Nurse -> You did everything right. Go be with him.
+  Caller -> I will. I will. Thank you. I'm sorry I was so loud.
+  Nurse -> You were perfect.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alistair Whitcombe, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-12-08", certainty: stated, heard_as: [], turns: [102]}
+    caller_name: {value: Rhoda Whitcombe, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550187", certainty: stated, heard_as: [], turns: [104, 105]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband woke up gasping and cannot breathe.
+    speaker: Caller
+    turns: [2]
+    quote: "He can't breathe. He woke up gasping and he can't lie down."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He woke up gasping about half an hour ago, could not lie down, and could say only a word or two.
+      speaker: Caller
+      turns: [10]
+      quote: "About half an hour ago."
+      explanation: Documents the sudden breathing difficulty.
+      facts:
+        - {type: symptom, name: severe shortness of breath and cannot lie flat, present: true, severity: severe, onset: woke up gasping about half an hour ago, certainty: stated}
+      covers: [A1]
+    - text: He coughed up pink, foamy sputum.
+      speaker: Caller
+      turns: [15]
+      quote: "Pink. It's pink and foamy."
+      explanation: Documents the sputum.
+      facts:
+        - {type: symptom, name: pink frothy sputum, present: true, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was 84.
+      speaker: Caller
+      turns: [23]
+      quote: "It says eighty four."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "84", certainty: stated}
+      covers: [A3]
+    - text: Pulse was 118.
+      speaker: Caller
+      turns: [27]
+      quote: "It says one hundred eighteen."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "118", certainty: stated}
+      covers: [A4]
+    - text: He had no chest pain.
+      speaker: Caller
+      turns: [19]
+      quote: "No. He says no. Just can't breathe."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5]
+    - text: Furosemide 40 mg was taken every morning, last given yesterday morning.
+      speaker: Caller
+      turns: [84]
+      quote: "He takes the furosemide. Forty milligrams. Every morning."
+      explanation: Documents the medication.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: once a day, prn: false, last_dose: yesterday morning, med_status: taking, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised calling 911 immediately for severe shortness of breath.
+      speaker: Nurse
+      turns: [24]
+      quote: "Rhoda, I need you to call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician and report that he was being taken to the hospital.
+      speaker: Nurse
+      turns: [119]
+      quote: "I'm going to page our on-call clinician"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised sitting him upright with his feet down, keeping him calm, unlocking the door, and giving him nothing to eat or drink.
+      speaker: Nurse
+      turns: [60]
+      quote: "Sit him upright, with his feet down on the floor."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised gathering his medicine list, pill bottles and oxygen to bring to the hospital.
+      speaker: Nurse
+      turns: [107]
+      quote: "can you gather his medicine list and his pill bottles into a bag?"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe. He woke up gasping and he can't lie down."}
+    - {category: escalation_request, turns: [24], quote: "Rhoda, I need you to call 911 right now."}

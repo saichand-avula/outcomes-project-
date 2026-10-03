@@ -1,0 +1,299 @@
+call_id: tr-308
+split: train
+blueprint: "A night aide calls the home care agency early in the morning about her client Gladys, 84, who has been wandering the house at night for two or three nights, looking for her husband who died years ago and trying the front door. The aide insists 'she's not confused, she just doesn't know where she is' and 'I don't think it's the new sleeping pill' even though Ambien 5 mg was started Monday. No falls or injuries. The nurse gently sorts it out, advises holding tonight's Ambien until the provider calls, messages the provider, plans a visit tomorrow and a callback, and suggests door alarm and night light. Ambiguous with trap phrasing, paid caregiver, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: trap_phrasing
+  secondary_tags: [trap_phrasing, hedging, late_answers, split_turns, multi_issue, contradiction]
+  clinical_domains: [agitation_delirium, sleep, medication, falls_safety]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Harvest Home Care
+  agency_type: home_care
+  nurse_name: Ellis
+  call_timestamp_utc: "2026-10-30T10:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gladys Pennington
+  patient_name_spoken: Gladys Pennington
+  patient_name_certainty: stated
+  patient_dob_true: "1942-05-06"
+  patient_dob_spoken: "1942-05-06"
+  patient_dob_certainty: stated
+  caller_name_true: Cecilia Marrero
+  caller_name_spoken: Cecilia Marrero
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "3125550103"
+  callback_phone_spoken: "3125550103"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that a client is wandering at night and not knowing where she is
+  reason_category: agitation_delirium
+  relevant_context: Home care client who recently started a sleeping pill
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: wandering and not knowing where she is at night
+    symptom_present: true
+    onset_or_duration: two or three nights
+    certainty: unclear
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Ambien
+    medication_name_spoken: Ambien
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: at bedtime
+    last_dose: last night at nine
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The Ambien was started on Monday and the caller does not think it is the cause
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: trying the front door and looking for her late husband
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls or injuries
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: night wandering after starting Ambien
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold tonight's Ambien until the provider calls
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put a night light in the hall and bathroom, add a door chime or alarm on the front door, and stay close at night
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call right away if she falls, is hurt, cannot be redirected or leaves the house
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harvest Home Care, this is Ellis.
+  Caller -> Hi, Ellis. It's Cecilia. Cecilia Marrero. I'm the night aide with Mrs. Pennington. Gladys Pennington. I'm just leaving but I wanted to call before I went home. || caller_name, relationship, patient_name
+  Nurse -> Hi, Cecilia. Thanks for calling. What's going on?
+  Caller -> I'm in the parking lot. I'm sitting in my car with the heater on. It's freezing out. Sorry if you hear the engine.
+  Caller -> It's about the nights. She's been, I don't want to say she's confused. She's not confused. She's just, she doesn't know where she is sometimes. At night. || cc
+  Nurse -> Okay. Tell me more about that. What happens?
+  Caller -> She gets up. Around two. Three. And she walks around the house. And she goes to the front door and tries the handle. And she says she's looking for Walter. That's her husband. He passed away in two thousand eleven. || A4
+  Nurse -> Okay. And when you tell her he's passed, what does she do?
+  Caller -> She says oh. Oh right. And she cries. And then she's fine. And then she goes back to bed. And then twenty minutes later she does it again. But I don't think she's confused. I think she misses him.
+  Nurse -> What was he like, Walter?
+  Caller -> She says he was a tall man who whistled. She keeps humming a tune in the night. I don't know what it is. It sounds old.
+  Nurse -> That's sweet. Okay.
+  Nurse -> That could be part of it. Okay. How long has this been going on?
+  Caller -> Two nights. No wait. Three? Monday night was fine. Tuesday she did it once. Wednesday she did it three times. And last night, twice. So two nights of the bad. Or three, if you count Tuesday. || A1
+  Nurse -> Okay. So it started Tuesday night or Wednesday night, and it's been getting worse.
+  Caller -> I guess. Yes. A little worse each night.
+  Nurse -> Cecilia, has anything changed in her routine, or her medicines, this week?
+  Caller -> Well. They started her on a sleeping pill. On Monday. For the sleep. The Ambien. Five milligrams. She takes it at nine. But I don't think it's the pill. She was having trouble sleeping, and the pill helps her fall asleep. She falls asleep fine. It's after that. || A2, A3
+  Nurse -> Okay. Ambien, five milligrams, at bedtime, started Monday. And she took it last night at nine? || A2
+  Caller -> Yes. I gave it to her at nine. I wrote it on the sheet.
+  Nurse -> Okay. And the wandering started after she started the pill, right? Tuesday?
+  Caller -> I guess. But I think she just misses her husband. She's been talking about Walter all week. It's the anniversary. It's the anniversary of when he passed. It's in November.
+  Nurse -> That might be part of it. It might also be the pill. Sometimes a sleeping pill can make an older person more confused or wander at night. I'm not saying that's what it is, but it's something the provider should know.
+  Caller -> Oh. Really? I didn't know that. I thought sleeping pills were just sleeping pills.
+  Nurse -> A lot of people think so. They can have side effects, especially in older adults. It's good you called.
+  Caller -> Oh no. I hope I didn't make it worse. I gave it to her every night.
+  Nurse -> You gave it as prescribed. That's what you're supposed to do. Don't worry.
+  Caller -> Okay. Okay. Thank you.
+  Nurse -> And how is she when she goes back to sleep? Does she settle?
+  Caller -> She settles. She holds my hand and she goes right off. Then she wakes up an hour later and it starts over.
+  Nurse -> Has she fallen? Or hurt herself? Anything like bumping into things?
+  Caller -> No. No falls. No injuries. I follow her around. I'm right there. She's steady. She just walks. She had a little bruise on her arm but it's from the thing with the rail, a week ago. Not from this. || A5
+  Nurse -> Okay. Good. Does she recognize you? Does she know you when she's up?
+  Caller -> Yes. She calls me Cecilia. She knows me. She says, oh Cecilia, what are you doing here. And I say, I'm keeping you company. And she says, how nice.
+  Caller -> Sometimes she calls me Rosa. That was her sister. But mostly Cecilia.
+  Nurse -> Okay. That's good for me to know.
+  Nurse -> Okay. That's a good sign. During the day, is she herself?
+  Caller -> During the day she's fine. She's sharp. She does the crossword. She tells me stories about her garden.
+  Caller -> She has roses. She says they're ready for winter. We cut them back together last week.
+  Nurse -> That sounds lovely.
+  Nurse -> Okay. Cecilia, here's what I'm going to do. I'm going to send a message to her provider this morning about the night wandering, and that it started after the Ambien. || R1
+  Caller -> Okay. Good. They might change it?
+  Nurse -> They might. That's their decision. In the meantime, please don't give tonight's Ambien until the provider calls back. Hold it. || R2
+  Caller -> Hold the pill. Okay. But she won't sleep. She'll be up all night.
+  Nurse -> It's possible. But I'd rather she be a little awake than more confused. And I'll make sure we call you before nine.
+  Caller -> Before nine. I start at eight. So I'll be there. Okay. I'll wait for the call.
+  Nurse -> I'm also going to send a nurse to see her tomorrow, to look at her and talk with the family. || R3
+  Caller -> Okay. Good. Her daughter will want to know.
+  Nurse -> I'll call the daughter too. And I'll call you back this afternoon, Cecilia, with an update from the provider. || R4
+  Caller -> This afternoon. I sleep in the day. But I'll keep the phone on. Call me. I'll answer.
+  Nurse -> Good. Now, for tonight. A few safety things. Can you put a night light in the hall and the bathroom? And is there a chime or an alarm on the front door? So you know if she opens it. || E1
+  Caller -> There's a night light in the bathroom. Not the hall. I can bring one from my house. The front door, no alarm. But there's a bell. I can hang a bell on the knob. Like a Christmas bell.
+  Nurse -> A bell is great. And stay close to her at night. Don't sleep deep. Just doze in the chair in the hall.
+  Caller -> I always do. I'm a light sleeper. I'm used to it.
+  Nurse -> Are you getting enough rest yourself? You're up all night.
+  Caller -> I sleep six hours when I get home. I'm okay. I raised four kids. This is nothing.
+  Nurse -> Ha. Good point.
+  Nurse -> Good. And call us right away if she falls, gets hurt, can't be calmed down, or leaves the house. || E2
+  Caller -> Falls, hurt, can't calm, leaves the house. Okay. I'll call. I have the number.
+  Nurse -> Perfect. Cecilia, can I get her date of birth, and your number, for my notes?
+  Caller -> Her birthday is May sixth. Nineteen forty two. And my cell is three one two, five five five, zero one zero three. || patient_dob, callback_phone
+  Nurse -> Got it. Thank you.
+  Caller -> Okay. Thank you for listening. I didn't want to get anyone in trouble.
+  Nurse -> No one's in trouble. You did right by Mrs. Pennington. Get some rest.
+  Caller -> I will. Bye, Ellis.
+  Nurse -> Bye, Cecilia.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gladys Pennington, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-05-06", certainty: stated, heard_as: [], turns: [61]}
+    caller_name: {value: Cecilia Marrero, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550103", certainty: stated, heard_as: [], turns: [61]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a client was wandering at night and not knowing where she was.
+    speaker: Caller
+    turns: [5]
+    quote: "She's just, she doesn't know where she is sometimes. At night."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She wandered at night and did not know where she was for about two or three nights, worsening each night (unclear; the caller was not sure whether it began Tuesday or Wednesday).
+      speaker: Caller
+      turns: [14]
+      quote: "Two nights. No wait. Three?"
+      explanation: Documents the night wandering and its uncertain onset.
+      facts:
+        - {type: symptom, name: wandering and not knowing where she is at night, present: true, onset: two or three nights, certainty: unclear}
+      covers: [A1]
+    - text: Ambien 5 mg at bedtime was taken, last given at nine the night before.
+      speaker: Caller
+      turns: [18]
+      quote: "The Ambien. Five milligrams. She takes it at nine."
+      explanation: Documents the sleeping pill.
+      facts:
+        - {type: medication, name: Ambien, dose: "5", unit: mg, frequency: at bedtime, last_dose: last night at nine, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: The Ambien was started on Monday, and the caller did not think it was the cause.
+      speaker: Caller
+      turns: [18]
+      quote: "But I don't think it's the pill."
+      explanation: Documents the medication history.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: She tried the front door and looked for her late husband.
+      speaker: Caller
+      turns: [7]
+      quote: "she goes to the front door and tries the handle."
+      explanation: Documents the door-trying and searching.
+      facts:
+        - {type: symptom, name: trying the front door and looking for her late husband, present: true, certainty: stated}
+      covers: [A4]
+    - text: No falls or injuries were reported.
+      speaker: Caller
+      turns: [32]
+      quote: "No. No falls. No injuries."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls or injuries, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about the night wandering after starting Ambien.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to send a message to her provider this morning about the night wandering"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised holding tonight's Ambien until the provider called back.
+      speaker: Nurse
+      turns: [43]
+      quote: "please don't give tonight's Ambien until the provider calls back."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Ambien, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm also going to send a nurse to see her tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back this afternoon with the provider's update.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll call you back this afternoon, Cecilia, with an update from the provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised a night light in the hall and bathroom, a bell or alarm on the front door, and staying close at night.
+      speaker: Nurse
+      turns: [51]
+      quote: "Can you put a night light in the hall and the bathroom?"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Invited a call right away for a fall, injury, inability to calm her or if she left the house.
+      speaker: Nurse
+      turns: [58]
+      quote: "call us right away if she falls, gets hurt, can't be calmed down, or leaves the house."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

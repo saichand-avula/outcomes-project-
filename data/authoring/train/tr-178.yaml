@@ -1,0 +1,341 @@
+call_id: tr-178
+split: train
+blueprint: "Daughter and son, both on speaker and talking over each other, report their 90-year-old father fell in the bathroom (daughter says Tuesday, son says Wednesday) and has left hip pain (daughter says 5, son says 7) and a bruise on the hip. No head strike, he walks with his walker. Daughter says he still takes tramadol, son says it was stopped; the nurse reads the chart: tramadol discontinued in July, acetaminophen 500 mg every 6 hours. Nurse messages the provider about a hip X-ray, plans a visit tomorrow and a callback this evening. Facts that stay unresolved are marked unclear. Long."
+setup:
+  scenario_category: ambiguous
+  subtype: conflicting_family_reports
+  secondary_tags: [contradiction, crosstalk, hedging, chart_reading_distractor, multi_issue, late_answers, split_turns]
+  clinical_domains: [falls, pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Hector
+  call_timestamp_utc: "2026-10-06T15:10:00Z"
+  length_bucket: long
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gustavo Ibarra
+  patient_name_spoken: Gustavo Ibarra
+  patient_name_certainty: stated
+  patient_dob_true: "1936-09-19"
+  patient_dob_spoken: "1936-09-19"
+  patient_dob_certainty: stated
+  caller_name_true: Luciana Ibarra
+  caller_name_spoken: Luciana Ibarra
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8185550145"
+  callback_phone_spoken: "8185550145"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father fell in the bathroom and has hip pain
+  reason_category: fall
+  relevant_context: Home health patient who lives with his daughter and uses a walker
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fall in the bathroom
+    symptom_present: true
+    onset_or_duration: Tuesday or Wednesday
+    certainty: unclear
+    unclear_detail: Daughter said Tuesday and her brother said Wednesday
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: left hip pain
+    symptom_present: true
+    severity: 5/10
+    body_location: left hip
+    certainty: unclear
+    unclear_detail: Daughter said 5 out of 10 and her brother said 7 out of 10
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: bruise on the left hip
+    symptom_present: true
+    body_location: left hip
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: head strike
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: every 6 hours
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: nurse
+    medication_name_true: tramadol
+    medication_name_spoken: tramadol
+    medication_status: stopped
+    last_dose: stopped in July
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: walking with his walker
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: hip pain after a fall and a possible hip X-ray
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use the walker for every trip, keep a night light on, and have someone stand by when he uses the bathroom
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if he cannot put weight on the leg, the leg looks shorter or turned out, or the pain becomes severe
+    trigger_condition: cannot bear weight; leg shorter or turned; severe pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Hector.
+  Caller -> Hector, hi, it's Luciana Ibarra. It's my father, Gustavo Ibarra. He fell. I have my brother on speaker, he's here too. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Luciana. Hi to your brother. Let me get your dad's date of birth first.
+  Caller -> September nineteenth. Nineteen thirty six. || patient_dob
+  Nurse -> And your number, eight one eight, five five five, zero one four five? || callback_phone
+  Caller -> Yes. Mine. || callback_phone
+  Nurse -> Okay. Tell me what happened.
+  Caller -> He fell in the bathroom. Tuesday night. He was getting up to pee and he slipped on the mat. || A1
+  Nurse -> Okay.
+  Caller -> It wasn't Tuesday, Lucy. It was Wednesday. I was here Wednesday night. I helped him up.
+  Caller -> Matias, it was Tuesday. You weren't here Tuesday. You came Wednesday, after.
+  Caller -> I was here when he fell. I picked him up. It was Wednesday.
+  Nurse -> Okay, okay. You two, one at a time, please. So it was Tuesday or Wednesday. We'll sort it out. Was anyone with him when he fell?
+  Caller -> No. Nobody saw it. He told us in the morning. I found him on the bathroom floor, no, he got himself up, he told me he fell. I don't know which night. Matias, I don't know. I'm sorry. || A1
+  Nurse -> That's okay. Luciana, did he hit his head?
+  Caller -> No. He says no. He landed on his side. His left side. His hip.
+  Caller -> He didn't hit his head. We checked. No bump, no bruise on the head. || A4
+  Nurse -> Okay. Good. Was he dizzy before he fell, or did he trip?
+  Caller -> He slipped. On the bath mat. The little one with the rubber backing that's coming off. I told him I'd replace it.
+  Caller -> I told you to replace it a month ago, Lucy. It's been peeling since the summer.
+  Caller -> I know, Matias. I know. I have it on my list. It's not like I don't have a hundred other things.
+  Nurse -> Let's take that mat out of the bathroom tonight. That's a simple fix. Okay. How is his hip? On a scale of zero to ten.
+  Caller -> I'd say a five. He winces when he stands up, but he can walk. A five.
+  Caller -> It's more than a five. It's a seven. You can see it on his face when he gets out of the chair.
+  Caller -> He says five. He told me five.
+  Caller -> He says five to you because he doesn't want you to worry. He told me seven. || A2
+  Nurse -> Okay. I understand. We'll write that it's somewhere between five and seven. Can you see any bruising?
+  Caller -> Yes. A big purple bruise on the left hip. About the size of my hand. And it goes down the thigh a little. || A3
+  Nurse -> Okay. Has he eaten and had fluids today, and did he sleep okay?
+  Caller -> He ate breakfast and half his lunch. He's drinking. He slept in the chair last night because the bed hurts his hip. I think he'd rather sit up.
+  Caller -> He should be in the bed, the chair is worse for his back.
+  Nurse -> Sleeping in a chair is common after a fall. The nurse can look at that too. Okay. Is he walking?
+  Caller -> With the walker, yes. He's slow, and he leans. But he's walking. He walked to the kitchen for breakfast. || A7
+  Nurse -> Okay. What has he taken for the pain?
+  Caller -> The acetaminophen. Five hundred milligrams. Every six hours. He's been taking it since Wednesday. Or Thursday. || A5
+  Nurse -> Okay. Is he on anything else for pain? Like tramadol? || A6
+  Caller -> Yes, the tramadol. He takes it at night. The little white pill. || A6
+  Caller -> No, Lucy, he doesn't. They stopped the tramadol in the summer. He's not on it anymore. The bottle is still in the cabinet, but he doesn't take it. || A6
+  Caller -> He took it last night. I gave it to him.
+  Caller -> You gave him the old bottle? Luciana! That's from June.
+  Nurse -> Hold on, let me look at the chart. I see tramadol discontinued in July. So he shouldn't be taking it. Luciana, do you remember giving him one last night? || A6
+  Caller -> I, I think I did. One. Because he was in pain. I thought it was okay. I'm sorry. I didn't know it was stopped.
+  Nurse -> It's okay. Thank you for telling me. Please don't give him any more of the tramadol. We'll sort that out with the provider, and I'll take the old bottle to dispose of at the visit. || A6
+  Caller -> Okay. No more. I'll put it in a bag.
+  Nurse -> Good. Now, does he have any other symptoms? Any numbness, tingling in the leg?
+  Caller -> No. His leg feels normal to him. He just says the hip hurts.
+  Nurse -> Okay. Is the leg turned out at all, or does it look shorter than the other one?
+  Caller -> No. Both legs look the same. He puts weight on it, it just hurts. Let me look. Same. They look the same.
+  Nurse -> Good. That's helpful. Is the bathroom on the same floor as his bedroom?
+  Caller -> Yes. Down the hall. Eleven steps from his bed, I counted once. There are no stairs. The house is all on one level.
+  Caller -> He has a grab bar by the toilet but not by the tub. I keep saying we need one by the tub.
+  Nurse -> A grab bar by the tub is a great idea, and it's something the nurse or the therapist can help you plan. Luciana, Matias, here's what I'm going to do. I'm going to message his provider about the hip pain after the fall, and ask whether he needs an X-ray. || R1
+  Caller -> Okay. Good. That's what I wanted.
+  Caller -> I told you we should have taken him to urgent care on Thursday.
+  Caller -> You didn't say that. You said it would pass.
+  Nurse -> Please, you two. The important thing is we're taking care of it now. A nurse will come out tomorrow to examine him. || R2
+  Caller -> Tomorrow. Okay.
+  Nurse -> And I'll call you back this evening after I hear from the provider. || R3
+  Caller -> This evening. Okay. Should I call you or you call me?
+  Nurse -> I'll call you. Make sure your phone is on.
+  Caller -> It will be. Okay.
+  Nurse -> In the meantime, he should use the walker for every trip, even short ones. Keep a night light on in the hall and the bathroom, and have someone stand by when he uses the bathroom. || E1
+  Caller -> Walker every time. Night light. Someone stands by. Okay. We'll take turns.
+  Caller -> I'm here all week. I took the week off from work.
+  Caller -> I can do the nights if you do the days. We'll set an alarm.
+  Nurse -> That sounds like a good system. Make sure each of you gets some sleep too.
+  Caller -> We will. Thank you.
+  Caller -> I'll sleep on the couch tonight. I'll hear him. The couch is right outside his door anyway, he can't get up without me knowing. I've lived in this house my whole life, I know every creak in the floor.
+  Nurse -> That's useful. Stay close, and wake him gently if he needs to get up.
+  Nurse -> That's a good plan. And call nine one one if he can't put weight on that leg, if the leg looks shorter or turned out, or if the pain gets severe. || E2
+  Caller -> Can't put weight, leg looks different, severe pain. Nine one one. Okay.
+  Nurse -> And one more thing. When you pick up the old tramadol bottle, put it somewhere he can't reach. || A6
+  Caller -> I'll put it in my purse. Right now.
+  Caller -> Give me the bag, I'll write the date on it. June. Tramadol. Old. Do not use. || A6
+  Nurse -> That's perfect. Thank you, Matias.
+  Caller -> He's a stickler for labels. He's an accountant.
+  Nurse -> Today it's a virtue.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. I think that's everything. My dad is asking what we're talking about. He says he's fine. He says to tell you he's fine.
+  Nurse -> Tell him I said I'm glad to hear it, and we'll check on him tomorrow anyway.
+  Caller -> He says okay. He says you're the one with the deep voice on the phone.
+  Nurse -> Ha. That's me.
+  Caller -> Thank you, Hector. Sorry for the shouting.
+  Nurse -> No need to apologize. You both care a lot. That's what matters.
+  Caller -> Thank you, Hector. We'll be waiting for your call this evening. I'll keep my phone right by the sink while I make dinner.
+  Nurse -> Sounds good. Talk to you tonight.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gustavo Ibarra, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1936-09-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Luciana Ibarra, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8185550145", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father fell in the bathroom and has hip pain.
+    speaker: Caller
+    turns: [2]
+    quote: "It's my father, Gustavo Ibarra. He fell."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He fell in the bathroom on Tuesday or Wednesday night, slipping on the mat (unclear; the siblings disagreed on the day and nobody saw the fall).
+      speaker: Caller
+      turns: [8]
+      quote: "He fell in the bathroom. Tuesday night. He was getting up to pee and he slipped on the mat."
+      explanation: Documents the fall and its uncertain timing.
+      facts:
+        - {type: symptom, name: fall in the bathroom, present: true, duration: Tuesday or Wednesday, certainty: unclear}
+      covers: [A1]
+    - text: He did not hit his head.
+      speaker: Caller
+      turns: [17]
+      quote: "He didn't hit his head. We checked. No bump, no bruise on the head."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: head strike, certainty: stated}
+      covers: [A4]
+    - text: Left hip pain was reported as 5/10 by one caller and 7/10 by the other (unclear; the siblings disagreed).
+      speaker: Caller
+      turns: [23]
+      quote: "I'd say a five. He winces when he stands up, but he can walk. A five."
+      explanation: Documents the disputed pain level.
+      facts:
+        - {type: symptom, name: left hip pain, present: true, severity: 5/10, location: left hip, certainty: unclear}
+      covers: [A2]
+    - text: A large purple bruise was present on the left hip and extended a little down the thigh.
+      speaker: Caller
+      turns: [28]
+      quote: "A big purple bruise on the left hip. About the size of my hand."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: bruise on the left hip, present: true, location: left hip, certainty: stated}
+      covers: [A3]
+    - text: He was walking slowly with his walker.
+      speaker: Caller
+      turns: [33]
+      quote: "With the walker, yes. He's slow, and he leans. But he's walking."
+      explanation: Documents his mobility.
+      facts:
+        - {type: symptom, name: walking with his walker, present: true, certainty: stated}
+      covers: [A7]
+    - text: Acetaminophen 500 mg every 6 hours was being taken for the pain.
+      speaker: Caller
+      turns: [35]
+      quote: "The acetaminophen. Five hundred milligrams. Every six hours."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: acetaminophen, dose: "500", unit: mg, frequency: every 6 hours, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: Tramadol had been discontinued in July, though one dose from an old bottle was given last night.
+      speaker: Nurse
+      turns: [41]
+      quote: "I see tramadol discontinued in July."
+      explanation: Documents the stopped medication.
+      facts:
+        - {type: medication, name: tramadol, last_dose: stopped in July, med_status: stopped, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the provider about the hip pain after the fall and whether an X-ray was needed.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm going to message his provider about the hip pain after the fall, and ask whether he needs an X-ray."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [56]
+      quote: "A nurse will come out tomorrow to examine him."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'll call you back this evening after I hear from the provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised using the walker for every trip, keeping a night light on, and having someone stand by in the bathroom.
+      speaker: Nurse
+      turns: [62]
+      quote: "he should use the walker for every trip, even short ones."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if he could not put weight on the leg, the leg looked shorter or turned out, or the pain became severe.
+      speaker: Nurse
+      turns: [70]
+      quote: "call nine one one if he can't put weight on that leg, if the leg looks shorter or turned out, or if the pain gets severe."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

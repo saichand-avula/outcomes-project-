@@ -1,0 +1,389 @@
+call_id: va-067
+split: val
+blueprint: "A 59-year-old woman with type 2 diabetes calls home health herself for a routine check-in: morning glucose averages one eighteen, metformin five hundred milligrams twice a day, mild tingling in her toes, walking twenty minutes daily, no foot sores or vision changes, fifteen test strips left. She asks to move Thursday's visit to Friday. Nurse orders strips, reschedules, reviews foot checks and logging. Self caller, adult under 65, routine multi-issue, long, v2."
+setup:
+  scenario_category: routine
+  subtype: diabetes_check_in
+  secondary_tags: [self_caller, multi_issue, appointment_change, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [glucose, neuropathy, medication, equipment]
+  relationship_group: self
+  na_reason: null
+  agency_name: Sunrise Valley Home Health
+  agency_type: home_health
+  nurse_name: Percival
+  call_timestamp_utc: "2026-12-03T18:00:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Josephine Alderete
+  patient_name_spoken: Josephine Alderete
+  patient_name_certainty: stated
+  patient_dob_true: "1967-02-20"
+  patient_dob_spoken: "1967-02-20"
+  patient_dob_certainty: stated
+  caller_name_true: Josephine Alderete
+  caller_name_spoken: Josephine Alderete
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6105550154"
+  callback_phone_spoken: "6105550154"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Gave a routine diabetes update and asked to move her visit
+  reason_category: glucose
+  relevant_context: Home health patient with type 2 diabetes
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: fasting glucose average
+    vital_value: "118"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: tingling in the toes
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: She walks twenty minutes every day and has cut back on soda
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: foot sores or vision changes
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: supply
+    reporter: caller
+    supply_item: glucose test strips
+    supply_remaining: "15"
+    supply_unit: strips
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: glucose test strips
+    certainty: stated
+  - item_id: R2
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    timeframe: Friday instead of Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Check both feet every day with a mirror, wear shoes and socks, and call for any sore, blister or color change
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Keep logging the morning glucose and call for readings over three hundred or under seventy
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any time with questions about the strips, the log, or her toes
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sunrise Valley Home Health, this is Percival.
+  Caller -> Hi, Percival. It's Josephine Alderete. I'm one of your patients. I have diabetes. I'm calling for a regular check in and I need to ask about my appointment. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Josephine. Good to hear from you. Let me pull up your chart. Can I have your date of birth?
+  Caller -> February twentieth, nineteen sixty seven. || patient_dob
+  Nurse -> Perfect. And the best number to reach you?
+  Caller -> Six one zero, five five five, zero one five four. || callback_phone
+  Nurse -> Got it. How have you been feeling?
+  Caller -> Sorry, I'm writing this down as we go.
+  Nurse -> Good idea. I'll pause.
+  Caller -> Honestly pretty good. Better than I have in a while. I wanted to tell somebody, so I'm telling you.
+  Nurse -> That's wonderful to hear. What do you think made the difference?
+  Caller -> A lot of little things. I'll get to it. Don't let me ramble.
+  Nurse -> Ramble away. I have time.
+  Nurse -> I'm glad. What's your morning glucose been running?
+  Caller -> Okay. I'm back. What was the question?
+  Nurse -> I'll repeat it, no trouble.
+  Caller -> I've been writing it down every day. I add them up on Sundays. The average this week was one eighteen. Last week was one twenty five. Before that I was in the one forties. || A1
+  Nurse -> That's a nice trend. Are you taking your metformin? || A2
+  Caller -> The doctor said the number I want to see is the A1C, right? That's the three month one.
+  Nurse -> Right. That comes from a blood test. The next one is due soon, and we'll go over it Friday.
+  Caller -> Okay. I'm a little afraid to see it. But I think it will be better.
+  Nurse -> With these numbers, I'd expect an improvement.
+  Caller -> Yes. Five hundred milligrams. Twice a day. With breakfast and with dinner. I took it this morning. || A2
+  Nurse -> Any stomach upset with it?
+  Caller -> A little at first. Not anymore. I take it with food like you said.
+  Caller -> I thought about stopping it because of that. Then I read you shouldn't stop without asking.
+  Nurse -> Exactly. Always call first. I'm glad you did not.
+  Caller -> I called your office and a nurse told me to take it with food. Same advice.
+  Nurse -> Good. Any other medicines?
+  Caller -> Just my blood pressure one and a baby aspirin. Nothing new.
+  Nurse -> Any over the counter things, vitamins, supplements, herbal teas?
+  Caller -> A multivitamin and chamomile tea at night. That's it. I Googled the tea and it said fine.
+  Nurse -> Chamomile is okay for most people. Mention it to the doctor.
+  Caller -> I will.
+  Nurse -> Any dizziness with the blood pressure one?
+  Caller -> No. It's been steady. I check it at the pharmacy on Saturdays. They have a machine.
+  Nurse -> Good habit.
+  Nurse -> Okay. Tell me what you've changed. You said you're doing better.
+  Caller -> I'm walking. Twenty minutes every morning after breakfast. Around the neighborhood with my sister. And I stopped the soda. I was drinking three a day. Now it's sparkling water with lime. || A4
+  Caller -> We go past the bakery, which is cruel. The smell is everything.
+  Nurse -> Ha. A test of willpower.
+  Caller -> I walk faster past it.
+  Nurse -> Any pain when you walk? Calf cramps, anything?
+  Caller -> No. A little tired in the last five minutes. That's all.
+  Nurse -> That's wonderful. Three sodas a day is a big sugar load.
+  Caller -> Sorry, I'm a little scattered today.
+  Nurse -> That's completely understandable.
+  Caller -> I know. I was embarrassed to tell the doctor. Now I'm proud of myself.
+  Nurse -> Doctors have heard it all. Honestly, they love when patients change something.
+  Caller -> That's what my sister said. She dragged me to the last visit.
+  Nurse -> Sisters are useful.
+  Caller -> She's very bossy. But she's right about eighty percent of the time.
+  Nurse -> You should be. Any symptoms? Thirst, urinating a lot?
+  Caller -> No. That's gone. I used to get up three times a night. Now once.
+  Nurse -> That's a good sign your sugars are steadier.
+  Caller -> I sleep better. I haven't had coffee after noon, either. My sister's rule.
+  Nurse -> Any problems with your feet? Numbness, burning, sores?
+  Caller -> The tingling. In my toes. Mostly the big toes. At night when I'm lying in bed. It's been there a few months. It's not painful. Just a pins and needles feeling. || A3
+  Nurse -> Okay. Is that the same or worse than last time?
+  Caller -> Is it okay if I put you on speaker? My hands are full.
+  Nurse -> That's fine.
+  Caller -> About the same. Maybe a tiny bit more when I'm tired.
+  Nurse -> Does it keep you from sleeping?
+  Caller -> No. I notice it, then I fall asleep. I put a pillow under my feet and it settles.
+  Nurse -> Good trick.
+  Nurse -> Any cuts, sores, blisters, or color changes on your feet?
+  Caller -> No. I look every night, like you told me. I use a mirror from the bathroom. They look fine. No sores. And my vision's fine. I got new glasses in the fall, but nothing's changed. || A5
+  Nurse -> Good. Keep doing exactly that. Do you wear shoes and socks around the house?
+  Caller -> Sorry, I lost my train of thought.
+  Nurse -> That's okay. We were just getting started.
+  Caller -> Socks, yes. Shoes mostly. I have the soft slippers for the bedroom.
+  Nurse -> What kind of shoes? Closed toe, with room?
+  Caller -> Sneakers. A half size bigger, my sister made me. They're ugly but comfortable.
+  Nurse -> Ugly and comfortable is exactly what we want.
+  Nurse -> Good. Now, supplies. How are your test strips?
+  Caller -> Wait, before the strips, can I ask about Thanksgiving? It's coming up and I'm nervous.
+  Nurse -> Of course. What are you worried about?
+  Caller -> The pie. And my mother's stuffing. Everything is carbs. I don't want to ruin the progress.
+  Nurse -> One holiday meal won't undo it. Eat a normal plate, go for a walk after, and don't skip breakfast to save room.
+  Caller -> A walk after. My sister will love that. She wants everyone on a family walk.
+  Nurse -> It's a good tradition. Start the pie with a small slice.
+  Caller -> A small slice. And no seconds. I'll try. No promises on the stuffing.
+  Nurse -> Ha. Honest.
+  Caller -> I'm glad you asked. I have fifteen left. That's about two weeks. || A6
+  Nurse -> Do you test only in the morning, or other times, too?
+  Caller -> Just mornings. Once in a while after dinner if I'm curious.
+  Nurse -> That matches your plan. Keep doing that.
+  Nurse -> I'll order more right now. Do you need lancets or the control solution?
+  Caller -> Can you hear me okay? The signal's a little weak.
+  Nurse -> I can hear you fine.
+  Caller -> No, I'm fine on lancets. I have a whole box. I just need strips.
+  Nurse -> Then it's strips. I'll have them sent. || R1
+  Caller -> Thank you. That'll come before I run out?
+  Nurse -> It should. Usually three days. If it's late, call me.
+  Caller -> Um. Let me think. I'm trying to remember.
+  Nurse -> Take your time, there's no rush.
+  Caller -> I will. I'm good at nagging.
+  Nurse -> Does your sister nag you, too?
+  Caller -> Oh, constantly. She texts me a picture of a salad every morning.
+  Nurse -> Ha. Accountability.
+  Caller -> Accountability with lettuce.
+  Nurse -> Ha. That's a skill.
+  Caller -> I also nagged the pharmacy until they found my old prescription. Persistence, that's my superpower.
+  Caller -> My sister says it's my only one.
+  Nurse -> Ha. Now, your appointment. What did you want to ask?
+  Caller -> I have a visit Thursday. At ten. But my daughter has a recital that morning and I want to go. Can we move it to Friday?
+  Nurse -> Let me look at the schedule. Friday at ten is open. I can move you.
+  Caller -> Friday at ten. Perfect. Yes, please. || R2
+  Nurse -> It's done. Friday instead of Thursday.
+  Nurse -> You'll get a reminder call Thursday afternoon.
+  Caller -> Thursday afternoon. I'll be at the recital, but I'll see the phone after.
+  Caller -> Thank you so much. You're the best.
+  Nurse -> Will your sister drive you Friday, or will you walk?
+  Caller -> She'll walk over. She lives four blocks away. We'll have tea and she'll sit in on the visit.
+  Nurse -> She's welcome to. Bring your glucose log and your meter.
+  Caller -> I always do. I keep them in a little blue bag so I don't forget.
+  Nurse -> Anytime. A recital, how fun. What does she play?
+  Caller -> I should tell you, I wore a hat to her last one and blocked the whole row. I'm leaving it at home.
+  Nurse -> Ha. Your row will thank you.
+  Caller -> Hang on, let me move to the other room. It's loud in here.
+  Nurse -> No problem, take your time.
+  Caller -> The violin. She's eleven. She's been practicing the same piece for a month. I know every note. I could play it in my sleep.
+  Caller -> It's a Suzuki piece. Book two. Gavotte. I'll hum it for you if you want.
+  Nurse -> I'll pass this time. I'll hear it in my dreams.
+  Caller -> Ha. You and me both.
+  Nurse -> Ha. A proud mom.
+  Nurse -> When is the recital, exactly?
+  Caller -> Thursday at ten, at her school. It's in the gym. Folding chairs. Everybody's grandmother is there.
+  Nurse -> The best audience.
+  Caller -> I'm so proud. She's terrible. But she's trying. Ha.
+  Caller -> She's got a teacher who says she has an ear. I only have ears for wrong notes.
+  Nurse -> Ha. We've all been there.
+  Nurse -> Ha. That's the best kind of music.
+  Caller -> It really is.
+  Nurse -> Josephine, a couple of reminders for you. Check your feet every day, like you're doing, with the mirror. Wear socks and shoes. And if you see any sore, blister, or a color change, call us right away. || E1
+  Caller -> Sore. Blister. Color. I will. I'll call the same day.
+  Nurse -> Good. And keep logging your morning sugars. Call if you get a reading over three hundred, or under seventy. || E2
+  Caller -> Three hundred or seventy. Okay. I have a sticky note on the meter. It says that.
+  Nurse -> Great. And call us any time you have questions. About the strips, the log, your toes, anything. || E3
+  Caller -> I will. Thank you, Percival. I really appreciate how you all treat me.
+  Caller -> Oh, and one more thing, does the agency do holiday hours? Just so I know who to call if something comes up.
+  Nurse -> The line is open every day, all hours, including holidays.
+  Nurse -> It's our pleasure. You're doing the work.
+  Caller -> I used to think nobody cared about the small stuff. Then I got you all.
+  Nurse -> The small stuff is the big stuff. It adds up.
+  Caller -> I'm trying. One day at a time.
+  Nurse -> Is your mood okay? Sometimes managing a condition gets heavy.
+  Caller -> It's good. Actually the best in years. I started painting again. Watercolors.
+  Nurse -> That's lovely. What do you paint?
+  Caller -> Birds, mostly. Cardinals. They come to the feeder and I can't resist.
+  Nurse -> I'd love to see one.
+  Caller -> I'll show you Friday. I'll bring the cardinal.
+  Nurse -> That's how it works.
+  Caller -> Okay. I'll let you go. Have a good day.
+  Nurse -> You too. Bye, Josephine.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Josephine Alderete, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1967-02-20", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Josephine Alderete, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550154", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Gave a routine diabetes update and asked to move her visit.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling for a regular check in and I need to ask about my appointment."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Morning glucose averaged 118 this week, down from 125 the week before.
+      speaker: Caller
+      turns: [17]
+      quote: "The average this week was one eighteen."
+      explanation: Documents the glucose trend.
+      facts:
+        - {type: vital, name: fasting glucose average, value: "118", certainty: stated}
+      covers: [A1]
+    - text: Metformin 500 mg twice a day, taken this morning with food.
+      speaker: Caller
+      turns: [23]
+      quote: "Five hundred milligrams. Twice a day."
+      explanation: Documents the metformin.
+      facts:
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Mild tingling in the toes at night, unchanged for months.
+      speaker: Caller
+      turns: [58]
+      quote: "The tingling. In my toes."
+      explanation: Documents the neuropathy symptom.
+      facts:
+        - {type: symptom, name: tingling in the toes, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She walked twenty minutes every morning and stopped drinking soda.
+      speaker: Caller
+      turns: [39]
+      quote: "Twenty minutes every morning after breakfast."
+      explanation: Documents lifestyle changes.
+      facts:
+        - {type: context, text: She walks twenty minutes every day and has cut back on soda, certainty: stated}
+      covers: [A4]
+    - text: She had no foot sores or vision changes.
+      speaker: Caller
+      turns: [67]
+      quote: "No. I look every night, like you told me."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: foot sores or vision changes, certainty: stated}
+      covers: [A5]
+    - text: Fifteen test strips remained, about two weeks' worth.
+      speaker: Caller
+      turns: [84]
+      quote: "I have fifteen left."
+      explanation: Documents the strip supply.
+      facts:
+        - {type: supply, item: glucose test strips, supply: 15 strips, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to order more test strips.
+      speaker: Nurse
+      turns: [92]
+      quote: "Then it's strips. I'll have them sent."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to move Thursday's visit to Friday at ten.
+      speaker: Nurse
+      turns: [109]
+      quote: "It's done. Friday instead of Thursday."
+      explanation: Documents the appointment change.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, timeframe: Friday instead of Thursday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised daily foot checks with a mirror, wearing socks and shoes, and calling for any sore, blister, or color change.
+      speaker: Nurse
+      turns: [135]
+      quote: "Check your feet every day, like you're doing, with the mirror."
+      explanation: Documents skin care teaching.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised logging morning glucose and calling for readings over 300 or under 70.
+      speaker: Nurse
+      turns: [137]
+      quote: "keep logging your morning sugars."
+      explanation: Documents symptom monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Invited calls any time about the strips, log, or toes.
+      speaker: Nurse
+      turns: [139]
+      quote: "call us any time you have questions."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags: []

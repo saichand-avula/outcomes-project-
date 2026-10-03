@@ -1,0 +1,308 @@
+call_id: tr-346
+split: train
+blueprint: "A hospice nurse does a routine medicine check by phone with a patient's son, reading the chart list aloud for him to confirm: levothyroxine 75 mcg each morning, Toprol XL 50 mg each morning (the chart says metoprolol succinate), lorazepam 0.5 mg as needed, oxycodone 5 mg as needed, and docusate 100 mg daily that the son says his mother stopped taking two weeks ago because it upset her stomach. She is comfortable otherwise, eating, with pain a two. The nurse updates the medication list (completed), messages the provider about the stopped docusate, and reminds him to give the morning pills with food and keep the as-needed ones logged. Routine medication reconciliation, chart reading with confirmations, spouse-age adult child caller, v2 short."
+setup:
+  scenario_category: routine
+  subtype: medication_review
+  secondary_tags: [chart_reading_distractor, prn_and_scheduled, tall_man_drug, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, pain, constipation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Wildflower Hospice
+  agency_type: hospice
+  nurse_name: Abigail
+  call_timestamp_utc: "2026-10-23T14:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Evangeline Strickland
+  patient_name_spoken: Evangeline Strickland
+  patient_name_certainty: stated
+  patient_dob_true: "1943-09-04"
+  patient_dob_spoken: "1943-09-04"
+  patient_dob_certainty: stated
+  caller_name_true: Rupert Strickland
+  caller_name_spoken: Rupert Strickland
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "2125550118"
+  callback_phone_spoken: "2125550118"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Routine check of the medication list against the chart
+  reason_category: medication
+  relevant_context: Hospice patient cared for at home by her son
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: levothyroxine
+    medication_name_spoken: levothyroxine
+    medication_status: taking
+    dose: "75"
+    unit: mcg
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol succinate
+    medication_name_spoken: Toprol XL
+    medication_status: taking
+    dose: "50"
+    unit: mg
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: two nights ago
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: last night
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: docusate
+    medication_name_spoken: docusate
+    medication_status: stopped
+    dose: "100"
+    unit: mg
+    frequency: daily
+    last_dose: two weeks ago
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: "2"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    reason_or_trigger: updated the medication list to show docusate stopped
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: docusate stopped because of stomach upset
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the morning pills with a little food, keep the as-needed medicines in a separate box, and write down each as-needed dose and time
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call if she has no bowel movement for three days or the pain rises
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Wildflower Hospice, this is Abigail.
+  Caller -> Hi, Abigail. It's Rupert Strickland. You wanted to go over my mom's medicines. Evangeline Strickland. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Rupert. Yes. Thanks for calling back. It's a routine check. I have her list here and I'd like to read it to you and have you tell me if it matches what she's actually taking. Is that okay?
+  Caller -> Sure. I have the bottles in front of me. I put them all on the table.
+  Nurse -> Great. How many bottles do you have out?
+  Caller -> Seven. There's five prescriptions and two vitamins. Her calcium and a fish oil. I didn't know if the vitamins count.
+  Nurse -> We'll get to those. Let's do the prescriptions first.
+  Caller -> Okay. I have a pen.
+  Nurse -> Perfect. First, her date of birth, just to confirm?
+  Caller -> September fourth. Nineteen forty three. || patient_dob
+  Nurse -> And the best number for you?
+  Caller -> Two one two, five five five, zero one one eight. || callback_phone
+  Nurse -> Great. Okay, number one on the list. Levothyroxine, seventy five micrograms, every morning. Is that right? || A1
+  Caller -> Yes. The thyroid pill. Levothyroxine. Seventy five. One every morning. On an empty stomach. She took it today at seven. || A1
+  Nurse -> Does she take the levothyroxine with her coffee, or water? || A1
+  Caller -> Water. Then a half hour later coffee and toast. The pharmacist told us to wait. I set a timer on my phone.
+  Nurse -> That's perfect.
+  Nurse -> Perfect. Number two. Metoprolol succinate, fifty milligrams, every morning. || A2
+  Caller -> I have that one as Toprol XL. The bottle says Toprol XL. Fifty milligrams. Is that the same? || A2
+  Nurse -> Yes. Toprol XL is the brand name for metoprolol succinate. Same medicine. Did she take it this morning? || A2
+  Caller -> She did. At seven, with the thyroid pill. Together. Is that okay? || A2
+  Nurse -> That's fine for those two. I'd prefer she take them with a little food, though. Number three. Lorazepam, half a milligram, as needed for anxiety or restlessness. || A3
+  Caller -> Yes. I have that. Half a milligram. I use it at night if she's anxious. The last time was two nights ago. It helped. || A3
+  Nurse -> Okay. Two nights ago. Number four. Oxycodone, five milligrams, as needed for pain. || A4
+  Caller -> Yes. Five milligrams. I gave her one last night. She says her hip hurts when she lies down. One pill. She went right to sleep. || A4
+  Nurse -> Any problems with sleepiness during the day after she takes it?
+  Caller -> No. She wakes up fine. She's alert. She watched her game shows and answered most of the questions. She beat me, actually.
+  Nurse -> Ha. Good for her.
+  Nurse -> Good. Number five. Docusate, a hundred milligrams, once a day. A stool softener. || A5
+  Caller -> That one. She's not taking it. She stopped about two weeks ago. It upset her stomach. She said it gave her cramps. So I stopped giving it. I should have told you. || A5
+  Nurse -> Don't worry. It's good you're telling me now. Who told you to stop it? Did you decide, or did she?
+  Caller -> She did. She said it hurt. I didn't want to push. I figured I'd tell you at the visit. Then I forgot.
+  Nurse -> That makes sense.
+  Nurse -> Okay. Thank you for telling me. That's helpful. So docusate is stopped. Is she having regular bowel movements without it? || A5
+  Caller -> Pretty regular. Every other day. A little hard, but she goes. She drinks a lot of prune juice. She loves it.
+  Nurse -> How much prune juice does she drink?
+  Caller -> A small glass in the morning. A half glass at night. She says it's the only thing that works.
+  Nurse -> Perfect. Keep it up.
+  Nurse -> Good. That sounds like it's working. How's her pain overall?
+  Caller -> Pretty good. A two. A two out of ten. Just the hip, when she's in bed. It's controlled. || A6
+  Nurse -> Okay. And her appetite, her breathing?
+  Caller -> Good. She's eating. Her breathing's fine. She's comfortable.
+  Nurse -> And mood? Is she in good spirits?
+  Caller -> She's a little weepy some days. But mostly fine. She was telling stories about her sister yesterday.
+  Nurse -> That's good. Stories are good.
+  Nurse -> Wonderful. Rupert, I'm going to update her medication list right now to show the docusate as stopped. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> It's done. I've updated her medication list. And I'll message the hospice provider about the stopped docusate and the stomach upset, in case they want to try something different. || R2
+  Caller -> Okay. That sounds right. If it's not needed, fine. She does okay with the prune juice.
+  Nurse -> Right. A couple of reminders. Give the morning pills with a little food. A piece of toast is enough. And keep the as-needed ones, the lorazepam and the oxycodone, in a separate box from the daily pills. Write down each as-needed dose and the time. || E1
+  Caller -> Toast with the morning pills. Separate box for the as-needed. Write it down. I have a notebook. I do write them. Mostly. I'll be better.
+  Caller -> I have a lined notebook from the dollar store. Does that count?
+  Nurse -> It counts perfectly.
+  Nurse -> That's all I ask. And call us if she goes three days without a bowel movement, or if her pain goes up. || E2
+  Caller -> Three days. Or pain up. Okay.
+  Nurse -> Anything else you'd like to ask about her medicines?
+  Caller -> No. That's it. Thank you for checking.
+  Nurse -> Thanks for going through it with me.
+  Caller -> Do you want me to read the vitamin labels?
+  Nurse -> Sure, if you don't mind. Just the names and the amounts.
+  Caller -> Calcium with D, six hundred milligrams. And a fish oil, one thousand milligrams. She takes one of each with lunch.
+  Nurse -> Okay. Thanks for reading them out.
+  Caller -> Sure. Anything else you need from me?
+  Nurse -> No, that covers it.
+  Caller -> Great. I'll let you go.
+  Caller -> Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Evangeline Strickland, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-09-04", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Rupert Strickland, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550118", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Routine check of the medication list against the chart.
+    speaker: Caller
+    turns: [2]
+    quote: "You wanted to go over my mom's medicines."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Levothyroxine 75 mcg every morning on an empty stomach was taken this morning at seven.
+      speaker: Caller
+      turns: [14]
+      quote: "Levothyroxine. Seventy five. One every morning."
+      explanation: Documents the thyroid medicine.
+      facts:
+        - {type: medication, name: levothyroxine, dose: "75", unit: mcg, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Toprol XL 50 mg every morning was taken this morning, the same medicine as metoprolol succinate.
+      speaker: Caller
+      turns: [19]
+      quote: "The bottle says Toprol XL. Fifty milligrams."
+      explanation: Documents the heart rate medicine.
+      facts:
+        - {type: medication, name: Toprol XL, dose: "50", unit: mg, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Lorazepam 0.5 mg as needed was last given two nights ago for anxiety.
+      speaker: Caller
+      turns: [23]
+      quote: "Half a milligram. I use it at night if she's anxious."
+      explanation: Documents the as-needed anti-anxiety medicine.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: as needed, prn: true, last_dose: two nights ago, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Oxycodone 5 mg as needed was given last night for hip pain.
+      speaker: Caller
+      turns: [25]
+      quote: "Five milligrams. I gave her one last night."
+      explanation: Documents the as-needed pain medicine.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: as needed, prn: true, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Docusate 100 mg daily was stopped about two weeks earlier because it upset her stomach.
+      speaker: Caller
+      turns: [30]
+      quote: "She's not taking it. She stopped about two weeks ago."
+      explanation: Documents the stopped stool softener.
+      facts:
+        - {type: medication, name: docusate, dose: "100", unit: mg, frequency: daily, last_dose: two weeks ago, med_status: stopped, certainty: stated}
+      covers: [A5]
+    - text: Pain was a two out of ten in the hip when lying in bed.
+      speaker: Caller
+      turns: [40]
+      quote: "A two. A two out of ten."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: "2", certainty: stated}
+      covers: [A6]
+  response:
+    - text: Updated her medication list to show docusate as stopped.
+      speaker: Nurse
+      turns: [48]
+      quote: "I've updated her medication list."
+      explanation: Documents the completed chart update.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the stopped docusate and stomach upset.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'll message the hospice provider about the stopped docusate"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving the morning pills with a little food, keeping the as-needed medicines in a separate box and writing down each dose and time.
+      speaker: Nurse
+      turns: [50]
+      quote: "Give the morning pills with a little food."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Invited a call if she had no bowel movement for three days or her pain rose.
+      speaker: Nurse
+      turns: [54]
+      quote: "call us if she goes three days without a bowel movement"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

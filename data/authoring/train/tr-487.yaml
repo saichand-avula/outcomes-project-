@@ -1,0 +1,465 @@
+call_id: tr-487
+split: train
+blueprint: "A 72-year-old woman with COPD on home oxygen calls home health herself, short of breath and speaking in short phrases: more cough with yellow sputum for three days, shortness of breath on exertion, temperature ninety nine point eight, oxygen reading ninety two on two liters, no chest pain or blue lips. She takes prednisone twenty milligrams (day three of five) and albuterol nebulizers as needed, used three times today. The nurse hears her name as Ortolan instead of Ottoline and the phone number is garbled once and corrected; some words drop out. Nurse pages on-call, plans a visit tomorrow and a callback within two hours, and reviews finishing prednisone, monitoring oxygen and when to call 911. ASR name drift, number garble and dropped words, self caller, patient 65+, v2 long."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift_number_garble
+  secondary_tags: [name_drift, hedging, late_answers, split_turns, multi_issue, prn_and_scheduled]
+  clinical_domains: [dyspnea, cough_uri, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Henrietta
+  call_timestamp_utc: "2026-11-21T19:40:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ottoline Pembrook
+  patient_name_spoken: Ottoline Pembrook
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Ortolan Pembrook]
+  patient_dob_true: "1954-01-09"
+  patient_dob_spoken: "1954-01-09"
+  patient_dob_certainty: stated
+  caller_name_true: Ottoline Pembrook
+  caller_name_spoken: Ottoline Pembrook
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Ortolan Pembrook]
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6465550156"
+  callback_phone_spoken: "6465550156"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported more cough with yellow sputum and shortness of breath
+  reason_category: dyspnea
+  relevant_context: Home health patient with COPD on home oxygen
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: prednisone
+    medication_name_spoken: prednisone
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    dose: "2.5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: an hour ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: more cough with yellow sputum
+    symptom_present: true
+    severity: moderate
+    onset: three days
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: shortness of breath on exertion
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.8"
+    certainty: stated
+  - item_id: A6
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "92"
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain or blue lips
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: more cough with yellow sputum and shortness of breath
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take the prednisone with food each morning until the course is done and use the nebulizer as needed no more often than every four hours
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check the oxygen reading and temperature every four hours, keep the oxygen on two liters, and sit upright to breathe
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for blue lips, severe trouble breathing, chest pain, confusion, or an oxygen reading under eighty eight
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Henrietta.
+  Caller -> Hello? Hello? Can you hear me? I'm sorry, I'm on the oxygen, it makes a hiss.
+  Nurse -> I can hear you. Go ahead.
+  Caller -> Hi. Henrietta. This is Ottoline Pembrook. I'm a patient. I'm short of, I can't, I've been coughing and I'm short of breath. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi there. I'm listening.
+  Nurse -> Hi, Ortolan. Okay. Take your time. I'm here. Ortolan Pembrook, is that right?
+  Caller -> I wasn't sure if I should call at night. But it's not night. It's evening. I get confused.
+  Nurse -> Evening is fine. We're open.
+  Caller -> Thank you. Give me a second to catch my breath.
+  Nurse -> Take all the time you need.
+  Caller -> Okay. Okay. I'm back.
+  Nurse -> Take a slow breath with me.
+  Caller -> In. And out. Okay. Better.
+  Caller -> Is this, is it the pneumonia? Last time it was pneumonia.
+  Nurse -> I can't say. The clinician will help figure it out.
+  Nurse -> I'll be quick.
+  Caller -> Yes. Yes. Close enough. Everybody says it wrong. I'm on the oxygen. It makes me, I talk slow.
+  Nurse -> Sorry if I got it wrong.
+  Caller -> It's all right. You sounded kind.
+  Nurse -> I'll do my best.
+  Caller -> It's Ottoline. Like a bottle. Doesn't matter. Go on.
+  Nurse -> That's fine. Tell me one thing at a time. What's going on?
+  Nurse -> I'm writing as you go.
+  Caller -> I can hear the pen. That's a comfort. Strange, but it is.
+  Caller -> Okay. I'll try. I've been practicing what to say. I wrote it on a card.
+  Nurse -> That's smart. Read it if you like.
+  Caller -> The cough. It's worse. Three days. Yellow stuff. Yellow phlegm. More than usual. And I'm winded. When I walk to the kitchen. || A3
+  Caller -> I can hear it in the phone. Ha. You must think I sound like a seal.
+  Nurse -> I think you sound like someone who's working hard to breathe.
+  Caller -> It's not green. I looked. Just a pale yellow. Like butter.
+  Nurse -> Okay. Thank you.
+  Nurse -> Mm hm.
+  Caller -> I cough so hard I get dizzy. Then I have to sit down.
+  Nurse -> Okay.
+  Nurse -> A cough with yellow sputum for three days. And you're short of breath walking to the kitchen.
+  Caller -> Yes. That's right. The, the yellow is new. It used to be white.
+  Nurse -> Okay.
+  Caller -> Yes. And the, the bathroom. I have to stop. And sit. And, and rest. A minute. Then I'm okay. || A4
+  Nurse -> Okay.
+  Caller -> Even getting dressed. I have to stop between the arms of a sweater.
+  Nurse -> That sounds tiring.
+  Nurse -> That's helpful to know.
+  Caller -> I'm embarrassed. I used to garden. Now I can't make it to the mailbox.
+  Nurse -> I'm sorry.
+  Nurse -> Okay. And at rest, sitting? Is your breathing comfortable?
+  Caller -> Give me, give me a moment. I'm thinking. I want to tell you right.
+  Nurse -> There's no rush.
+  Caller -> Pretty good. Sitting. Better. I'm talking in short, short sentences. I know. It's the, the cough.
+  Nurse -> Mm hm.
+  Caller -> If I lie flat, I can't. So I sleep in the recliner.
+  Nurse -> That's a good setup.
+  Nurse -> Okay.
+  Nurse -> That's okay. Do you have a thermometer? Have you checked your temperature?
+  Caller -> I do. I have two. One is broken. The other one is the good one.
+  Nurse -> The good one is fine.
+  Caller -> I did. An hour ago. Ninety nine point eight. It's a little high for me. I'm usually ninety eight. || A5
+  Nurse -> I understand.
+  Caller -> I use the ear one. It beeps when it's done.
+  Nurse -> Those are good.
+  Nurse -> Ninety nine point eight. And your oxygen? Do you have the finger clip?
+  Caller -> Yes. I'm wearing it. It says ninety two. On two liters. Normally it's ninety five. Ninety six. || A6
+  Nurse -> Okay.
+  Caller -> I wait until the number stops jumping around. Then I read it.
+  Nurse -> That's the right way.
+  Nurse -> Ninety two on two liters. Okay. Any chest pain? Are your lips or fingers looking blue?
+  Caller -> It was ninety five this morning. I noticed it go down. That's why I called.
+  Nurse -> You did the right thing.
+  Caller -> No chest pain. No. My lips are pink. I looked in the mirror. And my fingers are fine. They're a little cold. They're always cold. || A7
+  Nurse -> Good.
+  Caller -> My fingernails look okay too. Not blue.
+  Caller -> I check in the bathroom mirror. Every few hours. Like a ritual.
+  Nurse -> Good habit.
+  Nurse -> Okay. That's good. What medicines are you using right now?
+  Nurse -> Just the ones for this.
+  Caller -> I have the list. The pharmacy printed it. Hold on, it's on the table.
+  Nurse -> No rush.
+  Caller -> I can't reach it from here. I'll tell you from memory.
+  Caller -> The prednisone. Twenty milligrams. Every morning. This is day three. Of five. I took it this morning with my oatmeal. || A1
+  Nurse -> Okay.
+  Caller -> I take it with the oatmeal. The doctor said it upsets my stomach otherwise.
+  Nurse -> That's smart.
+  Nurse -> Prednisone, twenty milligrams, a day. Day three of five. And anything for the breathing? || A1
+  Caller -> Right. Five days. They gave me ten pills. I counted. Seven left.
+  Nurse -> Okay.
+  Caller -> The neb. The, the albuterol. Two point five milligrams. In the nebulizer. I've used it three times today. The last one an hour ago. || A2
+  Nurse -> Okay.
+  Nurse -> Albuterol, two point five, in the nebulizer, three times today, and the last was an hour ago. Does it help? || A2
+  Caller -> I count the minutes. Ten minutes per treatment. I set a timer.
+  Caller -> The little vials. They twist open. They smell like nothing.
+  Nurse -> Ha. Good.
+  Caller -> For a little while. Then the cough, it comes back. And the breathing.
+  Caller -> I'm so tired of coughing. My ribs are sore from it.
+  Nurse -> I'm sorry.
+  Nurse -> I understand.
+  Nurse -> Okay. Ortolan, what's your date of birth?
+  Caller -> Sorry. I know that. January. I always forget the year. It's the first thing to go.
+  Nurse -> Take your time.
+  Caller -> January ninth. Nineteen fifty four. || patient_dob
+  Nurse -> Thank you.
+  Nurse -> Thank you. And your phone number?
+  Caller -> Oh. My number. Of course. Let me think.
+  Caller -> Six four six, five five five, oh one five six. || callback_phone
+  Caller -> That's my cell. I keep it on the arm of the chair.
+  Nurse -> Six four six, five five five, oh one six five. Is that right? || callback_phone
+  Caller -> No. One five six. Oh one five six. Not six five.
+  Nurse -> Sorry about that.
+  Caller -> That's all right. Everyone mixes up those two.
+  Nurse -> Oh one five six. Thank you. Six four six, five five five, oh one five six. || callback_phone
+  Caller -> Yes. That's it.
+  Nurse -> Great.
+  Nurse -> Okay. I'm going to page the on-call clinician right now, about the cough and the shortness of breath. || R1
+  Caller -> Okay.
+  Caller -> Okay. Thank you. I don't want to be a bother.
+  Nurse -> You're not a bother.
+  Caller -> Okay. Thank you. Do I need, do I need the hospital?
+  Nurse -> From what you've told me, I don't think you need the hospital right this minute. Your oxygen is ninety two, your lips are pink, and you can talk. But the clinician needs to look at this.
+  Caller -> Okay. Okay.
+  Nurse -> I'd like a nurse to come see you tomorrow. To listen to your lungs. || R2
+  Caller -> The same one as last time? The one who was funny?
+  Nurse -> I'll ask. I can't promise.
+  Caller -> Tomorrow. What time?
+  Caller -> The neighbor boy mows my lawn on Saturdays. He might be there. He's seventeen. I'll tell the nurse not to mind him.
+  Nurse -> Ha.
+  Nurse -> Morning, I'd expect.
+  Caller -> I'm up early. I don't sleep much. Any time is fine.
+  Nurse -> I'll ask for the morning.
+  Caller -> I'm home. I'm always home.
+  Nurse -> Good. They'll call first.
+  Nurse -> And I'll call you back within two hours, after I've heard from the clinician. || R3
+  Caller -> Two hours. Okay. I'll keep the phone, close. By the chair.
+  Nurse -> Perfect.
+  Caller -> I have the book right here. Page ninety two. Ha. Same as the oxygen number. A coincidence.
+  Nurse -> Ha.
+  Caller -> I'll try to rest until you call. Is that okay?
+  Nurse -> That's a good plan.
+  Caller -> I'll sit by the window. In the good chair. It helps me breathe.
+  Nurse -> In the meantime, keep taking the prednisone with food each morning until it's finished. Use your nebulizer as needed, but not more often than every four hours. || E1
+  Caller -> With food. Neb. Every four hours. Not more. Okay. I took the last one an hour ago. So the next one is, is four.
+  Nurse -> Right.
+  Nurse -> Right. Unless you feel much worse. Then call me.
+  Caller -> I'll try not to feel worse. Ha.
+  Nurse -> Ha. Let's try.
+  Caller -> I will. I promise.
+  Nurse -> Thank you. That matters to me.
+  Caller -> Okay.
+  Nurse -> Check your oxygen reading and your temperature every four hours. Keep the oxygen on two liters. And sit upright to breathe. || E2
+  Caller -> Okay. I'm getting my pen.
+  Caller -> Every four hours. Two liters. Sit up. Okay. I write it down. In my book.
+  Caller -> I have a notebook next to the oxygen machine. I log the numbers.
+  Nurse -> Perfect. That'll help the nurse tomorrow.
+  Nurse -> Perfect.
+  Caller -> Henrietta?
+  Nurse -> Yes?
+  Caller -> What if it, what if the number goes down?
+  Nurse -> I'm glad you asked.
+  Nurse -> Good question. Call nine one one if your lips turn blue, if you have severe trouble breathing, chest pain, confusion, or if your oxygen reading goes under eighty eight. || E3
+  Caller -> Okay. Sorry. One more time slowly.
+  Nurse -> Blue lips, severe trouble breathing, chest pain, confusion, or under eighty eight.
+  Caller -> Got it. Thank you.
+  Caller -> Blue lips. Trouble. Chest pain. Confused. Under eighty eight. Okay. Eighty eight. I'm writing it. On the, on the fridge.
+  Nurse -> And the last one?
+  Caller -> Under eighty eight. Yes.
+  Nurse -> That's right.
+  Nurse -> Good.
+  Caller -> I live alone. My sister is, she's an hour away. She can come.
+  Nurse -> Okay. That's good to know.
+  Nurse -> Would you like me to call her?
+  Caller -> She lives in Beaverton. She'd come in an hour. She always says to call.
+  Nurse -> Then please do, after we hang up.
+  Caller -> No. I will. After. After we talk.
+  Nurse -> Okay. Anything else you need?
+  Caller -> My granddaughter sent me a card today. She drew a dog.
+  Nurse -> That's lovely.
+  Caller -> Not really. You've been a comfort. Thank you for calling it back so fast.
+  Nurse -> You're welcome.
+  Caller -> Let me think. I think that's all.
+  Caller -> No. Just, just my breath. Ha.
+  Caller -> Oh, and my cat is on the arm of the chair. She sits on my lap when I cough.
+  Nurse -> Ha. A good nurse.
+  Caller -> She purrs when I breathe in. I think she counts.
+  Nurse -> Cats are good company.
+  Nurse -> Ha. We'll work on it.
+  Caller -> You're very kind. Most of the nurses are in a rush.
+  Nurse -> I'm in no rush.
+  Caller -> Thank you. Bye.
+  Caller -> I'll let the sister know. She's going to scold me for waiting.
+  Nurse -> Good.
+  Nurse -> Ha. Then she cares.
+  Nurse -> Take care, Ortolan.
+  Caller -> You too. And thank you, Henrietta.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Ottoline, heard_form: Ortolan, fact_id: patient_name}
+  - {turn: auto, type: number_garble, true_form: "oh one five six", heard_form: "oh one six five", fact_id: callback_phone}
+  - {turn: auto, type: dropped_words, true_form: "I'm short of breath and I've been coughing", heard_form: "I'm short of, I can't, I've been coughing and I'm short of breath", fact_id: A4}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ottoline Pembrook, certainty: unclear, heard_as: [Ortolan Pembrook], turns: [4]}
+    patient_dob: {value: "1954-01-09", certainty: stated, heard_as: [], turns: [98]}
+    caller_name: {value: Ottoline Pembrook, certainty: unclear, heard_as: [Ortolan Pembrook], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "6465550156", certainty: stated, heard_as: [], turns: [102, 104, 108]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported more cough with yellow sputum and shortness of breath.
+    speaker: Caller
+    turns: [4]
+    quote: "I've been coughing and I'm short of breath."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Prednisone 20 mg was taken every morning, on day three of five, last this morning.
+      speaker: Caller
+      turns: [78]
+      quote: "The prednisone. Twenty milligrams. Every morning."
+      explanation: Documents the steroid.
+      facts:
+        - {type: medication, name: prednisone, dose: "20", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Albuterol 2.5 mg by nebulizer was used three times today, last an hour ago.
+      speaker: Caller
+      turns: [85]
+      quote: "Two point five milligrams."
+      explanation: Documents the as-needed nebulizer.
+      facts:
+        - {type: medication, name: albuterol, dose: "2.5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: an hour ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Cough with yellow sputum worsened over three days.
+      speaker: Caller
+      turns: [27]
+      quote: "The cough. It's worse. Three days."
+      explanation: Documents the cough and sputum.
+      facts:
+        - {type: symptom, name: more cough with yellow sputum, present: true, severity: moderate, onset: three days, certainty: stated}
+      covers: [A3]
+    - text: She was winded walking to the kitchen and bathroom.
+      speaker: Caller
+      turns: [27]
+      quote: "And I'm winded. When I walk to the kitchen."
+      explanation: Documents the exertional dyspnea.
+      facts:
+        - {type: symptom, name: shortness of breath on exertion, present: true, severity: moderate, certainty: stated}
+      covers: [A4]
+    - text: Temperature was 99.8.
+      speaker: Caller
+      turns: [56]
+      quote: "Ninety nine point eight."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.8", certainty: stated}
+      covers: [A5]
+    - text: Oxygen saturation was 92 on two liters.
+      speaker: Caller
+      turns: [61]
+      quote: "It says ninety two. On two liters."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "92", certainty: stated}
+      covers: [A6]
+    - text: She had no chest pain or blue lips.
+      speaker: Caller
+      turns: [68]
+      quote: "No chest pain. No. My lips are pink."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or blue lips, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to page the on-call clinician about the cough and shortness of breath.
+      speaker: Nurse
+      turns: [111]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to listen to her lungs.
+      speaker: Nurse
+      turns: [118]
+      quote: "I'd like a nurse to come see you tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback within two hours.
+      speaker: Nurse
+      turns: [129]
+      quote: "I'll call you back within two hours"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised taking the prednisone with food until finished and using the nebulizer no more often than every four hours.
+      speaker: Nurse
+      turns: [137]
+      quote: "keep taking the prednisone with food each morning until it's finished."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised checking oxygen and temperature every four hours, keeping the oxygen on two liters, and sitting upright.
+      speaker: Nurse
+      turns: [146]
+      quote: "Check your oxygen reading and your temperature every four hours."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for blue lips, severe trouble breathing, chest pain, confusion, or an oxygen reading under eighty eight.
+      speaker: Nurse
+      turns: [156]
+      quote: "Call nine one one if your lips turn blue"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

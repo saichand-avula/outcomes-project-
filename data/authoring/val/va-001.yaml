@@ -1,0 +1,177 @@
+call_id: va-001
+split: val
+blueprint: "Son asks about his 90-year-old mother's dry mouth and cracked lips; says the heat is killing her (figurative); nurse advises swabs every 2 hours and lip balm, and plans to add supplies to the next delivery."
+setup:
+  scenario_category: routine
+  subtype: general_question
+  secondary_tags: [figurative_risk_language, late_answers, phone_from_file]
+  clinical_domains: [oral_care]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-09-12T12:20:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hazel Brightwater
+  patient_name_spoken: Hazel Brightwater
+  patient_name_certainty: stated
+  patient_dob_true: "1936-02-12"
+  patient_dob_spoken: "1936-02-12"
+  patient_dob_certainty: stated
+  caller_name_true: Desmond
+  caller_name_spoken: Desmond
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6155550166"
+  callback_phone_spoken: "6155550166"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Mother's mouth is very dry and her lips are cracked
+  reason_category: oral_care
+  relevant_context: Hospice patient, heat wave this week
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: dry mouth and cracked lips
+    symptom_present: true
+    onset_or_duration: past two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased intake
+    symptom_present: true
+    severity: sips of water and a few spoonfuls of applesauce
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain
+    symptom_present: false
+    history_or_context_text: Resting comfortably; no grimacing
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: mouth swabs and lip balm
+    timeframe: with the next delivery on Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Moisten the mouth with a swab dipped in water every 2 hours, lip balm, ice chips if she can swallow, and use a humidifier
+    timing_or_threshold: every 2 hours
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if white patches, sores, or bleeding appear in her mouth, or if she cannot swallow
+    trigger_condition: white patches; sores; bleeding; cannot swallow
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Lena.
+  Caller -> Hi, Lena. This is Desmond. I'm calling about my mom. Hazel Brightwater. || caller_name, relationship, patient_name
+  Nurse -> Hi, Desmond. Her date of birth?
+  Caller -> February twelfth, nineteen thirty six. || patient_dob
+  Nurse -> And I have six one five, five five five, zero one six six for you. || callback_phone
+  Caller -> Yeah, that's my cell. || callback_phone
+  Nurse -> What's going on with your mom?
+  Caller -> Her mouth is so dry. Really dry. And her lips are cracked. It's been two days. || cc, A1
+  Caller -> And honestly, this heat is killing her. It's ninety five outside and the air conditioner in her room is barely working.
+  Nurse -> Okay. Is she drinking?
+  Caller -> Just sips. A few spoonfuls of applesauce today. That's about it. || A2
+  Nurse -> Okay. Does she seem to be in pain?
+  Caller -> No. She's resting. She's comfortable, I think. No faces or anything. || A3
+  Nurse -> Okay, good. Here's what helps. A mouth swab, the pink sponge, dipped in water, every two hours. Gently wipe the inside of her cheeks and her tongue. || E1
+  Caller -> Every two hours. Okay.
+  Nurse -> And lip balm, a good one, without a strong scent. Ice chips, if she can swallow them. And a humidifier in the room, if you have one. || E1
+  Caller -> I don't think we have any swabs left. Or lip balm.
+  Nurse -> I'll add both to your next delivery. That's coming Thursday. || R1
+  Caller -> Thursday. Okay. I'll use a washcloth until then.
+  Nurse -> That works. If you see white patches in her mouth, or sores, or bleeding, or she can't swallow, call us. || E2
+  Caller -> White patches, sores, bleeding. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Lena.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hazel Brightwater, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1936-02-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Desmond, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550166", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother's mouth was very dry and her lips were cracked.
+    speaker: Caller
+    turns: [8]
+    quote: "Her mouth is so dry. Really dry. And her lips are cracked. It's been two days."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: Intake was limited to sips and a few spoonfuls of applesauce today.
+      speaker: Caller
+      turns: [11]
+      quote: "Just sips. A few spoonfuls of applesauce today. That's about it."
+      explanation: Documents decreased oral intake.
+      facts:
+        - {type: symptom, name: decreased intake, present: true, severity: sips of water and a few spoonfuls of applesauce, certainty: stated}
+      covers: [A2]
+    - text: She appeared comfortable, without signs of pain.
+      speaker: Caller
+      turns: [13]
+      quote: "No. She's resting. She's comfortable, I think. No faces or anything."
+      explanation: Documents a pertinent negative for pain.
+      facts:
+        - {type: pertinent_negative, name: pain, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to add mouth swabs and lip balm to the next delivery on Thursday.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'll add both to your next delivery. That's coming Thursday."
+      explanation: Documents the planned supply addition.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, timeframe: with the next delivery on Thursday, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised wiping the mouth with a water-dipped swab every 2 hours, using unscented lip balm, offering ice chips if she could swallow, and using a humidifier.
+      speaker: Nurse
+      turns: [14]
+      quote: "A mouth swab, the pink sponge, dipped in water, every two hours."
+      explanation: Documents mouth-care instructions.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for white patches, sores, bleeding, or inability to swallow.
+      speaker: Nurse
+      turns: [20]
+      quote: "If you see white patches in her mouth, or sores, or bleeding, or she can't swallow, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

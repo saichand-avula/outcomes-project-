@@ -1,0 +1,372 @@
+call_id: tr-315
+split: train
+blueprint: "A granddaughter calls home health about her grandmother Bernadette (the nurse keeps saying Bernadine) after the anticoagulation clinic phoned the home: INR 4.2 (heard as 'for point to' and confirmed), a small nosebleed this morning that stopped after ten minutes, and new bruises on her forearms. The blood thinner is said as 'Cumadin' (a confident garble of Coumadin, kept as stated), five milligrams at five in the evening. No black stools, no head bump. The nurse messages the clinic urgently, tells her to hold tonight's Cumadin until the clinic calls, plans a visit tomorrow for a recheck and a callback this afternoon, and gives bleeding precautions. Drug garble, number garble and name drift together, adult-age granddaughter caller, long v2."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [name_drift, hedging, late_answers, split_turns, multi_issue, offtopic_chatter, trap_phrasing]
+  clinical_domains: [medication, bleeding, blood_pressure]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Orchard Park Home Health
+  agency_type: home_health
+  nurse_name: Felix
+  call_timestamp_utc: "2026-10-28T14:35:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: [A1, R2]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 3
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Bernadette Oyelaran
+  patient_name_spoken: Bernadette Oyelaran
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Bernadine Oyelaran]
+  patient_dob_true: "1941-03-08"
+  patient_dob_spoken: "1941-03-08"
+  patient_dob_certainty: stated
+  caller_name_true: Cassidy Oyelaran
+  caller_name_spoken: Cassidy Oyelaran
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "7135550194"
+  callback_phone_spoken: "7135550194"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported a high clotting test result with a nosebleed and bruising in her grandmother
+  reason_category: medication
+  relevant_context: Home health patient on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Coumadin
+    medication_name_spoken: Cumadin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every evening at five
+    last_dose: yesterday evening
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: INR
+    vital_value: "4.2"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: nosebleed
+    symptom_present: true
+    onset_or_duration: this morning, stopped after ten minutes
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: new bruises on the forearms
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: black stools or a head bump
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: anticoagulation clinic
+    reason_or_trigger: INR of 4.2 with a nosebleed and bruising
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: Coumadin
+    medication_name_spoken: Cumadin
+    reason_or_trigger: hold tonight's Cumadin until the clinic calls
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use a soft toothbrush and an electric razor, avoid any bumps or falls, and wear shoes or slippers in the house
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Press firmly for ten minutes on any bleeding, and call 911 if it will not stop, if she hits her head, has black or bloody stools, or vomits blood
+    certainty: stated
+  - item_id: E3
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check her skin and gums for new bruises or bleeding each day and tell the nurse
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Orchard Park Home Health, this is Felix.
+  Caller -> Hi, Felix. It's Cassidy. Cassidy Oyelaran. I'm calling about my grandma. Bernadette. She's one of your patients. || caller_name, relationship, patient_name
+  Nurse -> Of course. How old is she now?
+  Caller -> Eighty five. She'll say eighty five and a half. She's very particular.
+  Nurse -> Hi, Cassidy. Let me find Bernadine. What's her date of birth?
+  Caller -> It's Bernadette. B E R N A D E T T E. March eighth. Nineteen forty one. || patient_dob
+  Nurse -> Sorry about that. Bernadine, Bernadette. Okay, I have her. And a number to reach you at?
+  Caller -> Seven one three, five five five, zero one nine four. It's my cell. || callback_phone
+  Nurse -> And is Cassidy your first name or a nickname?
+  Caller -> It's my first name. C A S S I D Y. Like the singer's last name. Almost.
+  Nurse -> Got it. Cassidy.
+  Nurse -> Got it. So what's going on with your grandma?
+  Caller -> So, the clinic called. The coagulation clinic. The one that checks her blood. They called the house this morning and I answered because I live with her. And they said her number was too high. And that I should call somebody. They said talk to her nurse. || cc
+  Nurse -> Okay. Did they say what the number was?
+  Caller -> They said her INR was for point to. For point to. That's what it sounded like. And I was like, what? || A2
+  Nurse -> Was it a nurse or a pharmacist who called?
+  Caller -> A nurse. Her name was Lindy, I think. Or Mindy. She had a very fast voice. She talked really fast and I was writing and my pen died.
+  Caller -> I asked her to repeat it twice. She sighed. I felt like I was being a pest.
+  Nurse -> You weren't. You were being careful.
+  Nurse -> Ha. The pen. Okay.
+  Nurse -> Sorry, I'm not sure I caught that. Did you say four point two?
+  Caller -> Four point two. Yes. Four point two. I wrote it on the back of an envelope. Four point two.
+  Nurse -> Okay. Four point two. That's higher than her target. What is her target, do you know?
+  Caller -> Two to three, they said. So it's high. They said she was in the range last time. Two point six.
+  Caller -> It's weird. She's been so stable. For two years. The same dose. And now suddenly.
+  Nurse -> It happens. Little things can change it. Food, medicines, how she's eating.
+  Caller -> She hasn't been eating much. This week. She said her stomach was off because of the antibiotic.
+  Nurse -> That can also affect the number. I'll let the clinic know.
+  Nurse -> Okay. So she's gone up quite a bit. Cassidy, what blood thinner does she take?
+  Caller -> The Cumadin. She takes the Cumadin. It's the little pill. The five milligram one. It's peach colored. At five o'clock every evening. She took it last night at five. || A1
+  Nurse -> Okay. Cumadin, five milligrams, every evening at five. And she took last night's. Did she miss any doses, or take extra, that you know of? || A1, R2
+  Caller -> No. I give it to her myself. No missed. No extra. Well, one time last week she asked for another one because she forgot she took it. But I said no. So no extra.
+  Caller -> She gets confused about the pills sometimes. That's why I do them. She used to do the pillbox herself. We took that over after Easter.
+  Nurse -> That sounds like a good decision.
+  Nurse -> Okay. That was the right call. Has anything changed with her diet, or other medicines? Any antibiotics?
+  Caller -> Antibiotics. Hmm. She had that cough last week. Her doctor gave her something. A Z pack. Azithromycin. She finished it Tuesday.
+  Nurse -> Anything else new? Over-the-counter things, like aspirin, or herbal teas, or vitamins?
+  Caller -> She takes a vitamin. The senior kind. And a fish oil. For her joints. She started the fish oil a month ago.
+  Nurse -> Okay. I'll mention the fish oil too.
+  Caller -> Should I stop it?
+  Nurse -> Let the clinic decide. Don't change anything on your own.
+  Caller -> Okay. I won't.
+  Nurse -> Okay. That could play a part. Antibiotics can raise the number. I'll mention it to the clinic.
+  Caller -> Oh. I didn't think of that. I didn't know that.
+  Nurse -> It's not your fault. A lot of people don't. Now, Cassidy, let's talk about how she's doing. The clinic mentioned a number but did she have any bleeding?
+  Caller -> Yes. A nosebleed. This morning. It started when she was brushing her teeth. Out of her left side. And it bled for about ten minutes. I held a tissue. I pinched her nose. It stopped. It was a medium one. A lot of tissues. || A3
+  Nurse -> Did she feel dizzy or weak afterwards?
+  Caller -> A little tired. She sat down for a bit. She had some tea. She's been okay since. Not dizzy.
+  Nurse -> Okay. Good to know.
+  Nurse -> Okay. Has it started again?
+  Caller -> No. It stopped. It's been maybe five hours. No more. Her nose is dry. She was sniffing earlier but no blood.
+  Nurse -> Okay. That's good to know.
+  Caller -> She hates the dry air. She keeps a glass of water by the bed and drinks it all night.
+  Nurse -> Good. Staying hydrated helps.
+  Nurse -> Okay. Any other bleeding? Gums, urine, stool?
+  Caller -> Her gums. A little bit of pink on the toothbrush. That's all. And she has bruises. On her arms. The forearms. New ones. Big purple ones. I noticed them when I was helping her dress. They weren't there on Sunday. || A4
+  Nurse -> Okay. Both arms?
+  Caller -> Both. The right is bigger. Like the size of a plum. And the left has two small ones.
+  Nurse -> Okay. Did she bump them? Did she fall?
+  Caller -> No fall. She didn't fall. She bumped her arm on the counter maybe. Last week. She doesn't remember.
+  Caller -> She doesn't remember most of what happens. Her memory's getting worse. It's all right. She's happy.
+  Nurse -> That sounds like a peaceful place to be.
+  Nurse -> Okay. Has she hit her head? Any fall at all?
+  Caller -> No head bump. No fall. I would know. I'm with her all day. And her stool. It's normal. Brown. I checked. I know that's weird. But the clinic said to check. No black. No blood. || A5
+  Nurse -> That's not weird. That's exactly right. Okay. Cassidy, here's the plan. First, I'm going to message the anticoagulation clinic right away and mark it urgent. I'll tell them about the nosebleed and the bruising, and the antibiotic. || R1
+  Caller -> Okay. Will they change her dose?
+  Nurse -> They probably will. That's their decision. But until they call you, I want you to hold tonight's Cumadin. Don't give the five o'clock pill until the clinic calls and tells you what to do. || R2
+  Caller -> Hold the Cumadin. Don't give it. Okay. But isn't she supposed to take it every day? Won't she clot? || A1, R2
+  Nurse -> She might need to skip a dose or two, to bring the number down. That's actually very common. Her number is high, so she's thinner than she should be. Holding one dose is safe while we wait. The clinic will tell you what to do after.
+  Caller -> Okay. That makes sense. I'll hold it. I'll write on the pillbox. Do not give. Hold. Until clinic.
+  Nurse -> Perfect. Also, I'll have a nurse come out tomorrow to recheck her, and maybe draw another INR if the clinic wants one. || R3
+  Caller -> Tomorrow. Good. That's good. What time?
+  Nurse -> The scheduler will call you in the morning. I'll ask for early.
+  Caller -> Okay. Early works. I'm home.
+  Nurse -> And I'll call you back this afternoon, after I hear from the clinic. || R4
+  Caller -> This afternoon. Before five?
+  Nurse -> Definitely before five. That's the point.
+  Caller -> Okay. Good. I'll keep my phone on me.
+  Nurse -> Now, let's talk about keeping her safe in the meantime. Use a soft toothbrush. Try an electric razor, not a blade. Avoid anything that could cause a bump or a fall. Have her wear shoes or slippers in the house. || E1
+  Caller -> Soft toothbrush. She has one. An electric razor. She doesn't shave. I mean her legs. She does. With a razor. I'll switch her to the electric. Shoes or slippers. She likes her socks. I'll get the slippers with the grips.
+  Nurse -> The grips are perfect.
+  Caller -> I'll get them out of the closet.
+  Nurse -> Also, if she bleeds anywhere, press firmly on it for ten full minutes. Don't peek. And call nine one one if the bleeding won't stop, if she hits her head, if she has black or bloody stools, or if she vomits blood. || E2
+  Caller -> Ten minutes. Don't peek. Nine one one for bleeding that won't stop, head bump, black stools, or blood vomit. Okay. I got it. I wrote it on the envelope under the four point two.
+  Caller -> I'm going to tape the envelope to the fridge. So anyone who comes sees it.
+  Nurse -> That's a great idea.
+  Nurse -> Perfect. And each day, look at her skin and her gums for new bruises or bleeding, and let the nurse know. || E3
+  Caller -> Every day. Skin and gums. I'll look in the morning when I help her dress.
+  Nurse -> And do you have anyone to help you during the day?
+  Caller -> My uncle comes on Fridays. And a neighbor, Mr. Adeyemi, sits with her sometimes. I work from home. I can do most of it.
+  Caller -> He plays checkers with her. She always wins. He lets her.
+  Nurse -> Ha. Good neighbor.
+  Nurse -> It sounds like you've set it up well.
+  Nurse -> That's a good time.
+  Caller -> Felix, is she in danger? Right now?
+  Nurse -> A number of four point two isn't an emergency by itself, especially since she has no major bleeding. But it needs attention today. That's why we're acting. I think she'll be okay.
+  Caller -> Okay. Thank you. I was so scared when the lady said too high.
+  Caller -> I called my mom. She said call the nurse. Then she said call the clinic. Then she said call the nurse again.
+  Nurse -> Ha. Mothers.
+  Caller -> I'm glad I called you.
+  Nurse -> I understand. It sounds scary. But you did everything right. You checked her, you called.
+  Caller -> She's right here. She says hello. She says tell the young man thank you.
+  Nurse -> Tell her thank you. And that I said to take it easy.
+  Caller -> She says she's been taking it easy for ninety years. Ha.
+  Nurse -> Ha. Eighty five. But okay.
+  Caller -> She's laughing. She likes you. She says you sound like her late husband's brother.
+  Nurse -> That's a compliment, I hope.
+  Caller -> It is. He was her favorite.
+  Caller -> She says she's eighty five and a half. Okay.
+  Nurse -> Ha. Tell her that's even better.
+  Caller -> She just asked me what day it is. I said Wednesday. She said, the day for the doctor? I said no, Grandma, the nurse. She said oh, the nice boy.
+  Nurse -> Ha. I'll take it.
+  Caller -> Okay. I'll let you go. Thank you so much.
+  Nurse -> You're welcome. Talk to you this afternoon, Cassidy.
+  Caller -> One more tiny thing. Can she still have her evening tea? With the Cumadin held? She has it every night at five. It's part of the routine.
+  Nurse -> Tea is fine. Just not the pill. Give her the tea and a biscuit, and keep her routine the same.
+  Caller -> Okay. Tea and a biscuit. Good. She'll like that.
+  Caller -> Thanks again, Felix. Truly.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Bernadette, heard_form: Bernadine, fact_id: patient_name}
+  - {turn: auto, type: drug_garble, true_form: Coumadin, heard_form: Cumadin, fact_id: A1}
+  - {turn: auto, type: number_garble, true_form: "four point two", heard_form: "for point to", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bernadette Oyelaran, certainty: unclear, heard_as: [Bernadine Oyelaran], turns: [2]}
+    patient_dob: {value: "1941-03-08", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Cassidy Oyelaran, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550194", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported a high clotting test result with a nosebleed and bruising in her grandmother.
+    speaker: Caller
+    turns: [13]
+    quote: "They said talk to her nurse."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Cumadin 5 mg every evening at five was taken, last given yesterday evening.
+      speaker: Caller
+      turns: [30]
+      quote: "The Cumadin. She takes the Cumadin."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: Cumadin, dose: "5", unit: mg, frequency: every evening at five, last_dose: yesterday evening, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: INR was 4.2, above her target of two to three.
+      speaker: Caller
+      turns: [22]
+      quote: "Four point two. Yes. Four point two."
+      explanation: Documents the INR.
+      facts:
+        - {type: vital, name: INR, value: "4.2", certainty: stated}
+      covers: [A2]
+    - text: She had a nosebleed this morning that stopped after about ten minutes of pressure.
+      speaker: Caller
+      turns: [46]
+      quote: "A nosebleed. This morning."
+      explanation: Documents the nosebleed.
+      facts:
+        - {type: symptom, name: nosebleed, present: true, onset: this morning, certainty: stated}
+      covers: [A3]
+    - text: New purple bruises appeared on both forearms, the right about the size of a plum.
+      speaker: Caller
+      turns: [56]
+      quote: "And she has bruises. On her arms. The forearms."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: new bruises on the forearms, present: true, certainty: stated}
+      covers: [A4]
+    - text: She had no head bump and her stool was brown with no black or blood.
+      speaker: Caller
+      turns: [64]
+      quote: "No head bump. No fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: black stools or a head bump, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the anticoagulation clinic urgently about the INR, nosebleed, bruising and recent antibiotic.
+      speaker: Nurse
+      turns: [65]
+      quote: "I'm going to message the anticoagulation clinic right away and mark it urgent."
+      explanation: Documents the planned message to the clinic.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised holding tonight's Cumadin until the clinic called.
+      speaker: Nurse
+      turns: [67]
+      quote: "I want you to hold tonight's Cumadin."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Cumadin, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to recheck her and possibly repeat the INR.
+      speaker: Nurse
+      turns: [71]
+      quote: "I'll have a nurse come out tomorrow to recheck her"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back this afternoon after hearing from the clinic.
+      speaker: Nurse
+      turns: [75]
+      quote: "I'll call you back this afternoon, after I hear from the clinic."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised a soft toothbrush, an electric razor, avoiding bumps and falls and wearing slippers in the house.
+      speaker: Nurse
+      turns: [79]
+      quote: "Use a soft toothbrush. Try an electric razor, not a blade."
+      explanation: Documents bleeding precautions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised pressing firmly for ten minutes on any bleeding and calling 911 if it would not stop, she hit her head, had black or bloody stools or vomited blood.
+      speaker: Nurse
+      turns: [83]
+      quote: "press firmly on it for ten full minutes."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+    - text: Advised checking her skin and gums daily for new bruises or bleeding.
+      speaker: Nurse
+      turns: [87]
+      quote: "each day, look at her skin and her gums for new bruises or bleeding"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E3]
+  risk_flags: []

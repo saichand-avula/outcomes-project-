@@ -1,0 +1,250 @@
+call_id: tr-100
+split: train
+blueprint: "Wife reports the oxygen concentrator keeps alarming and shutting off, backup tanks are low (one full tank left); husband is comfortable on his portable tank for now, breathing normal for him, saturation 93. Nurse contacts the equipment vendor for an emergency swap and tank delivery tonight and gives safety steps. No flags (patient stable)."
+setup:
+  scenario_category: supply
+  subtype: oxygen_equipment_failure
+  secondary_tags: [split_turns, late_answers, phone_from_file, negated_risk_phrase]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-30T22:40:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Everett Lindqvist
+  patient_name_spoken: Everett Lindqvist
+  patient_name_certainty: stated
+  patient_dob_true: "1938-01-09"
+  patient_dob_spoken: "1938-01-09"
+  patient_dob_certainty: stated
+  caller_name_true: Dolores Lindqvist
+  caller_name_spoken: Dolores Lindqvist
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9015550170"
+  callback_phone_spoken: "9015550170"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that the oxygen concentrator keeps alarming and shutting off
+  reason_category: equipment
+  relevant_context: Husband uses continuous oxygen at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: oxygen concentrator alarming and shutting off
+    symptom_present: true
+    onset_or_duration: since this evening
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: full backup oxygen tanks
+    supply_remaining: "1"
+    supply_unit: tank
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "93"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment vendor
+    reason_or_trigger: emergency concentrator swap
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oxygen tanks and a replacement concentrator
+    timeframe: tonight
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 30 minutes
+    reason_or_trigger: vendor arrival time
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Switch him to the tank now, set the same flow, and keep the concentrator unplugged until the vendor arrives
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: No smoking or open flames near the oxygen and keep the tank upright
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he becomes short of breath, blue around the lips, or the tank runs low before help arrives
+    trigger_condition: short of breath; blue lips; tank running low
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Carla.
+  Caller -> Hi, Carla. It's Dolores Lindqvist. It's my husband, Everett. Everett Lindqvist. The oxygen machine is acting up. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Dolores. Let me make sure he's okay first. Is he breathing okay?
+  Caller -> He's okay. He's fine. He's not short of breath. He's on the little tank right now. || A4
+  Nurse -> Okay. Good. What's his date of birth?
+  Caller -> January ninth. Nineteen thirty eight. || patient_dob
+  Nurse -> And is nine oh one, five five five, zero one seven zero still good? || callback_phone
+  Caller -> Yes. Yes. That's right. || callback_phone
+  Nurse -> Okay. Tell me about the machine.
+  Caller -> It keeps beeping. The alarm. And then it shuts off. Since like dinnertime. I turn it back on and it does it again. || A1
+  Nurse -> Okay.
+  Caller -> I think it's broken. I don't know.
+  Nurse -> What backup do you have?
+  Caller -> The tanks. We had three. Two are empty. We have one full one. One. || A2
+  Nurse -> Okay. And how's his oxygen level, if you've checked it?
+  Caller -> I did. It says ninety three. He's on the tank. || A3
+  Nurse -> Okay, ninety three is okay. Good. Dolores, here's what I'm doing. I'm going to call our equipment company right now, and ask for an emergency swap of the machine. || R1
+  Caller -> Oh, thank God.
+  Nurse -> And they'll bring more tanks tonight too. || R2
+  Caller -> Tonight? Okay.
+  Nurse -> That's what I'm asking for. I'll call you back in thirty minutes with a time. || R3
+  Caller -> Thirty minutes. Okay.
+  Nurse -> For now, keep him on the tank. Same flow setting he's on now. Unplug the concentrator so it's not beeping at you. Don't use it again until they come. || E1
+  Caller -> Same setting. Unplug. Okay.
+  Nurse -> And remember, no smoking, no candles, no flames. And keep the tank standing up, not lying down. || E2
+  Caller -> Nobody smokes here. And it's upright, it's in the stand.
+  Nurse -> Good. And Dolores, if he gets short of breath, if his lips look blue, or if that tank starts getting low and they haven't come yet, call nine one one. Don't wait for me. || E3
+  Caller -> Okay. Short of breath. Blue. Low tank. Nine one one. Okay.
+  Nurse -> Is the tank gauge in the green right now?
+  Caller -> Let me look. It's, it's about three quarters. Green.
+  Nurse -> Good. That should last a few hours.
+  Caller -> Okay. Thank you, Carla.
+  Nurse -> You're welcome. Talk soon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everett Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-01-09", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Dolores Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550170", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the oxygen concentrator keeps alarming and shutting off.
+    speaker: Caller
+    turns: [2]
+    quote: "The oxygen machine is acting up."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The concentrator alarmed and shut off repeatedly since dinnertime.
+      speaker: Caller
+      turns: [10]
+      quote: "It keeps beeping. The alarm. And then it shuts off. Since like dinnertime."
+      explanation: Documents the equipment failure.
+      facts:
+        - {type: symptom, name: oxygen concentrator alarming and shutting off, present: true, duration: since this evening, certainty: stated}
+      covers: [A1]
+    - text: One full backup tank remained.
+      speaker: Caller
+      turns: [14]
+      quote: "We have one full one. One."
+      explanation: Documents the backup oxygen supply.
+      facts:
+        - {type: supply, item: full backup oxygen tanks, supply: 1 tank, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was 93 on the tank.
+      speaker: Caller
+      turns: [16]
+      quote: "It says ninety three. He's on the tank."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "93", certainty: stated}
+      covers: [A3]
+    - text: He was not short of breath.
+      speaker: Caller
+      turns: [4]
+      quote: "He's okay. He's fine. He's not short of breath."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call the equipment company for an emergency swap of the concentrator.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to call our equipment company right now, and ask for an emergency swap of the machine."
+      explanation: Documents the planned vendor contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned delivery of more tanks and a replacement concentrator tonight.
+      speaker: Nurse
+      turns: [19]
+      quote: "And they'll bring more tanks tonight too."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 30 minutes with an arrival time.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you back in thirty minutes with a time."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping him on the tank at the same flow setting and leaving the concentrator unplugged until the vendor arrived.
+      speaker: Nurse
+      turns: [23]
+      quote: "keep him on the tank. Same flow setting he's on now. Unplug the concentrator so it's not beeping at you."
+      explanation: Documents equipment instructions.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised no smoking, candles, or flames near the oxygen and keeping the tank upright.
+      speaker: Nurse
+      turns: [25]
+      quote: "no smoking, no candles, no flames. And keep the tank standing up, not lying down."
+      explanation: Documents oxygen safety.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if he became short of breath, had blue lips, or the tank ran low before help arrived.
+      speaker: Nurse
+      turns: [27]
+      quote: "if he gets short of breath, if his lips look blue, or if that tank starts getting low and they haven't come yet, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

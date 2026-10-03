@@ -1,0 +1,186 @@
+call_id: tr-087
+split: train
+blueprint: "Wife says her 74-year-old husband on Eliquis has had a nosebleed for about 30 minutes that will not stop; he is pale and a bit lightheaded. Nurse tells her to pinch the soft part of the nose, lean forward, and call 911 now. Flags: other_urgent (bleeding) and escalation_request (nurse sends to 911). Messy ASR-style segmentation."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [tall_man_drug, split_turns, late_answers, crosstalk]
+  clinical_domains: [bleeding, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-16T11:42:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lyle Brannigan
+  patient_name_spoken: Lyle Brannigan
+  patient_name_certainty: stated
+  patient_dob_true: "1952-05-11"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Marjorie Brannigan
+  caller_name_spoken: Marjorie Brannigan
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Reported a nosebleed that will not stop in a husband on a blood thinner
+  reason_category: bleeding
+  relevant_context: Husband takes Eliquis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: nosebleed that will not stop
+    symptom_present: true
+    onset_or_duration: about 30 minutes
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Eliquis
+    medication_name_spoken: Eliquis
+    medication_status: taking
+    frequency: twice a day
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pale and lightheaded
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: prolonged nosebleed on a blood thinner
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Pinch the soft part of the nose firmly, lean forward, do not tilt the head back, and keep him seated until help arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Nosebleed lasting thirty minutes on Eliquis
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the wife to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Tom.
+  Caller -> Tom. It's Marjorie. Marjorie Brannigan. My husband Lyle, he has a nosebleed and it won't, it won't stop. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Marjorie, I'm here.
+  Nurse -> How long has it been bleeding?
+  Caller -> Thirty minutes. Thirty minutes at least. I've been holding the tissue and it just, it keeps coming. || A1, F1
+  Nurse -> Okay.
+  Caller -> It's soaked. The towels are soaked.
+  Nurse -> Is the blood coming from both sides or just one nostril?
+  Caller -> One. The left. It started from the left and now it's, now it's going down the back of his throat too. He keeps swallowing it. He keeps, he's coughing.
+  Nurse -> Okay. Did he hit his nose, or have a fall today?
+  Caller -> No. No. Nothing. He just blew his nose and then it started. He's had a cold.
+  Nurse -> Is he on a blood thinner?
+  Caller -> Yes. The Eliquis. Twice a day. || A2
+  Nurse -> Okay. How is he looking? Is he awake?
+  Caller -> He's awake. He's pale. He says he's lightheaded. Lyle, sit, sit down. Sit. || A3
+  Nurse -> Marjorie.
+  Caller -> Yes.
+  Nurse -> I want you to call 911 right now. He needs to be seen. || R1, F2
+  Caller -> Okay. Okay. Right now.
+  Nurse -> While you're waiting for them, have him sit up and lean forward. Not back. Forward. || E1
+  Caller -> Forward. Okay.
+  Nurse -> Pinch the soft part of his nose, right below the bone, and hold it firmly. Don't let go to check on it. || E1
+  Caller -> Pinch. Okay. Lyle, lean forward, honey. Okay.
+  Nurse -> Keep him sitting until they get there. And unlock the door.
+  Caller -> Okay. Okay. Calling now.
+  Nurse -> I'll let the hospital know. Go ahead.
+  Caller -> Thank you.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: Marjorie, heard_form: "Marjorie.", fact_id: R1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lyle Brannigan, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Marjorie Brannigan, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a nosebleed that will not stop in a husband on a blood thinner.
+    speaker: Caller
+    turns: [2]
+    quote: "my husband Lyle, he has a nosebleed and it won't, it won't stop."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The nosebleed had lasted at least 30 minutes and soaked the towels.
+      speaker: Caller
+      turns: [5]
+      quote: "Thirty minutes. Thirty minutes at least."
+      explanation: Documents the duration of bleeding.
+      facts:
+        - {type: symptom, name: nosebleed that will not stop, present: true, duration: about 30 minutes, certainty: stated}
+      covers: [A1]
+    - text: He took Eliquis twice a day.
+      speaker: Caller
+      turns: [13]
+      quote: "Yes. The Eliquis. Twice a day."
+      explanation: Documents the anticoagulant use.
+      facts:
+        - {type: medication, name: Eliquis, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was awake, pale, and lightheaded.
+      speaker: Caller
+      turns: [15]
+      quote: "He's awake. He's pale. He says he's lightheaded."
+      explanation: Documents his condition.
+      facts:
+        - {type: symptom, name: pale and lightheaded, present: true, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [18]
+      quote: "I want you to call 911 right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised having him sit up and lean forward and pinching the soft part of his nose firmly until help arrived.
+      speaker: Nurse
+      turns: [22]
+      quote: "Pinch the soft part of his nose, right below the bone, and hold it firmly."
+      explanation: Documents emergency first-aid instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [5], quote: "Thirty minutes. Thirty minutes at least."}
+    - {category: escalation_request, turns: [18], quote: "I want you to call 911 right now."}

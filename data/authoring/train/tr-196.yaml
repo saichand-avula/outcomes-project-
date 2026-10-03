@@ -1,0 +1,175 @@
+call_id: tr-196
+split: train
+blueprint: "Patient asks for a refill of her Klonopin, spelling her own surname Blumenthal; the nurse reads the chart and finds only lorazepam 0.5 mg on her list, which she then confirms is what she takes (she mixed up the brand name). Three tablets left. Nurse sends the lorazepam refill request and plans a callback tomorrow. Name spelled; drug name resolved from the chart."
+setup:
+  scenario_category: medication
+  subtype: refill_name_mixup
+  secondary_tags: [name_spelled, tall_man_drug, hedging, contradiction, late_answers, split_turns]
+  clinical_domains: [medication, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Samantha
+  call_timestamp_utc: "2026-10-07T17:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Esther Blumenthal
+  patient_name_spoken: Esther Blumenthal
+  patient_name_certainty: stated
+  patient_dob_true: "1946-12-22"
+  patient_dob_spoken: "1946-12-22"
+  patient_dob_certainty: stated
+  caller_name_true: Esther Blumenthal
+  caller_name_spoken: Esther Blumenthal
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5165550143"
+  callback_phone_spoken: "5165550143"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested a refill of her anxiety and sleep medicine
+  reason_category: refill_request
+  relevant_context: Home care patient who takes a medicine as needed for anxiety and sleep
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: at bedtime as needed
+    prn: true
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: lorazepam tablets
+    supply_remaining: "3"
+    supply_unit: tablets
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    reason_or_trigger: lorazepam refill
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take lorazepam only as needed at bedtime, not with alcohol, and sit down before standing if she wakes at night
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Samantha.
+  Caller -> Hi, Samantha. This is Esther Blumenthal. B L U M E N T H A L. I'm calling for a refill of my Klonopin. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Esther. Thanks for spelling that. What's your date of birth?
+  Caller -> December twenty second. Nineteen forty six. || patient_dob
+  Nurse -> And is five one six, five five five, zero one four three your number? || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> Okay. Let me look at your medication list. Esther, I don't see Klonopin on your list. I see lorazepam, point five milligrams, at bedtime as needed. Could that be the one? || A1
+  Caller -> Oh. Lorazepam. Yes. That's it. The little white one. I always call it my Klonopin. My old doctor called it that. I get them mixed up. It's the same family, isn't it? || A1
+  Nurse -> It's a similar family, but they're different medicines. According to your chart, the lorazepam is what you're on. Is that the bottle you have in front of you? || A1
+  Caller -> Let me look. Lorazepam, point five milligrams. Yes. That's it. That's the bottle. Not Klonopin. Silly me. || A1
+  Nurse -> Okay. How many tablets do you have left?
+  Caller -> Three. I'm counting. Three. || A2
+  Nurse -> Okay. How often are you using them?
+  Caller -> At bedtime when I can't sleep. Maybe four nights a week. Not every night. || A1
+  Nurse -> Okay. I'll send the lorazepam refill request to your prescriber. || R1, A1
+  Caller -> Thank you. Thank you.
+  Nurse -> And I'll call you tomorrow to let you know where it stands. || R2
+  Caller -> Tomorrow. Okay.
+  Nurse -> Esther, take the lorazepam only at bedtime and only when you need it, not with alcohol, and sit on the edge of the bed for a moment before you stand if you wake in the night. || E1, A1
+  Caller -> Only at bedtime. No wine. Sit first. Okay. I do have a glass of wine at dinner sometimes. Not at bedtime.
+  Nurse -> That's fine. Just not close to the lorazepam. Anything else? || A1
+  Caller -> No. That's all. Thank you, Samantha. And sorry about the Klonopin mix-up. || A1
+  Nurse -> No problem at all. It's an easy one to mix up.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Esther Blumenthal, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-12-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Esther Blumenthal, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5165550143", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested a refill of her anxiety and sleep medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling for a refill of my Klonopin."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lorazepam 0.5 mg at bedtime as needed was being taken, about four nights a week; she had called it Klonopin, but the chart and her bottle showed lorazepam.
+      speaker: Nurse
+      turns: [7]
+      quote: "I see lorazepam, point five milligrams, at bedtime as needed."
+      explanation: Documents the medication confirmed from the chart.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: at bedtime as needed, prn: true, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Three tablets remained.
+      speaker: Caller
+      turns: [12]
+      quote: "Three. I'm counting. Three."
+      explanation: Documents the supply left.
+      facts:
+        - {type: supply, item: lorazepam tablets, supply: 3 tablets, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Planned to send the lorazepam refill request to the prescriber.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll send the lorazepam refill request to your prescriber."
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, medication: lorazepam, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you tomorrow to let you know where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking lorazepam only at bedtime and only when needed, not with alcohol, and sitting on the edge of the bed before standing if she woke at night.
+      speaker: Nurse
+      turns: [19]
+      quote: "take the lorazepam only at bedtime and only when you need it, not with alcohol"
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

@@ -1,0 +1,169 @@
+call_id: tr-185
+split: train
+blueprint: "A friend visiting an elderly woman calls because she is coughing a lot and sounds wheezy; he does not know her birthday, her illnesses, or her medicines, and cannot say how long she has coughed. Nurse takes what he knows, messages the provider, and calls his number back this evening. Ambiguous; nearly everything stays unclear."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_barely_knows_patient
+  secondary_tags: [hedging, identity_unresolved, late_answers, split_turns, phone_not_given]
+  clinical_domains: [cough_uri, dyspnea]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-06T19:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Delia Rousseau
+  patient_name_spoken: Delia Rousseau
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Hank
+  caller_name_spoken: Hank
+  caller_name_certainty: stated
+  relationship_to_patient: friend
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Reported that a friend has been coughing a lot and sounds wheezy
+  reason_category: cough_uri
+  relevant_context: Elderly home care patient being visited by a friend
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: coughing and wheezy sound
+    symptom_present: true
+    certainty: unclear
+    unclear_detail: Caller does not know how long she has coughed
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Does not know her birthday, illnesses, or medicines
+    certainty: unclear
+    unclear_detail: Caller is a friend who only visits once a week
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: coughing and wheezing
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    reason_or_trigger: update on the patient
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she is struggling to breathe, has blue lips, or cannot speak in full sentences
+    trigger_condition: struggling to breathe; blue lips; cannot speak in sentences
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hello. Is this where I call about Delia Rousseau? I'm Hank. I'm a friend. || caller_name, relationship, patient_name
+  Nurse -> Hi, Hank. Yes, I can take your call. Do you know Delia's date of birth?
+  Caller -> No. No idea. I've known her ten years, I never asked. She's, I don't know, seventy something, eighty. || patient_dob
+  Nurse -> That's okay. What's going on?
+  Caller -> I'm at her place visiting. I come every Tuesday. And she's coughing a lot. Hacking. And when she breathes out there's a, a whistle. A kind of wheezy sound. || cc, A1
+  Nurse -> Okay. How long has she been coughing?
+  Caller -> I don't know. She wasn't coughing last Tuesday. But I don't know about the rest of the week. She doesn't like to complain. I'm sorry, I'm not much help.
+  Nurse -> You're helping a lot. Do you know if she has any illnesses, like a lung problem, or what medicines she takes?
+  Caller -> No. She has some pills in the kitchen. I never looked. I know she's had a hard year. Her husband passed in the spring. That's all I know. || A2
+  Nurse -> Okay. Is she short of breath? Can she talk to you in full sentences?
+  Caller -> She's talking fine. She's been telling me about her granddaughter. She's not out of breath. She just keeps coughing in between.
+  Nurse -> Okay. Is there a number I can reach you at?
+  Caller -> I'm using her phone. I'd rather not give out my number. Is that okay? I'll stay with her till you call.
+  Nurse -> That's fine. I'll call her number back this evening. || R2
+  Caller -> Okay. I'll be here. I'll stay until six.
+  Nurse -> Good. I'm going to message her provider about the cough and the wheezing. || R1
+  Caller -> Thank you. That's all I wanted. For someone to know.
+  Nurse -> Hank, if she starts to struggle to breathe, if her lips turn blue, or if she can't speak in full sentences, call nine one one. || E1
+  Caller -> Struggle, blue, can't talk. Nine one one. Okay. Got it.
+  Nurse -> Anything else?
+  Caller -> No. Thank you. I feel better having called.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Delia Rousseau, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: [4]}
+    caller_name: {value: Hank, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: friend, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a friend has been coughing a lot and sounds wheezy.
+    speaker: Caller
+    turns: [6]
+    quote: "she's coughing a lot. Hacking."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She was coughing and had a wheezy whistle when breathing out (unclear; the caller did not know how long it had been going on).
+      speaker: Caller
+      turns: [6]
+      quote: "when she breathes out there's a, a whistle."
+      explanation: Documents the cough and wheeze.
+      facts:
+        - {type: symptom, name: coughing and wheezy sound, present: true, certainty: unclear}
+      covers: [A1]
+    - text: The caller did not know her birthday, illnesses, or medicines (unclear; he is a friend who visits weekly).
+      speaker: Caller
+      turns: [10]
+      quote: "She has some pills in the kitchen. I never looked."
+      explanation: Documents the limited information.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A2]
+  response:
+    - text: Planned to message the provider about the cough and wheezing.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to message her provider about the cough and the wheezing."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll call her number back this evening."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911 if she struggled to breathe, her lips turned blue, or she could not speak in full sentences.
+      speaker: Nurse
+      turns: [19]
+      quote: "if she starts to struggle to breathe, if her lips turn blue, or if she can't speak in full sentences, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

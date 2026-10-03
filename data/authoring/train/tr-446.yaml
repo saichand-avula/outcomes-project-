@@ -1,0 +1,308 @@
+call_id: tr-446
+split: train
+blueprint: "A husband calls palliative care at night: his 62-year-old wife with pancreatic cancer has had severe abdominal pain, a nine out of ten, for three hours despite her fentanyl and an oxycodone tablet an hour ago. She is crying and curled up, not vomiting, alert. Nurse pages on-call for a dose order, sends a nurse now, calls back in twenty minutes, and gives positioning, warm pack and emergency instructions. Uncontrolled pain (uncontrolled symptom), scheduled patch plus as-needed tablet, spouse caller, patient 18-64, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_pain
+  secondary_tags: [prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [pain, medication, nausea_vomiting]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Aspen Bridge Palliative Care
+  agency_type: palliative
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-11-30T04:20:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosemary Delacourt
+  patient_name_spoken: Rosemary Delacourt
+  patient_name_certainty: stated
+  patient_dob_true: "1964-08-23"
+  patient_dob_spoken: "1964-08-23"
+  patient_dob_certainty: stated
+  caller_name_true: Thaddeus Delacourt
+  caller_name_spoken: Thaddeus Delacourt
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "2065550167"
+  callback_phone_spoken: "2065550167"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported severe abdominal pain not relieved by her usual medicines
+  reason_category: pain
+  relevant_context: Palliative care patient with pancreatic cancer on a fentanyl and as-needed oxycodone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe abdominal pain
+    symptom_present: true
+    severity: "9"
+    onset: three hours ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: one hour ago
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl
+    medication_name_spoken: fentanyl
+    medication_status: taking
+    dose: "75"
+    unit: mcg per hour
+    frequency: every three days
+    prn: false
+    last_dose: changed two days ago
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: pain of nine not controlled by the usual doses
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: now
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Help her curl on her side with a pillow against her belly, place a warm pack wrapped in a towel on her abdomen, keep the room quiet and dim and breathe slowly with her
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Do not give extra doses until the clinician calls back, and call 911 if she becomes very sleepy, hard to wake, or her breathing slows
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Severe abdominal pain of nine out of ten for three hours despite her usual pain medicines
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Aspen Bridge Palliative Care, this is Joanne.
+  Caller -> Joanne, it's Thaddeus Delacourt. My wife is Rosemary Delacourt. Her pain is out of control. Nothing is working. She's been in agony for three hours. || caller_name, patient_name, relationship, cc, A1, F1
+  Nurse -> Thaddeus, take a breath. I'm right here. We'll get her help.
+  Caller -> Thank you. I'm sorry, I'm shaking. It's four in the morning and I woke up to her crying.
+  Nurse -> Thaddeus, I'm here. Let's get her help. Where is the pain?
+  Caller -> Her belly. The upper part, and it goes through to her back. She says it feels like a knife.
+  Caller -> It's under her ribs on the right side and in the middle, and then it wraps around. She keeps pressing her hand there.
+  Caller -> She's had this pain before but never like this. It's different. It's sharper. It's constant.
+  Nurse -> I understand. That's important.
+  Nurse -> And on a scale of zero to ten, how bad?
+  Caller -> Hold on. Let me ask her again. Rosie, a number. She says nine. Same as before.
+  Caller -> She says nine. A nine. She's curled up like a ball. She's crying. She never cries.
+  Caller -> I asked her three times. Is it a nine? She said, ten, if I could. I said, let's say nine. She nodded.
+  Nurse -> Okay. What has she taken for it?
+  Caller -> I'm looking at the kitchen counter while I talk. There's the pill box, the patch box, a cup of ice water, her pill crusher. It all looks like a pharmacy.
+  Nurse -> Don't worry about the counter. Just stay with her.
+  Caller -> She has the fentanyl patch. Seventy five micrograms an hour. We changed it two days ago. And the oxycodone tablets. Ten milligrams. Every four hours if she needs it. She took one an hour ago. || A2, A3
+  Caller -> The patch is on her left shoulder. I checked it, it's still stuck. I thought maybe it had peeled off. It hasn't.
+  Nurse -> Good thinking. Thank you for checking.
+  Nurse -> Okay. And the one an hour ago didn't help?
+  Caller -> It took the edge off for maybe twenty minutes. Then it came right back. It's worse now. She asked if she could take another one but I said wait, because you said four hours.
+  Caller -> I wrote the times on the log. Midnight, one fifteen, three. I gave her one at three fifteen. It's all there on paper.
+  Nurse -> You did the right thing. Thaddeus, I'm going to page the on-call clinician right now for an order. || R1
+  Caller -> Please. Thank you. How fast? She's suffering.
+  Caller -> I called the number on the refrigerator magnet. The after-hours line. A recording picked up first. I almost cried.
+  Nurse -> Very fast. I'll also send a nurse to your home right now. || R2
+  Caller -> Tonight? Right now? Oh, thank God.
+  Caller -> I'll turn on the porch light. And the hall. Is there anything I should move out of the way?
+  Nurse -> Just keep the path to her room clear. The nurse knows the way.
+  Nurse -> Yes. While we wait, can you tell me, is she vomiting?
+  Caller -> No. She felt a little sick earlier but she hasn't thrown up. She hasn't eaten since dinner.
+  Caller -> She keeps asking for ice chips. I gave her a few. She says the cold feels good in her mouth.
+  Nurse -> Is she alert? Does she know where she is?
+  Caller -> She's totally alert. She's talking. She's just, she's in pain. She keeps saying, I can't. She's very clear. She's not confused. || A4
+  Caller -> She even told me which medicine to look for. She's still the boss. She's bossing me from the bed.
+  Nurse -> Ha. That's a good sign.
+  Nurse -> Good. Thaddeus, what's her date of birth?
+  Caller -> I'm sorry if I'm answering slowly. My head isn't working right. It's like wading through water.
+  Nurse -> You're doing fine. There's no rush.
+  Caller -> August twenty third. Nineteen sixty four. || patient_dob
+  Nurse -> Thank you. I'll pass that to the clinician.
+  Nurse -> And your cell is the one ending in oh one six seven?
+  Caller -> Yes. Two oh six, five five five, zero one six seven. || callback_phone
+  Nurse -> Thank you. Now, let's try to ease her until the clinician calls. Can she curl up on her side?
+  Caller -> She is. She's on her left side with her knees up.
+  Caller -> She's wearing my old flannel shirt. She says it smells like me and it helps.
+  Nurse -> Put a pillow against her belly, and one between her knees. Do you have a heating pad, or a warm pack?
+  Caller -> We have a heating pad. In the hall closet. I'll get it. Running. Okay. I have it. It's plugged in.
+  Caller -> I haven't used it in years. It's got a funny cord. Let me make sure the cord isn't frayed. It looks okay.
+  Nurse -> Put it on low, wrapped in a towel. Not directly on her skin. On her belly, where it hurts.
+  Caller -> Okay. A towel. It's on. Rosemary, is that okay? She says a little better. A tiny bit.
+  Caller -> She's breathing a little slower. Her hands are less tight. It's only a tiny bit, but I'll take it.
+  Nurse -> Good. Keep the room quiet and dim. Breathe slowly with her. In through the nose, out through the mouth. || E1
+  Caller -> The cat jumped on the bed. Should I move her? She's purring right next to Rosemary's shoulder.
+  Nurse -> If it's soothing, leave her. If the cat bothers her, move her gently.
+  Caller -> Dim. Slow. I'm turning off the overhead. I'm breathing with her. In. Out. She's following me.
+  Caller -> I put the lamp on the floor so it throws a soft light on the wall. She likes it that way.
+  Nurse -> That's great. Now, Thaddeus, please don't give her an extra dose until the clinician calls back. We need to decide what's safe. || E2
+  Caller -> I won't. I'm waiting. I'm holding the bottle and I won't open it.
+  Caller -> The bottle has a child cap, and my hands are too shaky to open it anyway. So I won't be tempted.
+  Nurse -> Ha. Good point. Keep it closed.
+  Nurse -> Good. And if she gets very sleepy and hard to wake up, or her breathing slows down, call 911 right away.
+  Caller -> 911 if she's hard to wake. Or if her breathing slows. Okay. Got it.
+  Caller -> I have my phone ready. The number is on the screen. My thumb is over the button.
+  Nurse -> I'll call you back in twenty minutes, even if the nurse isn't there yet. || R3
+  Caller -> Twenty minutes. Okay. I'll keep the phone right here.
+  Caller -> I'm putting the phone on the pillow next to her so she can hear you if she wants.
+  Nurse -> How is she right now?
+  Caller -> Still crying. But quieter. She's holding my hand. She's squeezing hard.
+  Caller -> She said, tell the nurse thank you. Even now she's polite.
+  Nurse -> That's okay. Let her squeeze. Keep talking to her.
+  Caller -> Rosie, I'm here. The nurse is coming. We'll fix this. I'm not leaving you.
+  Caller -> I have a song she likes, a waltz. I'm humming it very softly. She used to teach it.
+  Nurse -> You're doing everything right.
+  Caller -> I'm trying not to panic. I'm trying to be the calm one. She needs me calm.
+  Caller -> I feel so helpless. I can't take the pain away.
+  Caller -> I keep thinking about what I could have done differently this week. Maybe the patch should have been stronger.
+  Nurse -> That's for the clinician to decide. Right now we're doing everything right.
+  Nurse -> I know. But being there with her is a big part of it.
+  Caller -> I've never seen her like this. She was a ballet teacher. She never complained about anything.
+  Caller -> Thirty one years of marriage. I've never heard her raise her voice, and tonight she screamed. It scared me.
+  Nurse -> She sounds strong. And she's allowed to be in pain and to cry.
+  Caller -> Thank you. That helps. I keep telling her it's okay.
+  Caller -> Is it normal to feel angry at the cancer? I want to punch a wall.
+  Nurse -> It's very normal. We can talk about that with the nurse tomorrow, too.
+  Nurse -> It is okay. I'll talk to you soon, Thaddeus. Stay with her.
+  Caller -> Please hurry. I know you are. Sorry. I'm just saying it out loud.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosemary Delacourt, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-08-23", certainty: stated, heard_as: [], turns: [40]}
+    caller_name: {value: Thaddeus Delacourt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550167", certainty: stated, heard_as: [], turns: [43]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported severe abdominal pain not relieved by her usual medicines.
+    speaker: Caller
+    turns: [2]
+    quote: "Her pain is out of control."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Abdominal pain was a nine out of ten for three hours, going through to her back.
+      speaker: Caller
+      turns: [12]
+      quote: "She says nine. A nine."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: severe abdominal pain, present: true, severity: "9", onset: three hours ago, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 10 mg every four hours as needed was last taken one hour ago and helped for about twenty minutes.
+      speaker: Caller
+      turns: [17]
+      quote: "Ten milligrams. Every four hours if she needs it. She took one an hour ago."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: oxycodone, dose: "10", unit: mg, frequency: every four hours as needed, prn: true, last_dose: one hour ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Fentanyl 75 mcg per hour was changed two days ago.
+      speaker: Caller
+      turns: [17]
+      quote: "She has the fentanyl patch. Seventy five micrograms an hour."
+      explanation: Documents the scheduled patch.
+      facts:
+        - {type: medication, name: fentanyl, dose: "75", unit: mcg per hour, frequency: every three days, prn: false, last_dose: changed two days ago, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She was not vomiting and was alert, not confused.
+      speaker: Caller
+      turns: [34]
+      quote: "She's totally alert. She's talking."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or confusion, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician for an order.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to page the on-call clinician right now for an order."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse to the home right now.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'll also send a nurse to your home right now."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: now, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [65]
+      quote: "I'll call you back in twenty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised a pillow against her belly, a warm pack in a towel, a quiet dim room and slow breathing.
+      speaker: Nurse
+      turns: [53]
+      quote: "Keep the room quiet and dim."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised no extra doses until the clinician called back and getting urgent help if she became hard to wake or her breathing slowed.
+      speaker: Nurse
+      turns: [58]
+      quote: "please don't give her an extra dose until the clinician calls back."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "Her pain is out of control."}

@@ -1,0 +1,285 @@
+call_id: tr-475
+split: train
+blueprint: "A 57-year-old woman recently discharged on warfarin calls home health herself: the pharmacy bottle says five milligrams every evening but the discharge paper says two point five, and she has taken the five milligrams for three nights. She first says the bottle is four milligrams and corrects herself. Some easy bruising on her arms, no black stools or nosebleeds. Nurse pages on-call, contacts the pharmacy, plans a callback today, tells her to hold tonight's dose until the clinician calls, and gives bleeding precautions. Explicit correction and unresolved dose conflict on a blood thinner (medication concern), self caller, patient 18-64, v2 short."
+setup:
+  scenario_category: medication
+  subtype: dose_conflict_anticoagulant
+  secondary_tags: [contradiction, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, bleeding_risk]
+  relationship_group: self
+  na_reason: null
+  agency_name: Tidewater Home Health
+  agency_type: home_health
+  nurse_name: Casimir
+  call_timestamp_utc: "2026-11-16T14:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [Tylenol]
+chief_complaint:
+  patient_name_true: Rafaela Ostrowski
+  patient_name_spoken: Rafaela Ostrowski
+  patient_name_certainty: stated
+  patient_dob_true: "1968-09-03"
+  patient_dob_spoken: "1968-09-03"
+  patient_dob_certainty: stated
+  caller_name_true: Rafaela Ostrowski
+  caller_name_spoken: Rafaela Ostrowski
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2125550174"
+  callback_phone_spoken: "2125550174"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Found two different doses of warfarin on her papers and has been taking the higher one
+  reason_category: medication
+  relevant_context: Recently discharged home health patient on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day in the evening
+    prn: false
+    last_dose: last night
+    certainty: unclear
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: The bottle says five milligrams but the discharge paper says two point five
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: easy bruising on the arms
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: black stools or nosebleeds
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: conflicting warfarin doses and three nights of the higher dose
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: confirm the prescribed dose
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Hold tonight's dose until the clinician calls back and keep the bottle and the discharge paper together
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for black or bloody stools, vomiting blood, a bad nosebleed, or a fall with a head injury
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Two different blood thinner doses on her papers and she has taken the higher one for three nights
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Tidewater Home Health, this is Casimir.
+  Caller -> Hi, Casimir. It's Rafaela Ostrowski. I'm a patient. I just got home from the hospital last week. I'm on warfarin and I think I have two different doses and I don't know which is right. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> Hi, Rafaela. Thanks for calling. Let's go through it. What does the bottle say?
+  Caller -> Sorry, I'm a little frazzled. I've been staring at these papers for an hour.
+  Nurse -> That's okay. Take a breath.
+  Caller -> The warfarin bottle says four milligrams. No, wait. Five. Five milligrams. Every evening. I'm sorry. I had it in my hand upside down. Five. || A1
+  Nurse -> Five milligrams, every evening. And what does the discharge paper say?
+  Caller -> I have the paper right here. It's three pages stapled together.
+  Caller -> The paper from the hospital says two point five. Two point five milligrams, once a day, in the evening. It's in the medication list. I read it three times. || A2
+  Nurse -> Okay. So the bottle says five and the paper says two point five.
+  Caller -> Yes. And nobody told me they'd changed it.
+  Nurse -> Thanks.
+  Nurse -> Okay.
+  Caller -> Yes. Exactly. And I've been taking the five. For three nights. Because that's what the pharmacy gave me. And I figured the pharmacy knows.
+  Nurse -> Okay. That was a reasonable thing to do. When was your last dose?
+  Caller -> Last night. At about eight. Same as the other two.
+  Nurse -> Okay. Same time each night.
+  Caller -> I have an alarm. It's the only thing I haven't forgotten.
+  Nurse -> Okay. Have you noticed any bleeding, or bruising?
+  Caller -> Bruises. A few. On my forearms. Purple ones. Like I bumped into something, but I don't remember bumping. They're not big. || A3
+  Nurse -> Okay.
+  Nurse -> Okay. Any nosebleeds? Bleeding gums?
+  Caller -> No nosebleeds. My gums are fine. I brushed this morning. No blood in the sink.
+  Nurse -> And your stools? Any black or tarry stools, or blood?
+  Caller -> No. They're normal. I looked. I know that one from the discharge talk. Nothing black. Nothing red. || A4
+  Caller -> That was a weird sentence to say out loud. Sorry.
+  Nurse -> Ha. Not weird at all.
+  Nurse -> Good. That's what I wanted to know. Any dizziness, headache, falls?
+  Caller -> No falls. Maybe a slight headache this morning. But I had coffee late and I think that's it.
+  Nurse -> Okay. We'll mention it.
+  Nurse -> Okay.
+  Caller -> I'm scared that I took too much. Is that dangerous?
+  Nurse -> I understand. It's a reasonable worry.
+  Nurse -> I'm glad you called. Let's find out which dose is right. I can't tell you that, and neither can you. The clinician needs to decide. Let me get a few things first. What's your date of birth?
+  Caller -> September third. Nineteen sixty eight. || patient_dob
+  Nurse -> And your number?
+  Caller -> Two one two, five five five, oh one seven four. || callback_phone
+  Nurse -> Two one two, five five five, oh one seven four. Correct? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. I'm going to page the on-call clinician right now about the two doses and the three nights of the higher one. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> I'll also call the pharmacy and ask them what the prescription says. || R2
+  Caller -> They'll be closed in an hour. They close at five.
+  Nurse -> Then I'll do it right now.
+  Nurse -> I'll call them right away, then.
+  Caller -> Thank you.
+  Nurse -> I'll call you back today, once I've heard from the clinician. || R3
+  Caller -> Today. Okay. I'll stay by the phone.
+  Caller -> It's charged. I'm not going anywhere.
+  Nurse -> Perfect.
+  Nurse -> In the meantime, don't take tonight's dose until the clinician calls you back. And keep the bottle and the discharge paper together, so we can read them both. || E1
+  Caller -> Don't take tonight's. Keep both together. Okay. I'm putting them in a bag.
+  Nurse -> Good. Also, please be careful with bleeding. Avoid any activity where you could fall or get hurt, and use a soft toothbrush.
+  Caller -> Soft toothbrush. I have one. I'll be careful on the stairs.
+  Caller -> I also have an electric razor. I bought it before I left the hospital.
+  Nurse -> Good thinking.
+  Nurse -> And call 911 if you see black or bloody stools, if you vomit blood, if you have a nosebleed that won't stop, or if you fall and hit your head. || E2
+  Caller -> Black stools. Vomiting blood. Nosebleed. Head hit. 911. Okay. I wrote them on the pad.
+  Nurse -> Good.
+  Caller -> Is it okay if I take Tylenol for the headache?
+  Nurse -> Ask the clinician when they call. That's a good question for them.
+  Caller -> Okay. I'll wait.
+  Caller -> My sister is coming at six. She's going to cook. Is it okay if she does?
+  Nurse -> That's fine. Just no changes to your medicines.
+  Nurse -> Rafaela, you did the right thing, calling.
+  Caller -> I almost didn't. I figured I'd wait until tomorrow.
+  Caller -> I thought I was being dramatic.
+  Nurse -> You weren't.
+  Nurse -> I'm glad you didn't.
+  Caller -> Thank you, Casimir.
+  Nurse -> You're welcome. Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rafaela Ostrowski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1968-09-03", certainty: stated, heard_as: [], turns: [35]}
+    caller_name: {value: Rafaela Ostrowski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550174", certainty: stated, heard_as: [], turns: [37, 38]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Found two different doses of warfarin on her papers and has been taking the higher one.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I have two different doses and I don't know which is right."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear; two doses on her papers) Warfarin 5 mg every evening, last taken last night.
+      speaker: Caller
+      turns: [6]
+      quote: "Five milligrams. Every evening."
+      explanation: Documents the bottle dose after her self-correction.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: once a day in the evening, prn: false, last_dose: last night, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: (unclear; conflicting) The bottle said five milligrams but the discharge paper said two point five.
+      speaker: Caller
+      turns: [9]
+      quote: "The paper from the hospital says two point five."
+      explanation: Documents the conflicting dose.
+      facts:
+        - {type: context, text: The bottle says five milligrams but the discharge paper says two point five, certainty: unclear}
+      covers: [A2]
+    - text: She had a few small purple bruises on her forearms.
+      speaker: Caller
+      turns: [20]
+      quote: "Bruises. A few. On my forearms."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: easy bruising on the arms, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She had no black stools or nosebleeds.
+      speaker: Caller
+      turns: [23]
+      quote: "No nosebleeds."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: black stools or nosebleeds, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician about the two doses.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy to ask what the prescription says.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'll also call the pharmacy and ask them what the prescription says."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback today.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you back today"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: today, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised holding tonight's dose until the clinician calls and keeping the bottle and discharge paper together.
+      speaker: Nurse
+      turns: [51]
+      quote: "don't take tonight's dose until the clinician calls you back."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for black or bloody stools, vomiting blood, a nosebleed that would not stop, or a fall with a head injury.
+      speaker: Nurse
+      turns: [57]
+      quote: "call 911 if you see black or bloody stools"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I have two different doses and I don't know which is right."}

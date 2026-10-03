@@ -1,0 +1,272 @@
+call_id: va-083
+split: val
+blueprint: "A sister, Rosalinde Haverford, calls about her brother Quentin, 52, who has liver disease and was just told to stop taking ibuprofen and start acetaminophen no more than two grams a day. He took two ibuprofen this morning before reading the new instructions and now has an upset stomach but no black stools. Nurse explains the change, reviews the acetaminophen limit and label reading, messages the clinician, and plans a callback tomorrow. Medication change and stopped drug, other-family caller, adult under 65, v2 short."
+setup:
+  scenario_category: medication
+  subtype: medication_change_stopped
+  secondary_tags: [other_family, medication_change, stopped_drug, hedging, split_turns, late_answers]
+  clinical_domains: [medication, gi, pain]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Crescent Home Health
+  agency_type: home_health
+  nurse_name: Leopoldo
+  call_timestamp_utc: "2026-12-12T18:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [Tylenol, Advil, aspirin, Aleve, NyQuil, Motrin]
+chief_complaint:
+  patient_name_true: Quentin Haverford
+  patient_name_spoken: Quentin Haverford
+  patient_name_certainty: stated
+  patient_dob_true: "1974-01-19"
+  patient_dob_spoken: "1974-01-19"
+  patient_dob_certainty: stated
+  caller_name_true: Rosalinde Haverford
+  caller_name_spoken: Rosalinde Haverford
+  caller_name_certainty: stated
+  relationship_to_patient: sister
+  relationship_certainty: stated
+  callback_phone_true: "5055550134"
+  callback_phone_spoken: "5055550134"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked about her brother's new pain medicine instructions after he took ibuprofen
+  reason_category: medication_question
+  relevant_context: Home health patient with liver disease
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: ibuprofen
+    medication_name_spoken: ibuprofen
+    medication_status: stopped
+    dose: "200"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: two tablets this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: prescribed
+    dose: "500"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: none yet
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: upset stomach
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: black stools or vomiting blood
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: clinician
+    reason_or_trigger: ibuprofen taken in a patient with liver disease
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take no more ibuprofen or similar pain pills, use acetaminophen only up to four of the five hundred milligram tablets in a day, and check cold medicines for hidden acetaminophen
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away or dial 911 for black or bloody stools, vomiting blood, severe belly pain or yellowing skin
+    trigger_condition: black stools; vomiting blood; severe belly pain; yellow skin
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Crescent Home Health, this is Leopoldo.
+  Caller -> Hi. It's Rosalinde Haverford. I'm calling about my brother. Quentin Haverford. He just had his medicine changed and I want to make sure we're doing it right. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Rosalinde. Tell me what changed.
+  Caller -> I drove over right after work. He's been on his own most of the week and he's not great about reading labels.
+  Nurse -> That's what family is for. Go ahead.
+  Caller -> His doctor called yesterday. Because of his liver. They said to stop the ibuprofen. And use Tylenol instead. But with a limit. I wrote it down, but I'm not sure I understood. || A1
+  Nurse -> Okay. Let's go through it. What did they say about the Tylenol?
+  Caller -> Is it okay if I put you on speaker? My hands are full.
+  Nurse -> That's fine.
+  Caller -> Acetaminophen. Five hundred milligram tablets. As needed. No more than four a day. That's what I wrote. || A2
+  Nurse -> That sounds right. That's two grams in a day. Has he taken any yet?
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> No. Not yet. He's only had the ibuprofen. And that's the other thing. This morning, before I came over, he took two. Two ibuprofen. Two hundred milligram each. He said he hadn't read my text. || A1
+  Caller -> He doesn't check his phone. It's in the junk drawer half the time.
+  Nurse -> Ha. Maybe we move it.
+  Nurse -> Okay. Thank you for telling me. When was that?
+  Caller -> Hang on, let me move to the other room. It's loud in here.
+  Nurse -> No problem, take your time.
+  Caller -> About eight. So maybe ten hours ago.
+  Nurse -> And how's he feeling?
+  Caller -> His stomach is upset. He says it's a gnawing feeling. Not terrible. A little queasy. He had toast and it settled some. || A3
+  Nurse -> Is he drinking? Any heartburn, burning in the chest?
+  Caller -> Water, mostly. A little heartburn. I gave him a glass of milk.
+  Nurse -> That's fine for now.
+  Nurse -> Has he vomited? Any black stools, or blood in the vomit?
+  Caller -> No vomiting. I asked about the stools. He says they're normal. Brown. He's been checking since I said it. || A4
+  Nurse -> Good. That's reassuring. Rosalinde, can I have his date of birth?
+  Caller -> Let me grab my glasses, one second.
+  Nurse -> Sure, I'll wait.
+  Caller -> January nineteenth, nineteen seventy four. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Can you hear me okay? The signal's a little weak.
+  Nurse -> I can hear you fine.
+  Caller -> Five oh five, five five five, zero one three four. || callback_phone
+  Nurse -> Got it. So the ibuprofen is stopped. For someone with liver disease, those pain pills can cause bleeding and kidney trouble. Two tablets once isn't likely to cause a problem, but he shouldn't take any more. || A1
+  Caller -> No more ibuprofen. Okay. What about Advil, and aspirin? And Aleve? || A1
+  Nurse -> Same group. No Advil, no Aleve, no aspirin, unless the doctor says. They can all upset his stomach and bleed.
+  Caller -> I appreciate you being patient with me.
+  Nurse -> Not a problem at all.
+  Caller -> I'll clear the cabinet. He has a whole shelf.
+  Caller -> There's Advil, Motrin, the store brand, three kinds of headache powder. It looks like a pharmacy.
+  Nurse -> Put them in a bag and out of sight. You can ask the doctor about disposal.
+  Nurse -> Good. For pain, only the acetaminophen, up to four of the five hundred milligram tablets in twenty four hours. Read the labels on cold medicines too, because many have acetaminophen hidden in them. || E1
+  Caller -> Hidden acetaminophen. Okay. NyQuil, probably. || A2
+  Nurse -> Yes. Some of those. Check for the word acetaminophen on the box. || A2
+  Caller -> Okay. Sorry about that. Go on.
+  Nurse -> Alright, thank you.
+  Caller -> I'll read every box. I'll make a list.
+  Nurse -> I'm going to message the clinician about the ibuprofen he took this morning, so they're aware. || R1
+  Caller -> Yes. Thank you. I wasn't sure whether to call.
+  Nurse -> You did the right thing. Watch him for black or bloody stools, vomiting blood, severe belly pain, or yellowing of the skin. If you see any of that, call us right away. If it's severe, call nine one one. || E2
+  Caller -> Black stools. Blood. Bad belly pain. Yellow skin. Nine one one if it's bad. I'll tell him to tell me.
+  Nurse -> I'll call you tomorrow to check on his stomach and see how the new pain plan is going. || R2
+  Caller -> Tomorrow. Okay. That would help.
+  Nurse -> Is his pain controlled right now?
+  Caller -> He says a three. It's his back. He'll start the acetaminophen tonight. || A2
+  Nurse -> Good. Space the tablets out, and don't take more than four total in the day.
+  Caller -> I'll set alarms. I'll write each dose on the fridge.
+  Nurse -> Perfect.
+  Nurse -> Do you live nearby, Rosalinde?
+  Caller -> Twenty minutes. I come by after work and on weekends. His wife left a few years ago.
+  Nurse -> It sounds like you're his anchor.
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> He's stubborn, you know. He never reads anything.
+  Caller -> He's the youngest. He thinks he's thirty. He's fifty two.
+  Nurse -> Ha. Some of us never age.
+  Nurse -> Ha. That's why he has a sister.
+  Caller -> That's what I tell him. Thank you, Leopoldo.
+  Nurse -> Anytime. Talk to you tomorrow.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Quentin Haverford, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1974-01-19", certainty: stated, heard_as: [], turns: [31]}
+    caller_name: {value: Rosalinde Haverford, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: sister, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550134", certainty: stated, heard_as: [], turns: [35]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked about her brother's new pain medicine instructions after he took ibuprofen.
+    speaker: Caller
+    turns: [2]
+    quote: "He just had his medicine changed and I want to make sure we're doing it right."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Ibuprofen 200 mg was stopped, but he took two tablets about eight this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "Two ibuprofen. Two hundred milligram each."
+      explanation: Documents the stopped ibuprofen and the dose taken.
+      facts:
+        - {type: medication, name: ibuprofen, dose: "200", unit: mg, frequency: as needed, prn: true, last_dose: two tablets this morning, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: Acetaminophen 500 mg as needed, no more than four a day, was newly prescribed and not yet taken.
+      speaker: Caller
+      turns: [10]
+      quote: "Five hundred milligram tablets. As needed. No more than four a day."
+      explanation: Documents the new acetaminophen order.
+      facts:
+        - {type: medication, name: acetaminophen, dose: "500", unit: mg, frequency: as needed, prn: true, last_dose: none yet, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: He had a mild gnawing, queasy stomach that eased with toast.
+      speaker: Caller
+      turns: [22]
+      quote: "His stomach is upset."
+      explanation: Documents the stomach upset.
+      facts:
+        - {type: symptom, name: upset stomach, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: He had no vomiting or black stools.
+      speaker: Caller
+      turns: [27]
+      quote: "No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: black stools or vomiting blood, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the clinician about the ibuprofen taken this morning.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'm going to message the clinician about the ibuprofen he took this morning"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback tomorrow to check his stomach and pain plan.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll call you tomorrow to check on his stomach"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking no more ibuprofen or similar pills, using acetaminophen up to four tablets a day, and checking cold medicines for hidden acetaminophen.
+      speaker: Nurse
+      turns: [44]
+      quote: "only the acetaminophen, up to four of the five hundred milligram tablets in twenty four hours."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for black or bloody stools, vomiting blood, severe belly pain or yellow skin, and 911 if severe.
+      speaker: Nurse
+      turns: [52]
+      quote: "Watch him for black or bloody stools"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

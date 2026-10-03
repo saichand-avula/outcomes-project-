@@ -1,0 +1,265 @@
+call_id: va-050
+split: val
+blueprint: "A church friend, Hester Quill, calls on behalf of Ludmila Voss, who is recovering at home with swollen ankles. The furosemide bottle says 20 mg once a day but the hospital discharge paper says 40 mg. The friend cannot tell which is right and Ludmila is vague. Nurse cannot resolve it on the phone, tells her to give the bottle dose only until the clinician confirms, and arranges a callback after checking the order. Friend caller, unresolved medication conflict, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: unresolved_dose_conflict
+  secondary_tags: [friend_neighbor, contradiction, hedging, late_answers, split_turns]
+  clinical_domains: [edema, medication]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Sandpiper Home Health
+  agency_type: home_health
+  nurse_name: Bettina
+  call_timestamp_utc: "2026-11-26T13:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ludmila Voss
+  patient_name_spoken: Ludmila Voss
+  patient_name_certainty: stated
+  patient_dob_true: "1936-08-14"
+  patient_dob_spoken: "1936-08-14"
+  patient_dob_certainty: stated
+  caller_name_true: Hester Quill
+  caller_name_spoken: Hester Quill
+  caller_name_certainty: stated
+  relationship_to_patient: friend
+  relationship_certainty: stated
+  callback_phone_true: "9015550151"
+  callback_phone_spoken: "9015550151"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked which furosemide dose is correct because the bottle and the discharge paper disagree
+  reason_category: medication_question
+  relevant_context: Recently discharged home health patient with swollen ankles
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: unclear
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: The discharge paper lists furosemide forty milligrams once a day and the bottle label says twenty, so the correct dose is unresolved
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: swollen ankles
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: physician_notification
+    action_status: planned
+    actor: nurse
+    recipient_or_target: discharging physician's office
+    reason_or_trigger: furosemide dose discrepancy between bottle and discharge paper
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: by end of day
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give only the dose on the bottle label until the order is confirmed and keep the bottle and discharge paper together
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away or dial 911 for trouble breathing, chest pain, or a sudden weight gain
+    trigger_condition: trouble breathing; chest pain; sudden weight gain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sandpiper Home Health, this is Bettina.
+  Caller -> Hello. Yes. Hello. Um, my name is Hester Quill. I'm calling about my friend. Ludmila Voss. She's one of yours. I'm from her church. || caller_name, relationship, patient_name
+  Nurse -> Hi, Hester. Thanks for calling. What's going on?
+  Caller -> I hope it's okay that I'm calling. I'm not family.
+  Nurse -> Of course. We're glad you did.
+  Caller -> It's her water pill. I think the, there's a mix up with the dose and I don't know who to ask. She's, well, she's a little foggy on the details. || cc
+  Nurse -> Okay. Let's go through it. Which water pill?
+  Caller -> Furosemide. The bottle says furosemide. || A1
+  Nurse -> And what does the label say for the dose?
+  Caller -> Twenty milligrams. Once a day. In the morning. It says take one tablet. || A1
+  Nurse -> Okay. And what's the problem?
+  Caller -> Well, the paper from the hospital. The discharge paper. It says forty. Forty milligrams, once a day. And I said, Ludmila, which is it? And she said she thinks it's, oh, I don't know, she said the little white one. Both of them are white.
+  Nurse -> Ha. That doesn't help us much.
+  Caller -> No. They're twins.
+  Nurse -> So the bottle says twenty and the hospital paper says forty.
+  Caller -> Yes. That's the whole thing. I don't know which to follow. || A2
+  Nurse -> Okay. Did she take it today?
+  Caller -> This morning. One tablet. From the bottle. I watched her.
+  Nurse -> One tablet of the twenty.
+  Caller -> I think so. I think. It's the bottle in the kitchen. It says twenty. I haven't checked if there's another bottle somewhere.
+  Nurse -> Is there a pillbox, or just the bottles?
+  Caller -> Just the bottles. She doesn't like the weekly boxes.
+  Nurse -> Okay. That's helpful. How are her ankles?
+  Caller -> Puffy. Both of them. She's got those, what do you call, sock marks. The marks where the socks dig in. And her shoes don't fit. || A3
+  Nurse -> Is the swelling worse than it was at discharge?
+  Caller -> I can't say. I wasn't here last week. But it's not going down, that I can tell. Not yet.
+  Nurse -> Does she have any trouble breathing? Lying flat, or walking across the room?
+  Caller -> No. No, she's breathing fine. She walked to the kitchen and back. She was a little tired. But no huffing. || A4
+  Nurse -> Good. Any chest pain?
+  Nurse -> Dizzy or lightheaded when she stands?
+  Caller -> A little at the church picnic, she said. Not today.
+  Caller -> No.
+  Nurse -> Okay. I need her date of birth to find her in our system.
+  Caller -> Oh, goodness. Let me think. Hang on. It's on the, here, I have the paper. August fourteenth, nineteen thirty six. || patient_dob
+  Nurse -> August fourteenth, nineteen thirty six. Thank you. And your number?
+  Caller -> Nine oh one, five five five, zero one five one. || callback_phone
+  Nurse -> Is that a cell?
+  Caller -> My home line. I have an answering machine, so leave a message if I'm out.
+  Nurse -> Got it, Hester. So here's the situation. I can't tell you over the phone which dose is right. I don't want to guess. Sometimes the hospital changes a dose at discharge and the pharmacy is still using the old bottle. Sometimes the paper is wrong.
+  Caller -> Oh. So it could be either one.
+  Nurse -> It could. I need to check the actual order with her doctor's office. I'll call the discharging physician's office today to find out. || R1
+  Caller -> Oh, thank goodness. Thank you.
+  Nurse -> Until we know, please give only what's on the bottle label. That's the pharmacy's most recent fill. One tablet of the twenty in the morning. Don't double up, and don't skip it. || E1
+  Caller -> Just the bottle. The twenty. Okay. And not the forty.
+  Nurse -> Right. And keep the bottle and the discharge paper together so the clinician can look at both.
+  Caller -> I'll put them in a bag. A plastic bag. On the table.
+  Nurse -> Perfect. I'll call you back by the end of the day once I know. || R2
+  Caller -> By the end of the day. Okay. What if I don't hear?
+  Nurse -> Then call us again. Ask for me, Bettina.
+  Caller -> Bettina. Okay. I'm writing it.
+  Nurse -> Good. And Hester, your name again for the chart?
+  Caller -> Hester. H E S T E R. Quill.
+  Nurse -> Another thing. Does she weigh herself?
+  Caller -> I don't think so. There's a scale in the bathroom. Under the sink. It's covered in dust.
+  Nurse -> Ha. Wipe it off first.
+  Caller -> I will. I'll bring a rag.
+  Nurse -> Could you have her step on it tomorrow morning, after she uses the bathroom, and write it down? Same time every day.
+  Caller -> I can do that. I'll come by at nine.
+  Nurse -> Great. Call us right away if she has trouble breathing, any chest pain, or she gains more than a couple of pounds overnight. If she can't breathe or has chest pain, call nine one one. || E2
+  Caller -> Breathing. Chest pain. Weight gain. Nine one one for the first two. Okay.
+  Nurse -> Does she have family nearby?
+  Caller -> A niece in Ohio. She calls on Sundays. Mostly it's the church ladies. We take turns. I have Tuesday and Thursday.
+  Nurse -> That's a lovely group.
+  Caller -> We try. She's done so much for the church. She ran the bake sale for thirty years.
+  Nurse -> Ha. A legend.
+  Caller -> She makes a lemon bar you would not believe.
+  Nurse -> I'd like to have the recipe.
+  Caller -> Oh, she'll never give it up. She'll take it to the grave.
+  Nurse -> Ha. Well, Hester, thank you for calling and for looking out for her.
+  Caller -> Of course. I'll wait for your call.
+  Nurse -> Talk soon.
+  Caller -> Thank you. Bye bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ludmila Voss, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1936-08-14", certainty: stated, heard_as: [], turns: [34]}
+    caller_name: {value: Hester Quill, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: friend, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550151", certainty: stated, heard_as: [], turns: [36]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked which furosemide dose is correct because the bottle and the discharge paper disagree.
+    speaker: Caller
+    turns: [6]
+    quote: "there's a mix up with the dose and I don't know who to ask."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear; bottle label vs discharge paper) Furosemide 20 mg once a day per the bottle, last taken this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "Twenty milligrams. Once a day. In the morning."
+      explanation: Documents the bottle dose with unresolved conflict.
+      facts:
+        - {type: medication, name: furosemide, dose: "20", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: (unclear) The discharge paper lists furosemide forty milligrams once a day while the bottle says twenty.
+      speaker: Caller
+      turns: [12]
+      quote: "Forty milligrams, once a day."
+      explanation: Documents the dose discrepancy.
+      facts:
+        - {type: context, text: The discharge paper lists furosemide forty milligrams once a day and the bottle label says twenty so the correct dose is unresolved, certainty: unclear}
+      covers: [A2]
+    - text: Both ankles were puffy with sock marks and shoes did not fit.
+      speaker: Caller
+      turns: [24]
+      quote: "Puffy. Both of them."
+      explanation: Documents the ankle swelling.
+      facts:
+        - {type: symptom, name: swollen ankles, present: true, severity: moderate, certainty: stated}
+      covers: [A3]
+    - text: She had no shortness of breath.
+      speaker: Caller
+      turns: [28]
+      quote: "No, she's breathing fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call the discharging physician's office about the dose discrepancy.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call the discharging physician's office today to find out."
+      explanation: Documents the planned physician contact.
+      facts:
+        - {type: action, action_type: physician_notification, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback by the end of the day.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you back by the end of the day"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: by end of day, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving only the bottle label dose until the order is confirmed and keeping the bottle and discharge paper together.
+      speaker: Nurse
+      turns: [43]
+      quote: "please give only what's on the bottle label."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for trouble breathing, chest pain, or rapid weight gain, and 911 for breathing trouble or chest pain.
+      speaker: Nurse
+      turns: [59]
+      quote: "Call us right away if she has trouble breathing"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,189 @@
+call_id: tr-147
+split: train
+blueprint: "Daughter calls because her mother is dizzy when standing since starting a new blood pressure pill (amlodipine 5 mg, started Monday); BP 96/58. Nurse misreads the phone number back and the daughter corrects the last digits. Nurse messages the team, calls back this evening, advises rising slowly. Number garble on the read-back, resolved."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [phone_from_file, late_answers, split_turns, hedging]
+  clinical_domains: [dizziness, blood_pressure, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-02T22:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Celestina Marquez
+  patient_name_spoken: Celestina Marquez
+  patient_name_certainty: stated
+  patient_dob_true: "1941-08-21"
+  patient_dob_spoken: "1941-08-21"
+  patient_dob_certainty: stated
+  caller_name_true: Luz
+  caller_name_spoken: Luz
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8325550139"
+  callback_phone_spoken: "8325550139"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother gets dizzy when she stands since starting a new blood pressure pill
+  reason_category: dizziness
+  relevant_context: Hospice patient recently started on a new blood pressure medicine
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness on standing
+    symptom_present: true
+    onset_or_duration: since Monday
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 96/58
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: low blood pressure and dizziness on the new medicine
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Help her sit at the edge of the bed for a minute before standing, stand slowly, and stay with her when she walks
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Naomi.
+  Caller -> Hi, Naomi. This is Luz. I'm calling about my mother, Celestina Marquez. She's dizzy. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Luz. Her date of birth?
+  Caller -> August twenty first. Nineteen forty one. || patient_dob
+  Nurse -> And I have eight three two, five five five, zero one eight nine for you. || callback_phone
+  Caller -> No. Zero one three nine. Three nine. Eight three two, five five five, zero one three nine. || callback_phone
+  Nurse -> Sorry. Zero one three nine. Got it. || callback_phone
+  Caller -> Yes. That's it.
+  Nurse -> Tell me about the dizziness.
+  Caller -> When she stands up. She gets dizzy, like the room is spinning. She almost fell this morning. I caught her. It started Monday. That's when they gave her the new blood pressure pill. || A1
+  Nurse -> Okay. Which pill is that?
+  Caller -> The amlodipine. Five milligrams. Once a day in the morning. She took it this morning, too. || A3
+  Nurse -> Okay. Do you have a blood pressure reading?
+  Caller -> I took it about an hour ago. Ninety six over fifty eight. That's low for her. She's usually one forty something. || A2
+  Nurse -> Okay. Thank you. Is she lying down now?
+  Caller -> Yes. In bed. She feels fine lying down.
+  Nurse -> Okay. Luz, I'm going to message her hospice provider about the low blood pressure and the dizziness on the new medicine. || R1
+  Caller -> Okay. Please. Should I skip tomorrow's pill?
+  Nurse -> Let me hear from the provider before anyone changes anything. I'll call you back this evening. || R2
+  Caller -> This evening. Okay.
+  Nurse -> In the meantime, when she needs to get up, have her sit at the edge of the bed for a minute first. Then stand slowly, and stay right next to her when she walks. || E1
+  Caller -> Sit for a minute. Stand slow. Stay next to her. Okay. I'm staying with her tonight anyway.
+  Nurse -> Good. Anything else?
+  Caller -> No. Thank you, Naomi.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: "zero one three nine", heard_form: "zero one eight nine", fact_id: callback_phone}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Celestina Marquez, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-08-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Luz, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8325550139", certainty: stated, heard_as: [], turns: [5, 6, 7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother gets dizzy when she stands since starting a new blood pressure pill.
+    speaker: Caller
+    turns: [2]
+    quote: "She's dizzy."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Dizziness occurred on standing since Monday, with a near fall this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "When she stands up. She gets dizzy, like the room is spinning."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness on standing, present: true, duration: since Monday, certainty: stated}
+      covers: [A1]
+    - text: Amlodipine 5 mg once a day was being taken, including this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "The amlodipine. Five milligrams. Once a day in the morning."
+      explanation: Documents the new medication.
+      facts:
+        - {type: medication, name: amlodipine, dose: "5", unit: mg, frequency: once a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 96/58, low for her.
+      speaker: Caller
+      turns: [14]
+      quote: "Ninety six over fifty eight."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 96/58, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Planned to message the hospice provider about the low blood pressure and dizziness.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to message her hospice provider about the low blood pressure and the dizziness on the new medicine."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back this evening."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised sitting at the edge of the bed for a minute, standing slowly, and staying next to her when she walks.
+      speaker: Nurse
+      turns: [21]
+      quote: "have her sit at the edge of the bed for a minute first. Then stand slowly, and stay right next to her when she walks."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+  risk_flags: []

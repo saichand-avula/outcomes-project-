@@ -1,0 +1,233 @@
+call_id: tr-101
+split: train
+blueprint: "Son calls about his 87-year-old mother who has been unusually sleepy and not eating for two days; he gives her birth date wrongly then corrects himself ('June seventh, no, June seventeenth, nineteen thirty nine') and hedges about her medicines (the heart pill). Resolved DOB, hedged meds. Nurse plans a nurse visit today and a physician message, advises small sips and keeping her upright."
+setup:
+  scenario_category: ambiguous
+  subtype: hedged_history
+  secondary_tags: [dob_self_corrected, hedging, late_answers, split_turns, negated_risk_phrase]
+  clinical_domains: [fatigue, intake_appetite, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-31T14:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bernadette Kowal
+  patient_name_spoken: Bernadette Kowal
+  patient_name_certainty: stated
+  patient_dob_true: "1939-06-17"
+  patient_dob_spoken: "1939-06-17"
+  patient_dob_certainty: stated
+  caller_name_true: Stanley Kowal
+  caller_name_spoken: Stanley Kowal
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7165550123"
+  callback_phone_spoken: "7165550123"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his mother is unusually sleepy and not eating
+  reason_category: fatigue
+  relevant_context: Hospice patient who lives with her son
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: unusual sleepiness
+    symptom_present: true
+    onset_or_duration: past 2 days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: not eating
+    symptom_present: true
+    onset_or_duration: past 2 days
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: taking
+    certainty: unclear
+    unclear_detail: Caller thinks she takes a heart pill, maybe metoprolol, but is not sure of the name or whether she took it today
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: increased sleepiness and no intake for 2 days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer tiny sips or a damp swab when she is awake, keep her head raised, and do not force food
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call anytime if anything changes or he has questions
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi, Gwen. It's Stanley Kowal. My mom is Bernadette Kowal. She's a patient. || caller_name, relationship, patient_name
+  Nurse -> Hi, Stanley. Her date of birth?
+  Caller -> June seventh. No, June seventeenth. Nineteen thirty nine. Sorry, seventeenth. || patient_dob
+  Nurse -> June seventeenth, nineteen thirty nine. And seven one six, five five five, zero one two three? || patient_dob, callback_phone
+  Caller -> Yeah, that's the house. || callback_phone
+  Nurse -> What's going on?
+  Caller -> She's just. She's been really sleepy. More than normal. Two days. She hardly wakes up. || cc, A1
+  Nurse -> Mm-hm.
+  Caller -> And she's not eating. She won't. She turns her head. For two days. || A2
+  Nurse -> Okay. Is she in any pain, do you think? Grimacing, moaning?
+  Caller -> No. No, she looks comfortable. She's not in pain, I don't think. She's not making any faces. || A5
+  Nurse -> Okay. How's her breathing?
+  Caller -> It's normal. It's slow, kind of, but it's normal. It's not hard. She's not struggling or anything. || A4
+  Nurse -> Okay.
+  Caller -> I'm not sure if she's had her pills. I think the morning ones. The heart one. The, what's it called. The metoprolol? I think. I don't know. || A3
+  Nurse -> Okay.
+  Caller -> My sister does the pills. She's at work.
+  Nurse -> That's okay. Stanley, I'd like to send a nurse out to see her today. || R1
+  Caller -> Today. Okay. Good.
+  Nurse -> And I'm going to message her doctor about the sleepiness and the not eating. || R2
+  Caller -> Okay.
+  Nurse -> In the meantime, when she's awake, offer her tiny sips, or touch a damp swab to her lips. Keep her head up on a pillow. And don't force any food. || E1
+  Caller -> Okay. No force. Okay.
+  Nurse -> This is common as someone gets weaker. It doesn't mean you did anything wrong.
+  Caller -> Okay. Thank you. I was scared I was missing something.
+  Nurse -> You're not. And call us any time if anything changes, or if you just have questions. || E2
+  Caller -> I will. Thank you, Gwen.
+  Nurse -> Take care.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: June seventeenth, heard_form: "June seventh. No, June seventeenth.", fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bernadette Kowal, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-06-17", certainty: stated, heard_as: [], turns: [4, 5]}
+    caller_name: {value: Stanley Kowal, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "7165550123", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother is unusually sleepy and not eating.
+    speaker: Caller
+    turns: [8]
+    quote: "She's been really sleepy. More than normal. Two days."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She was unusually sleepy for 2 days and hardly woke up.
+      speaker: Caller
+      turns: [8]
+      quote: "She hardly wakes up."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: unusual sleepiness, present: true, duration: past 2 days, certainty: stated}
+      covers: [A1]
+    - text: She had not been eating for 2 days.
+      speaker: Caller
+      turns: [10]
+      quote: "she's not eating. She won't. She turns her head. For two days."
+      explanation: Documents loss of intake.
+      facts:
+        - {type: symptom, name: not eating, present: true, duration: past 2 days, certainty: stated}
+      covers: [A2]
+    - text: She appeared comfortable and not in pain.
+      speaker: Caller
+      turns: [12]
+      quote: "No, she looks comfortable. She's not in pain, I don't think."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: pain, certainty: stated}
+      covers: [A5]
+    - text: Her breathing was slow but not hard.
+      speaker: Caller
+      turns: [14]
+      quote: "It's normal. It's slow, kind of, but it's normal. It's not hard."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A4]
+    - text: The caller thought she took a heart pill, possibly metoprolol, but was unsure of the name and whether she had taken it (unclear).
+      speaker: Caller
+      turns: [16]
+      quote: "The heart one. The, what's it called. The metoprolol? I think. I don't know."
+      explanation: Documents the uncertain medication history.
+      facts:
+        - {type: medication, name: metoprolol, med_status: taking, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'd like to send a nurse out to see her today."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R1]
+    - text: Planned to message her doctor about the sleepiness and not eating.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to message her doctor about the sleepiness and the not eating."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised offering tiny sips or a damp swab when she was awake, keeping her head raised, and not forcing food.
+      speaker: Nurse
+      turns: [23]
+      quote: "offer her tiny sips, or touch a damp swab to her lips. Keep her head up on a pillow. And don't force any food."
+      explanation: Documents comfort and hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Invited him to call anytime if anything changed or he had questions.
+      speaker: Nurse
+      turns: [27]
+      quote: "call us any time if anything changes, or if you just have questions."
+      explanation: Documents the open invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

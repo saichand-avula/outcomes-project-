@@ -1,0 +1,176 @@
+call_id: tr-124
+split: train
+blueprint: "Daughter needs incontinence supplies for her mother: 4 large briefs left, no underpads, mild pink redness at the bottom, skin not open. Nurse orders the supplies for Thursday and reviews skin care. Short."
+setup:
+  scenario_category: supply
+  subtype: incontinence_supplies
+  secondary_tags: [phone_from_file, split_turns]
+  clinical_domains: [incontinence, skin]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-29T19:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gladys Ferreira
+  patient_name_spoken: Gladys Ferreira
+  patient_name_certainty: stated
+  patient_dob_true: "1938-10-03"
+  patient_dob_spoken: "1938-10-03"
+  patient_dob_certainty: stated
+  caller_name_true: Natasha
+  caller_name_spoken: Natasha
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "9785550127"
+  callback_phone_spoken: "9785550127"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested incontinence supplies for her mother
+  reason_category: supply_request
+  relevant_context: Home care patient needing incontinence supplies
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: large briefs
+    supply_remaining: "4"
+    supply_unit: briefs
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: underpads
+    supply_remaining: none
+    supply_unit: pads
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pink skin at the bottom
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: large briefs and underpads
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change her right away when wet and use the barrier cream each time
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Joanne.
+  Caller -> Hi, it's Natasha. I'm calling for my mom, Gladys Ferreira. || caller_name, patient_name, relationship
+  Nurse -> Hi, Natasha. And her birthday?
+  Caller -> October third, nineteen thirty eight. || patient_dob
+  Nurse -> And nine seven eight, five five five, zero one two seven for you? || callback_phone
+  Caller -> Right. That's my cell. || callback_phone
+  Nurse -> What do you need?
+  Caller -> Supplies. The briefs and the pads. We're nearly out. || cc
+  Nurse -> Okay. How many do you have?
+  Caller -> Briefs, the large ones. Four left. And the underpads, the blue ones, those are gone. Completely gone. || A1, A2
+  Nurse -> Okay. Anything else running low? Wipes? Barrier cream?
+  Caller -> Wipes are fine. We have plenty of those. And the cream is fine.
+  Nurse -> Okay. How's her skin? Any redness?
+  Caller -> A little. Right at the bottom. Pink, not open. Nothing broken. || A3
+  Nurse -> Okay. I'll order the large briefs and the underpads. || R1
+  Caller -> Thank you.
+  Nurse -> They'll deliver Thursday. || R2
+  Caller -> Thursday. Okay. I work all day, so it'll be my dad who's home. He's the one who answers the door.
+  Nurse -> That works. And until then, change her right away when she's wet, and use the barrier cream each time. || E1
+  Caller -> Yeah. We do. Right away. My dad is really good about it. He's not squeamish at all.
+  Nurse -> Great. Someone does need to be home to sign for the box, so if your dad has to step out, let me know.
+  Caller -> He won't. He basically never leaves the house anymore. He watches his shows with her all day.
+  Nurse -> That's sweet. Okay, anything else?
+  Caller -> No. That's it. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gladys Ferreira, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-10-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Natasha, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "9785550127", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested incontinence supplies for her mother.
+    speaker: Caller
+    turns: [8]
+    quote: "Supplies. The briefs and the pads. We're nearly out."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Four large briefs remained and the underpads were gone.
+      speaker: Caller
+      turns: [10]
+      quote: "Briefs, the large ones. Four left. And the underpads, the blue ones, those are gone."
+      explanation: Documents the supply levels.
+      facts:
+        - {type: supply, item: large briefs, supply: 4 briefs, certainty: stated}
+        - {type: supply, item: underpads, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: Pink skin was reported at the bottom, not open or broken.
+      speaker: Caller
+      turns: [14]
+      quote: "Pink, not open. Nothing broken."
+      explanation: Documents the skin finding.
+      facts:
+        - {type: symptom, name: pink skin at the bottom, present: true, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to order large briefs and underpads.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll order the large briefs and the underpads."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Thursday.
+      speaker: Nurse
+      turns: [17]
+      quote: "They'll deliver Thursday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised changing her right away when wet and using the barrier cream each time.
+      speaker: Nurse
+      turns: [19]
+      quote: "change her right away when she's wet, and use the barrier cream each time."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+  risk_flags: []

@@ -1,0 +1,401 @@
+call_id: tr-149
+split: train
+blueprint: "Wife of a heart failure patient: weight up 4 pounds in two days, both ankles more swollen since Sunday, short of breath walking to the bathroom, needs two pillows and coughs at night. Furosemide 40 mg taken this morning; they ate ham sandwiches and canned soup over the weekend. BP 128/76, oxygen 94, no chest pain, no fever. Nurse messages the provider, plans a visit tomorrow and a callback this evening, and teaches daily weights, low salt, elevation and return precautions. No flag. Long."
+setup:
+  scenario_category: routine
+  subtype: heart_failure_flare
+  secondary_tags: [multi_issue, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [edema, dyspnea, cardiac]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Hector
+  call_timestamp_utc: "2026-10-03T14:50:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Casimir Dobrowolski
+  patient_name_spoken: Casimir Dobrowolski
+  patient_name_certainty: stated
+  patient_dob_true: "1940-07-19"
+  patient_dob_spoken: "1940-07-19"
+  patient_dob_certainty: stated
+  caller_name_true: Halina Dobrowolski
+  caller_name_spoken: Halina Dobrowolski
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "5855550131"
+  callback_phone_spoken: "5855550131"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband's weight and ankle swelling are up and his breathing is worse
+  reason_category: edema
+  relevant_context: Home health patient with heart failure
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: weight gain
+    symptom_present: true
+    onset_or_duration: 4 pounds in two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling in both ankles
+    symptom_present: true
+    onset_or_duration: worse since Sunday
+    body_location: both ankles
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: shortness of breath walking to the bathroom
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: needing two pillows and coughing at night
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Ate ham sandwiches and canned soup over the weekend
+    certainty: stated
+  - item_id: A9
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 128/76
+    certainty: stated
+  - item_id: A10
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "94"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: weight gain and swelling on the current water pill
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh him every morning after using the bathroom and before breakfast, and write it down
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Avoid canned soup, ham and other salty foods and keep salt low
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep his feet raised when sitting and use extra pillows at night
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for more shortness of breath, being unable to lie flat, another 2 pounds overnight, or a worse cough; 911 for chest pain or severe trouble breathing
+    trigger_condition: more shortness of breath; cannot lie flat; 2 pounds overnight; chest pain
+    certainty: stated
+  - item_id: E5
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call the same number any hour, day or night, and the on-call nurse will answer
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Hector.
+  Caller -> Hello, Hector. It's Halina Dobrowolski. I'm calling about my husband, Casimir. Casimir Dobrowolski. I think his heart is acting up again. His legs are swollen and he's gained weight. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Halina. I'm glad you called. Let me get his date of birth.
+  Caller -> July nineteenth. Nineteen forty. || patient_dob
+  Nurse -> And is five eight five, five five five, zero one three one the best number for you? || callback_phone
+  Caller -> Yes. The house phone. I'm always here. || callback_phone
+  Nurse -> Okay. Tell me about the weight. How much has he gained?
+  Caller -> We weigh him every morning, like you told us. Monday he was one eighty two. This morning he's one eighty six. So four pounds. In two days. || A1
+  Nurse -> Okay. That's more than I'd like to see. And the swelling, where is it?
+  Caller -> His ankles. Both of them. They were a little puffy on Sunday, but now they're really puffy. I press with my thumb and it leaves a dent. It stays a few seconds. || A2
+  Nurse -> Okay. Is he short of breath at all?
+  Caller -> Yes. A little. When he walks to the bathroom. Just to the bathroom, it's ten steps. He has to stop and catch his breath. That's new. Last week he could walk to the mailbox. || A3
+  Nurse -> Okay. And at night, how is he sleeping?
+  Caller -> Not good. He's using two pillows. Before it was one. And he coughs. A dry cough, mostly when he lies back. I put an extra pillow under him last night and it helped a little. || A4
+  Nurse -> Okay. Does he have any chest pain?
+  Caller -> No. No chest pain. He says no. I ask him every day. || A6
+  Nurse -> Any fever, chills?
+  Caller -> No. No fever. I took it this morning. Ninety eight point four. || A7
+  Nurse -> Good. Have you taken his blood pressure and oxygen today?
+  Caller -> Yes. I have the machine. Blood pressure is one twenty eight over seventy six. And the oxygen on the finger thing says ninety four. || A9, A10
+  Nurse -> Is that the same machine and the same arm you've been using?
+  Caller -> The same one. The left arm. The nurse showed me how, with the cuff right at the heart, and his arm on the table. I do it sitting down, after he has rested five minutes. I'm very careful.
+  Nurse -> That's exactly right. You've been doing a great job with the log.
+  Caller -> Thank you. I keep everything in the notebook, the weights, the pressures, the pills. If the doctor asks, I can read it all to him.
+  Nurse -> Okay. Those are reasonable numbers. Halina, has he taken his water pill?
+  Caller -> The furosemide. Yes. Forty milligrams, every morning. He took it this morning at eight. || A5
+  Nurse -> Okay. Furosemide forty this morning. Did anything change this weekend, with food or anything else? || A5
+  Caller -> Well. Maybe. Saturday our grandson was here, and I made ham sandwiches. And Sunday I made soup, from the can. I didn't think. It was an easy lunch. Casimir ate two sandwiches. || A8
+  Nurse -> Okay. That can do it. Canned soup and ham are very salty, and salt makes the body hold on to water.
+  Caller -> I know. I know. I knew it while I was opening the can. You tell yourself it's one time. Our grandson was here and he wanted something quick, and Casimir was so happy to have him, and I just wanted everyone to be happy.
+  Nurse -> That makes total sense. A weekend with family is hard to turn into a diet. The important thing is we caught it in two days and not two weeks.
+  Caller -> That's true. Last time, I waited a week, and he ended up in the hospital. I didn't want that again.
+  Nurse -> That's why I'm so glad you called today.
+  Nurse -> It happens to everybody. It's good that you're telling me. Halina, here's what I'm going to do. I'm going to message his provider about the weight gain and the swelling, because they may want to adjust the water pill. || R1
+  Caller -> Okay. Good. Do you think he needs to go to the hospital?
+  Nurse -> From what you're telling me, I don't think he needs the emergency room right now. His breathing is only short with walking, his oxygen is fine, and he has no chest pain. But we want to act quickly so it doesn't get worse.
+  Caller -> Okay. That makes me feel better.
+  Nurse -> A nurse will come see him tomorrow. || R2
+  Caller -> Tomorrow. Okay. What time?
+  Nurse -> The scheduler will call you with a window. I'll ask for the morning.
+  Caller -> Morning is good. He has a doctor's appointment Tuesday, but that's another day. His cardiologist is in the city, and my daughter drives us, because I don't like the highway anymore.
+  Nurse -> That's helpful for the visit. The nurse can look at his legs, listen to his lungs, and check his weight on your scale and ours.
+  Caller -> Good. I'll make sure the scale is out where she can see it. And I'll make coffee. Do the nurses drink coffee? I never know.
+  Nurse -> Ha. Some do. Don't go to any trouble.
+  Nurse -> Good. And I'll call you back this evening once I hear from the provider. || R3
+  Caller -> This evening. Okay. I'll keep the phone near me.
+  Nurse -> Now, a few things until then. Keep weighing him every morning, after he uses the bathroom and before breakfast, same scale, and write it down. || E1
+  Caller -> Every morning. After the bathroom, before breakfast. Same scale. Okay. I have a notebook on the table.
+  Nurse -> Perfect. And for food, no canned soup, no ham, no other salty things for now. Cook with herbs and lemon, not salt. || E2
+  Caller -> No salt. Herbs and lemon. Okay. He is going to complain. He loves my sausage soup. My mother's recipe, from the old country, with the cabbage and the caraway.
+  Nurse -> That sounds delicious. Maybe we can find a version with much less salt and a lot of caraway, when he's feeling better.
+  Caller -> I'll try it. I'll leave out the sausage and use a little chicken. He won't know the difference. Or he will, but he won't say.
+  Nurse -> I know. We can find a way to do a lower salt version later. For now, keep it simple.
+  Caller -> Okay. Fresh vegetables. A little chicken. I can do that.
+  Nurse -> That sounds great. And when he's sitting, keep his feet up on a stool, higher than his hips if he can. And use extra pillows at night. || E3
+  Caller -> Feet up. Extra pillows. I'll get the footstool from the bedroom.
+  Nurse -> Good. Halina, I also want you to call us if his breathing gets worse, if he can't lie flat at all, if he gains another two pounds overnight, or if the cough gets worse. If he has chest pain, or if he is struggling to breathe, call nine one one. || E4
+  Caller -> Worse breathing, can't lie flat, two more pounds, worse cough. Chest pain or struggling, nine one one. Okay. I'm writing it on the notebook.
+  Nurse -> Take your time.
+  Caller -> Okay. Got it.
+  Nurse -> How are you doing, Halina? You've been caring for him for a long time.
+  Caller -> I'm okay. It's seven years since his first heart attack. I'm tired, but he's my husband. We did our fiftieth anniversary in March. The kids came from Chicago. He danced one dance with me, he was so proud.
+  Nurse -> That's wonderful. Keep that in mind. You're doing a great job.
+  Caller -> Thank you. You always make me feel better, Hector.
+  Nurse -> Anything else tonight?
+  Caller -> No, I think that's everything. Thank you. Thank you so much. I feel better just having a plan. When it gets quiet at night, that's when I start worrying.
+  Nurse -> That's very normal. If you wake up at night and something doesn't feel right, you can call the same number, any hour, and the on-call nurse will pick up. || E5
+  Caller -> I didn't know that. I thought it was only for the daytime. Okay. I'll remember. I'll put the number on the fridge.
+  Nurse -> Perfect. You've got a good system going, Halina.
+  Nurse -> I'll call you this evening.
+  Caller -> Okay. Goodbye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Casimir Dobrowolski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-07-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Halina Dobrowolski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "5855550131", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband's weight and ankle swelling are up and his breathing is worse.
+    speaker: Caller
+    turns: [2]
+    quote: "I think his heart is acting up again. His legs are swollen and he's gained weight."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Weight was up 4 pounds in two days, from 182 on Monday to 186 this morning.
+      speaker: Caller
+      turns: [8]
+      quote: "Monday he was one eighty two. This morning he's one eighty six. So four pounds. In two days."
+      explanation: Documents the weight gain.
+      facts:
+        - {type: symptom, name: weight gain, present: true, duration: 4 pounds in two days, certainty: stated}
+      covers: [A1]
+    - text: Both ankles were swollen, worse since Sunday, and pitting with thumb pressure.
+      speaker: Caller
+      turns: [10]
+      quote: "His ankles. Both of them."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: ankle swelling in both ankles, present: true, duration: worse since Sunday, location: both ankles, certainty: stated}
+      covers: [A2]
+    - text: He was short of breath walking the ten steps to the bathroom, which was new.
+      speaker: Caller
+      turns: [12]
+      quote: "Yes. A little. When he walks to the bathroom."
+      explanation: Documents the breathlessness.
+      facts:
+        - {type: symptom, name: shortness of breath walking to the bathroom, present: true, certainty: stated}
+      covers: [A3]
+    - text: He needed two pillows to sleep, up from one, and coughed at night when lying back.
+      speaker: Caller
+      turns: [14]
+      quote: "He's using two pillows. Before it was one."
+      explanation: Documents the night-time symptoms.
+      facts:
+        - {type: symptom, name: needing two pillows and coughing at night, present: true, certainty: stated}
+      covers: [A4]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A6]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [18]
+      quote: "No. No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A7]
+    - text: Blood pressure was 128/76.
+      speaker: Caller
+      turns: [20]
+      quote: "Blood pressure is one twenty eight over seventy six."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 128/76, certainty: stated}
+      covers: [A9]
+    - text: Oxygen saturation was 94.
+      speaker: Caller
+      turns: [20]
+      quote: "And the oxygen on the finger thing says ninety four."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "94", certainty: stated}
+      covers: [A10]
+    - text: Furosemide 40 mg every morning was taken this morning at 8.
+      speaker: Caller
+      turns: [26]
+      quote: "Forty milligrams, every morning. He took it this morning at eight."
+      explanation: Documents the water pill.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: They ate ham sandwiches and canned soup over the weekend.
+      speaker: Caller
+      turns: [28]
+      quote: "Saturday our grandson was here, and I made ham sandwiches. And Sunday I made soup, from the can."
+      explanation: Documents the salty foods.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned to message the provider about the weight gain and swelling.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm going to message his provider about the weight gain and the swelling"
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [38]
+      quote: "A nurse will come see him tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'll call you back this evening once I hear from the provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised weighing him every morning after using the bathroom and before breakfast and writing it down.
+      speaker: Nurse
+      turns: [47]
+      quote: "Keep weighing him every morning, after he uses the bathroom and before breakfast, same scale, and write it down."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised avoiding canned soup, ham, and other salty foods.
+      speaker: Nurse
+      turns: [49]
+      quote: "no canned soup, no ham, no other salty things for now."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised keeping his feet raised when sitting and using extra pillows at night.
+      speaker: Nurse
+      turns: [55]
+      quote: "keep his feet up on a stool, higher than his hips if he can. And use extra pillows at night."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+    - text: Advised calling for worse breathing, being unable to lie flat, another 2 pounds overnight, or a worse cough, and calling 911 for chest pain or struggling to breathe.
+      speaker: Nurse
+      turns: [57]
+      quote: "call us if his breathing gets worse, if he can't lie flat at all, if he gains another two pounds overnight, or if the cough gets worse."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+    - text: Advised calling the same number at any hour, with the on-call nurse answering overnight.
+      speaker: Nurse
+      turns: [67]
+      quote: "you can call the same number, any hour, and the on-call nurse will pick up."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E5]
+  risk_flags: []

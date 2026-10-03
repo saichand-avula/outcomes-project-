@@ -1,0 +1,183 @@
+call_id: tr-203
+split: train
+blueprint: "Aide at an assisted-living facility calls for a hospice resident: briefs and wipes are nearly gone, two briefs left for the night. Nurse places the supply order (completed) and coordinates a delivery to the facility tonight; one skin-care reminder. Facility staff caller; supply category."
+setup:
+  scenario_category: supply
+  subtype: incontinence_supplies
+  secondary_tags: [phone_from_file, hedging, split_turns]
+  clinical_domains: [equipment, skin]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Joel
+  call_timestamp_utc: "2026-10-08T21:35:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosalind Achterberg
+  patient_name_spoken: Rosalind Achterberg
+  patient_name_certainty: stated
+  patient_dob_true: "1939-06-27"
+  patient_dob_spoken: "1939-06-27"
+  patient_dob_certainty: stated
+  caller_name_true: Deja
+  caller_name_spoken: Deja
+  caller_name_certainty: stated
+  relationship_to_patient: aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "9195550173"
+  callback_phone_spoken: "9195550173"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that a resident is almost out of briefs and wipes
+  reason_category: supply_incontinence
+  relevant_context: Hospice resident at an assisted-living facility
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: briefs
+    supply_remaining: "2"
+    supply_unit: briefs
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: wipes
+    supply_remaining: almost none
+    supply_unit: packs
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: redness on her bottom
+    symptom_present: true
+    severity: mild
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: briefs and wipes
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: facility front desk
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change her promptly when wet, clean gently, and apply barrier cream to the red area
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Joel.
+  Caller -> Hi, Joel. This is Deja. I'm an aide over at Fernwood Commons. I'm calling about one of our residents, Rosalind Achterberg. We're about out of her briefs. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Deja. Okay, let me pull her up. Can you give me her date of birth?
+  Caller -> June twenty seventh, nineteen thirty nine. || patient_dob
+  Nurse -> And the number I have for the facility is nine one nine, five five five, zero one seven three. || callback_phone
+  Caller -> Yeah, that's the nurses' station. That's right.  || callback_phone
+  Nurse -> Okay. So how many briefs does she have?
+  Caller -> Two. Two left. And that's for tonight. And we're out of the wipes, or close. There's like a handful left in the pack. || A1, A2
+  Nurse -> Okay. I don't want her to run out overnight. I've put the order in for briefs and wipes, it's done. || R1
+  Caller -> Oh, great. When would they come?
+  Nurse -> I'm going to call the driver and see if we can get them to your front desk tonight. || R2
+  Caller -> Okay. The front desk is there till ten. After that it's the night guy, he knows to expect it.
+  Nurse -> Perfect. Is her skin okay? With the supplies low, I want to make sure she's not irritated.
+  Caller -> She's a little red on her bottom. Not bad. Just pink. || A3
+  Nurse -> Okay. Change her as soon as she's wet, clean her gently, and put the barrier cream on the red area. || E1
+  Caller -> Change her fast. Clean gentle. Cream. Okay. I'll put that in the notes for the night shift.
+  Nurse -> Thanks, Deja. I'll call the station if the driver can't make it tonight.
+  Caller -> Okay. I'll be here till eleven.
+  Nurse -> Anything else for her?
+  Caller -> No, that's it. She's comfortable. She's been sleeping a lot, though. But she seems calm.
+  Nurse -> That's okay. Thanks for looking after her.
+  Caller -> Thanks, Joel.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosalind Achterberg, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-06-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Deja, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550173", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a resident was almost out of briefs and wipes.
+    speaker: Caller
+    turns: [2]
+    quote: "We're about out of her briefs."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two briefs remained.
+      speaker: Caller
+      turns: [8]
+      quote: "Two. Two left. And that's for tonight."
+      explanation: Documents the brief supply.
+      facts:
+        - {type: supply, item: briefs, supply: 2 briefs, certainty: stated}
+      covers: [A1]
+    - text: Wipes were almost gone.
+      speaker: Caller
+      turns: [8]
+      quote: "we're out of the wipes, or close."
+      explanation: Documents the wipes supply.
+      facts:
+        - {type: supply, item: wipes, supply: almost none, certainty: stated}
+      covers: [A2]
+    - text: Mild pinkness on her bottom was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "She's a little red on her bottom. Not bad. Just pink."
+      explanation: Documents the skin finding.
+      facts:
+        - {type: symptom, name: redness on her bottom, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Placed the order for briefs and wipes.
+      speaker: Nurse
+      turns: [9]
+      quote: "I've put the order in for briefs and wipes, it's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the driver to get the supplies to the facility front desk tonight.
+      speaker: Nurse
+      turns: [11]
+      quote: "I'm going to call the driver and see if we can get them to your front desk tonight."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised changing her promptly when wet, cleaning gently, and applying barrier cream to the red area.
+      speaker: Nurse
+      turns: [15]
+      quote: "Change her as soon as she's wet, clean her gently, and put the barrier cream on the red area."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+  risk_flags: []

@@ -1,0 +1,224 @@
+call_id: tr-060
+split: train
+blueprint: "Husband and wife are both on the line; wife (patient) interrupts him. Dizziness on standing since a new blood pressure pill whose name they are unsure of (losartan or lisinopril, unresolved), sitting BP 102/60, no fall. Two of the patient's lines are mislabeled as Nurse by diarization. Nurse plans a prescriber message and a BP check visit tomorrow."
+setup:
+  scenario_category: ambiguous
+  subtype: speaker_confusion
+  secondary_tags: [speaker_label_errors, crosstalk, hedging, garbled_drug, contradiction]
+  clinical_domains: [dizziness, blood_pressure, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-09-19T16:02:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Doris Pettibone
+  patient_name_spoken: Doris Pettibone
+  patient_name_certainty: stated
+  patient_dob_true: "1947-10-21"
+  patient_dob_spoken: "1947-10-21"
+  patient_dob_certainty: stated
+  caller_name_true: Walter Pettibone
+  caller_name_spoken: Walter Pettibone
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "3365550152"
+  callback_phone_spoken: "3365550152"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported dizziness when she stands up since starting a new blood pressure pill
+  reason_category: dizziness
+  relevant_context: Started a new blood pressure pill about a week ago
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness on standing
+    symptom_present: true
+    onset_or_duration: since starting the new pill about a week ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: losartan
+    medication_name_spoken: losartan
+    medication_status: taking
+    dose: "1"
+    unit: pill
+    frequency: once a day
+    certainty: unclear
+    unclear_detail: Caller said losartan, then said it might be lisinopril; never confirmed
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 102/60
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: dizziness and low blood pressure on the new pill
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: blood pressure check
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stand up slowly, sit on the edge of the bed first, drink fluids, and use the walker
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, fainting, chest pain, or blurred vision
+    trigger_condition: fall; fainting; chest pain; blurred vision
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hello? Yes, hi. This is Walter Pettibone, I'm calling for my wife. Doris. Doris Pettibone. || caller_name, relationship, patient_name
+  Nurse -> Hi, Walter. What's her date of birth?
+  Caller -> October twenty first, nineteen forty seven. || patient_dob
+  Nurse -> Okay. And I have three three six, five five five, zero one five two. || callback_phone
+  Caller -> That's the home phone. That's right. || callback_phone
+  Nurse -> What's going on?
+  Caller -> She's dizzy. Every time she stands up. Ever since she started that new, that blood pressure pill. || cc, A1
+  Nurse -> Okay. What's the name of the medication?
+  Caller -> It's losartan. Losartan. || A2
+  Nurse -> One a day?
+  Caller -> Yes, one a day. Right? Dorrie? || A2
+  Nurse -> I think it's lisinopril, Walter. The one the doctor gave me last week. Lisinopril. || A2, label_error
+  Caller -> Is it? Hm. I thought losartan. Well, it's the new one, anyway. The blood pressure one. || A2
+  Nurse -> And I don't know, it's a little white pill, I take it in the morning. || A2, label_error
+  Nurse -> Okay. So you're both not sure on the name. Has anyone checked her blood pressure?
+  Caller -> Yes, I did. Just now. Sitting down, it was one oh two over sixty. || A3
+  Nurse -> Okay. Has she fallen? Any falls?
+  Caller -> No. No falls. She says no. Did you fall? No. No, she hasn't. || A4
+  Nurse -> Alright. Walter, I'll send a message to her prescriber today about the dizziness and that pressure. They'll want to know about it. || R1
+  Caller -> Okay. Good.
+  Nurse -> And I'll send a nurse out tomorrow to check her pressure standing and sitting. || R2
+  Caller -> Tomorrow. Okay.
+  Nurse -> Until then, she should stand up slowly. Sit on the edge of the bed for a minute first, drink some fluids, and use her walker every time. || E1
+  Caller -> Slowly. Walker. Fluids. Okay, Dorrie, you hear that? Walker.
+  Nurse -> And if she falls, or faints, or has chest pain or blurry vision, call us right away. || E2
+  Caller -> Okay. Faint, chest pain, blurry. Thank you, Ana.
+  Nurse -> Take care.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "patient speaking as Caller", heard_form: "I think it's lisinopril, Walter.", fact_id: A2}
+  - {turn: auto, type: speaker_label, true_form: "patient speaking as Caller", heard_form: "it's a little white pill, I take it in the morning", fact_id: A2}
+  - {turn: auto, type: drug_garble, true_form: losartan, heard_form: lisinopril, fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Doris Pettibone, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-10-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Walter Pettibone, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "3365550152", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported dizziness when she stands up since starting a new blood pressure pill.
+    speaker: Caller
+    turns: [8]
+    quote: "She's dizzy. Every time she stands up."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Dizziness on standing was reported since starting the new blood pressure pill.
+      speaker: Caller
+      turns: [8]
+      quote: "Ever since she started that new, that blood pressure pill."
+      explanation: Documents the timing relative to the new medication.
+      facts:
+        - {type: symptom, name: dizziness on standing, present: true, duration: since starting the new pill about a week ago, certainty: stated}
+      covers: [A1]
+    - text: The new blood pressure pill, 1 daily, was reported as losartan (unclear; the patient thought it was lisinopril and it was not confirmed).
+      speaker: Caller
+      turns: [10]
+      quote: "It's losartan. Losartan."
+      explanation: Documents the medication while preserving the unresolved name conflict.
+      facts:
+        - {type: medication, name: losartan, dose: "1", unit: pill, frequency: once a day, med_status: taking, certainty: unclear}
+      covers: [A2]
+    - text: Sitting blood pressure was reported as 102/60.
+      speaker: Caller
+      turns: [17]
+      quote: "Sitting down, it was one oh two over sixty."
+      explanation: Documents the home blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 102/60, certainty: stated}
+      covers: [A3]
+    - text: No falls were reported.
+      speaker: Caller
+      turns: [19]
+      quote: "No. No falls. She says no."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message her prescriber about the dizziness and blood pressure.
+      speaker: Nurse
+      turns: [20]
+      quote: "I'll send a message to her prescriber today about the dizziness and that pressure."
+      explanation: Documents the planned prescriber notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to check her blood pressure.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll send a nurse out tomorrow to check her pressure standing and sitting."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised standing up slowly, sitting on the edge of the bed first, drinking fluids, and using the walker.
+      speaker: Nurse
+      turns: [24]
+      quote: "she should stand up slowly. Sit on the edge of the bed for a minute first, drink some fluids, and use her walker every time."
+      explanation: Documents fall-prevention guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for a fall, fainting, chest pain, or blurry vision.
+      speaker: Nurse
+      turns: [26]
+      quote: "if she falls, or faints, or has chest pain or blurry vision, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,192 @@
+call_id: tr-164
+split: train
+blueprint: "Paid caregiver calls for an elderly man's incontinence and bathing supplies: 3 pairs of disposable gloves left, 2 packs of wipes, no body wash, 6 briefs. Skin looks fine. Nurse orders them for Wednesday. Short."
+setup:
+  scenario_category: supply
+  subtype: personal_care_supplies
+  secondary_tags: [phone_from_file, split_turns, late_answers, hedging]
+  clinical_domains: [incontinence, equipment]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-04T15:10:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Winton Aldous
+  patient_name_spoken: Winton Aldous
+  patient_name_certainty: stated
+  patient_dob_true: "1933-04-17"
+  patient_dob_spoken: "1933-04-17"
+  patient_dob_certainty: stated
+  caller_name_true: Beatriz
+  caller_name_spoken: Beatriz
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "3865550138"
+  callback_phone_spoken: "3865550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested personal care and incontinence supplies
+  reason_category: supply_request
+  relevant_context: Elderly home care patient needing daily personal care
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: disposable gloves
+    supply_remaining: "3"
+    supply_unit: pairs
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: wipes
+    supply_remaining: "2"
+    supply_unit: packs
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: body wash
+    supply_remaining: none
+    supply_unit: bottles
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: briefs
+    supply_remaining: "6"
+    supply_unit: briefs
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: skin redness or sores
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: gloves, wipes, body wash and briefs
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+education: []
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hi, Ana. It's Beatriz. I'm the caregiver for Mr. Winton Aldous. I come in the mornings. || caller_name, relationship, patient_name
+  Nurse -> Hi, Beatriz. What's Mr. Aldous's date of birth?
+  Caller -> I have it on the sheet. April seventeenth. Nineteen thirty three. || patient_dob
+  Nurse -> And is three eight six, five five five, zero one three eight a good number for you? || callback_phone
+  Caller -> That's the house phone at his place. Yes. I'm here until two. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> We're running low on supplies. The personal care things. I need to order more. || cc
+  Nurse -> Okay. What's low?
+  Caller -> The gloves. The disposable ones. I have three pairs. Three. And the wipes, the big packs. Two packs. || A1, A2
+  Nurse -> Okay.
+  Caller -> And body wash. We're out. Totally out. I've been using just soap and it dries his skin. || A3
+  Nurse -> Okay. And the briefs?
+  Caller -> Six. I think six. I counted yesterday. About two days worth. He uses three a day, sometimes four. || A4
+  Nurse -> Okay. How's his skin? Any redness, any sores?
+  Caller -> No. His skin is good. I check every morning. No red spots. Nothing open. || A5
+  Nurse -> Good. I'll order the gloves, the wipes, the body wash, and the briefs. || R1
+  Caller -> Thank you.
+  Nurse -> They'll deliver Wednesday. || R2
+  Caller -> Wednesday. I'm here Wednesday mornings. I'll sign for it. If I need more before then, I'll bring some from my own supply. I don't mind.
+  Nurse -> That's very kind. We'll get them to you. Anything else?
+  Caller -> No. That's it. Mr. Aldous says hi. He's right here. He says you sound young.
+  Nurse -> Ha. Tell him thank you, and hello.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winton Aldous, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1933-04-17", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Beatriz, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "3865550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested personal care and incontinence supplies.
+    speaker: Caller
+    turns: [8]
+    quote: "We're running low on supplies. The personal care things."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Three pairs of disposable gloves and two packs of wipes remained.
+      speaker: Caller
+      turns: [10]
+      quote: "I have three pairs. Three. And the wipes, the big packs. Two packs."
+      explanation: Documents the glove and wipe supplies.
+      facts:
+        - {type: supply, item: disposable gloves, supply: 3 pairs, certainty: stated}
+        - {type: supply, item: wipes, supply: 2 packs, certainty: stated}
+      covers: [A1, A2]
+    - text: Body wash was gone.
+      speaker: Caller
+      turns: [12]
+      quote: "We're out. Totally out."
+      explanation: Documents the body wash supply.
+      facts:
+        - {type: supply, item: body wash, supply: none, certainty: stated}
+      covers: [A3]
+    - text: Six briefs remained, about two days' worth.
+      speaker: Caller
+      turns: [14]
+      quote: "Six. I think six. I counted yesterday."
+      explanation: Documents the brief supply.
+      facts:
+        - {type: supply, item: briefs, supply: 6 briefs, certainty: stated}
+      covers: [A4]
+    - text: No skin redness or sores were reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No. His skin is good. I check every morning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: skin redness or sores, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to order gloves, wipes, body wash, and briefs.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll order the gloves, the wipes, the body wash, and the briefs."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Wednesday.
+      speaker: Nurse
+      turns: [19]
+      quote: "They'll deliver Wednesday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R2]
+  education: []
+  risk_flags: []

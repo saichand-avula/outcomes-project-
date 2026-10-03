@@ -1,0 +1,212 @@
+call_id: va-021
+split: val
+blueprint: "Wife needs a wheelchair cushion and a bedside commode for her husband; nurse orders the cushion during the call (completed) and plans to send the commode request for doctor sign-off; fall-safety education."
+setup:
+  scenario_category: supply
+  subtype: dme_mobility
+  secondary_tags: [trap_phrasing, multi_issue]
+  clinical_domains: [equipment, falls_safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-29T15:50:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lowell Pickett
+  patient_name_spoken: Lowell Pickett
+  patient_name_certainty: stated
+  patient_dob_true: "1938-03-23"
+  patient_dob_spoken: "1938-03-23"
+  patient_dob_certainty: stated
+  caller_name_true: Mavis
+  caller_name_spoken: Mavis
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "3165550180"
+  callback_phone_spoken: "3165550180"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Needs a wheelchair cushion and a bedside commode
+  reason_category: supply_mobility
+  relevant_context: Husband uses a wheelchair most of the day
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: wheelchair cushion
+    certainty: stated
+    history_or_context_text: The old cushion is flat and he has a sore spot
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: bedside commode
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sore spot on his bottom
+    symptom_present: true
+    severity: red, not open
+    body_location: tailbone area
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: recent falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pressure-relieving wheelchair cushion
+    timeframe: delivery tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: sign-off for the bedside commode
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: check the sore spot
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Shift his weight every 30 minutes, stand or lie down at least every 2 hours, and keep the skin clean and dry
+    timing_or_threshold: every 30 minutes
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Lock the wheelchair brakes before transfers and keep his feet on the footrests
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi, Joanne. It's Mavis. Mavis Pickett. I'm calling about my husband, Lowell. || caller_name, relationship, patient_name
+  Nurse -> Hi, Mavis. Lowell's date of birth?
+  Caller -> March twenty third, nineteen thirty eight. || patient_dob
+  Nurse -> And I have three one six, five five five, zero one eight oh. || callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> What do you need?
+  Caller -> Two things. His wheelchair cushion is flat. It's worn out. And he has a sore spot, on his bottom. A red spot. It's not open. || cc, A1, A3
+  Caller -> And we need a commode for next to the bed. He can't make it to the bathroom at night. || A2
+  Nurse -> Okay. Let me do the cushion first. I'll order a pressure relieving cushion for you right now. Okay. I've placed it. It'll come tomorrow. || R1
+  Caller -> Oh, thank you.
+  Nurse -> The commode needs a doctor's sign off. I'll send the request to his doctor today. || R2
+  Caller -> Okay. How long does that take?
+  Nurse -> Usually a day or two. I'll push it.
+  Caller -> Thank you.
+  Nurse -> And I'd like a nurse to look at the sore spot tomorrow. || R3
+  Caller -> Yes. Please.
+  Nurse -> In the meantime, help him shift his weight every thirty minutes. Have him stand or lie down at least every two hours. Keep the skin clean and dry. || E1
+  Caller -> Every thirty minutes. Okay. I'll set a timer.
+  Nurse -> Has he had any falls lately?
+  Caller -> No. No falls. He's been careful. || A4
+  Nurse -> Good. Always lock the brakes before he transfers, and keep his feet on the footrests. || E2
+  Caller -> I do. Always. Okay.
+  Nurse -> Anything else, Mavis?
+  Caller -> No. That's it. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lowell Pickett, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-03-23", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Mavis, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "3165550180", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested a new wheelchair cushion and a bedside commode, and reported a sore spot on her husband's bottom.
+    speaker: Caller
+    turns: [8]
+    quote: "His wheelchair cushion is flat. It's worn out."
+    explanation: Documents the equipment need prompting the call.
+    covers: [cc, A1, A3]
+  assessment:
+    - text: A bedside commode was needed because he could not reach the bathroom at night.
+      speaker: Caller
+      turns: [9]
+      quote: "we need a commode for next to the bed. He can't make it to the bathroom at night."
+      explanation: Documents the equipment need.
+      facts:
+        - {type: supply, item: bedside commode, certainty: stated}
+      covers: [A2]
+    - text: No recent falls were reported.
+      speaker: Caller
+      turns: [21]
+      quote: "No. No falls. He's been careful."
+      explanation: Documents a pertinent negative for falls.
+      facts:
+        - {type: pertinent_negative, name: recent falls, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Ordered a pressure-relieving wheelchair cushion during the call, for delivery tomorrow.
+      speaker: Nurse
+      turns: [10]
+      quote: "I've placed it. It'll come tomorrow."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, timeframe: delivery tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to send the bedside commode request to his doctor today for sign-off.
+      speaker: Nurse
+      turns: [12]
+      quote: "The commode needs a doctor's sign off. I'll send the request to his doctor today."
+      explanation: Documents the planned physician request.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to examine the sore spot.
+      speaker: Nurse
+      turns: [16]
+      quote: "I'd like a nurse to look at the sore spot tomorrow."
+      explanation: Documents the planned skin assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised shifting his weight every 30 minutes, standing or lying down at least every 2 hours, and keeping the skin clean and dry.
+      speaker: Nurse
+      turns: [18]
+      quote: "help him shift his weight every thirty minutes. Have him stand or lie down at least every two hours."
+      explanation: Documents pressure-relief instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised locking the wheelchair brakes before transfers and keeping his feet on the footrests.
+      speaker: Nurse
+      turns: [22]
+      quote: "Always lock the brakes before he transfers, and keep his feet on the footrests."
+      explanation: Documents transfer safety.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

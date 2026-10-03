@@ -1,0 +1,295 @@
+call_id: tr-062
+split: train
+blueprint: "Weekend aide for an 82-year-old wheelchair user calls for incontinence supplies (briefs low, barrier cream gone, two foam dressings left) and reports a quarter-sized red spot on his tailbone, skin not open. Nurse orders supplies for Thursday delivery, messages the wound nurse, plans a visit Friday, and teaches turning and sitting limits. Medium length with chatter."
+setup:
+  scenario_category: supply
+  subtype: incontinence_skin_supplies
+  secondary_tags: [name_spelled, offtopic_chatter, multi_issue, split_turns, late_answers, phone_not_given]
+  clinical_domains: [wound_skin, incontinence, equipment]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-09-21T14:55:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ambrose Kessler
+  patient_name_spoken: Ambrose Kessler
+  patient_name_certainty: stated
+  patient_dob_true: "1944-03-27"
+  patient_dob_spoken: "1944-03-27"
+  patient_dob_certainty: stated
+  caller_name_true: Tamika Strand
+  caller_name_spoken: Tamika Strand
+  caller_name_certainty: stated
+  relationship_to_patient: aide
+  relationship_certainty: stated
+  callback_phone_true: "4435550171"
+  callback_phone_spoken: "4435550171"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested incontinence and skin care supplies and reported a red spot on his tailbone
+  reason_category: supply_request
+  relevant_context: Aide works weekends with a patient who uses a wheelchair most of the day
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: adult briefs
+    supply_remaining: "6"
+    supply_unit: briefs
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: barrier cream
+    supply_remaining: none
+    supply_unit: tubes
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: foam dressings
+    supply_remaining: "2"
+    supply_unit: dressings
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: red spot on tailbone
+    symptom_present: true
+    body_location: tailbone
+    onset_or_duration: noticed yesterday
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: open skin or drainage
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Sits in the wheelchair for most of the day
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: briefs and barrier cream
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wound nurse
+    reason_or_trigger: red spot on tailbone
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    reason_or_trigger: skin check
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Turn or reposition him every 2 hours, limit wheelchair sitting to about an hour at a time, and apply barrier cream after each change
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the skin opens, drains, smells, or he runs a fever
+    trigger_condition: open skin; drainage; odor; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hey, Ana. It's Tamika. Tamika Strand, I'm one of the weekend aides. I'm over at Mr. Kessler's. Ambrose Kessler. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tamika. Hang on, I'm pulling him up. Is that K E S S L E R?
+  Caller -> Yes ma'am. K E S S L E R. || patient_name
+  Nurse -> Perfect. His date of birth?
+  Caller -> March twenty seventh, nineteen forty four. || patient_dob
+  Nurse -> Got it. What's the best number to call you at?
+  Caller -> Four four three, five five five, zero one seven one. That's my cell, the house phone's been, it's been dead since the storm. || callback_phone
+  Nurse -> Oh no, okay. Good to know. So what do you need today?
+  Caller -> So, we're low on stuff. Like the briefs, we have six left. I counted. And the barrier cream, the white tube, we are out. We're out of that. || cc, A1, A2
+  Nurse -> Okay. What about wipes and gloves?
+  Caller -> Those are fine. We're good on gloves. We got a whole box.
+  Nurse -> And his foam dressings? The ones for his heel?
+  Caller -> Two. We have two left. Two of the, the square ones. || A3
+  Nurse -> Okay. When did you last change the dressing on his heel?
+  Caller -> The weekday aide did it Friday I think. I haven't touched it. It looked fine, it was clean and dry when I checked on Saturday.
+  Nurse -> Good. Leave it alone unless it's soiled or coming off. How's he been doing otherwise, his mood and his appetite?
+  Caller -> He's in a good mood. He's eating good. His daughter came by yesterday and brought him those little butter cookies and he ate, like, four of them. He's fine.
+  Nurse -> Ha, okay. As long as he's eating. Is he getting up and moving around at all, besides the chair?
+  Caller -> Just to the bed and back. We do the transfer with the, the lift thing, the board. He does okay with it.
+  Nurse -> Alright. Anything going on with his skin that I should know about?
+  Caller -> Yeah, actually, that's, that's the other thing. So yesterday when I changed him, I saw like a red spot. On his tailbone. || A4
+  Caller -> It's about the size of a quarter. || A4
+  Nurse -> Okay. Is the skin open at all? Any drainage, any broken skin?
+  Caller -> No. No, it's not open. It's just red. It's dry, no, no drainage or anything. || A5
+  Nurse -> Does it go away when you press it, or stay red?
+  Caller -> Um. I'm not sure. I didn't try that. It's, it kind of stays red I think.
+  Nurse -> Okay. And how much is he sitting up in the chair?
+  Caller -> Oh, a lot. He's in the wheelchair pretty much all day. He likes watching his shows, you know, he doesn't want to lie down. He's got the, the ones with the cooking. He loves the cooking competitions. || A6
+  Nurse -> My husband too. He'd watch those all day if I let him.
+  Caller -> Oh, mine too. And then they want to eat everything after.
+  Nurse -> Right? Okay. So let me put in an order. I'm going to order more briefs and the barrier cream. Do you want the same size, the large? || R1
+  Caller -> Yes, large. The same.
+  Nurse -> I'll have those delivered Thursday. They'll drop it at the house, and since the phone's out, I'll have the driver knock. || R2
+  Caller -> Thursday. Okay. I'm not here Thursday, but the weekday aide is. She'll get it.
+  Nurse -> Perfect. I'll also message our wound nurse today about that red spot on his tailbone so she can look at it. || R3
+  Caller -> Okay. Good.
+  Nurse -> And I'm going to have a nurse come out Friday to check his skin in person. || R4
+  Caller -> Friday. Okay.
+  Nurse -> In the meantime, Tamika, I need your help. Turn him or reposition him every two hours, even in the chair. Shift his weight. And try not to have him sitting in the wheelchair for more than about an hour at a time. || E1
+  Caller -> An hour. He's not going to like that.
+  Nurse -> I know. Maybe a little time in the recliner or on his side, with a pillow. And after every change, put a thin layer of the barrier cream on that area. || E1
+  Caller -> But we're out of the cream.
+  Nurse -> Right. Okay. Do you have any zinc oxide, like diaper rash cream, at the house? That works for tonight.
+  Caller -> I can run to the drugstore after my shift. I'll grab some.
+  Nurse -> That's fine. And call us if the skin opens up, if there's any drainage or a smell, or if he runs a fever. || E2
+  Caller -> Opens up, drainage, smell, fever. Okay. I'll write it down.
+  Nurse -> Does he have a pressure cushion in the wheelchair? The gel or foam one?
+  Caller -> He does. It's the gray one. It's kind of flat though. I think it's pretty old.
+  Nurse -> Okay. Let me have the nurse look at it on Friday too. They might want to swap it out.
+  Caller -> Yeah, that'd be good. I'll make sure it's on the chair when she comes.
+  Nurse -> Anything else you need?
+  Caller -> No, I think that's it. Thank you, Ana.
+  Nurse -> Thanks for catching that spot, Tamika. That's good work.
+  Caller -> Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ambrose Kessler, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1944-03-27", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Tamika Strand, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide, certainty: stated, turns: [2]}
+    callback_phone: {value: "4435550171", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested incontinence and skin care supplies and reported a red spot on his tailbone.
+    speaker: Caller
+    turns: [10]
+    quote: "So, we're low on stuff."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: About 6 briefs remained and the barrier cream was gone.
+      speaker: Caller
+      turns: [10]
+      quote: "the briefs, we have six left. I counted. And the barrier cream, the white tube, we are out."
+      explanation: Documents the supply levels.
+      facts:
+        - {type: supply, item: adult briefs, supply: 6 briefs, certainty: stated}
+        - {type: supply, item: barrier cream, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: Two foam dressings remained.
+      speaker: Caller
+      turns: [14]
+      quote: "Two. We have two left."
+      explanation: Documents the dressing supply.
+      facts:
+        - {type: supply, item: foam dressings, supply: 2 dressings, certainty: stated}
+      covers: [A3]
+    - text: A red spot about the size of a quarter was noticed on his tailbone yesterday.
+      speaker: Caller
+      turns: [22]
+      quote: "yesterday when I changed him, I saw like a red spot. On his tailbone."
+      explanation: Documents the skin finding.
+      facts:
+        - {type: symptom, name: red spot on tailbone, present: true, location: tailbone, duration: noticed yesterday, certainty: stated}
+      covers: [A4]
+    - text: The skin was not open and had no drainage.
+      speaker: Caller
+      turns: [25]
+      quote: "No, it's not open. It's just red. It's dry, no, no drainage or anything."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: open skin or drainage, certainty: stated}
+      covers: [A5]
+    - text: He sat in the wheelchair for most of the day.
+      speaker: Caller
+      turns: [29]
+      quote: "He's in the wheelchair pretty much all day."
+      explanation: Documents a pressure risk factor.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to order more briefs and barrier cream.
+      speaker: Nurse
+      turns: [32]
+      quote: "I'm going to order more briefs and the barrier cream."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned delivery on Thursday to the home.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll have those delivered Thursday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the wound nurse about the red spot on his tailbone.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll also message our wound nurse today about that red spot on his tailbone so she can look at it."
+      explanation: Documents the planned team message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit on Friday to check his skin.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'm going to have a nurse come out Friday to check his skin in person."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised repositioning him every 2 hours, limiting wheelchair sitting to about an hour at a time, and applying barrier cream after each change.
+      speaker: Nurse
+      turns: [40]
+      quote: "Turn him or reposition him every two hours, even in the chair."
+      explanation: Documents pressure-injury prevention guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the skin opened, drained, smelled, or he developed a fever.
+      speaker: Nurse
+      turns: [46]
+      quote: "call us if the skin opens up, if there's any drainage or a smell, or if he runs a fever."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

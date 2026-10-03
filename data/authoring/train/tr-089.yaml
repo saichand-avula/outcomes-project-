@@ -1,0 +1,441 @@
+call_id: tr-089
+split: train
+blueprint: "LONG palliative call: 58-year-old heart failure patient calls himself. Weight 190 this morning vs 187 two days ago, both ankles more swollen, a bit winded on stairs but fine at rest, tired, low appetite, sleeping on two pillows, ate canned soup and takeout. He takes Lasix 40 mg every morning. Nurse messages the doctor, plans a Wednesday visit and an evening callback, advises taking Lasix as usual only, teaches daily weights, low salt, leg elevation and return precautions. No flags. Messy ASR-style segmentation with fillers."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [name_spelled, phone_from_file, late_answers, split_turns, offtopic_chatter, multi_issue, chart_reading_distractor, trap_phrasing, hedging]
+  clinical_domains: [edema, dyspnea, intake_appetite, sleep, fatigue, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-10-19T14:45:00Z"
+  length_bucket: long
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: [metoprolol]
+chief_complaint:
+  patient_name_true: Quentin Abara
+  patient_name_spoken: Quentin Abara
+  patient_name_certainty: stated
+  patient_dob_true: "1968-05-19"
+  patient_dob_spoken: "1968-05-19"
+  patient_dob_certainty: stated
+  caller_name_true: Quentin Abara
+  caller_name_spoken: Quentin Abara
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7735550113"
+  callback_phone_spoken: "7735550113"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported weight gain and more ankle swelling with heart failure
+  reason_category: edema
+  relevant_context: Heart failure followed by palliative care
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: patient
+    vital_name: weight this morning
+    vital_value: 190 pounds
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Weight was 187 pounds two days ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: ankle swelling
+    symptom_present: true
+    body_location: both ankles
+    onset_or_duration: worse over 2 days
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: winded climbing stairs
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: shortness of breath at rest or chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: patient
+    symptom_name: fatigue
+    symptom_present: true
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: patient
+    symptom_name: low appetite
+    symptom_present: true
+    certainty: stated
+  - item_id: A8
+    item_type: medication
+    reporter: patient
+    medication_name_true: Lasix
+    medication_name_spoken: Lasix
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: every morning
+    certainty: stated
+  - item_id: A9
+    item_type: symptom
+    reporter: patient
+    symptom_name: poor sleep needing two pillows
+    symptom_present: true
+    certainty: stated
+  - item_id: A10
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Ate canned soup and takeout food over the past 2 days
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: heart failure physician
+    reason_or_trigger: weight gain and ankle swelling
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: take the usual Lasix and do not take extra until the physician says
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh every morning after using the bathroom and before eating, in the same clothes, and write it down
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Avoid canned soup and takeout; keep salt very low
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise the legs on pillows when sitting or lying
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain or severe shortness of breath at rest; call us for a gain of 3 pounds in a day or 5 in a week
+    trigger_condition: chest pain; severe shortness of breath at rest; gain of 3 pounds in a day; gain of 5 pounds in a week
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Joanne.
+  Caller -> Hi. Hey, Joanne. It's Quentin Abara. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Quentin. How do you spell your last name?
+  Caller -> A B A R A. || patient_name
+  Nurse -> Got it. Date of birth?
+  Caller -> May nineteenth. Nineteen sixty eight. || patient_dob
+  Nurse -> Thanks. And I've got seven seven three, five five five, zero one one three. || callback_phone
+  Caller -> Yep. That's my cell. || callback_phone
+  Nurse -> Okay. What's going on today?
+  Caller -> So, um. I weighed myself this morning. And I'm up. || cc
+  Nurse -> Okay.
+  Caller -> I was one eighty seven on, on Saturday. And this morning I was one ninety. || A1, A2
+  Nurse -> One ninety. Okay.
+  Nurse -> So three pounds in two days.
+  Caller -> Yeah. And I felt like it, you know. My ankles are bigger. Both of them. || A3
+  Nurse -> Mm-hm.
+  Caller -> My socks are leaving the, the marks. Deep marks. I could barely get my shoes on. || A3
+  Nurse -> Okay. Has it been getting worse over the last couple of days, or just today?
+  Caller -> Two days. It's been creeping up. Two days. || A3
+  Nurse -> Okay.
+  Caller -> Yeah.
+  Nurse -> And how's your breathing?
+  Caller -> Um. Fine, mostly. Sitting here I'm fine. I get a little winded on the stairs. More than last week. || A4
+  Nurse -> Okay. More than last week.
+  Caller -> A little. I have to stop at the landing. Which, I didn't have to do that. || A4
+  Nurse -> Mm-hm. Any breathing trouble when you're sitting or lying down? Any chest pain?
+  Caller -> No. No chest pain. No. I'm okay when I'm sitting. || A5
+  Nurse -> Okay.
+  Caller -> I'm just, I'm tired. Really tired. || A6
+  Nurse -> Tired like how?
+  Caller -> Like, I slept eight hours and I'm still wiped out. Like I ran a marathon. || A6
+  Nurse -> Okay. How are you sleeping?
+  Caller -> Not great. I'm on two pillows now. I used to just do one. If I lie flat I feel, I don't know, kind of heavy. || A9
+  Nurse -> Mm-hm. Two pillows. When did you start that?
+  Caller -> This week. Like, Sunday. || A9
+  Nurse -> Okay. And eating?
+  Caller -> Not much. I'm not really hungry. I get full fast. || A7
+  Nurse -> Okay. What have you been eating?
+  Caller -> Honestly? Crap. Ha. I had the canned soup, the chicken noodle, like, three nights. And then my buddy brought over, like, Chinese food last night. || A10
+  Nurse -> Mm.
+  Caller -> I know. I know. I know. Don't say it.
+  Nurse -> I'm not going to yell. But that's a lot of salt, Quentin, and that probably explains a lot of the weight.
+  Caller -> Yeah. I figured.
+  Nurse -> Have you had any cough? Anything coming up when you cough?
+  Caller -> A little dry one at night. Nothing coming up. Just tickly.
+  Nurse -> Okay. Are you peeing normally? About the same as usual, more, less?
+  Caller -> Less, I think. Less than usual. Which is weird because I take the water pill. I'd think I'd be going more.
+  Nurse -> Mm-hm. That's useful to know. I'll pass that along.
+  Caller -> Okay.
+  Nurse -> Any dizziness when you stand up? Any lightheadedness?
+  Caller -> Little bit. When I get up fast. Not today though. Yesterday a little.
+  Nurse -> Okay. Do you have a blood pressure cuff at home?
+  Caller -> I do. I haven't used it in a week, I'll be honest. I'll take it right after this.
+  Nurse -> That would be great. Write it down with the weight.
+  Caller -> Okay. Will do.
+  Nurse -> And how's your belly? Any bloating, nausea, anything like that?
+  Caller -> Bloated a little. That's probably the soup too, right? I feel like a balloon.
+  Nurse -> It could be. Fluid can build up in the belly too. We'll check that Wednesday.
+  Caller -> Okay.
+  Nurse -> Okay. Let me look at your meds. I'm seeing the metoprolol, and the Lasix, forty milligrams, in the morning. Are you taking both? || A8
+  Caller -> Yes. Every morning. The Lasix is the water pill. Forty. || A8
+  Nurse -> And you took it today?
+  Caller -> Yeah. I took it at like, seven thirty. || A8
+  Nurse -> Okay.
+  Caller -> Should I take another one? Like double? Because of the weight?
+  Nurse -> No. Don't take extra on your own. Take your regular dose like you've been doing. And I'm going to get your heart doctor to weigh in. || R4
+  Caller -> Okay. Okay. Good. I wasn't sure if I should.
+  Nurse -> So I'm sending a message to your heart failure doctor today. I'll tell her the weight, the swelling, and the stairs. || R1
+  Caller -> Okay.
+  Nurse -> She may want to change something. That's up to her.
+  Caller -> Yeah. Right.
+  Nurse -> I'd like to come see you Wednesday. Is that okay? I'll listen to your lungs and look at your legs. || R2
+  Caller -> Wednesday. Yeah. I'm home Wednesday. I'm home all week, honestly.
+  Nurse -> Okay. Good. And I'll call you this evening, after I hear back from the doctor. || R3
+  Caller -> Perfect. This evening. Okay.
+  Nurse -> Now, in the meantime, I need you to weigh yourself every morning. The same way every time. After you use the bathroom, before you eat or drink, same clothes. And write it down. || E1
+  Caller -> Every morning. Bathroom, then scale. And write it down. Okay. I have a notebook.
+  Nurse -> And no more canned soup, and no takeout for now. Canned soup has almost a day's worth of salt in one bowl. || E2
+  Caller -> Okay. Dang. A whole day?
+  Nurse -> Almost. Fresh food, no added salt. Eggs, plain chicken, fruit. And no salt shaker.
+  Caller -> I can do that. I have eggs.
+  Nurse -> And when you sit or lie down, put your feet up. On pillows, up above your heart if you can. || E3
+  Caller -> Feet up. I'm doing it right now, actually.
+  Nurse -> Ha. Good. Okay.
+  Caller -> Yeah.
+  Nurse -> And if you get chest pain, or you get really short of breath while you're sitting still, call nine one one. || E4
+  Caller -> Chest pain, short of breath. Okay.
+  Nurse -> And call us if you gain three pounds in a day, or five pounds in a week. Or if the swelling climbs up your legs. || E4
+  Caller -> Three in a day. Five in a week. Okay.
+  Nurse -> One more thing. Do you have any trouble affording or getting the low-salt foods? I can have our social worker call if it's an issue.
+  Caller -> Oh, no, I'm okay. I can afford it. It's more that cooking is exhausting. I just want to open a can and be done.
+  Nurse -> I get that. There are some easy options, like pre-made meals with low sodium. We can talk about them Wednesday.
+  Caller -> Oh, okay. Yeah. That would be good to know.
+  Nurse -> Alright. Quentin, how are you doing? Besides the physical stuff?
+  Caller -> I'm okay. I'm, you know. I'm bored. I miss work. I'm tired of being tired.
+  Nurse -> That's real. It's a lot.
+  Caller -> Yeah.
+  Nurse -> Is there anyone coming by to help you?
+  Caller -> My sister's coming Thursday. And my buddy. The soup guy. Ha.
+  Nurse -> Does your sister help with your appointments? Rides, pharmacy?
+  Caller -> She does the pharmacy runs when she's in town. When she's not, I do delivery. They deliver now. It's actually pretty easy.
+  Nurse -> That's good. And are your refills all set? Do you have enough of everything for the next couple of weeks?
+  Caller -> I think so. I think I'm good till the end of the month. I'll check the bottles.
+  Nurse -> Okay. Check them and call me if anything's down to a week.
+  Caller -> I will. I'm pretty good about that, actually. It's the food I'm bad at.
+  Nurse -> Ha. We'll work on the food.
+  Caller -> Okay. Yeah. I'm also not drinking. Just so you know. Since you didn't ask. No beer, nothing.
+  Nurse -> Good. That's good to hear, Quentin. Thank you for telling me.
+  Caller -> Yeah.
+  Nurse -> Ha. Tell the soup guy, no more soup.
+  Caller -> I will. I'll tell him. He means well.
+  Nurse -> I'm sure. Anything else you want to ask me?
+  Caller -> No, I think that's it. Oh. Is it okay if I walk a little? Like, around the block?
+  Nurse -> Short and slow is fine, as long as you're not winded. If you get winded, stop and sit.
+  Caller -> Okay. Short and slow. Okay.
+  Nurse -> Alright. I'll talk to you this evening.
+  Caller -> Okay. Thanks, Joanne.
+  Nurse -> Take care.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: weight 190 pounds, heard_form: "And this morning I was one ninety.", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Quentin Abara, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1968-05-19", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Quentin Abara, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7735550113", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported weight gain and more ankle swelling with heart failure.
+    speaker: Caller
+    turns: [10]
+    quote: "I weighed myself this morning. And I'm up."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Weight was 190 pounds this morning, up from 187 pounds on Saturday.
+      speaker: Caller
+      turns: [12]
+      quote: "I was one eighty seven on, on Saturday. And this morning I was one ninety."
+      explanation: Documents the weight gain.
+      facts:
+        - {type: vital, name: weight this morning, value: 190 pounds, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A2]
+    - text: Both ankles were more swollen, worse over 2 days, with deep sock marks.
+      speaker: Caller
+      turns: [19]
+      quote: "Two days. It's been creeping up. Two days."
+      explanation: Documents the edema progression.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, location: both ankles, duration: worse over 2 days, certainty: stated}
+      covers: [A3]
+    - text: He was more winded than last week on the stairs.
+      speaker: Caller
+      turns: [23]
+      quote: "I get a little winded on the stairs. More than last week."
+      explanation: Documents exertional breathlessness.
+      facts:
+        - {type: symptom, name: winded climbing stairs, present: true, certainty: stated}
+      covers: [A4]
+    - text: He had no chest pain and was comfortable at rest.
+      speaker: Caller
+      turns: [27]
+      quote: "No. No chest pain. No. I'm okay when I'm sitting."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath at rest or chest pain, certainty: stated}
+      covers: [A5]
+    - text: He felt very tired despite sleeping eight hours.
+      speaker: Caller
+      turns: [31]
+      quote: "I slept eight hours and I'm still wiped out."
+      explanation: Documents fatigue.
+      facts:
+        - {type: symptom, name: fatigue, present: true, certainty: stated}
+      covers: [A6]
+    - text: He needed two pillows to sleep, up from one.
+      speaker: Caller
+      turns: [33]
+      quote: "I'm on two pillows now. I used to just do one."
+      explanation: Documents orthopnea-type sleep change.
+      facts:
+        - {type: symptom, name: poor sleep needing two pillows, present: true, certainty: stated}
+      covers: [A9]
+    - text: Appetite was low with early fullness.
+      speaker: Caller
+      turns: [37]
+      quote: "Not much. I'm not really hungry. I get full fast."
+      explanation: Documents reduced appetite.
+      facts:
+        - {type: symptom, name: low appetite, present: true, certainty: stated}
+      covers: [A7]
+    - text: He had eaten canned soup for three nights and takeout food the night before.
+      speaker: Caller
+      turns: [39]
+      quote: "I had the canned soup, the chicken noodle, like, three nights."
+      explanation: Documents high-sodium intake.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A10]
+    - text: Lasix 40 mg was taken every morning, including at 7:30 today.
+      speaker: Caller
+      turns: [61]
+      quote: "Every morning. The Lasix is the water pill. Forty."
+      explanation: Documents the diuretic.
+      facts:
+        - {type: medication, name: Lasix, dose: "40", unit: mg, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Advised taking the regular Lasix dose without extra doses on his own.
+      speaker: Nurse
+      turns: [66]
+      quote: "Don't take extra on your own. Take your regular dose like you've been doing."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R4]
+    - text: Planned to message the heart failure doctor today about the weight, swelling, and stairs.
+      speaker: Nurse
+      turns: [68]
+      quote: "I'm sending a message to your heart failure doctor today."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit on Wednesday to examine his lungs and legs.
+      speaker: Nurse
+      turns: [72]
+      quote: "I'd like to come see you Wednesday."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening after hearing from the doctor.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'll call you this evening, after I hear back from the doctor."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised weighing every morning after using the bathroom and before eating, in the same clothes, and writing it down.
+      speaker: Nurse
+      turns: [76]
+      quote: "I need you to weigh yourself every morning. The same way every time."
+      explanation: Documents daily weight monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised avoiding canned soup and takeout and keeping salt very low.
+      speaker: Nurse
+      turns: [78]
+      quote: "no more canned soup, and no takeout for now."
+      explanation: Documents low-sodium diet guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised putting his feet up on pillows above the heart when sitting or lying down.
+      speaker: Nurse
+      turns: [82]
+      quote: "when you sit or lie down, put your feet up. On pillows, up above your heart if you can."
+      explanation: Documents leg elevation.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+    - text: Advised calling 911 for chest pain or severe shortness of breath at rest, and calling the agency for a gain of 3 pounds in a day or 5 in a week.
+      speaker: Nurse
+      turns: [86]
+      quote: "if you get chest pain, or you get really short of breath while you're sitting still, call nine one one."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags: []

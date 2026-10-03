@@ -1,0 +1,222 @@
+call_id: tr-410
+split: train
+blueprint: "A granddaughter visiting her 87-year-old grandmother calls home health because the noon dose of her blood pressure pill, which she pronounces 'hydrolazine', was missed and it is now one thirty; she also gave hydroxyzine for itching at nine. Nurse recognizes the pill as hydralazine, tells her to give the missed dose now and keep the six o'clock dose, explains that the two look-alike names are different medicines, plans to message the team about a pill organizer. ASR drug garble, tall-man pair with scheduled and as-needed meds, other family caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, tall_man_drug, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, blood_pressure, skin]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Marlowe Home Health
+  agency_type: home_health
+  nurse_name: Fatima
+  call_timestamp_utc: "2026-11-05T19:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philomena Vandersloot
+  patient_name_spoken: Philomena Vandersloot
+  patient_name_certainty: stated
+  patient_dob_true: "1938-10-30"
+  patient_dob_spoken: "1938-10-30"
+  patient_dob_certainty: stated
+  caller_name_true: Mackenzie Dunleavy
+  caller_name_spoken: Mackenzie Dunleavy
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "2125550176"
+  callback_phone_spoken: "2125550176"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked what to do about a missed noon dose of her grandmother's blood pressure pill
+  reason_category: medication
+  relevant_context: Home health patient on a scheduled blood pressure pill and an as-needed itching pill
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydralazine
+    medication_name_spoken: hydrolazine
+    medication_status: missed
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    prn: false
+    last_dose: eight this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: as needed for itching
+    prn: true
+    last_dose: nine this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team and pharmacy
+    reason_or_trigger: set up a pill organizer for the look-alike medicines
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the missed dose now and keep the six o'clock dose, and do not double up; hydralazine is for blood pressure and hydroxyzine is only for itching
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call if she feels dizzy or faint, or if anyone is unsure which pill is which
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Marlowe Home Health, this is Fatima.
+  Caller -> Hi. Hi, Fatima. My name is Mackenzie Dunleavy. I'm the granddaughter of Philomena Vandersloot. V A N D E R S L O O T. She's one of your patients. || caller_name, relationship, patient_name
+  Nurse -> Thanks for calling, Mackenzie. Take a breath. I'm here.
+  Caller -> Okay. Breathing. In and out.
+  Caller -> Sorry. I'm just nervous. I've never done this before.
+  Nurse -> Hi, Mackenzie. Yes, I know Mrs. Vandersloot. What's going on?
+  Caller -> I think I forgot to give her one of her pills. At noon. I'm visiting. I'm staying for the week. And I just noticed on the chart it's one thirty. || cc
+  Caller -> My mom normally does it, but she's at a conference in Denver. So it's me.
+  Caller -> She left a list on the fridge. A long one. With dates and little hearts.
+  Nurse -> Ha. Your mom sounds organized.
+  Nurse -> That's a lot of responsibility. You're doing well to call.
+  Nurse -> Okay. Not a problem. Let's work through it. Can you tell me her date of birth?
+  Caller -> October thirtieth, nineteen thirty eight. || patient_dob
+  Nurse -> Thank you. And your number?
+  Nurse -> And are you with her right now?
+  Caller -> I'm in the kitchen. She's in the living room. I can see her through the door.
+  Caller -> Two one two, five five five, zero one seven six. || callback_phone
+  Nurse -> Perfect. Which pill did you miss?
+  Caller -> It's the, um, hydrolazine. Hydro lazine? I'm not sure how to say it. It's the blood pressure one. Twenty five milligrams. Three times a day. She had the eight o'clock this morning. I forgot the noon. || A1
+  Nurse -> Okay. That sounds like hydralazine. Twenty five milligrams, three times a day, for her blood pressure. || A1
+  Caller -> Yes. That one. Hydralazine. Sorry. I'm bad with these names. || A1
+  Caller -> I'm a graphic designer. I'm good with colors. I'm terrible with chemistry.
+  Caller -> I color code everything. My closet. My calendar. My sock drawer.
+  Nurse -> Ha. Then color is a great tool. Use stickers.
+  Caller -> I have a pack of dots in my bag. Green and white. Perfect.
+  Nurse -> It's a tough name. Did she take anything else for pain or itching today?
+  Caller -> Yes. The itch pill. Hydroxyzine. Ten milligrams. It's for her itchy skin, only when she needs it. I gave her one at nine this morning. She's been scratching her arms all day. || A2
+  Nurse -> Okay. So hydroxyzine ten milligrams, as needed, last given at nine. Those two names are very close, but they're different medicines. Hydralazine is for blood pressure and hydroxyzine is only for itching. || A2
+  Caller -> Oh. I didn't realize they were so close. I got them mixed up on the chart. I wrote the wrong time next to the wrong one.
+  Nurse -> That's an easy mistake. How is she feeling now? Any dizziness, or headache, or feeling faint?
+  Caller -> No. She's in the chair. She's watching her game show. She seems fine. She just ate a sandwich.
+  Caller -> She's got her afghan and her tea. She likes tea at one thirty. Chamomile.
+  Nurse -> That sounds peaceful.
+  Caller -> It is. She's watching The Price Is Right and yelling at the contestants.
+  Nurse -> Ha. She has opinions.
+  Caller -> She's always right, too. She guessed a blender within three dollars.
+  Nurse -> Good. Here's what I'd do. Give the missed hydralazine now. Since it's one thirty, and the next one is at six, give it now and keep the six o'clock dose as usual. Don't double up. || E1
+  Caller -> Give it now. And still give the six o'clock. Okay. And not two at once.
+  Caller -> What about at ten? Is there a ten o'clock one?
+  Nurse -> No. It's three times a day. Eight, noon, six in her usual schedule. So today it'll be eight, one thirty, and six.
+  Nurse -> Right. Just the one now, one at six.
+  Caller -> Got it. One now, one at six. I'm setting a phone alarm for six. It plays a harp.
+  Caller -> Okay. I'm getting it. The hydralazine. I see it. The bottle with the green cap. And the itch one has the white cap. Okay. || A1
+  Nurse -> Good. A pill organizer would help a lot here. I'll message our team and the pharmacy and ask about setting one up. || R1
+  Caller -> That would be great. I'm only here till Sunday. Her son is coming after.
+  Nurse -> Then we'll make sure he gets the same instructions.
+  Caller -> His name is Barnaby. I'll text him a photo of the chart. He's very organized. He has a spreadsheet.
+  Caller -> His kids' soccer schedule is color coded too. We get it from my dad's side.
+  Nurse -> Perfect. A spreadsheet will help.
+  Caller -> Okay. She's taking it now. With a glass of water. She says, what are you giving me? I said, your pressure pill, Grandma.
+  Caller -> She says it tastes like chalk. I told her it's just the pill. Her face is making a chalk face.
+  Caller -> Now she wants a cookie. To get the taste out.
+  Nurse -> A small one is fine.
+  Nurse -> Ha. Hopefully she's not too upset.
+  Nurse -> Ha. A good explanation.
+  Caller -> She says she's been taking them since nineteen eighty. She knows what she's doing.
+  Nurse -> Ha. She's right.
+  Nurse -> If she gets dizzy or faint, or if anyone's unsure which pill is which, please call us. || E2
+  Caller -> Dizzy. Faint. Which pill. Okay. I'll write it on the chart. In red.
+  Caller -> I also wrote on the chart that hydralazine is for pressure and hydroxyzine is for itch. In big letters. || A1, A2
+  Nurse -> That's excellent. It'll help the next person too.
+  Nurse -> Perfect. Anything else, Mackenzie?
+  Caller -> No. Thank you. I feel better. I was kind of freaking out.
+  Nurse -> You did the right thing by calling. Take care.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: hydralazine, heard_form: hydrolazine, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philomena Vandersloot, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-10-30", certainty: stated, heard_as: [], turns: [13]}
+    caller_name: {value: Mackenzie Dunleavy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550176", certainty: stated, heard_as: [], turns: [17]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked what to do about a missed noon dose of her grandmother's blood pressure pill.
+    speaker: Caller
+    turns: [7]
+    quote: "I think I forgot to give her one of her pills. At noon."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Hydrolazine 25 mg three times a day, noon dose missed, last dose eight this morning.
+      speaker: Caller
+      turns: [19]
+      quote: "Twenty five milligrams. Three times a day."
+      explanation: Documents the missed scheduled medicine.
+      facts:
+        - {type: medication, name: hydrolazine, dose: "25", unit: mg, frequency: three times a day, prn: false, last_dose: eight this morning, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Hydroxyzine 10 mg as needed for itching, last given at nine this morning.
+      speaker: Caller
+      turns: [27]
+      quote: "Hydroxyzine. Ten milligrams."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: hydroxyzine, dose: "10", unit: mg, frequency: as needed for itching, prn: true, last_dose: nine this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Planned to message the team and pharmacy about a pill organizer.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'll message our team and the pharmacy"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised giving the missed dose now and keeping the six o'clock dose without doubling, and explained which pill is for blood pressure and which for itching.
+      speaker: Nurse
+      turns: [37]
+      quote: "Give the missed hydralazine now."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if she became dizzy or faint or if anyone was unsure which pill was which.
+      speaker: Nurse
+      turns: [58]
+      quote: "If she gets dizzy or faint"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

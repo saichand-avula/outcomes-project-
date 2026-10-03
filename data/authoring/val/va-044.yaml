@@ -1,0 +1,258 @@
+call_id: va-044
+split: val
+blueprint: "A neighbor, Gus Tarkington, calls about the elderly woman next door, Ottoline Pembry, whose daughter is out of town. The dressing on her shin wound has come loose and is oozing a little yellow fluid. He does not know her date of birth or medications. She is eating and talking normally. Nurse tells him to cover it with clean dry gauze, not to remove anything else, and arranges a nurse visit tomorrow morning and a call to the daughter. Ambiguous friend/neighbor caller, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: neighbor_caller_wound
+  secondary_tags: [friend_neighbor, hedging, dob_not_stated, offtopic_chatter, split_turns]
+  clinical_domains: [wound_skin]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Ashford Home Care
+  agency_type: home_health
+  nurse_name: Delia
+  call_timestamp_utc: "2026-11-24T15:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ottoline Pembry
+  patient_name_spoken: Ottoline Pembry
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Gus Tarkington
+  caller_name_spoken: Gus Tarkington
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "7045550141"
+  callback_phone_spoken: "7045550141"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the dressing on his neighbor's shin wound came loose and is oozing
+  reason_category: wound_skin
+  relevant_context: Home health patient with a shin wound; her daughter is out of town
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: loose shin dressing with yellow oozing
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: fever or feeling warm
+    symptom_present: false
+    certainty: unclear
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble eating or talking
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: Her daughter is out of town until Sunday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: her daughter
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Cover the wound with clean dry gauze and tape, do not peel off any other dressing, and keep the leg propped up
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call back or dial 911 if she gets a fever, confusion, red streaks up the leg, or heavy bleeding
+    trigger_condition: fever; confusion; red streaks; heavy bleeding
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Ashford Home Care, this is Delia.
+  Caller -> Hi, uh, yes. Is this the nurse line? For the home health?
+  Nurse -> It is. How can I help you?
+  Caller -> I'm Gus Tarkington. I live next door to Ottoline Pembry. I'm not family, I'm just the neighbor. || caller_name, relationship, patient_name
+  Nurse -> Okay, Gus. Thanks for calling. Is Ottoline all right?
+  Caller -> She's okay. I think. Her daughter's out of town till Sunday and asked me to keep an eye on her. And I'm, um, I'm worried about her leg. || cc, A4
+  Nurse -> Which leg?
+  Caller -> The right one. The shin. She's got a bandage on it, a big square one, and it came loose. It's flapping.
+  Nurse -> Okay. Is there any drainage?
+  Caller -> A little. There's some yellow stuff coming through the gauze. Not a lot. About, uh, about the size of a quarter on the bandage. || A1
+  Nurse -> Any blood?
+  Caller -> No blood that I can see. It's more yellowy. Watery.
+  Nurse -> Okay. And you've seen the wound itself?
+  Caller -> I looked at the edge. I didn't take it off. I didn't want to hurt her. I'm not a medical person. I fix cars.
+  Nurse -> That was the right call, Gus. Don't peel anything off.
+  Caller -> Okay. Good. I just didn't know.
+  Nurse -> I need to pull up her chart. Do you know her date of birth?
+  Caller -> Oh, no. No idea. I know she's in her eighties. She tells everyone she's twenty-nine, so.
+  Nurse -> Ha. That's fine. I can find her by name and address. What's the best number to reach you?
+  Caller -> Seven oh four, five five five, zero one four one. || callback_phone
+  Nurse -> Seven oh four, five five five, zero one four one. Got it. || callback_phone
+  Caller -> That's my cell. I'm home all day.
+  Nurse -> Perfect. How is she doing otherwise? Is she warm to the touch, or does she seem feverish?
+  Caller -> I, I don't think so. I didn't take her temperature. She doesn't have a thermometer, I don't think. She felt normal when I held her hand. Not hot. But I'm not, you know, I'm not a nurse. || A2
+  Nurse -> That's okay. Is she eating and talking normally?
+  Caller -> Yeah. She had oatmeal this morning. She told me three different stories about her cat. She's talking my ear off. || A3
+  Nurse -> Ha. That sounds like a good sign.
+  Caller -> Yeah. She's sharp. She just sits too long in that chair.
+  Nurse -> Is she having any pain in the leg, that you know of?
+  Caller -> She says it's fine. She always says it's fine.
+  Nurse -> Okay. I'll take that with a grain of salt.
+  Caller -> Ha. Yeah.
+  Nurse -> Is the bandage still covering the wound, or is the wound open to the air?
+  Caller -> It's mostly covering it. The bottom corner is up. Like, peeled up. And the tape is, uh, the tape is curled.
+  Nurse -> Okay. Do you have clean gauze at the house? Dry gauze pads and tape?
+  Caller -> She's got a box in the bathroom. The daughter keeps it there. There's the square ones and a roll of white tape.
+  Nurse -> Good. Here's what I'd like you to do. Wash your hands with soap, and then lay a clean dry gauze pad over the whole thing, over the old dressing. Tape it down on all four sides. Don't take off any other dressing. || E1
+  Caller -> Over the top. Don't take the old one off. Okay.
+  Nurse -> Right. And have her keep that leg propped up on a pillow while she sits.
+  Caller -> She's got a footstool. I'll make her use it.
+  Nurse -> Perfect.
+  Caller -> Is it, is it bad? The yellow stuff?
+  Nurse -> It's hard to say without seeing it. A little clear yellow fluid can be normal. I'd still like a nurse to look at it. I'm going to send someone out tomorrow morning. || R1
+  Caller -> Tomorrow morning. Okay. She'll be home. She's always home.
+  Nurse -> And I'll call her daughter today, so she knows. Do you happen to have her number?
+  Caller -> I don't. Ottoline would. It's on the fridge, I think. Hang on.
+  Nurse -> Take your time.
+  Caller -> It's on a magnet. A, it's a pizza place magnet. No, wait. That's the pizza number. Hang on.
+  Nurse -> No rush.
+  Caller -> Okay. Sorry. It's right here by the phone. But I'll tell you what, it's easier if you look in your records. It's the daughter, Charlotte.
+  Nurse -> We should have it in the chart. I'll call her myself this afternoon. || R2
+  Caller -> Okay. Good. I'll tell Ottoline you're calling.
+  Nurse -> Perfect. Gus, I'd like you to watch for a few things between now and tomorrow. If she gets a fever, or seems confused, or you see red streaks going up the leg, or the bleeding gets heavy, call us right back. If it's an emergency, call nine one one. || E2
+  Caller -> Okay. Fever. Confused. Red streaks. Heavy bleeding. Nine one one. I'm writing it on my hand.
+  Nurse -> Ha. Whatever works.
+  Caller -> I've got a pen right here.
+  Nurse -> Good.
+  Caller -> Can I ask something? Is it okay that I'm doing this? I'm not family. I don't want to get in trouble.
+  Nurse -> You're fine, Gus. You're doing the right thing by calling. We can't share her full chart with you, but we can listen and tell you what to do.
+  Caller -> That's fine. I just want her okay.
+  Nurse -> That's what we all want.
+  Caller -> She makes me banana bread when I help. So I have an interest.
+  Nurse -> Ha. Then you've got a good reason.
+  Caller -> I do. Her bread's the best.
+  Nurse -> Then keep her happy. Anything else I can help with?
+  Caller -> I don't think so. Oh. Her pills. Does she need her pills?
+  Nurse -> I can't go over her medicines with you, but she should be taking them as usual. Her daughter set up a pill organizer, right?
+  Caller -> Yes. The big one with the days. She's, uh, she's been using it.
+  Nurse -> Then she's fine. Just keep an eye on her.
+  Caller -> Will do. Thanks, Delia.
+  Nurse -> Thank you, Gus. Take care.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ottoline Pembry, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Gus Tarkington, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: neighbor, certainty: stated, turns: [4]}
+    callback_phone: {value: "7045550141", certainty: stated, heard_as: [], turns: [20, 21]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the dressing on his neighbor's shin wound came loose and is oozing.
+    speaker: Caller
+    turns: [6]
+    quote: "I'm worried about her leg."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The shin dressing was loose with a small amount of yellow, watery drainage about the size of a quarter.
+      speaker: Caller
+      turns: [10]
+      quote: "There's some yellow stuff coming through the gauze."
+      explanation: Documents the wound drainage.
+      facts:
+        - {type: symptom, name: loose shin dressing with yellow oozing, present: true, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: Fever was not apparent (unclear; no temperature taken, felt normal to the touch).
+      speaker: Caller
+      turns: [24]
+      quote: "She felt normal when I held her hand."
+      explanation: Documents uncertain absence of fever.
+      facts:
+        - {type: symptom, name: fever or feeling warm, present: false, certainty: unclear}
+      covers: [A2]
+    - text: She was eating and talking normally.
+      speaker: Caller
+      turns: [26]
+      quote: "She had oatmeal this morning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble eating or talking, certainty: stated}
+      covers: [A3]
+    - text: Her daughter was out of town until Sunday.
+      speaker: Caller
+      turns: [6]
+      quote: "Her daughter's out of town till Sunday"
+      explanation: Documents relevant context.
+      facts:
+        - {type: context, text: Her daughter is out of town until Sunday, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to send someone out tomorrow morning."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+    - text: Planned to call her daughter.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call her myself this afternoon."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised covering the wound with clean dry gauze and tape, not removing other dressing, and propping the leg up.
+      speaker: Nurse
+      turns: [37]
+      quote: "lay a clean dry gauze pad over the whole thing"
+      explanation: Documents skin care teaching.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back for fever, confusion, red streaks, or heavy bleeding, and 911 for an emergency.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us right back."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

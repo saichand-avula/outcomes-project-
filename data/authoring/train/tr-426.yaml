@@ -1,0 +1,242 @@
+call_id: tr-426
+split: train
+blueprint: "A son calls about his 82-year-old mother's morning digoxin: he cannot tell whether she took it. She insists she did, the pill box compartment is empty, but Wednesday's compartment was also empty, so he suspects she may have taken both days at once or skipped one. She is feeling normal, pulse regular, no nausea or vision changes. Nurse advises not to give more today, plans a message to the team and a nurse visit tomorrow, and reviews pill box tips. The mother keeps interrupting from the background. Ambiguous medication status, crosstalk, contradiction, adult child, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: unclear_dose_taken
+  secondary_tags: [crosstalk, contradiction, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, cardiac]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cottonwood Home Health
+  agency_type: home_health
+  nurse_name: Ruth
+  call_timestamp_utc: "2026-11-14T15:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ottilie Rasmussen
+  patient_name_spoken: Ottilie Rasmussen
+  patient_name_certainty: stated
+  patient_dob_true: "1944-02-13"
+  patient_dob_spoken: "1944-02-13"
+  patient_dob_certainty: stated
+  caller_name_true: Anders Rasmussen
+  caller_name_spoken: Anders Rasmussen
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "2125550135"
+  callback_phone_spoken: "2125550135"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether his mother took her morning digoxin and what to do if unsure
+  reason_category: medication
+  relevant_context: Home health patient with a heart condition who uses a weekly pill box
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: digoxin
+    medication_name_spoken: digoxin
+    medication_status: taking
+    dose: "0.125"
+    unit: mg
+    frequency: once a day in the morning
+    prn: false
+    last_dose: unclear whether taken this morning
+    certainty: unclear
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: Thursday and Wednesday compartments in the pill box are both empty
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vision changes
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team
+    reason_or_trigger: unclear digoxin dosing and the need for a pill box check
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give another digoxin today to make up for a possible missed dose, and take the next one at the usual time tomorrow
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for nausea, vomiting, blurry or yellow vision, a very slow or irregular pulse, or new confusion
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cottonwood Home Health, this is Ruth.
+  Caller -> Hi, Ruth. It's Anders Rasmussen. I'm calling about my mother, Ottilie. Ottilie Rasmussen. I have a question about her heart pill. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Anders. What's the question?
+  Caller -> It's probably not a big deal. But I'd rather ask than guess.
+  Caller -> I don't know if she took it. The digoxin. This morning. The little one. || A1
+  Nurse -> Okay. Let's figure it out. What does she say?
+  Caller -> She's in the kitchen. I can hear the toaster. She's very busy this morning.
+  Caller -> Mama! Mama, did you take your heart pill? She says yes. She says she took it. She says she always takes it.
+  Caller -> Mama, stop. Let me talk. Mama. Okay. Sorry, Ruth.
+  Caller -> But the box, the weekly box, Thursday's compartment is empty. And Wednesday's is also empty. Wednesday was yesterday. So, did she take Wednesday's today and Thursday's today? Or did she take one and forget one? I don't know. || A2
+  Nurse -> Hmm. So both are empty. That is confusing.
+  Caller -> She says Wednesday she took hers at breakfast. She says it clearly. But she also says that about everything.
+  Caller -> She says, I took it, Anders. I took it. She's yelling from the kitchen.
+  Nurse -> Okay. Is she able to come to the phone?
+  Caller -> She's coming. No, she's not. She's walking away with the toast.
+  Caller -> She says no. She says she's making toast. She says leave her alone.
+  Nurse -> Ha. That's fine. What's her date of birth, so I can open her chart?
+  Caller -> February thirteenth, nineteen forty four. || patient_dob
+  Nurse -> And your number?
+  Caller -> Two one two, five five five, zero one three five. || callback_phone
+  Nurse -> Thanks. And the dose on the digoxin? || A1
+  Nurse -> No rush. I'm in no hurry.
+  Caller -> I'm reading the bottle now. It's got a yellow label. Hold on. I'm putting on my glasses.
+  Caller -> Point one two five milligram. Once a day. In the morning. That's what the label says. || A1
+  Nurse -> Okay. Anders, how is she feeling? Any nausea, or vomiting, or blurry vision?
+  Caller -> No. She says no. She's fine. She's eating toast. She's cranky. That's her normal.
+  Caller -> She even did the crossword already. In pen. She was done by eight.
+  Nurse -> Anything about her vision, like seeing yellow or halos around lights?
+  Caller -> Mama, are you seeing yellow? She says what? She says no. She says she sees a very annoying son.
+  Nurse -> Ha. Okay. That's reassuring. And her heartbeat? Does it feel regular?
+  Caller -> She is feisty. She'd argue with the president. She did, once. At a rally.
+  Nurse -> Ha. A strong woman.
+  Caller -> I took her pulse. I'm no nurse. I counted for a minute. Seventy something. Regular. Not skipping. || A3
+  Nurse -> Good. Now, what you're describing, with both compartments empty, could mean a few things. She might have taken Wednesday's by accident today, or she may have taken Thursday's twice, or she skipped Wednesday and took only one. We can't tell from here.
+  Caller -> Right. That's what I can't figure out. She's adamant she took one. And I believe her. But I don't know about yesterday.
+  Caller -> I live forty minutes away. I come on Sundays and Thursdays. This isn't my day, I just stopped by.
+  Nurse -> Then it's good you were there to notice.
+  Nurse -> What I'd like to do is play it safe. Don't give her any more digoxin today, even if you're unsure. Just take the next one at the usual time tomorrow morning. || E1
+  Caller -> No more today. Tomorrow's the next one. Okay. And that's safe? What if she missed?
+  Nurse -> One missed dose is generally safer than doubling up, especially with this medicine. I'm going to message our team about it, and have them check her pill box. || R1
+  Caller -> Thank you. That makes me feel better.
+  Caller -> I was about to give her another one just in case. I'm glad I called.
+  Nurse -> I'm glad you did too.
+  Nurse -> I'll also send a nurse tomorrow to look at the pill box and her pulse. || R2
+  Caller -> Tomorrow. Okay. In the morning? She takes it in the morning.
+  Nurse -> Probably late morning, after she's taken it. The nurse will see what's left in the box.
+  Caller -> Good. That'll tell us for sure.
+  Caller -> She has a second pill box at her sister's. I'll bring it home and check that too.
+  Caller -> Mama, the nurse is coming tomorrow. Don't touch the box. She says she won't. She says I never trust her.
+  Nurse -> Ha. It's not about trust. It's just a good check.
+  Caller -> She hears everything. She just heard that. She says the nurse is a smart girl.
+  Nurse -> Ha. Thank her for me.
+  Nurse -> And call us if she has nausea, vomiting, blurry or yellow vision, a very slow or irregular pulse, or any new confusion. || E2
+  Caller -> Nausea. Vision. Pulse. Confusion. Okay. I'll write it on the box.
+  Caller -> Do you want me to take a photo of the empty box and send it to you?
+  Nurse -> Yes, you can send it to the team. It might help the nurse.
+  Caller -> I'll text it to the number on the card. Okay. Done in a second.
+  Caller -> I have the roll of masking tape and a marker. I'll put it on the lid.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. I'm sorry. This is silly.
+  Caller -> My wife says I worry too much. She says I'm like my father.
+  Nurse -> Ha. Some worry is useful.
+  Nurse -> It's not silly. It's the right call.
+  Caller -> Okay. Thanks, Ruth. Mama says thank you. She says bye. Bye.
+  Nurse -> Bye, Anders.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ottilie Rasmussen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-02-13", certainty: stated, heard_as: [], turns: [18]}
+    caller_name: {value: Anders Rasmussen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550135", certainty: stated, heard_as: [], turns: [20]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether his mother took her morning digoxin and what to do if unsure.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about her heart pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear; may or may not have taken it) Digoxin 0.125 mg once a day in the morning.
+      speaker: Caller
+      turns: [24]
+      quote: "Point one two five milligram. Once a day. In the morning."
+      explanation: Documents the uncertain dose.
+      facts:
+        - {type: medication, name: digoxin, dose: "0.125", unit: mg, frequency: once a day in the morning, prn: false, last_dose: unclear whether taken this morning, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: The Thursday and Wednesday pill box compartments were both empty.
+      speaker: Caller
+      turns: [10]
+      quote: "Thursday's compartment is empty. And Wednesday's is also empty."
+      explanation: Documents the pill box context.
+      facts:
+        - {type: context, text: Thursday and Wednesday compartments in the pill box are both empty, certainty: stated}
+      covers: [A2]
+    - text: She had no nausea or vision changes and her pulse was regular.
+      speaker: Caller
+      turns: [26]
+      quote: "No. She says no. She's fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vision changes, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the team to have her pill box checked.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'm going to message our team about it"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'll also send a nurse tomorrow"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised no more digoxin today and taking the next dose at the usual time tomorrow.
+      speaker: Nurse
+      turns: [38]
+      quote: "Don't give her any more digoxin today"
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for nausea, vomiting, blurry or yellow vision, a very slow or irregular pulse or new confusion.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if she has nausea, vomiting"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

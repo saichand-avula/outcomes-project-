@@ -1,0 +1,266 @@
+call_id: tr-405
+split: train
+blueprint: "A 54-year-old palliative patient calls herself because two similar pill bottles, clonidine and clonazepam, look alike and she is not sure she took the right one this morning. She reads both labels: clonidine point one milligram twice a day is scheduled for blood pressure, clonazepam point five milligram is only as needed for anxiety. She took the clonidine as scheduled and nothing extra. Nurse confirms, plans to message the team about relabeling, and plans a callback tomorrow. Medication clarification, self caller, adult 18-64, tall-man pair with scheduled and as-needed meds, v2 short."
+setup:
+  scenario_category: medication
+  subtype: tall_man_clarification
+  secondary_tags: [tall_man_drug, prn_and_scheduled, hedging, late_answers, split_turns, offtopic_chatter, name_spelled]
+  clinical_domains: [medication, blood_pressure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Aspen Bridge Palliative Care
+  agency_type: palliative
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-11-03T15:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rochelle Tuttle
+  patient_name_spoken: Rochelle Tuttle
+  patient_name_certainty: stated
+  patient_dob_true: "1971-03-12"
+  patient_dob_spoken: "1971-03-12"
+  patient_dob_certainty: stated
+  caller_name_true: Rochelle Tuttle
+  caller_name_spoken: Rochelle Tuttle
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6025550145"
+  callback_phone_spoken: "6025550145"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked which of two similar-looking pill bottles she took this morning
+  reason_category: medication
+  relevant_context: Palliative care patient with similar-looking medication bottles
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: clonidine
+    medication_name_spoken: clonidine
+    medication_status: taking
+    dose: "0.1"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: clonazepam
+    medication_name_spoken: clonazepam
+    medication_status: prescribed
+    dose: "0.5"
+    unit: mg
+    frequency: as needed for anxiety
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The two bottles have similar names and similar white tablets
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: extra or doubled dose
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team and pharmacy
+    reason_or_trigger: ask for separate labeling or a pill organizer for the look-alike bottles
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Clonidine is the scheduled blood pressure pill and clonazepam is only for anxiety as needed; read the label every time and keep them in separate spots or a pill organizer
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call anytime she is unsure which pill is which before taking one
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Aspen Bridge Palliative Care, this is Joanne.
+  Caller -> Hi. Hi, Joanne. It's Rochelle Tuttle. T U T T L E. I'm a patient. I have a, um, a question about my pills. || caller_name, patient_name, relationship
+  Nurse -> No rush. Take a breath. I'm right here.
+  Caller -> Okay. Sorry. I'm a little shaky. It's the coffee too.
+  Nurse -> Hi, Rochelle. Of course. What's going on? || cc
+  Caller -> I think I might have mixed up two of my bottles. They look the same. They have almost the same name. I picked one this morning and I'm not sure I picked the right one. || cc
+  Nurse -> Okay, let's slow down and sort it out together. Can I confirm your date of birth first?
+  Caller -> March twelfth, nineteen seventy one. || patient_dob
+  Nurse -> Thank you. And a number where I can reach you?
+  Caller -> Six oh two, five five five, zero one four five. That's my cell. || callback_phone
+  Nurse -> Perfect. Do you have both bottles in front of you?
+  Caller -> I'm holding them. One in each hand. Like I'm weighing them.
+  Nurse -> Ha. Okay. Read me the first label.
+  Caller -> It says clonidine. C L O N I D I N E. Point one milligram. Take one tablet by mouth twice a day. || A1
+  Nurse -> Good. That's the one for your blood pressure. And the second?
+  Caller -> The second one says clonazepam. C L O N A Z E P A M. Point five milligram. Take one tablet as needed for anxiety. || A2
+  Nurse -> Right. Clonazepam is the as needed one. You don't take it on a schedule. || A2
+  Caller -> Okay. That's what I thought, but the names are so close. And the pills are both little white ones. I can't tell them apart without the bottle.
+  Caller -> My eyes are not what they used to be. I'm fifty four, not ninety four.
+  Nurse -> Ha. I hear you. Lots of folks have trouble with those two. || A3
+  Caller -> I reached for the bottle in the cabinet and then I wasn't sure it was the right one. The cabinet is a mess.
+  Nurse -> Which one did you take this morning, as best you can tell?
+  Caller -> I took the clonidine. I'm pretty sure. I checked the bottle after. It was the one that said clonidine. And I have taken it in the morning and at night for a month. || A1
+  Nurse -> And did you take any clonazepam today? || A2
+  Caller -> No. No, I haven't needed it. I felt okay this morning. No anxiety. Just a normal day. And I didn't take two of anything. I only took the one. || A4
+  Nurse -> Good. So you took the clonidine, the right one, once this morning, and you have not taken any extra. That sounds correct. || A1
+  Caller -> Oh. Okay. That's a relief. I was freaking out a little.
+  Nurse -> Totally understandable. Taking the wrong pill is scary.
+  Caller -> I've never had a mix-up before. Not once in three years.
+  Nurse -> Then you're doing great. This is just a quirk of the bottles.
+  Caller -> I keep a notebook where I write down each pill. I forgot to write today. That's why I panicked.
+  Nurse -> A notebook is a smart habit. Write down the clonidine now so it's there.
+  Caller -> Okay. Writing. Clonidine, morning. Done. I'm using the purple pen.
+  Caller -> My sister told me to just call. She said, you're allowed to call.
+  Nurse -> She's right. You are.
+  Caller -> She lives in Tucson. She calls me every morning at seven. She's the reason I'm even up.
+  Nurse -> Ha. Good to have a sister like that.
+  Caller -> I know. She's bossy. But she's right a lot.
+  Caller -> She sent me a casserole dish by mail. Who mails a casserole dish?
+  Nurse -> Ha. A very determined sister.
+  Caller -> It arrived with a note. It said, eat. That's it. One word.
+  Nurse -> That's love, Tucson style.
+  Nurse -> So here's how I'd like to make it easier. I'll message our team and your pharmacy and ask whether they can put separate labels on those two, or give you a pill organizer. || R1
+  Caller -> Oh, that would help. A big sticker on the clonazepam. Something that says anxiety only. || A2
+  Nurse -> Good idea. I'll pass that along.
+  Caller -> Because my pharmacy gives me the same kind of bag for everything.
+  Nurse -> They do that with every customer. We'll ask for a different one.
+  Nurse -> In the meantime, remember, the clonidine is your scheduled blood pressure pill. The clonazepam is only for anxiety, only when you need it. Read the label every time, and keep the two in different spots, or in a pill organizer. || E1
+  Caller -> Different spots. Okay. I'll put the clonazepam on the top shelf in the kitchen. And the clonidine by the toaster. || A1, A2
+  Caller -> Maybe I should also tell my neighbor. She waters my plants. She might touch the cabinet.
+  Nurse -> It's a good idea to let her know the bottles stay put.
+  Caller -> She's very nosy. In a good way. She reads everything.
+  Nurse -> The toaster is a good reminder.
+  Caller -> I use the toaster every morning. I'll see it.
+  Nurse -> And if you're ever unsure which pill is which, call us before you take one. We're happy to help. || E2
+  Caller -> I will. I don't want to feel silly.
+  Nurse -> It's never silly.
+  Caller -> Okay. Thank you. I feel better.
+  Nurse -> I'll call you tomorrow to see how the sticker plan is going. || R2
+  Caller -> Tomorrow. Sure. I'll be home. I'm doing a puzzle. It's a thousand pieces. A lighthouse.
+  Caller -> Is the afternoon better? The mornings I have the lab appointments.
+  Nurse -> Afternoon is fine. I'll try for after one.
+  Nurse -> Ha. A thousand pieces. How far along are you?
+  Caller -> The border. The sky is all blue. It's a nightmare.
+  Nurse -> The sky is the worst part.
+  Caller -> I know. Honestly, I would rather take the wrong pill than finish the sky.
+  Nurse -> Ha. Please do not do that.
+  Caller -> I'm kidding. I'm kidding.
+  Nurse -> I know. Take care, Rochelle.
+  Caller -> You too, Joanne. Bye bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rochelle Tuttle, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1971-03-12", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Rochelle Tuttle, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550145", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked which of two similar-looking pill bottles she took this morning.
+    speaker: Caller
+    turns: [6]
+    quote: "I think I might have mixed up two of my bottles."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Clonidine 0.1 mg was taken twice a day and the last dose was this morning.
+      speaker: Caller
+      turns: [23]
+      quote: "I took the clonidine. I'm pretty sure."
+      explanation: Documents the scheduled medicine.
+      facts:
+        - {type: medication, name: clonidine, dose: "0.1", unit: mg, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Clonazepam 0.5 mg was prescribed as needed for anxiety.
+      speaker: Caller
+      turns: [16]
+      quote: "Point five milligram. Take one tablet as needed for anxiety."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: clonazepam, dose: "0.5", unit: mg, frequency: as needed for anxiety, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: The two bottles had similar names and similar white tablets.
+      speaker: Caller
+      turns: [18]
+      quote: "And the pills are both little white ones."
+      explanation: Documents the look-alike problem.
+      facts:
+        - {type: context, text: The two bottles have similar names and similar white tablets, certainty: stated}
+      covers: [A3]
+    - text: There was no extra or doubled dose.
+      speaker: Caller
+      turns: [25]
+      quote: "And I didn't take two of anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: extra or doubled dose, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the team and pharmacy about separate labels or a pill organizer.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'll message our team and your pharmacy"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [59]
+      quote: "I'll call you tomorrow to see how the sticker plan is going."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised that clonidine is the scheduled blood pressure pill and clonazepam is only for anxiety as needed, to read the label each time and keep them apart or in an organizer.
+      speaker: Nurse
+      turns: [48]
+      quote: "Read the label every time"
+      explanation: Documents medication administration teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling anytime she was unsure which pill was which.
+      speaker: Nurse
+      turns: [55]
+      quote: "call us before you take one"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

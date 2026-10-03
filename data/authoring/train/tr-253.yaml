@@ -1,0 +1,237 @@
+call_id: tr-253
+split: train
+blueprint: "Wife of a 66-year-old patient: ten minutes ago his right side of the face drooped, his speech became slurred, and his right arm went weak and dropped when he tried to lift it. He is awake but confused. Nurse tells her to call 911 now, note the time it started, and not give him anything to eat or drink. Flags: other_urgent (possible stroke) and escalation_request. High-risk, v2 short with the nurse coaching her until the ambulance arrives."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [neurologic, cardiac]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-21T22:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Everton Blackwood
+  patient_name_spoken: Everton Blackwood
+  patient_name_certainty: stated
+  patient_dob_true: "1960-05-12"
+  patient_dob_spoken: "1960-05-12"
+  patient_dob_certainty: stated
+  caller_name_true: Hyacinth Blackwood
+  caller_name_spoken: Hyacinth Blackwood
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9545550107"
+  callback_phone_spoken: "9545550107"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband's face is drooping and his speech is slurred
+  reason_category: stroke_recovery
+  relevant_context: Home health patient with high blood pressure
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: drooping of the right side of the face
+    symptom_present: true
+    onset_or_duration: ten minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: slurred speech
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: weak right arm that drops when lifted
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: confusion
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: facial droop, slurred speech and arm weakness suggesting a stroke
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, note the time the symptoms started, give him nothing to eat or drink, and keep him sitting or lying with his head slightly raised
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Sudden facial droop, slurred speech and arm weakness suggesting a possible stroke
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Priya.
+  Caller -> Priya, it's Hyacinth Blackwood. Something is wrong with my husband Everton. Something is really wrong. || caller_name, relationship, patient_name
+  Nurse -> Okay, Hyacinth. I'm here. Tell me what's happening.
+  Caller -> His face. The side of his face is drooping. The right side. And he can't talk right. He's slurring. || cc, A1, A2, F1
+  Nurse -> Okay. When did this start?
+  Caller -> Just now. Ten minutes. Maybe ten minutes ago. We were watching TV and I looked at him and his mouth was crooked. || A1
+  Nurse -> Okay. Is he awake? Is he answering you?
+  Caller -> He's awake. He's trying. He says things but they come out wrong. Like his mouth is full of, I don't know, marbles. || A2
+  Nurse -> Okay. Can he lift both arms for me, for you? Can you ask him to lift them?
+  Caller -> Everton. Everton, lift your arms. Both arms. Up. The left one goes up. The right one comes up a little and then it drops. It just falls. || A3
+  Nurse -> Okay. Hyacinth, I need you to call nine one one right now. I think he may be having a stroke. || R1, F2
+  Caller -> A stroke. Oh, God. Oh my God. Okay. Okay. Nine one one. Do I hang up?
+  Nurse -> Yes. Hang up and call. Tell them his face is drooping, his speech is slurred, and his right arm is weak. And note the time this started.
+  Caller -> Ten minutes ago. It's, hold on. It's ten twenty five now. So it started at ten fifteen. About ten fifteen. || A1
+  Nurse -> Ten fifteen. Good. Tell the dispatcher that.
+  Caller -> Ten fifteen. Okay. Wait. Is he confused? He keeps looking at me. He asked me what day it was and then he asked me again.
+  Nurse -> Okay. So he's confused too. Tell them that. || A4
+  Caller -> He's confused. Yes. Everton, honey, look at me. It's okay. Okay.
+  Nurse -> Hyacinth, don't give him anything to eat or drink, not even water, and not his pills. Keep him sitting or lying with his head just a little raised. || E1
+  Caller -> Nothing to eat or drink. No pills. Head up. Okay. He's sitting. He's on the couch. I'll leave him there.
+  Nurse -> Good. Stay with him. I need you to call now. Quickly, his birthday and your number, in case they ask.
+  Caller -> May twelfth, nineteen sixty. And nine five four, five five five, zero one zero seven. || patient_dob, callback_phone
+  Nurse -> Got it. Call right now. Unlock the door and turn on a light.
+  Caller -> Unlock the door. Light. Okay. I'm calling. Oh, God. Thank you, Priya.
+  Nurse -> Go. Go ahead.
+  Caller -> He's trying to say something. What, honey? What? I can't understand. Everton, it's okay. Don't try to talk. Don't try.
+  Nurse -> That's right. Let him rest. Is anyone else in the house with you?
+  Caller -> No. Just us. Our son is on his way home from work. I'll call him after.
+  Nurse -> Okay. Call nine one one first. Then your son. Go.
+  Caller -> Okay. I'm dialing. It's ringing. It's ringing.
+  Caller -> Hello? Yes. My husband, I think he's having a stroke. The address is four oh two Larkspur Lane.
+  Nurse -> Good. Stay on with them. I'm still here.
+  Caller -> They're asking me questions. Is he breathing. Yes. Is he awake. Yes. They're sending someone. They said stay on the line.
+  Nurse -> That's right. Do what they say. I'll stay quiet unless you need me.
+  Caller -> Okay. Okay. Everton, they're coming. Honey, they're coming.
+  Caller -> He's trying to say my name. He said "Hy." Just Hy.
+  Nurse -> That's a good sign that he's trying. Keep talking to him calmly.
+  Caller -> Everton, you're okay. You're okay. They're coming. Don't try to talk.
+  Caller -> The dispatcher wants to know what medicines he takes.
+  Nurse -> Do you have his list?
+  Caller -> It's on the fridge. Hold on. Hold on. I'm getting it. He takes a blood pressure pill and a, oh, I can't read it, my hands are shaking.
+  Nurse -> Don't worry about reading it. Hand it to the paramedics when they get there. Just tell them he's on blood pressure medicine.
+  Caller -> Blood pressure medicine. And the list goes to the paramedics. Okay. I'll put it by the door.
+  Nurse -> Does he take a blood thinner? Do you know?
+  Caller -> I don't think so. No. The doctor didn't want him on one because of his stomach. I think no.
+  Nurse -> Okay. Tell the paramedics that too: no blood thinner, as far as you know.
+  Caller -> No blood thinner. As far as I know. Okay.
+  Caller -> They said eight minutes. The ambulance is eight minutes away.
+  Nurse -> Okay. Is he any different? Better, worse?
+  Caller -> Same. His mouth is the same. He's holding his right arm in his lap with his left hand.
+  Nurse -> Is he breathing okay?
+  Caller -> Yes. Normal. He's just looking at me.
+  Nurse -> Good.
+  Nurse -> Okay. Don't move him unless he needs to. Keep him comfortable.
+  Caller -> I put a pillow behind his head. He seems to like it.
+  Nurse -> Good. How about you? Are you doing okay?
+  Caller -> I'm shaking. I'm trying to be strong. He'd want me to be strong.
+  Nurse -> You are. You're doing everything right, Hyacinth.
+  Caller -> Thank you. Oh, I see lights. I see the lights through the window. Is that them? I think that's them.
+  Nurse -> Go let them in. Leave the phone on the table.
+  Caller -> Okay. I'm going. They're at the door. Yes, he's in here. In the living room. Thank you. Thank you.
+  Nurse -> Hyacinth, I'll let you go. I'll call the office so they know.
+  Caller -> Okay. Thank you, Priya. Thank you so much.
+  Nurse -> Take care of him.
+  Caller -> I will. Bye.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "his mouth was crooked", heard_form: "I looked at him and his mouth was crooked", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everton Blackwood, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1960-05-12", certainty: stated, heard_as: [], turns: [22]}
+    caller_name: {value: Hyacinth Blackwood, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9545550107", certainty: stated, heard_as: [], turns: [22]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband's face was drooping and his speech was slurred.
+    speaker: Caller
+    turns: [4]
+    quote: "The side of his face is drooping. The right side. And he can't talk right."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The right side of his face drooped, starting about ten minutes earlier at about ten fifteen.
+      speaker: Caller
+      turns: [6]
+      quote: "Just now. Ten minutes. Maybe ten minutes ago."
+      explanation: Documents the facial droop and its onset.
+      facts:
+        - {type: symptom, name: drooping of the right side of the face, present: true, onset: ten minutes ago, certainty: stated}
+      covers: [A1]
+    - text: His speech was slurred.
+      speaker: Caller
+      turns: [8]
+      quote: "He says things but they come out wrong."
+      explanation: Documents the slurred speech.
+      facts:
+        - {type: symptom, name: slurred speech, present: true, certainty: stated}
+      covers: [A2]
+    - text: His right arm was weak and dropped when he lifted it.
+      speaker: Caller
+      turns: [10]
+      quote: "The right one comes up a little and then it drops."
+      explanation: Documents the arm weakness.
+      facts:
+        - {type: symptom, name: weak right arm that drops when lifted, present: true, certainty: stated}
+      covers: [A3]
+    - text: He was confused and asked what day it was twice.
+      speaker: Caller
+      turns: [16]
+      quote: "He asked me what day it was and then he asked me again."
+      explanation: Documents the confusion.
+      facts:
+        - {type: symptom, name: confusion, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 immediately for a possible stroke.
+      speaker: Nurse
+      turns: [11]
+      quote: "I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised giving him nothing to eat or drink and keeping his head slightly raised.
+      speaker: Nurse
+      turns: [19]
+      quote: "don't give him anything to eat or drink, not even water, and not his pills."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [4], quote: "His face. The side of his face is drooping. The right side."}
+    - {category: escalation_request, turns: [11], quote: "I need you to call nine one one right now."}

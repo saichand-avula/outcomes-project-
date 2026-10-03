@@ -1,0 +1,250 @@
+call_id: tr-036
+split: train
+blueprint: "Wife reports pain 9/10 despite 3 oxycodone breakthrough doses since noon; nurse pages the on-call physician (completed), advises holding further doses until the physician calls back, and plans a callback in 15 minutes. Flag: uncontrolled symptom."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [prn_and_scheduled, trap_phrasing, tall_man_drug]
+  clinical_domains: [pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-09-19T21:32:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leopold Brandt
+  patient_name_spoken: Leopold Brandt
+  patient_name_certainty: stated
+  patient_dob_true: "1944-05-17"
+  patient_dob_spoken: "1944-05-17"
+  patient_dob_certainty: stated
+  caller_name_true: Hannelore
+  caller_name_spoken: Hannelore
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2625550142"
+  callback_phone_spoken: "2625550142"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Severe pain not relieved by breakthrough medication
+  reason_category: pain
+  relevant_context: Hospice patient with bone metastases
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 9/10
+    body_location: back and left hip
+    onset_or_duration: worsening since this morning
+    trend: not improving after medication
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every 4 hours
+    prn: true
+    last_dose_time: 4:30 this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness
+    symptom_present: true
+    severity: cannot get comfortable
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call physician
+    reason_or_trigger: uncontrolled pain
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    reason_or_trigger: hold further doses until the physician gives orders
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition with pillows, warm pack on the hip, calm room
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he becomes very sleepy, hard to wake, or his breathing slows
+    trigger_condition: very sleepy; hard to wake; slow breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Pain 9/10 not relieved by three breakthrough doses
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Carla, it's Hannelore Brandt. Please, I need help with my husband. || caller_name, relationship
+  Nurse -> Hi, Hannelore. What's your husband's name and birthday?
+  Caller -> Leopold Brandt. May seventeenth, nineteen forty four. || patient_name, patient_dob
+  Nurse -> Okay. And your number, is it two six two, five five five, zero one four two? || callback_phone
+  Caller -> Yes, that's the house phone. || callback_phone
+  Nurse -> What's happening?
+  Caller -> It's his pain. It's terrible. It's his back and his hip. And it's a nine. It's a nine out of ten. || cc, A1, F1
+  Caller -> He's been hurting since this morning and it's getting worse.
+  Nurse -> Okay. What have you given him?
+  Caller -> The oxycodone. The ten milligram. I gave him one at twelve thirty, and one at two thirty, and one at four thirty. Three doses. And nothing is helping. || A2, F1
+  Nurse -> Okay. And his orders are ten milligrams every four hours as needed. || A2
+  Caller -> Right. But it's only been, so the next one wouldn't be until eight thirty? I don't know. He's, he's crying.
+  Nurse -> Okay. Is he restless? Can he get comfortable?
+  Caller -> No. He can't get comfortable at all. He keeps shifting around. || A3
+  Nurse -> Okay. Any vomiting?
+  Caller -> No. No vomiting. || A4
+  Nurse -> Alright, Hannelore. I'm paging the on-call doctor right now. Hold on. I've got the page in. She'll call us back. || R1
+  Caller -> Okay. Okay. Thank you.
+  Nurse -> Please don't give him any more oxycodone until she gives us orders. I don't want him to get too much, and I want her to decide on the right next step. || R2
+  Caller -> Okay. I won't.
+  Nurse -> I'll call you back in fifteen minutes, either way. || R3
+  Caller -> Fifteen minutes. Okay.
+  Nurse -> While we wait, can you put a pillow behind his back, and one between his knees, to take pressure off the hip? And a warm pack on the hip, if you have one. || E1
+  Caller -> I have a heating pad. I'll do that.
+  Nurse -> Low setting, wrapped in a towel. And keep the room quiet.
+  Caller -> Okay.
+  Nurse -> If he gets very sleepy, hard to wake, or his breathing slows down, call me right away. || E2
+  Caller -> I will.
+  Nurse -> You're doing everything right, Hannelore. Hang in there.
+  Caller -> Thank you, Carla.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leopold Brandt, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1944-05-17", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Hannelore, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2625550142", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had severe back and hip pain that was not relieved by his breakthrough medication.
+    speaker: Caller
+    turns: [8]
+    quote: "It's his pain. It's terrible. It's his back and his hip. And it's a nine. It's a nine out of ten."
+    explanation: Documents the uncontrolled pain prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Pain of 9/10 in the back and hip had been worsening since this morning.
+      speaker: Caller
+      turns: [9]
+      quote: "He's been hurting since this morning and it's getting worse."
+      explanation: Documents pain severity and trend.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 9/10, location: back and left hip, onset: worsening since this morning, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 10 mg every 4 hours as needed was given three times, at 12:30, 2:30, and 4:30, without relief.
+      speaker: Caller
+      turns: [11]
+      quote: "I gave him one at twelve thirty, and one at two thirty, and one at four thirty. Three doses. And nothing is helping."
+      explanation: Documents breakthrough dosing and lack of response.
+      facts:
+        - {type: medication, name: oxycodone, dose: "10", unit: mg, frequency: every 4 hours, prn: true, last_dose: 4:30 this afternoon, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was restless and unable to get comfortable.
+      speaker: Caller
+      turns: [15]
+      quote: "No. He can't get comfortable at all. He keeps shifting around."
+      explanation: Documents associated restlessness.
+      facts:
+        - {type: symptom, name: restlessness, present: true, severity: cannot get comfortable, certainty: stated}
+      covers: [A3]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [17]
+      quote: "No. No vomiting."
+      explanation: Documents a pertinent negative for vomiting.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Paged the on-call physician during the call.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'm paging the on-call doctor right now. Hold on. I've got the page in."
+      explanation: Documents the completed physician page.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Advised holding further oxycodone until the physician gave orders.
+      speaker: Nurse
+      turns: [20]
+      quote: "Please don't give him any more oxycodone until she gives us orders."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: oxycodone, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 15 minutes.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll call you back in fifteen minutes, either way."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised pillows behind the back and between the knees, and a low-setting warm pack wrapped in a towel on the hip.
+      speaker: Nurse
+      turns: [24]
+      quote: "can you put a pillow behind his back, and one between his knees, to take pressure off the hip? And a warm pack on the hip, if you have one."
+      explanation: Documents comfort measures while waiting.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away if he became very sleepy, hard to wake, or his breathing slowed.
+      speaker: Nurse
+      turns: [28]
+      quote: "If he gets very sleepy, hard to wake, or his breathing slows down, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [8], quote: "it's a nine out of ten"}

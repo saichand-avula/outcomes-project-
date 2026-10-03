@@ -1,0 +1,288 @@
+call_id: tr-004
+split: train
+blueprint: "Son follows up after a visit: father eating less and tired; asks about supplements; nurse plans dietitian message; small frequent meals; chatter about grandson's football."
+setup:
+  scenario_category: routine
+  subtype: post_visit_followup
+  secondary_tags: [offtopic_chatter, crosstalk, multi_issue, hedging, late_answers]
+  clinical_domains: [intake_appetite, fatigue]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-08-12T19:30:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Walter Brzezinski
+  patient_name_spoken: Walter Brzezinski
+  patient_name_certainty: stated
+  patient_dob_true: "1944-01-17"
+  patient_dob_spoken: "1944-01-17"
+  patient_dob_certainty: stated
+  caller_name_true: Mike
+  caller_name_spoken: Mike
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6145550113"
+  callback_phone_spoken: "6145550113"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Decreased appetite and tiredness since Tuesday visit; asking about nutrition supplements
+  reason_category: intake_appetite
+  relevant_context: Palliative patient seen Tuesday
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased appetite
+    symptom_present: true
+    severity: about half of usual intake
+    onset_or_duration: about a week
+    certainty: unclear
+    unclear_detail: Caller hedged (maybe half, I'd say; about a week)
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: fatigue
+    symptom_present: true
+    history_or_context_text: Napping most of the afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: decreased fluid intake
+    symptom_present: false
+    history_or_context_text: Drinking water and coffee fine
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Weight possibly down 3 pounds at Tuesday visit
+    certainty: unclear
+    unclear_detail: Caller unsure (I think three pounds)
+  - item_id: A5
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Asked whether Ensure or similar supplements are okay
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: dietitian
+    reason_or_trigger: supplement recommendations for decreased appetite
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: visiting nurse
+    timeframe: next Tuesday visit
+    reason_or_trigger: recheck weight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small frequent meals and favorite foods rather than three big meals
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Ensure is fine, one or two a day between meals
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if he stops drinking, becomes confused, or eats nothing for two days
+    trigger_condition: not drinking; new confusion; no food for 2 days
+    certainty: stated
+  - item_id: E4
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Tiredness can come with eating less or illness progression; call right away if sleep suddenly increases or he is hard to wake
+    trigger_condition: sudden increase in sleep; hard to wake
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise speaking.
+  Caller -> Hey Denise. Um, this is Mike, I'm calling about my dad. || caller_name, relationship
+  Nurse -> Hi Mike. What's your dad's name?
+  Caller -> Walter. Walter Brzezinski. || patient_name
+  Nurse -> And his birthday?
+  Caller -> Hang on. Dad, it's the nurse. No, no, you don't have to talk, I got it.
+  Caller -> Sorry. January seventeenth, nineteen forty four. || patient_dob
+  Nurse -> No problem. And the best number for you, Mike?
+  Caller -> Six one four, five five five, zero one one three. || callback_phone
+  Nurse -> Got it. So what's going on?
+  Caller -> So, the nurse came out Tuesday, which, she was great, by the way.
+  Nurse -> Oh good, I'll tell her.
+  Caller -> Yeah. But since then, I mean, even before that, he's just not eating like he was. || cc, A1
+  Caller -> I'd say maybe half of what he used to eat. Maybe. I'd say. || A1
+  Nurse -> Okay. How long has that been going on, would you say?
+  Caller -> Um, about a week? About a week, I think. || A1
+  Nurse -> Okay. And is he drinking okay?
+  Caller -> Drinking, yeah. He drinks his water. And his coffee, he will not give up the coffee. || A3
+  Nurse -> Ha. Well, that's good, actually. Fluids are fluids.
+  Caller -> Right.
+  Nurse -> And how's his energy?
+  Caller -> He's tired. He's napping, like, most of the afternoon now. || A2
+  Caller -> He'll fall asleep in the chair right after lunch and that's it till dinner. || A2
+  Nurse -> Okay. Did the nurse check his weight on Tuesday?
+  Caller -> She did. She said he was down, I think three pounds? I think that's what she said. || A4
+  Nurse -> Okay. Let me look. I'm just pulling up her note here.
+  Caller -> Sure. Dad, you want the TV down? Okay. He says no.
+  Nurse -> Ha. That's fine.
+  Caller -> He's watching the, the game replay. My son, his grandson, he plays football for the high school, so.
+  Nurse -> Oh, how fun. What position?
+  Caller -> He's a lineman. He's a big kid. Dad never misses a game, he goes in the wheelchair and everything.
+  Nurse -> That's wonderful. That's so good for him.
+  Caller -> Yeah, it really is. Anyway. Sorry.
+  Nurse -> No, no, don't be sorry.
+  Caller -> So, my question was, um, should we be giving him those shakes? Like Ensure or something? || cc, A5
+  Caller -> My wife picked some up but we didn't know if that's okay for him. || A5
+  Nurse -> Yeah, Ensure is fine. One or two a day is fine, in between meals, so it doesn't fill him up before he eats. || E2
+  Caller -> Okay. One or two a day.
+  Nurse -> And instead of three big meals, try small meals more often. Little plates. Whatever he likes, his favorite things, even if it's not perfectly healthy. || E1
+  Caller -> He likes those little powdered donuts.
+  Nurse -> Then give him a donut. Honestly, at this point we want him to enjoy eating.
+  Caller -> Okay, he'll like that.
+  Nurse -> I'm also going to send a message to our dietitian, so she can give you some ideas for supplements and things that are easy for him. || R1
+  Caller -> Oh, that would be helpful.
+  Nurse -> And I'll ask the nurse to recheck his weight at his visit next Tuesday. || R2
+  Caller -> Okay.
+  Nurse -> Now, if he stops drinking, or he gets confused, or he goes two whole days without eating anything, you call us. Don't wait for Tuesday. || E3
+  Caller -> Okay. Can I ask you something else? Is it normal, him being this tired? Like, is that the disease, or is it something we're doing?
+  Nurse -> It's not anything you're doing. When people eat less, they have less energy, and sometimes it's the illness itself moving along. The nurse can look at that more closely on Tuesday too. || E4
+  Caller -> Okay. That, yeah. That makes me feel a little better, honestly.
+  Nurse -> Just keep an eye on how much he's sleeping. If it's suddenly a lot more, or he's hard to wake up, that's a call right away, day or night. || E4
+  Caller -> Hard to wake up. Okay. Got it.
+  Nurse -> And how are you doing with all this? It's a lot.
+  Caller -> I'm okay. My wife and I are splitting it, and my sister comes on weekends. We're managing.
+  Nurse -> Good. Make sure you're taking breaks too.
+  Caller -> Ha, I'll try. Friday night's the big game, so that's our break. The whole family goes.
+  Nurse -> That sounds perfect. Is it supposed to rain?
+  Caller -> They said maybe. We'll bring the big blanket for Dad and the umbrella. He'll sit through anything for that kid.
+  Nurse -> Ha. My dad was the same way with my brother's baseball. Rain or shine, front row, with a thermos.
+  Caller -> That's exactly him. Thermos of coffee. Of course.
+  Nurse -> I love that. Alright, anything else for him or for you?
+  Caller -> No. No, I think that's it. Thank you, Denise.
+  Nurse -> You're welcome, Mike. Good luck to your son this week.
+  Caller -> Ha, thanks. I'll tell him. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Walter Brzezinski, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1944-01-17", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Mike, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6145550113", certainty: stated, heard_as: [], turns: [9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported decreased appetite and tiredness and asked whether nutrition supplements such as Ensure were appropriate.
+    speaker: Caller
+    turns: [13]
+    quote: "But since then, I mean, even before that, he's just not eating like he was."
+    explanation: Documents the intake concern and supplement question prompting the call.
+    covers: [cc, A5]
+  assessment:
+    - text: Appetite was reported as decreased to possibly about half of usual intake for about a week; the caller was unsure of the exact amount and duration.
+      speaker: Caller
+      turns: [14]
+      quote: "I'd say maybe half of what he used to eat. Maybe. I'd say."
+      explanation: Documents the reported decrease in intake while preserving the caller's uncertainty.
+      facts:
+        - {type: symptom, name: decreased appetite, present: true, severity: about half of usual intake, onset: about a week, certainty: unclear}
+      covers: [A1]
+    - text: Fatigue was reported, with napping most of the afternoon.
+      speaker: Caller
+      turns: [22]
+      quote: "He's tired. He's napping, like, most of the afternoon now."
+      explanation: Documents the reported decrease in energy.
+      facts:
+        - {type: symptom, name: fatigue, present: true, certainty: stated}
+      covers: [A2]
+    - text: Fluid intake was reported as maintained, including water and coffee.
+      speaker: Caller
+      turns: [18]
+      quote: "Drinking, yeah. He drinks his water. And his coffee, he will not give up the coffee."
+      explanation: Documents a pertinent negative for decreased fluid intake.
+      facts:
+        - {type: pertinent_negative, name: decreased fluid intake, certainty: stated}
+      covers: [A3]
+    - text: The caller believed the Tuesday visit showed a weight loss of about 3 pounds but was unsure.
+      speaker: Caller
+      turns: [25]
+      quote: "She said he was down, I think three pounds? I think that's what she said."
+      explanation: Documents the reported weight change with the caller's uncertainty preserved.
+      facts:
+        - {type: context, value: 3 pounds, certainty: unclear}
+      covers: [A4]
+  response:
+    - text: Planned to message the dietitian for supplement and easy-food recommendations.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm also going to send a message to our dietitian, so she can give you some ideas for supplements and things that are easy for him."
+      explanation: Documents the planned referral addressing decreased intake.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to have the visiting nurse recheck his weight at next Tuesday's visit.
+      speaker: Nurse
+      turns: [45]
+      quote: "And I'll ask the nurse to recheck his weight at his visit next Tuesday."
+      explanation: Documents the planned follow-up weight check.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: next Tuesday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised that Ensure was acceptable at one or two per day between meals.
+      speaker: Nurse
+      turns: [37]
+      quote: "Yeah, Ensure is fine. One or two a day is fine, in between meals, so it doesn't fill him up before he eats."
+      explanation: Documents guidance on nutrition supplement use.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised offering small, frequent meals of his favorite foods instead of three large meals.
+      speaker: Nurse
+      turns: [39]
+      quote: "And instead of three big meals, try small meals more often. Little plates. Whatever he likes, his favorite things, even if it's not perfectly healthy."
+      explanation: Documents feeding strategies for decreased appetite.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if he stopped drinking, became confused, or went 2 days without eating, without waiting for the next visit.
+      speaker: Nurse
+      turns: [47]
+      quote: "Now, if he stops drinking, or he gets confused, or he goes two whole days without eating anything, you call us. Don't wait for Tuesday."
+      explanation: Documents return precautions for declining intake.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+    - text: Explained that tiredness can accompany eating less or illness progression, and advised calling right away if sleep suddenly increased or he became hard to wake.
+      speaker: Nurse
+      turns: [51]
+      quote: "If it's suddenly a lot more, or he's hard to wake up, that's a call right away, day or night."
+      explanation: Documents symptom-monitoring guidance for increasing fatigue.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E4]
+  risk_flags: []

@@ -1,0 +1,245 @@
+call_id: tr-442
+split: train
+blueprint: "A mother checks in with pediatric home nursing about her 3-year-old on day four of liquid amoxicillin for an ear infection: ear pain is much better, temperature ninety nine point four, no vomiting or rash. Two lines are transcribed under the wrong speaker label: the mother's statement of the morning dose appears as the nurse, and the nurse's instruction to finish all ten days appears as the caller. Nurse plans a callback tomorrow and reviews finishing the course and warning signs. ASR speaker label errors, liquid concentration, pediatric, parent caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: speaker_label
+  secondary_tags: [speaker_label_errors, liquid_concentration, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, fever, pain]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Pebble Creek Pediatric Home Nursing
+  agency_type: pediatric_home_care
+  nurse_name: Odile
+  call_timestamp_utc: "2026-11-26T17:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Theodore Branch
+  patient_name_spoken: Theodore Branch
+  patient_name_certainty: stated
+  patient_dob_true: "2023-06-14"
+  patient_dob_spoken: "2023-06-14"
+  patient_dob_certainty: stated
+  caller_name_true: Katarzyna Branch
+  caller_name_spoken: Katarzyna Branch
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6025550195"
+  callback_phone_spoken: "6025550195"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Checked in about her son's ear infection on antibiotics
+  reason_category: pain
+  relevant_context: Pediatric home care patient on day four of liquid amoxicillin
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    medication_status: taking
+    dose: "5"
+    unit: mL
+    frequency: twice a day
+    prn: false
+    last_dose: this morning at eight
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: ear pain much better
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.4"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or rash
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Finish all ten days even when he seems well, shake the bottle, and measure with the oral syringe
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of one hundred two or higher, a rash or hives, vomiting the doses, or drainage from the ear
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pebble Creek Pediatric Home Nursing, this is Odile.
+  Caller -> Hi, hello. Is this a good time? I can hear a baby crying. Oh, that's mine, I'm sorry.
+  Nurse -> It's a fine time. That's no problem.
+  Caller -> Hi, Odile. It's Katarzyna Branch. K A T A R Z Y N A. I'm calling about my son Theodore. Theodore Branch. The ear infection. I wanted to check in. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Katarzyna. How was your Thanksgiving?
+  Caller -> Chaotic. Twenty people. My mother in law made four pies and my father in law made zero. He says he supervised.
+  Nurse -> Hi, Katarzyna. Of course. How is Theodore? Let me get his chart. What's his date of birth?
+  Caller -> He's right next to me, building a tower. He says hi. Say hi, Teddy. He's shy.
+  Caller -> June fourteenth. Twenty twenty three. He's three. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six oh two, five five five, zero one nine five. || callback_phone
+  Nurse -> Perfect. Got it.
+  Nurse -> Great. So how's his ear?
+  Caller -> I took him to the pediatrician on Sunday night. The urgent clinic. They looked in both ears. Only the right one was red.
+  Caller -> Much better. He's not pulling at it. He was crying so much on Sunday. Now he's playing with his trucks. It's much better. || A2
+  Caller -> He sleeps through the night now. Sunday and Monday he woke up every hour. I was a zombie.
+  Nurse -> That sounds exhausting. I'm glad he's sleeping.
+  Nurse -> That's wonderful. Any fever?
+  Caller -> He still feels a little warm after his nap, but it goes away. I think it's the heated blanket.
+  Caller -> Ninety nine point four. This morning. It was a hundred and one on Sunday. || A3
+  Caller -> I use the forehead thermometer. It beeps twice. He hates the beep.
+  Nurse -> Good. And the amoxicillin? How is that going? || A1
+  Caller -> I wrote the times on a calendar. I put a star each time he takes it. He likes the stars.
+  Nurse -> I gave him five milliliters this morning at eight. The bottle says four hundred milligrams per five milliliters, twice a day. He takes it fine. He likes the pink one. || A1, label_error
+  Caller -> That's good. Is he spitting it up?
+  Nurse -> No, he swallows it all. No spitting up.
+  Caller -> Finish all ten days, even if he seems well. Shake the bottle each time. And use the oral syringe, not a spoon. || E1, label_error
+  Nurse -> Okay. Finish all ten days. Shake. Syringe. I will. We shake it like a maraca. He helps.
+  Nurse -> Good. That's the right routine.
+  Caller -> Ha. A maraca.
+  Nurse -> A good trick. Kids love to help.
+  Caller -> His grandma bought him a real maraca for Christmas. We have been hiding it.
+  Nurse -> Any vomiting, diarrhea, or a rash?
+  Caller -> I checked his tummy and back this morning. Not a single spot. I'm watching because he had a rash once from a different medicine.
+  Caller -> No vomiting. No rash. A little loose stool yesterday, but just once. Nothing since. || A4
+  Nurse -> That can happen with antibiotics. Keep an eye on it. Is he drinking?
+  Caller -> I give him yogurt with his breakfast. The pediatrician said it helps. He thinks it's dessert.
+  Caller -> Lots. Milk, water, juice. He asked for apple juice about ten times today.
+  Nurse -> That's great. Fluids are important with an ear infection.
+  Nurse -> Ha. Good appetite?
+  Caller -> He drank a whole cup of milk in one go. He wiped his mouth with his sleeve like a cowboy.
+  Caller -> He's been eating like a little horse. Maybe it was holding him back all week.
+  Caller -> He ate two waffles for breakfast. And a banana. He's back to normal.
+  Nurse -> I'm so glad. Katarzyna, call us if his fever goes to one hundred two or higher, if he gets a rash or hives, if he throws up the doses, or if you see drainage from his ear. || E2
+  Caller -> One hundred two. Rash. Throwing up. Ear drainage. I'm writing it down. I have the fridge pad.
+  Caller -> It has a magnet shaped like a banana. Teddy picked it. It's a good fridge pad.
+  Nurse -> Ha. A banana magnet is the best.
+  Caller -> Do I call you or the pediatrician if it happens at night?
+  Nurse -> Call us any time. We'll tell you what to do.
+  Nurse -> Perfect. I'll call you tomorrow to see how he's doing. || R1
+  Caller -> His preschool wants a note. When can he go back? I know it's early.
+  Nurse -> He can go back once he's been fever free for a full day and feels well. We'll go over it tomorrow.
+  Caller -> Tomorrow. Okay. I'll be home. We're just playing trains.
+  Caller -> I'll have the phone near. It's usually in the kitchen under the dishtowel. I'll put it on the table.
+  Nurse -> Ha. Choo choo.
+  Caller -> Choo choo is also his word for bedtime now. Choo choo time.
+  Caller -> He says choo choo about forty times a day.
+  Caller -> His father bought him a wooden train set. It takes up the whole living room. We walk around it like a minefield.
+  Nurse -> Ha. He's three.
+  Nurse -> Ha. A train conductor at heart.
+  Caller -> He told his teacher he's a train engineer and he drives all the way to Chicago.
+  Caller -> I know. He's my little conductor. Okay. Thank you, Odile.
+  Nurse -> Anytime. Bye.
+  Caller -> Thank you for always calling back so fast. It really helps with the worry.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller statement", heard_form: "I gave him five milliliters this morning at eight", fact_id: A1}
+  - {turn: auto, type: speaker_label, true_form: "Nurse instruction", heard_form: "Finish all ten days, even if he seems well", fact_id: E1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Theodore Branch, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "2023-06-14", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Katarzyna Branch, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: mother, certainty: stated, turns: [4]}
+    callback_phone: {value: "6025550195", certainty: stated, heard_as: [], turns: [11]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Checked in about her son's ear infection on antibiotics.
+    speaker: Caller
+    turns: [4]
+    quote: "I wanted to check in."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Amoxicillin 400 mg per 5 mL, 5 mL twice a day, given this morning at eight.
+      speaker: Caller
+      turns: [24]
+      quote: "I gave him five milliliters this morning at eight."
+      explanation: Documents the antibiotic dose.
+      facts:
+        - {type: medication, name: amoxicillin, dose: "5", unit: mL, frequency: twice a day, prn: false, last_dose: this morning at eight, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Ear pain was much better and he was playing with his trucks.
+      speaker: Caller
+      turns: [15]
+      quote: "Much better. He's not pulling at it."
+      explanation: Documents the improving ear pain.
+      facts:
+        - {type: symptom, name: ear pain much better, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Temperature was 99.4 this morning.
+      speaker: Caller
+      turns: [20]
+      quote: "Ninety nine point four."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.4", certainty: stated}
+      covers: [A3]
+    - text: He had no vomiting or rash.
+      speaker: Caller
+      turns: [35]
+      quote: "No vomiting. No rash."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or rash, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll call you tomorrow to see how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised finishing all ten days, shaking the bottle and using the oral syringe.
+      speaker: Nurse
+      turns: [27]
+      quote: "Finish all ten days, even if he seems well."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever of 102 or higher, a rash or hives, vomiting the doses or ear drainage.
+      speaker: Nurse
+      turns: [44]
+      quote: "call us if his fever goes to one hundred two or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

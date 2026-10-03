@@ -1,0 +1,315 @@
+call_id: tr-326
+split: train
+blueprint: "A husband calls hospice because his wife Winnifred has had itchy red blotches on her arms and chest for two days and he wants to give her an over-the-counter Benadryl, 25 mg, but is not sure it is safe with her oxycodone 5 mg every four hours as needed (last dose at noon). No swelling of lips or face, no trouble breathing, no new soap or food he can think of. The nurse asks what he has seen, tells him not to give the Benadryl until the provider answers, messages the provider, plans a callback this afternoon, and teaches itch comfort measures and allergy warning signs. Medication question, discussed status, spouse caller, medium v2."
+setup:
+  scenario_category: medication
+  subtype: clarification
+  secondary_tags: [trap_phrasing, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [medication, skin, pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Foxglove Hospice
+  agency_type: hospice
+  nurse_name: Callum
+  call_timestamp_utc: "2026-10-26T18:30:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [docusate]
+chief_complaint:
+  patient_name_true: Winnifred Larkin
+  patient_name_spoken: Winnifred Larkin
+  patient_name_certainty: stated
+  patient_dob_true: "1957-08-23"
+  patient_dob_spoken: "1957-08-23"
+  patient_dob_certainty: stated
+  caller_name_true: Dwight Larkin
+  caller_name_spoken: Dwight Larkin
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8165550127"
+  callback_phone_spoken: "8165550127"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether he can give Benadryl for an itchy rash along with her oxycodone
+  reason_category: medication
+  relevant_context: Hospice patient at home with cancer pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Benadryl
+    medication_name_spoken: Benadryl
+    medication_status: discussed
+    dose: "25"
+    unit: mg
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: noon
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: itchy red blotches on the arms and chest
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: swelling of the lips or face or trouble breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has not changed her soap or food and cannot think of a new trigger
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold the Benadryl until the provider answers
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: itchy rash and whether Benadryl is safe with oxycodone
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Use cool damp cloths on the itchy areas, loose cotton clothing, short nails and fragrance-free lotion, and keep the skin from being scratched
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for swelling of the lips, tongue or face, wheezing or trouble breathing, and call back if the rash spreads or blisters
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Foxglove Hospice, this is Callum.
+  Caller -> Hi, Callum. It's Dwight Larkin. L A R K I N. I'm calling about my wife, Winnifred. She's got a rash. And I have a question about a pill. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Mr. Larkin. How are the two of you doing today?
+  Caller -> We're managing. We've had better days. We had a good morning and then this rash.
+  Nurse -> Hi, Mr. Larkin. Let me bring up Winnifred's chart. What's her date of birth?
+  Caller -> August twenty third. Nineteen fifty seven. || patient_dob
+  Nurse -> Thanks. And your number?
+  Caller -> Eight one six, five five five, zero one two seven. That's the house. || callback_phone
+  Nurse -> And is that the best number for the afternoon?
+  Caller -> It is. I'll be here. I don't go out much. I can get the groceries delivered now. My daughter set it up on the computer.
+  Nurse -> Got it. Tell me about the rash.
+  Caller -> It started Saturday. Two days. It's little red blotches. Like hives, maybe. On her arms. Both arms. And on her chest. And she's scratching. She's scratching and scratching. She's scratched till she's red. And she's miserable. || A3
+  Nurse -> Is she scratching in her sleep too?
+  Caller -> At night, yes. I wake up and she's scratching in her sleep. I put socks on her hands. Ha. Like a baby.
+  Nurse -> That's smart. It helps protect the skin.
+  Nurse -> Okay. Are the blotches raised, flat?
+  Caller -> Raised. A bit. Like bumps. Not blisters. Some are like a welt. Some are flat and red. The size of a quarter, some of them. Some are smaller.
+  Nurse -> Any burning or stinging, or is it only itch?
+  Caller -> Just the itch. She says it's crawling. Like ants under the skin.
+  Nurse -> Okay. And do they come and go, or are they staying?
+  Caller -> They come and go. They move. This morning they were on her left arm. Now they're on her right arm too. And her chest. They fade after an hour and come back.
+  Nurse -> Okay. That sounds like hives. Is there any swelling of her lips, face, tongue?
+  Caller -> No. No. I looked. Her lips are normal. Her face is normal. Her tongue's fine. I asked her to stick it out. She did. She said you're being silly. || A4
+  Caller -> She's always been the stubborn one. She told the nurse last week that she's not an invalid.
+  Nurse -> Ha. I'll bet she is a fighter.
+  Caller -> Forty four years of marriage. I know it.
+  Nurse -> Good. Any trouble breathing, wheezing, a tight throat?
+  Caller -> No. Her breathing's the same as always. She's comfortable. No tightness. No cough. She's just itching.
+  Nurse -> Any fever, chills? Has she felt warm?
+  Caller -> I took it at lunch. Ninety eight and a half. No fever.
+  Nurse -> Good.
+  Nurse -> Okay. That's good. Has anything changed recently? A new soap, a new laundry detergent, a new food? A new medicine?
+  Caller -> I thought about that. I did. I haven't changed the soap. Same soap. Same detergent. Same food. She eats the same. Toast, eggs, soup. I can't think of anything new. She's on the same pills. || A5
+  Caller -> The only new thing is the dog. My daughter brought her dog over. A little poodle. He sat on Winnie's lap Friday. She loves him. Do you think it's the dog?
+  Nurse -> It could be an allergy, or it could be something else. We'll note it. Keep him off her lap for now, until we know.
+  Caller -> Oh no. She'll cry. But okay.
+  Nurse -> Okay. Which pills is she taking right now?
+  Caller -> The oxycodone. For the pain. Five milligrams. Every four hours if she needs it. She's been taking it about three or four times a day. She took one at noon. And a few others for her stomach and her sleep. But I'd have to look. || A2
+  Nurse -> That's fine. The oxycodone five, every four hours as needed, last at noon. Anything new in the last week? || A2
+  Caller -> No. I don't think so. Hmm. The nurse added a stool softener, last Monday. A new one. But that's not it, is it?
+  Nurse -> It could be. Rashes can come from medicines. I'll check what that one is. Do you remember the name?
+  Caller -> No. It's a white pill. Starts with D. Doc something. I'd have to find it. It's in the cabinet.
+  Nurse -> Could you do me a favor and read me the name off the bottle? While I'm on the line?
+  Caller -> Sure. Hold on. Let me get my glasses. They're on the TV. Okay. I'm in the kitchen. The cabinet is stuck. There. It says docusate. D O C U S A T E. Hundred milligrams. Once a day.
+  Nurse -> Docusate. Thank you. That's a very common stool softener. I'll include it for the provider.
+  Caller -> Is that the one?
+  Nurse -> It might be. It's rare. We'll let the provider decide.
+  Nurse -> That's okay. I'll find it in her chart. Dwight, you mentioned a question about a pill.
+  Caller -> Yes. I wanted to give her a Benadryl. I have some in the cabinet. The twenty five milligram. It's what my mother always used for hives. But I didn't know if it's okay with the oxycodone. Because the box says it makes you drowsy. And I don't want to make her too sleepy. Or worse. || A1
+  Nurse -> Your mother was onto something. It is a common medicine for hives. We just need to check it with the other pills.
+  Caller -> My mother raised six kids. She knew everything.
+  Nurse -> Ha. I believe it.
+  Nurse -> That's a really good question to ask before giving it. Both can make her drowsy. I'd like you to hold off on the Benadryl until I check with the provider. Don't give it yet. || R1
+  Caller -> Okay. I won't give it. She's itching so bad though. Can't I give a half?
+  Nurse -> I know it's hard to wait. Even a half can make her sleepy with the oxycodone. And I want the provider to say. || A2
+  Caller -> I understand. I trust you. I just hate to see her like this.
+  Nurse -> I know.
+  Nurse -> I understand. Please wait for the provider. It shouldn't take long. In the meantime there are things we can do.
+  Caller -> Okay. What?
+  Nurse -> First, I'm going to message the hospice provider right now about the rash and the Benadryl question. I'll include the new stool softener. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> And I'll call you back this afternoon with their answer. || R3
+  Caller -> This afternoon. Okay. What time?
+  Nurse -> Within a couple hours. Probably by three or four.
+  Caller -> Okay. Good. I'll keep the phone close.
+  Nurse -> Now, for the itch. Cool damp cloths on the itchy spots help a lot. Loose cotton clothes. Keep her nails short, so if she scratches she doesn't break her skin. And a fragrance free lotion, if she likes lotion. || E1
+  Caller -> Cool cloths. Cotton. Short nails. Lotion with no smell. Okay. We have the cotton nightgowns. And I'll cut her nails. I do that anyway. She trusts me with the clippers.
+  Nurse -> Good. Don't use anything with a lot of perfume.
+  Caller -> She likes the lavender. I'll skip it for now.
+  Nurse -> That's a good idea. Just for now.
+  Caller -> Okay. Is it contagious? The rash?
+  Nurse -> Hives aren't contagious. They're a reaction. We just need to find the cause.
+  Caller -> Good. I was worried about me. Ha.
+  Nurse -> Ha. You're fine.
+  Caller -> Callum, what should worry me? What would be an emergency?
+  Nurse -> If her lips, tongue or face swell, or she has trouble breathing or wheezing, call nine one one right away. And call us back if the rash spreads a lot, or blisters. || E2
+  Caller -> Swelling, trouble breathing. Nine one one. Spreads or blisters, call you. Okay. I wrote it on the notepad.
+  Nurse -> Perfect. How is she doing otherwise? Is her pain okay?
+  Caller -> Her pain is okay. It's about the same. A three. She's comfortable when she's not scratching.
+  Nurse -> Good. Is she eating and drinking?
+  Caller -> Yes. Soup for lunch. She had half a sandwich. She's drinking tea.
+  Nurse -> What kind of tea? Is it herbal?
+  Caller -> Just regular. Black tea. With honey. She doesn't like the herbal.
+  Nurse -> That's fine. Nothing new.
+  Caller -> Nothing new. Same tea since nineteen eighty.
+  Nurse -> Great. Okay, Mr. Larkin. I'll call you this afternoon.
+  Caller -> Thank you, Callum. I appreciate it.
+  Nurse -> You're welcome. Take care.
+  Caller -> One more thing. The chaplain was going to come by Thursday. Is that still on?
+  Nurse -> Let me look. Yes. Thursday at two. It's on the schedule.
+  Caller -> Good. She likes him. They talk about birds.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winnifred Larkin, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1957-08-23", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Dwight Larkin, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550127", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether he could give Benadryl for an itchy rash along with her oxycodone.
+    speaker: Caller
+    turns: [2]
+    quote: "She's got a rash. And I have a question about a pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He asked about giving Benadryl 25 mg for the rash alongside the oxycodone.
+      speaker: Caller
+      turns: [49]
+      quote: "I wanted to give her a Benadryl."
+      explanation: Documents the Benadryl question.
+      facts:
+        - {type: medication, name: Benadryl, dose: "25", unit: mg, med_status: discussed, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 5 mg every four hours as needed was used three or four times a day, last at noon.
+      speaker: Caller
+      turns: [38]
+      quote: "The oxycodone. For the pain. Five milligrams."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: noon, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Itchy raised red blotches on both arms and her chest came and went over two days.
+      speaker: Caller
+      turns: [12]
+      quote: "It started Saturday. Two days."
+      explanation: Documents the rash.
+      facts:
+        - {type: symptom, name: itchy red blotches on the arms and chest, present: true, onset: two days, certainty: stated}
+      covers: [A3]
+    - text: There was no swelling of her lips, tongue or face and no trouble breathing.
+      speaker: Caller
+      turns: [23]
+      quote: "No. No. I looked. Her lips are normal."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: swelling of the lips or face or trouble breathing, certainty: stated}
+      covers: [A4]
+    - text: He had not changed her soap, detergent or food and could not think of a new trigger.
+      speaker: Caller
+      turns: [33]
+      quote: "I haven't changed the soap. Same soap."
+      explanation: Documents the lack of a known trigger.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised holding the Benadryl until the provider answered.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'd like you to hold off on the Benadryl until I check with the provider."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Benadryl, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the rash and the Benadryl question, including the new stool softener.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'm going to message the hospice provider right now about the rash and the Benadryl question."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this afternoon with the provider's answer.
+      speaker: Nurse
+      turns: [62]
+      quote: "I'll call you back this afternoon with their answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised cool damp cloths, loose cotton clothes, short nails and fragrance-free lotion.
+      speaker: Nurse
+      turns: [66]
+      quote: "Cool damp cloths on the itchy spots help a lot."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for swelling of the lips, tongue or face or trouble breathing, and calling back if the rash spread or blistered.
+      speaker: Nurse
+      turns: [76]
+      quote: "call nine one one right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

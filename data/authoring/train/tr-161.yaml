@@ -1,0 +1,185 @@
+call_id: tr-161
+split: train
+blueprint: "Daughter reports a red open spot on her mother's heel (about a quarter size, shallow, pink base, no drainage) and pain 3/10; one of her answers is mislabeled as the nurse. Nurse messages the wound team, plans a visit Monday, and reviews heel offloading. ASR speaker-label error."
+setup:
+  scenario_category: asr_error
+  subtype: speaker_label
+  secondary_tags: [speaker_label_errors, late_answers, split_turns, multi_issue]
+  clinical_domains: [wound_skin, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Lorraine
+  call_timestamp_utc: "2026-10-04T14:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lavinia Ashcroft
+  patient_name_spoken: Lavinia Ashcroft
+  patient_name_certainty: stated
+  patient_dob_true: "1946-05-27"
+  patient_dob_spoken: "1946-05-27"
+  patient_dob_certainty: stated
+  caller_name_true: Imogen Ashcroft
+  caller_name_spoken: Imogen Ashcroft
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8475550123"
+  callback_phone_spoken: "8475550123"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported an open red spot on her mother's heel
+  reason_category: wound
+  relevant_context: Hospice patient who spends most of the day in bed
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: open red spot on the heel
+    symptom_present: true
+    body_location: heel
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: heel pain
+    symptom_present: true
+    severity: 3/10
+    body_location: heel
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: drainage or smell
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wound team
+    reason_or_trigger: open spot on the heel
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Monday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Float the heel off the mattress with a pillow under the calf and do not massage the red area
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Lorraine.
+  Caller -> Hi, Lorraine. It's Imogen Ashcroft. I'm calling about my mother. Lavinia Ashcroft. She has a sore on her heel. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Imogen. I'm sorry to hear that. What's her date of birth?
+  Caller -> May twenty seventh. Nineteen forty six. || patient_dob
+  Nurse -> And is eight four seven, five five five, zero one two three your number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Tell me about the sore.
+  Caller -> It's on her left heel. It's red, and in the middle there's an open spot. About the size of a quarter. It's shallow. The bottom of it is pink. || A1
+  Nurse -> Okay. Is there any drainage? Any smell?
+  Nurse -> No. Nothing. It's dry. No smell. || A3, label_error
+  Nurse -> Okay. Does it hurt her?
+  Caller -> A little. She winces when I touch it. She says it's a three. || A2
+  Nurse -> Okay. Imogen, I'm going to message our wound team about the spot on her heel. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And a nurse will come see her Monday. || R2
+  Caller -> Monday. Okay. That's two days from now. Is that okay?
+  Nurse -> Yes. Until then, keep her heel floating off the mattress. Put a pillow under her calf so the heel doesn't touch anything. And don't rub or massage the red area. || E1
+  Caller -> Pillow under the calf. No rubbing. Okay. I have a pillow. I'll do it right now.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. Thank you, Lorraine. Honestly, thank you for always picking up. Even on a Sunday. My mother says the nurses at the other place never called back.
+  Nurse -> Well, we do. Give her my best.
+  Caller -> I will.
+  Nurse -> It's what we're here for. Take care.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "No. Nothing. It's dry. No smell.", fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lavinia Ashcroft, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-05-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Imogen Ashcroft, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8475550123", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported an open red spot on her mother's heel.
+    speaker: Caller
+    turns: [2]
+    quote: "She has a sore on her heel."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A red open spot about the size of a quarter, shallow with a pink base, was present on the left heel.
+      speaker: Caller
+      turns: [8]
+      quote: "It's on her left heel. It's red, and in the middle there's an open spot."
+      explanation: Documents the wound.
+      facts:
+        - {type: symptom, name: open red spot on the heel, present: true, location: heel, certainty: stated}
+      covers: [A1]
+    - text: No drainage or smell was reported.
+      speaker: Caller
+      turns: [10]
+      quote: "No. Nothing. It's dry. No smell."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: drainage or smell, certainty: stated}
+      covers: [A3]
+    - text: Heel pain was about 3/10.
+      speaker: Caller
+      turns: [12]
+      quote: "She says it's a three."
+      explanation: Documents pain level.
+      facts:
+        - {type: symptom, name: heel pain, present: true, severity: 3/10, location: heel, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Planned to message the wound team about the spot on her heel.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to message our wound team about the spot on her heel."
+      explanation: Documents the planned team message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for Monday.
+      speaker: Nurse
+      turns: [15]
+      quote: "a nurse will come see her Monday."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Monday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised floating the heel off the mattress with a pillow under the calf and not rubbing the red area.
+      speaker: Nurse
+      turns: [17]
+      quote: "keep her heel floating off the mattress. Put a pillow under her calf so the heel doesn't touch anything."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+  risk_flags: []

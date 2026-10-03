@@ -1,0 +1,250 @@
+call_id: tr-386
+split: train
+blueprint: "A daughter calls hospice because her mother's hospital bed motor has stopped working and the head of the bed is stuck flat; her mother gets short of breath and coughs when flat. She is propped on pillows for now. Breathing is comfortable when propped, no blue lips, and the daughter has already called the equipment company's line twice. Nurse calls the equipment company for an urgent repair or swap, coordinates a same-day delivery, plans a callback in an hour, and advises pillow positioning. Supply (hospital bed), adult child, v2 short."
+setup:
+  scenario_category: supply
+  subtype: hospital_bed_repair
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, negated_risk_phrase]
+  clinical_domains: [equipment, dyspnea, cough_uri]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Joan
+  call_timestamp_utc: "2026-10-30T16:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mathilde Rousseau
+  patient_name_spoken: Mathilde Rousseau
+  patient_name_certainty: stated
+  patient_dob_true: "1938-01-14"
+  patient_dob_spoken: "1938-01-14"
+  patient_dob_certainty: stated
+  caller_name_true: Claudette Rousseau
+  caller_name_spoken: Claudette Rousseau
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6025550196"
+  callback_phone_spoken: "6025550196"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother's hospital bed will not raise the head
+  reason_category: equipment
+  relevant_context: Hospice patient using a hospital bed at home
+assessment:
+  - item_id: A1
+    item_type: context
+    reporter: caller
+    history_or_context_text: The bed motor stopped and the head of the bed is stuck flat
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: short of breath and coughing when flat
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blue lips or breathing trouble when propped up
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment company
+    reason_or_trigger: urgent bed repair or replacement
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Prop her upright with firm pillows or a wedge behind her back and head, keep her knees slightly bent, and keep a fan or window open for air
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she is struggling to breathe, her lips look blue, or she cannot stay propped, and call 911 for severe trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Joan.
+  Caller -> Hi Joan. It's Claudette Rousseau. I'm calling about my mother, Mathilde Rousseau. The bed is broken. The hospital bed. It won't go up. || caller_name, patient_name, relationship, cc
+  Nurse -> Sorry, let me make sure I have the spelling. Rousseau, R O U S S E A U?
+  Caller -> Yes. Like the philosopher. Or the painter. Take your pick.
+  Nurse -> And is it the first floor bedroom? Easy for the delivery person to get to?
+  Caller -> First floor. Front door, then left. There's a ramp. They've been here before.
+  Nurse -> Ha. Got it.
+  Nurse -> Hi Claudette. Okay. Let's see what we can do. Is your mom comfortable right now?
+  Caller -> She's propped on pillows. I stacked every pillow in the house. She's okay for now. But the bed is flat. The head won't raise. || A1
+  Nurse -> Okay. What happened? Did it stop suddenly?
+  Caller -> I pushed the button on the remote and it did a click. Just a click. And then nothing. The foot goes up and down a little, but the head won't move. It's stuck flat.
+  Nurse -> Okay. Is it plugged in? Is the cord in the wall?
+  Caller -> Yes. I checked. I unplugged and plugged back in. I tried the other outlet. I tried the backup button on the side. Nothing.
+  Nurse -> Okay. You've done all the checks. Claudette, when she lies flat, what happens?
+  Caller -> My brother in law says to pull the plug out and wait ten minutes. Like a computer.
+  Nurse -> Did you try that?
+  Caller -> Yes. Ten minutes. Then plugged it in. Nothing.
+  Nurse -> It's likely the motor. They'll need to swap it.
+  Caller -> She coughs. And she gets short of breath. She says she can't get air. So I have to prop her up with pillows and she slides down. I keep pulling her up. || A2
+  Nurse -> Okay. Is she short of breath right now, with the pillows?
+  Caller -> No. Right now she's okay. She's propped at an angle. She's breathing fine. Her lips are pink. She's chatting with the cat. || A3
+  Nurse -> What's the cat's name?
+  Caller -> Pepin. He sits on her chest. She says he's her oxygen.
+  Nurse -> Ha. A very important cat. Just make sure he isn't pressing on her when she's flat.
+  Caller -> I'll put him on the chair. He'll sulk.
+  Nurse -> Good. That's a good sign. Have you called the equipment company?
+  Caller -> I did. Twice. Their after hours line. I left a message. They said someone would call me within four hours. It's been two. I'm worried they won't come until tomorrow.
+  Nurse -> Okay. I'll call them myself, on our priority line. Claudette, what's her date of birth?
+  Caller -> January fourteenth. Nineteen thirty eight. || patient_dob
+  Nurse -> And a good number for you?
+  Caller -> Six oh two, five five five, zero one nine six. || callback_phone
+  Nurse -> Six oh two, five five five, zero one nine six. Is that right? || callback_phone
+  Caller -> Yes. That's mine.
+  Nurse -> Okay. I'm going to call the equipment company and ask for an urgent repair or a replacement bed. I'll tell them she can't breathe lying flat, so it can't wait. || R1
+  Caller -> Thank you. That helps. They didn't seem to hear the urgency when I called.
+  Nurse -> I'll make sure. And I'll ask for it to be delivered or fixed today. || R2
+  Caller -> Today. Oh, thank God. I was dreading the night.
+  Nurse -> Let me see what they say. I'll call you back in an hour with an update. || R3
+  Caller -> If they say tomorrow, can you tell them no?
+  Nurse -> I'll tell them it has to be today. I'll do my best.
+  Caller -> An hour. Okay. I'll be here. Where else would I be.
+  Caller -> Sorry. That sounded rude. I'm just tired.
+  Nurse -> Not rude at all. You're doing a lot.
+  Nurse -> In the meantime, let's make her more comfortable. Do you have a wedge pillow, or can you firm up the pillows with a folded blanket behind her back so she doesn't slide? || E1
+  Caller -> I have a foam wedge. From when I had back surgery. It's in the closet. I forgot about it. I'll get it.
+  Nurse -> That's perfect. Put it behind her back and head. Keep her knees slightly bent, a pillow under them. And open a window or run a fan so she feels air moving. That can help with breathing.
+  Caller -> Wedge behind. Knees bent. Fan. Okay. We have a fan. I'll set it on low.
+  Nurse -> Good. And call us if she's struggling to breathe, if her lips turn blue, or if she can't stay propped. If she has severe trouble breathing, call 911. || E2
+  Caller -> Struggling. Blue. Can't stay propped. 911 for severe. Okay.
+  Nurse -> What did she eat today? Is she eating?
+  Caller -> Soup. A little. And applesauce. She likes it when I warm it.
+  Nurse -> Good. Small amounts are fine.
+  Caller -> She says it's better than the hospital.
+  Nurse -> Is there anyone who can help you lift her if you need to adjust her?
+  Caller -> My husband's here. He's in the garage. He can help. He's not strong, but he's tall.
+  Nurse -> Ha. That counts.
+  Caller -> Tall counts.
+  Caller -> Honestly he's useless with the bed. He keeps pressing the same button and saying hm.
+  Nurse -> Ha. Let him help lift, not diagnose.
+  Caller -> That's his job description.
+  Nurse -> Anything else, Claudette?
+  Caller -> No. Just, please call me. I know you will. But please.
+  Nurse -> I will. One hour. Talk soon.
+  Caller -> Thank you, Joan.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mathilde Rousseau, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-01-14", certainty: stated, heard_as: [], turns: [29]}
+    caller_name: {value: Claudette Rousseau, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550196", certainty: stated, heard_as: [], turns: [31, 32]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother's hospital bed would not raise the head.
+    speaker: Caller
+    turns: [2]
+    quote: "The bed is broken. The hospital bed. It won't go up."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The bed head was stuck flat after a click, though the foot moved a little.
+      speaker: Caller
+      turns: [9]
+      quote: "The head won't raise."
+      explanation: Documents the equipment problem.
+      facts:
+        - {type: context, text: The bed motor stopped and the head of the bed is stuck flat, certainty: stated}
+      covers: [A1]
+    - text: She coughed and became short of breath when flat.
+      speaker: Caller
+      turns: [19]
+      quote: "She coughs. And she gets short of breath."
+      explanation: Documents the breathing symptoms.
+      facts:
+        - {type: symptom, name: short of breath and coughing when flat, present: true, certainty: stated}
+      covers: [A2]
+    - text: With pillows she was breathing fine and her lips were pink.
+      speaker: Caller
+      turns: [21]
+      quote: "She's breathing fine. Her lips are pink."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blue lips or breathing trouble when propped up, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to call the equipment company for an urgent repair or replacement.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm going to call the equipment company"
+      explanation: Documents the planned equipment order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery or repair today.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll ask for it to be delivered or fixed today."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'll call you back in an hour with an update."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised propping her upright with a wedge or pillows, knees slightly bent, and a fan or open window.
+      speaker: Nurse
+      turns: [46]
+      quote: "Put it behind her back and head."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if she struggled to breathe, her lips turned blue or she could not stay propped, and 911 for severe trouble breathing.
+      speaker: Nurse
+      turns: [48]
+      quote: "call us if she's struggling to breathe"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

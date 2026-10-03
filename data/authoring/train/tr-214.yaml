@@ -1,0 +1,183 @@
+call_id: tr-214
+split: train
+blueprint: "Granddaughter calls about her grandfather's swollen ankles; she is not sure when it started, and she cannot remember the name of his water pill (thinks Lasix or maybe Lanoxin) or whether he took it today. Nurse plans a nurse visit tomorrow and a message to the team. Uncertain medication name and unclear onset, recorded as unclear."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [hedging, contradiction, late_answers, split_turns]
+  clinical_domains: [edema, medication]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Joel
+  call_timestamp_utc: "2026-10-10T20:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Harlan Voss
+  patient_name_spoken: Harlan Voss
+  patient_name_certainty: stated
+  patient_dob_true: "1938-12-05"
+  patient_dob_spoken: "1938-12-05"
+  patient_dob_certainty: stated
+  caller_name_true: Brianna Voss
+  caller_name_spoken: Brianna Voss
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "9015550176"
+  callback_phone_spoken: "9015550176"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her grandfather's ankles are swollen
+  reason_category: edema
+  relevant_context: Hospice patient with a heart condition
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: swollen ankles
+    symptom_present: true
+    onset_or_duration: a few days
+    certainty: unclear
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lasix
+    medication_name_spoken: Lasix
+    medication_status: taking
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: swollen ankles
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Prop his feet up on pillows when he is sitting and avoid salty foods
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for trouble breathing, chest pain, or swelling that spreads up the legs
+    trigger_condition: trouble breathing; chest pain; swelling spreading up the legs
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Joel.
+  Caller -> Hi, Joel. This is Brianna Voss. I'm calling about my grandpa, Harlan Voss. His ankles are really swollen. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Brianna. Thanks for calling. What's his date of birth?
+  Caller -> December fifth. Nineteen thirty eight. || patient_dob
+  Nurse -> And is nine oh one, five five five, zero one seven six a good number for you? || callback_phone
+  Caller -> Yes. That's mine. I'm at his place till tomorrow. || callback_phone
+  Nurse -> Okay. How long have his ankles been swollen?
+  Caller -> Um, a few days? Maybe? I came on Wednesday and I think they were a little puffy then, but I'm not sure. Or maybe it was Thursday. They're worse today, I know that. || A1
+  Nurse -> Okay. Is it both legs, or one?
+  Caller -> Both. Both ankles. They look like, you know, like balloons. The sock left a mark.
+  Nurse -> Okay. Is he on a water pill, or a heart medicine, that you know of?
+  Caller -> He has a water pill. I think it's called Lasix? Or Lanoxin? One of those. I don't remember. It's a little white one, and it's in the, the pill organizer on the table. || A2
+  Nurse -> Okay. Do you know if he took it today?
+  Caller -> I don't know. He says he did. But he also said he did yesterday and I found Tuesday's still in the box. So I'm not sure. || A2
+  Nurse -> Okay. That's helpful. I can't tell from here, so I'll send a nurse out tomorrow to go over his medicines and look at the swelling. || R1
+  Caller -> Tomorrow. Okay. I'll be here in the morning.
+  Nurse -> I'm also going to message the hospice provider about the swollen ankles. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> In the meantime, prop his feet up on pillows when he's sitting, and go easy on salty food. || E1
+  Caller -> Feet up. No salt. Okay. He likes his canned soup, though.
+  Nurse -> Maybe a different soup tonight. And call us if he has any trouble breathing, any chest pain, or the swelling starts moving up his legs. || E2
+  Caller -> Breathing, chest pain, swelling going up. Okay. He seems fine, he's watching his game.
+  Nurse -> That's good. I'm glad you're there with him.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Harlan Voss, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-12-05", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Brianna Voss, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550176", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her grandfather's ankles were swollen.
+    speaker: Caller
+    turns: [2]
+    quote: "His ankles are really swollen."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Both ankles were swollen, worse today, for a few days (unclear; the caller was not sure whether it began Wednesday or Thursday).
+      speaker: Caller
+      turns: [8]
+      quote: "Um, a few days? Maybe?"
+      explanation: Documents the swelling while preserving the uncertain onset.
+      facts:
+        - {type: symptom, name: swollen ankles, present: true, onset: a few days, certainty: unclear}
+      covers: [A1]
+    - text: A water pill was reported as Lasix (unclear; the caller was not sure if it was Lasix or Lanoxin, and was not sure he had taken it today).
+      speaker: Caller
+      turns: [12]
+      quote: "I think it's called Lasix? Or Lanoxin? One of those."
+      explanation: Documents the water pill while preserving the uncertain name.
+      facts:
+        - {type: medication, name: Lasix, med_status: taking, certainty: unclear}
+      covers: [A2]
+  response:
+    - text: Planned to send a nurse out tomorrow to review his medicines and the swelling.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll send a nurse out tomorrow to go over his medicines and look at the swelling."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the swollen ankles.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm also going to message the hospice provider about the swollen ankles."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised propping his feet up on pillows when sitting and limiting salty foods.
+      speaker: Nurse
+      turns: [19]
+      quote: "prop his feet up on pillows when he's sitting, and go easy on salty food."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for trouble breathing, chest pain, or swelling moving up the legs.
+      speaker: Nurse
+      turns: [21]
+      quote: "call us if he has any trouble breathing, any chest pain, or the swelling starts moving up his legs."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

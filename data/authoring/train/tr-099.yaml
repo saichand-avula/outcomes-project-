@@ -1,0 +1,200 @@
+call_id: tr-099
+split: train
+blueprint: "47-year-old patient says she takes her oxycodone 'every four hours' but later says she has really only taken it twice today (contradiction). Pain 4/10 after a hysterectomy. Nurse clarifies from the order (5 mg every 4 hours as needed), the contradiction about actual use stays visible in the summary. Plans a nurse visit in two days."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, hedging, prn_and_scheduled, late_answers, phone_from_file]
+  clinical_domains: [pain, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-28T21:12:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Imani Fairweather
+  patient_name_spoken: Imani Fairweather
+  patient_name_certainty: stated
+  patient_dob_true: "1979-09-21"
+  patient_dob_spoken: "1979-09-21"
+  patient_dob_certainty: stated
+  caller_name_true: Imani Fairweather
+  caller_name_spoken: Imani Fairweather
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2675550185"
+  callback_phone_spoken: "2675550185"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether her pain is normal and how often she should take her pain pill
+  reason_category: medication_question
+  relevant_context: Hysterectomy 5 days ago
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: abdominal incision pain
+    symptom_present: true
+    severity: 4/10
+    body_location: lower abdomen
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every 4 hours
+    prn: true
+    last_dose: unclear how many today; said every 4 hours but later said twice
+    certainty: unclear
+    unclear_detail: She first said she takes it every 4 hours, then said she has only taken it twice today
+  - item_id: A3
+    item_type: history_context
+    reporter: patient
+    onset_or_duration: 5 days
+    history_or_context_text: Hysterectomy 5 days ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: oxycodone 5 mg may be taken every 4 hours as needed; take it when pain is above 4 rather than waiting
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: in 2 days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, heavy bleeding, a hot red incision, or pain that is not controlled
+    trigger_condition: fever; heavy bleeding; hot red incision; uncontrolled pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Imani Fairweather. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Imani. Your birthday?
+  Caller -> September twenty first. Nineteen seventy nine. || patient_dob
+  Nurse -> And I have two six seven, five five five, zero one eight five. || callback_phone
+  Caller -> Yep. || callback_phone
+  Nurse -> What's up?
+  Caller -> So I had my hysterectomy five days ago. And I'm hurting. And I'm not sure if that's normal. || cc, A3
+  Nurse -> Okay. How bad is it?
+  Caller -> Like a four. Low belly. Around the incisions. || A1
+  Nurse -> Okay. And what have you been taking for it?
+  Caller -> The oxycodone. I take it every four hours. Like it says. || A2
+  Nurse -> Okay. The five milligram?
+  Caller -> Yes. The five. || A2
+  Nurse -> And when's the last time you took it?
+  Caller -> Um. I think, this morning. Around ten? || A2
+  Nurse -> Okay. And it's, what, nine at night?
+  Caller -> Yeah.
+  Nurse -> So that's, you've had one dose today?
+  Caller -> No, no, I've had two. I had one at ten and then one at, like, four. Or three. Two total today. || A2
+  Nurse -> Okay. So not every four hours.
+  Caller -> Well no, I mean, I'm supposed to. But I don't want to take too much. I'm scared of getting addicted. So I wait. || A2
+  Nurse -> Mm-hm. I understand that worry. Imani, the order is five milligrams every four hours as needed. It's okay to take it when your pain is up. A four is a real number. You don't have to wait. || R1
+  Caller -> Oh. Okay. So I can take it now?
+  Caller -> I'm at a four right now.
+  Nurse -> Yes. If it's been four hours since the last one, you can take one now. || R1
+  Caller -> Okay. Okay.
+  Nurse -> I'm going to have a nurse come see you in two days, to look at the incisions and see how you're doing. || R2
+  Caller -> Okay. Good.
+  Nurse -> And call us if you get a fever, bleeding that soaks a pad an hour, if the incisions get hot and red, or if the pain isn't controlled. || E1
+  Caller -> Fever, bleeding, red, pain. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Marcus.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Imani Fairweather, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1979-09-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Imani Fairweather, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2675550185", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether her pain is normal and how often she should take her pain pill.
+    speaker: Caller
+    turns: [8]
+    quote: "I had my hysterectomy five days ago. And I'm hurting."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hysterectomy surgery was 5 days ago.
+      speaker: Caller
+      turns: [8]
+      quote: "I had my hysterectomy five days ago."
+      explanation: Documents the surgical context.
+      facts:
+        - {type: context, onset: 5 days, certainty: stated}
+      covers: [A3]
+    - text: Low belly pain around the incisions was rated 4/10.
+      speaker: Caller
+      turns: [10]
+      quote: "Like a four. Low belly. Around the incisions."
+      explanation: Documents pain severity and location.
+      facts:
+        - {type: symptom, name: abdominal incision pain, present: true, severity: 4/10, location: lower abdomen, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 5 mg every 4 hours as needed was described, but actual use was unclear (she said she takes it every 4 hours, then said she took only two doses today).
+      speaker: Caller
+      turns: [20]
+      quote: "No, no, I've had two. I had one at ten and then one at, like, four. Or three. Two total today."
+      explanation: Documents the contradiction about her oxycodone use.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 4 hours, prn: true, last_dose: unclear how many today; said every 4 hours but later said twice, med_status: taking, certainty: unclear}
+      covers: [A2]
+  response:
+    - text: Advised that oxycodone 5 mg every 4 hours as needed could be taken when pain was up, without waiting.
+      speaker: Nurse
+      turns: [23]
+      quote: "It's okay to take it when your pain is up."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit in 2 days to check the incisions.
+      speaker: Nurse
+      turns: [28]
+      quote: "I'm going to have a nurse come see you in two days, to look at the incisions and see how you're doing."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: in 2 days, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling for fever, bleeding that soaks a pad an hour, hot red incisions, or uncontrolled pain.
+      speaker: Nurse
+      turns: [30]
+      quote: "call us if you get a fever, bleeding that soaks a pad an hour, if the incisions get hot and red, or if the pain isn't controlled."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

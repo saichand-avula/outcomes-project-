@@ -1,0 +1,218 @@
+call_id: tr-122
+split: train
+blueprint: "Patient on warfarin asks whether she can take ibuprofen for a twisted knee (pain 5/10 since Sunday); also asks about Tylenol. Nurse says no ibuprofen with warfarin, will message the prescriber and call back this afternoon, and reviews bleeding signs. No flag."
+setup:
+  scenario_category: medication
+  subtype: interaction_question
+  secondary_tags: [hedging, split_turns]
+  clinical_domains: [medication, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-29T17:30:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gloria Tanenbaum
+  patient_name_spoken: Gloria Tanenbaum
+  patient_name_certainty: stated
+  patient_dob_true: "1971-08-14"
+  patient_dob_spoken: "1971-08-14"
+  patient_dob_certainty: stated
+  caller_name_true: Gloria Tanenbaum
+  caller_name_spoken: Gloria Tanenbaum
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5705550124"
+  callback_phone_spoken: "5705550124"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether she can take ibuprofen for knee pain while on warfarin
+  reason_category: medication_question
+  relevant_context: Home care patient on warfarin
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every night
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: ibuprofen
+    medication_name_spoken: ibuprofen
+    medication_status: requested
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: knee pain
+    symptom_present: true
+    severity: 5/10
+    onset_or_duration: since Sunday
+    body_location: knee
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: requested
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not take ibuprofen with warfarin because of bleeding risk
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: safer option for the knee pain
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Watch for nosebleeds, bleeding gums, black stools, or new bruises and call right away; call 911 for heavy bleeding
+    trigger_condition: nosebleed; bleeding gums; black stool; new bruises; heavy bleeding
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Joanne.
+  Caller -> Hi, Joanne. It's Gloria Tanenbaum. I'm one of your patients. || caller_name, relationship, patient_name
+  Nurse -> Hi, Gloria. Can I get your date of birth?
+  Caller -> August fourteenth. Nineteen seventy one. || patient_dob
+  Nurse -> And is five seven oh, five five five, zero one two four still the best number? || callback_phone
+  Caller -> Yes. Still that one. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> I have a question about a pill. Can I take ibuprofen? My knee hurts so much. || cc, A2
+  Nurse -> Okay. Tell me about the knee first. How bad is it?
+  Caller -> About a five. Since Sunday. I think I twisted it getting out of the car. || A3
+  Nurse -> Okay. And what else are you taking? Anything for your blood?
+  Caller -> The warfarin. Five milligrams. Every night. || A1
+  Nurse -> Okay. Gloria, I don't want you to take ibuprofen with the warfarin. It can raise the chance of bleeding. || R1
+  Caller -> Oh. I didn't know that. I was just going to grab it from the cabinet. I've got the big bottle.
+  Nurse -> I know. That's why it's good you asked. I'm going to message your prescriber about something safer for the knee. || R2
+  Caller -> Okay. Is Tylenol okay? || A4
+  Nurse -> Let's wait to hear from the prescriber on that too. I'll call you back this afternoon. || R3
+  Caller -> Okay. This afternoon.
+  Nurse -> And in the meantime, watch for any bleeding. Nosebleeds, bleeding gums, black stools, new bruises. If you see any, call us right away, and if it's heavy, call nine one one. || E1
+  Caller -> Okay. Nosebleed, gums, black stool, bruises. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Joanne.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gloria Tanenbaum, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1971-08-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gloria Tanenbaum, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5705550124", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether she can take ibuprofen for knee pain while on warfarin.
+    speaker: Caller
+    turns: [8]
+    quote: "Can I take ibuprofen? My knee hurts so much."
+    explanation: Documents the question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ibuprofen was requested for knee pain.
+      speaker: Caller
+      turns: [8]
+      quote: "Can I take ibuprofen?"
+      explanation: Documents the requested medication.
+      facts:
+        - {type: medication, name: ibuprofen, med_status: requested, certainty: stated}
+      covers: [A2]
+    - text: Knee pain was about 5/10 since Sunday after a possible twist getting out of the car.
+      speaker: Caller
+      turns: [10]
+      quote: "About a five. Since Sunday."
+      explanation: Documents pain level and duration.
+      facts:
+        - {type: symptom, name: knee pain, present: true, severity: 5/10, duration: since Sunday, location: knee, certainty: stated}
+      covers: [A3]
+    - text: Warfarin 5 mg every night was being taken.
+      speaker: Caller
+      turns: [12]
+      quote: "The warfarin. Five milligrams. Every night."
+      explanation: Documents the current anticoagulant.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: every night, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Tylenol was asked about as an alternative.
+      speaker: Caller
+      turns: [16]
+      quote: "Is Tylenol okay?"
+      explanation: Documents the second medication question.
+      facts:
+        - {type: medication, name: Tylenol, med_status: requested, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised not taking ibuprofen with warfarin because of the bleeding risk.
+      speaker: Nurse
+      turns: [13]
+      quote: "I don't want you to take ibuprofen with the warfarin."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber about something safer for the knee.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to message your prescriber about something safer for the knee."
+      explanation: Documents the planned prescriber contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back this afternoon."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised watching for nosebleeds, bleeding gums, black stools, or new bruises, calling right away if seen, and calling 911 for heavy bleeding.
+      speaker: Nurse
+      turns: [19]
+      quote: "If you see any, call us right away, and if it's heavy, call nine one one."
+      explanation: Documents bleeding precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

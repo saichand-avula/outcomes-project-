@@ -1,0 +1,197 @@
+call_id: tr-212
+split: train
+blueprint: "Husband says his wife ran out of her Gabapenton (a confident garble of gabapentin, kept as stated) yesterday and has had burning in her feet and a bad night since. Nurse puts in the refill request and calls the pharmacy (completed), plans a callback this evening, and tells him not to double up when it arrives. Flag: medication_concern (ran out). Drug garble."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, hedging, late_answers, split_turns]
+  clinical_domains: [medication, neuropathy]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-10T13:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1, R1, R2]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marisol Delgado
+  patient_name_spoken: Marisol Delgado
+  patient_name_certainty: stated
+  patient_dob_true: "1952-11-26"
+  patient_dob_spoken: "1952-11-26"
+  patient_dob_certainty: stated
+  caller_name_true: Calvin Delgado
+  caller_name_spoken: Calvin Delgado
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "5125550149"
+  callback_phone_spoken: "5125550149"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his wife ran out of her nerve pain medicine and had a bad night
+  reason_category: medication
+  relevant_context: Home health patient with nerve pain in her feet
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: gabapentin
+    medication_name_spoken: Gabapenton
+    medication_status: ran
+    dose: "300"
+    unit: mg
+    frequency: three times a day
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: burning in her feet
+    symptom_present: true
+    onset_or_duration: since last night
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: completed
+    actor: nurse
+    recipient_or_target: prescriber
+    medication_name_true: gabapentin
+    medication_name_spoken: Gabapenton
+    reason_or_trigger: ran out of Gabapenton
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pharmacy
+    medication_name_true: gabapentin
+    medication_name_spoken: Gabapenton
+    reason_or_trigger: Gabapenton refill
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Restart at her usual dose when the bottle arrives and do not double up to make up missed doses
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient ran out of Gabapenton yesterday and has had burning pain since
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Priya.
+  Caller -> Hi, Priya. It's Calvin Delgado. My wife Marisol ran out of her Gabapenton yesterday, and she had a terrible night. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Oh no. I'm sorry, Calvin. Let me get her chart up. What's her birth date?
+  Caller -> November twenty sixth. Nineteen fifty two. || patient_dob
+  Nurse -> And I have five one two, five five five, zero one four nine for you. || callback_phone
+  Caller -> Yeah, that's the house. She's right here, but I'm calling because she doesn't like to bother you.
+  Nurse -> That's fine. When did she run out?
+  Caller -> Yesterday morning. She took the last one yesterday morning. I thought we had a refill, but the pharmacy says it's out of refills. The Gabapenton. Three hundred milligrams. Three times a day. || A1, F1
+  Nurse -> Okay. So she's missed the afternoon and evening doses yesterday and this morning's as well.
+  Caller -> Yes. All of them. And last night the burning in her feet came back. Bad. She didn't sleep. She was up and walking around the house at two in the morning. || A2
+  Nurse -> Okay. I'm sorry to hear that. I put in a refill request for the Gabapenton with her prescriber just now. It's done. || R1, A1
+  Caller -> Oh, thank goodness. How long will that take?
+  Nurse -> I'm also calling the pharmacy so it's ready as soon as the prescriber approves it. I did reach the pharmacy and they're holding the Gabapenton for you. || R2, A1
+  Caller -> Okay. I can pick it up. I'll go the minute you tell me.
+  Nurse -> I'll call you this evening with where it stands. || R3
+  Caller -> This evening. Okay.
+  Nurse -> When you do get the bottle, have her restart at her usual dose. Please don't double up to make up for the missed ones. || E1, A1
+  Caller -> Don't double up. Just the usual. Okay. She wouldn't anyway. She's careful.
+  Nurse -> Is there anything else I can do?
+  Caller -> No. I just feel bad. I should have checked the bottle last week.
+  Nurse -> Don't feel bad. It's easy to miss.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: gabapentin, heard_form: Gabapenton, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marisol Delgado, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-11-26", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Calvin Delgado, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "5125550149", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife ran out of her nerve pain medicine and had a bad night.
+    speaker: Caller
+    turns: [2]
+    quote: "My wife Marisol ran out of her Gabapenton yesterday, and she had a terrible night."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Gabapenton 300 mg three times a day had run out, with the last dose yesterday morning.
+      speaker: Caller
+      turns: [8]
+      quote: "Yesterday morning. She took the last one yesterday morning."
+      explanation: Documents the medication that ran out.
+      facts:
+        - {type: medication, name: Gabapenton, dose: "300", unit: mg, frequency: three times a day, last_dose: yesterday morning, med_status: ran, certainty: stated}
+      covers: [A1]
+    - text: Burning in her feet returned last night.
+      speaker: Caller
+      turns: [10]
+      quote: "last night the burning in her feet came back. Bad."
+      explanation: Documents the symptom.
+      facts:
+        - {type: symptom, name: burning in her feet, present: true, onset: since last night, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Put in a refill request for Gabapenton with the prescriber.
+      speaker: Nurse
+      turns: [11]
+      quote: "I put in a refill request for the Gabapenton with her prescriber just now."
+      explanation: Documents the completed refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: completed, medication: Gabapenton, certainty: stated}
+      covers: [R1]
+    - text: Reached the pharmacy, which was holding the Gabapenton.
+      speaker: Nurse
+      turns: [13]
+      quote: "I did reach the pharmacy and they're holding the Gabapenton for you."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, medication: Gabapenton, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll call you this evening with where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised restarting at her usual dose when the bottle arrived and not doubling up for missed doses.
+      speaker: Nurse
+      turns: [17]
+      quote: "have her restart at her usual dose. Please don't double up to make up for the missed ones."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "My wife Marisol ran out of her Gabapenton yesterday"}

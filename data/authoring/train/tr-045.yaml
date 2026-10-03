@@ -1,0 +1,237 @@
+call_id: tr-045
+split: train
+blueprint: "Caregiver reports the patient fell in the bathroom and hit her head, a cut above the eyebrow is bleeding, and she takes apixaban; the caregiver asks whether to call 911; nurse says call 911 now and apply pressure. Flags: escalation request and other urgent."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [trap_phrasing, hedging]
+  clinical_domains: [falls, bleeding]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-25T10:03:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Beverly Tran
+  patient_name_spoken: Beverly Tran
+  patient_name_certainty: stated
+  patient_dob_true: "1943-11-11"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Denzel
+  caller_name_spoken: Denzel
+  caller_name_certainty: stated
+  relationship_to_patient: caregiver
+  relationship_certainty: stated
+  callback_phone_true: "3125550146"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Patient fell in the bathroom, hit her head, and has a bleeding cut
+  reason_category: fall_head_injury
+  relevant_context: Patient takes a blood thinner
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Fell in the bathroom about 5 minutes ago while standing up from the toilet
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: head strike with bleeding cut
+    symptom_present: true
+    severity: cut above the right eyebrow
+    body_location: right forehead
+    history_or_context_text: Bleeding steadily
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: apixaban
+    medication_name_spoken: apixaban
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: confusion
+    symptom_present: true
+    severity: knows her name but not sure of the day
+    certainty: unclear
+    unclear_detail: Caller unsure ("I think she's a little confused")
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: loss of consciousness
+    symptom_present: false
+    certainty: unclear
+    unclear_detail: Caller said she did not think the patient passed out
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: head injury on a blood thinner with bleeding
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient's family
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, put firm pressure on the cut with a clean cloth, keep her still and lying down, and tell paramedics she takes a blood thinner
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not move her if she reports neck or back pain; stay with her
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Caller asks whether to call 911 and nurse directs 911 now
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: other_urgent
+    trigger_description: Fall with head strike and bleeding in a patient on a blood thinner
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Joanne, it's Denzel, I'm the aide for Mrs. Tran. She fell. Beverly Tran. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Denzel. Is she conscious? Is she talking?
+  Caller -> She's awake, she's talking. She fell in the bathroom, she hit her head on the sink. There's a cut on her forehead and it's bleeding. A lot. || A1, A2, F2
+  Nurse -> Okay. When did this happen?
+  Caller -> About five minutes ago. She was getting up off the toilet. || A1
+  Nurse -> Okay. Does she take a blood thinner?
+  Caller -> Yes. The, um, the apixaban. Five milligrams, twice a day. || A3
+  Nurse -> Okay. Did she pass out, even for a second?
+  Caller -> I don't think so. I heard the thump and came in and she was awake. || A5
+  Nurse -> Okay. Is she confused?
+  Caller -> A little, I think? She knows her name, she knows me. But she asked me what day it was twice. || A4
+  Nurse -> Okay. Denzel, listen to me. Should I call nine one one? I mean, you should call nine one one right now. || R1, E1
+  Caller -> Okay. I was going to ask if I should.
+  Nurse -> Yes. Hang up with me and call nine one one. A head injury on a blood thinner, with bleeding, needs to be checked in the emergency room. || R1, E1, F1
+  Caller -> Okay.
+  Nurse -> Before you do, grab a clean towel and press firmly on the cut. Keep pressing, don't peek. || E1
+  Caller -> Okay. I'm getting a towel.
+  Nurse -> And keep her lying still. Don't move her if she says her neck or back hurts. || E2
+  Caller -> Okay. She says her neck is fine. It's just her head.
+  Nurse -> Okay. Still, keep her still until the paramedics get there. And tell them she takes apixaban. || E1, A3
+  Caller -> Apixaban. Okay. I'll tell them. || A3
+  Nurse -> I'll call her family and let them know she's on her way to the hospital. || R2
+  Caller -> Okay. Thank you. I'm calling now.
+  Nurse -> Go. Call nine one one now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beverly Tran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Denzel, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the patient fell in the bathroom and hit her head, with a bleeding cut on her forehead.
+    speaker: Caller
+    turns: [2]
+    quote: "Joanne, it's Denzel, I'm the aide for Mrs. Tran. She fell."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She fell in the bathroom about 5 minutes earlier while getting up from the toilet and hit her head on the sink; a bleeding cut was present on her forehead.
+      speaker: Caller
+      turns: [4]
+      quote: "She fell in the bathroom, she hit her head on the sink. There's a cut on her forehead and it's bleeding. A lot."
+      explanation: Documents the fall and head injury.
+      facts:
+        - {type: symptom, name: head strike with bleeding cut, present: true, severity: cut above the right eyebrow, location: right forehead, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A2]
+    - text: Apixaban 5 mg twice a day was reported as a current medication.
+      speaker: Caller
+      turns: [8]
+      quote: "The, um, the apixaban. Five milligrams, twice a day."
+      explanation: Documents the blood thinner relevant to the bleeding risk.
+      facts:
+        - {type: medication, name: apixaban, dose: "5", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: The caller did not think she lost consciousness, but was not certain.
+      speaker: Caller
+      turns: [10]
+      quote: "I don't think so. I heard the thump and came in and she was awake."
+      explanation: Documents a pertinent negative with the caller's uncertainty preserved.
+      facts:
+        - {type: pertinent_negative, name: loss of consciousness, certainty: unclear}
+      covers: [A5]
+    - text: The caller thought she was a little confused; she knew her name and the caller but asked what day it was twice.
+      speaker: Caller
+      turns: [12]
+      quote: "A little, I think? She knows her name, she knows me. But she asked me what day it was twice."
+      explanation: Documents possible confusion with the caller's uncertainty preserved.
+      facts:
+        - {type: symptom, name: confusion, present: true, severity: knows her name but not sure of the day, certainty: unclear}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 now because of a head injury with bleeding on a blood thinner.
+      speaker: Nurse
+      turns: [15]
+      quote: "Yes. Hang up with me and call nine one one."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to call her family and tell them she was going to the hospital.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll call her family and let them know she's on her way to the hospital."
+      explanation: Documents the planned family notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised pressing firmly on the cut with a clean towel, keeping her lying still, and telling the paramedics that she takes apixaban.
+      speaker: Nurse
+      turns: [17]
+      quote: "grab a clean towel and press firmly on the cut. Keep pressing, don't peek."
+      explanation: Documents first-aid and emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised not moving her if she reported neck or back pain.
+      speaker: Nurse
+      turns: [19]
+      quote: "keep her lying still. Don't move her if she says her neck or back hurts."
+      explanation: Documents spinal-precaution guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: escalation_request, turns: [15], quote: "Hang up with me and call nine one one."}
+    - {category: other_urgent, turns: [4], quote: "she hit her head on the sink."}

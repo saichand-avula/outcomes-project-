@@ -1,0 +1,293 @@
+call_id: tr-382
+split: train
+blueprint: "A 62-year-old man with Parkinson's disease calls home health because the pharmacy was out of his Sinemet and he missed his last four doses since yesterday evening; he is very stiff, his tremor is worse and he froze at the bathroom door this morning, no fall. His speech is soft and the nurse asks him to repeat things. Nurse requests an urgent refill with the pharmacy, pages on-call for a bridging plan, plans a nurse visit this afternoon and gives fall precautions. High risk (ran out of a critical medicine), self caller, 18-64, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: ran_out_medication
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, dropped_words]
+  clinical_domains: [medication, neurologic, falls_safety]
+  relationship_group: self
+  na_reason: null
+  agency_name: Redwood Home Health
+  agency_type: home_health
+  nurse_name: Valerie
+  call_timestamp_utc: "2026-10-29T15:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Graham Pettibone
+  patient_name_spoken: Graham Pettibone
+  patient_name_certainty: stated
+  patient_dob_true: "1964-09-12"
+  patient_dob_spoken: "1964-09-12"
+  patient_dob_certainty: stated
+  caller_name_true: Graham Pettibone
+  caller_name_spoken: Graham Pettibone
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6465550198"
+  callback_phone_spoken: "6465550198"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that he ran out of his Parkinson's medicine and is very stiff
+  reason_category: medication
+  relevant_context: Home health patient with Parkinson's disease
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: carbidopa levodopa
+    medication_name_spoken: Sinemet
+    medication_status: missed
+    dose: "1"
+    unit: tablet
+    frequency: five times a day
+    last_dose: yesterday evening
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: severe stiffness and slowness
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: worse tremor
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: freezing at the bathroom door
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: get the Sinemet filled today
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: missed Parkinson's doses and a plan until the refill arrives
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay seated until someone is with him, use the walker, and if he freezes stop, shift his weight side to side and step over a line or count to move
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, trouble swallowing or breathing, a very high fever or rigid muscles with confusion, and call 911 if he falls and cannot get up
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Ran out of Parkinson's medicine and missed four doses
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Redwood Home Health, this is Valerie.
+  Caller -> Val. Valerie. It's Graham. Graham Pettibone. P E T T I B O N E. I'm, I'm having a bad. Bad day. || caller_name, patient_name, relationship
+  Nurse -> Graham, I can barely hear you. Can you speak up a little, or hold the phone closer?
+  Caller -> Is this. Better? I'm. Using. The speaker.
+  Nurse -> A little better. Keep it close.
+  Nurse -> Hi Graham. I'm sorry. Take your time. I'm listening.
+  Caller -> I ran out. Of my. My Sinemet. The pharmacy. Didn't have it. || cc, A1, F1
+  Nurse -> You ran out of your Sinemet. The pharmacy didn't have it. Is that right? || A1
+  Caller -> Yes. Yes. They said. Back order. They said. Wednesday. Tomorrow.
+  Nurse -> Which pharmacy is it?
+  Caller -> The. One. On Fifth. By the. Bank.
+  Nurse -> The one on Fifth by the bank. Okay. I have it.
+  Nurse -> Okay. When did you take your last dose?
+  Caller -> Last night. Eight. Eight o'clock. Nothing since. Four doses. I missed. Four. || A1
+  Nurse -> Okay. Last night at eight, and nothing since. So you've missed four doses. How's your body feeling?
+  Caller -> Stiff. So stiff. Like a board. I can't. I can hardly move. And slow. Everything's slow. || A2
+  Nurse -> I'm so sorry. Is your tremor different?
+  Caller -> Worse. Much worse. My hand. Shaking. Can't hold the cup. || A3
+  Nurse -> Okay. Graham, have you fallen?
+  Caller -> No fall. No. But this morning. I froze. At the bathroom door. My feet. Stuck. Like glue. Couldn't move. Five minutes. || A4
+  Nurse -> Five minutes. That's a long time to be stuck.
+  Caller -> Felt like. An hour. My son. Calls me. A statue.
+  Nurse -> Ha. A statue with a sense of humor.
+  Nurse -> That sounds scary. Did you stay on your feet?
+  Caller -> I held the door. Frame. I held it. Then it. Let go. And I went in. No fall. || A5
+  Nurse -> Did you hurt anything?
+  Caller -> No. Just. My pride.
+  Nurse -> Okay. Good. Is anyone with you?
+  Caller -> My son. He's. At work. He's coming at five. I'm alone. Now.
+  Nurse -> What does your son do?
+  Caller -> He's a mechanic. At the. Dealership. He comes. Home. For lunch. But not. Today.
+  Nurse -> Okay. Graham, I'm going to do a few things. First, I'm going to call your pharmacy right now. I'll see if they can find the Sinemet anywhere, another store, and get it to you today. || R1
+  Caller -> That would. Be great. They said. Wednesday. But I need. Today.
+  Nurse -> I understand. I'll push. And I'm going to page the on-call clinician too, to ask what to do for you until the pills arrive. Sometimes they can bridge it. || R2
+  Caller -> Okay. Please. Thank you.
+  Nurse -> Graham, your voice is very soft. I'm having trouble with some words. I'm going to repeat what I hear, and you tell me if I got it wrong.
+  Caller -> Okay. Yes. That's. Fine.
+  Nurse -> You ran out of Sinemet, last dose was last night at eight. You're stiff, your tremor is worse, and you froze this morning but didn't fall. Right? || A1
+  Caller -> Right. Yes. All right.
+  Nurse -> And your son's coming at five. Is that right?
+  Caller -> Five. Yes. Five.
+  Nurse -> Okay. And you take the Sinemet how often? || A1
+  Caller -> Sinemet. One. Tablet. Five times. A day. Twenty five. A hundred. The strength. || A1
+  Nurse -> One tablet, five times a day. Thank you. Now, what's your date of birth?
+  Caller -> September. Twelfth. Nineteen sixty four. || patient_dob
+  Nurse -> September twelfth, nineteen sixty four. And your number, Graham?
+  Caller -> Six four six. Five five five. Zero one nine eight. || callback_phone
+  Nurse -> Six four six, five five five, zero one nine eight. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. I'm also going to send a nurse to see you this afternoon. I'll try for the next couple of hours. || R3
+  Caller -> Pardon? Say. Again.
+  Nurse -> I'm going to send a nurse out to see you.
+  Caller -> This afternoon. Good. Thank you.
+  Nurse -> Until then, stay seated unless someone's with you. If you have to get up, use your walker. If your feet freeze, stop. Shift your weight side to side, like rocking. Then try to step over a line on the floor, or count out loud, one, two, three, and step on three. || E1
+  Caller -> Rock. Side to side. Step over. A line. Count. One. Two. Three. Yes. I know. The trick. It helps. Sometimes.
+  Nurse -> Good. And call us right away if you fall, if you have trouble swallowing or breathing, if you get a high fever, or if your muscles get very rigid and you feel confused. Call 911 if you fall and can't get up. || E2
+  Caller -> Fall. Swallow. Breathe. Fever. Rigid. Confused. 911. If I can't. Get up. I have. The button.
+  Nurse -> Good. Wear the button. Is it on?
+  Nurse -> Is there water within reach? A drink?
+  Caller -> Yes. A cup. With a. Straw. Lid. My son. Set it.
+  Nurse -> Good. Sip when you can.
+  Caller -> Yes. Around. My neck.
+  Nurse -> Perfect. I'll call the pharmacy now and call you back as soon as I know.
+  Caller -> Thank you. Val. You are. Very. Kind.
+  Nurse -> Hang in there, Graham. Talk soon.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "I'm having a bad day", heard_form: "I'm, I'm having a bad. Bad day", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Graham Pettibone, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-09-12", certainty: stated, heard_as: [], turns: [45]}
+    caller_name: {value: Graham Pettibone, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6465550198", certainty: stated, heard_as: [], turns: [47, 48]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he ran out of his Parkinson's medicine and was very stiff.
+    speaker: Caller
+    turns: [7]
+    quote: "I ran out. Of my. My Sinemet."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He missed four doses of Sinemet since last night at eight.
+      speaker: Caller
+      turns: [14]
+      quote: "Four doses. I missed. Four."
+      explanation: Documents the missed medicine.
+      facts:
+        - {type: medication, name: Sinemet, dose: "1", unit: tablet, frequency: five times a day, last_dose: yesterday evening, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: He was severely stiff and slow.
+      speaker: Caller
+      turns: [16]
+      quote: "Stiff. So stiff. Like a board."
+      explanation: Documents the stiffness.
+      facts:
+        - {type: symptom, name: severe stiffness and slowness, present: true, severity: severe, certainty: stated}
+      covers: [A2]
+    - text: His tremor was worse and he could not hold a cup.
+      speaker: Caller
+      turns: [18]
+      quote: "Worse. Much worse. My hand."
+      explanation: Documents the tremor.
+      facts:
+        - {type: symptom, name: worse tremor, present: true, certainty: stated}
+      covers: [A3]
+    - text: He froze at the bathroom door for about five minutes this morning.
+      speaker: Caller
+      turns: [20]
+      quote: "I froze. At the bathroom door."
+      explanation: Documents the freezing episode.
+      facts:
+        - {type: symptom, name: freezing at the bathroom door, present: true, certainty: stated}
+      covers: [A4]
+    - text: He did not fall.
+      speaker: Caller
+      turns: [20]
+      quote: "No fall. No."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to call the pharmacy to get the Sinemet today.
+      speaker: Nurse
+      turns: [32]
+      quote: "I'm going to call your pharmacy right now."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician for a plan until the pills arrived.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm going to page the on-call clinician too"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'm also going to send a nurse to see you this afternoon."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying seated unless someone was with him, using the walker, and for freezing rocking side to side and stepping over a line or counting.
+      speaker: Nurse
+      turns: [54]
+      quote: "stay seated unless someone's with you."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fall, trouble swallowing or breathing, high fever or rigid muscles with confusion, and 911 if he fell and could not get up.
+      speaker: Nurse
+      turns: [56]
+      quote: "call us right away if you fall"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [7], quote: "I ran out. Of my. My Sinemet."}

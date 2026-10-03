@@ -1,0 +1,288 @@
+call_id: tr-377
+split: train
+blueprint: "A wife calls hospice about her husband being sleepier and wobbly since his nerve pain pill was increased on Monday; she garbles it as 'Gabba pen tin' (gabapentin, kept as stated), 300 mg three times a day. No fall, he did not pass out, breathing is fine, nerve pain is better. Nurse plans a message to the team about the dose, a callback tomorrow, and advises fall precautions and not changing the dose herself. ASR drug garble, spouse caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [sedation, falls_safety, medication, neuropathy]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Seaport Hospice
+  agency_type: hospice
+  nurse_name: Tobias
+  call_timestamp_utc: "2026-10-28T13:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Everett Sandoval
+  patient_name_spoken: Everett Sandoval
+  patient_name_certainty: stated
+  patient_dob_true: "1944-01-19"
+  patient_dob_spoken: "1944-01-19"
+  patient_dob_certainty: stated
+  caller_name_true: Philippa Sandoval
+  caller_name_spoken: Philippa Sandoval
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7135550105"
+  callback_phone_spoken: "7135550105"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is sleepy and wobbly since his nerve pain pill was increased
+  reason_category: sedation
+  relevant_context: Hospice patient with nerve pain in his feet
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: gabapentin
+    medication_name_spoken: Gabba pen tin
+    medication_status: taking
+    dose: "300"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepier than usual
+    symptom_present: true
+    onset_or_duration: since Monday
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: wobbly when walking
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or passing out
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: nerve pain in his feet better
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask whether the dose of Gabba pen tin should be lowered
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have him use his walker and stay beside him when he walks, clear the floor, and keep a night light on
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not change or skip the dose on her own until the team calls back
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if he is very hard to wake, confused, or breathing slowly, and call 911 if he cannot be woken
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Seaport Hospice, this is Tobias.
+  Caller -> Yes, hello. This is Philippa Sandoval. I'm calling about my husband, Everett Sandoval. He's on your service. || caller_name, patient_name, relationship
+  Nurse -> Sorry, the line is a little fuzzy. Is it Sandoval, S A N D O V A L?
+  Caller -> Yes. Sandoval. Like the, it's Spanish. My husband's family is from Laredo.
+  Caller -> We had a bakery in town for thirty years. Everett did the bread. Four in the morning every day.
+  Nurse -> What a life. I bet the town misses it.
+  Nurse -> Got it. Thank you.
+  Nurse -> Hi Philippa. Good to hear from you. What's happening with Everett?
+  Caller -> He's sleepy. Very sleepy. And wobbly. He's been like this since Monday. It's Wednesday. I think it's the new dose of his pill. || cc, A2
+  Nurse -> Sorry, which pill? You broke up.
+  Caller -> I'll say it again, slowly. It is his nerve pill.
+  Nurse -> Okay. Which pill are you thinking of?
+  Caller -> The nerve one. The Gabba pen tin. For his feet. They went up on it Monday. From two hundred to three hundred. Three times a day. || A1
+  Nurse -> Okay. The gabapentin. Three hundred milligrams, three times a day. Was that your understanding of the new dose? || A1
+  Caller -> Yes. Gabba pen tin. Three hundred. Three times. That's what the nurse wrote on the sheet. || A1
+  Nurse -> Okay. And when did he last take one?
+  Caller -> This morning. At eight. He'll take the next at two. And the last at bedtime.
+  Nurse -> Okay. Tell me about the sleepiness. Is he hard to wake up?
+  Caller -> Not hard. But he dozes all the time. In his chair. At the table. He fell asleep with his fork in his hand. Yesterday at supper. His head went down. I'd say he's asleep half the day. Before, he'd be up reading. || A2
+  Nurse -> Does he sleep through his meals?
+  Caller -> Only some. Supper mostly.
+  Nurse -> Okay. When you wake him, is he okay? Does he know where he is?
+  Caller -> Yes. He knows. He's a little slow. He says, what? And then he's back. He's not confused. Just slow and sleepy.
+  Nurse -> Okay. And you said wobbly. What do you mean?
+  Caller -> When he walks. He sways. Like he's had a drink, but he hasn't. He holds the wall. He uses the walker but he sways even with it. || A3
+  Nurse -> Okay. Has he fallen?
+  Caller -> No. No fall. Not once. I stand next to him when he goes to the bathroom. He didn't pass out, either. He hasn't fainted. || A4
+  Nurse -> Okay. Good. Any trouble breathing?
+  Caller -> No. His breathing is regular. I checked a few times. At night too. It's slow and steady. I check at night.
+  Nurse -> What time was that?
+  Caller -> About two. Three. I get up and put my hand on his chest. Like with a baby.
+  Nurse -> That's what a lot of spouses do.
+  Nurse -> Okay. And his nerve pain? Is the new dose helping?
+  Caller -> Oh, yes. His feet are much better. He said last night, for the first time in months, I can feel my socks without it burning. That's why I don't know what to do. The sleepiness is bad but the pain is so much better. || A5
+  Nurse -> That's a real trade off. Okay. Philippa, I need Everett's date of birth.
+  Caller -> January nineteenth. Nineteen forty four. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Seven one three, five five five, zero one zero five. || callback_phone
+  Nurse -> Seven one three, five five five, zero one zero five. Is that right? || callback_phone
+  Caller -> Yes. That's the house.
+  Nurse -> Do you have a cell too?
+  Caller -> Yes, but I never carry it. It's in a drawer. The house phone is the one that rings.
+  Nurse -> The house phone is fine.
+  Nurse -> Okay. Here's what I'll do. I'm going to leave a message for the team, to ask whether the dose of the Gabba pen tin should come down a little. Maybe a different schedule. They'll decide. || R1
+  Caller -> Would they lower it? I don't want him to lose the pain relief.
+  Nurse -> They may find a middle dose. That's what I'll ask. I can't say for sure.
+  Caller -> Okay. I'd like that. A middle.
+  Nurse -> Until we hear back, don't change or skip the dose yourself. Give it as written. The team will call you with any change. || E2
+  Caller -> Don't change it. Okay. I almost skipped the two o'clock one today. I'm glad I called.
+  Caller -> My daughter said call. I said wait. She was right.
+  Nurse -> Daughters often are.
+  Nurse -> Yes, wait for the team. I'll call you back tomorrow with their answer. || R2
+  Caller -> Tomorrow. Okay. I'll be here.
+  Nurse -> Meanwhile, because he's wobbly, have him use the walker every time, and stay beside him when he walks. Clear the floor of rugs and cords, and keep a night light on. || E1
+  Caller -> Walker. Stay beside. Clear the floor. Night light. We have the little duck. No. That's my neighbor's. We have a lamp. I'll leave the lamp on.
+  Nurse -> A lamp works.
+  Caller -> Okay.
+  Nurse -> And call us if he gets very hard to wake, becomes confused, or his breathing slows down. If you can't wake him at all, call 911. || E3
+  Caller -> Hard to wake. Confused. Breathing slows. And 911 if I can't wake him. Okay. I understand.
+  Nurse -> Good. How are you holding up?
+  Caller -> Tired. I'm checking on him at night. I'm not sleeping.
+  Caller -> I keep hearing the old house settle and thinking it's him. I've been like that for a week.
+  Nurse -> It's the hypervigilance. It happens.
+  Nurse -> That's understandable. Try to rest when he rests.
+  Caller -> I try. The chair is comfortable.
+  Nurse -> Good. Anything else?
+  Caller -> No. That's all. Thank you, Tobias. You're very patient.
+  Nurse -> My pleasure. Talk tomorrow.
+  Caller -> Goodbye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: gabapentin, heard_form: Gabba pen tin, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everett Sandoval, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-01-19", certainty: stated, heard_as: [], turns: [36]}
+    caller_name: {value: Philippa Sandoval, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550105", certainty: stated, heard_as: [], turns: [38, 39]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was sleepy and wobbly since his nerve pain pill was increased.
+    speaker: Caller
+    turns: [9]
+    quote: "He's sleepy. Very sleepy. And wobbly."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Gabba pen tin 300 mg three times a day since Monday, last dose this morning at eight.
+      speaker: Caller
+      turns: [15]
+      quote: "Gabba pen tin. Three hundred. Three times."
+      explanation: Documents the nerve pain medicine.
+      facts:
+        - {type: medication, name: Gabba pen tin, dose: "300", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: He was sleepier than usual since Monday and dozed during meals.
+      speaker: Caller
+      turns: [19]
+      quote: "He dozes all the time."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: sleepier than usual, present: true, duration: since Monday, certainty: stated}
+      covers: [A2]
+    - text: He swayed and was wobbly when walking even with the walker.
+      speaker: Caller
+      turns: [25]
+      quote: "He sways."
+      explanation: Documents the unsteadiness.
+      facts:
+        - {type: symptom, name: wobbly when walking, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no fall and did not pass out.
+      speaker: Caller
+      turns: [27]
+      quote: "No fall. Not once."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or passing out, certainty: stated}
+      covers: [A4]
+    - text: The nerve pain in his feet was much better.
+      speaker: Caller
+      turns: [34]
+      quote: "His feet are much better."
+      explanation: Documents the pain relief.
+      facts:
+        - {type: symptom, name: nerve pain in his feet better, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to leave a message for the team about whether the dose should be lowered.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'll call you back tomorrow with their answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised using the walker every time, staying beside him, clearing the floor and keeping a light on.
+      speaker: Nurse
+      turns: [54]
+      quote: "have him use the walker every time, and stay beside him when he walks."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised not changing or skipping the dose until the team called back.
+      speaker: Nurse
+      turns: [48]
+      quote: "don't change or skip the dose yourself."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling if he became hard to wake, confused or his breathing slowed, and 911 if he could not be woken.
+      speaker: Nurse
+      turns: [58]
+      quote: "call us if he gets very hard to wake"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

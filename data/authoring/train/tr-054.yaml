@@ -1,0 +1,191 @@
+call_id: tr-054
+split: train
+blueprint: "Neighbor calls about an elderly hospice patient whose last name is heard three different ways and never settled; no DOB known; she found her with a swollen, painful-looking foot she can't put weight on. Neighbor gives her own number. Nurse plans a visit and to reach the daughter."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, identity_unresolved, hedging, late_answers]
+  clinical_domains: [edema, falls_safety]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-09-14T15:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Teodora Marszalek
+  patient_name_spoken: Teodora Marshalek
+  patient_name_certainty: unclear
+  patient_dob_true: "1939-06-02"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Gus
+  caller_name_spoken: Gus
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "8645550149"
+  callback_phone_spoken: "8645550149"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported a swollen foot that she cannot put weight on
+  reason_category: edema
+  relevant_context: Elderly hospice patient who lives alone next door
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: swollen foot
+    symptom_present: true
+    body_location: right foot
+    onset_or_duration: noticed this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: unable to bear weight
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall
+    symptom_present: false
+    certainty: unclear
+    unclear_detail: Caller thinks she did not fall but is not sure
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient's daughter
+    reason_or_trigger: notify of foot swelling and visit
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep her seated with the foot raised on a pillow and do not have her walk on it
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Hi. Um, hi. I'm, I'm not sure I'm supposed to call you. It's about my neighbor. She's one of your patients I think. Teodora. || relationship, patient_name
+  Nurse -> Okay. What's her last name?
+  Caller -> Marshalek. Marshalek? Something like that. It's on her mailbox and I can never say it. || patient_name
+  Nurse -> Can you spell it?
+  Caller -> M A R, S, Z, A, L, I think, E K. Marszalek? I don't know. Marshalek. || patient_name
+  Nurse -> Okay, let me look. Do you know her date of birth?
+  Caller -> No. No, I wouldn't know that. She's, I don't know, eighty? Maybe more.
+  Nurse -> That's okay. What's your name?
+  Caller -> Gus. I'm Gus. || caller_name
+  Nurse -> And a good number for you, Gus?
+  Caller -> Eight six four, five five five, zero one four nine. || callback_phone
+  Nurse -> Thank you. What's going on with her?
+  Caller -> So I go over most mornings, you know, to check. And today her foot's all swollen. Like really puffy. The right one. || cc, A1
+  Nurse -> Okay. Does she say it hurts?
+  Caller -> She won't say it. But she can't stand on it. She tried and she, she kind of made a face and sat back down. || A2
+  Nurse -> Did she fall? Did she say she fell?
+  Caller -> I don't think so. I don't think she fell. But I, I don't know. She doesn't tell me everything. || A3
+  Nurse -> Alright. Is she sitting down right now?
+  Caller -> She's in her chair. Yeah.
+  Nurse -> Okay. Gus, I'm going to send a nurse out to see her this afternoon. || R1
+  Caller -> Oh, good. Good.
+  Nurse -> And I'm going to try to reach her daughter. I see a daughter listed here. I'll let her know about the foot and the visit. || R2
+  Caller -> Yes, the daughter, she's, she's in another state I think. Yeah.
+  Nurse -> Until the nurse gets there, keep her in the chair, put the foot up on a pillow if she'll let you, and please don't have her walk on it. || E1
+  Caller -> Okay. Chair, pillow, no walking. I'll tell her.
+  Nurse -> Thank you, Gus. You did the right thing calling.
+  Caller -> Okay. Thank you.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Marszalek, heard_form: "M A R, S, Z, A, L, I think, E K. Marszalek?", fact_id: patient_name}
+  - {turn: auto, type: late_answer, true_form: right foot swollen, heard_form: "Like really puffy. The right one.", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Teodora Marshalek, certainty: unclear, heard_as: [Marszalek], turns: [2, 4, 6]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Gus, certainty: stated, heard_as: [], turns: [10]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "8645550149", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported a swollen foot that she cannot put weight on.
+    speaker: Caller
+    turns: [14]
+    quote: "today her foot's all swollen. Like really puffy. The right one."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Swelling of the right foot was noticed this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "today her foot's all swollen. Like really puffy. The right one."
+      explanation: Documents the foot swelling and location.
+      facts:
+        - {type: symptom, name: swollen foot, present: true, location: right foot, duration: noticed this morning, certainty: stated}
+      covers: [A1]
+    - text: She could not stand on the foot when she tried.
+      speaker: Caller
+      turns: [16]
+      quote: "But she can't stand on it."
+      explanation: Documents inability to bear weight.
+      facts:
+        - {type: symptom, name: unable to bear weight, present: true, certainty: stated}
+      covers: [A2]
+    - text: The caller thought she had not fallen but was not sure (unclear).
+      speaker: Caller
+      turns: [18]
+      quote: "I don't think so. I don't think she fell. But I, I don't know."
+      explanation: Documents the uncertain fall history.
+      facts:
+        - {type: pertinent_negative, name: fall, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Planned to send a nurse out to see her this afternoon.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to send a nurse out to see her this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to reach her daughter about the foot swelling and the visit.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to try to reach her daughter."
+      explanation: Documents the planned family notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping her in the chair with the foot raised on a pillow and not having her walk on it.
+      speaker: Nurse
+      turns: [25]
+      quote: "keep her in the chair, put the foot up on a pillow if she'll let you, and please don't have her walk on it."
+      explanation: Documents safety instructions until the visit.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+  risk_flags: []

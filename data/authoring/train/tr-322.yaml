@@ -1,0 +1,310 @@
+call_id: tr-322
+split: train
+blueprint: "A wife calls hospice about her husband Bartholomew, whose last bowel movement was five days ago. He takes senna at night and Miralax each morning, has a bloated belly, no nausea or vomiting. She corrects his birth year herself, the nurse keeps saying Quinn instead of Quill, and her phone line is crackly. Nurse messages the provider, plans a visit tomorrow and a callback this evening, and gives fluids, warm compress and movement tips. Name drift on the patient, DOB self-corrected, spouse caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, dob_self_corrected, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [constipation, medication, nausea_vomiting]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Seaport Hospice
+  agency_type: hospice
+  nurse_name: Marco
+  call_timestamp_utc: "2026-10-27T14:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bartholomew Quill
+  patient_name_spoken: Bartholomew Quill
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Bartholomew Quinn]
+  patient_dob_true: "1941-06-12"
+  patient_dob_spoken: "1941-06-12"
+  patient_dob_certainty: stated
+  caller_name_true: Odette Quill
+  caller_name_spoken: Odette Quill
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "5035550185"
+  callback_phone_spoken: "5035550185"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband has not had a bowel movement in five days
+  reason_category: constipation
+  relevant_context: Hospice patient cared for at home by his wife
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: five days
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "8.6"
+    unit: mg
+    frequency: at bedtime
+    last_dose: last night
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Miralax
+    medication_name_spoken: Miralax
+    medication_status: taking
+    dose: "17"
+    unit: grams
+    frequency: every morning
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: bloated belly
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: five days without a bowel movement despite senna and Miralax
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water, warm prune juice or broth through the day in small amounts
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Place a warm compress on his belly, gently rub the belly in a clockwise circle, and help him walk to the bathroom after meals
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, a hard swollen belly, severe belly pain or leaking liquid stool
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Seaport Hospice, this is Marco.
+  Caller -> Hello? Marco? Can you hear me? It's Odette Quill. About my husband. Bartholomew Quill. || caller_name, relationship, patient_name
+  Nurse -> I can hear you. Barely. Hold on, let me turn up my headset. Okay. Go ahead, Mrs. Quill.
+  Caller -> Is that better? I'm standing by the washing machine. It's noisy. The washer is on.
+  Nurse -> A little better. Maybe move away from the washer.
+  Caller -> Okay. Moving. I'm by the door now. The garage door. It's open a crack. Better?
+  Nurse -> Much better.
+  Nurse -> Hi, Mrs. Quill. I can hear you, a little crackly. Let me pull up Mr. Quinn. What's his date of birth?
+  Caller -> It's Quill. Q U I L L. Not Quinn. And his birthday is June twelfth. Nineteen forty. No. Forty one. Nineteen forty one. He's eighty five. Forty, forty one. || patient_dob
+  Nurse -> Sorry about that. Quill. June twelfth, nineteen forty one. And your number?
+  Nurse -> Is Mr. Quinn awake? Can he come to the phone?
+  Caller -> Quill. It's Quill. He's asleep in the recliner. I don't want to wake him. He had a bad night.
+  Nurse -> Okay. Let him sleep.
+  Caller -> Five oh three, five five five, zero one eight five. Can you hear me? I'm in the garage. The signal is bad inside.
+  Nurse -> I got it. Five oh three, five five five, zero one eight five. Yes, I can hear you. What's going on? || callback_phone
+  Nurse -> Is that a cell or a landline?
+  Caller -> Cell. I carry it everywhere. The house phone is broken. The kids bought me this one for Christmas.
+  Caller -> He's constipated. He hasn't gone in five days. Five days. And he's bloated. And he's cranky. || cc, A1
+  Nurse -> What's he doing that tells you he's cranky?
+  Caller -> He's snapping at me. He doesn't snap. He told me my coffee tastes like dishwater. After fifty seven years of coffee.
+  Nurse -> Ha. That's a bad sign for the coffee.
+  Caller -> Ha. It's a bad sign for me.
+  Nurse -> Okay. Five days. Is that right? You said five?
+  Caller -> Five. Last Wednesday. It's Monday. So Wednesday, Thursday, Friday, Saturday, Sunday. Five days. Maybe six.
+  Nurse -> Okay. Five or six days. What does he take for it?
+  Caller -> The senna at night. The eight point six. He took it last night. And the Miralax in the morning. The powder. In his juice. Seventeen grams. A capful. He took it this morning. It's not working. || A2, A3
+  Nurse -> Okay. Senna eight point six at bedtime, Miralax seventeen grams in the morning. Both taken. Is he drinking enough? || A2, A3
+  Caller -> He drinks. He drinks juice and water. Maybe five glasses. Not much solid food. He eats a little. Toast. Soup.
+  Nurse -> Does he eat any fruits or vegetables?
+  Caller -> Some applesauce. He eats pears sometimes. Not the skins. He never liked the skins.
+  Nurse -> Okay. That's fine.
+  Nurse -> Okay. Is his belly swollen?
+  Caller -> A little. It's tight. Round. He says it's gassy. It's not hard like a rock. Soft but big. Bloated. Mild. || A4
+  Nurse -> Okay. Is he nauseated? Throwing up?
+  Caller -> No. No nausea. No vomiting. He's eating, a little. His stomach isn't upset. It's just full. || A5
+  Nurse -> Good. Any pain in the belly?
+  Caller -> A little cramping. When he tries. But he can't go. He sits there for twenty minutes and nothing.
+  Nurse -> Does he strain a lot?
+  Caller -> A little. I tell him not to push so hard. The doctor said it can hurt his heart.
+  Nurse -> That's good advice. Don't strain.
+  Nurse -> Okay. Mrs. Quill, I'm going to message the hospice provider about this today. Five days without a bowel movement with the senna and the Miralax. They'll probably want to add something. || R1
+  Caller -> Add what? A suppository?
+  Nurse -> Possibly. I don't want to guess. I'll ask them.
+  Caller -> Please. I'd hate to give him something that I shouldn't.
+  Nurse -> Right. Don't give anything extra without checking. Okay?
+  Caller -> I won't. Not even a glass of that fiber stuff.
+  Caller -> Okay. Can you speak up? You cut out a bit.
+  Nurse -> I said I'll ask the provider. I'm also going to send a nurse out tomorrow to examine him. || R2
+  Caller -> Tomorrow. Okay. And you'll call me?
+  Nurse -> Yes, I'll call you back this evening to tell you what the provider says. || R3
+  Caller -> This evening. Good. I'll go into the living room so I can hear.
+  Nurse -> Good idea. In the meantime, offer him fluids through the day. Water, warm prune juice, or broth. Small amounts, often. || E1
+  Caller -> Warm prune juice. He hates cold. Warm prune. Okay. I have prune juice. I'll warm it on the stove.
+  Caller -> He likes it with a little cinnamon. Is that okay?
+  Nurse -> That's fine. A little cinnamon is nice.
+  Nurse -> Also, a warm compress on his belly can help. And gently rub his belly in a clockwise circle. And if he can, help him walk a little, to the bathroom after meals. || E2
+  Caller -> Warm compress. Clockwise. Walk after meals. Okay. I have a heating pad. I'll wrap it in a towel. He walks with the walker.
+  Caller -> He gets up slowly. And I stand behind him. In case.
+  Nurse -> Good. Always stay close.
+  Caller -> I do. I'm like a shadow.
+  Nurse -> Great. And call us if he starts vomiting, if his belly gets hard and swollen, if the pain gets bad, or if liquid stool starts leaking out. || E3
+  Caller -> Vomiting, hard belly, bad pain, leaking. Okay. I'll watch. I wrote it on the notepad.
+  Nurse -> Mrs. Quill, how are you doing? Are you getting any rest?
+  Caller -> I'm okay. My daughter is coming Thursday. She'll help. She lives in Spokane.
+  Nurse -> That's good. Let her help.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. Thank you, Marco. I'll wait for your call.
+  Nurse -> Bye, Mrs. Quill.
+  Caller -> Goodbye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Quill, heard_form: Quinn, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bartholomew Quill, certainty: unclear, heard_as: [Bartholomew Quinn], turns: [2]}
+    patient_dob: {value: "1941-06-12", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Odette Quill, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550185", certainty: stated, heard_as: [], turns: [15]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had not had a bowel movement in five days.
+    speaker: Caller
+    turns: [18]
+    quote: "He's constipated. He hasn't gone in five days."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He had not had a bowel movement for five or six days.
+      speaker: Caller
+      turns: [24]
+      quote: "Five days. Maybe six."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, onset: five days, certainty: stated}
+      covers: [A1]
+    - text: Senna 8.6 mg at bedtime was taken last night.
+      speaker: Caller
+      turns: [26]
+      quote: "The senna at night. The eight point six."
+      explanation: Documents the bowel medication.
+      facts:
+        - {type: medication, name: senna, dose: "8.6", unit: mg, frequency: at bedtime, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Miralax 17 grams every morning in juice was taken this morning without effect.
+      speaker: Caller
+      turns: [26]
+      quote: "And the Miralax in the morning."
+      explanation: Documents the laxative powder.
+      facts:
+        - {type: medication, name: Miralax, dose: "17", unit: grams, frequency: every morning, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: His belly was mildly bloated and round but soft.
+      speaker: Caller
+      turns: [33]
+      quote: "A little. It's tight. Round."
+      explanation: Documents the bloating.
+      facts:
+        - {type: symptom, name: bloated belly, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: He had no nausea or vomiting.
+      speaker: Caller
+      turns: [35]
+      quote: "No. No nausea. No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vomiting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the hospice provider about five days without a bowel movement despite senna and Miralax.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to message the hospice provider about this today."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to examine him.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'm also going to send a nurse out tomorrow to examine him."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with the provider's response.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll call you back this evening to tell you what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering water, warm prune juice or broth in small amounts through the day.
+      speaker: Nurse
+      turns: [52]
+      quote: "offer him fluids through the day."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised a warm compress on his belly, clockwise belly rubbing and walking to the bathroom after meals.
+      speaker: Nurse
+      turns: [56]
+      quote: "a warm compress on his belly can help."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for vomiting, a hard swollen belly, bad pain or leaking liquid stool.
+      speaker: Nurse
+      turns: [61]
+      quote: "call us if he starts vomiting, if his belly gets hard and swollen"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

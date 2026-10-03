@@ -1,0 +1,355 @@
+call_id: tr-340
+split: train
+blueprint: "A 49-year-old woman with metastatic breast cancer calls her palliative nurse late at night, calm but flat, saying she has been giving things away and 'taking care of business', that she is 'done fighting' and has 'been thinking of ending it' by taking her stockpile of pills, and that she has not told anyone. She is not sure she will but says the thought is there every night. Pain is a four, she is sleeping badly. She lives alone; her sister is 90 minutes away. The nurse stays calm, asks about plan, means and timing, hears that she has about forty pills saved and no set date, convinces her to let the nurse pages on-call, arranges for a nurse and social worker to come, asks her to give the pills to her neighbor or leave them outside the door, gives 988, keeps her on the line until a plan is made. Suicidal statement with plan and means, self caller aged 18-64, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, offtopic_chatter, trap_phrasing]
+  clinical_domains: [mood, medication, pain, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Larkspur Palliative Care
+  agency_type: palliative
+  nurse_name: Mina
+  call_timestamp_utc: "2026-10-25T05:15:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosalind Fairbanks
+  patient_name_spoken: Rosalind Fairbanks
+  patient_name_certainty: stated
+  patient_dob_true: "1977-09-02"
+  patient_dob_spoken: "1977-09-02"
+  patient_dob_certainty: stated
+  caller_name_true: Rosalind Fairbanks
+  caller_name_spoken: Rosalind Fairbanks
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2065550182"
+  callback_phone_spoken: "2065550182"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Said she has been thinking of ending her life with saved pills
+  reason_category: mood
+  relevant_context: Palliative care patient with metastatic breast cancer living alone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: thoughts of ending her life
+    symptom_present: true
+    onset_or_duration: every night this week
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: patient
+    history_or_context_text: She has saved about forty pills, has no set date, has been giving things away, and has told no one
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: pain
+    symptom_present: true
+    severity: "4"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: sleeping badly
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: patient
+    history_or_context_text: She lives alone and her sister lives about ninety minutes away
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: thoughts of ending her life with a stockpile of pills
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    timeframe: this morning
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time and call 911 right away if she takes any of the pills or feels she may act
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put the saved pills in a bag and hand them to her neighbor or leave them outside her door for the nurse, and do not stay alone with them tonight
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Stay on the phone or call back any hour, and call her sister so she is not alone
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient said she has been thinking of ending it by taking her saved pills
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Larkspur Palliative Care, this is Mina.
+  Caller -> Hi, Mina. It's Rosalind. Rosalind Fairbanks. I'm sorry for the hour. I couldn't sleep. And I wanted to talk to someone who isn't family. || caller_name, relationship, patient_name
+  Nurse -> There's no wrong hour. I'm glad you called.
+  Nurse -> It's okay, Rosalind. I'm glad you called. That's what I'm here for. How are you doing?
+  Caller -> I'm, I don't know. I'm okay. I'm calm. That's the weird thing. I'm very calm. I've been taking care of business. I gave my sister the jewelry. I wrote letters. I gave away my books. I'm kind of done. || cc
+  Nurse -> Tell me what you mean by done.
+  Caller -> I mean, I did everything I wanted to do. I'm ready. I'm just ready.
+  Nurse -> Okay. I want to hear all of it.
+  Nurse -> Okay. That sounds like a lot of preparing. Rosalind, can I get your date of birth so I can pull your chart?
+  Caller -> September second. Nineteen seventy seven. I'm forty nine. I know. Young. Everyone says that. || patient_dob
+  Nurse -> Forty nine. And you've been through so much already.
+  Caller -> I have. I was diagnosed at forty five. I got four years. Four good years and then three bad ones. Hm. Something like that.
+  Nurse -> Thank you. And what number are you calling from?
+  Caller -> My cell. Two oh six, five five five, zero one eight two. || callback_phone
+  Nurse -> Got it. Rosalind, I want to ask about what you said. You said you're done, and you've been giving things away. Can you tell me what you mean?
+  Caller -> I mean. I'm done fighting. I've had three rounds. The chemo, the radiation, the new trial. Nothing worked. I'm tired. I'm so tired. And I've been thinking about ending it. Not in a dramatic way. In a practical way. || A1, F1
+  Nurse -> That sounds so heavy. I'm sorry you're carrying this.
+  Caller -> Thanks. It's nice to hear someone say it out loud.
+  Nurse -> Thank you for telling me. That takes courage. When you say ending it, do you mean ending your life?
+  Caller -> Yes. I mean that. I've been thinking about it every night this week. At night, mostly. When it's quiet.
+  Nurse -> Okay. I'm really glad you told me. I want to ask you some direct questions, because I want to understand. Have you thought about how?
+  Caller -> I have. I've been saving my pills. I have a bottle in the closet. Forty, maybe forty five. Mostly my pain pills. And some sleeping pills. I've been putting a few aside every week since August. In case. || A2
+  Nurse -> Okay. Thank you for being honest. Do you have a plan for when you would do it?
+  Caller -> No. No date. I just feel better knowing they're there. Like a way out. I don't know if I would. Honestly. I'm not saying I will. I'm saying the thought is there. Every night. And it gets louder.
+  Nurse -> Okay. I hear you. And have you told anyone?
+  Caller -> No. No one. Just you. Not my sister. She'd come and take over. She'd cry. I can't deal with the crying. And not my oncologist. He'd send me to the hospital. I don't want the hospital.
+  Nurse -> Okay. That makes sense. So you're calling me because you needed to say it out loud.
+  Caller -> Yes. Exactly. I needed someone to hear it.
+  Nurse -> I'm glad it was me.
+  Caller -> Me too.
+  Nurse -> I'm hearing it. Rosalind, I'm going to stay on the phone with you, and I'm going to ask you some more things. Is that okay?
+  Caller -> Yes. I'd like that.
+  Nurse -> Where are you right now?
+  Caller -> I'm in my kitchen. At the table. I made tea. I'm alone. I live alone. My sister is in Tacoma. It's an hour and a half. || A5
+  Nurse -> Okay. Are the pills near you right now?
+  Caller -> In the bedroom closet. On the shelf. I'm not touching them. I'm in the kitchen. I don't want to say I'm not tempted. But I'm sitting here talking to you.
+  Nurse -> Does it feel like it would be easy to go and get them?
+  Caller -> It would be easy. They're fifteen steps away. But I'm choosing to sit here. I like being here.
+  Nurse -> I'm glad you're choosing that.
+  Nurse -> Okay. That's good. You're talking to me. Rosalind, how's your pain tonight?
+  Caller -> A four. It's manageable. It's the bone pain in my back. I took my pill at ten. I'm okay. It's not the pain. It's not really about the pain. || A3
+  Nurse -> What is it about, if you don't mind me asking?
+  Caller -> It's about the end of the road. Seeing it. I'd like to control how it ends. I don't want to be in a bed, unable to move. I don't want to be helpless.
+  Nurse -> That's an important wish. We can talk about it. There are ways to keep you comfortable and keep control.
+  Caller -> Maybe. I haven't believed that. But I'm listening.
+  Nurse -> Okay. And sleep?
+  Caller -> Terrible. I sleep two, three hours. I wake up at three. And then it's the thoughts. || A4
+  Nurse -> Okay. Rosalind, I want you to know this is something we take very seriously, and I'm glad you didn't wait. I'm going to do a couple of things. First, I'm going to page our on-call clinician right now to talk with you. || R1
+  Caller -> Will they send someone? The police? Please don't send the police.
+  Nurse -> I'm not sending the police. I'm asking a nurse to come visit you, and the clinician to call you. I want to get you support, not punish you. Is that okay?
+  Caller -> A nurse. Okay. As long as it's not an ambulance with sirens.
+  Nurse -> No sirens. A nurse, in a regular car. Within the hour. || R2
+  Caller -> Within the hour. Okay. It's five in the morning.
+  Caller -> Do I need to get dressed? Straighten up the place?
+  Nurse -> No. Just stay as you are. Put on a sweater if you're cold. The nurse doesn't care about the house.
+  Caller -> Okay. It's a mess. I haven't cleaned in a week.
+  Nurse -> It's a house. It's allowed to be lived in.
+  Nurse -> I know. We have a night nurse and she's ready. And this morning I'd like our social worker to call you and visit, to talk about how you're feeling and what support we can add. || R3
+  Caller -> A social worker. I've met her. Tanya. She's nice. I liked her. Okay.
+  Caller -> She brought me a scarf once. Knitted it herself. I still have it. It's on the chair.
+  Nurse -> What a lovely gift.
+  Nurse -> Good. Now Rosalind, I need to ask for something. The pills in the closet. Would you be willing to put them in a bag, and give them to your neighbor, or leave them outside your door for the nurse to take when she comes? || E2
+  Caller -> My neighbor is asleep. Mr. Almeida. He's old. I don't want to wake him. But I could leave them outside the door. In a bag. On the mat.
+  Nurse -> That would be wonderful. Would you do that now, while I'm on the phone? I'll wait.
+  Caller -> Now? Okay. Okay. Let me think. Okay. I can do that. Hold on. I'm going to the bedroom. Mina, you're still there?
+  Nurse -> I'm right here. I'm not going anywhere. Take your time.
+  Caller -> I'm in the bedroom. I have the closet open. I see the bottle. It's an old vitamin bottle. I put a label on it. I wrote vitamins. Ha. Okay. I have it in my hand. It's heavy. It's more than I thought.
+  Nurse -> Okay. Is there a bag? A paper bag or a plastic bag?
+  Caller -> Plastic. A grocery bag. Hold on. Okay. I put it in. I tied it. Okay. I'm going to the front door. I'm opening it. It's cold. I'm putting it on the mat. There. I closed the door. It's outside.
+  Nurse -> Thank you, Rosalind. That took strength. How do you feel?
+  Caller -> Relieved. And sad. And a little scared. But relieved.
+  Nurse -> That's very honest. I'm proud of you for doing that.
+  Caller -> I'm proud too. Weirdly.
+  Nurse -> It's not weird. It was hard.
+  Nurse -> That makes sense. All of that is okay. Is there anything else in the house you're worried about? Other pills, other things?
+  Caller -> I have my regular pain pills. The ones I take. The nurse gives me a week at a time. That's all. I don't have more.
+  Nurse -> Okay. Is there a way the nurse can hold onto the rest of your pills for a few days?
+  Caller -> Yes. That's fine. She can take them. I'll take what I need when she comes.
+  Nurse -> Good. Rosalind, I want to give you a number. If the thoughts get louder, or you feel like you might act, you can call or text nine eight eight at any hour. It's the crisis line. And call nine one one right away if you take any of the pills or feel like you might. || E1
+  Caller -> Nine eight eight. And nine one one. Okay. I won't. I won't take them. I think I'm okay for now. I feel calmer. Thank you.
+  Nurse -> That's good to hear. I want to keep checking in, though. That's why I'm calling back.
+  Caller -> I appreciate it. I do.
+  Nurse -> I'm glad. I'd still like you to not be alone tonight, if possible. Could you call your sister? Even just to talk?
+  Caller -> I don't want to wake her. I don't want to scare her.
+  Nurse -> She'd want to know. If you're not ready to tell her everything, you could just ask her to come and stay with you for a few days. You don't have to explain it all right now.
+  Caller -> I could do that. I could say, I'm not doing great, can you come? She'd come. She'd drive right now.
+  Nurse -> She sounds like someone who loves you.
+  Caller -> She does. She's the only one left. My parents are gone. My ex is gone. It's me and her and Pickle.
+  Nurse -> That would be a good thing. I'd also like you to stay on the phone with me until the nurse comes, or call me back any hour. I'm here. || E3
+  Caller -> Okay. I'll stay on. For a bit. I want to tell you about my cat. Is that okay? She's been my best friend. Her name is Pickle.
+  Nurse -> Tell me about Pickle.
+  Caller -> She's seven. She's a gray tabby. She sleeps on my feet. She has this thing where she kneads my stomach. Right on the incision. It hurts but I let her. She's been my person.
+  Nurse -> A gray tabby. Does she talk to you?
+  Caller -> All the time. She yells at me for food. She has a whole vocabulary. I swear she says hello.
+  Caller -> She sleeps in my bed. On my pillow, actually. I wake up with a paw on my face.
+  Nurse -> That's a lovely image.
+  Nurse -> Aw. It sounds like she's very loved. Who would take care of Pickle if you weren't around?
+  Caller -> My sister. Nobody else. She knows. She always said she would.
+  Nurse -> It sounds like she loves you both. Rosalind, I'm going to page the on-call clinician now, and I'll call you back in fifteen minutes. I'd like you to put the kettle on and call your sister while you wait. Can you do that?
+  Caller -> I'll call her. I'll text first. I'll say I'm up and I'd like company. Okay.
+  Nurse -> Perfect. And I'll call you back in fifteen minutes. If you'd rather stay on, say so. || R4
+  Caller -> No, you go. Page them. I'll be okay. I have Pickle. And I'll text my sister. And the pills are outside.
+  Nurse -> Okay. You're doing great. I'll call in fifteen.
+  Caller -> Thank you, Mina. Truly. I'm so glad I called. I almost didn't.
+  Nurse -> I'm glad you did. Talk soon.
+  Caller -> Bye.
+  Nurse -> Bye, Rosalind.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosalind Fairbanks, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1977-09-02", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Rosalind Fairbanks, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550182", certainty: stated, heard_as: [], turns: [14]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Said she had been thinking of ending her life with saved pills.
+    speaker: Caller
+    turns: [16]
+    quote: "I'm done fighting."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She had been thinking about ending her life every night this week.
+      speaker: Caller
+      turns: [20]
+      quote: "I've been thinking about it every night this week."
+      explanation: Documents the thoughts of ending her life.
+      facts:
+        - {type: symptom, name: thoughts of ending her life, present: true, onset: every night this week, certainty: stated}
+      covers: [A1]
+    - text: She had saved about forty pills since August, had no set date, had been giving things away and had told no one.
+      speaker: Caller
+      turns: [22]
+      quote: "I've been saving my pills."
+      explanation: Documents her access to means and plan.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: Bone pain in her back was a four and manageable.
+      speaker: Caller
+      turns: [41]
+      quote: "A four. It's manageable."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: "4", certainty: stated}
+      covers: [A3]
+    - text: She was sleeping two or three hours a night.
+      speaker: Caller
+      turns: [47]
+      quote: "Terrible. I sleep two, three hours."
+      explanation: Documents the poor sleep.
+      facts:
+        - {type: symptom, name: sleeping badly, present: true, certainty: stated}
+      covers: [A4]
+    - text: She lived alone and her sister lived about ninety minutes away.
+      speaker: Caller
+      turns: [34]
+      quote: "I live alone."
+      explanation: Documents her living situation.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'm going to page our on-call clinician right now to talk with you."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [52]
+      quote: "A nurse, in a regular car. Within the hour."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned a social worker call and visit this morning.
+      speaker: Nurse
+      turns: [58]
+      quote: "this morning I'd like our social worker to call you and visit"
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: this morning, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in fifteen minutes after paging the clinician.
+      speaker: Nurse
+      turns: [101]
+      quote: "And I'll call you back in fifteen minutes. If you'd rather stay on, say so."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 at any hour and calling 911 right away if she took any of the pills or felt she might act.
+      speaker: Nurse
+      turns: [79]
+      quote: "you can call or text nine eight eight at any hour."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised putting the saved pills in a bag outside her door for the nurse and not staying alone with them.
+      speaker: Nurse
+      turns: [62]
+      quote: "Would you be willing to put them in a bag"
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Invited her to stay on the phone or call back any hour and to call her sister so she was not alone.
+      speaker: Nurse
+      turns: [89]
+      quote: "stay on the phone with me until the nurse comes, or call me back any hour."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [16], quote: "I've been thinking about ending it."}

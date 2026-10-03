@@ -1,0 +1,418 @@
+call_id: tr-480
+split: train
+blueprint: "A licensed practical nurse at an assisted living facility calls hospice about a resident, an 84-year-old woman with left hip pain after a fall earlier in the week: pain is about a six, she gets oxycodone five milligrams every four hours as needed (the nurse says 'oxycodon', last dose at two) and senna twice a day, no bowel movement in four days, no new swelling or bruising and no further falls. A hospice nurse line is transcribed under the caller label, words drop out, and there is crosstalk from the med cart. Nurse plans a message to the team about a bowel regimen and pain plan, contacts the pharmacy, and plans a visit tomorrow; teaches timing of the dose and comfort measures. Heavy ASR noise (drug garble, speaker label error, dropped words), facility staff caller, patient 65+, v2 long."
+setup:
+  scenario_category: asr_error
+  subtype: multi_noise_facility_call
+  secondary_tags: [drug_garble, speaker_label_errors, crosstalk, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [pain, constipation, medication, falls]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Annabelle
+  call_timestamp_utc: "2026-11-18T16:40:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Theodosia Marchetti
+  patient_name_spoken: Theodosia Marchetti
+  patient_name_certainty: stated
+  patient_dob_true: "1942-06-14"
+  patient_dob_spoken: "1942-06-14"
+  patient_dob_certainty: stated
+  caller_name_true: Dwayne Kowalczyk
+  caller_name_spoken: Dwayne Kowalczyk
+  caller_name_certainty: stated
+  relationship_to_patient: nurse at the facility
+  relationship_certainty: stated
+  callback_phone_true: "4145550160"
+  callback_phone_spoken: "4145550160"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported ongoing hip pain and constipation for a hospice resident at an assisted living facility
+  reason_category: pain
+  relevant_context: Hospice patient living in an assisted living facility, fell earlier this week
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodon
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: two o'clock today
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "2"
+    unit: tablets
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: left hip pain after a fall
+    symptom_present: true
+    severity: moderate
+    onset: since the fall earlier this week
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset: four days
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: new swelling or bruising or further falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask for a bowel regimen and a scheduled pain plan
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: check the supply and strength of the pain medicine
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the pain medicine about thirty minutes before the physical therapist or a bath, and write the time on the log each time
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Support the hip with a pillow when she lies on her side, use a warm pack for fifteen minutes, and offer prune juice and fluids
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for pain over eight, a leg that looks shorter or turned, new swelling, vomiting, or a belly that is hard and swollen
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Annabelle.
+  Caller -> Hello? Is this the hospice line? I'm Dwayne, from the assisted living.
+  Nurse -> You've reached it. Go ahead.
+  Caller -> Hi. Annabelle. It's Dwayne Kowalczyk. I'm the L P N at Maple Court assisted living. I'm calling about one of our residents. Theodosia Marchetti. She's on your service. She's having hip pain and she's, she hasn't had a bowel movement in a while. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Dwayne. You're breaking up a little. Can you hear me?
+  Caller -> I can hear you. Sorry, the nurse's station is loud. Hold on, I'm going to the med room.
+  Nurse -> Okay.
+  Caller -> Better. The door closes in here.
+  Nurse -> Hi, Dwayne. Thanks for calling. Let me pull her up. Marchetti. M A R C H E T T I?
+  Caller -> That's it. Theodosia. She's in room, hold on, the cart's coming through. Excuse me. Room two fourteen.
+  Nurse -> Okay. Two fourteen.
+  Caller -> Yes. Down the hall from the activity room. You can hear bingo from there.
+  Nurse -> Ha.
+  Nurse -> Okay. Dwayne, tell me about the hip.
+  Caller -> She's had a rough week. She was doing so well before the fall.
+  Nurse -> I'm sorry to hear that.
+  Caller -> Okay. I have my notes here. I wrote them down before I called.
+  Nurse -> That's helpful.
+  Caller -> She fell on, um, on Monday. Slid off the, off the edge of the bed in the night. We found her on the floor. Her left hip. She hasn't been the same. The pain's been, she says it's about a six. Six out of ten. When she moves. When she's lying still it's less. || A3
+  Nurse -> Go ahead. I'm listening.
+  Nurse -> A six when she moves. Did anyone evaluate her after the fall?
+  Caller -> Yes. And when she coughs, too. She says it grabs her.
+  Nurse -> Okay.
+  Caller -> Yes. The, the nurse practitioner came Tuesday. The X-ray was negative. No break. That's what they told us. And she went back to the, just rest and the, the pain medicine.
+  Nurse -> Okay.
+  Nurse -> Okay. That's good to know. Which pain medicine is she on?
+  Caller -> Let me read it off the MAR so I get it right. It's in a binder, hold on.
+  Nurse -> Take your time.
+  Caller -> I can see her door from here. She's resting now.
+  Nurse -> Good.
+  Caller -> She was relieved. She was worried it was broken.
+  Nurse -> That's understandable.
+  Caller -> The oxycodon. Five milligrams. Every four hours as needed. It's on the, on the MAR. She got one at two. || A1
+  Nurse -> Oxycodone, five milligrams, as needed, last at two. || A1
+  Caller -> Yes. Right. At two o'clock. And before that at ten.
+  Nurse -> Okay. Ten and two.
+  Caller -> Yes. Right on schedule. She asks for it. She watches the clock.
+  Caller -> She told me she wishes she could just sleep through it.
+  Nurse -> I understand.
+  Nurse -> Okay. How does she do after the dose?
+  Caller -> Better. In about forty minutes the pain, she says it comes down to a three. A three. Then it comes back, up to a five, six. Around the, around the time of the next one.
+  Caller -> She says it feels like the edges get softer.
+  Nurse -> Okay.
+  Nurse -> Okay.
+  Nurse -> Okay. So it wears off by the four hours.
+  Caller -> That's what I told the NP. She said to call hospice.
+  Nurse -> You did the right thing.
+  Caller -> Yes. Hold on. Hello, Mr. Abbott, I'll be with you in a minute. Sorry. That's a resident. He wants his paper.
+  Nurse -> Take your time.
+  Caller -> Thank you. It's a busy shift. We're short one aide.
+  Caller -> I'm so sorry about the interruptions. It's a lot with the evening meds.
+  Nurse -> Of course.
+  Nurse -> I'm sorry to hear that.
+  Nurse -> No problem.
+  Caller -> Where were we. The oxycodon. || A1
+  Nurse -> The pain medicine wears off. We'll come back to that. What about her bowels?
+  Caller -> Sorry, someone is calling my name from the hall. One second.
+  Nurse -> Take your time.
+  Caller -> Back. Go on.
+  Caller -> No, no bowel movement. Four days. Since Friday. She's on the senna. Two tablets. Twice a day. She had them this morning. || A4
+  Nurse -> Okay.
+  Caller -> Sorry, let me say that again. It's been four days. Four. She told me Sunday that nothing was happening.
+  Nurse -> Okay.
+  Nurse -> Senna, two tablets, twice a day, and she took them this morning. Any belly pain, bloating, nausea? || A2
+  Caller -> Her belly's soft. She says she's a little full. Not vomiting. She ate half her lunch. Some soup. She's drinking, but not great. Maybe four cups. || A2
+  Nurse -> Okay.
+  Caller -> I pressed gently. She didn't wince. Excuse me, are you still there?
+  Nurse -> I'm here.
+  Nurse -> Okay. Have you tried anything else? Prune juice, fluids?
+  Caller -> She won't drink the prune juice. She says it tastes like feet. Ha. Excuse me. Did you say something? No, sorry, that was the, the call light.
+  Nurse -> Ha.
+  Caller -> She says it tastes like feet. I've heard it three times today.
+  Nurse -> Fair.
+  Nurse -> Take your time.
+  Caller -> Where was I. Yes. Prune juice, no. We tried warm water in the morning. She likes that.
+  Nurse -> That's all right.
+  Nurse -> Okay. Has she had any new swelling, bruising around the hip? Any more falls?
+  Caller -> I'll let the aide know to watch for it overnight.
+  Nurse -> Good.
+  Caller -> No. No new falls. We put the bed rail up. The, um, bed alarm. Swelling, I don't think so. It looks the same as Tuesday. Nothing new on the, on the skin. || A5
+  Nurse -> Good.
+  Caller -> The aide checks on her every two hours. She's on the list now.
+  Nurse -> That's good.
+  Nurse -> Good. Dwayne, what's her date of birth?
+  Caller -> Do you want me to read it from the chart? Okay. Reading it.
+  Caller -> June fourteenth. Nineteen forty two. || patient_dob
+  Nurse -> Thank you.
+  Nurse -> And your number, for the callback?
+  Caller -> Four one four, five five five, oh one six zero. || callback_phone
+  Nurse -> Four one four, five five five, oh one six zero. Right? || callback_phone
+  Caller -> Yes. Same number as the main desk. Extension two.
+  Nurse -> Noted.
+  Caller -> Yes. It's the nurse's station. Ask for me. I'm here till eleven.
+  Nurse -> Okay.
+  Nurse -> Okay. And the best time?
+  Caller -> Anytime before eleven. I'm covering the whole floor tonight.
+  Caller -> Got it. Okay. Here's what I'm going to do. I'll send a message to the team about the pain and the constipation. I'd like them to look at a bowel regimen, and a scheduled pain plan. || R1, label_error
+  Nurse -> Is there anything else you want me to include in the message?
+  Caller -> Tell them she asked about her rosary. It's in her other bag.
+  Nurse -> I'll mention it.
+  Caller -> Okay. That would be great. She's, I just, I don't want her hurting.
+  Caller -> I don't want her hurting. She's such a sweet lady. She calls me dear.
+  Nurse -> I understand.
+  Nurse -> I understand. I'll also call the pharmacy, and check her supply and the strength of the pain medicine. || R2
+  Caller -> Yes. She's low. We have about, hold on, nine tablets left in the bubble pack.
+  Nurse -> Okay.
+  Nurse -> Nine. Okay. I'll let them know.
+  Caller -> Thank you. I didn't want to run out on the weekend.
+  Caller -> Thank you.
+  Nurse -> And I'd like a nurse to come out tomorrow to see her. To check the hip and her belly. || R3
+  Caller -> Tomorrow. Good. What time?
+  Nurse -> Morning.
+  Caller -> Is the nurse a man or a woman? She prefers women for personal care.
+  Nurse -> I'll make a note of that.
+  Nurse -> I'll ask for the morning.
+  Caller -> Okay. She has therapy at ten. Can the nurse come before or after?
+  Nurse -> That's useful.
+  Nurse -> I'll note that. Therapy at ten.
+  Caller -> Thank you.
+  Nurse -> About the therapy, Dwayne. Give the pain medicine about thirty minutes before the therapist comes, or before a bath. And write the time down on the log each time. || E1
+  Caller -> Thirty minutes before therapy. Write the time. Okay. We do that for the bath. Not for therapy. I'll tell the day shift.
+  Nurse -> Thank you.
+  Nurse -> Great.
+  Caller -> Thank you for staying on the phone with me. The line is bad tonight.
+  Nurse -> It's no trouble.
+  Nurse -> Perfect.
+  Caller -> One more thing before I hang up. Do I call this number if she gets worse overnight?
+  Nurse -> Yes. This line is staffed all night.
+  Caller -> I'll get back to the cart now. Mr. Abbott is still waiting for his paper.
+  Nurse -> Ha. Go ahead.
+  Caller -> Sorry. I keep getting interrupted. You've been so patient.
+  Nurse -> Not a problem at all.
+  Caller -> I wrote it all down on the whiteboard in the med room. In case the next shift asks.
+  Caller -> I'll make sure the day shift knows about the nurse coming.
+  Caller -> What else for the hip? Besides the, besides the medicine?
+  Nurse -> Good question. I'll give you a few things.
+  Nurse -> A pillow between her knees and under the hip when she's on her side. A warm pack, fifteen minutes at a time, not on bare skin. And offer her prune juice, or any fluids she will take. || E2
+  Caller -> Pillow. Warm pack. Fifteen minutes. Fluids. Okay. We have those, the microwave ones. The rice ones.
+  Caller -> Excuse me. Mrs. Lindahl, I'll be right there. Sorry, call light.
+  Nurse -> No problem.
+  Nurse -> Those are fine. Test the temperature on your wrist first.
+  Caller -> Yes. I know. We burned a resident once with a heating pad. Never again.
+  Nurse -> Good habit.
+  Caller -> I will.
+  Nurse -> And call us if her pain goes over eight, if her leg looks shorter or turned, if you see new swelling, if she's vomiting, or if her belly is hard and swollen. || E3
+  Caller -> Over eight. Leg shorter. Swelling. Vomiting. Hard belly. Okay. Got it. I'll tell the next shift too.
+  Caller -> Over eight. I wrote eight and underlined it.
+  Nurse -> Perfect.
+  Nurse -> Perfect.
+  Caller -> Can I ask, is she, is this the, is she dying?
+  Nurse -> Take a breath. I'm here.
+  Nurse -> The team will talk with her and the family about that. From what you describe, this sounds like a painful hip and constipation. Both things we can treat.
+  Caller -> I'll tell the day shift too, so nobody is surprised tomorrow.
+  Nurse -> That's helpful.
+  Caller -> That's a relief to hear. I'll tell the daughter tonight.
+  Caller -> Okay. I'm sorry. That wasn't my place to ask.
+  Nurse -> It's a fair question.
+  Caller -> Okay. Okay. Her daughter asks me every day. I didn't know what to say.
+  Caller -> I never know what to say. I say, the hospice team is working on it.
+  Nurse -> That's a good answer.
+  Caller -> It never feels like enough.
+  Caller -> She calls at seven every night. It's a hard call.
+  Nurse -> I'm sure it is.
+  Nurse -> The nurse can help with that tomorrow.
+  Caller -> Thank you. That helps.
+  Nurse -> You're welcome. Dwayne, thank you for the detail. It makes it easy.
+  Caller -> Anytime. I like working with hospice. You answer the phone.
+  Nurse -> Ha. We try.
+  Caller -> I try. I write everything in the, in the book.
+  Nurse -> That helps us.
+  Nurse -> It shows.
+  Caller -> Bye. Hello? Are you still there?
+  Nurse -> I'm here. Goodbye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: oxycodone, heard_form: oxycodon, fact_id: A1}
+  - {turn: auto, type: speaker_label, true_form: "Nurse statement", heard_form: "I'll send a message to the team about the pain and the constipation", fact_id: R1}
+  - {turn: auto, type: dropped_words, true_form: "She went back to rest and the pain medicine", heard_form: "And she went back to the, just rest and the, the pain medicine", fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Theodosia Marchetti, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1942-06-14", certainty: stated, heard_as: [], turns: [86]}
+    caller_name: {value: Dwayne Kowalczyk, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: nurse at the facility, certainty: stated, turns: [4]}
+    callback_phone: {value: "4145550160", certainty: stated, heard_as: [], turns: [89, 90]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported ongoing hip pain and constipation for a hospice resident at an assisted living facility.
+    speaker: Caller
+    turns: [4]
+    quote: "She's having hip pain and she's, she hasn't had a bowel movement in a while."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Oxycodon 5 mg was given every four hours as needed, last dose at two o'clock.
+      speaker: Caller
+      turns: [33]
+      quote: "The oxycodon. Five milligrams. Every four hours as needed."
+      explanation: Documents the pain medicine as spoken.
+      facts:
+        - {type: medication, name: oxycodon, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: two o'clock today, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Senna two tablets twice a day was taken, last this morning.
+      speaker: Caller
+      turns: [60]
+      quote: "She's on the senna. Two tablets. Twice a day."
+      explanation: Documents the scheduled bowel medicine.
+      facts:
+        - {type: medication, name: senna, dose: "2", unit: tablets, frequency: twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Left hip pain after a fall on Monday was about a six out of ten when she moved.
+      speaker: Caller
+      turns: [19]
+      quote: "Her left hip."
+      explanation: Documents the hip pain.
+      facts:
+        - {type: symptom, name: left hip pain after a fall, present: true, severity: moderate, onset: since the fall earlier this week, certainty: stated}
+      covers: [A3]
+    - text: She had no bowel movement in four days.
+      speaker: Caller
+      turns: [60]
+      quote: "No, no bowel movement. Four days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, onset: four days, certainty: stated}
+      covers: [A4]
+    - text: She had no new falls, swelling or bruising.
+      speaker: Caller
+      turns: [80]
+      quote: "No new falls."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: new swelling or bruising or further falls, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the team about a bowel regimen and a scheduled pain plan.
+      speaker: Nurse
+      turns: [97]
+      quote: "I'll send a message to the team about the pain and the constipation."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy about the supply and strength of the pain medicine.
+      speaker: Nurse
+      turns: [104]
+      quote: "I'll also call the pharmacy, and check her supply and the strength of the pain medicine."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to check the hip and her belly.
+      speaker: Nurse
+      turns: [110]
+      quote: "I'd like a nurse to come out tomorrow to see her."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving the pain medicine about thirty minutes before therapy or a bath and logging the time.
+      speaker: Nurse
+      turns: [120]
+      quote: "Give the pain medicine about thirty minutes before the therapist comes, or before a bath."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised a pillow for the hip, a warm pack for fifteen minutes, and prune juice and fluids.
+      speaker: Nurse
+      turns: [137]
+      quote: "A pillow between her knees and under the hip when she's on her side."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for pain over eight, a shortened or turned leg, new swelling, vomiting, or a hard swollen belly.
+      speaker: Nurse
+      turns: [145]
+      quote: "call us if her pain goes over eight"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

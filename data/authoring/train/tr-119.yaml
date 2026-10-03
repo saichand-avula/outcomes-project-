@@ -1,0 +1,252 @@
+call_id: tr-119
+split: train
+blueprint: "Husband needs wound supplies for his wife's sacral pressure injury: 3 foam dressings, no saline wound wash left, medical tape out. Wound is the size of a silver dollar, pink base, small drainage, no odor, pain 2/10. Nurse orders supplies for Wednesday and confirms the Friday visit. Short, messy."
+setup:
+  scenario_category: supply
+  subtype: wound_supplies
+  secondary_tags: [multi_issue, split_turns, late_answers, phone_from_file]
+  clinical_domains: [wound_skin, equipment]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Denise
+  call_timestamp_utc: "2026-11-18T15:50:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lorna Whitfield-Reyes
+  patient_name_spoken: Lorna Whitfield
+  patient_name_certainty: stated
+  patient_dob_true: "1944-12-08"
+  patient_dob_spoken: "1944-12-08"
+  patient_dob_certainty: stated
+  caller_name_true: Gerald Whitfield
+  caller_name_spoken: Gerald Whitfield
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "7275550134"
+  callback_phone_spoken: "7275550134"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested wound care supplies for his wife's pressure sore
+  reason_category: supply_request
+  relevant_context: Sacral pressure injury under home health care
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: foam dressings
+    supply_remaining: "3"
+    supply_unit: dressings
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: saline wound wash
+    supply_remaining: none
+    supply_unit: bottles
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: medical tape
+    supply_remaining: none
+    supply_unit: rolls
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sacral wound about the size of a silver dollar
+    symptom_present: true
+    severity: 2/10
+    body_location: tailbone
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: odor or spreading redness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: foam dressings, saline wound wash and tape
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: wound nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change the foam dressing when it is soiled or lifting, rinse with saline, and turn her every 2 hours
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a bad smell, pus, spreading redness, fever, or the wound getting larger or deeper
+    trigger_condition: bad smell; pus; spreading redness; fever; wound growing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Denise.
+  Caller -> Hi, Denise. It's Gerald Whitfield. I'm calling for my wife. Lorna. Lorna Whitfield. || caller_name, relationship, patient_name
+  Nurse -> Hi, Gerald. Her date of birth?
+  Caller -> December eighth. Nineteen forty four. || patient_dob
+  Nurse -> And is seven two seven, five five five, zero one three four your number? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What do you need?
+  Caller -> Supplies for her sore. The one on her tailbone. I'm almost out. || cc
+  Nurse -> Okay. What have you got left?
+  Caller -> Dressings. The foam ones. I have three. Three left. || A1
+  Nurse -> Okay.
+  Caller -> And the salt water. The saline wash. I'm out. I used the last bottle this morning. || A2
+  Nurse -> Okay.
+  Caller -> And tape. I'm out of tape. || A3
+  Nurse -> Okay. How's the wound looking?
+  Caller -> About the same. It's the size of a silver dollar, I'd say. Pink in the middle. A little drainage on the dressing when I change it, not much. || A4
+  Nurse -> Any smell? Any redness spreading out from it?
+  Caller -> No smell. No redness going out. It's just the one spot. || A5
+  Nurse -> Does it hurt her?
+  Caller -> She says it's a two. Only when I turn her. || A4
+  Nurse -> Okay. I'll order the foam dressings, the saline, and tape. || R1
+  Caller -> Thank you.
+  Nurse -> Delivery Wednesday. || R2
+  Caller -> Wednesday. Okay. I'll be here.
+  Nurse -> And the wound nurse is still coming Friday. || R3
+  Caller -> Friday. Yes. She told me.
+  Nurse -> Until then, change the dressing when it's soiled or lifting at the edges. Rinse with the saline first. And keep turning her every two hours. || E1
+  Caller -> Every two hours. I do. I set an alarm. Even in the night.
+  Nurse -> That's great, Gerald. That's exactly what will help it heal.
+  Caller -> Okay.
+  Nurse -> And call us for a bad smell, pus, redness spreading, a fever, or if it gets bigger or deeper. || E2
+  Caller -> Smell, pus, redness, fever, bigger. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Denise.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lorna Whitfield, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-12-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gerald Whitfield, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "7275550134", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested wound care supplies for his wife's pressure sore.
+    speaker: Caller
+    turns: [8]
+    quote: "Supplies for her sore. The one on her tailbone. I'm almost out."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Three foam dressings remained.
+      speaker: Caller
+      turns: [10]
+      quote: "Dressings. The foam ones. I have three. Three left."
+      explanation: Documents the dressing supply.
+      facts:
+        - {type: supply, item: foam dressings, supply: 3 dressings, certainty: stated}
+      covers: [A1]
+    - text: The saline wound wash was gone.
+      speaker: Caller
+      turns: [12]
+      quote: "I'm out. I used the last bottle this morning."
+      explanation: Documents the saline supply.
+      facts:
+        - {type: supply, item: saline wound wash, supply: none, certainty: stated}
+      covers: [A2]
+    - text: Medical tape was gone.
+      speaker: Caller
+      turns: [14]
+      quote: "And tape. I'm out of tape."
+      explanation: Documents the tape supply.
+      facts:
+        - {type: supply, item: medical tape, supply: none, certainty: stated}
+      covers: [A3]
+    - text: The tailbone wound was about the size of a silver dollar with a little drainage, and pain of 2/10 when turned.
+      speaker: Caller
+      turns: [16]
+      quote: "It's the size of a silver dollar, I'd say. Pink in the middle."
+      explanation: Documents the wound status.
+      facts:
+        - {type: symptom, name: sacral wound about the size of a silver dollar, present: true, severity: 2/10, location: tailbone, certainty: stated}
+      covers: [A4]
+    - text: No odor or spreading redness was reported.
+      speaker: Caller
+      turns: [18]
+      quote: "No smell. No redness going out."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: odor or spreading redness, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to order foam dressings, saline wash, and tape.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll order the foam dressings, the saline, and tape."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Wednesday.
+      speaker: Nurse
+      turns: [23]
+      quote: "Delivery Wednesday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R2]
+    - text: The wound nurse would still visit Friday.
+      speaker: Nurse
+      turns: [25]
+      quote: "And the wound nurse is still coming Friday."
+      explanation: Documents the scheduled visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised changing the dressing when soiled or lifting, rinsing with saline, and turning her every 2 hours.
+      speaker: Nurse
+      turns: [27]
+      quote: "change the dressing when it's soiled or lifting at the edges. Rinse with the saline first."
+      explanation: Documents wound care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a bad smell, pus, spreading redness, fever, or a larger or deeper wound.
+      speaker: Nurse
+      turns: [31]
+      quote: "call us for a bad smell, pus, redness spreading, a fever, or if it gets bigger or deeper."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

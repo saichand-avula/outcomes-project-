@@ -1,0 +1,176 @@
+call_id: tr-204
+split: train
+blueprint: "Paid caregiver calls: the 58-year-old patient fell in the bathroom, hit his head on the sink, has a bleeding cut on his scalp, and takes Eliquis. Nurse tells her to call 911, apply pressure with a clean towel, and not move him. Flags: other_urgent (fall with injury and bleeding) and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [fall, bleeding]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Renee
+  call_timestamp_utc: "2026-10-08T12:50:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gordon Aldridge
+  patient_name_spoken: Gordon Aldridge
+  patient_name_certainty: stated
+  patient_dob_true: "1968-02-09"
+  patient_dob_spoken: "1968-02-09"
+  patient_dob_certainty: stated
+  caller_name_true: Tasha Brooks
+  caller_name_spoken: Tasha Brooks
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "4045550138"
+  callback_phone_spoken: "4045550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that the patient fell and hit his head and is bleeding
+  reason_category: fall
+  relevant_context: Patient on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fall with head strike
+    symptom_present: true
+    onset_or_duration: just now
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bleeding cut on the scalp
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Eliquis
+    medication_name_spoken: Eliquis
+    medication_status: taking
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: fall with head strike and bleeding on a blood thinner
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911, press a clean towel on the cut, and do not move him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Fall with head strike and bleeding in a patient on Eliquis
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Renee.
+  Caller -> Renee, it's Tasha Brooks. I'm with Gordon Aldridge. He fell in the bathroom. He hit his head on the sink and it's bleeding. || caller_name, relationship, patient_name, cc, A1, A2, F1
+  Nurse -> Okay, Tasha. Is he awake? Is he talking to you?
+  Caller -> Yes. He's awake. He's talking. He's mad at himself. But there's blood. On his head. A cut. And he's on the Eliquis. || A2, A3, F1
+  Nurse -> Okay. Tasha, I want you to call nine one one right now. Because of the blood thinner and the head strike, he needs to be seen. || R1, F2
+  Caller -> Nine one one. Okay. Okay. Should I hang up first?
+  Nurse -> Yes. Hang up and call. Then get a clean towel and press it on the cut. Firm pressure. Don't move him, don't try to get him up. || E1
+  Caller -> Towel. Pressure. Don't move him. Okay. Hang on, I'm, hold on. The towel's right here.
+  Nurse -> Take your time. Press and stay with him. Tasha, quickly, his birthday?
+  Caller -> February ninth. Nineteen sixty eight. || patient_dob
+  Nurse -> And your number, in case they need us.
+  Caller -> Four oh four, five five five, zero one three eight. || callback_phone
+  Nurse -> Got it. Is the towel on the cut now? Is it soaking through?
+  Caller -> It's on. It's red, but it's not pouring. He's holding it himself now. He says his head hurts, but he knows where he is. He's asking what day it is, like he's testing himself.
+  Nurse -> Okay. Keep the pressure on and keep him sitting or lying right where he is. Don't give him anything to eat or drink, and don't let him stand up. If he gets sleepy, confused, or throws up, tell the dispatcher right away.
+  Caller -> Okay. Sitting, no food, no standing. Sleepy, confused, throwing up, tell them. I've got it. I really do.
+  Nurse -> You're doing everything right, Tasha. Call right now. I'll be here, and I'll let the office know what's happening.
+  Caller -> Okay. Calling. Thank you, Renee. I was so scared when I heard the bang.
+  Nurse -> I know. Go ahead and call.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gordon Aldridge, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1968-02-09", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Tasha Brooks, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550138", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the patient fell, hit his head, and was bleeding.
+    speaker: Caller
+    turns: [2]
+    quote: "He fell in the bathroom. He hit his head on the sink and it's bleeding."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He fell in the bathroom and hit his head on the sink.
+      speaker: Caller
+      turns: [2]
+      quote: "He hit his head on the sink"
+      explanation: Documents the fall.
+      facts:
+        - {type: symptom, name: fall with head strike, present: true, onset: just now, certainty: stated}
+      covers: [A1]
+    - text: A bleeding cut was present on his head.
+      speaker: Caller
+      turns: [4]
+      quote: "But there's blood. On his head. A cut."
+      explanation: Documents the injury.
+      facts:
+        - {type: symptom, name: bleeding cut on the scalp, present: true, certainty: stated}
+      covers: [A2]
+    - text: He was on Eliquis.
+      speaker: Caller
+      turns: [4]
+      quote: "he's on the Eliquis."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: Eliquis, med_status: taking, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [5]
+      quote: "I want you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised pressing a clean towel firmly on the cut and not moving him.
+      speaker: Nurse
+      turns: [7]
+      quote: "get a clean towel and press it on the cut. Firm pressure."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "He hit his head on the sink and it's bleeding."}
+    - {category: escalation_request, turns: [5], quote: "I want you to call nine one one right now."}

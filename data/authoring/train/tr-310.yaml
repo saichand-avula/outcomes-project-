@@ -1,0 +1,320 @@
+call_id: tr-310
+split: train
+blueprint: "A 52-year-old man with a colostomy calls on his lunch break from a warehouse: he is down to three pouches, five barrier wafers and no adhesive remover because the supplier switched and the usual monthly box never came. The skin around the stoma is a little red and sore where he has been peeling the wafer off. No leaking, no blood, output normal. He is chatty, a bit embarrassed, and interrupts himself for the forklift. Nurse orders the supplies (completed), arranges delivery to his house tomorrow evening, plans a nurse visit Friday to look at the skin, and teaches gentle removal and skin care. Supply, self caller aged 18-64, medium v2."
+setup:
+  scenario_category: supply
+  subtype: ostomy_supplies
+  secondary_tags: [phone_from_file, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [equipment, skin, gi]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Creek Home Health
+  agency_type: home_health
+  nurse_name: Josephine
+  call_timestamp_utc: "2026-10-29T17:20:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dario Whitfield
+  patient_name_spoken: Dario Whitfield
+  patient_name_certainty: stated
+  patient_dob_true: "1974-04-22"
+  patient_dob_spoken: "1974-04-22"
+  patient_dob_certainty: stated
+  caller_name_true: Dario Whitfield
+  caller_name_spoken: Dario Whitfield
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9015550127"
+  callback_phone_spoken: "9015550127"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported running low on colostomy supplies and sore skin around the stoma
+  reason_category: supply
+  relevant_context: Home health patient with a colostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: colostomy pouches
+    supply_remaining: three left
+    supply_unit: pouches
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: skin barrier wafers
+    supply_remaining: five left
+    supply_unit: wafers
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: patient
+    supply_item: adhesive remover wipes
+    supply_remaining: none
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: red sore skin around the stoma
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: leaking or blood in the output
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: patient
+    history_or_context_text: The supplier changed and the usual monthly box did not arrive
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: pouches, wafers and adhesive remover wipes
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow evening
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Remove the wafer slowly with an adhesive remover wipe, pushing the skin away from the wafer instead of peeling, and clean the skin with plain water and pat dry, and skip baby wipes and creams
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for skin that is broken, bleeding or very painful, a bad smell, leaking that will not stop, or no output for a day with belly pain or vomiting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Creek Home Health, this is Josephine.
+  Caller -> Hey. Hi. Yeah. Is this the nurse line? I'm Dario. Dario Whitfield. I'm one of your guys, the, I have the colostomy. || caller_name, relationship, patient_name
+  Nurse -> Hi, Dario. Yes, this is the nurse line. I'm glad you called. Let me pull up your chart. What's your date of birth?
+  Caller -> April twenty second. Nineteen seventy four. || patient_dob
+  Nurse -> Perfect. I think I have a number on file for you. Is it nine zero one, five five five, zero one two seven? || callback_phone
+  Caller -> That's my cell. Yep. Don't call it between one and one thirty, I'm on the floor. I mean, I'm on lunch right now. I'm in the break room.
+  Nurse -> Noted. I'll try to reach you outside your shift if I need to.
+  Caller -> Evenings are best. After six. I'm usually home eating something out of a box.
+  Nurse -> Got it. Not during the shift. What can I do for you?
+  Caller -> I'm running low. On my stuff. The pouches. I only have like three left. And the wafers. I think five. And I'm out of the wipes. The remover wipes. I've been using a washcloth and it's not great. || cc
+  Nurse -> Okay. Let me write those down. Three pouches?
+  Caller -> Three. Let me count again. I'm looking in my bag. I keep a spare kit in my locker. One, two, three. Three pouches. Yeah. And I have more at home. Hold on. No, that's the same three. I took them from home.
+  Nurse -> So three pouches total. Okay. And the wafers?
+  Caller -> Five wafers. I changed the wafer this morning so that's one used. I have five new ones. Yeah. Five. || A2
+  Nurse -> Okay. And the adhesive remover wipes?
+  Caller -> None. Zero. I used the last one Sunday. I've been peeling the wafer off. I know I'm not supposed to. It hurts.
+  Nurse -> Okay. We'll fix that. So three pouches, five wafers and no wipes. || A3
+  Caller -> Correct. And before you ask, yeah, I know. I should've called last week. I just didn't want to deal with it. || A1
+  Nurse -> Does anyone at work know about the colostomy?
+  Caller -> My boss. That's it. I don't tell the guys. It's none of their business. I carry a bag with my stuff and say it's my lunch.
+  Nurse -> That's your choice. You're doing fine.
+  Nurse -> It's okay. It happens. What happened with your regular order? Usually it comes monthly, right?
+  Caller -> It does. It came on the fifth. Always the fifth. This month it didn't come. I called the company, and they said they changed suppliers. And that the new supplier has my info but it'll take a few weeks. And I said I don't have a few weeks. || A6
+  Caller -> They put me on hold for forty minutes. The music was terrible. I almost hung up twice.
+  Nurse -> Ugh. I'm sorry. We'll sort it out from here.
+  Nurse -> Okay. That's frustrating. We'll get you what you need today.
+  Caller -> That'd be great. I'd really appreciate it.
+  Nurse -> Now, you mentioned peeling the wafer. How's the skin around your stoma?
+  Caller -> It's not great. It's red. Kind of sore. Around the edge where the wafer sits. Like a ring. It stings when I take the wafer off. It's not bleeding. It's not open. But it's red and angry. || A4
+  Nurse -> Have you used anything on it? A cream, powder?
+  Caller -> My sister gave me a diaper rash cream. I put a thin layer. I don't know if I should have.
+  Nurse -> A lot of creams stop the wafer from sticking. The nurse will look. Don't put anything else on it for now.
+  Caller -> Okay. No more cream. Noted.
+  Nurse -> Okay. Is it itchy, burning?
+  Caller -> A little burning. Right when I peel. And then it calms down. It's mostly just red.
+  Nurse -> Okay. Any leaking? Does the wafer stay on?
+  Caller -> It stays on. I get about three, four days. No leaks. Well, one leak last Saturday. A little. But that's because I got sweaty. I was moving furniture.
+  Nurse -> What were you moving?
+  Caller -> A couch. My nephew's. Up four flights. My back is still mad at me.
+  Nurse -> Ha. That's a lot of stairs. Try not to lift heavy things, with the stoma.
+  Caller -> I know, I know. The doctor said no more than twenty pounds. I may have ignored that.
+  Nurse -> That can happen. Any blood from the stoma, or around it?
+  Caller -> No blood. Just a tiny bit of pink on the wafer when I peel it. Not blood really. Just the skin.
+  Nurse -> And your output? Is that normal for you?
+  Caller -> Normal. Same as always. Regular. I eat the same stuff. I'm not having diarrhea or anything. It's fine. It's been fine. || A5
+  Nurse -> Good. Okay, Dario. Let me place the order. Give me a minute. Stay on, okay?
+  Caller -> Yep. I'm just sitting here. Oh, sorry, hold on. Hey! Hey, I'm on the phone. Yeah. Five minutes. Sorry. That's my supervisor. Go ahead.
+  Nurse -> Do you need to go?
+  Caller -> No, no. He says five minutes. I told him I'm on a medical call. He's cool about it.
+  Nurse -> No problem. Okay. I'm ordering a box of thirty pouches, a box of the wafers, and two boxes of the adhesive remover wipes. I'm marking it urgent.
+  Caller -> Thirty pouches. That's like a month. Good.
+  Nurse -> And I'm adding a barrier ring and some skin barrier powder, since your skin is irritated. If you don't mind.
+  Caller -> I don't mind. I've never used the powder. What is it?
+  Nurse -> It helps protect the skin. We'll go over it. It's in. I just placed the order with the supply company for the pouches, wafers, and the wipes, marked urgent. || R1
+  Caller -> Oh man. Thank you. That's a load off. When will it get here?
+  Nurse -> I'm going to arrange for delivery to your house tomorrow evening. Will somebody be home?
+  Caller -> I'm home after five. Anytime after five thirty. I live in an apartment, though. Third floor. No elevator. The delivery guy hates it.
+  Nurse -> Is there somewhere safe to leave a package downstairs if you're not there?
+  Caller -> There's a mailroom with a lockbox. But I'd rather be there. It's medical stuff.
+  Nurse -> I'll note the third floor. I'll ask them to deliver tomorrow evening, after five thirty, and to call you when they're on the way. || R2
+  Caller -> That's great. Seriously. I was getting kind of stressed about it.
+  Nurse -> I understand. Dario, I'd also like a nurse to look at the skin. I'll send someone Friday. Is there a good time?
+  Caller -> Friday. I'm off Friday. Anytime. Morning's best. I sleep in, so after nine.
+  Nurse -> After nine on Friday. I'll put that in. She'll check the skin, the stoma, and show you a few tips. || R3
+  Caller -> Okay. Cool. I'll make coffee.
+  Nurse -> Ha. She won't need coffee, but she'll take it.
+  Caller -> Everybody takes coffee.
+  Nurse -> Ha. Between now and then, here's what I'd do for the skin. When you change the wafer, use a remover wipe, which you'll have tomorrow. Until then, use warm water and a soft cloth to loosen the edge. Then push the skin away from the wafer. Don't peel the wafer off the skin. || E1
+  Caller -> Push the skin away. Not peel the wafer. Okay. So like hold the skin down and the wafer comes up.
+  Nurse -> Exactly. Slowly. Then clean around the stoma with plain water only, no soap with lotion, and pat it dry. Let it air dry for a minute before putting on a new wafer.
+  Caller -> Plain water. Pat dry. Air dry. Got it. I use the baby wipes. Is that bad?
+  Nurse -> Skip those for now. They can have oils that stop the wafer from sticking.
+  Caller -> Oh. Okay. That might be my problem. I've been using them for weeks.
+  Nurse -> That might be part of it. Plain water and a soft cloth is best.
+  Caller -> I'll go with that. Oh, and I'll stop peeling. I'm an idiot.
+  Nurse -> You're not an idiot. You were without the right supplies.
+  Caller -> Ha. True. Thanks.
+  Nurse -> Also, call us if the skin gets broken, bleeding, or really painful, if there's a bad smell, if the leaking won't stop, or if you have no output for a day with belly pain or vomiting. || E2
+  Caller -> Broken skin, bleeding, pain, smell, leaking, no output with pain or throwing up. Okay. That's a list. I'll remember the throwing up one.
+  Nurse -> Good. Any other questions?
+  Caller -> Not really. Oh. Can I still go swimming? My buddy invited me to a lake thing this weekend.
+  Nurse -> With the skin like that, I'd wait until the nurse looks at it on Friday. Then she can tell you if the wafer will hold up in the water.
+  Caller -> Yeah, that's what I figured. Bummer. Okay. I'll wait.
+  Nurse -> A lake in October. Brave.
+  Caller -> It's heated. It's a hot tub situation. Ha.
+  Nurse -> Ha. Even more reason to wait.
+  Caller -> Yeah, yeah. Okay. Thanks, Josephine. You made my day easier.
+  Nurse -> You're welcome, Dario. Go finish your lunch.
+  Caller -> Will do. Bye.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dario Whitfield, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1974-04-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Dario Whitfield, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550127", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported running low on colostomy supplies and sore skin around the stoma.
+    speaker: Caller
+    turns: [10]
+    quote: "I'm running low. On my stuff."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Three colostomy pouches were left.
+      speaker: Caller
+      turns: [12]
+      quote: "One, two, three. Three pouches."
+      explanation: Documents the pouch supply.
+      facts:
+        - {type: supply, item: colostomy pouches, supply: three left, certainty: stated}
+      covers: [A1]
+    - text: Five skin barrier wafers were left.
+      speaker: Caller
+      turns: [14]
+      quote: "Five wafers."
+      explanation: Documents the wafer supply.
+      facts:
+        - {type: supply, item: skin barrier wafers, supply: five left, certainty: stated}
+      covers: [A2]
+    - text: There were no adhesive remover wipes left since Sunday.
+      speaker: Caller
+      turns: [16]
+      quote: "None. Zero. I used the last one Sunday."
+      explanation: Documents the wipe supply.
+      facts:
+        - {type: supply, item: adhesive remover wipes, supply: none, certainty: stated}
+      covers: [A3]
+    - text: The skin around the stoma was red and sore with a burning feeling when the wafer came off.
+      speaker: Caller
+      turns: [29]
+      quote: "It's red. Kind of sore. Around the edge where the wafer sits."
+      explanation: Documents the skin irritation.
+      facts:
+        - {type: symptom, name: red sore skin around the stoma, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: There was no ongoing leaking and no blood.
+      speaker: Caller
+      turns: [45]
+      quote: "Normal. Same as always."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: leaking or blood in the output, certainty: stated}
+      covers: [A5]
+    - text: The supplier changed and the usual monthly box did not arrive.
+      speaker: Caller
+      turns: [23]
+      quote: "they changed suppliers."
+      explanation: Documents why the supplies ran low.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Placed an order with the supply company for pouches, wafers and wipes, marked urgent.
+      speaker: Nurse
+      turns: [54]
+      quote: "I just placed the order with the supply company for the pouches, wafers, and the wipes, marked urgent."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery tomorrow evening after five thirty.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'll ask them to deliver tomorrow evening, after five thirty"
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow evening, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit Friday after nine to check the skin and stoma.
+      speaker: Nurse
+      turns: [64]
+      quote: "After nine on Friday. I'll put that in."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised loosening the edge with warm water and a soft cloth, pushing the skin away from the wafer, cleaning with plain water and air drying, and skipping baby wipes and creams.
+      speaker: Nurse
+      turns: [68]
+      quote: "Then push the skin away from the wafer. Don't peel the wafer off the skin."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for broken or bleeding skin, bad smell, leaking that will not stop, or no output for a day with belly pain or vomiting.
+      speaker: Nurse
+      turns: [78]
+      quote: "call us if the skin gets broken, bleeding, or really painful"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

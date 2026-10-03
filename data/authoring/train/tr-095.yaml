@@ -1,0 +1,206 @@
+call_id: tr-095
+split: train
+blueprint: "Mother of a 3-year-old on amoxicillin 400 mg/5 mL (6 mL twice a day) says he spat out most of tonight's dose right away. Nurse says not to repeat it yet, will ask the pharmacist and call back in 20 minutes; gives syringe technique. Pediatric liquid concentration, split turns."
+setup:
+  scenario_category: medication
+  subtype: dose_spit_out
+  secondary_tags: [liquid_concentration, split_turns, late_answers, phone_from_file]
+  clinical_domains: [medication, fever]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-25T00:48:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Owen Tomlinson
+  patient_name_spoken: Owen Tomlinson
+  patient_name_certainty: stated
+  patient_dob_true: "2023-04-10"
+  patient_dob_spoken: "2023-04-10"
+  patient_dob_certainty: stated
+  caller_name_true: Rachel Tomlinson
+  caller_name_spoken: Rachel Tomlinson
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "3175550159"
+  callback_phone_spoken: "3175550159"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked what to do after her son spat out most of his antibiotic dose
+  reason_category: medication_question
+  relevant_context: Being treated for an ear infection
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    medication_status: taking
+    strength: 400 mg per 5 mL
+    dose: "6"
+    unit: mL
+    frequency: twice a day
+    last_dose: tonight, most of it spat out right away
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Day 3 of antibiotics for an ear infection
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not repeat the dose yet
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacist
+    reason_or_trigger: whether to redose
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 20 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give slowly with the syringe toward the inside of the cheek in small squirts, not the back of the throat
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi, Priya. It's Rachel Tomlinson. Owen's mom. Owen Tomlinson. || caller_name, relationship, patient_name
+  Nurse -> Hi, Rachel. His birthday?
+  Caller -> April tenth, twenty twenty three. || patient_dob
+  Nurse -> And three one seven, five five five, zero one five nine? || callback_phone
+  Caller -> Yeah. That's me. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> So he's on the amoxicillin. For his ear. And he just spit out the dose. Most of it. Right away. || cc, A1
+  Nurse -> Okay. What's the strength and how much do you give?
+  Caller -> It's four hundred per five. And he gets six milliliters. Twice a day. || A1
+  Nurse -> Okay. Right away, like right when you gave it?
+  Caller -> Yeah, like within a minute. He made a face and it all came out. On his shirt. || A1
+  Nurse -> Okay.
+  Caller -> Maybe a little went down. I don't know.
+  Nurse -> Mm-hm. Has he thrown up? Any vomiting tonight?
+  Caller -> No. No vomiting. He's fine. He's just, he hates it. || A3
+  Nurse -> Okay. How many days has he been on it?
+  Caller -> This is the third day. || A2
+  Nurse -> Okay.
+  Nurse -> Rachel, don't give another dose right now. We don't know how much he got. I'm going to ask the pharmacist what to do. || R1, R2
+  Caller -> Okay. Okay. Because I didn't want to double him.
+  Nurse -> Right. That's smart. I'll call you back in twenty minutes. || R3
+  Caller -> Twenty minutes. Okay.
+  Nurse -> When you do give it, go slow. Put the syringe against the inside of his cheek, not the back of his throat, and give a little squirt at a time. || E1
+  Caller -> Inside the cheek. Little squirts. Okay. I was doing it fast.
+  Nurse -> It's a common thing. Let him swallow between squirts.
+  Caller -> Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Owen Tomlinson, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2023-04-10", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Rachel Tomlinson, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "3175550159", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked what to do after her son spat out most of his antibiotic dose.
+    speaker: Caller
+    turns: [8]
+    quote: "he just spit out the dose. Most of it. Right away."
+    explanation: Documents the medication problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Amoxicillin 400 mg per 5 mL, 6 mL twice a day, was given tonight but most of it was spat out within a minute.
+      speaker: Caller
+      turns: [12]
+      quote: "within a minute. He made a face and it all came out. On his shirt."
+      explanation: Documents the lost dose.
+      facts:
+        - {type: medication, name: amoxicillin, strength: 400 mg per 5 mL, dose: "6", unit: mL, frequency: twice a day, last_dose: tonight, most of it spat out right away, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: This was day 3 of antibiotics for an ear infection.
+      speaker: Caller
+      turns: [18]
+      quote: "This is the third day."
+      explanation: Documents the treatment day.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No. No vomiting. He's fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised not repeating the dose yet and planned to ask the pharmacist what to do.
+      speaker: Nurse
+      turns: [20]
+      quote: "don't give another dose right now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the pharmacist whether to redose.
+      speaker: Nurse
+      turns: [20]
+      quote: "I'm going to ask the pharmacist what to do."
+      explanation: Documents the planned pharmacist contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 20 minutes.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 20 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving the dose slowly with the syringe against the inside of his cheek in small squirts rather than at the back of the throat.
+      speaker: Nurse
+      turns: [24]
+      quote: "Put the syringe against the inside of his cheek, not the back of his throat, and give a little squirt at a time."
+      explanation: Documents administration technique.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

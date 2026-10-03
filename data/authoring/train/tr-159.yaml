@@ -1,0 +1,382 @@
+call_id: tr-159
+split: train
+blueprint: "Wife reports her husband has had three black tarry stools since last night, vomited dark coffee-ground material once this morning, nearly fainted in the hall, looks pale and clammy, dull upper belly pain 4/10. He has taken ibuprofen 400 mg three times a day for a week for arthritis plus daily aspirin 81 mg, and had an ulcer years ago. BP 98/60, pulse 112. He insists he is fine and does not want the hospital. Nurse triages with many questions, then tells her to call 911 now, have him lie down with legs raised, take nothing by mouth, and unlock the door. Flags: other_urgent and escalation_request. Long."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [multi_issue, hedging, contradiction, crosstalk, late_answers, split_turns]
+  clinical_domains: [bleeding, medication, dizziness]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-10-03T12:30:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Millard Pickett
+  patient_name_spoken: Millard Pickett
+  patient_name_certainty: stated
+  patient_dob_true: "1942-08-13"
+  patient_dob_spoken: "1942-08-13"
+  patient_dob_certainty: stated
+  caller_name_true: Doreen Pickett
+  caller_name_spoken: Doreen Pickett
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2705550152"
+  callback_phone_spoken: "2705550152"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband has black stools and vomited dark material
+  reason_category: bleeding
+  relevant_context: Home health patient with arthritis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: black tarry stools
+    symptom_present: true
+    onset_or_duration: three since last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting dark coffee-ground material
+    symptom_present: true
+    onset_or_duration: once this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: lightheaded and nearly fainted
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: pale and clammy
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: dull upper belly pain
+    symptom_present: true
+    severity: 4/10
+    body_location: upper belly
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: ibuprofen
+    medication_name_spoken: ibuprofen
+    medication_status: taking
+    dose: "400"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A7
+    item_type: medication
+    reporter: caller
+    medication_name_true: aspirin
+    medication_name_spoken: aspirin
+    medication_status: taking
+    dose: "81"
+    unit: mg
+    frequency: every day
+    certainty: stated
+  - item_id: A8
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 98/60
+    certainty: stated
+  - item_id: A9
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "112"
+    certainty: stated
+  - item_id: A10
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A11
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Had a stomach ulcer years ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: black stools and coffee-ground vomit with low blood pressure and fast pulse
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: possible stomach bleeding
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, have him lie flat with his legs raised, give nothing to eat or drink and no more pills, and unlock the front door
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: He should not stand or walk on his own, and she should have his medicine bottles ready for the paramedics
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Caller reports black tarry stools and vomiting of dark coffee-ground material
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Rhonda, it's Doreen Pickett. My husband is Millard Pickett. He's sick. His stool is black. Black like tar. I don't know what to do. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Doreen, I'm here. Tell me his date of birth first.
+  Caller -> August thirteenth. Nineteen forty two. || patient_dob
+  Nurse -> And two seven oh, five five five, zero one five two, is that the best number? || callback_phone
+  Caller -> Yes. The kitchen phone. I'm walking to the other room so he can't hear me. || callback_phone
+  Nurse -> Okay. Is Millard awake right now, can he talk to you?
+  Caller -> Yes. He's awake. He's grumpy. He keeps telling me not to call anyone. He says he's seen worse. He hasn't seen worse.
+  Nurse -> Okay. Tell me about the black stools. How many, and when?
+  Caller -> Three. Since last night. The first one was about nine o'clock, then one in the middle of the night, and one this morning. All black. Sticky. It smells awful, a smell I've never smelled before. || A1
+  Nurse -> I'm sorry, that must be frightening to see. Was there any bright red blood, or only black?
+  Caller -> Only black. No red. I looked in the toilet every time. I'm the one who flushes, I didn't want him to see it. I should have called last night, I thought it was something he ate. He had the blueberry pie.
+  Nurse -> Blueberries can darken stool, but it wouldn't look like tar. I'm glad you're calling now.
+  Nurse -> Okay. Has he vomited?
+  Caller -> Once. This morning. And it was dark. Brownish black, like coffee grounds. I thought it was coffee at first. But he hadn't had any coffee yet. || A2, F1
+  Nurse -> Okay. Is he dizzy or lightheaded?
+  Caller -> Yes. Yes, he is. He got up to go to the bathroom and halfway down the hall he grabbed the wall. His knees went. I caught him. He didn't pass out but he almost did. || A3
+  Nurse -> Okay. What color is his skin?
+  Caller -> Pale. Really pale. Like paper. And he's sweaty. His forehead is cold and wet. || A4
+  Nurse -> Okay. Where is he right now? Sitting, lying down?
+  Caller -> He's on the edge of the bed. He won't lie down, he says it makes him feel worse. He's got his hand on his stomach.
+  Nurse -> Okay. Stay with me, Doreen. I need a few more answers.
+  Nurse -> Okay. Does he have pain anywhere?
+  Caller -> His belly. The top part, under the ribs. He says it's dull. Like a four. He keeps rubbing it. || A5
+  Nurse -> Okay. Any chest pain?
+  Caller -> No. He says no chest pain. Millard, any chest pain? No. He says no. || A10
+  Nurse -> Okay. Doreen, is he taking any medicines for pain, for his arthritis?
+  Caller -> Yes. The ibuprofen. Four hundred milligrams. Three times a day. He's been taking it for a week. His knees were bad. The doctor told him to only take it twice a day, but he takes three. He took one this morning. || A6
+  Nurse -> Okay. Anything else? Aspirin? || A7
+  Caller -> The baby aspirin. Eighty one. Every day. For his heart. || A7
+  Nurse -> Okay. Has he ever had stomach problems, an ulcer?
+  Caller -> Yes. A long time ago. Fifteen years ago. He had an ulcer. They told him to stay off the ibuprofen then, and he forgot. || A11
+  Nurse -> Okay. Has he had any alcohol this week?
+  Caller -> A beer on Sunday. One. He's not a drinker. Not since the ulcer.
+  Nurse -> Okay. And has he been able to pass urine today?
+  Caller -> Yes. A little. This morning. It was dark yellow.
+  Nurse -> Okay. Doreen, do you have a blood pressure machine?
+  Caller -> Yes. I'll get it. Hold on. It's in the bedroom. Millard, give me your arm. I know. I know you're fine. Hold still. Okay. It says ninety eight over sixty. || A8
+  Nurse -> Okay. And does it show a pulse?
+  Caller -> Yes. One twelve. One hundred and twelve. || A9
+  Nurse -> Okay. Thank you. Is he alert? Is he talking normally?
+  Caller -> Yes. He's talking. He's saying he's fine. He's saying I'm making a big fuss. He says he just needs to lie down. He says he doesn't want to go to the hospital.
+  Nurse -> Okay. Doreen, I need you to listen. I'm very concerned. Black stools and vomiting dark material, along with a low blood pressure and a fast pulse, mean he may be bleeding in his stomach. I want you to call nine one one right now. || R1, F2
+  Caller -> Nine one one? An ambulance? He's going to be angry. He hates the hospital. He was in for a week with the ulcer and he swore he'd never go back. He signed himself out early. My son will be furious with me if I don't, and Millard will be furious if I do.
+  Nurse -> I know. And I understand. But this can be life threatening, and he needs to be seen now. Please call. I'll stay on until you do.
+  Caller -> Okay. Okay. Hold on. Millard, I'm calling the ambulance. No, don't argue with me. I'm calling. Okay. I'll call from my cell. Can you hold on?
+  Nurse -> I'm here. While you do that, have him lie flat with his legs up on a pillow. Don't let him stand or walk by himself. || E1, E2
+  Caller -> Lie flat. Legs up. Okay. Millard, lie down. Lie down. Right now. I got a pillow. Okay.
+  Nurse -> Good. Doreen, don't give him anything to eat or drink, and no more pills, not the ibuprofen, not the aspirin. || E1, A6, A7
+  Caller -> Nothing to eat or drink. No pills. Okay.
+  Nurse -> And unlock the front door so the paramedics can walk right in. And get his medicine bottles together so you can hand them to the paramedics. || E1, E2
+  Caller -> Door. Bottles. Okay. I'm doing it. I put the bottles in a bag, the ibuprofen, the aspirin, the heart pills, the blood pressure ones. I'm dialing. It's ringing. || A6, A7
+  Nurse -> Take your time. I'm here.
+  Caller -> They answered. Hello? Yes, I need an ambulance. My husband is bleeding in his stomach, the nurse said. Millard Pickett. Forty one Larch Street. Yes. Yes.
+  Nurse -> You're doing great, Doreen.
+  Caller -> They said ten minutes. They said stay with him. Millard, they're coming. Don't move.
+  Nurse -> Stay right by him. Keep him flat. I'm going to call the emergency room to let them know he's on his way. || R2
+  Caller -> Oh, thank you. Thank you. Is he going to be okay?
+  Nurse -> I can't promise that, but getting him there now is the right thing. They can treat this.
+  Caller -> He's gray. He looks gray, Rhonda. Millard. Millard, stay with me. Talk to me. Tell me what day it is. He says Saturday. It is Saturday. He knows.
+  Nurse -> That's good. That means he's thinking clearly. Keep asking him simple questions and keep him talking.
+  Caller -> What's our dog's name? Biscuit. He said Biscuit. Okay. He's with me. He's rolling his eyes at me, he's still got attitude.
+  Nurse -> Ha. That's a good sign. Keep him flat and don't let him sit up when they come in.
+  Nurse -> Is he talking?
+  Caller -> He's saying my name. He's saying he feels cold. He's shaking a little. I'll put the blanket on him.
+  Nurse -> Yes. Cover him with a blanket. Keep talking to him. The paramedics will be there soon.
+  Caller -> Okay. Okay. I hear the siren. I hear it. They're on the street. I'll open the door.
+  Nurse -> Go ahead. Let them in. You did everything right.
+  Caller -> Thank you. Thank you, Rhonda. I'm so scared. I've never called an ambulance for him in forty four years. He never lets me.
+  Nurse -> You did the right thing. Tell the paramedics everything you told me, the black stools, the vomiting, the ibuprofen and the aspirin. And tell them about the ulcer. || A6, A7
+  Caller -> Black stools. Vomit. Ibuprofen. Aspirin. Ulcer. Okay. I have the bag of pills. I have my list. They're coming in. Hello. Back here. We're in the bedroom. Okay. I have to go. || A6, A7
+  Nurse -> Go. I'll call the ER now. Take care of him, Doreen.
+  Caller -> They're asking me questions. I'll call you from the hospital. Which hospital will they take him to, do you know?
+  Nurse -> They'll tell you. The closest emergency room. Just stay with him. You can call us any time from there.
+  Caller -> Okay. Okay. Thank you. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Millard Pickett, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-08-13", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Doreen Pickett, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2705550152", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband has black stools and vomited dark material.
+    speaker: Caller
+    turns: [2]
+    quote: "My husband is Millard Pickett. He's sick. His stool is black. Black like tar."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Three black tarry stools occurred since last night.
+      speaker: Caller
+      turns: [10]
+      quote: "Three. Since last night."
+      explanation: Documents the stools.
+      facts:
+        - {type: symptom, name: black tarry stools, present: true, duration: three since last night, certainty: stated}
+      covers: [A1]
+    - text: He vomited dark coffee-ground material once this morning.
+      speaker: Caller
+      turns: [15]
+      quote: "Once. This morning. And it was dark. Brownish black, like coffee grounds."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting dark coffee-ground material, present: true, duration: once this morning, certainty: stated}
+      covers: [A2]
+    - text: He was lightheaded and nearly fainted in the hall.
+      speaker: Caller
+      turns: [17]
+      quote: "halfway down the hall he grabbed the wall. His knees went. I caught him."
+      explanation: Documents the near-fainting.
+      facts:
+        - {type: symptom, name: lightheaded and nearly fainted, present: true, certainty: stated}
+      covers: [A3]
+    - text: He looked pale and clammy.
+      speaker: Caller
+      turns: [19]
+      quote: "Pale. Really pale. Like paper. And he's sweaty."
+      explanation: Documents the skin findings.
+      facts:
+        - {type: symptom, name: pale and clammy, present: true, certainty: stated}
+      covers: [A4]
+    - text: Dull upper belly pain was about 4/10.
+      speaker: Caller
+      turns: [24]
+      quote: "His belly. The top part, under the ribs. He says it's dull. Like a four."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: dull upper belly pain, present: true, severity: 4/10, location: upper belly, certainty: stated}
+      covers: [A5]
+    - text: Blood pressure was 98/60.
+      speaker: Caller
+      turns: [38]
+      quote: "It says ninety eight over sixty."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 98/60, certainty: stated}
+      covers: [A8]
+    - text: Pulse was 112.
+      speaker: Caller
+      turns: [40]
+      quote: "One hundred and twelve."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "112", certainty: stated}
+      covers: [A9]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [26]
+      quote: "He says no chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A10]
+    - text: Ibuprofen 400 mg three times a day had been taken for a week, including this morning.
+      speaker: Caller
+      turns: [28]
+      quote: "Four hundred milligrams. Three times a day. He's been taking it for a week."
+      explanation: Documents the anti-inflammatory use.
+      facts:
+        - {type: medication, name: ibuprofen, dose: "400", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A6]
+    - text: Aspirin 81 mg was taken every day.
+      speaker: Caller
+      turns: [30]
+      quote: "The baby aspirin. Eighty one. Every day."
+      explanation: Documents the aspirin use.
+      facts:
+        - {type: medication, name: aspirin, dose: "81", unit: mg, frequency: every day, med_status: taking, certainty: stated}
+      covers: [A7]
+    - text: He had a stomach ulcer fifteen years ago.
+      speaker: Caller
+      turns: [32]
+      quote: "Yes. A long time ago. Fifteen years ago. He had an ulcer."
+      explanation: Documents the history.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A11]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [43]
+      quote: "I want you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the emergency room to let them know he was on his way.
+      speaker: Nurse
+      turns: [57]
+      quote: "I'm going to call the emergency room to let them know he's on his way."
+      explanation: Documents the planned contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised having him lie flat with his legs raised, giving nothing to eat or drink and no more pills, and unlocking the front door.
+      speaker: Nurse
+      turns: [47]
+      quote: "have him lie flat with his legs up on a pillow."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised that he not stand or walk by himself and that she have his medicine bottles ready for the paramedics.
+      speaker: Nurse
+      turns: [47]
+      quote: "Don't let him stand or walk by himself."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [15], quote: "Once. This morning. And it was dark. Brownish black, like coffee grounds."}
+    - {category: escalation_request, turns: [43], quote: "I want you to call nine one one right now."}

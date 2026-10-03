@@ -1,0 +1,197 @@
+call_id: tr-217
+split: train
+blueprint: "Nephew staying with his aunt calls: only one full portable oxygen tank is left and the delivery was missed; her saturation is 92 on the concentrator. Nurse places the order (completed), plans delivery coordination for today by five, and gives oxygen safety reminders. Supply category; nephew is other_family."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [phone_from_file, hedging, split_turns]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-11T13:40:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lorraine Fabbri
+  patient_name_spoken: Lorraine Fabbri
+  patient_name_certainty: stated
+  patient_dob_true: "1947-04-14"
+  patient_dob_spoken: "1947-04-14"
+  patient_dob_certainty: stated
+  caller_name_true: Dominic Fabbri
+  caller_name_spoken: Dominic Fabbri
+  caller_name_certainty: stated
+  relationship_to_patient: nephew
+  relationship_certainty: stated
+  callback_phone_true: "7735550117"
+  callback_phone_spoken: "7735550117"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his aunt's portable oxygen tanks are almost gone and a delivery was missed
+  reason_category: supply_request
+  relevant_context: Home health patient on home oxygen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: portable oxygen tanks
+    supply_remaining: "1"
+    supply_unit: tank
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "92"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: increased shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: portable oxygen tanks
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oxygen supplier
+    timeframe: today by five
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the concentrator running at home, save the full tank for leaving the house, and keep flames and smoking away from oxygen
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call if the oxygen reading drops below 88 or she becomes more short of breath
+    trigger_condition: oxygen below 88; more short of breath
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hey, Tom. This is Dominic Fabbri. I'm staying with my aunt, Lorraine Fabbri. She's on oxygen, and we're about out of the portable tanks. The delivery never came. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Dominic. Thanks for calling. Can I get her date of birth?
+  Caller -> April fourteenth. Nineteen forty seven. || patient_dob
+  Nurse -> And a number for you. Is it seven seven three, five five five, zero one one seven? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. How many tanks do you have left?
+  Caller -> One. One full one. The rest are empty. I'm not sure if they're all empty. I've just got them lined up by the door. || A1
+  Nurse -> Okay. Is she using the concentrator right now, the machine in the house?
+  Caller -> Yes. It's running. It's making that noise. The tank is only for when we go out.
+  Nurse -> Good. Do you have a way to check her oxygen level?
+  Caller -> Yes, there's the little clip thing. It says ninety two right now. || A2
+  Nurse -> Okay. That's fine for her. Is she more short of breath than usual?
+  Caller -> No. She's good. She's doing her puzzle. She's the same as she's been. || A3
+  Nurse -> Okay. I've put the order in for portable tanks. It's done. || R1
+  Caller -> Oh, good. Because the guy last time said it would come Friday and it didn't.
+  Nurse -> I'm going to call the supplier and push for delivery today by five. || R2
+  Caller -> Today by five. I'll be here. I'll keep the porch light on.
+  Nurse -> Perfect. Until then, keep the concentrator running at home. Save the full tank for when you leave the house. And no flames, no smoking, no candles near the oxygen. || E1
+  Caller -> No candles. She does like her candles. I'll move them. Okay.
+  Nurse -> If her reading drops under eighty eight, or she's more short of breath, call us right away. || E2
+  Caller -> Under eighty eight. More short of breath. Okay. I wrote it on the fridge.
+  Nurse -> Anything else, Dominic?
+  Caller -> No. Just glad it's getting handled. Thanks, Tom.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lorraine Fabbri, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-04-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Dominic Fabbri, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: nephew, certainty: stated, turns: [2]}
+    callback_phone: {value: "7735550117", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his aunt's portable oxygen tanks were almost gone and a delivery was missed.
+    speaker: Caller
+    turns: [2]
+    quote: "we're about out of the portable tanks. The delivery never came."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: One full portable oxygen tank remained.
+      speaker: Caller
+      turns: [8]
+      quote: "One. One full one. The rest are empty."
+      explanation: Documents the tank supply.
+      facts:
+        - {type: supply, item: portable oxygen tanks, supply: 1 tank, certainty: stated}
+      covers: [A1]
+    - text: Oxygen saturation was 92.
+      speaker: Caller
+      turns: [12]
+      quote: "It says ninety two right now."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "92", certainty: stated}
+      covers: [A2]
+    - text: No increase in shortness of breath was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No. She's good. She's doing her puzzle."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: increased shortness of breath, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Placed the order for portable oxygen tanks.
+      speaker: Nurse
+      turns: [15]
+      quote: "I've put the order in for portable tanks. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the supplier to push for delivery today by five.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to call the supplier and push for delivery today by five."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: today by five, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping the concentrator running at home, saving the full tank for outings, and keeping flames and smoking away from the oxygen.
+      speaker: Nurse
+      turns: [19]
+      quote: "keep the concentrator running at home. Save the full tank for when you leave the house."
+      explanation: Documents oxygen safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if her oxygen reading dropped below 88 or she became more short of breath.
+      speaker: Nurse
+      turns: [21]
+      quote: "If her reading drops under eighty eight, or she's more short of breath, call us right away."
+      explanation: Documents the invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,445 @@
+call_id: tr-028
+split: train
+blueprint: "Long call: daughter says her father stopped lisinopril and metformin two weeks ago because he felt fine; sugar 240 this morning, BP 168/94 yesterday, more thirsty; nurse reads the chart (several meds not discussed), advises not to restart on his own, documents (completed), messages the PCP (planned), and calls back this afternoon. Flag: medication concern."
+setup:
+  scenario_category: medication
+  subtype: stopped_meds
+  secondary_tags: [chart_reading_distractor, tall_man_drug, multi_issue, offtopic_chatter, late_answers, split_turns]
+  clinical_domains: [medication, glucose, blood_pressure]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-08-06T19:15:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: [atorvastatin, aspirin]
+chief_complaint:
+  patient_name_true: Wendell Park
+  patient_name_spoken: Wendell Park
+  patient_name_certainty: stated
+  patient_dob_true: "1949-01-14"
+  patient_dob_spoken: "1949-01-14"
+  patient_dob_certainty: stated
+  caller_name_true: Esther
+  caller_name_spoken: Esther
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8135550152"
+  callback_phone_spoken: "8135550152"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Father stopped his blood pressure and diabetes medicines two weeks ago
+  reason_category: medication_stopped
+  relevant_context: Lives alone; daughter just found out during a visit
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: stopped
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    last_dose_time: about two weeks ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: stopped
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    last_dose_time: about two weeks ago
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: fasting blood sugar
+    vital_value: "240"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 168/94
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased thirst and urination
+    symptom_present: true
+    onset_or_duration: past week
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    history_or_context_text: No chest pain, no headache, no vision changes
+    certainty: stated
+  - item_id: A7
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: He stopped the pills on his own because he felt fine and does not like taking so many
+    certainty: stated
+  - item_id: A8
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: primary care doctor
+    reason_or_trigger: stopped lisinopril and metformin, high readings
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    recipient_or_target: chart note on stopped medications
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R5
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    recipient_or_target: primary care office
+    timeframe: this week
+    reason_or_trigger: get him in for a visit
+    certainty: stated
+  - item_id: R6
+    action_type: nurse_visit
+    action_status: planned
+    actor: visiting nurse
+    timeframe: Thursday
+    reason_or_trigger: medication check and set up the organizer
+    certainty: stated
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    reason_or_trigger: do not restart on his own until the doctor advises
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check sugar every morning and evening and blood pressure once a day and write them down
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for sugar over 300, vomiting, confusion, blood pressure over 180, or severe headache; 911 for chest pain or weakness on one side
+    trigger_condition: sugar over 300; vomiting; confusion; BP over 180; severe headache
+    certainty: stated
+  - item_id: E3
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink water, skip sweet drinks and juice, and keep meals regular
+    certainty: stated
+  - item_id: E4
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Never stop a prescribed medicine without talking to the doctor first
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller reports father stopped his blood pressure and diabetes medicines two weeks ago with high readings
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, Rhonda. This is Esther Park. I'm calling about my dad, Wendell. || caller_name, relationship, patient_name
+  Nurse -> Hi, Esther. Can you spell his last name?
+  Caller -> P A R K. Park. Like the park. || patient_name
+  Nurse -> And his date of birth?
+  Caller -> January fourteenth, nineteen forty nine. || patient_dob
+  Nurse -> Okay. And your phone number, Esther?
+  Caller -> Eight one three, five five five, zero one five two. || callback_phone
+  Nurse -> Okay, eight one three, five five five, zero one five two. || callback_phone
+  Caller -> Yes. That's me.
+  Nurse -> Thank you. And you said you drove in to see him? From where?
+  Caller -> From Orlando. It's about three hours on a good day. I try to come every other weekend, but work has been crazy.
+  Nurse -> It's great that you make the trip. A lot of folks can't.
+  Caller -> I feel guilty that I'm not closer. That's partly why this bothers me.
+  Nurse -> You caught it, that's what matters. What's going on with your dad?
+  Caller -> So, I came to visit him this weekend. I live about three hours away. And I found out something that's really bothering me. || cc
+  Caller -> He stopped taking his lisinopril and his metformin. His blood pressure pill and his diabetes pill. About two weeks ago. || cc, A1, A2, F1
+  Nurse -> Okay. Two weeks. Did he tell you why?
+  Caller -> He said he felt fine. And that he's tired of taking so many pills. He takes like eight a day. He said, why do I need all this, I feel great. || A7
+  Caller -> He lives alone, so nobody was checking.
+  Nurse -> Okay. That's very common, Esther, and I'm glad you caught it. Let me pull up his chart so I can see what he's supposed to be taking.
+  Caller -> Sure. Thank you.
+  Nurse -> Okay. So I'm seeing lisinopril, twenty milligrams, once a day. Metformin, five hundred milligrams, twice a day. Is that what he stopped? || A1, A2
+  Caller -> Yes. Yes. Those two. The twenty and the five hundred.
+  Nurse -> Okay. And I also see amlodipine, five milligrams, once a day. Atorvastatin. And a baby aspirin. || A8
+  Caller -> He's still taking the amlodipine. I counted the pills. That one is going down. The other ones are just sitting there. || A8
+  Nurse -> Okay. Good. And the atorvastatin and the aspirin?
+  Caller -> I think so. They're in the little organizer. I didn't check those, I was focused on the other two.
+  Nurse -> That's fine. Okay. Do you have any numbers? A blood sugar, or a blood pressure?
+  Caller -> I do. Well, he has a meter. I checked it this morning, before breakfast. It was two forty. || A3
+  Nurse -> Okay. Two forty, fasting. And a blood pressure?
+  Caller -> We went to the pharmacy yesterday and used the machine. It was one sixty eight over ninety four. || A4
+  Nurse -> Okay. One sixty eight over ninety four. Those are both higher than I'd like.
+  Caller -> I figured. That's why I'm calling.
+  Nurse -> Is he having any symptoms? Headache, chest pain, vision changes?
+  Caller -> No. No headache, no chest pain. His vision's fine. || A6
+  Nurse -> Okay. Any extra thirst, or going to the bathroom a lot?
+  Caller -> Yeah. That I noticed. He's been drinking a lot of water. And he's up in the night to go. He said it's been about a week. || A5
+  Nurse -> Okay. That fits with the higher sugar. Okay.
+  Caller -> Dad, I'm on the phone with the nurse. Hang on. He's asking me what I'm telling you. He's not happy.
+  Nurse -> Ha. That's okay. Is he nearby?
+  Caller -> He's in the garden. He's been out there since breakfast. He grows tomatoes. He's got like forty plants.
+  Nurse -> Forty tomato plants! That's a lot.
+  Caller -> Right? He gives them away to the whole neighborhood. It's his thing. He says it keeps him alive.
+  Nurse -> It sounds like he's very active. That's a good thing.
+  Caller -> He is. He's stubborn, but he's active. He walks the dog every morning.
+  Nurse -> That's wonderful. Okay. Esther, here's what I'm going to do. First, I'm going to document all of this in his chart, right now. I've started a note. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> Second, I'm going to send a message to his primary care doctor today, about the stopped medications, and those numbers. They'll decide how to restart things safely. || R1
+  Caller -> Okay. Should he just start taking them again?
+  Nurse -> Not on his own. I'd rather he not restart the lisinopril and metformin until the doctor tells us how. Sometimes restarting at the full dose after a break isn't the right move. || R4
+  Caller -> Okay. So just wait.
+  Nurse -> Just wait for the doctor's guidance. It shouldn't be long. I'll call you back this afternoon. || R3
+  Caller -> This afternoon. Okay. I'll be here until five. Then I have to drive home.
+  Nurse -> That works. I'll call before then.
+  Caller -> Okay. Thank you.
+  Nurse -> In the meantime, have him check his sugar every morning and evening, and his blood pressure once a day, and write the numbers down. || E1
+  Caller -> I'll set it up for him. He has a little notebook. I'll put it next to the meter.
+  Nurse -> Perfect. And encourage water, no sweet drinks and no juice, and regular meals. || E3
+  Caller -> He drinks sweet tea. All day. I'll swap it out.
+  Nurse -> Ha. Good luck with that.
+  Caller -> I know. That's going to be a fight.
+  Caller -> Should I take him to the doctor, like tomorrow? Or is that overkill?
+  Nurse -> Not overkill at all. I'll ask the doctor's office to get him in this week, since his numbers are up and the medicines have been off for two weeks. I'll put that in my message. || R5
+  Caller -> Oh good. Because he won't go on his own.
+  Nurse -> If the office calls him, they'll probably call you too, if I note you as the contact. Is that okay?
+  Caller -> Yes. Please. Put me down.
+  Nurse -> Done. I'll note it.
+  Caller -> Thank you. And, can I ask, is there anyone who could check on him more often? Like a nurse, or an aide?
+  Nurse -> We do have a nurse who visits him. She's due this Thursday. I can ask her to do a medication check and set up the organizer with him, so it's easier for him. || R6
+  Caller -> That would be a huge help. He listens to her more than he listens to me.
+  Nurse -> Ha. That happens. I'll make sure she knows.
+  Caller -> And the neighbor, Mrs. Alvarez, she checks on him in the afternoons. I'll let her know to watch out for things.
+  Nurse -> That's great. A neighbor who checks in is gold.
+  Nurse -> Call us if his sugar goes over three hundred, or he's throwing up, or he's confused, or the blood pressure is over one eighty, or he gets a bad headache. || E2
+  Caller -> Over three hundred. Over one eighty. Okay.
+  Nurse -> And if he has chest pain, or weakness on one side, or trouble talking, that's nine one one. || E2
+  Caller -> Nine one one. Okay.
+  Nurse -> I'd also like to talk to him, if he's willing. Just a quick word. Is that okay?
+  Caller -> Let me see. He's coming in. Dad, the nurse wants to talk. Dad. Okay. Hold on.
+  Nurse -> Take your time.
+  Caller -> He says he doesn't want to talk. He says he's fine.
+  Nurse -> That's alright. Please tell him that I said it's his choice, but that it's important to take the medicines the doctor ordered, and never stop them without talking to us first. || E4
+  Caller -> I'll tell him. He'll listen to me, eventually.
+  Nurse -> I'm sure he will. He raised you. Ha.
+  Caller -> Ha. That's what I tell him.
+  Nurse -> Anything else I can help with, Esther?
+  Caller -> No, that's it. Thank you so much, Rhonda. I really appreciate you taking this seriously.
+  Nurse -> Of course. It's what we're here for. I'll call you this afternoon.
+  Caller -> He'll probably try to give your nurse a bag of tomatoes on Thursday. He does that to everyone.
+  Nurse -> Ha. We're not allowed to accept gifts, but I'll let her know it's coming.
+  Caller -> He'll insist. You'll see.
+  Nurse -> I believe it. Take care, Esther.
+  Caller -> Thank you. Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "And I found out something that's really bothering me", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wendell Park, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1949-01-14", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Esther, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8135550152", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father stopped taking his lisinopril and metformin about two weeks ago.
+    speaker: Caller
+    turns: [17]
+    quote: "He stopped taking his lisinopril and his metformin. His blood pressure pill and his diabetes pill. About two weeks ago."
+    explanation: Documents the medication concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lisinopril 20 mg once a day had been stopped about two weeks ago.
+      speaker: Caller
+      turns: [24]
+      quote: "Yes. Yes. Those two. The twenty and the five hundred."
+      explanation: Documents the stopped blood pressure medication.
+      facts:
+        - {type: medication, name: lisinopril, dose: "20", unit: mg, frequency: once a day, last_dose: about two weeks ago, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: Metformin 500 mg twice a day had been stopped about two weeks ago.
+      speaker: Caller
+      turns: [24]
+      quote: "Yes. Yes. Those two. The twenty and the five hundred."
+      explanation: Documents the stopped diabetes medication.
+      facts:
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, last_dose: about two weeks ago, med_status: stopped, certainty: stated}
+      covers: [A2]
+    - text: He was still taking amlodipine 5 mg once a day, based on the caller's pill count.
+      speaker: Caller
+      turns: [26]
+      quote: "He's still taking the amlodipine. I counted the pills. That one is going down."
+      explanation: Documents the medication he continued.
+      facts:
+        - {type: medication, name: amlodipine, dose: "5", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A8]
+    - text: He had stopped the pills on his own because he felt fine and was tired of taking so many.
+      speaker: Caller
+      turns: [19]
+      quote: "He said he felt fine. And that he's tired of taking so many pills."
+      explanation: Documents the reported reason for stopping.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: Fasting blood sugar this morning was 240.
+      speaker: Caller
+      turns: [30]
+      quote: "I checked it this morning, before breakfast. It was two forty."
+      explanation: Documents the reported glucose.
+      facts:
+        - {type: vital, name: fasting blood sugar, value: "240", certainty: stated}
+      covers: [A3]
+    - text: Blood pressure at the pharmacy yesterday was 168/94.
+      speaker: Caller
+      turns: [32]
+      quote: "We went to the pharmacy yesterday and used the machine. It was one sixty eight over ninety four."
+      explanation: Documents the reported blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 168/94, certainty: stated}
+      covers: [A4]
+    - text: Increased thirst and nighttime urination had been present for about a week.
+      speaker: Caller
+      turns: [38]
+      quote: "He's been drinking a lot of water. And he's up in the night to go."
+      explanation: Documents symptoms associated with elevated glucose.
+      facts:
+        - {type: symptom, name: increased thirst and urination, present: true, onset: past week, certainty: stated}
+      covers: [A5]
+    - text: No headache, chest pain, or vision changes were reported.
+      speaker: Caller
+      turns: [36]
+      quote: "No. No headache, no chest pain. His vision's fine."
+      explanation: Documents pertinent negative symptoms.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Documented the stopped medications in the chart during the call.
+      speaker: Nurse
+      turns: [47]
+      quote: "First, I'm going to document all of this in his chart, right now. I've started a note."
+      explanation: Documents the chart note.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+      covers: [R2]
+    - text: Planned to message his primary care doctor today about the stopped medications and the readings.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'm going to send a message to his primary care doctor today, about the stopped medications, and those numbers."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised not restarting lisinopril and metformin on his own until the doctor gave guidance.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'd rather he not restart the lisinopril and metformin until the doctor tells us how."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: lisinopril, certainty: stated}
+      covers: [R4]
+    - text: Planned to ask the primary care office to see him this week and to list the daughter as a contact.
+      speaker: Nurse
+      turns: [64]
+      quote: "I'll ask the doctor's office to get him in this week, since his numbers are up and the medicines have been off for two weeks."
+      explanation: Documents the planned appointment request.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, timeframe: this week, certainty: stated}
+      covers: [R5]
+    - text: Planned a Thursday nurse visit for a medication check and to set up his pill organizer.
+      speaker: Nurse
+      turns: [70]
+      quote: "I can ask her to do a medication check and set up the organizer with him, so it's easier for him."
+      explanation: Documents the planned in-home medication support.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R6]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'll call you back this afternoon."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking sugar every morning and evening and blood pressure once a day and recording the values.
+      speaker: Nurse
+      turns: [57]
+      quote: "have him check his sugar every morning and evening, and his blood pressure once a day, and write the numbers down."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for sugar over 300, vomiting, confusion, blood pressure over 180, or a severe headache, and calling 911 for chest pain, one-sided weakness, or trouble speaking.
+      speaker: Nurse
+      turns: [75]
+      quote: "Call us if his sugar goes over three hundred, or he's throwing up, or he's confused, or the blood pressure is over one eighty, or he gets a bad headache."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised drinking water, avoiding sweet drinks and juice, and eating regular meals.
+      speaker: Nurse
+      turns: [59]
+      quote: "encourage water, no sweet drinks and no juice, and regular meals."
+      explanation: Documents nutrition and hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E3]
+    - text: Advised never stopping a prescribed medication without talking to the doctor first.
+      speaker: Nurse
+      turns: [83]
+      quote: "it's important to take the medicines the doctor ordered, and never stop them without talking to us first."
+      explanation: Documents medication adherence education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: medication_concern, turns: [17], quote: "He stopped taking his lisinopril and his metformin."}

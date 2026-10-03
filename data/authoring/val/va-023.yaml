@@ -1,0 +1,408 @@
+call_id: va-023
+split: val
+blueprint: "Long call: daughter finds two compartments of her mother's pillbox empty and thinks she may have taken two days of pills at once; mother is confused and sleepy with BP 98/58 and pulse 54; nurse pages the on-call physician (completed), contacts poison control (planned), plans a nurse visit within 2 hours and a callback in 10 minutes, and advises no more pills today. Flag: medication concern. Chart reading, chatter, interruptions."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [hedging, chart_reading_distractor, multi_issue, split_turns, offtopic_chatter, late_answers, tall_man_drug]
+  clinical_domains: [medication, confusion, blood_pressure]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-09-22T15:05:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: [atorvastatin, famotidine]
+chief_complaint:
+  patient_name_true: Rosalie Fontaine
+  patient_name_spoken: Rosalie Fontaine
+  patient_name_certainty: stated
+  patient_dob_true: "1939-04-07"
+  patient_dob_spoken: "1939-04-07"
+  patient_dob_certainty: stated
+  caller_name_true: Celeste
+  caller_name_spoken: Celeste
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3375550193"
+  callback_phone_spoken: "3375550193"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Mother may have taken two days of pills at once and is confused
+  reason_category: medication_error
+  relevant_context: Mother manages her own weekly pillbox
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: The Tuesday and Wednesday compartments of the pillbox were both empty this morning; the caller thinks her mother took both days' pills around 8
+    certainty: unclear
+    unclear_detail: Caller did not see her take them and is not certain
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: extra_dose
+    strength: 25 mg
+    frequency: once a day
+    certainty: unclear
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: extra_dose
+    strength: 20 mg
+    frequency: once a day
+    certainty: unclear
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: extra_dose
+    strength: 5 mg
+    frequency: once a day
+    certainty: unclear
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: confusion and sleepiness
+    symptom_present: true
+    severity: asking the same questions and drifting off
+    onset_or_duration: since about 10 this morning
+    certainty: stated
+  - item_id: A6
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 98/58
+    certainty: stated
+  - item_id: A7
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "54"
+    certainty: stated
+  - item_id: A8
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call physician
+    reason_or_trigger: possible double dose of blood pressure medicines
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: poison control
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within 2 hours
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 10 minutes
+    certainty: stated
+  - item_id: R5
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    reason_or_trigger: no more pills today until the physician advises
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have her lie down or sit, stand slowly, and do not leave her alone
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check pulse and blood pressure every 15 minutes and write them down
+    timing_or_threshold: every 15 minutes
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for fainting, chest pain, trouble breathing, a pulse under 50, or if she cannot be woken
+    trigger_condition: fainting; chest pain; trouble breathing; pulse under 50; cannot be woken
+    certainty: stated
+  - item_id: E4
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Switch to a pillbox that has all pills for one day in a single compartment and keep a log
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller reports mother may have taken two days of blood pressure pills at once and is confused
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Northstar Home Health, this is Priscilla.
+  Caller -> Priscilla, thank God. It's Celeste Fontaine. It's about my mother, Rosalie. || caller_name, relationship, patient_name
+  Nurse -> Hi, Celeste. Rosalie's date of birth?
+  Caller -> April seventh, nineteen thirty nine. || patient_dob
+  Nurse -> And your number is three three seven, five five five, zero one nine three? || callback_phone
+  Caller -> Yes. Yes. That's right. || callback_phone
+  Nurse -> What's going on?
+  Caller -> I think my mom took two days of pills at once. Her pillbox. The Tuesday and the Wednesday compartments are both empty, and it's only Tuesday. || cc, A1, F1
+  Nurse -> Okay. Take a breath. Tell me what you know.
+  Caller -> I came by at noon, and I looked at her pillbox because I always check it. And Tuesday is empty. Which is right, because it's Tuesday. But Wednesday is empty too. || A1
+  Nurse -> Okay. And did you see her take them?
+  Caller -> No. No, I wasn't here. I think she took them around eight this morning. She says she took her morning pills. But she doesn't remember taking two days. I'm not sure. || A1
+  Nurse -> Okay. So you're not certain. But it's possible.
+  Caller -> Yes. And she's acting funny. She's confused. She keeps asking me the same questions, and she keeps drifting off. It started about ten this morning, according to her neighbor. || A5
+  Nurse -> Okay. Is she awake now?
+  Caller -> She's awake. She's sitting at the table. But she's slow. She's not herself.
+  Nurse -> Okay. Has she fainted or almost fainted?
+  Caller -> No. No fainting. No chest pain. She says she feels woozy. || A8
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> I do. Hang on. I'm putting it on her. Mom, hold still. Okay. It says ninety eight over fifty eight. || A6
+  Nurse -> Okay. Ninety eight over fifty eight. And the pulse?
+  Caller -> Fifty four. || A7
+  Nurse -> Okay. Those are both on the low side. Celeste, what is usually in the pillbox? Do you have the medication list?
+  Caller -> Yes. I have the pharmacy printout right here. There are three that are in there for the morning. Metoprolol, twenty five milligrams. Furosemide, twenty milligrams. And amlodipine, five milligrams. Each once a day. || A2, A3, A4
+  Nurse -> Okay. Let me check my chart. I'm seeing metoprolol, furosemide, amlodipine. Also atorvastatin and famotidine at night. || A2, A3, A4
+  Caller -> Yes. The night ones are in a different box. Those weren't touched.
+  Nurse -> Okay. That's a relief. Celeste, the three morning ones all lower blood pressure or pulse, and doubling them could make her too low. That's what I'm worried about. || A2, A3, A4
+  Caller -> I figured. That's why I called.
+  Nurse -> You did exactly the right thing. I'm going to page our on-call doctor right now. Hold on. Okay, I've sent it. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And I'm going to call poison control, to get their guidance on the combination. || R2
+  Caller -> Oh. Okay. Is it that serious?
+  Nurse -> I want to be careful. It's a precaution. Poison control gives very specific guidance for this, and I'd like to make sure we do exactly what they recommend.
+  Caller -> Okay. That makes sense.
+  Nurse -> Celeste, is this the first time something like this has happened with her pills?
+  Caller -> No, actually. Last month I found her pillbox on the wrong day. She'd been skipping around. I thought it was a one time thing. I should have said something.
+  Nurse -> It's helpful to know. I'll note it for the nurse who's coming.
+  Caller -> And she's been more forgetful lately. Her neighbor, Mr. Delacroix, mentioned it. He sees her every morning, they have coffee on the porch.
+  Nurse -> Is Mr. Delacroix there now?
+  Caller -> No, but he's the one who called me this morning. He said she was acting odd, and he thought I should come. That's why I came at noon.
+  Nurse -> He sounds like a good neighbor. Please thank him for me.
+  Caller -> I will. He's eighty five himself, and sharp as a tack. He's worried about her.
+  Nurse -> I'm glad she has people watching out for her.
+  Caller -> She does. Oh, she's looking at me. Mom, I'm fine. I'm talking to the nurse. Yes. She's asking who I'm talking to.
+  Nurse -> That's okay. Tell her it's the nurse from the home health agency, and that she's doing fine.
+  Caller -> I told her. She said, thank you, dear. She's polite even when she's confused.
+  Nurse -> Ha. That's lovely.
+  Nurse -> I'm also sending a nurse to your mother's house, within two hours. || R3
+  Caller -> Oh good. Thank you.
+  Nurse -> And I'll call you back in ten minutes, with what the doctor and poison control say. || R4
+  Caller -> Ten minutes. Okay.
+  Nurse -> Until then, please don't give her any more pills today. Not the night ones either. No metoprolol, no furosemide, no amlodipine, nothing, until we call you back. || R5
+  Caller -> Okay. No more pills. Got it.
+  Nurse -> Have her lie down, or at least sit in a good chair. If she needs to stand, she should go slowly, and not walk alone. And please stay with her. || E1
+  Caller -> I'm not leaving. I'll stay right here.
+  Nurse -> Check her pulse and blood pressure every fifteen minutes, and write the numbers and the time. || E2
+  Caller -> I'll write them on the back of the printout.
+  Nurse -> If she faints, or has chest pain, or any trouble breathing, or her pulse goes under fifty, or you can't wake her, call nine one one right away. Don't wait for me. || E3
+  Caller -> Nine one one. Okay. Under fifty. Okay.
+  Nurse -> Celeste, how are you doing?
+  Caller -> I'm shaking. This is my fault. I should have put her pills out myself. She insisted on doing it.
+  Nurse -> This isn't your fault. Many people want to keep their independence, and that's understandable. But we can make it safer going forward.
+  Caller -> How?
+  Nurse -> A pillbox that has all the pills for one day in one compartment, and a log she checks off. And maybe you or the nurse can fill it with her once a week.
+  Caller -> That makes sense. I'll do that. I'll fill it every Sunday. || E4
+  Nurse -> Perfect. That's a good plan.
+  Caller -> She's going to be so embarrassed. She's very proud.
+  Nurse -> It can happen to anyone. We'll make sure she knows that.
+  Caller -> Thank you. She worked as a bookkeeper for forty years. She was always the one catching other people's mistakes.
+  Nurse -> Ha. I bet she was. Well, this time she gets a pass.
+  Caller -> She'd never forgive herself, if she remembered. Oh, Mom, don't try to stand up. Stay there. I'm on the phone with the nurse. Okay.
+  Nurse -> Is she trying to get up?
+  Caller -> She wanted the bathroom. I'm helping her. We'll go slowly. Hold on.
+  Nurse -> Take your time. Be careful. Hold her arm.
+  Caller -> Okay. I'm back. She's okay. She's lying down on the couch now. She said she feels a little better.
+  Nurse -> Good. Keep her lying down. Keep checking her numbers. I'll call you in ten minutes.
+  Caller -> Okay. Thank you, Priscilla. You've been a lifesaver.
+  Caller -> Priscilla, before you go. When the nurse comes, should I have anything ready? Like the bottles?
+  Nurse -> Yes. Please gather all of her medicine bottles, the pillbox, and the pharmacy printout, and put them on the table. The nurse will go through everything.
+  Caller -> I'll do that now. I'll put the pillbox right next to the printout, with the empty compartments facing up.
+  Nurse -> Perfect. Don't throw anything away, not even empty bottles.
+  Caller -> Okay. I'll leave it all exactly as it is.
+  Nurse -> Thank you. That's very helpful.
+  Caller -> Is there anything else I should be doing?
+  Nurse -> Just what we talked about. Keep her lying down, keep her warm, give her sips of water if she's thirsty, and keep checking those numbers.
+  Caller -> Sips of water. Okay. She's asking for tea. Is that okay?
+  Nurse -> A small cup of warm decaf tea is fine, if she's awake enough to swallow safely. Sit her up a little first.
+  Caller -> Okay. I'll make it in a minute, after I finish with you.
+  Nurse -> Go ahead and do that now. I'll call you in ten minutes.
+  Caller -> Thank you. Talk soon.
+  Nurse -> Talk soon, Celeste.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "But Wednesday is empty too", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosalie Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-04-07", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Celeste, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3375550193", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother may have taken two days of pills at once and was confused.
+    speaker: Caller
+    turns: [8]
+    quote: "I think my mom took two days of pills at once. Her pillbox."
+    explanation: Documents the medication concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The Tuesday and Wednesday pillbox compartments were both empty on Tuesday; the caller thought her mother took both days' pills around 8 but did not see it and was not certain.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No, I wasn't here. I think she took them around eight this morning."
+      explanation: Documents the suspected duplicate dosing with uncertainty preserved.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A1]
+    - text: The morning pills were metoprolol 25 mg, furosemide 20 mg, and amlodipine 5 mg, each once a day, and may have been doubled.
+      speaker: Caller
+      turns: [24]
+      quote: "Metoprolol, twenty five milligrams. Furosemide, twenty milligrams. And amlodipine, five milligrams. Each once a day."
+      explanation: Documents the medications possibly taken twice.
+      facts:
+        - {type: medication, name: metoprolol, strength: 25 mg, frequency: once a day, med_status: extra_dose, certainty: unclear}
+        - {type: medication, name: furosemide, strength: 20 mg, frequency: once a day, med_status: extra_dose, certainty: unclear}
+        - {type: medication, name: amlodipine, strength: 5 mg, frequency: once a day, med_status: extra_dose, certainty: unclear}
+      covers: [A2, A3, A4]
+    - text: Confusion and sleepiness began around 10 this morning, with repeated questions and drifting off.
+      speaker: Caller
+      turns: [14]
+      quote: "She keeps asking me the same questions, and she keeps drifting off."
+      explanation: Documents the neurologic symptoms.
+      facts:
+        - {type: symptom, name: confusion and sleepiness, present: true, severity: asking the same questions and drifting off, onset: since about 10 this morning, certainty: stated}
+      covers: [A5]
+    - text: Blood pressure was 98/58.
+      speaker: Caller
+      turns: [20]
+      quote: "I do. Hang on. I'm putting it on her. Mom, hold still. Okay. It says ninety eight over fifty eight."
+      explanation: Documents the reported blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 98/58, certainty: stated}
+      covers: [A6]
+    - text: Pulse was 54.
+      speaker: Caller
+      turns: [22]
+      quote: "Fifty four."
+      explanation: Documents the reported pulse.
+      facts:
+        - {type: vital, name: pulse, value: "54", certainty: stated}
+      covers: [A7]
+    - text: No fainting or chest pain was reported, though she felt woozy.
+      speaker: Caller
+      turns: [18]
+      quote: "No. No fainting. No chest pain. She says she feels woozy."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: fainting or chest pain, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Paged the on-call physician during the call.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm going to page our on-call doctor right now. Hold on. Okay, I've sent it."
+      explanation: Documents the completed physician page.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to call poison control for guidance.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm going to call poison control, to get their guidance on the combination."
+      explanation: Documents the planned poison control contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit to the home within two hours.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'm also sending a nurse to your mother's house, within two hours."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within 2 hours, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in 10 minutes with the guidance.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll call you back in ten minutes, with what the doctor and poison control say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 10 minutes, certainty: stated}
+      covers: [R4]
+    - text: Advised giving no more pills today, including the night medicines, until the physician and poison control advised.
+      speaker: Nurse
+      turns: [52]
+      quote: "please don't give her any more pills today. Not the night ones either."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: metoprolol, certainty: stated}
+      covers: [R5]
+  education:
+    - text: Advised that she lie down or sit comfortably, stand slowly, and not be left alone.
+      speaker: Nurse
+      turns: [54]
+      quote: "Have her lie down, or at least sit in a good chair. If she needs to stand, she should go slowly, and not walk alone."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised checking pulse and blood pressure every 15 minutes and writing them down.
+      speaker: Nurse
+      turns: [56]
+      quote: "Check her pulse and blood pressure every fifteen minutes, and write the numbers and the time."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for fainting, chest pain, trouble breathing, a pulse under 50, or if she could not be woken.
+      speaker: Nurse
+      turns: [58]
+      quote: "If she faints, or has chest pain, or any trouble breathing, or her pulse goes under fifty, or you can't wake her, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+    - text: Advised a pillbox with all pills for one day in a single compartment and a log she checks off.
+      speaker: Nurse
+      turns: [64]
+      quote: "A pillbox that has all the pills for one day in one compartment, and a log she checks off."
+      explanation: Documents medication-safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "I think my mom took two days of pills at once."}

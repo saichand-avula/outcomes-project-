@@ -1,0 +1,209 @@
+call_id: tr-033
+split: train
+blueprint: "Aide needs Foley drainage bags and leg bags; urine draining well, clear yellow; the nurse mishears the aide's name (Tanisha for Latoya) and she corrects it; nurse plans a supply order."
+setup:
+  scenario_category: supply
+  subtype: catheter_supplies
+  secondary_tags: [pertinent_negatives, name_drift]
+  clinical_domains: [urinary_catheter]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-17T19:05:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: low
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Winifred Oyelaran
+  patient_name_spoken: Winifred Oyelaran
+  patient_name_certainty: stated
+  patient_dob_true: "1934-10-07"
+  patient_dob_spoken: "1934-10-07"
+  patient_dob_certainty: stated
+  caller_name_true: Latoya
+  caller_name_spoken: Latoya
+  caller_name_certainty: stated
+  relationship_to_patient: caregiver
+  relationship_certainty: stated
+  callback_phone_true: "3235550139"
+  callback_phone_spoken: "3235550139"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Needs more catheter drainage bags and leg bags
+  reason_category: supply_catheter
+  relevant_context: Patient has a chronic Foley catheter
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: Foley drainage bags
+    supply_remaining: "1"
+    supply_unit: bag
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: leg bags
+    supply_remaining: "0"
+    supply_unit: bags
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: urine output
+    symptom_present: true
+    severity: clear yellow and draining well
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: leaking around the catheter
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: drainage bags and leg bags
+    timeframe: delivery in 2 days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Keep the bag below the bladder, clean the connection with an alcohol pad when changing, and wash hands first
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for no urine in 4 hours, cloudy or bloody urine, leaking, fever, or lower belly pain
+    trigger_condition: no urine 4 hours; cloudy or bloody urine; leaking; fever; belly pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi, Joanne. This is Latoya. I'm the aide for Mrs. Oyelaran. || caller_name, relationship
+  Nurse -> Hi, Tanisha. And what's the patient's first name?
+  Caller -> It's Latoya. L A T O Y A. Winifred is the patient. Winifred Oyelaran. || caller_name, patient_name
+  Nurse -> Sorry, Latoya. Winifred Oyelaran. And her date of birth?
+  Caller -> October seventh, nineteen thirty four. || patient_dob
+  Nurse -> And a number for you? Three two three, five five five, zero one three nine? || callback_phone
+  Caller -> Yes, ma'am. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> I need some more bags for her catheter. I'm down to one drainage bag. || cc, A1
+  Caller -> And I don't have any leg bags. Zero. We ran out on Monday. || A2
+  Nurse -> Okay. How is her urine looking?
+  Caller -> It's good. It's clear and yellow. It's draining fine. || A3
+  Nurse -> Any leaking around the catheter?
+  Caller -> No leaking. It's dry. || A4
+  Nurse -> And any fever? Does she complain of pain, in her lower belly?
+  Caller -> No. No fever and no pain. She's comfortable. || A5
+  Nurse -> Okay, good. I'll put in an order for drainage bags and leg bags. It usually takes about two days for delivery. || R1
+  Caller -> Two days? I only have the one.
+  Nurse -> One bag is enough for two days if you empty it regularly. And you can rinse the bag between uses, per the instructions. If it becomes a problem, call me and I'll see about a rush.
+  Caller -> Okay. Okay, thank you.
+  Nurse -> When you change a bag, wash your hands first, clean the connection with an alcohol pad, and keep the bag below the level of her bladder. || E1
+  Caller -> Yes, ma'am. Always.
+  Nurse -> If she doesn't make urine for four hours, or it gets cloudy or bloody, or it leaks, or she gets a fever or belly pain, call us. || E2
+  Caller -> Okay. I will.
+  Nurse -> Thanks, Latoya.
+  Caller -> Thank you.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Latoya, heard_form: Tanisha, fact_id: caller_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winifred Oyelaran, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1934-10-07", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Latoya, certainty: stated, heard_as: [], turns: [2, 4]}
+    relationship: {value: caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "3235550139", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested more catheter drainage bags and leg bags.
+    speaker: Caller
+    turns: [10]
+    quote: "I need some more bags for her catheter. I'm down to one drainage bag."
+    explanation: Documents the supply need prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: No leg bags remained; the supply ran out on Monday.
+      speaker: Caller
+      turns: [11]
+      quote: "And I don't have any leg bags. Zero. We ran out on Monday."
+      explanation: Documents the supply status of leg bags.
+      facts:
+        - {type: supply, item: leg bags, supply: "0", certainty: stated}
+      covers: [A2]
+    - text: Urine was clear yellow and draining well.
+      speaker: Caller
+      turns: [13]
+      quote: "It's good. It's clear and yellow. It's draining fine."
+      explanation: Documents urine appearance and drainage.
+      facts:
+        - {type: symptom, name: urine output, present: true, severity: clear yellow and draining well, certainty: stated}
+      covers: [A3]
+    - text: No leaking around the catheter was reported.
+      speaker: Caller
+      turns: [15]
+      quote: "No leaking. It's dry."
+      explanation: Documents a pertinent negative for catheter leakage.
+      facts:
+        - {type: pertinent_negative, name: leaking around the catheter, certainty: stated}
+      covers: [A4]
+    - text: No fever or pain was reported.
+      speaker: Caller
+      turns: [17]
+      quote: "No. No fever and no pain. She's comfortable."
+      explanation: Documents pertinent negative infection and discomfort symptoms.
+      facts:
+        - {type: pertinent_negative, name: fever or pain, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to order drainage bags and leg bags, with delivery expected in about 2 days.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'll put in an order for drainage bags and leg bags. It usually takes about two days for delivery."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, timeframe: delivery in 2 days, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised washing hands, cleaning the connection with an alcohol pad, and keeping the bag below bladder level when changing bags.
+      speaker: Nurse
+      turns: [22]
+      quote: "wash your hands first, clean the connection with an alcohol pad, and keep the bag below the level of her bladder."
+      explanation: Documents catheter care instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for no urine for 4 hours, cloudy or bloody urine, leaking, fever, or belly pain.
+      speaker: Nurse
+      turns: [24]
+      quote: "If she doesn't make urine for four hours, or it gets cloudy or bloody, or it leaks, or she gets a fever or belly pain, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

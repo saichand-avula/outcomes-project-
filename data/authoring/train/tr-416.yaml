@@ -1,0 +1,362 @@
+call_id: tr-416
+split: train
+blueprint: "A daughter calls hospice after realizing she gave her mother one milliliter of morphine, twenty milligrams per milliliter, instead of the point two five milliliter ordered. It was forty minutes ago; her mother is sleepy but wakes to her voice, breathing about ten a minute, no blue lips. Nurse holds all morphine, pages on-call, sends a nurse now, tells her to stay with her mother on her side and to call 911 if she cannot be woken or breathing drops, and walks through correct syringe measuring. Medication error (extra dose of liquid concentrate), adult child caller, long v2."
+setup:
+  scenario_category: medication
+  subtype: extra_dose
+  secondary_tags: [liquid_concentration, hedging, late_answers, split_turns, multi_issue, prn_and_scheduled]
+  clinical_domains: [medication, sedation, dyspnea]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harborview Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-11-08T02:20:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Beatrix Oyelaran
+  patient_name_spoken: Beatrix Oyelaran
+  patient_name_certainty: stated
+  patient_dob_true: "1941-05-26"
+  patient_dob_spoken: "1941-05-26"
+  patient_dob_certainty: stated
+  caller_name_true: Folasade Hayes
+  caller_name_spoken: Folasade Hayes
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7045550179"
+  callback_phone_spoken: "7045550179"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported giving her mother too much morphine by mistake
+  reason_category: medication
+  relevant_context: Hospice patient with as-needed liquid morphine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: extra_dose
+    dose: "1"
+    unit: mL
+    frequency: every four hours as needed
+    prn: true
+    last_dose: forty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepiness but wakes to voice
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "10 per minute"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blue lips or unresponsiveness
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The label says twenty milligrams per milliliter and the ordered dose was point two five milliliter
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: four times the ordered morphine dose with sleepiness
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: now
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 right away if she cannot be woken, her breathing drops below eight a minute, or her lips turn blue
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more morphine until the nurse says so, and measure point two five milliliter on the oral syringe marked with tape at the right line
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with her, turn her on her side with her head raised, and count her breaths for a full minute every ten minutes
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Gave four times the ordered dose of morphine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Harborview Hospice, this is Lena.
+  Caller -> Lena, hi. I need help. It's Folasade Hayes. My mother is Beatrix Oyelaran. She's one of yours. I think I gave her too much morphine. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> I'm glad you called right away. Tell me your name again, slowly?
+  Caller -> Folasade. F O L A S A D E. Hayes. My mother is Oyelaran. O Y E L A R A N.
+  Nurse -> Okay, Folasade. I'm here. We'll work through this together. Is she awake right now?
+  Caller -> She's sleepy. She's in the bed. But she woke up when I said her name. She opened her eyes. She said, what.
+  Caller -> She's in her hospital bed in the living room. The lamp is on. I turned it low.
+  Nurse -> That's good. Keep the light low.
+  Nurse -> Good. That's a good sign. Tell me exactly what you gave her, and when.
+  Caller -> The morphine. The liquid. The little brown bottle. The concentrate. I gave her one milliliter. It was forty minutes ago. About. || A1
+  Nurse -> One milliliter. Of the concentrate. What does the label say for her dose?
+  Caller -> Hold on. Let me get the bottle. I'm looking. It says morphine, twenty milligrams per milliliter. Give point two five milliliter every four hours as needed. || A5
+  Nurse -> Point two five. That's a quarter of a milliliter. And you gave a full milliliter.
+  Caller -> Yes. A whole one. I filled the syringe to the one. I thought the one was the right one. I thought, one milliliter, twenty, no, five milligrams. I mixed up the numbers. Oh God.
+  Nurse -> Folasade, stay with me. It's a mistake, and it's fixable. A full milliliter is twenty milligrams. Her dose was five. So she got four times her dose.
+  Caller -> Four times. Oh no. Oh no, oh no.
+  Caller -> I can't believe I did that. I've done it a hundred times.
+  Nurse -> The numbers are small and the bottle is strong. It's easy to slip.
+  Nurse -> I know. Take a breath. I need you to do a few things. Is she breathing right now?
+  Caller -> Yes. Yes. She's breathing. She's breathing slowly.
+  Nurse -> Let's count. Look at her chest. Count each breath for a full minute. I'll wait.
+  Caller -> Okay. One. Two. Three. Hold on. I'm counting out loud. Four. Five. This is so long. Six. Seven.
+  Nurse -> Take your time. You're doing fine.
+  Caller -> Eight. Nine. Ten. That's ten. In a minute. Is ten bad?
+  Nurse -> Ten is on the low side. Normal is twelve to twenty. But she's breathing, and she woke up to her name. That's reassuring. || A3
+  Caller -> Okay. Okay. Ten.
+  Caller -> Her chest goes up. Down. It's slow, but it's even. It's not jerky.
+  Nurse -> That's helpful. Thank you for describing it.
+  Nurse -> Look at her lips and her fingertips. What color are they?
+  Caller -> Pink. They're pink. Her lips are pink. Her fingers are okay. Not blue. No blue. || A4
+  Nurse -> Good. Now say her name again, and gently shake her shoulder. Does she wake up?
+  Caller -> I'm going to do that. I'm pulling the blanket back a little so I can see her better.
+  Caller -> Mama. Mama, can you hear me? She's opening her eyes. She's looking at me. She's saying, I'm tired. She's slurring a bit. She's sleepy but she knows me. || A2
+  Nurse -> That's what I wanted to hear. Okay. Here's what happens now. No more morphine. Nothing else tonight until a nurse says so. Do you understand? || A1, E2
+  Caller -> No more. Not until the nurse says. Okay.
+  Nurse -> I'm going to page the on-call clinician right now. And I'm sending a nurse to your house immediately. || R1, R2
+  Caller -> Now? Thank God. How long will it take?
+  Caller -> Will they bring anything? Medicine? I don't know what they do for this.
+  Nurse -> The nurse will assess her first. Let's wait and see what she says.
+  Nurse -> I'll get you an exact time. It's usually thirty minutes at this hour. I'll stay on the phone with you until we confirm.
+  Caller -> I'm so sorry. I'm so sorry. I'm always so careful.
+  Nurse -> I know you are. It happens, even to careful people, especially at night. You called right away. That's the most important thing.
+  Caller -> I was so tired. I'd been up since five. She was moaning, and I rushed.
+  Nurse -> That makes sense. We'll talk about making this safer. First, her. Can you turn her onto her side?
+  Caller -> I keep a notebook with the times. I wrote nothing down yet. I was going to write after.
+  Nurse -> Write it down now, so the nurse can see the time and the amount.
+  Caller -> I'm writing. It's two oh five. One milliliter. The blue pen.
+  Caller -> I'll try. Mama, I'm going to turn you. There. She's on her left side. Her face is toward me.
+  Nurse -> Good. Put a pillow behind her back so she stays there. And raise her head a bit if you can.
+  Caller -> She smells like her lotion. The cocoa butter one. She loves that smell.
+  Caller -> I put two pillows. Her head is up. She's comfortable. She's blinking.
+  Nurse -> Perfect. Folasade, I need her date of birth for the on-call page.
+  Caller -> May twenty sixth. Nineteen forty one. || patient_dob
+  Nurse -> And your callback number?
+  Caller -> Seven oh four, five five five, zero one seven nine. || callback_phone
+  Nurse -> Seven oh four, five five five, zero one seven nine. I have it. Now here is the most important part. If at any time she can't be woken up, if her breathing drops below eight a minute, or if her lips turn blue, hang up and call 911 right away. || E1
+  Caller -> 911 if she can't wake. Below eight. Blue lips. Okay. Okay. I've got it.
+  Nurse -> Count her breaths for a full minute every ten minutes, and talk to her. Keep her on her side. Stay in the room. || E3
+  Caller -> Every ten minutes. I'll set a timer. I'm setting it. Okay. Ten minutes. I'll count.
+  Nurse -> Good. I'm paging on-call now. Don't hang up. I'll put you on hold for just a moment. Can you wait?
+  Caller -> Yes. I'll wait. I'm here. Mama, I'm right here.
+  Nurse -> Folasade, I'm back. I've paged the on-call clinician, and the nurse is on the way. She's about twenty five minutes out. Her name is Denise.
+  Caller -> Denise. Twenty five minutes. Okay. I know Denise. She came last week. She's lovely.
+  Caller -> I'll turn on the porch light. And the hall light. So she can see the number.
+  Nurse -> That will help.
+  Nurse -> She is. She'll check her breathing, her oxygen, and decide on next steps. She may want to give something to reverse the effect if needed. But your mom is doing okay right now.
+  Caller -> She's very kind. She always asks about my mother's garden, even in winter.
+  Nurse -> She likes to talk to the family. She'll take her time.
+  Caller -> Okay. That's a relief. I'm going to stay right here. My brother is asleep upstairs. Should I wake him?
+  Nurse -> It might help to have a second person in the room. Yes, wake him.
+  Caller -> Okay. Hold on. Dayo! Dayo, come down! Mom needs us! Sorry. He's coming. I can hear him on the stairs.
+  Nurse -> That's fine. Take your time.
+  Caller -> He's here. He's rubbing his eyes. He says what happened. I'm telling him. He's looking at the syringe.
+  Nurse -> Please don't use the syringe again until the nurse is here. We'll go over it.
+  Caller -> I put it in the sink. I'm not touching it. He's sitting by her now. He's holding her hand.
+  Caller -> It's strange. Ten minutes ago I was asleep. Now it's like the whole house is awake.
+  Nurse -> That's adrenaline. It will settle once the nurse is here.
+  Caller -> I know. My heart is pounding. Dayo is making tea. He puts three sugars in everything.
+  Nurse -> Good. Let's talk about how to measure it right, so it doesn't happen again. Do you have the syringe nearby?
+  Caller -> Dayo says he can set up a little station in the kitchen. With a lamp, so we can read the numbers.
+  Nurse -> A bright light and a magnifier are a great idea for reading the syringe.
+  Caller -> I have a reading magnifier from my mother's sewing box. It's the one with the handle.
+  Nurse -> Perfect. Keep it with the bottle.
+  Caller -> It's in the sink. I'll get it. Okay. I have it. It's the little one. Marked in tenths.
+  Nurse -> For a quarter of a milliliter, you draw up to the line between point two and point three. A better way is to have the nurse put a piece of colored tape right at the dose line. || E2
+  Caller -> Tape. Yes. That would be so helpful. I have blue tape in the garage. Or the nurse can bring it.
+  Nurse -> She'll bring it. We'll also ask the pharmacy for a syringe with only the dose marked. No more math at two in the morning.
+  Caller -> Please. I would so appreciate that. I never want to do this again.
+  Nurse -> And one more thing. Don't blame yourself. Caregivers do the best they can with very complicated medicines.
+  Caller -> Thank you. I'm trying not to cry.
+  Nurse -> It's okay to cry. Let it out. I'm here.
+  Caller -> She taught me how to cook. She taught me everything. I can't lose her yet.
+  Nurse -> I know. I know. One thing at a time.
+  Caller -> I love her so much. I just want her to be comfortable.
+  Nurse -> And she is. She's being cared for by someone who loves her. That's what matters.
+  Caller -> Okay. Okay. I'm better. Let me check her breathing again. It's been a few minutes.
+  Nurse -> Go ahead. I'll wait.
+  Caller -> One, two, three, four, five. Eleven. I counted eleven. Over a minute.
+  Nurse -> Good. Eleven is a bit better. Is she waking when you speak?
+  Caller -> Yes. She said, stop fussing. Dayo told her he loves her and she said, I know. That's her. That's my mother.
+  Nurse -> Ha. That sounds like a good sign. Her spirit is intact.
+  Caller -> She told me last week she's going to outlive all of us. She's been saying it since she was sixty.
+  Nurse -> Ha. A strong will is a wonderful thing.
+  Caller -> Dayo says she's too stubborn to leave. I hope he's right.
+  Caller -> She's got an attitude even on morphine. || A1
+  Nurse -> Ha. We love it. Okay, Folasade, I'm going to call you back in fifteen minutes to check on her, even before Denise arrives. || R3
+  Caller -> She used to run a seamstress shop. She's bossy about hems.
+  Nurse -> Ha. Of course she is.
+  Caller -> Fifteen minutes. Okay. I'll have the phone in my hand.
+  Nurse -> And if anything changes before then, don't wait. Call 911 first, then call me.
+  Caller -> 911 first. Then you. Okay.
+  Nurse -> Are you holding up okay?
+  Caller -> I think so. I'm shaking. But I'm okay. Dayo is here. That helps.
+  Nurse -> Drink some water. Sit down. You don't have to stand.
+  Caller -> I haven't eaten since lunch. Dayo is going to make toast.
+  Nurse -> Good. Eat something small. You'll need your strength.
+  Caller -> I'm sitting. I'm on the edge of the bed. Next to her feet.
+  Nurse -> Good. I'll talk to you soon.
+  Caller -> Should I keep the lamp on or turn it off?
+  Nurse -> Keep it low so you can see her face and her breathing.
+  Caller -> Thank you, Lena. Thank you for not hanging up. I would have lost my mind.
+  Nurse -> You didn't. You did exactly the right things. Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beatrix Oyelaran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-05-26", certainty: stated, heard_as: [], turns: [53]}
+    caller_name: {value: Folasade Hayes, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550179", certainty: stated, heard_as: [], turns: [55]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported giving her mother too much morphine by mistake.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I gave her too much morphine."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine 1 mL was given about forty minutes ago instead of the ordered dose.
+      speaker: Caller
+      turns: [10]
+      quote: "The morphine. The liquid. The little brown bottle. The concentrate. I gave her one milliliter."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: morphine, dose: "1", unit: mL, frequency: every four hours as needed, prn: true, last_dose: forty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was sleepy but woke to her name and knew her daughter.
+      speaker: Caller
+      turns: [33]
+      quote: "She's sleepy but she knows me."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: sleepiness but wakes to voice, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Breathing was ten per minute.
+      speaker: Caller
+      turns: [24]
+      quote: "That's ten. In a minute."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "10 per minute", certainty: stated}
+      covers: [A3]
+    - text: Her lips were pink and not blue.
+      speaker: Caller
+      turns: [30]
+      quote: "Pink. They're pink. Her lips are pink."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blue lips or unresponsiveness, certainty: stated}
+      covers: [A4]
+    - text: The label read twenty milligrams per milliliter with an ordered dose of point two five milliliter.
+      speaker: Caller
+      turns: [12]
+      quote: "It says morphine, twenty milligrams per milliliter."
+      explanation: Documents the concentration context.
+      facts:
+        - {type: context, text: The label says twenty milligrams per milliliter and the ordered dose was point two five milliliter, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse to the home immediately.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm sending a nurse to your house immediately."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: now, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [106]
+      quote: "I'm going to call you back in fifteen minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling 911 if she could not be woken, breathing dropped below eight a minute or her lips turned blue.
+      speaker: Nurse
+      turns: [56]
+      quote: "hang up and call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised giving no more morphine until the nurse said so and measuring the dose with a taped syringe.
+      speaker: Nurse
+      turns: [34]
+      quote: "No more morphine."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised staying with her on her side with her head raised and counting breaths every ten minutes.
+      speaker: Nurse
+      turns: [58]
+      quote: "Count her breaths for a full minute every ten minutes"
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I gave her too much morphine."}

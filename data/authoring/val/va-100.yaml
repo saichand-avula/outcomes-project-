@@ -1,0 +1,356 @@
+call_id: va-100
+split: val
+blueprint: "A paid home aide, Winona Castellani, calls from the bathroom while her client Estelle Prudhomme, 84, rests, because she has found bruises on both forearms, her client flinches when her grandson comes in, and Estelle quietly told her he squeezed her arm, threw out her heart pills and takes her pension check. Estelle has missed her metoprolol for three days. No fall and no head injury. The grandson is in the next room. Nurse takes it seriously, tells the aide not to confront him, to stay calm and keep her phone, pages on-call, starts the protective services report, sends a nurse tomorrow morning and a social worker, and reviews 911 for immediate danger. Suspected elder abuse, paid caregiver caller, urgent flag, long, v2."
+setup:
+  scenario_category: high_risk
+  subtype: suspected_elder_abuse
+  secondary_tags: [paid_caregiver, abuse_concern, medication, missed_dose, safety, split_turns, late_answers]
+  clinical_domains: [safety, medication, wound_skin]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Driftwood Home Care
+  agency_type: home_health
+  nurse_name: Annemarie
+  call_timestamp_utc: "2026-12-21T19:25:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Estelle Prudhomme
+  patient_name_spoken: Estelle Prudhomme
+  patient_name_certainty: stated
+  patient_dob_true: "1942-02-02"
+  patient_dob_spoken: "1942-02-02"
+  patient_dob_certainty: stated
+  caller_name_true: Winona Castellani
+  caller_name_spoken: Winona Castellani
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "6465550195"
+  callback_phone_spoken: "6465550195"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported bruises and a client's statement that her grandson hurts her and takes her medicine and money
+  reason_category: other
+  relevant_context: Home care client who lives with her grandson
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: bruises on both forearms
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: The client said her grandson squeezed her arm, threw out her heart pills and takes her pension check
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: flinching and fear when the grandson is near
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: missed
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or head injury
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker and adult protective services
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R4
+    action_type: documentation
+    action_status: planned
+    actor: nurse
+    recipient_or_target: the client's chart
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not confront the grandson, stay calm and near the client, keep her phone with her, and write down exactly what was seen and said
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if the client is in immediate danger, is hit or threatened, or the grandson blocks her from leaving
+    trigger_condition: immediate danger; hit or threatened; blocked from leaving
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Bruises on both forearms with a client report that her grandson squeezed her arm, threw out her heart pills and takes her pension check
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Driftwood Home Care, this is Annemarie.
+  Caller -> Annemarie, it's Winona Castellani. I'm one of the aides. I'm at the house of Estelle Prudhomme. I'm calling from the bathroom. I need to whisper. I'm worried about her. I think someone is hurting her. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Winona. Thank you for calling. Are you safe? Is Estelle safe right now?
+  Caller -> I think so. Right now. She's in the recliner in the living room. Her grandson Dean is in the kitchen. He's watching TV. He doesn't know I'm calling. I told him I needed the bathroom.
+  Nurse -> Okay. Good. Take your time. Tell me what you've seen.
+  Caller -> I don't want to be dramatic. I've been an aide for nine years. I've seen families fight. This is different.
+  Nurse -> I believe you. Tell me in your own words.
+  Caller -> Her arms. Both forearms. There are bruises. Fingers, I think. Like someone gripped her. Purple and yellow. Some old, some new. I saw them when I helped her take off her sweater. || A1
+  Nurse -> Okay. How big are they?
+  Caller -> The new ones are about the size of a quarter. Four on the left arm, three on the right. In a line. Like a grip. I looked closely. They look like fingers.
+  Nurse -> Did she say how she got them?
+  Caller -> I wasn't going to ask. It felt like prying. But the bruises are so clear, and the way she held her arms close to her body, I had to.
+  Nurse -> Asking gently was the right call.
+  Caller -> At first she said she bumped the table. Then I asked her again, softly, and she looked at the door and said, Dean. She whispered Dean. She said Dean squeezed her arm because she wouldn't give him her check. || A2
+  Nurse -> Okay. Thank you for asking gently. What else did she tell you?
+  Caller -> She said she's afraid to sleep. She locks her bedroom door at night. But he has a key to every room.
+  Nurse -> That's very important. We'll include that.
+  Caller -> That he took her pension check last week. The whole thing. That he throws out her pills when she argues. She said he threw her heart pills in the trash on Friday. The little bottle. And that he told her if she tells anyone, he'll put her in a home. || A2
+  Nurse -> Okay. Winona, you're doing exactly the right thing. Did she seem afraid?
+  Caller -> Terrified. She flinches when he comes into the room. When he walked in earlier, she stopped talking mid sentence. Her hands started shaking. She looked at me and said, say it's nothing. || A3
+  Caller -> Yesterday he came in to ask for the remote and she dropped her teacup. It shattered. He yelled at her about the mess.
+  Nurse -> Did he touch her?
+  Caller -> Not that I saw. But she apologized four times.
+  Nurse -> What did you say?
+  Caller -> I said, it's nothing, Estelle. I was scared too. I didn't know what else.
+  Nurse -> You protected her in that moment. That takes courage.
+  Caller -> I felt like a coward.
+  Nurse -> You were careful. That's different.
+  Nurse -> That was smart. You kept her safe in the moment. Now, her pills. Which ones were thrown out?
+  Caller -> The metoprolol. The heart one. Twenty five milligrams. Twice a day. She hasn't had it since Friday. Three days. I looked in her pill organizer. Empty for Saturday, Sunday, and today. She'd been taking it every day before. || A4
+  Nurse -> Does she have other medicines he's thrown out?
+  Caller -> I think so. The water pill, maybe. The bottle by the sink is gone. I couldn't tell. She wasn't sure either.
+  Nurse -> We'll sort through that tomorrow.
+  Nurse -> Okay. That's a concern for her heart as well. Has she had any chest pain, dizziness, shortness of breath?
+  Nurse -> Do you have a blood pressure cuff with you?
+  Caller -> Not in this bag. The agency one stays at the office. I only checked her pulse with my fingers.
+  Nurse -> Okay. That's all right.
+  Caller -> She says no. She looks tired. A little pale. I took her pulse. It was a little fast. I forget the number. Not too bad.
+  Nurse -> Okay. Did she fall? Did she hit her head? Anything like that?
+  Caller -> I asked her three times. She says she hasn't fallen. She says it only happened when she wouldn't hand over the money.
+  Nurse -> Okay. We'll look carefully tomorrow.
+  Caller -> No. No fall. No head injury. She said no. I checked her head. There's nothing. No bumps. || A5
+  Nurse -> Good. Winona, can I have her date of birth?
+  Caller -> February second, nineteen forty two. || patient_dob
+  Nurse -> Thank you. And a number to reach you? Your cell, so we don't call the house.
+  Caller -> Six four six, five five five, zero one nine five. || callback_phone
+  Nurse -> Got it. I'm going to tell you what happens next, so you know the plan. First, I'm paging our on-call clinician right now, because of her heart medicine and the injuries. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> Second, I'm going to contact our social worker, and we will make a report to adult protective services. It's required, and it's the right thing. || R1
+  Caller -> Oh. Okay. Will they take Dean away? Will they take her away?
+  Nurse -> That's not for me to say. Their job is to look at the situation and keep her safe. They'll talk with her privately. They'll decide what help she needs.
+  Caller -> Okay. I'm just afraid he'll know it was me.
+  Caller -> He's already suspicious of me. He asked last week why I stay so long after my shift ends.
+  Nurse -> Then keep your routine the same tonight. Don't change anything he'd notice.
+  Caller -> Same as always. Understood.
+  Nurse -> We'll be careful. The report can be made without naming you, and I won't be sharing your name with him. And Winona, tomorrow morning I'm sending a nurse to visit. She'll check Estelle's arms, her heart, and her medicine, and she'll document what she sees. || R3
+  Caller -> Tomorrow morning. Okay. I won't be there. My shift ends at eight. The day aide starts at nine.
+  Nurse -> That's fine. We'll make sure the nurse is aware. And I'm documenting everything you've told me in the chart now. || R4
+  Caller -> Okay. That's good. I wrote some things down too. In my notebook. Dates and what she said. Is that okay?
+  Caller -> I've kept notes for a month. Dates, what I saw. I don't know why I started. I just felt something was off.
+  Nurse -> Those notes may be very valuable.
+  Nurse -> It's very helpful. Keep it private. Don't leave it where he can see it.
+  Caller -> It's in my purse. In my car, I mean. No, in the bathroom. I'll go to my purse. I'm sorry. I'm so nervous.
+  Nurse -> It's okay. Breathe. You're doing fine.
+  Caller -> Okay. Okay. Breathing.
+  Caller -> I'm sitting on the edge of the tub. My legs feel like jelly.
+  Nurse -> Stay seated for a moment. Take three slow breaths.
+  Caller -> One. Two. Three. Better.
+  Nurse -> Now, safety for tonight. Don't confront Dean. Don't say anything about the bruises, the pills, or the check. Stay calm. Stay near Estelle if you can. Keep your phone with you. And write down exactly what you saw and what she said, with the time. || E1
+  Caller -> Don't confront. Stay calm. Stay near her. Phone on me. Write it down. Okay. I'm going to pocket the phone. I'll put it on silent. Vibrate.
+  Nurse -> Good. If at any time you think Estelle is in immediate danger, if he hits or threatens her, or if he blocks her from leaving, call nine one one. Don't wait. || E2
+  Caller -> Hit. Threaten. Block. Nine one one. Okay. I understand.
+  Caller -> Is it okay if I take a photo of her arms? For the record? She said it was fine.
+  Nurse -> If she agrees and it's done discreetly, yes. Keep the photo private and don't show it to anyone but us.
+  Caller -> I'll do it when he's out of the room.
+  Nurse -> How long is your shift?
+  Caller -> Until eight tonight. About forty minutes. Then Dean is alone with her until the night aide arrives at ten. Two hours. I'm worried about those two hours.
+  Nurse -> Okay. That's important. Is the night aide coming tonight?
+  Nurse -> Does Dean ever leave the house? Work, errands?
+  Caller -> He leaves for a few hours some afternoons. He doesn't say where. He's never held a job as far as I know.
+  Nurse -> Okay.
+  Caller -> Yes. Marguerite. She works Mondays and Wednesdays. She's good. She's strong.
+  Nurse -> I'll make sure Marguerite is told about the situation before she goes in. And we'll ask the clinician if there's a safe place Estelle could stay tonight. Would she be willing to leave?
+  Caller -> Thank you. She's been with Estelle two years. She loves her. She'll be furious.
+  Nurse -> She'll need to stay calm too.
+  Caller -> I don't know. She said once she'd go to her sister's. But her sister is in Ohio. She said she doesn't want to be a burden.
+  Nurse -> We'll talk about that. Don't push her tonight. Just stay close.
+  Caller -> She asked me this evening if I could sit with her a while after my shift. I said I'd try.
+  Nurse -> Then do try, if you can. Your presence helps.
+  Caller -> I will. I'll stay until Marguerite comes. I'll tell my kids I'm late.
+  Nurse -> You're a good person, Winona.
+  Caller -> I don't feel good. I feel scared and angry.
+  Nurse -> Both are normal. Use the anger to be careful, not reckless.
+  Caller -> My mother was in a situation like this once. Nobody helped her. I was a kid. I promised myself I'd never look away.
+  Nurse -> Then you've kept that promise tonight.
+  Caller -> I'm trying.
+  Caller -> I just keep thinking, I should have seen it earlier. The bruises have been there a month. I thought she bruised easily. I'm so ashamed.
+  Nurse -> Please don't be. You noticed it. You asked. You called. Many people look away.
+  Caller -> She has such a gentle spirit. She used to teach Sunday school. She makes me tea every day, even though it's my job to make it for her.
+  Nurse -> She sounds like someone worth protecting.
+  Caller -> She has a little garden in the back. Tomatoes and zinnias. She's been teaching me which weeds to pull.
+  Nurse -> It sounds like a lovely friendship.
+  Caller -> She is. She really is.
+  Nurse -> Winona, I'm going to hang up now and get things moving. The clinician will call your cell within fifteen minutes. If you can't answer, text me back.
+  Caller -> I'll keep it on vibrate. If I can't answer, I'll text. What's the number to text?
+  Nurse -> The same line you called. Just say it's Winona.
+  Caller -> Winona. Okay. Thank you, Annemarie. I feel a little less alone.
+  Caller -> One more thing. If Dean asks why I was in the bathroom so long, what do I say?
+  Nurse -> Say you weren't feeling well. Keep it simple and calm.
+  Caller -> Stomach. I'll say it was my stomach.
+  Nurse -> You're not alone. We're with you and with Estelle.
+  Caller -> Okay. I have to go. I've been in here a while. Dean might wonder.
+  Nurse -> Go. Be calm. Thank you.
+  Caller -> I hope she sleeps tonight. She hasn't slept well in weeks. She looks so tired.
+  Nurse -> We're going to do what we can to help her rest.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Estelle Prudhomme, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-02-02", certainty: stated, heard_as: [], turns: [44]}
+    caller_name: {value: Winona Castellani, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "6465550195", certainty: stated, heard_as: [], turns: [46]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported bruises and a client's statement that her grandson hurts her and takes her medicine and money.
+    speaker: Caller
+    turns: [2]
+    quote: "I think someone is hurting her."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Both forearms had finger-shaped bruises, four on the left and three on the right, some old and some new.
+      speaker: Caller
+      turns: [8]
+      quote: "Both forearms. There are bruises."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: bruises on both forearms, present: true, severity: moderate, certainty: stated}
+      covers: [A1]
+    - text: She said her grandson squeezed her arm, threw out her heart pills, and took her pension check.
+      speaker: Caller
+      turns: [18]
+      quote: "That he took her pension check last week."
+      explanation: Documents the client's report.
+      facts:
+        - {type: context, text: The client said her grandson squeezed her arm, threw out her heart pills and takes her pension check, certainty: stated}
+      covers: [A2]
+    - text: She flinched and was terrified when her grandson came in, and her hands shook.
+      speaker: Caller
+      turns: [20]
+      quote: "Terrified. She flinches when he comes into the room."
+      explanation: Documents her fear.
+      facts:
+        - {type: symptom, name: flinching and fear when the grandson is near, present: true, certainty: stated}
+      covers: [A3]
+    - text: Metoprolol 25 mg twice a day was missed since Friday after the bottle was thrown out.
+      speaker: Caller
+      turns: [30]
+      quote: "Twenty five milligrams. Twice a day."
+      explanation: Documents the missed medication.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice a day, prn: false, last_dose: three days ago, med_status: missed, certainty: stated}
+      covers: [A4]
+    - text: She had no fall or head injury.
+      speaker: Caller
+      turns: [42]
+      quote: "No fall. No head injury."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or head injury, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to contact the social worker and make a report to adult protective services.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'm going to contact our social worker"
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm paging our on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [56]
+      quote: "tomorrow morning I'm sending a nurse to visit."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+    - text: Planned to document the report in the chart.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'm documenting everything you've told me in the chart now."
+      explanation: Documents the chart note.
+      facts:
+        - {type: action, action_type: documentation, status: planned, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised not confronting the grandson, staying calm and near the client, keeping her phone, and writing down what was seen.
+      speaker: Nurse
+      turns: [69]
+      quote: "Don't confront Dean."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if the client is in immediate danger, hit or threatened, or blocked from leaving.
+      speaker: Nurse
+      turns: [71]
+      quote: "call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "I think someone is hurting her."}

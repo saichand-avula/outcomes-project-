@@ -1,0 +1,220 @@
+call_id: tr-008
+split: train
+blueprint: "Patient reports mild nausea since starting a new antibiotic, thinks it began Monday (hedged); ondansetron PRN ordered; nurse advises taking it as ordered and taking the antibiotic with food; DOB self-corrected."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [hedging, prn_and_scheduled, dob_self_corrected, tall_man_drug]
+  clinical_domains: [nausea_vomiting]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-08-19T14:36:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: false
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Sandra Whitfield
+  patient_name_spoken: Sandra Whitfield
+  patient_name_certainty: stated
+  patient_dob_true: "1972-05-19"
+  patient_dob_spoken: "1972-05-19"
+  patient_dob_certainty: stated
+  caller_name_true: Sandra Whitfield
+  caller_name_spoken: Sandra Whitfield
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9195550116"
+  callback_phone_spoken: "9195550116"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Mild nausea since starting a new antibiotic
+  reason_category: nausea_vomiting
+  relevant_context: Recently started antibiotic for a urinary infection
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: nausea
+    symptom_present: true
+    severity: mild
+    onset_or_duration: since about Monday
+    certainty: unclear
+    unclear_detail: Patient unsure of onset ("I think Monday")
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    medication_status: taking
+    frequency: twice a day
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: prescribed
+    prn: true
+    history_or_context_text: Has it at home, has not taken it
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    reason_or_trigger: nausea
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    reason_or_trigger: take with food
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Small bland meals, sip fluids, avoid greasy food
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she cannot keep down fluids or the antibiotic, vomits more than twice, or gets a rash or swelling
+    trigger_condition: cannot keep fluids down; vomiting; rash; swelling
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Hi Beth. Um, this is Sandra Whitfield. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi Sandra. Date of birth?
+  Caller -> May nineteenth, nineteen seventy one. Oh, no, nineteen seventy two. Seventy two, sorry. || patient_dob
+  Nurse -> Seventy two. Okay. And your callback number is nine one nine, five five five, zero one one six? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What can I help you with?
+  Caller -> I started the, the antibiotic, the amoxicillin, for the bladder thing. || A2
+  Caller -> And I've been kind of nauseous. Not terrible. Just, like, a queasy feeling. || cc, A1
+  Nurse -> Okay. When did that start, do you know?
+  Caller -> I think Monday. Yeah, I think it was Monday. Or maybe Sunday night. || A1
+  Nurse -> Okay. Are you throwing up?
+  Caller -> No, no, nothing like that. || A3
+  Nurse -> How often do you take the amoxicillin? || A2
+  Caller -> Twice a day. Morning and night. || A2
+  Nurse -> Okay. And I see here you have ondansetron ordered for nausea, as needed. Do you have that at home? || A4
+  Caller -> I do. I just haven't taken it. I didn't know if I should. || A4
+  Nurse -> Yes, go ahead and take the ondansetron, as it's ordered, when you feel queasy. It shouldn't interfere with the antibiotic. || R1
+  Caller -> Okay.
+  Nurse -> And make sure you're taking the amoxicillin with some food, not on an empty stomach. Even toast or crackers. || R2
+  Caller -> Oh. I've been taking it first thing, before I eat. That might be it.
+  Nurse -> It might be. Try it with food tonight and see.
+  Caller -> Okay, I will.
+  Nurse -> Also, small bland meals, sip fluids during the day, and stay away from greasy or spicy food for now. || E1
+  Caller -> Okay. Bland. Got it.
+  Nurse -> If you can't keep fluids down, or you start throwing up, or you get a rash or any swelling, call us. || E2
+  Caller -> Okay.
+  Nurse -> Anything else?
+  Caller -> No, that's all. Thanks, Beth.
+  Nurse -> You're welcome. Feel better.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Sandra Whitfield, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1972-05-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Sandra Whitfield, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550116", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported mild nausea since starting a new antibiotic.
+    speaker: Caller
+    turns: [9]
+    quote: "And I've been kind of nauseous. Not terrible. Just, like, a queasy feeling."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Mild nausea was reported with onset thought to be Monday, although the patient was unsure whether it began Sunday night.
+      speaker: Caller
+      turns: [11]
+      quote: "I think Monday. Yeah, I think it was Monday. Or maybe Sunday night."
+      explanation: Documents the onset while preserving the patient's uncertainty.
+      facts:
+        - {type: symptom, name: nausea, present: true, severity: mild, onset: since about Monday, certainty: unclear}
+      covers: [A1]
+    - text: Amoxicillin was being taken twice a day.
+      speaker: Caller
+      turns: [15]
+      quote: "Twice a day. Morning and night."
+      explanation: Documents the antibiotic schedule.
+      facts:
+        - {type: medication, name: amoxicillin, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [13]
+      quote: "No, no, nothing like that."
+      explanation: Documents a pertinent negative for vomiting.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+    - text: Ondansetron was ordered as needed and available at home, but had not been taken.
+      speaker: Caller
+      turns: [17]
+      quote: "I do. I just haven't taken it. I didn't know if I should."
+      explanation: Documents availability and non-use of the as-needed anti-nausea medication.
+      facts:
+        - {type: medication, name: ondansetron, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised taking ondansetron as ordered when feeling queasy and taking amoxicillin with food.
+      speaker: Nurse
+      turns: [18]
+      quote: "Yes, go ahead and take the ondansetron, as it's ordered, when you feel queasy."
+      explanation: Documents medication guidance addressing the nausea.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: ondansetron, certainty: stated}
+        - {type: action, action_type: medication_instruction, status: advised, medication: amoxicillin, certainty: stated}
+      covers: [R1, R2]
+  education:
+    - text: Advised small bland meals, sipping fluids, and avoiding greasy or spicy food.
+      speaker: Nurse
+      turns: [24]
+      quote: "small bland meals, sip fluids during the day, and stay away from greasy or spicy food for now."
+      explanation: Documents comfort measures for nausea.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if unable to keep fluids down, if vomiting developed, or if rash or swelling appeared.
+      speaker: Nurse
+      turns: [26]
+      quote: "If you can't keep fluids down, or you start throwing up, or you get a rash or any swelling, call us."
+      explanation: Documents return precautions for worsening nausea or allergic reaction.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

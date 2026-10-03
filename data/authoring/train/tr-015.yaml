@@ -1,0 +1,231 @@
+call_id: tr-015
+split: train
+blueprint: "Daughter says her mother takes Zofrin (a single confident garble of Zofran, kept as stated) for nausea; vomited twice this morning, 3 tablets left; nurse advises dose per label and will check the refill."
+setup:
+  scenario_category: asr_error
+  subtype: confident_single_garble
+  secondary_tags: [garbled_drug, late_answers, split_turns]
+  clinical_domains: [nausea_vomiting]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-08-29T16:25:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2, R1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hattie Brennan
+  patient_name_spoken: Hattie Brennan
+  patient_name_certainty: stated
+  patient_dob_true: "1936-08-30"
+  patient_dob_spoken: "1936-08-30"
+  patient_dob_certainty: stated
+  caller_name_true: Colleen
+  caller_name_spoken: Colleen
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7275550123"
+  callback_phone_spoken: "7275550123"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Nausea and vomiting twice this morning
+  reason_category: nausea_vomiting
+  relevant_context: Hospice patient, low supply of anti-nausea tablets
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    severity: twice since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: Zofrin
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    route: dissolves on the tongue
+    last_dose_time: 7 this morning
+    supply_remaining: "3"
+    supply_unit: tablets
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blood in vomit
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: inability to keep fluids down
+    symptom_present: false
+    history_or_context_text: Keeping small sips of water down
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: ondansetron
+    medication_name_spoken: Zofrin
+    frequency: every 8 hours
+    certainty: stated
+  - item_id: R2
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    medication_name_true: ondansetron
+    medication_name_spoken: Zofrin
+    reason_or_trigger: only 3 tablets left
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of clear liquids or ice chips; hold solid food until the nausea settles
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting blood or coffee-ground material, inability to keep fluids down for 8 hours, belly pain, or fever
+    trigger_condition: bloody or coffee-ground vomit; no fluids for 8 hours; belly pain; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Hi Carla, it's Colleen. I'm calling about my mom, Hattie. Hattie Brennan. || caller_name, patient_name, relationship
+  Nurse -> Hi Colleen. And Hattie's birthday?
+  Caller -> August thirtieth. Nineteen thirty six. || patient_dob
+  Nurse -> Thank you. And I have seven two seven, five five five, zero one two three for you. || callback_phone
+  Caller -> Mhm. That's my cell. || callback_phone
+  Nurse -> Alright. What's going on?
+  Caller -> She's been throwing up. Twice this morning. || cc, A1
+  Caller -> And it's just, she just can't, she's so nauseous. || cc
+  Nurse -> Okay. Twice since this morning. Is she able to keep any fluids down?
+  Caller -> Yeah. She's keeping little sips of water down. It's just the food she doesn't want. || A4
+  Nurse -> Okay. Any blood in the vomit, or anything dark, like coffee grounds?
+  Caller -> No. No, nothing like that. It's just, it's clear and some of her breakfast. || A3
+  Nurse -> Okay. Is she taking anything for the nausea?
+  Caller -> Yes. She has the Zofrin. The four milligram, the one that melts on her tongue. || A2
+  Nurse -> Okay. And when was her last one?
+  Caller -> I gave her one at seven. Seven this morning. || A2
+  Nurse -> Okay. That's fine. So the Zofrin can be given every eight hours as needed. So she can have another one around three this afternoon. || R1
+  Caller -> Oh, okay. Three o'clock. Okay.
+  Nurse -> And how many do you have left?
+  Caller -> Um. Let me look. I have, one, two, three. Three. There's three left. || A2
+  Nurse -> Okay. Three. I'm going to put in a refill request for the Zofrin for you, so that you don't run out. || R2
+  Caller -> Oh, thank you. I was just about to ask.
+  Nurse -> Sure. In the meantime, just small sips of clear liquids. Ice chips if she likes them. Hold off on solid food until the nausea settles down. || E1
+  Caller -> Okay. Sips and ice chips. No food.
+  Nurse -> If she vomits blood, or anything that looks like coffee grounds, or she can't keep any fluids down for eight hours, or she has belly pain or a fever, call us. || E2
+  Caller -> Okay. I will.
+  Nurse -> Alright, Colleen. Anything else I can help with?
+  Caller -> No. That's it. Thank you so much.
+  Nurse -> You're welcome. Take care.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Zofran, heard_form: Zofrin, fact_id: A2}
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "she's so nauseous", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hattie Brennan, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1936-08-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Colleen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7275550123", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported nausea and vomiting twice this morning.
+    speaker: Caller
+    turns: [8]
+    quote: "She's been throwing up. Twice this morning."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Vomiting occurred twice since this morning, containing clear fluid and some breakfast.
+      speaker: Caller
+      turns: [13]
+      quote: "No. No, nothing like that. It's just, it's clear and some of her breakfast."
+      explanation: Documents the vomiting episodes and their appearance.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: twice since this morning, certainty: stated}
+      covers: [A1]
+    - text: Zofrin 4 mg dissolving on the tongue was being given for nausea; the last dose was at 7 this morning and 3 tablets remained.
+      speaker: Caller
+      turns: [15]
+      quote: "She has the Zofrin. The four milligram, the one that melts on her tongue."
+      explanation: Documents the as-needed anti-nausea medication, timing, and remaining supply.
+      facts:
+        - {type: medication, name: Zofrin, dose: "4", unit: mg, route: dissolves on the tongue, last_dose: 7 this morning, supply: 3 tablets, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No blood in the vomit was reported.
+      speaker: Caller
+      turns: [13]
+      quote: "No. No, nothing like that. It's just, it's clear and some of her breakfast."
+      explanation: Documents a pertinent negative for bloody vomit.
+      facts:
+        - {type: pertinent_negative, name: blood in vomit, certainty: stated}
+      covers: [A3]
+    - text: She was keeping small sips of water down.
+      speaker: Caller
+      turns: [11]
+      quote: "She's keeping little sips of water down."
+      explanation: Documents retained fluid intake.
+      facts:
+        - {type: pertinent_negative, name: inability to keep fluids down, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised that Zofrin could be given every 8 hours as needed, with the next dose around 3 this afternoon.
+      speaker: Nurse
+      turns: [18]
+      quote: "That's fine. So the Zofrin can be given every eight hours as needed."
+      explanation: Documents the medication timing instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: Zofrin, certainty: stated}
+      covers: [R1]
+    - text: Planned to submit a refill request for Zofrin because only 3 tablets remained.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'm going to put in a refill request for the Zofrin for you, so that you don't run out."
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, medication: Zofrin, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised small sips of clear liquids or ice chips and holding solid food until the nausea settled.
+      speaker: Nurse
+      turns: [24]
+      quote: "just small sips of clear liquids. Ice chips if she likes them. Hold off on solid food until the nausea settles down."
+      explanation: Documents hydration guidance for nausea.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for bloody or coffee-ground vomit, inability to keep fluids down for 8 hours, belly pain, or fever.
+      speaker: Nurse
+      turns: [26]
+      quote: "If she vomits blood, or anything that looks like coffee grounds, or she can't keep any fluids down for eight hours, or she has belly pain or a fever, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,404 @@
+call_id: tr-490
+split: train
+blueprint: "A substitute aide covering for the client's regular aide calls home care worried that the 83-year-old man seems off today: quieter than usual, skipped lunch, maybe warm to the touch and unsure what day it is, though she does not know his baseline. She is not sure of his last name (Haskins or Haskell), does not know his birth date, and has no thermometer reading. Nurse works out who he is from the address, pages on-call, plans a nurse visit today and a callback in thirty minutes, and has her stay with him, take his temperature, and offer fluids. Vague information from an unfamiliar caller with unresolved identity, paid caregiver caller, patient 65+, v2 long."
+setup:
+  scenario_category: ambiguous
+  subtype: substitute_caregiver_unclear_baseline
+  secondary_tags: [identity_unresolved, hedging, late_answers, split_turns, multi_issue, contradiction]
+  clinical_domains: [confusion, fever, intake_appetite]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Larkin Street Home Care
+  agency_type: home_care
+  nurse_name: Oswald
+  call_timestamp_utc: "2026-11-23T18:35:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [Tylenol]
+chief_complaint:
+  patient_name_true: Walter Haskins
+  patient_name_spoken: Walter Haskins
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Walter Haskell]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Cornelius Blackwood
+  caller_name_spoken: Cornelius Blackwood
+  caller_name_certainty: stated
+  relationship_to_patient: substitute aide
+  relationship_certainty: stated
+  callback_phone_true: "3035550128"
+  callback_phone_spoken: "3035550128"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Worried that a client she does not usually care for seems off today
+  reason_category: confusion
+  relevant_context: Home care client whose regular aide is on vacation
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: quieter and seems off compared with his usual self
+    symptom_present: true
+    certainty: unclear
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: skipped lunch
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: feels warm to the touch
+    symptom_present: true
+    certainty: unclear
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: unsure what day it is
+    symptom_present: true
+    certainty: unclear
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or complaint of pain
+    symptom_present: false
+    certainty: unclear
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: Regular aide is on vacation and the substitute does not know his baseline
+    certainty: stated
+  - item_id: A7
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.8"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: client seems off, possibly warm, and less confused than usual unknown baseline
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Stay with him, take his temperature under the arm, offer sips of water, and write down what you see and the time
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he is hard to wake, cannot answer simple questions, has trouble breathing, or has a fall
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Larkin Street Home Care, this is Oswald.
+  Caller -> Hello? Is this Larkin Street? I'm new. I'm not sure I dialed right.
+  Nurse -> You did. This is Oswald, I'm a nurse here.
+  Caller -> Hi. Hi, this is Cornelius Blackwood. I'm an aide. I'm covering today for Odessa, she's on vacation. I'm at a client's house and I'm worried about him. I think his name is Mr. Haskins. Walter Haskins. || caller_name, relationship, patient_name, cc
+  Nurse -> Hello, Cornelius. Where are you calling from?
+  Caller -> Thank you for picking up so fast.
+  Caller -> From the client's apartment. In the kitchen. He's in the living room. I'll keep my voice low.
+  Nurse -> Hi, Cornelius. Okay. Slow down. Walter Haskins. Do you have an address?
+  Caller -> Sorry. I'm talking fast. I always talk fast when I'm nervous.
+  Nurse -> It's okay. Take a breath.
+  Caller -> Yes. It's, hold on, it's on the sheet. Four oh seven, Alder Court. Apartment B.
+  Caller -> One second. I'm standing in the hallway so he doesn't hear me. It's very quiet in here.
+  Nurse -> Four oh seven Alder Court, B. Let me look. I have a Walter Haskell at that address. H A S K E L L. Is that him?
+  Nurse -> Thank you. Is there a doorbell or a keypad?
+  Caller -> The door was unlocked when I came. His daughter said she'd leave it open for me.
+  Nurse -> Okay.
+  Caller -> Take your time. I'm looking at the door. It has a wreath on it. Fall leaves.
+  Caller -> Walking. The floorboards creak. Hold on.
+  Nurse -> Okay. I see it.
+  Caller -> Haskell. Haskins. It might be Haskell. I only saw it on the sheet once. I'm sorry. I didn't look closely. The sheet is, there's a coffee stain on it.
+  Nurse -> That's okay. Is he an older man? About eighty?
+  Caller -> I didn't mean to be unprepared. I only got this assignment last night.
+  Nurse -> That's not your fault.
+  Caller -> Yes. Yes. Eighty something. Gray hair, glasses. He has the big green chair. He has a cat named Biscuit.
+  Nurse -> Good. That helps me confirm.
+  Nurse -> Let's get him seen.
+  Caller -> And a mustache. He keeps trimming it, I think. It's neat.
+  Nurse -> Ha.
+  Nurse -> Okay. That matches the chart.
+  Caller -> He has a cardigan. The brown one with the leather buttons. He's very dapper.
+  Nurse -> Ha.
+  Nurse -> That sounds right. Okay. So tell me what's worrying you.
+  Caller -> He's not himself. At least, I think he's not. I don't really know what himself is. I've never met him. Odessa left me a note, but the note says nothing about, well, it says he likes tea and his show at three. || A6
+  Nurse -> Mm hm. Go on.
+  Nurse -> Okay. What's different from what the note describes?
+  Caller -> He's quiet. Very quiet. The note said he's chatty. I said good morning and he just looked at me. Then he said, are you the new girl? Then nothing. He's been sitting in the chair since I got here at nine. || A1
+  Nurse -> Okay.
+  Nurse -> Okay.
+  Caller -> I've sat with other clients who were quiet. It felt different. This felt, flat.
+  Nurse -> Okay. That's a helpful description.
+  Caller -> I don't know if that helps. I'm not a nurse. I'm just an aide.
+  Nurse -> It helps a lot.
+  Nurse -> Okay. Has he eaten anything?
+  Caller -> Toast. At nine thirty. He ate half a piece. Then I made lunch at noon, a sandwich, and he didn't touch it. He said he's not hungry. He didn't want his tea either. And the note says he loves his tea. || A2
+  Nurse -> Okay. And fluids?
+  Nurse -> Okay. Did he drink anything at all?
+  Caller -> A sip of water. Maybe two. When I handed it to him. Then he put it down.
+  Nurse -> Mm hm.
+  Caller -> I'll keep trying. I'll bring him water every few minutes.
+  Caller -> I offered juice, too. Apple. He shook his head.
+  Nurse -> Okay.
+  Nurse -> Okay. How does he look? Is his color okay?
+  Caller -> I don't know. He looks a little flushed? Maybe? I touched his forehead, quickly. It felt warm. But I don't know. My hands might be cold. I just came in from outside. || A3
+  Nurse -> That's useful. Thanks.
+  Nurse -> Okay. Do you have a thermometer there?
+  Caller -> There's probably one. Everyone has one. I'll look after this.
+  Caller -> I haven't looked. I didn't want to go through his things.
+  Nurse -> You're being respectful. That's good.
+  Nurse -> That's okay. We'll come to that. Is he confused? Does he know where he is?
+  Caller -> I don't want to test him too much. He might feel embarrassed.
+  Nurse -> You can ask gently.
+  Caller -> I asked him what day it is. He said, Tuesday? It's Monday. Or is it? Hold on. What's today? It's Monday. I'm pretty sure. Yeah, Monday. He said Tuesday. But then he said it was a nice morning, and it's the afternoon. || A4
+  Caller -> He's not usually forgetful, the note says. I assume.
+  Nurse -> Okay.
+  Nurse -> Okay. Has he fallen? Has he complained of any pain?
+  Caller -> I didn't see a fall. I don't think so. He hasn't said anything hurts. But he doesn't say much. So I don't know. || A5
+  Nurse -> Okay. Thank you.
+  Nurse -> Okay. Is he breathing normally?
+  Caller -> I think so. He's not gasping. He's just sitting. He's, I don't know, calm.
+  Caller -> I count his breaths sometimes. I count in my head. It's a habit from my mother.
+  Nurse -> Ha. Okay.
+  Nurse -> Good.
+  Caller -> I wasn't sure whether to call you or the agency's main number.
+  Nurse -> You reached the right line.
+  Nurse -> Does he know who you are?
+  Caller -> He asked if I'm the new girl. He called me Odessa once. Then he said no, not Odessa.
+  Caller -> I'm forty nine. Ha. New girl. I'll take it.
+  Nurse -> Ha.
+  Nurse -> Okay. Cornelius, you've done the right thing calling. Do you know his date of birth?
+  Caller -> I really appreciate you saying that. I haven't had many clients this fragile.
+  Nurse -> You're handling it well.
+  Caller -> Thank you. I'm sorry for all the rambling.
+  Nurse -> It's useful rambling.
+  Caller -> No. I wouldn't know that. It's probably on the sheet? Hold on. I'm looking. No. It just has his name and the address, and the emergency number, and what he likes. No birthday.
+  Caller -> Is that a problem? I feel like I should have known.
+  Nurse -> No. You aren't expected to.
+  Nurse -> That's fine. I'll find it. What's the best number to reach you?
+  Caller -> Three oh three, five five five, oh one two eight. || callback_phone
+  Nurse -> Three oh three, five five five, oh one two eight. Right? || callback_phone
+  Caller -> Yes. That's my cell. It's the only phone I have.
+  Nurse -> Great.
+  Nurse -> Okay. Here's what I'm going to do. I'm going to page the on-call clinician right now. I'll tell them what you saw and that we don't know his normal. || R1
+  Caller -> Okay. I'm listening.
+  Caller -> Okay. Thank you. Am I overreacting? I feel like I'm overreacting.
+  Nurse -> Take a breath.
+  Nurse -> No. You're not. You noticed a change. Even without knowing his baseline, quiet, not eating, not drinking, a little warm, and mixed up about the day is something we want to look at today.
+  Caller -> Okay. That makes me feel better. I was afraid you'd say, he's old, that's how they are.
+  Nurse -> I'm glad.
+  Nurse -> No. I'd never say that.
+  Caller -> Good.
+  Nurse -> I'd also like a nurse to come see him today. I'll ask for as soon as possible. || R2
+  Caller -> Today. Okay. Great. I'm here until five. Odessa's schedule says I leave at five.
+  Nurse -> Yes.
+  Nurse -> I'll make sure the schedule covers you.
+  Nurse -> You'll stay until the nurse arrives, if that's all right. I'll let your supervisor know.
+  Caller -> Yes. I'll stay. I don't have to be anywhere.
+  Nurse -> I'll make sure your supervisor knows.
+  Caller -> Thank you.
+  Caller -> I told my husband not to wait on dinner.
+  Nurse -> Thank you for staying.
+  Nurse -> Thank you. I'll call you back within thirty minutes after I've talked with the clinician. || R3
+  Caller -> Thirty minutes. Okay. I'll keep my phone out.
+  Caller -> I'll sit with him in the living room. I won't leave him alone.
+  Nurse -> In the meantime, stay with him. See if you can find a thermometer, a bathroom cabinet is a good place. Take his temperature under his arm. Offer him sips of water. And write down what you see and the time. || E1
+  Caller -> Okay. I'm already standing in the doorway watching him.
+  Caller -> Stay with him. Thermometer. Under the arm. Sips of water. Write it down with the time. Okay. I'm going to look in the bathroom. Hold on. I'm going to put you on the table.
+  Nurse -> Take your time.
+  Caller -> Okay. Found one. It's the kind with the digital screen. It's in a little case. I'll go sit by him.
+  Caller -> It has a case with a little sticker. It says Walter on it in marker.
+  Nurse -> Good. That helps with the name.
+  Nurse -> Good.
+  Nurse -> Perfect. I'll wait.
+  Caller -> Hold on. I'm putting him on his side a little. He's slumping.
+  Nurse -> Take your time.
+  Caller -> Mr. Haskins? Mr. Haskins? Walter? I'm going to take your temperature. Under your arm. Is that okay? He nodded. He's lifting his arm. Okay. Okay. Wait for the beep.
+  Nurse -> Mm hm.
+  Nurse -> Take your time.
+  Caller -> It beeped. One hundred point eight. Oh. That's high, isn't it? || A7
+  Nurse -> That's a mild fever. I'll tell the clinician. Thank you for checking.
+  Caller -> Should I take his temperature again later?
+  Nurse -> Yes. In about an hour. Write both numbers down.
+  Caller -> Is mild a good word or a bad word?
+  Nurse -> It's a word that means it isn't dangerous on its own, but it matters with the other things you saw.
+  Caller -> Okay. That makes sense.
+  Caller -> Okay. Should I give him Tylenol?
+  Nurse -> It's a good question.
+  Nurse -> Please don't give anything until the clinician says. I'll call you back in thirty minutes.
+  Caller -> Understood. I'll keep it in my bag.
+  Nurse -> Good.
+  Caller -> Okay. I won't. Sorry.
+  Nurse -> Cornelius, call 911 if he is hard to wake, can't answer simple questions, has trouble breathing, or falls. || E2
+  Caller -> Hard to wake. Can't answer. Trouble breathing. Falls. 911. Okay. He's awake. He just looked at me. He said, hello, dear. That's good, right?
+  Caller -> I'll set an alarm to check on him every ten minutes. Just to make sure he's okay.
+  Nurse -> That's a good idea.
+  Nurse -> That's good. Keep talking to him.
+  Caller -> Biscuit just jumped on his lap. He's petting the cat.
+  Caller -> He's smiling a little. I think. It's hard to tell.
+  Nurse -> That's a good sign.
+  Nurse -> That's a good sign.
+  Caller -> I will. I'm going to tell him about my dog.
+  Caller -> I have a beagle named Pickle. He loves a good story.
+  Nurse -> Ha. He sounds fun.
+  Caller -> He's a menace. But a loving one.
+  Nurse -> Ha. A good name.
+  Nurse -> That sounds lovely.
+  Caller -> Thank you, Oswald. You've been really kind.
+  Nurse -> Of course. Hang in there.
+  Caller -> I'll text my husband that I'll be late. He'll understand.
+  Nurse -> You're doing a good job. Talk soon.
+  Caller -> I'm glad I called. I almost texted my supervisor instead.
+  Nurse -> The phone is better. Thank you.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Walter Haskins, certainty: unclear, heard_as: [Walter Haskell], turns: [4]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Cornelius Blackwood, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: substitute aide, certainty: stated, turns: [4]}
+    callback_phone: {value: "3035550128", certainty: stated, heard_as: [], turns: [88, 89]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Worried that a client she does not usually care for seems off today.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm at a client's house and I'm worried about him."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear; baseline unknown) He was very quiet and sat in his chair since nine, unlike the note describing him as chatty.
+      speaker: Caller
+      turns: [36]
+      quote: "He's quiet. Very quiet."
+      explanation: Documents the change from the described baseline.
+      facts:
+        - {type: symptom, name: quieter and seems off compared with his usual self, present: true, certainty: unclear}
+      covers: [A1]
+    - text: He ate half a piece of toast, skipped lunch, and drank only a sip or two of water.
+      speaker: Caller
+      turns: [44]
+      quote: "Toast. At nine thirty."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: skipped lunch, present: true, certainty: stated}
+      covers: [A2]
+    - text: (unclear) His forehead felt warm to the touch.
+      speaker: Caller
+      turns: [53]
+      quote: "It felt warm."
+      explanation: Documents the possible warmth.
+      facts:
+        - {type: symptom, name: feels warm to the touch, present: true, certainty: unclear}
+      covers: [A3]
+    - text: (unclear) He said it was Tuesday when it was Monday.
+      speaker: Caller
+      turns: [62]
+      quote: "He said, Tuesday?"
+      explanation: Documents the possible disorientation.
+      facts:
+        - {type: symptom, name: unsure what day it is, present: true, certainty: unclear}
+      covers: [A4]
+    - text: (unclear) She did not see a fall and he did not mention pain.
+      speaker: Caller
+      turns: [66]
+      quote: "I didn't see a fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or complaint of pain, certainty: unclear}
+      covers: [A5]
+    - text: His regular aide was on vacation and the substitute did not know his baseline.
+      speaker: Caller
+      turns: [33]
+      quote: "I've never met him."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: Regular aide is on vacation and the substitute does not know his baseline, certainty: stated}
+      covers: [A6]
+    - text: Temperature under the arm was 100.8.
+      speaker: Caller
+      turns: [128]
+      quote: "It beeped. One hundred point eight."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "100.8", certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to page the on-call clinician with what she saw and that his baseline was unknown.
+      speaker: Nurse
+      turns: [92]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [101]
+      quote: "I'd also like a nurse to come see him today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback within thirty minutes.
+      speaker: Nurse
+      turns: [111]
+      quote: "I'll call you back within thirty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying with him, taking his temperature, offering sips of water, and writing down what she saw with the time.
+      speaker: Nurse
+      turns: [114]
+      quote: "stay with him."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if he was hard to wake, could not answer simple questions, had trouble breathing, or fell.
+      speaker: Nurse
+      turns: [141]
+      quote: "call 911 if he is hard to wake"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

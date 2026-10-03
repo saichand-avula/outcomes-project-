@@ -1,0 +1,232 @@
+call_id: tr-090
+split: train
+blueprint: "48-year-old with an ostomy: two wafers left, pouches leaking overnight, burning red skin under the wafer (3/10). Nurse orders supplies for Wednesday delivery, schedules the ostomy nurse for Friday, teaches skin care and when to call. Messy segmentation."
+setup:
+  scenario_category: supply
+  subtype: ostomy_supplies
+  secondary_tags: [multi_issue, split_turns, late_answers, phone_from_file, name_spelled]
+  clinical_domains: [wound_skin, equipment]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-20T16:15:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Delphine Okoro
+  patient_name_spoken: Delphine Okoro
+  patient_name_certainty: stated
+  patient_dob_true: "1978-03-04"
+  patient_dob_spoken: "1978-03-04"
+  patient_dob_certainty: stated
+  caller_name_true: Delphine Okoro
+  caller_name_spoken: Delphine Okoro
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4695550121"
+  callback_phone_spoken: "4695550121"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested ostomy supplies and reported leaking with skin irritation
+  reason_category: supply_request
+  relevant_context: Has an ostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: ostomy wafers
+    supply_remaining: "2"
+    supply_unit: wafers
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: adhesive remover wipes
+    supply_remaining: none
+    supply_unit: wipes
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: pouch leaking overnight
+    symptom_present: true
+    onset_or_duration: past 3 nights
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: red burning skin under the wafer
+    symptom_present: true
+    severity: 3/10
+    body_location: around the stoma
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wafers and adhesive remover wipes
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: ostomy nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change the wafer as soon as it leaks, clean with plain water, pat dry, and apply barrier powder before the new wafer
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the stoma turns dark or purple, bleeds heavily, or there is no output for 24 hours with vomiting
+    trigger_condition: dark or purple stoma; heavy bleeding; no output 24 hours with vomiting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Delphine. Delphine Okoro. || patient_name, caller_name, relationship
+  Nurse -> Hi, Delphine. How do you spell the last name?
+  Caller -> O K O R O. || patient_name
+  Nurse -> Thanks. Birthday?
+  Caller -> March fourth. Nineteen seventy eight. || patient_dob
+  Nurse -> And I have four six nine, five five five, zero one two one. || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's going on?
+  Caller -> I'm almost out of supplies. And my bag keeps leaking. || cc, A3
+  Nurse -> Okay.
+  Nurse -> What do you have left?
+  Caller -> Two wafers. I have two left. And I'm out of the, the wipes. The remover wipes. I'm all out. || A1, A2
+  Nurse -> Okay.
+  Caller -> And it's been leaking, like, three nights now. Overnight. I wake up and it's all over. || A3
+  Nurse -> Ugh. Okay. I'm sorry.
+  Caller -> Yeah.
+  Nurse -> What's the skin look like under the wafer?
+  Caller -> Red. And it burns. It burns when I peel it. Like a three. || A4
+  Nurse -> Okay.
+  Caller -> Kind of all around.
+  Nurse -> Alright. I'll order more wafers and the wipes. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> Delivery would be Wednesday. || R2
+  Caller -> Wednesday. Okay.
+  Nurse -> And I'm going to have our ostomy nurse come Friday to check the fit and the skin. || R3
+  Caller -> Oh good. Friday. Okay.
+  Nurse -> Until then, change the wafer as soon as it leaks. Don't wait. Wash with plain water, pat it really dry, and use the barrier powder before you put on the new one. || E1
+  Caller -> Plain water. Powder. Okay.
+  Nurse -> Don't use soap with lotion in it.
+  Caller -> Okay. I wasn't. I just use the, the wipes.
+  Nurse -> And call us if the stoma turns dark or purple, if it bleeds a lot, or you have nothing coming out for a whole day and you're throwing up. || E2
+  Caller -> Dark, bleeds, nothing for a day. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Tom.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Delphine Okoro, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1978-03-04", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Delphine Okoro, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4695550121", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested ostomy supplies and reported leaking with skin irritation.
+    speaker: Caller
+    turns: [10]
+    quote: "I'm almost out of supplies. And my bag keeps leaking."
+    explanation: Documents the supply and equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two wafers remained and the adhesive remover wipes were gone.
+      speaker: Caller
+      turns: [13]
+      quote: "Two wafers. I have two left. And I'm out of the, the wipes."
+      explanation: Documents the supply levels.
+      facts:
+        - {type: supply, item: ostomy wafers, supply: 2 wafers, certainty: stated}
+        - {type: supply, item: adhesive remover wipes, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: The pouch had leaked overnight for the past 3 nights.
+      speaker: Caller
+      turns: [15]
+      quote: "it's been leaking, like, three nights now. Overnight."
+      explanation: Documents the leaking.
+      facts:
+        - {type: symptom, name: pouch leaking overnight, present: true, duration: past 3 nights, certainty: stated}
+      covers: [A3]
+    - text: Skin around the stoma under the wafer was red and burning, rated 3/10.
+      speaker: Caller
+      turns: [19]
+      quote: "Red. And it burns. It burns when I peel it. Like a three."
+      explanation: Documents peristomal irritation.
+      facts:
+        - {type: symptom, name: red burning skin under the wafer, present: true, severity: 3/10, location: around the stoma, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order more wafers and adhesive remover wipes.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll order more wafers and the wipes."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Wednesday.
+      speaker: Nurse
+      turns: [24]
+      quote: "Delivery would be Wednesday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R2]
+    - text: Planned for the ostomy nurse to visit Friday to check the fit and skin.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'm going to have our ostomy nurse come Friday to check the fit and the skin."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised changing the wafer as soon as it leaks, washing with plain water, patting dry, and using barrier powder before the new wafer.
+      speaker: Nurse
+      turns: [28]
+      quote: "change the wafer as soon as it leaks. Don't wait."
+      explanation: Documents ostomy skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the stoma turned dark or purple, bled heavily, or produced nothing for a day with vomiting.
+      speaker: Nurse
+      turns: [32]
+      quote: "call us if the stoma turns dark or purple, if it bleeds a lot, or you have nothing coming out for a whole day and you're throwing up."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

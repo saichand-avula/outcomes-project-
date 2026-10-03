@@ -1,0 +1,375 @@
+call_id: tr-307
+split: train
+blueprint: "Sunday afternoon: a wife calls home health because her husband with Parkinson's has been out of his Sinemet (25/100, one tablet four times a day) since yesterday noon; the refill request went to the pharmacy Thursday but needed an authorization and it never went through, and the pharmacy is closed until Monday. He is stiff and barely moving this morning, with a worse tremor and freezing at the bedroom door; no fall yet and he is swallowing fine. The nurse pages on-call, calls the 24-hour pharmacy (completed), sends an urgent authorization request, plans a visit tomorrow morning and a callback in thirty minutes, and gives safety and re-start advice. Ran-out medication flag, spouse caller, long v2, practical and stressed."
+setup:
+  scenario_category: medication
+  subtype: ran_out
+  secondary_tags: [prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, offtopic_chatter, trap_phrasing]
+  clinical_domains: [medication, neurologic, falls_safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Home Health
+  agency_type: home_health
+  nurse_name: Deepa
+  call_timestamp_utc: "2026-11-01T18:20:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Millard Ostrander
+  patient_name_spoken: Millard Ostrander
+  patient_name_certainty: stated
+  patient_dob_true: "1949-09-28"
+  patient_dob_spoken: "1949-09-28"
+  patient_dob_certainty: stated
+  caller_name_true: Gwendolyn Ostrander
+  caller_name_spoken: Gwendolyn Ostrander
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3125550177"
+  callback_phone_spoken: "3125550177"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband ran out of his Parkinson's medicine and is stiff and barely moving
+  reason_category: medication
+  relevant_context: Home health patient with Parkinson's disease
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Sinemet
+    medication_name_spoken: Sinemet
+    medication_status: ran
+    strength: 25/100
+    dose: "1"
+    unit: tablet
+    frequency: four times a day
+    last_dose: yesterday at noon
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: stiffness and freezing
+    symptom_present: true
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: worse tremor
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: The refill sent Thursday needed an authorization that never went through and the pharmacy is closed until Monday
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls or trouble swallowing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: ran out of Sinemet with stiffness and freezing
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: 24-hour pharmacy
+    reason_or_trigger: urgent Sinemet fill
+    certainty: stated
+  - item_id: R3
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: neurologist's office
+    reason_or_trigger: urgent Sinemet authorization
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R5
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Help him whenever he moves, use the bedside commode instead of the bathroom, and do not leave him alone on his feet
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give one tablet as soon as it is picked up with a little food, write down the time, and then go back to the usual schedule without doubling doses
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he falls, cannot swallow, has a fever or becomes confused, and call 911 for choking or trouble breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Ran out of Sinemet for a day with worsening stiffness and freezing
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Home Health, this is Deepa.
+  Caller -> Hi. Hi, Deepa. I'm so glad someone's there on a Sunday. It's Gwen Ostrander. Gwendolyn. I'm calling about my husband Millard. We ran out of his Parkinson's pill. The Sinemet. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Gwen. I'm glad you called. Let me get Millard's chart up. Can I get his date of birth?
+  Caller -> September twenty eighth. Nineteen forty nine. || patient_dob
+  Nurse -> Thank you. And the best number for you?
+  Caller -> Three one two, five five five, zero one seven seven. That's my cell. || callback_phone
+  Nurse -> Got it. Tell me what happened with the medicine.
+  Caller -> Sorry. Hold on. I'm in the kitchen and the kettle is whistling. Let me take it off. Okay.
+  Nurse -> No problem.
+  Caller -> I make tea when I'm nervous. I've had four cups.
+  Caller -> So, he takes the Sinemet. The twenty five slash one hundred. One tablet, four times a day. At eight, noon, four and eight. And he took his last one yesterday at noon. And then we didn't have any. || A1
+  Nurse -> Okay. So the last tablet was yesterday at noon. Twenty-some hours ago. Did you run out yesterday afternoon?
+  Caller -> I opened the bottle for the four o'clock one and it was empty. I thought there was more. I counted wrong. I thought I had a week left. I only had the one day. I feel so stupid.
+  Nurse -> Did you count the pills before this weekend?
+  Caller -> I did on Wednesday. I counted twelve. Then I realized the bottle had a different number on it. I think I was reading the fill count, not what was left. It's my eyes.
+  Nurse -> That's an easy mistake. The labels are small.
+  Caller -> They are so small. I use the magnifying glass now.
+  Nurse -> It happens. Don't beat yourself up. Did you call the pharmacy?
+  Caller -> I called. Yesterday. It was Saturday. They close at two on Saturdays. I called at three. They were closed. And today they're closed. Sundays. They open tomorrow at eight. || A4
+  Nurse -> Is there a particular pharmacist you usually speak to?
+  Caller -> Oh yes. Mr. Patel. He's lovely. He knows Millard by name. But he's off on weekends. A young man was on yesterday and he wasn't much help.
+  Nurse -> Ha. Okay. Well, we'll make some calls.
+  Nurse -> Okay. Did you request the refill earlier this week?
+  Caller -> I did. On Thursday. I called it in. And they said they'd get it ready. And I went in yesterday morning, no, I called yesterday morning, and they said it needed an authorization from the neurologist. The prior auth, whatever. And they said they'd sent the request and hadn't heard back. So it wasn't ready.
+  Nurse -> Okay. So the refill got stuck waiting for the neurologist's office. That's frustrating.
+  Caller -> It is. I'm so frustrated. I've been up since five. He's so stiff.
+  Nurse -> Tell me about him. How is he doing right now?
+  Caller -> He's, I can't, he can barely move. He's in bed. He tried to get up this morning and he froze at the doorway. His feet were stuck. He couldn't move them. I had to pull him back. He was just standing there. Like a statue. And his whole body is stiff. It's like moving a plank. || A2
+  Nurse -> Does that happen sometimes even with the medicine?
+  Caller -> Sometimes in the mornings, before the first pill kicks in. But it passes within half an hour. This is the worst I've ever seen it. It's been going on since last night.
+  Nurse -> Okay. Did he fall?
+  Caller -> No. No falls. I caught him. I'm small but I caught him. He leaned on me. We got him back to bed. || A5
+  Nurse -> Good. That was the right thing. And the tremor?
+  Caller -> It's worse. His hand is shaking so much. He can't hold the cup. I'm holding the cup for him. His whole arm. His right arm. It's shaking like crazy. || A3
+  Nurse -> Okay. Is he able to swallow okay? Any trouble with food or water?
+  Caller -> He's swallowing. I gave him some juice with a straw. He drank it. He said it's harder than usual. But he got it down. No choking.
+  Nurse -> Okay. Good. Is he alert? Is he making sense?
+  Caller -> He's alert. He's frustrated. He knows what he wants to do and his body won't. He keeps saying, I can't make my legs go. He gets angry. He cried a little.
+  Caller -> He hates this. He was a carpenter for forty years. He built this house with his hands. And now he can't hold a cup.
+  Nurse -> That's a lot to lose. I'm sorry.
+  Caller -> I know you are. Everyone is. It's okay. It just gets me sometimes.
+  Nurse -> That's very hard for him. And for you. Okay, Gwen. Here's what I'm going to do. First, I'm paging the on-call clinician right now so they know about the missed doses. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> Second, I'm going to try the 24-hour pharmacy. There's one on Mill Street that has the full hours. Do you know if Millard's prescription can be filled there?
+  Caller -> It's on the same chain. It might be. I never used the one on Mill Street.
+  Nurse -> I'll call and find out. They can usually see the prescription on file. If they can fill it, can you or someone pick it up tonight?
+  Caller -> My son can. My son lives in town. He can drive over. He's at his place. I'll call him.
+  Nurse -> Perfect. Let me do the calls. Don't hang up your phone, I'll call you back. Actually, hold on. I can put you on hold and call from the other line. Is that okay?
+  Caller -> Yes. Yes please. I'll wait. I'll listen to the music.
+  Caller -> It's the jazz station. Millard's favorite. I'll put it on for him while I wait.
+  Nurse -> Okay. Just a minute.
+  Caller -> Okay. Hi, honey. No, it's just me. I'm on hold with the nurse. She's calling the pharmacy.
+  Caller -> Hi again. Sorry. I was talking to Millard. He says hi. He says he's sorry for the trouble.
+  Nurse -> Tell him it's no trouble. Okay, Gwen. I'm back. I spoke with the pharmacist at the 24-hour pharmacy on Mill Street. They have the prescription and they have the Sinemet in stock. They can fill it tonight, but they need the neurologist to approve the authorization, because the insurance won't pay without it. || R2
+  Caller -> He says thank you, nurse. He says you have a kind voice.
+  Nurse -> That's very sweet. Tell him it's what we're here for.
+  Caller -> Oh. So it's still the authorization.
+  Nurse -> Yes. But the pharmacist told me they can give a short emergency supply, three days, without the authorization, if the prescriber verbally okays it. So I'm going to send an urgent request to the neurologist's office for the authorization, and I'm also going to ask the on-call clinician to call in that emergency supply.
+  Caller -> Okay. That sounds like a plan. Thank you. Thank you so much.
+  Nurse -> I'm sending the urgent authorization request to the neurologist's office now. I've marked it urgent because he's out of the medicine. || R3
+  Caller -> What if they don't answer? It's Sunday.
+  Nurse -> The on-call clinician can authorize the short supply. That's why I paged them. I should hear back within twenty or thirty minutes. I'll call you back as soon as I do. || R5
+  Caller -> Thirty minutes. Okay. And then my son goes to the pharmacy.
+  Nurse -> Yes. Have him ready. Tell him to bring Millard's insurance card and his ID, in case.
+  Caller -> Insurance card. Where is it? In the drawer. By the phone. With the blue folder. I'll find it.
+  Nurse -> Good. Put it by the door so he can grab it.
+  Caller -> I will. Let me call him now. Can I hang up and call him?
+  Nurse -> Yes. Go ahead. I'll call you back. Make sure your phone is on.
+  Caller -> It's on. It's always on. Okay. Wait. One more thing. What do I do for Millard tonight? Until the pill comes?
+  Nurse -> A few things. He needs to be assisted any time he moves. Don't let him walk alone. If he needs the bathroom, use the bedside commode if you have one, instead of walking to the bathroom. Do you have one?
+  Caller -> We have a commode. The nurse gave us one last year. It's in the closet.
+  Nurse -> Good. Please get it out and put it next to the bed. It's safer than the bathroom while he's like this. || E1
+  Caller -> Commode next to the bed. Don't leave him alone. Help whenever he moves. Okay. Hold on, I'll get it.
+  Nurse -> I'll wait.
+  Caller -> Okay. It's out. It's by the bed. It's a little dusty. I'll wipe it off.
+  Caller -> Do I need a plastic bag for it? The liner? We have the liners.
+  Nurse -> If you have them, yes. Put one in so cleanup's easy.
+  Caller -> I have a whole box. Okay. Done.
+  Nurse -> Good. And when the medicine comes, give him one tablet right away, with a little food. A cracker or some applesauce. Write down the time. Then go back to the usual schedule. Don't give him extra to make up for the missed ones. || E2
+  Caller -> One tablet, with food, write the time. Not extra. Okay. Not double. I won't. I know not to.
+  Nurse -> It may take an hour or two to work. He might not be better right away. That's normal.
+  Caller -> Okay. An hour or two. I'll be patient.
+  Caller -> Do you think he'll be back to normal after the pill?
+  Nurse -> It should help a lot. He might be a little off for a day while his levels come back up. That's why we'll check on him tomorrow.
+  Caller -> A day. Okay. That's not so bad.
+  Nurse -> I'm also going to have a nurse come see him tomorrow morning, to check how he's doing and make sure there's a plan so this doesn't happen again. || R4
+  Caller -> Tomorrow morning. Yes. I'd like that. I want to set up some kind of reminder for the refills.
+  Nurse -> Good idea. The nurse can help you set up auto refills.
+  Caller -> Good. I think my daughter said her mother-in-law has that. She never runs out of anything. Ha.
+  Nurse -> It really helps. We can put the reminders on your calendar too.
+  Caller -> Auto refills. I didn't know you could do that.
+  Nurse -> It's a good option. Okay. And call us right away if he falls, can't swallow, has a fever, or gets confused. And nine one one if he chokes or has trouble breathing. || E3
+  Caller -> Falls, can't swallow, fever, confused. Choking or breathing, nine one one. Okay. I wrote it down on the envelope.
+  Nurse -> Good. Gwen, how are you? Are you getting any help?
+  Caller -> My son. And my daughter in Phoenix, on the phone. And a neighbor who brings dinner on Tuesdays. I'm okay. I'm tired.
+  Caller -> Mrs. Ruiz from next door. She makes the most wonderful tamales. She sends enough for the week.
+  Nurse -> That's a blessing.
+  Caller -> Oh, it is. I think the Lord sends her.
+  Nurse -> Make sure you eat something, too. And sit down for a minute.
+  Caller -> I had a banana. And tea. I'll have a cracker.
+  Nurse -> Good. I'll talk to you in thirty minutes.
+  Caller -> Okay. Thank you, Deepa. I'm so grateful. I was almost crying when you picked up.
+  Nurse -> That's what we're here for. Go call your son.
+  Caller -> Oh, and Deepa, thank you for not making me feel foolish about the count.
+  Caller -> I will. Bye.
+  Nurse -> Bye, Gwen.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Millard Ostrander, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-09-28", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gwendolyn Ostrander, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550177", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband ran out of his Parkinson's medicine and was stiff and barely moving.
+    speaker: Caller
+    turns: [2]
+    quote: "We ran out of his Parkinson's pill. The Sinemet."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Sinemet 25/100, one tablet four times a day, ran out after the last dose yesterday at noon.
+      speaker: Caller
+      turns: [11]
+      quote: "he took his last one yesterday at noon."
+      explanation: Documents the medication that ran out.
+      facts:
+        - {type: medication, name: Sinemet, strength: 25/100, dose: "1", unit: tablet, frequency: four times a day, last_dose: yesterday at noon, med_status: ran, certainty: stated}
+      covers: [A1]
+    - text: He was stiff and froze at the bedroom doorway this morning.
+      speaker: Caller
+      turns: [28]
+      quote: "he froze at the doorway."
+      explanation: Documents the stiffness and freezing.
+      facts:
+        - {type: symptom, name: stiffness and freezing, present: true, onset: since this morning, certainty: stated}
+      covers: [A2]
+    - text: His tremor was worse and he could not hold a cup.
+      speaker: Caller
+      turns: [34]
+      quote: "It's worse. His hand is shaking so much."
+      explanation: Documents the tremor.
+      facts:
+        - {type: symptom, name: worse tremor, present: true, certainty: stated}
+      covers: [A3]
+    - text: The refill needed an authorization from the neurologist that never went through, and the pharmacy was closed until Monday.
+      speaker: Caller
+      turns: [19]
+      quote: "They open tomorrow at eight."
+      explanation: Documents why the refill was not filled.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: He had not fallen and was swallowing, though harder than usual.
+      speaker: Caller
+      turns: [32]
+      quote: "No falls. I caught him."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls or trouble swallowing, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Spoke with the 24-hour pharmacy, which had the prescription and the medicine in stock.
+      speaker: Nurse
+      turns: [54]
+      quote: "I spoke with the pharmacist at the 24-hour pharmacy on Mill Street."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, certainty: stated}
+      covers: [R2]
+    - text: Planned to send an urgent authorization request to the neurologist's office.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'm sending the urgent authorization request to the neurologist's office now."
+      explanation: Documents the planned refill authorization request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [86]
+      quote: "I'm also going to have a nurse come see him tomorrow morning"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+    - text: Planned to call back within about thirty minutes once the clinician responded.
+      speaker: Nurse
+      turns: [62]
+      quote: "I'll call you back as soon as I do."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R5]
+  education:
+    - text: Advised helping him whenever he moved, using the bedside commode and not leaving him alone on his feet.
+      speaker: Nurse
+      turns: [70]
+      quote: "He needs to be assisted any time he moves."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised giving one tablet with a little food as soon as it was picked up, writing down the time and not doubling doses.
+      speaker: Nurse
+      turns: [79]
+      quote: "give him one tablet right away, with a little food."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a fall, trouble swallowing, fever or confusion, and calling 911 for choking or trouble breathing.
+      speaker: Nurse
+      turns: [92]
+      quote: "call us right away if he falls, can't swallow, has a fever, or gets confused."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "We ran out of his Parkinson's pill. The Sinemet."}

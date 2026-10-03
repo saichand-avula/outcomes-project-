@@ -1,0 +1,288 @@
+call_id: tr-473
+split: train
+blueprint: "A daughter calls home health because her 80-year-old father has been very sleepy and slow to answer since this morning: she realizes the pharmacy bottle her mother has been giving him labeled clonazepam is not his blood pressure pill clonidine, and he got a half milligram last night and again this morning. Blood pressure ninety eight over sixty, breathing okay, no fall. Nurse pages on-call, plans a nurse visit today, tells her to hold the clonazepam and bring both bottles, and to call 911 if he is hard to wake. Look-alike drug error (medication concern), tall-man pair, adult child caller, patient 65+, v2 short."
+setup:
+  scenario_category: medication
+  subtype: look_alike_drug_error
+  secondary_tags: [tall_man_drug, trap_phrasing, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, drowsiness, blood_pressure]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Brightwater Home Health
+  agency_type: home_health
+  nurse_name: Ezekiel
+  call_timestamp_utc: "2026-11-15T17:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Osvaldo Trevino
+  patient_name_spoken: Osvaldo Trevino
+  patient_name_certainty: stated
+  patient_dob_true: "1946-03-19"
+  patient_dob_spoken: "1946-03-19"
+  patient_dob_certainty: stated
+  caller_name_true: Imogen Trevino
+  caller_name_spoken: Imogen Trevino
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6025550110"
+  callback_phone_spoken: "6025550110"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father was given the wrong pill and is very sleepy
+  reason_category: medication
+  relevant_context: Home health patient on a blood pressure medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: clonazepam
+    medication_name_spoken: clonazepam
+    medication_status: extra_dose
+    dose: "0.5"
+    unit: mg
+    frequency: given in error last night and this morning
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: clonidine
+    medication_name_spoken: clonidine
+    medication_status: prescribed
+    dose: "0.1"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: very sleepy and slow to answer
+    symptom_present: true
+    severity: moderate
+    onset: since this morning
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "98/60"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing or fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong sedating pill given twice and he is very sleepy
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any more clonazepam, keep both bottles together to show the nurse, and wait for the clinician before giving the clonidine
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he is hard to wake, breathing slowly, or has bluish lips
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Wrong look-alike pill given twice and he is very sleepy with low blood pressure
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Brightwater Home Health, this is Ezekiel.
+  Caller -> Hi, Ezekiel. It's Imogen Trevino. I'm calling about my father, Osvaldo Trevino. I think my mother gave him the wrong pill and he's very sleepy. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi, Imogen. Okay. Let's slow down. Tell me what happened.
+  Caller -> Sorry. I drove over here and I'm still shaking.
+  Nurse -> It's all right. Take your time.
+  Caller -> So my dad takes clonidine for his blood pressure. Point one milligram. Twice a day. My mom does his pills. She got a new bottle from the pharmacy last week. She thought it was the clonidine. I looked at it this morning. It says clonazepam. || A2
+  Nurse -> Clonazepam. Not clonidine. Let me make sure. Can you spell what's on the label? || A1, A2
+  Caller -> It's the little brown bottle. The label is faded.
+  Caller -> C L O N A Z E P A M. Clonazepam. Point five milligrams. It's a different pill. It's for anxiety, I think. My mom said it looked the same. Small, white. || A1
+  Nurse -> They do have similar names, and they are easy to mix up. How many has he taken?
+  Caller -> I wish the pharmacy would put them on different shelves.
+  Nurse -> It's a fair thought.
+  Caller -> Two. One last night at bedtime, and one this morning around eight. She gave him one each time instead of the clonidine. || A1
+  Nurse -> Clonazepam, point five milligrams, twice. Last night and this morning at eight. And he hasn't had his clonidine since? || A1, A2
+  Caller -> No. Not since the day before yesterday. I think. She started the new bottle last week. I'm not sure about the days. She gets confused.
+  Nurse -> Okay. How is he now?
+  Caller -> Hold on, I'll go look at him. Okay. He's still in the chair.
+  Caller -> He's really sleepy. He's in his recliner and he can barely keep his eyes open. When I talk to him he answers slowly. He said, what? Three times. It isn't like him. He's usually sharp. || A3
+  Nurse -> Okay. Can he wake up when you talk to him, or shake his shoulder?
+  Caller -> Yes. He wakes up. But he goes right back. He's groggy. He said he feels like he's underwater.
+  Nurse -> Okay.
+  Nurse -> Is he breathing normally? Any slow or shallow breathing?
+  Caller -> I think it's normal. He's snoring a little. His breathing is regular. His lips are fine. No, they're pink.
+  Nurse -> Good. That's helpful.
+  Nurse -> Good. Has he fallen, or hurt himself?
+  Caller -> No. He hasn't gotten up. He's been in the chair all morning. || A5
+  Nurse -> Do you have a blood pressure cuff?
+  Caller -> I do. I just took it. Ninety eight over sixty. That's low for him. He's usually one forty. || A4
+  Nurse -> Okay. Ninety eight over sixty. That's lower than usual.
+  Nurse -> Okay. Thank you, Imogen. What's his date of birth?
+  Caller -> Sorry, I should have said that earlier.
+  Nurse -> You're fine.
+  Caller -> March nineteenth. Nineteen forty six. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six oh two, five five five, oh one one oh. || callback_phone
+  Nurse -> Six oh two, five five five, oh one one oh. Correct? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. Here's what I'll do. I'm going to page the on-call clinician right now, and let them know about the wrong pill, his sleepiness, and the blood pressure. || R1
+  Caller -> Okay. Thank you. Please hurry.
+  Nurse -> I will. I'd also like a nurse to come see him today. || R2
+  Caller -> Today. Good. I'm here all afternoon. I came over as soon as I saw the bottle.
+  Nurse -> Perfect.
+  Caller -> I called in to work. My boss understood.
+  Nurse -> Good. In the meantime, please don't give him any more clonazepam. Put both bottles together, the clonazepam and the clonidine, so the nurse can see them. And don't give his clonidine until the clinician says. || E1
+  Caller -> No more clonazepam. Both bottles together. Wait on the clonidine. Okay. I'm putting them on the kitchen table. I'll put a note on the wrong one. || A1, A2
+  Nurse -> That's a good idea.
+  Caller -> I used a big red marker. WRONG. In capital letters.
+  Caller -> My mother is very upset. She's crying in the kitchen. She keeps saying she killed him.
+  Nurse -> Please tell her he is going to be okay. The medicine will wear off, and we are watching him closely. This is a very common mistake.
+  Caller -> Okay. I'll tell her. She's going to take it hard.
+  Nurse -> It's a common mix up. It's not her fault. The pharmacy labels are almost the same.
+  Caller -> Thank you. I'll hold her hand.
+  Caller -> She's making tea. She says it'll help. I let her.
+  Nurse -> That's good. It gives her something to do.
+  Nurse -> Imogen, call 911 if he becomes hard to wake, if his breathing gets slow, or if his lips turn bluish. || E2
+  Caller -> Hard to wake. Slow breathing. Blue lips. 911. Okay. I'll check him every few minutes.
+  Nurse -> Good. Keep him in the chair, upright. Don't let him walk alone.
+  Caller -> I put a pillow behind him. He didn't complain.
+  Caller -> I won't. He tried to stand once. I put him back.
+  Nurse -> Good. Thank you.
+  Caller -> I'll keep watching. I have the phone in my lap.
+  Caller -> Is he going to be okay?
+  Nurse -> From what you tell me, I think so. He needs to be watched, and the clinician needs to weigh in. That's why we're paging.
+  Caller -> Okay. I'm going to sit by him.
+  Nurse -> That's right. I'll page now.
+  Caller -> Okay. I'll stay right here.
+  Caller -> Thank you, Ezekiel.
+  Nurse -> You're welcome. I'll be in touch.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Osvaldo Trevino, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-03-19", certainty: stated, heard_as: [], turns: [33]}
+    caller_name: {value: Imogen Trevino, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550110", certainty: stated, heard_as: [], turns: [35, 36]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father was given the wrong pill and is very sleepy.
+    speaker: Caller
+    turns: [2]
+    quote: "I think my mother gave him the wrong pill and he's very sleepy."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Clonazepam 0.5 mg was given in error last night at bedtime and again this morning at eight.
+      speaker: Caller
+      turns: [9]
+      quote: "Point five milligrams. It's a different pill."
+      explanation: Documents the wrong medication.
+      facts:
+        - {type: medication, name: clonazepam, dose: "0.5", unit: mg, frequency: given in error last night and this morning, prn: false, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Clonidine 0.1 mg twice a day was his prescribed blood pressure medicine.
+      speaker: Caller
+      turns: [6]
+      quote: "Point one milligram. Twice a day."
+      explanation: Documents the prescribed medication.
+      facts:
+        - {type: medication, name: clonidine, dose: "0.1", unit: mg, frequency: twice a day, prn: false, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: He was very sleepy and slow to answer since this morning.
+      speaker: Caller
+      turns: [18]
+      quote: "He's really sleepy."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: very sleepy and slow to answer, present: true, severity: moderate, onset: since this morning, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 98/60, lower than his usual.
+      speaker: Caller
+      turns: [28]
+      quote: "Ninety eight over sixty."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "98/60", certainty: stated}
+      covers: [A4]
+    - text: He had normal breathing and no fall.
+      speaker: Caller
+      turns: [26]
+      quote: "No. He hasn't gotten up."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing or fall, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician about the wrong pill, sleepiness and blood pressure.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'd also like a nurse to come see him today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised no more clonazepam, keeping both bottles together, and holding the clonidine until the clinician says.
+      speaker: Nurse
+      turns: [44]
+      quote: "please don't give him any more clonazepam."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if he became hard to wake, breathed slowly, or had bluish lips.
+      speaker: Nurse
+      turns: [55]
+      quote: "call 911 if he becomes hard to wake"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think my mother gave him the wrong pill and he's very sleepy."}

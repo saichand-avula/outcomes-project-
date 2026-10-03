@@ -1,0 +1,293 @@
+call_id: tr-328
+split: train
+blueprint: "A daughter sorting her mother's pill bottles calls home health because Prilosec and Prozac, both 20 mg orange-capped bottles that sound alike, got swapped on the kitchen shelf; she thinks her mother may have taken two Prilosec yesterday and no Prozac, but is not sure. Her mother Fenella has mild heartburn and feels a little down, no black stools. The nurse reads the chart list back, sorts out which is which, messages the provider about the possible missed Prozac, updates the chart with look-alike notes (completed), and plans a callback. She does not give a callback number (use the one on file). Tall-man look-alike pair, phone not given, adult child caller, v2 short."
+setup:
+  scenario_category: medication
+  subtype: clarification
+  secondary_tags: [tall_man_drug, phone_not_given, phone_from_file, chart_reading_distractor, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, mood]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oak Hollow Home Health
+  agency_type: home_health
+  nurse_name: Brenda
+  call_timestamp_utc: "2026-10-26T16:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [lisinopril]
+chief_complaint:
+  patient_name_true: Fenella Aldridge
+  patient_name_spoken: Fenella Aldridge
+  patient_name_certainty: stated
+  patient_dob_true: "1952-06-30"
+  patient_dob_spoken: "1952-06-30"
+  patient_dob_certainty: stated
+  caller_name_true: Maribel Aldridge
+  caller_name_spoken: Maribel Aldridge
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Asked for help sorting two look-alike pill bottles that may have been swapped
+  reason_category: medication
+  relevant_context: Home health patient on a heartburn medicine and an antidepressant
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Prilosec
+    medication_name_spoken: Prilosec
+    medication_status: extra_dose
+    dose: "20"
+    unit: mg
+    frequency: every morning
+    last_dose: two yesterday morning
+    certainty: unclear
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Prozac
+    medication_name_spoken: Prozac
+    medication_status: missed
+    dose: "20"
+    unit: mg
+    frequency: every morning
+    last_dose: not sure
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild heartburn
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: feeling a little down
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: black stools or vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: possible missed Prozac and double Prilosec after a bottle mix-up
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    reason_or_trigger: added look-alike notes to the medication list
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: number on file
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep the Prilosec and Prozac bottles on different shelves, read the label twice, and give today's Prozac with breakfast tomorrow without doubling up
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for black or bloody stools, vomiting, severe stomach pain, or any change in mood such as hopelessness or talk of hurting herself
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oak Hollow Home Health, this is Brenda.
+  Caller -> Hi, Brenda. It's Maribel Aldridge. I'm calling about my mother, Fenella Aldridge. I think I messed up her pills. I'm not sure. I'm not sure if I messed up. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay. Take a breath. Mix-ups with pills are very common, and it sounds like you caught it. Let's go through it.
+  Caller -> Okay. Thank you. I'm sorry, I'm a little rattled. I've been looking at these bottles for an hour.
+  Nurse -> Okay, Maribel. Let's go through it. What's your mother's date of birth?
+  Caller -> June thirtieth. Nineteen fifty two. || patient_dob
+  Nurse -> Got it. And a good number to reach you?
+  Caller -> You have it. It's the same as last time. It's in her chart. I'm at her house but I don't remember the landline number. Can you use the one in the file?
+  Nurse -> Yes. I can see one on file. I'll use that. Thank you.
+  Caller -> Great. Thanks.
+  Nurse -> Is your mom there with you right now?
+  Caller -> She's in the living room. In her chair. She has her yarn. She's making a scarf for my son.
+  Nurse -> That sounds peaceful.
+  Nurse -> Tell me what happened with the pills.
+  Caller -> So I came over this morning and I was organizing her kitchen. And I noticed two bottles on the shelf. Side by side. The same size. Orange. White caps. And one says Prilosec and one says Prozac. And they both say twenty milligrams. And I thought, wait. These look the same. And what if she mixed them up. || A1
+  Nurse -> Are the labels from the same pharmacy?
+  Caller -> Yes. Same pharmacy. Same label design. Same font. The only difference is the name. P R I L O S E C and P R O Z A C. They look so alike on the label.
+  Nurse -> They do. That's why they're often mixed up.
+  Nurse -> Okay. So you found Prilosec and Prozac, twenty milligrams each, next to each other. What does she take them for? || A1, A2
+  Caller -> The Prilosec is for her stomach. Her heartburn. One a day, in the morning. And the Prozac is for her mood. Her depression. One a day in the morning. So she takes both, every morning. With breakfast. || A1, A2
+  Nurse -> And who sets up her pills? You?
+  Caller -> Usually me, on weekends. During the week, she does it herself. I started checking more often.
+  Nurse -> Okay. That's good to know. We'll talk about that with the nurse.
+  Nurse -> Okay. So she should take one of each every morning, twenty milligrams each.
+  Caller -> Yes. That's right. But yesterday, I was here, and I put her pills out in the little cup. And I was in a rush. And I think I might have put two of the same one. Two Prilosec. And no Prozac. I'm not sure. I was on the phone with my husband. || A2
+  Nurse -> Okay. What makes you think that?
+  Caller -> Because this morning I counted. The Prozac bottle has more pills than it should. And the Prilosec bottle is lower. Like by one. If I put two Prilosec in the cup yesterday, then the count would be off. By one. One less Prilosec. One more Prozac. || A1, A2
+  Nurse -> Okay. That's good detective work. So it might be that she took two Prilosec and missed her Prozac yesterday. Or it might be that the count is just off. || A1, A2
+  Caller -> Right. I don't know. I can't be sure. My mother can't remember. I asked her. She said she took her pills. She doesn't know which ones.
+  Nurse -> How many pills should be in each bottle by now?
+  Caller -> I filled the bottles on the first. They're thirty pills each. It's the twenty sixth. So it should be four left. And one has five, and one has three. So it's off by one.
+  Nurse -> That fits a swap by one pill. Okay.
+  Nurse -> That's okay. Let me read you the list from her chart. Tell me if it matches. Lisinopril ten milligrams once a day. Prilosec twenty milligrams once a day. Prozac twenty milligrams once a day. And Tylenol as needed. Is that right? || A1, A2
+  Caller -> Yes. That's all of them. Lisinopril, Prilosec, Prozac. And the Tylenol for her knees. I didn't mix up the lisinopril. That one's a different color. It's pink. And it's a different bottle. It's the other two. || A1, A2
+  Caller -> The lisinopril is pink. Little pink. I always do that one first so I don't mix it.
+  Nurse -> Good system.
+  Nurse -> Okay. Good. The lisinopril is fine. How is your mother feeling today?
+  Caller -> She has a little heartburn. Mild. She said her stomach burns a bit. It's the same as usual. And she says she feels a little down. A little blue. But she says it's the weather. It's gray out. She's not, you know, I'm not saying anything bad. She's just a little down. || A3, A4
+  Nurse -> Okay. Is she talking about hurting herself, or not wanting to go on? Any thoughts like that?
+  Caller -> No. No, no. Nothing like that. She's not saying that. She said she's tired of the rain. That's all. She's not, I don't think so. She's fine. She was knitting this morning.
+  Nurse -> What's she knitting?
+  Caller -> A scarf for my son. In red and gold. His school colors. She's on her third scarf this year.
+  Nurse -> Aw. She's keeping busy. That's good.
+  Nurse -> Okay. That's reassuring. Any black stools, or vomiting, or severe stomach pain?
+  Caller -> No. No black. No vomiting. No pain. Just the heartburn. A little. Nothing else. || A5
+  Nurse -> Okay. Good. Maribel, here's what I think. If she did take two Prilosec yesterday, that's a double dose of a stomach medicine, which is generally not dangerous. And if she missed one day of Prozac, that's usually not a big problem either, but I want the provider to know. I'm going to message the provider today about the possible mix-up. || R1
+  Caller -> Oh good. Thank you. Should I give her the Prozac now? To catch up? || A2
+  Nurse -> No. Please don't double up. Just give her the usual dose tomorrow morning with breakfast. Wait for the provider's call if you're worried.
+  Caller -> What if it's a big deal? What if she needs to go to the hospital?
+  Nurse -> It doesn't sound like it. The medicines are not dangerous in these amounts. But the provider will make sure.
+  Caller -> Okay. That helps.
+  Caller -> Okay. No double. Tomorrow morning. One of each.
+  Nurse -> Perfect. And let's make this safer. Put the Prilosec and Prozac on different shelves. Not side by side. And read the label twice before you pour the pills. One more time when you put them in the cup. || E1
+  Caller -> Different shelves. Read it twice. Okay. I have a Sharpie. I could mark the Prozac with a purple dot. For mood. Purple for the blues. || A2
+  Nurse -> That's a great idea. I'm also going to add a note on her medication list about the two look-alike names, so everyone on the team sees it. || R2
+  Caller -> Oh, that'd be wonderful. Thank you.
+  Nurse -> It's done. I added it to her list just now. And I'll call the number on file this evening to let you know what the provider says. || R3
+  Caller -> This evening. Good. I'll be at her house. I'll stay for dinner.
+  Nurse -> One more thing. Call us if she gets black or bloody stools, vomiting, or really bad stomach pain, or if her mood gets worse. Like if she seems hopeless, or says she wants to hurt herself. || E2
+  Caller -> Black stools, vomiting, bad pain. Hopeless or hurting herself. Okay. I don't think so. But I'll watch. I'll call.
+  Nurse -> Good. How are you doing, Maribel?
+  Caller -> I'm okay. I just feel guilty. I should have been more careful.
+  Nurse -> You caught it quickly. That's what matters.
+  Caller -> Thank you. I appreciate it.
+  Nurse -> Talk to you this evening.
+  Caller -> Bye, Brenda.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Fenella Aldridge, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-06-30", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Maribel Aldridge, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked for help sorting two look-alike pill bottles that may have been swapped.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I messed up her pills."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Prilosec 20 mg every morning may have been given twice yesterday (unclear; she was not sure what she put in the cup).
+      speaker: Caller
+      turns: [25]
+      quote: "I might have put two of the same one. Two Prilosec."
+      explanation: Documents the possible double dose.
+      facts:
+        - {type: medication, name: Prilosec, dose: "20", unit: mg, frequency: every morning, last_dose: two yesterday morning, med_status: extra_dose, certainty: unclear}
+      covers: [A1]
+    - text: Prozac 20 mg every morning may have been missed yesterday (unclear; the pill counts did not match).
+      speaker: Caller
+      turns: [27]
+      quote: "The Prozac bottle has more pills than it should."
+      explanation: Documents the possible missed antidepressant.
+      facts:
+        - {type: medication, name: Prozac, dose: "20", unit: mg, frequency: every morning, last_dose: not sure, med_status: missed, certainty: unclear}
+      covers: [A2]
+    - text: She had mild heartburn, the same as usual.
+      speaker: Caller
+      turns: [38]
+      quote: "She has a little heartburn. Mild."
+      explanation: Documents the heartburn.
+      facts:
+        - {type: symptom, name: mild heartburn, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She felt a little down, which she attributed to the gray weather.
+      speaker: Caller
+      turns: [38]
+      quote: "she feels a little down. A little blue."
+      explanation: Documents the low mood.
+      facts:
+        - {type: symptom, name: feeling a little down, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: She had no black stools, vomiting or stomach pain.
+      speaker: Caller
+      turns: [45]
+      quote: "No black. No vomiting. No pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: black stools or vomiting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about the possible mix-up with the Prilosec and Prozac.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm going to message the provider today about the possible mix-up."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Added a note about the look-alike medicine names to her medication list.
+      speaker: Nurse
+      turns: [57]
+      quote: "I added it to her list just now."
+      explanation: Documents the completed chart update.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+      covers: [R2]
+    - text: Planned to call the number on file this evening with the provider's response.
+      speaker: Nurse
+      turns: [57]
+      quote: "I'll call the number on file this evening to let you know what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping the Prilosec and Prozac on different shelves, reading the label twice, and giving the usual dose tomorrow without doubling up.
+      speaker: Nurse
+      turns: [53]
+      quote: "Put the Prilosec and Prozac on different shelves."
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for black or bloody stools, vomiting, severe stomach pain or a worsening mood such as hopelessness or talk of self-harm.
+      speaker: Nurse
+      turns: [59]
+      quote: "Call us if she gets black or bloody stools, vomiting"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

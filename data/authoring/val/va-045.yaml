@@ -1,0 +1,280 @@
+call_id: va-045
+split: val
+blueprint: "A paid home aide, Rosalind Achterberg, calls about her client Winston Abernathy, who took his metoprolol twice this morning because he forgot he had already taken it. He is dizzy and the cuff reads 96 over 58. Nurse has her sit him down, hold the evening dose, pages the on-call clinician, and schedules a nurse visit this afternoon. Paid caregiver caller, medication concern flag, v2 short."
+setup:
+  scenario_category: medication
+  subtype: extra_dose_cardiac
+  secondary_tags: [paid_caregiver, extra_dose, hedging, split_turns, late_answers]
+  clinical_domains: [cardiac, dizziness, medication]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Colleen
+  call_timestamp_utc: "2026-11-24T16:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Winston Abernathy
+  patient_name_spoken: Winston Abernathy
+  patient_name_certainty: stated
+  patient_dob_true: "1944-06-12"
+  patient_dob_spoken: "1944-06-12"
+  patient_dob_certainty: stated
+  caller_name_true: Rosalind Achterberg
+  caller_name_spoken: Rosalind Achterberg
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "7045550123"
+  callback_phone_spoken: "7045550123"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her client took his metoprolol twice this morning and is dizzy
+  reason_category: medication
+  relevant_context: Home health patient on a heart medication
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: extra_dose
+    dose: "25"
+    unit: mg
+    frequency: twice daily
+    prn: false
+    last_dose: two doses this morning, about eight and about ten
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "96/58"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: extra dose of metoprolol with dizziness and low blood pressure
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have him sit or lie down, stand up slowly with help, and stay with him
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give the evening metoprolol until the clinician calls back
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he faints, has chest pain, or becomes hard to wake
+    trigger_condition: fainting; chest pain; hard to wake
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Extra dose of metoprolol with dizziness and blood pressure of 96 over 58
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Northstar Home Health, this is Colleen.
+  Caller -> Hi, Colleen. It's Rosalind Achterberg. I'm an aide. I'm with Winston Abernathy today, and, um, I think he took his heart pill twice. || caller_name, relationship, patient_name, cc, F1, A1
+  Nurse -> Okay, Rosalind. Let's slow down. Is he awake and talking to you?
+  Caller -> Yes. He's talking. He's in his recliner. He says he's a little dizzy.
+  Nurse -> Okay. I'll want details on that in a second. First, which pill?
+  Caller -> The metoprolol. The twenty five milligram. It's the one in the blue organizer. || A1
+  Nurse -> And what happened?
+  Caller -> So I come in at eight. He's already taken it. He told me. Then at ten I'm doing the dishes and he says, did I take my pill? And I said you did. And he said no I didn't. And I looked in the organizer and the morning slot was empty and the, uh, the noon slot was empty too.
+  Nurse -> The noon slot?
+  Caller -> No, sorry. I got that wrong. The morning slot is empty. He took it at eight. Then he must have taken another one around ten. Out of the wrong day. Because Thursday's got one missing too.
+  Nurse -> So two metoprolol this morning. One at about eight, one at about ten. || A1
+  Caller -> Yes. I think so. Yes. I'm pretty sure. Two.
+  Nurse -> Is metoprolol twice a day for him? || A1
+  Caller -> Twice a day, yes. Morning and evening. Twenty five each time.
+  Nurse -> Okay. Thank you. Now tell me about the dizzy. How bad?
+  Caller -> He says the room is, like, tilting a little. When he stands. When he's sitting it's better. || A2
+  Nurse -> Did he stand up already?
+  Caller -> Once. To go to the bathroom. I held his arm. He wobbled.
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> I do. The wrist one. The agency left it. Let me, hang on.
+  Nurse -> Take your time. Have him sit still.
+  Caller -> Okay. It's, uh, it's thinking. Okay. It says ninety six over fifty eight. || A3
+  Nurse -> Ninety six over fifty eight. What does he usually run?
+  Caller -> Oh, a hundred thirty something. Over, I don't know. Seventies, I think. That's what's in the book.
+  Nurse -> Okay. That's lower than usual. What's his heart rate?
+  Caller -> It says fifty four.
+  Nurse -> Okay. Thank you. Has he fainted or passed out? Any chest pain?
+  Caller -> No. No fainting. He didn't hit anything. No chest pain. He'd tell me. He tells me everything. || A4
+  Nurse -> Good. Is he short of breath?
+  Caller -> No. He's breathing fine. He's just, he says he feels like a wet noodle.
+  Nurse -> Ha. Okay. Is he sweaty or clammy?
+  Caller -> No. His skin is, um, just normal.
+  Nurse -> Can I get his date of birth?
+  Caller -> June twelfth, nineteen forty four. || patient_dob
+  Nurse -> And a number I can reach you on?
+  Caller -> Seven oh four, five five five, zero one two three. || callback_phone
+  Nurse -> Got it. Rosalind, here's what I need you to do. I want him to stay seated or lying down. If he has to get up, you stand right next to him and help him up slowly. Do not leave him alone. || E1
+  Caller -> Sit or lie down. Help him up slow. Don't leave him. Okay.
+  Nurse -> And do not give the evening metoprolol tonight. Hold it until the clinician calls you back. || E2
+  Caller -> Hold the evening one. Okay. I won't. I'm here until six. His son comes at six.
+  Nurse -> Good. I'm going to page the on-call clinician right now about the extra dose and the low pressure. || R1
+  Caller -> Okay. Please. I feel awful. I should have checked the organizer.
+  Nurse -> It's not your fault, Rosalind. It's easy for a mix up to happen. You did the right thing by calling.
+  Caller -> I just, I was doing the dishes. I'm usually so careful.
+  Nurse -> I know. It's okay. Is he drinking fluids?
+  Caller -> He had juice at breakfast. I can get him water.
+  Nurse -> Yes, offer small sips. And I'm also sending a nurse out this afternoon to check him. || R2
+  Caller -> This afternoon. Okay. Good. What time?
+  Nurse -> I'll have the scheduler call you with the window. It'll be after one.
+  Caller -> Okay. I'll be here.
+  Nurse -> If he faints, has chest pain, or gets hard to wake up, call nine one one right away. Don't wait for us. || E3
+  Caller -> Faints, chest pain, hard to wake. Nine one one. Okay.
+  Nurse -> And keep the organizer away from him, so he doesn't take another by mistake.
+  Caller -> I took it. It's in my bag.
+  Nurse -> Perfect.
+  Caller -> Should I write this down? For the book?
+  Nurse -> Yes. Write the time and what you saw, and the blood pressure numbers.
+  Caller -> Ninety six over fifty eight, and heart rate fifty four. Okay.
+  Nurse -> The clinician will call within about fifteen minutes. Keep your phone near you.
+  Caller -> I will. I'll keep it in my hand.
+  Nurse -> Anything else?
+  Caller -> He's asking if he can have his coffee.
+  Nurse -> Decaf is fine, or just water for now.
+  Caller -> I'll make him water. He won't like it.
+  Nurse -> Ha. That's fine.
+  Caller -> Okay. Thank you, Colleen. Sorry again.
+  Nurse -> No need to be sorry. Talk soon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winston Abernathy, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-06-12", certainty: stated, heard_as: [], turns: [34]}
+    caller_name: {value: Rosalind Achterberg, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550123", certainty: stated, heard_as: [], turns: [36]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her client took his metoprolol twice this morning and is dizzy.
+    speaker: Caller
+    turns: [2]
+    quote: "I think he took his heart pill twice."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Two doses of metoprolol 25 mg were taken this morning, about eight and about ten, twice daily medication.
+      speaker: Caller
+      turns: [6]
+      quote: "The metoprolol. The twenty five milligram."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice daily, prn: false, last_dose: two doses this morning, about eight and about ten, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: He was dizzy with the room tilting when standing.
+      speaker: Caller
+      turns: [16]
+      quote: "the room is, like, tilting a little."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Blood pressure was 96/58.
+      speaker: Caller
+      turns: [22]
+      quote: "ninety six over fifty eight."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "96/58", certainty: stated}
+      covers: [A3]
+    - text: He had no fainting or chest pain.
+      speaker: Caller
+      turns: [28]
+      quote: "No fainting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fainting or chest pain, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician about the extra dose and low pressure.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm also sending a nurse out this afternoon"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping him seated or lying down and helping him up slowly.
+      speaker: Nurse
+      turns: [37]
+      quote: "I want him to stay seated or lying down."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised holding the evening metoprolol until the clinician calls back.
+      speaker: Nurse
+      turns: [39]
+      quote: "do not give the evening metoprolol tonight."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for fainting, chest pain, or trouble waking him.
+      speaker: Nurse
+      turns: [51]
+      quote: "call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think he took his heart pill twice."}

@@ -1,0 +1,265 @@
+call_id: va-070
+split: val
+blueprint: "A daughter, Imogen Radcliffe, calls the hospice line because her father Barnard has vomited six times since morning and cannot keep down water or his pills. Two doses of his ondansetron dissolving tablet came back up. He is weak, dry-mouthed, and not in pain. Nurse pages the on-call clinician for a different route of anti-nausea medicine, sends a nurse within two hours, and teaches ice chips, mouth care and positioning. Uncontrolled nausea and vomiting, adult child caller, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_vomiting_hospice
+  secondary_tags: [adult_child, uncontrolled_symptom, medication, split_turns, late_answers]
+  clinical_domains: [nausea_vomiting, intake_appetite, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Pilar
+  call_timestamp_utc: "2026-12-05T17:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Barnard Radcliffe
+  patient_name_spoken: Barnard Radcliffe
+  patient_name_certainty: stated
+  patient_dob_true: "1942-01-26"
+  patient_dob_spoken: "1942-01-26"
+  patient_dob_certainty: stated
+  caller_name_true: Imogen Radcliffe
+  caller_name_spoken: Imogen Radcliffe
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5055550102"
+  callback_phone_spoken: "5055550102"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father cannot stop vomiting and cannot keep down medicine
+  reason_category: nausea_vomiting
+  relevant_context: Hospice patient on an anti-nausea medicine
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    severity: severe
+    onset: since this morning, six times
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every eight hours as needed
+    prn: true
+    last_dose: two doses today, both vomited back up
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: weakness and dry mouth
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain or blood in the vomit
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: vomiting not controlled and unable to keep down medicine
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Nothing by mouth for an hour, then ice chips or tiny sips, keep his head raised, and moisten his mouth with a swab
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any more of the dissolving tablet until the clinician calls with another way to give it
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Vomiting six times since morning and unable to keep down his anti-nausea medicine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Pilar.
+  Caller -> Hi, Pilar. It's Imogen Radcliffe. My dad is Barnard Radcliffe. He can't stop throwing up. Nothing is staying down. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Imogen. I'm sorry. How long has this been going on?
+  Caller -> I'm sorry for how I sound. I haven't slept and I've been cleaning up since seven.
+  Nurse -> You sound like someone doing a hard job. Go ahead.
+  Caller -> Since this morning. Since about seven. I've counted six times. Six. The last one was twenty minutes ago.
+  Nurse -> What's coming up? Food, liquid, anything unusual?
+  Caller -> Just liquid. Yellow, kind of. Watery. He hasn't eaten since yesterday. There's no blood. I checked. It's not red and it's not dark. || A1, A4
+  Nurse -> Does he complain of heartburn or a sour taste?
+  Caller -> He said it tastes bitter. He keeps asking for water, and then it comes right back.
+  Nurse -> Good. Does he have an anti-nausea medicine?
+  Caller -> The ondansetron. The little one that melts on the tongue. Four milligrams. Every eight hours as needed. || A2
+  Nurse -> Has he taken it today?
+  Caller -> Twice. At eight, and then at noon. It came back up both times. I could see it in the bowl. Mostly dissolved but it came back.
+  Nurse -> Did he swallow anything else with it? Other pills?
+  Caller -> The morning ones were with it. Everything came up together. I couldn't tell you what was what.
+  Nurse -> That's okay. The clinician will sort out the medicine list.
+  Nurse -> Okay. Is he in pain?
+  Caller -> No. No pain. He's just sick and weak. His mouth is so dry. His lips are cracked. || A3
+  Nurse -> Is he awake and answering you?
+  Caller -> Yes. He's tired. He's lying on his side. He keeps closing his eyes. But he answers.
+  Nurse -> Is he lying on his side with his head up a bit, or flat?
+  Caller -> Flat on his side. I'll add a pillow.
+  Nurse -> Yes, please. That helps with the vomiting.
+  Nurse -> Does he have a fever? Belly swelling?
+  Caller -> I haven't taken his temperature. His belly looks the same. It's soft.
+  Nurse -> When was his last bowel movement?
+  Caller -> Yesterday. A small one. Normal.
+  Nurse -> Any belly pain when you press gently?
+  Caller -> He doesn't flinch. He just looks tired.
+  Nurse -> Okay. Imogen, can I have his date of birth?
+  Caller -> January twenty sixth, nineteen forty two. || patient_dob
+  Nurse -> And your number?
+  Caller -> Five oh five, five five five, zero one zero two. || callback_phone
+  Nurse -> Got it. I'm going to page the on-call clinician right now. When a person keeps vomiting up the dissolving tablet, they often switch to a different form, like a suppository or an injection. || R1
+  Caller -> Okay. Please. I hate seeing him like this.
+  Nurse -> I know. For now, don't give him any more of the dissolving tablet. Wait for the clinician's call. || E2
+  Caller -> No more. Okay. How long will that be?
+  Caller -> Is it normal for this to happen? He's been fine for weeks.
+  Nurse -> It can happen with illness at this stage. It doesn't mean you did anything wrong.
+  Caller -> I keep thinking I missed something.
+  Nurse -> You didn't. You called at the right time.
+  Nurse -> Probably within fifteen minutes. And I'm also sending a nurse to your house. She should be there within two hours. || R2
+  Caller -> Two hours. Okay. Thank you.
+  Nurse -> In the meantime, give him nothing by mouth for an hour. After that, offer ice chips, or tiny sips of water, one teaspoon at a time. Keep his head raised on pillows, and moisten his mouth with a swab. || E1
+  Caller -> Nothing for an hour. Then ice chips. Head up. Swab. Okay. I have the swabs.
+  Nurse -> Perfect. Keep a bowl and a towel near him.
+  Caller -> I have a bowl. It's right here.
+  Nurse -> Put a towel under his chin as well. And a cool washcloth on his forehead helps some people.
+  Caller -> A cool cloth. Yes. I'll get one.
+  Nurse -> Good. If he vomits again, note the time and what it looks like.
+  Caller -> I will. I'm writing it on the back of an envelope.
+  Nurse -> Fine. Is anyone with you?
+  Caller -> My husband's here. He's helping. He's cleaning up.
+  Caller -> Our kids are at school. I'll tell them when they get home, if it's still bad.
+  Nurse -> That's up to you. We can help with that conversation if you want.
+  Nurse -> Good. You don't have to do it alone.
+  Caller -> No. It's okay. We're managing.
+  Nurse -> The clinician will call you soon. Please keep the line free.
+  Caller -> I will. Thank you, Pilar.
+  Caller -> Should I call my brother? He's out of state.
+  Nurse -> It's a good idea to keep him posted. Maybe after the clinician calls, so you have more to tell him.
+  Caller -> After the call. Okay. That makes sense.
+  Nurse -> Take care. Call back if anything changes.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Barnard Radcliffe, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-01-26", certainty: stated, heard_as: [], turns: [32]}
+    caller_name: {value: Imogen Radcliffe, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550102", certainty: stated, heard_as: [], turns: [34]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father cannot stop vomiting and cannot keep down medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "He can't stop throwing up."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He vomited six times since about seven this morning, yellow and watery, with the last about twenty minutes earlier.
+      speaker: Caller
+      turns: [6]
+      quote: "I've counted six times."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: severe, onset: since this morning, six times, certainty: stated}
+      covers: [A1]
+    - text: Ondansetron 4 mg every eight hours as needed was taken twice today and both doses came back up.
+      speaker: Caller
+      turns: [12]
+      quote: "Four milligrams. Every eight hours as needed."
+      explanation: Documents the anti-nausea medicine.
+      facts:
+        - {type: medication, name: ondansetron, dose: "4", unit: mg, frequency: every eight hours as needed, prn: true, last_dose: two doses today, both vomited back up, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was weak and tired with a very dry mouth and cracked lips.
+      speaker: Caller
+      turns: [19]
+      quote: "His mouth is so dry."
+      explanation: Documents the weakness and dry mouth.
+      facts:
+        - {type: symptom, name: weakness and dry mouth, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no pain and no blood in the vomit.
+      speaker: Caller
+      turns: [19]
+      quote: "No pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: pain or blood in the vomit, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician about a different form of anti-nausea medicine.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm also sending a nurse to your house."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised nothing by mouth for an hour, then ice chips or tiny sips, head raised, and mouth care with a swab.
+      speaker: Nurse
+      turns: [45]
+      quote: "give him nothing by mouth for an hour."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised giving no more dissolving tablets until the clinician calls.
+      speaker: Nurse
+      turns: [37]
+      quote: "don't give him any more of the dissolving tablet."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "He can't stop throwing up."}

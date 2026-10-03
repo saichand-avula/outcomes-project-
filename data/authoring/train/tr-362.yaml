@@ -1,0 +1,251 @@
+call_id: tr-362
+split: train
+blueprint: "A medication technician at an assisted living facility calls hospice with a routine update on a resident, reading from the facility chart: mild ankle swelling, blood pressure 128 over 74, eating well, no shortness of breath or chest pain. She reads out his morning meds from the sheet but nothing is wrong with them. Nurse plans a visit Thursday, a message to the team about the leg swelling, and advises elevating the legs. Routine, facility staff caller, chart-reading distractor, v2 short."
+setup:
+  scenario_category: routine
+  subtype: facility_update
+  secondary_tags: [chart_reading_distractor, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [edema, blood_pressure, intake_appetite]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Gloria
+  call_timestamp_utc: "2026-10-24T15:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [furosemide, metoprolol, apixaban]
+chief_complaint:
+  patient_name_true: Alfred Brisbane
+  patient_name_spoken: Alfred Brisbane
+  patient_name_certainty: stated
+  patient_dob_true: "1938-06-30"
+  patient_dob_spoken: "1938-06-30"
+  patient_dob_certainty: stated
+  caller_name_true: Tamika Osei
+  caller_name_spoken: Tamika Osei
+  caller_name_certainty: stated
+  relationship_to_patient: medication technician at the facility
+  relationship_certainty: stated
+  callback_phone_true: "7045550133"
+  callback_phone_spoken: "7045550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on a resident with mild ankle swelling
+  reason_category: edema
+  relevant_context: Hospice patient living in an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "128/74"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating well
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask about the leg swelling
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise his legs on pillows or a footstool when he sits and at night
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the swelling climbs above the ankles, he gets short of breath, gains weight quickly, or has chest pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Gloria.
+  Caller -> Hi, Gloria. This is Tamika Osei. I'm the med tech at Maplewood Assisted Living. I'm calling about Mr. Alfred Brisbane. He's in room twelve. || caller_name, relationship, patient_name
+  Nurse -> Hi Tamika. Good to hear from you. Is everything okay with Mr. Brisbane?
+  Caller -> Everything's fine. I'm just doing my weekly update. The director asked me to call on the ones who've been on service a month.
+  Nurse -> That's helpful. Can I confirm his date of birth?
+  Caller -> I have it right here on the face sheet. June thirtieth, nineteen thirty eight. || patient_dob
+  Nurse -> Thank you. And a number for you?
+  Caller -> The med cart phone. Seven oh four, five five five, zero one three three. || callback_phone
+  Nurse -> Seven oh four, five five five, zero one three three. Is that right? || callback_phone
+  Caller -> Yes, that's it. It rings at the nurses' station if I'm not there.
+  Nurse -> Good to know. Who's on with you today?
+  Caller -> Just me and one aide. The other med tech called out.
+  Nurse -> Short staffed. Sorry.
+  Caller -> It happens. We manage.
+  Nurse -> Okay. Go ahead with your update. || cc
+  Caller -> So. I'm looking at my notes. Okay. He's had a good week. His appetite is good. He's eating about seventy five percent of every meal. He had the pot roast on Sunday and asked for seconds. || A3
+  Nurse -> That's wonderful. Is he gaining or losing weight?
+  Caller -> We weigh him on Mondays. He's a hundred and fifty one. Same as last week. Same as the week before. He's very stable.
+  Nurse -> Good. How's his breathing?
+  Caller -> Fine. No shortness of breath. No chest pain. He walks to the dining room with his walker, and he's not winded. I asked him if he's okay and he told me to mind my own business. || A4
+  Nurse -> Ha. He sounds like himself.
+  Caller -> Oh, very much. He's feisty.
+  Nurse -> Ha. That's a good sign. And his blood pressure?
+  Caller -> I took it this morning. One twenty eight over seventy four. That's his normal. || A2
+  Nurse -> Perfect. Any new swelling, pain, skin problems?
+  Caller -> Yes, the swelling. His ankles. Both of them. They're a little puffy. Mild. I noticed it on Friday. The aide who does his shower noticed it too. Not red. Not hot. Just puffy, like when you press and it leaves a little dent. || A1
+  Nurse -> Okay. Mild swelling in both ankles since Friday. Is it above the ankle, up the calf?
+  Caller -> No. Just the ankles. And the tops of his feet. Not the legs. His socks leave a line.
+  Nurse -> Okay. Is one worse than the other?
+  Caller -> About the same. I'd say the right a tiny bit more. But that could be me.
+  Nurse -> Okay. That's helpful. Let me ask. Is he getting his regular medicines on time?
+  Caller -> Yes. Let me read you the MAR so you can see. At eight o'clock, he gets his furosemide, twenty milligrams. His metoprolol, twenty five. And his apixaban, five. All given. Initialed. Nothing missed this week. The evening ones are given at eight too.
+  Nurse -> Thank you for reading that. Nothing's been missed. That's good to know.
+  Caller -> I'm very careful about the MAR. Our director audits us.
+  Nurse -> That's good practice.
+  Caller -> She audits us on Fridays. With a clipboard. She wears the reading glasses on a chain. Everyone straightens up.
+  Nurse -> Ha. I know the type.
+  Nurse -> I'm sure. Okay. I'd like to send a nurse out Thursday to look at his legs and listen to his lungs. || R1
+  Caller -> Thursday. Okay. I'll write it on the board. What time?
+  Nurse -> The scheduler will call you in the morning with a window.
+  Caller -> Good. I'll put it on the whiteboard in the med room. I'll let the day shift know.
+  Nurse -> Great. I'm also going to leave a message for the team about the swelling, to see if they want to change anything. || R2
+  Caller -> Okay. That would be good. I'm not sure if it's the salt. Our cook put a lot of ham in the bean soup.
+  Nurse -> Ha. That could do it. In the meantime, can you raise his legs on pillows or a footstool when he sits? And at night, if he'll let you. || E1
+  Caller -> He has a recliner. I'll put the footrest up. At night I can put a pillow under his legs. He hates pillows but I'll bribe him with a cookie.
+  Nurse -> Ha. Whatever works.
+  Caller -> Chocolate chip. He loves them.
+  Nurse -> And please call us if the swelling goes up past the ankles, if he gets short of breath, if he gains weight quickly, or any chest pain. || E2
+  Caller -> Past the ankles. Short of breath. Weight gain. Chest pain. Okay. I'll write that on his board. I'll tell the night shift.
+  Nurse -> Perfect. Is the weekend nurse going to be able to weigh him again before Thursday?
+  Caller -> We do it Mondays. I'll do it Wednesday too. Extra.
+  Nurse -> Thank you. That would help.
+  Caller -> No problem. Anything else you need from me?
+  Nurse -> No. That's all. How are things at Maplewood?
+  Caller -> Busy. We got a new resident. A retired band director. He conducts at dinner. With a breadstick.
+  Nurse -> Ha. That's wonderful.
+  Caller -> The whole dining room hums along. It's the best part of my day.
+  Nurse -> What does he conduct?
+  Caller -> Anything. The radio. The vacuum cleaner. Sunday it was the dishwasher.
+  Caller -> He gives the dishwasher a downbeat and everyone cheers. It's a whole thing.
+  Nurse -> Ha. A tough crowd.
+  Nurse -> It sounds like it.
+  Caller -> It is. Okay, I have to go. The lunch cart is here.
+  Nurse -> Go. Thank you, Tamika.
+  Caller -> Thanks, Gloria. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alfred Brisbane, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-06-30", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Tamika Osei, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: medication technician at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550133", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on a resident with mild ankle swelling.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm just doing my weekly update."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Both ankles were mildly puffy since Friday, not red or hot.
+      speaker: Caller
+      turns: [26]
+      quote: "Yes, the swelling. His ankles. Both of them."
+      explanation: Documents the ankle swelling.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure was 128/74 this morning.
+      speaker: Caller
+      turns: [24]
+      quote: "One twenty eight over seventy four."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "128/74", certainty: stated}
+      covers: [A2]
+    - text: He was eating well, about seventy five percent of each meal.
+      speaker: Caller
+      turns: [16]
+      quote: "His appetite is good."
+      explanation: Documents the appetite.
+      facts:
+        - {type: symptom, name: eating well, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no shortness of breath or chest pain.
+      speaker: Caller
+      turns: [20]
+      quote: "No shortness of breath. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath or chest pain, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit Thursday.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'd like to send a nurse out Thursday"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team about the swelling.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm also going to leave a message for the team about the swelling"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised raising his legs on pillows or a footstool when sitting and at night.
+      speaker: Nurse
+      turns: [44]
+      quote: "can you raise his legs on pillows or a footstool when he sits?"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the swelling went above the ankles, he became short of breath, gained weight quickly, or had chest pain.
+      speaker: Nurse
+      turns: [48]
+      quote: "call us if the swelling goes up past the ankles"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

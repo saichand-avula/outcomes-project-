@@ -1,0 +1,285 @@
+call_id: tr-302
+split: train
+blueprint: "A CNA at an assisted living facility calls hospice on the night shift: her 91-year-old bedbound resident is down to about six large briefs and the barrier cream tube is almost empty, and his air mattress pump has been alarming off and on since last night. His skin is intact with no new red or open areas. The aide checked the hose and plug already. Nurse orders the briefs and cream (completed), arranges delivery to the nurses' station, messages the equipment company about the pump, and gives repositioning and pump-check advice. Supply plus equipment, facility staff caller, 90+ patient, v2 short."
+setup:
+  scenario_category: supply
+  subtype: incontinence_supplies
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, offtopic_chatter, crosstalk]
+  clinical_domains: [incontinence, skin, equipment]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Birchwood Hospice
+  agency_type: hospice
+  nurse_name: Raul
+  call_timestamp_utc: "2026-10-31T05:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Oswaldo Brandvold
+  patient_name_spoken: Oswaldo Brandvold
+  patient_name_certainty: stated
+  patient_dob_true: "1935-08-14"
+  patient_dob_spoken: "1935-08-14"
+  patient_dob_certainty: stated
+  caller_name_true: Keisha Montrose
+  caller_name_spoken: Keisha Montrose
+  caller_name_certainty: stated
+  relationship_to_patient: aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "6105550198"
+  callback_phone_spoken: "6105550198"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported low incontinence supplies and an alarming air mattress pump for a resident
+  reason_category: supply
+  relevant_context: Hospice patient living in an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: large briefs
+    supply_remaining: about six left
+    supply_unit: briefs
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: barrier cream
+    supply_remaining: almost empty
+    supply_unit: tube
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: air mattress pump alarm
+    symptom_present: true
+    onset_or_duration: since last night
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: new red or open areas on the skin
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: He is bedbound and turned every two hours by the facility staff
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: low briefs and barrier cream
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: nurses' station
+    timeframe: this morning
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment company
+    reason_or_trigger: alarming air mattress pump
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Keep turning him every two hours, clean and dry him after each change, and put barrier cream on the buttocks and tailbone
+    certainty: stated
+  - item_id: E2
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Check that the air hose is firmly connected and not kinked, the plug is in, and the mattress is not leaking, and call if the alarm keeps sounding
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Birchwood Hospice, this is Raul.
+  Caller -> Hi, Raul. This is Keisha. Keisha Montrose. I'm the overnight aide at Silver Maple. I've got one of your people. || caller_name, relationship
+  Nurse -> Hi, Keisha. Which resident?
+  Caller -> Mr. Brandvold. Oswaldo Brandvold. B R A N D V O L D. Room fourteen. || patient_name
+  Nurse -> Got him. Can you give me his date of birth to confirm?
+  Caller -> It's on the whiteboard. August fourteenth. Nineteen thirty five. He's ninety one. He's going to be ninety one in August, no wait, he turned ninety one in August. || patient_dob
+  Nurse -> Perfect. And a number I can call you at?
+  Caller -> The nurses' station. It's six one zero, five five five, zero one nine eight. Somebody will grab it. || callback_phone
+  Nurse -> Great. What can I do for Mr. Brandvold tonight?
+  Caller -> So I'm doing my four o'clock rounds, no, my five thirty. And I noticed we're about out of his things. His briefs. The large ones. There's about six left in the closet. And the day shift said the order didn't come. || A1, cc
+  Nurse -> Okay. About six large briefs. How many does he use in a day?
+  Caller -> Maybe five or six. He's changed every two or three hours. So that's one day. If that. I wanted to say something before the day aide ran out and had to go borrow from another resident.
+  Nurse -> That was smart. Anything else running low?
+  Caller -> The cream. The barrier cream. The white one. In the tube. It's almost empty. I squeezed it and it was a little bit. Not enough for tomorrow. || A2
+  Nurse -> Okay. Almost empty. Got it.
+  Caller -> And then there's the thing with the bed. The mattress. The air one. It's been beeping on and off since last night. The alarm. I looked at the screen and it says low pressure. It stops after a minute and then it starts again. || A3
+  Nurse -> Okay. That's good to know. Is he lying on it right now?
+  Caller -> He is. He's asleep. He's fine. I checked the mattress. It feels firm. But it beeps. And it wakes up the guy next door.
+  Nurse -> Okay. Have you checked the hose and the plug?
+  Caller -> I did. The hose is on tight. I checked where it goes in the pump and in the mattress. I wiggled it. The plug is in the wall. It's green on the pump. It says power on. But it still beeps.
+  Nurse -> Okay. That's helpful. How's his skin? Any new red spots, open areas?
+  Caller -> I looked when I changed him at three. No new red. No open spots. His tailbone is a little pink but it's the same as the day shift charted. It goes away when I turn him. I didn't see anything new. || A4
+  Nurse -> Good. That's what I want to hear. Is he turned every two hours?
+  Caller -> Every two. We do it on the clock. He's bedbound. He can't turn himself. Me and the other aide do it. We take turns. I did him at three and then at five. || A5
+  Nurse -> Perfect. Okay, Keisha. Let me place the order. Give me a minute.
+  Caller -> Take your time. I'll be right here. Oh. Hold on. A light's on. Room eleven. I'll be quick. Don't hang up.
+  Nurse -> I'll wait.
+  Caller -> Okay. That was Mrs. Aguilar. She wanted her water. She wants her water every ten minutes. She has a cup. She knows she has a cup.
+  Nurse -> Ha. Okay. Back to Mr. Brandvold. I'm ordering a case of the large briefs and two tubes of the barrier cream. I'm marking it urgent so it comes this morning.
+  Caller -> Do they come in a case? The last time they came in a bag of twenty.
+  Nurse -> The standard is a case of eighty. That should last him a while.
+  Caller -> Eighty. Wow. Where am I going to put them? The closet is full of Mrs. Aguilar's.
+  Nurse -> The day shift can sort that out. Ha.
+  Caller -> Oh good. Thank you.
+  Nurse -> It's done. I just placed the order with the supply company for the briefs and the cream. || R1
+  Caller -> Oh, wonderful. Where will they deliver?
+  Nurse -> To the nurses' station, I'd think. Is that where the day shift receives?
+  Caller -> Yes. The front desk, or the nurses' station. Tell them nurses' station, second floor. The front desk guy gets confused.
+  Nurse -> Got it. I'll ask them to deliver it to the nurses' station this morning. I'll write second floor. || R2
+  Caller -> Perfect. I'll leave a note for the day nurse.
+  Nurse -> Good. Now, about the pump. I'm going to message the equipment company about the alarm, so they can send a tech or swap the pump. || R3
+  Caller -> That'd be great. It's been going all night. I'm tired of hearing it.
+  Nurse -> I bet. In the meantime, can you check a few more things? Make sure the air hose is firmly connected, not kinked, the plug is in, and the mattress isn't leaking. If the alarm keeps sounding, call us back. || E2
+  Caller -> Hose, kink, plug, leak. I did most of that. I'll do the leak. I can listen for a hiss. Okay. I'll walk over. Hold on.
+  Nurse -> Take your time.
+  Caller -> Okay. I'm by the bed. I'm listening. I don't hear a hiss. The mattress is pretty firm. I'm pushing on it. It's firm. The hose is not kinked. I think it's the pump. It sounds weird. It has a click.
+  Nurse -> Okay. That's useful. I'll tell the equipment company it's clicking.
+  Caller -> Yes. Tell them it clicks. And it says low pressure.
+  Nurse -> I will.
+  Caller -> Is it okay if he stays on it?
+  Nurse -> As long as the mattress is firm and he's not bottoming out. If it feels soft or he feels the bed frame under him, we'll need to move him. Keep turning him every two hours and keep checking his skin.
+  Caller -> Every two hours. I will. And the cream. I'll use what's left. And I'll check his skin at every change.
+  Nurse -> That's right. Keep him clean and dry after each change. And put the barrier cream on the buttocks and the tailbone. || E1
+  Caller -> Clean, dry, cream. Okay. I have that. I do it every time.
+  Nurse -> Perfect. How's he doing otherwise? Eating, drinking? Comfortable?
+  Caller -> He sleeps a lot. He ate some oatmeal yesterday. He doesn't complain. He's very quiet. He had a visitor yesterday, his granddaughter. She read to him.
+  Nurse -> That's nice. Any pain?
+  Caller -> No grimacing. No moaning. He seems comfortable.
+  Nurse -> And is he due for any medicine soon? Anything the night nurse gives?
+  Caller -> The nurse does his meds. I don't touch them. She'll be around at six for the morning ones.
+  Nurse -> That's fine. I'll leave a note on the chart for the day team.
+  Caller -> Thank you. They love when you leave notes.
+  Nurse -> Good. Anything else?
+  Caller -> I don't think so. I just wanted to get ahead of it. Thank you, Raul.
+  Nurse -> Thank you for calling early. Have a good rest of your shift.
+  Caller -> Two more hours. Ha. Thank you.
+  Nurse -> Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Oswaldo Brandvold, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1935-08-14", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Keisha Montrose, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550198", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported low incontinence supplies and an alarming air mattress pump for a resident.
+    speaker: Caller
+    turns: [10]
+    quote: "we're about out of his things. His briefs."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: About six large briefs were left in the closet.
+      speaker: Caller
+      turns: [10]
+      quote: "There's about six left in the closet."
+      explanation: Documents the brief supply.
+      facts:
+        - {type: supply, item: large briefs, supply: about six left, certainty: stated}
+      covers: [A1]
+    - text: The barrier cream tube was almost empty.
+      speaker: Caller
+      turns: [14]
+      quote: "It's almost empty."
+      explanation: Documents the cream supply.
+      facts:
+        - {type: supply, item: barrier cream, supply: almost empty, certainty: stated}
+      covers: [A2]
+    - text: The air mattress pump had been alarming for low pressure on and off since last night.
+      speaker: Caller
+      turns: [16]
+      quote: "It's been beeping on and off since last night."
+      explanation: Documents the pump alarm.
+      facts:
+        - {type: symptom, name: air mattress pump alarm, present: true, onset: since last night, certainty: stated}
+      covers: [A3]
+    - text: There were no new red or open areas on his skin.
+      speaker: Caller
+      turns: [22]
+      quote: "No new red. No open spots."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: new red or open areas on the skin, certainty: stated}
+      covers: [A4]
+    - text: He was bedbound and turned every two hours by staff.
+      speaker: Caller
+      turns: [24]
+      quote: "He's bedbound. He can't turn himself."
+      explanation: Documents his mobility and turning schedule.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Placed an order with the supply company for the briefs and barrier cream.
+      speaker: Nurse
+      turns: [35]
+      quote: "I just placed the order with the supply company for the briefs and the cream."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery to the nurses' station this morning.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'll ask them to deliver it to the nurses' station this morning."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: this morning, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the equipment company about the alarming pump.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to message the equipment company about the alarm"
+      explanation: Documents the planned message to the equipment company.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping him clean and dry after each change and applying barrier cream to the buttocks and tailbone.
+      speaker: Nurse
+      turns: [53]
+      quote: "Keep him clean and dry after each change."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised checking the air hose connection, kinks, the plug and leaks, and calling back if the alarm kept sounding.
+      speaker: Nurse
+      turns: [43]
+      quote: "Make sure the air hose is firmly connected, not kinked, the plug is in, and the mattress isn't leaking."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E2]
+  risk_flags: []

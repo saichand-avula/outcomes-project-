@@ -1,0 +1,290 @@
+call_id: tr-179
+split: train
+blueprint: "Wife of a 58-year-old COPD palliative patient on oxygen at 2 liters: short of breath at rest and wheezing since late afternoon, oxygen saturation 88, two albuterol nebulizer treatments in the past hour with little help, no chest pain, he does not want to go back to the hospital. She asks for someone to come. Nurse pages on-call, plans a visit within an hour and a callback in 10 minutes, teaches positioning and pursed-lip breathing, and says to call 911 if his lips turn blue or he cannot speak. Flags: breathing_concern and escalation_request. Medium."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [multi_issue, hedging, late_answers, split_turns]
+  clinical_domains: [dyspnea, equipment, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-06T22:40:00Z"
+  length_bucket: medium
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Torvald Eriksen
+  patient_name_spoken: Torvald Eriksen
+  patient_name_certainty: stated
+  patient_dob_true: "1968-06-03"
+  patient_dob_spoken: "1968-06-03"
+  patient_dob_certainty: stated
+  caller_name_true: Signe Eriksen
+  caller_name_spoken: Signe Eriksen
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9075550176"
+  callback_phone_spoken: "9075550176"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is short of breath at rest and wheezing
+  reason_category: dyspnea
+  relevant_context: Palliative patient with COPD on oxygen who does not want to return to the hospital
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: shortness of breath at rest
+    symptom_present: true
+    onset_or_duration: since late afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: wheezing
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "88"
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    frequency: two nebulizer treatments in the past hour
+    last_dose: 20 minutes ago
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: COPD on oxygen at 2 liters; he has said he does not want to go back to the hospital
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: worsening shortness of breath
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 10 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Sit him upright leaning forward with arms on a table, run a fan toward his face, and have him breathe in through the nose and out through pursed lips
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if his lips turn blue, he cannot speak, or he becomes drowsy and hard to wake
+    trigger_condition: blue lips; cannot speak; drowsy and hard to wake
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Husband is short of breath at rest with wheezing, oxygen 88 and little relief from nebulizer treatments
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Caller asks for someone to come to the house
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Carla.
+  Caller -> Carla, it's Signe Eriksen. My husband, Torvald Eriksen. He's having a really hard time breathing. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Signe, I'm here. Let me get his date of birth.
+  Caller -> June third. Nineteen sixty eight. || patient_dob
+  Nurse -> And is nine oh seven, five five five, zero one seven six the best number? || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> Okay. Tell me what you're seeing.
+  Caller -> He's sitting on the edge of the bed, bent over. He's breathing fast. He can say a few words. And there's a wheeze. A whistle when he breathes out. It started late this afternoon and it keeps getting worse. || A1, A2, F1
+  Nurse -> Okay. Is his oxygen on?
+  Caller -> Yes. It's on two liters. That's his normal. I checked the tubing. It's fine.
+  Nurse -> Okay. Do you have the finger meter?
+  Caller -> Yes. Hold on. It says eighty eight. Eighty eight. He's usually ninety two, ninety three. || A3, F1
+  Nurse -> Okay. Has he used his nebulizer?
+  Caller -> Yes. Twice. The albuterol. Once about an hour ago and once about twenty minutes ago. It helped a tiny bit for a few minutes and then it came back. || A4, F1
+  Nurse -> Okay. Does he have any chest pain?
+  Caller -> No. He said no. I asked him three times. Just can't breathe. || A5
+  Nurse -> Okay. Signe, remind me, what is his diagnosis?
+  Caller -> The COPD. Very advanced. He's been on the oxygen two years. And he's told me, he told the doctor, he doesn't want to go back to the hospital. Not ever again. He had a bad time on the ventilator in March. || A6
+  Nurse -> I'm sorry, Signe. That must have been frightening for both of you. How has he been this past week, before today?
+  Caller -> Up and down. He's been tired. He did laundry on Monday and then he had to lie down for two hours. But he wasn't like this. This is the worst since March. I keep thinking it's the same, it's starting all over.
+  Nurse -> I understand why you'd think that. Okay. Thank you for telling me. I'll honor that. We'll try to keep him home and comfortable. Signe, I'm going to page our on-call nurse right now. || R1
+  Caller -> Please. Please send someone. Can someone come out? I'm scared he's going to stop breathing. || F2
+  Nurse -> Yes. A nurse will come to the house, and she'll be there within the hour. || R2
+  Caller -> Within the hour. Okay. Okay.
+  Nurse -> And I'll call you back in ten minutes. || R3
+  Caller -> Ten minutes. Okay. Thank you.
+  Nurse -> Until then, let's make him as comfortable as we can. Help him sit upright, leaning forward, with his arms resting on a table or a stack of pillows. And turn a fan on, pointing at his face. || E1
+  Caller -> He's already bent over. Let me get the pillows. Okay. I'm putting the pillows on the tray table. Torvald, rest your arms. There. And the fan. I have one on the dresser. Okay. It's on.
+  Nurse -> Good. Now tell him to breathe in through his nose, and out slowly through pursed lips, like blowing out a candle. || E1
+  Caller -> Like a candle. In the nose. Out slow. He's doing it. He's trying. I can see it helps a bit, his shoulders drop.
+  Nurse -> That's wonderful. Keep coaching him. Signe, I want you to listen to this part. If his lips turn blue, if he can't speak at all, or if he becomes drowsy and hard to wake, call nine one one. || E2
+  Caller -> Blue lips. Can't speak. Hard to wake. Nine one one. But he doesn't want the hospital.
+  Nurse -> I know. The ambulance can start treatment at home, and they'll know his wishes. It's a decision for you and him. But if that happens, please call.
+  Caller -> Okay. I will. I understand.
+  Nurse -> Signe, how are you doing? You sound steady, but I know this is hard.
+  Caller -> I'm shaking inside. But I've done this before, in March. I just don't want to do it again. He's my best friend. Thirty four years in October.
+  Nurse -> That's a long time. Stay close to him and keep talking. Your voice helps more than you know.
+  Caller -> I'll hold his hand. He likes when I hold his hand.
+  Nurse -> Is anyone with you?
+  Caller -> My sister is coming. She lives ten minutes away. She's on her way.
+  Nurse -> Good. Unlock the front door, and turn on the porch light for the nurse.
+  Caller -> Okay. I'll do that now. Hold on. Done. Porch light on. Door's open.
+  Nurse -> Perfect. I'll call in ten.
+  Caller -> Thank you, Carla. Thank you so much. I hear the dog barking, I think my sister is here. She has a key. Yes. She's in. She's coming up the stairs. I'm going to let her sit with him while I talk to you.
+  Nurse -> That's good. Stay near him. I'll call you in ten minutes, no later.
+  Caller -> Okay. Thank you.
+  Nurse -> You're doing everything right, Signe.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Torvald Eriksen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1968-06-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Signe Eriksen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9075550176", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband is short of breath at rest and wheezing.
+    speaker: Caller
+    turns: [2]
+    quote: "He's having a really hard time breathing."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Fast breathing and shortness of breath began late this afternoon and kept getting worse.
+      speaker: Caller
+      turns: [8]
+      quote: "It started late this afternoon and it keeps getting worse."
+      explanation: Documents onset and course.
+      facts:
+        - {type: symptom, name: shortness of breath at rest, present: true, duration: since late afternoon, certainty: stated}
+      covers: [A1]
+    - text: A wheeze was present when he breathed out.
+      speaker: Caller
+      turns: [8]
+      quote: "A whistle when he breathes out."
+      explanation: Documents the wheeze.
+      facts:
+        - {type: symptom, name: wheezing, present: true, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was 88, lower than his usual.
+      speaker: Caller
+      turns: [12]
+      quote: "It says eighty eight. Eighty eight."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "88", certainty: stated}
+      covers: [A3]
+    - text: Two albuterol nebulizer treatments were given in the past hour, the last about 20 minutes ago, with brief relief only.
+      speaker: Caller
+      turns: [14]
+      quote: "Twice. The albuterol. Once about an hour ago and once about twenty minutes ago."
+      explanation: Documents the treatments.
+      facts:
+        - {type: medication, name: albuterol, frequency: two nebulizer treatments in the past hour, last_dose: 20 minutes ago, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No. He said no. I asked him three times."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5]
+    - text: He had advanced COPD on oxygen at 2 liters and had said he did not want to go back to the hospital.
+      speaker: Caller
+      turns: [18]
+      quote: "he doesn't want to go back to the hospital. Not ever again."
+      explanation: Documents his history and wishes.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned within the hour.
+      speaker: Nurse
+      turns: [23]
+      quote: "A nurse will come to the house, and she'll be there within the hour."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 10 minutes.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you back in ten minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 10 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised sitting him upright leaning forward with his arms on a table, using a fan, and breathing in through the nose and out through pursed lips.
+      speaker: Nurse
+      turns: [27]
+      quote: "Help him sit upright, leaning forward, with his arms resting on a table or a stack of pillows."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if his lips turned blue, he could not speak, or he became drowsy and hard to wake.
+      speaker: Nurse
+      turns: [31]
+      quote: "If his lips turn blue, if he can't speak at all, or if he becomes drowsy and hard to wake, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [8], quote: "It started late this afternoon and it keeps getting worse."}
+    - {category: escalation_request, turns: [22], quote: "Can someone come out?"}

@@ -1,0 +1,320 @@
+call_id: tr-290
+split: train
+blueprint: "A daughter-in-law covering for the family caregiver calls palliative care because she gave her mother-in-law ten mL of oxycodone liquid (5 mg per 5 mL) instead of five, after misreading the syringe. The patient is sleepier than usual but wakes to her voice, breathing about fourteen a minute, not noisy. The nurse pages on-call, plans a visit within the hour and a callback in thirty minutes, tells her to hold the next dose and watch breathing, and explains the marked syringe. Extra dose flag, other_family caller, liquid concentration and prn, v2 short."
+setup:
+  scenario_category: medication
+  subtype: extra_dose
+  secondary_tags: [liquid_concentration, prn_and_scheduled, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, sedation, pain]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Seaside Palliative Care
+  agency_type: palliative
+  nurse_name: Owen
+  call_timestamp_utc: "2026-10-31T02:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Odalys Ferreira
+  patient_name_spoken: Odalys Ferreira
+  patient_name_certainty: stated
+  patient_dob_true: "1959-03-30"
+  patient_dob_spoken: "1959-03-30"
+  patient_dob_certainty: stated
+  caller_name_true: Priscilla Ferreira
+  caller_name_spoken: Priscilla Ferreira
+  caller_name_certainty: stated
+  relationship_to_patient: daughter-in-law
+  relationship_certainty: stated
+  callback_phone_true: "4145550174"
+  callback_phone_spoken: "4145550174"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that she gave her mother-in-law a double dose of liquid pain medicine by mistake
+  reason_category: medication
+  relevant_context: Palliative care patient with cancer pain, cared for at home
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone liquid
+    medication_name_spoken: oxycodone liquid
+    medication_status: extra_dose
+    strength: 5 mg per 5 mL
+    dose: "10"
+    unit: mL
+    frequency: every four hours as needed
+    prn: true
+    last_dose: about forty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: She misread the markings on the syringe and drew up ten mL instead of the usual five
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepier than usual
+    symptom_present: true
+    severity: wakes to her voice
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "14"
+    vital_unit: breaths per minute
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: noisy breathing or blue lips
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: double dose of oxycodone liquid
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold the next oxycodone dose until the clinician says it is safe
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Check her every fifteen minutes, count her breaths for a full minute, and make sure she wakes when you say her name, and keep her rolled onto her side with a pillow behind her back
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Put a piece of tape at the five mL line on the syringe so it cannot be drawn past that mark, and write down every dose and time
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she cannot be woken, her breathing is under eight a minute, or her lips turn blue
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller gave twice the usual dose of oxycodone liquid by mistake
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Seaside Palliative Care, this is Owen.
+  Caller -> Hi. Hi, Owen. I did something. I think I did something bad. I'm Priscilla. Priscilla Ferreira. I'm the daughter-in-law. My husband's mother, Odalys. I gave her too much of her medicine. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Priscilla. Thank you for calling right away. Let's figure this out. Is Odalys awake?
+  Caller -> She's sleepy. She's in the bed. She's been asleep, but she wakes up when I talk to her. I just checked. She said my name.
+  Nurse -> Okay. That's good. Is anyone else in the house with you?
+  Caller -> No. It's just me and the baby monitor. My little one is asleep. I've been going back and forth. I hope I'm not too loud.
+  Nurse -> You're fine. What's her date of birth?
+  Caller -> Um. It's March thirtieth. Nineteen fifty nine. || patient_dob
+  Nurse -> Okay. Number to reach you?
+  Caller -> This one. Four one four, five five five, zero one seven four. || callback_phone
+  Nurse -> Got it. Priscilla, tell me exactly what happened. What did you give her?
+  Caller -> The oxycodone liquid. The bottle with the syringe. It's the five milligrams per five mL. She gets five mL, the nurse told us, every four hours if she has pain. And I gave her, it was ten. I gave her ten mL. Because I read the syringe wrong. || A1
+  Nurse -> Okay. So she got ten mL instead of five. When did you give it?
+  Caller -> About forty minutes ago. Maybe a little less. It was 1:30. It's almost two now. Almost.
+  Nurse -> Okay. Forty minutes. Thank you. How did it happen? Can you tell me?
+  Caller -> My husband's brother usually does it. He's the one. He's got the, he knows. He went home. He's at his place tonight. And my husband's at work. I'm just covering. I never did it before. I looked at the syringe. It has two sets of numbers. One side says mL, the other says something else. And I counted up to the wrong set. And then I thought, wait, it looks like a lot. But I'd already given it. || A2
+  Nurse -> Okay. That's a really easy mistake. The syringes can be confusing. You called right away. That's the right thing.
+  Caller -> I feel awful. I'm so sorry. I should have asked.
+  Nurse -> I'm not going to let you beat yourself up. We're going to take care of her. First, how is she right now? You said she's sleepy. Sleepier than usual?
+  Caller -> Yes. She's more sleepy. She was awake and talking at ten, and now she's, she's out. But when I say her name loud she opens her eyes. She says what. She answers. And then she goes back. || A3
+  Nurse -> Okay. That's what I'd expect with a double dose. Priscilla, I need you to do something for me. Look at her chest and count her breaths. One in and out is one breath. Count for a whole minute. Can you do that?
+  Caller -> Okay. A minute. Okay. I'm going to go in. The light is off. I'll use the flashlight on my phone, no, that'll wake her. I'll use the hall light. I'll use my phone timer. Hold on. Don't hang up.
+  Nurse -> I'm right here.
+  Caller -> Sorry, the floorboard creaks. Okay. I'm by the bed. I'm counting. One. Two. I'll count in my head. Hold on.
+  Nurse -> Take your time.
+  Caller -> Okay. Done. It's, I counted fourteen. Fourteen in the minute. || A4
+  Nurse -> Okay. Fourteen. That's a good number. That's normal. Is her breathing noisy? Gurgly? Any snoring?
+  Caller -> No. No, it's quiet. It's regular. She's just breathing. Her lips look normal. They're pink. Not blue. She's not struggling. I'm not saying she's fine, I'm saying it looks okay. || A5
+  Nurse -> Okay. Thank you. That's reassuring. Here's what I'm going to do. I'm paging the on-call clinician right now, so they know about the double dose. || R1
+  Caller -> Okay. Is she going to be okay?
+  Nurse -> Her breathing is good and she's waking up to your voice. Those are good signs. But I want to be careful, so I'm also sending a nurse out to see her. I want someone there within the hour. || R2
+  Caller -> Within the hour. Okay. It's two in the morning.
+  Nurse -> I know. We have someone on nights. I'll call you back in thirty minutes with an update from the on-call clinician. || R3
+  Caller -> Thirty minutes. Okay. Okay. What do I do until then?
+  Nurse -> Several things. First, do not give her any more oxycodone until the clinician says it's safe. Even if she wakes up in pain. Hold it. || R4
+  Caller -> Hold it. No more. Okay. Is it okay if she has water? She was thirsty earlier.
+  Nurse -> A few sips if she's awake enough to swallow. Don't wake her just for that.
+  Caller -> Okay. Just if she wakes up. Okay. She said her stomach hurt earlier. Before. If she wakes up and she's hurting, what do I do?
+  Nurse -> Call me. Don't give anything. We'll sort out the pain. Okay?
+  Caller -> Okay. Call you.
+  Nurse -> Second, stay with her. Check on her every fifteen minutes. Count her breaths for a full minute each time, and make sure she wakes up when you say her name. If she's hard to wake, call me. || E1
+  Caller -> Every fifteen minutes. Count breaths. Say her name. Okay. I'll set the timer on my phone. I'll sit in the chair.
+  Nurse -> That's perfect. And call nine one one if you can't wake her at all, if her breathing drops below eight breaths a minute, or if her lips turn blue. || E3
+  Caller -> Can't wake her, below eight, blue lips. Okay. Nine one one. I'll put the phone right here. I'm so scared.
+  Nurse -> I know. But she's doing okay right now. You're doing everything right.
+  Caller -> Should I put her on her side? I saw that somewhere.
+  Nurse -> That's a good idea. Roll her gently onto her side with a pillow behind her back, so if anything comes up it can drain. Keep her head a little raised.
+  Caller -> Okay. Side. Pillow behind. I'll do it after we hang up so I'm not holding the phone.
+  Nurse -> Do it now if you can, I can wait.
+  Caller -> Okay. Hold on. Odalys, I'm going to turn you a little. Okay. There. She mumbled something. She's on her side.
+  Nurse -> Good.
+  Caller -> Thank you. Thank you, Owen.
+  Nurse -> One more thing. For the future. Do you have a tape or a marker? When the nurse comes tonight, she'll help you mark the syringe. But for now, I want you to put a little piece of tape at the five mL line on the syringe. Then you can't go past it. || E2
+  Caller -> I have masking tape. In the kitchen drawer. I can do that. I'll do it now, while I wait.
+  Nurse -> Good. And write down every dose and the time, on the sheet. So everyone can see.
+  Caller -> I have the sheet right here on the nightstand. It's the one with the little boxes. Everyone's been initialing. I'll write this one down. The ten. And the time. And that I did it wrong. Is that okay to write?
+  Nurse -> Yes. Write exactly what happened. That's helpful to the clinician.
+  Caller -> Okay. I'm writing it. I feel terrible.
+  Nurse -> Priscilla, you did the right thing by calling. People make this mistake all the time. It's not your fault that the syringe is confusing.
+  Caller -> My husband's going to be so mad. I don't want to tell him.
+  Nurse -> He won't be mad. He'll be glad you called and that she's okay. And I'll talk to him if you want.
+  Caller -> Thank you. Okay. I'll tell him when he gets home.
+  Nurse -> Good. Go sit with her now. I'll call you in thirty minutes.
+  Caller -> Okay. Bye.
+  Nurse -> Bye, Priscilla.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odalys Ferreira, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1959-03-30", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Priscilla Ferreira, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter-in-law, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550174", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that she gave her mother-in-law a double dose of liquid pain medicine by mistake.
+    speaker: Caller
+    turns: [2]
+    quote: "I gave her too much of her medicine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Oxycodone liquid 5 mg per 5 mL was given as ten mL instead of the usual five, about forty minutes earlier.
+      speaker: Caller
+      turns: [12]
+      quote: "The oxycodone liquid. The bottle with the syringe."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: oxycodone liquid, strength: 5 mg per 5 mL, dose: "10", unit: mL, frequency: every four hours as needed, prn: true, last_dose: about forty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She misread the two sets of numbers on the syringe and drew up the wrong amount.
+      speaker: Caller
+      turns: [16]
+      quote: "I counted up to the wrong set."
+      explanation: Documents how the error happened.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: She was sleepier than usual but woke to her name.
+      speaker: Caller
+      turns: [20]
+      quote: "when I say her name loud she opens her eyes."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: sleepier than usual, present: true, severity: wakes to her voice, certainty: stated}
+      covers: [A3]
+    - text: Breathing was fourteen breaths in a minute.
+      speaker: Caller
+      turns: [26]
+      quote: "I counted fourteen. Fourteen in the minute."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "14", unit: breaths per minute, certainty: stated}
+      covers: [A4]
+    - text: Breathing was quiet with pink lips and no struggling.
+      speaker: Caller
+      turns: [28]
+      quote: "No, it's quiet. It's regular."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: noisy breathing or blue lips, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician about the double dose.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm also sending a nurse out to see her."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes with the clinician's update.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'll call you back in thirty minutes with an update from the on-call clinician."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+    - text: Advised holding any further oxycodone until the clinician said it was safe.
+      speaker: Nurse
+      turns: [35]
+      quote: "do not give her any more oxycodone until the clinician says it's safe."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: oxycodone liquid, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised checking her every fifteen minutes, counting breaths for a full minute, making sure she woke to her name, and keeping her on her side with a pillow behind her back.
+      speaker: Nurse
+      turns: [41]
+      quote: "Check on her every fifteen minutes."
+      explanation: Documents safety monitoring.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised taping the syringe at the five mL line and writing down every dose and time.
+      speaker: Nurse
+      turns: [53]
+      quote: "put a little piece of tape at the five mL line on the syringe."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if she could not be woken, breathed under eight a minute, or her lips turned blue.
+      speaker: Nurse
+      turns: [43]
+      quote: "call nine one one if you can't wake her at all"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I gave her too much of her medicine."}

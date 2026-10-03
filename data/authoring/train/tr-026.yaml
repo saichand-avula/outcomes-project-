@@ -1,0 +1,290 @@
+call_id: tr-026
+split: train
+blueprint: "Granddaughter reads the morphine bottle but the label is torn so the concentration is incomplete (20 mg per ...); the nurse's chart system is slow so it stays unresolved; pain around 6/10 (unsure); nurse advises holding the dose until the pharmacy confirms and calls back in 10 minutes; also mentions trouble swallowing pills."
+setup:
+  scenario_category: medication
+  subtype: liquid_concentration
+  secondary_tags: [liquid_concentration, hedging, multi_issue, split_turns, identity_unresolved, late_answers]
+  clinical_domains: [pain, swallowing]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-09-11T01:12:00Z"
+  length_bucket: medium
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelius Bell
+  patient_name_spoken: Cornelius Bell
+  patient_name_certainty: stated
+  patient_dob_true: "1933-12-01"
+  patient_dob_spoken: "1933-12-01"
+  patient_dob_certainty: stated
+  caller_name_true: Keisha
+  caller_name_spoken: Keisha
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "3135550134"
+  callback_phone_spoken: "3135550134"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Not sure of the morphine concentration on the bottle; grandfather appears to be in pain
+  reason_category: medication_concentration
+  relevant_context: Granddaughter is staying overnight; label on the bottle is torn
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: about 6/10
+    certainty: unclear
+    unclear_detail: Caller unsure ("maybe a six")
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: prescribed
+    strength: 20 mg per (incomplete)
+    certainty: unclear
+    unclear_detail: Label torn; concentration incomplete
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: A home aide told her the dose was half a milliliter, but the caller was not sure
+    certainty: unclear
+    unclear_detail: Second-hand dose report
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: difficulty swallowing pills
+    symptom_present: true
+    severity: coughs when taking pills
+    onset_or_duration: past couple of days
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    reason_or_trigger: hold the dose until the concentration is verified
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call pharmacist
+    reason_or_trigger: verify the concentration of the morphine
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 10 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Never guess the concentration; keep the bottle and box together and read the pharmacy sticker
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition, loosen blankets, calm room, hold his hand while waiting
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he is groaning, grimacing, or breathing becomes noisy or fast
+    trigger_condition: groaning; grimacing; noisy or fast breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Hi. Hi, um, hi. I need help with a medicine. It's my grandpa. || relationship, cc
+  Nurse -> Okay. What's his name?
+  Caller -> Cornelius Bell. || patient_name
+  Nurse -> And his date of birth?
+  Caller -> December first. Nineteen thirty three. || patient_dob
+  Nurse -> Okay. And who am I speaking with?
+  Caller -> I'm Keisha. I'm his granddaughter. I'm staying the night with him. || caller_name, relationship
+  Nurse -> Okay, Keisha. A good number for you?
+  Caller -> Three one three. Five five five. Oh one three four. || callback_phone
+  Nurse -> Three one three, five five five, zero one three four. Got it. || callback_phone
+  Caller -> Mhm.
+  Caller -> Okay.
+  Nurse -> So what's going on tonight?
+  Caller -> Okay, so, he's moaning. Kind of moaning. And I think he's in pain. || A1
+  Caller -> I'd say maybe a six? I don't, I don't really know how to tell. || A1
+  Nurse -> Okay. Is he able to tell you?
+  Caller -> No, he's mostly sleeping. He woke up for a second and he just kind of frowned.
+  Nurse -> Okay. What's he got for pain?
+  Caller -> The, um, the morphine. The liquid one. In the little brown bottle. || A2
+  Nurse -> Okay. Can you read me the label?
+  Caller -> Okay. Hang on. It says, morphine sulfate. Oral solution. And then it says, twenty milligrams per, and then it's torn. || A2
+  Nurse -> Torn?
+  Caller -> Yeah. The label's ripped right there. It was in the kit and the box got wet, I think. So I can't see the rest. || A2
+  Nurse -> Okay. Is there anything else on the box, or a pharmacy sticker?
+  Caller -> I'm looking. The box is, it's all soggy. There's a sticker but it's smeared. I can't read it.
+  Nurse -> Okay. Do you know how much the nurse told you to give him?
+  Caller -> The aide said, um, half a milliliter. Half a mil. But I'm not sure. I wasn't there when she said it. || A3
+  Nurse -> Okay. So you've got a torn label, and you're not certain of the dose.
+  Caller -> Right. Right. And I don't want to give him too much. But I don't want him hurting.
+  Nurse -> I completely understand. And I'm glad you called. Here's the thing. I'm trying to pull up his medication list, but our system is running slow tonight.
+  Caller -> Oh no.
+  Nurse -> It's okay. I'm going to call our pharmacist on call to verify exactly what's on that bottle. I want to be one hundred percent sure before I tell you to give anything. || R2
+  Caller -> Okay.
+  Nurse -> So please don't give him the morphine yet. Hold off until I call you back. || R1
+  Caller -> But he's in pain.
+  Nurse -> I know. It shouldn't be long. I'll call you back in ten minutes. || R3
+  Caller -> Ten minutes. Okay.
+  Nurse -> In the meantime, can you reposition him? Maybe a pillow under his knees, or turn him a little. And loosen the blanket if he's hot. || E2
+  Caller -> Okay. I can do that.
+  Nurse -> And hold his hand, talk to him quietly. A lot of times that helps. || E2
+  Caller -> Okay. I'm doing that now. He's, he's holding my hand.
+  Nurse -> That's good. That's really good.
+  Caller -> He was a city bus driver for thirty four years. Route nineteen. He still hums when he's comfortable.
+  Nurse -> Oh, I love that. Does he hum now?
+  Caller -> A little, earlier tonight. That's how I knew he was okay. And then the moaning started.
+  Nurse -> That's helpful to know. When he's comfortable, we'll hope to hear the humming again.
+  Caller -> Yeah. I hope so. He's got a great voice.
+  Nurse -> I bet he does.
+  Caller -> Mhm.
+  Caller -> He used to sing in the church choir, too. My grandma always said that's why she married him.
+  Nurse -> That's a lovely story. I hope he'll be humming again soon.
+  Caller -> Is it okay if I ask something else?
+  Nurse -> Of course.
+  Caller -> He's been having trouble with his pills. The last couple of days. He coughs when he swallows them. Like, he chokes. || A4
+  Nurse -> Okay. Which pills is he taking?
+  Caller -> I don't know. Several. I just know he coughs.
+  Nurse -> Okay. That's an important thing to tell us. When the nurse comes, she'll look at which pills can be stopped or switched to liquid. For tonight, don't force any pills. || A4
+  Caller -> Okay. I won't.
+  Nurse -> In general, when the label isn't clear, don't guess the concentration. Keep the bottle and the box together, and read the pharmacy sticker. That's the safest way. || E1
+  Caller -> I'll keep it all together. I'm going to take a picture of the sticker, too. Maybe the camera can read it better.
+  Nurse -> That's a good idea. Send it to us, or read it to me when I call.
+  Caller -> Okay. I'll try.
+  Nurse -> If he starts groaning more, or grimacing, or his breathing gets noisy or fast, call me right away, even before the ten minutes. || E3
+  Caller -> Okay. I will.
+  Nurse -> Alright. Talk to you in a few minutes, Keisha.
+  Caller -> Thank you so much, Carla.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "label read", heard_form: "twenty milligrams per, and then it's torn", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelius Bell, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1933-12-01", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Keisha, certainty: stated, heard_as: [], turns: [8]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2, 8]}
+    callback_phone: {value: "3135550134", certainty: stated, heard_as: [], turns: [10, 11]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested help with a morphine bottle whose label was torn, because her grandfather appeared to be in pain.
+    speaker: Caller
+    turns: [2]
+    quote: "I need help with a medicine. It's my grandpa."
+    explanation: Documents the medication concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Moaning was reported with pain estimated at about 6/10, though the caller was unsure.
+      speaker: Caller
+      turns: [16]
+      quote: "I'd say maybe a six? I don't, I don't really know how to tell."
+      explanation: Documents the reported pain with the caller's uncertainty preserved.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: about 6/10, certainty: unclear}
+      covers: [A1]
+    - text: The morphine oral solution label read 20 mg per, with the rest of the concentration torn off and not visible.
+      speaker: Caller
+      turns: [22]
+      quote: "It says, morphine sulfate. Oral solution. And then it says, twenty milligrams per, and then it's torn."
+      explanation: Documents the incomplete concentration as heard.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg per (incomplete), med_status: prescribed, certainty: unclear}
+      covers: [A2]
+    - text: A home aide had reportedly said the dose was half a milliliter, but the caller was not sure.
+      speaker: Caller
+      turns: [28]
+      quote: "The aide said, um, half a milliliter. Half a mil. But I'm not sure."
+      explanation: Documents the second-hand dose report with uncertainty.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A3]
+    - text: Trouble swallowing pills was reported over the last couple of days, with coughing when swallowing.
+      speaker: Caller
+      turns: [55]
+      quote: "He's been having trouble with his pills. The last couple of days. He coughs when he swallows them."
+      explanation: Documents a swallowing concern.
+      facts:
+        - {type: symptom, name: difficulty swallowing pills, present: true, severity: coughs when taking pills, onset: past couple of days, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised holding the morphine until the concentration was verified.
+      speaker: Nurse
+      turns: [35]
+      quote: "So please don't give him the morphine yet. Hold off until I call you back."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: morphine, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact the on-call pharmacist to verify what was on the bottle.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm going to call our pharmacist on call to verify exactly what's on that bottle."
+      explanation: Documents the planned pharmacy verification.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 10 minutes.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'll call you back in ten minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 10 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not guessing the concentration and keeping the bottle and box together to read the pharmacy sticker.
+      speaker: Nurse
+      turns: [60]
+      quote: "when the label isn't clear, don't guess the concentration."
+      explanation: Documents medication-safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised repositioning him, loosening the blanket if hot, and holding his hand and talking quietly while waiting.
+      speaker: Nurse
+      turns: [39]
+      quote: "can you reposition him? Maybe a pillow under his knees, or turn him a little."
+      explanation: Documents comfort measures while waiting.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if he groaned more, grimaced, or his breathing became noisy or fast.
+      speaker: Nurse
+      turns: [64]
+      quote: "If he starts groaning more, or grimacing, or his breathing gets noisy or fast, call me right away"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

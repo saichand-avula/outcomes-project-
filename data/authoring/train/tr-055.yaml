@@ -1,0 +1,190 @@
+call_id: tr-055
+split: train
+blueprint: "Assisted-living med tech calls for a resident: oxygen tubing and humidifier bottles are almost gone, saturation reads 91 on 2 liters. Nurse plans a supply order and delivery tomorrow before noon, to be coordinated with the front desk; gives oxygen safety reminders."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [phone_from_file, split_turns, multi_issue]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-09-15T14:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hubert Lindseth
+  patient_name_spoken: Hubert Lindseth
+  patient_name_certainty: stated
+  patient_dob_true: "1938-08-17"
+  patient_dob_spoken: "1938-08-17"
+  patient_dob_certainty: stated
+  caller_name_true: Kayla
+  caller_name_spoken: Kayla
+  caller_name_certainty: stated
+  relationship_to_patient: medication technician at his assisted living facility
+  relationship_certainty: stated
+  callback_phone_true: "5035550186"
+  callback_phone_spoken: "5035550186"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested oxygen tubing and humidifier bottles
+  reason_category: supply_request
+  relevant_context: Resident on home oxygen at an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: nasal cannula tubing
+    supply_remaining: "1"
+    supply_unit: set
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: humidifier bottles
+    supply_remaining: none
+    supply_unit: bottles
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "91"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oxygen tubing and humidifier bottles
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: facility front desk
+    timeframe: tomorrow before noon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: No open flames, smoking, or petroleum products such as Vaseline near the oxygen
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call if the oxygen reading drops below 88 or he seems more short of breath
+    trigger_condition: oxygen below 88; more short of breath
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus, it's Kayla, I'm the med tech over at Magnolia Court. I'm calling about one of our residents, Hubert Lindseth. || caller_name, relationship, patient_name
+  Nurse -> Hi, Kayla. Let me get his chart. Can you confirm his date of birth?
+  Caller -> August seventeenth, nineteen thirty eight. || patient_dob
+  Nurse -> Got it. And I have five oh three, five five five, zero one eight six for your number. || callback_phone
+  Caller -> That's the med room line. Yeah. That's good. || callback_phone
+  Nurse -> What do you need?
+  Caller -> So we're running out of his oxygen stuff. The tubing, we have, um, one set left. And the humidifier bottles, we have none. We used the last one this morning. || cc, A1, A2
+  Nurse -> Okay. Is his oxygen working okay otherwise? How's he doing?
+  Caller -> He's, I mean he's okay. I just checked him, he's ninety one. On the two liters. || A3
+  Nurse -> Okay, ninety one on two liters. Any change in his breathing today?
+  Caller -> No, not really. He's about the same. Little tired.
+  Nurse -> Alright. Let me get a supply order going. Nasal cannula tubing and humidifier bottles. I'll put that in for you. || R1
+  Caller -> Perfect.
+  Nurse -> The delivery driver can get that to you tomorrow before noon. I'll tell him to check in at your front desk when he gets there. || R2
+  Caller -> Okay. Front desk. They'll know.
+  Nurse -> And a quick reminder for the staff, no open flames or smoking anywhere near his oxygen, and no Vaseline or petroleum stuff on his face or nose, that can catch fire. Use the water-based lubricant. || E1
+  Caller -> Right. We know. I'll tell the night shift again.
+  Nurse -> If his reading drops below eighty eight, or he seems more short of breath, give us a call. || E2
+  Caller -> Below eighty eight. Okay.
+  Nurse -> Anything else you need today, Kayla?
+  Caller -> No, that's everything. Thank you.
+  Nurse -> You're welcome.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hubert Lindseth, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-08-17", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Kayla, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: medication technician at his assisted living facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550186", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested oxygen tubing and humidifier bottles.
+    speaker: Caller
+    turns: [8]
+    quote: "So we're running out of his oxygen stuff."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: One set of nasal cannula tubing remained and there were no humidifier bottles left.
+      speaker: Caller
+      turns: [8]
+      quote: "The tubing, we have, um, one set left. And the humidifier bottles, we have none."
+      explanation: Documents the supply levels.
+      facts:
+        - {type: supply, item: nasal cannula tubing, supply: 1 set, certainty: stated}
+        - {type: supply, item: humidifier bottles, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: Oxygen saturation was 91 on 2 liters.
+      speaker: Caller
+      turns: [10]
+      quote: "he's ninety one. On the two liters."
+      explanation: Documents the current oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "91", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to place a supply order for nasal cannula tubing and humidifier bottles.
+      speaker: Nurse
+      turns: [13]
+      quote: "Nasal cannula tubing and humidifier bottles. I'll put that in for you."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for tomorrow before noon, with the driver to check in at the facility front desk.
+      speaker: Nurse
+      turns: [15]
+      quote: "The delivery driver can get that to you tomorrow before noon."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow before noon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised no open flames, smoking, or petroleum products near the oxygen.
+      speaker: Nurse
+      turns: [17]
+      quote: "no open flames or smoking anywhere near his oxygen, and no Vaseline or petroleum stuff on his face or nose, that can catch fire."
+      explanation: Documents oxygen safety reminders.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the oxygen reading dropped below 88 or his breathing worsened.
+      speaker: Nurse
+      turns: [19]
+      quote: "If his reading drops below eighty eight, or he seems more short of breath, give us a call."
+      explanation: Documents the callback threshold.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

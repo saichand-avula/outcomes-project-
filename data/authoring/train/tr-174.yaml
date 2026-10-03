@@ -1,0 +1,217 @@
+call_id: tr-174
+split: train
+blueprint: "Aide at a nursing home calls for dressing supplies for a hospice resident's sacral wound: 8 gauze pads, no roll gauze, half a bottle of wound cleanser, 1 roll of tape. Wound looks the same, small amount of drainage, no odor. Nurse orders supplies for Tuesday. Short."
+setup:
+  scenario_category: supply
+  subtype: wound_supplies
+  secondary_tags: [phone_from_file, split_turns, late_answers]
+  clinical_domains: [wound_skin, equipment]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-05T16:00:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alberto Fuentes
+  patient_name_spoken: Alberto Fuentes
+  patient_name_certainty: stated
+  patient_dob_true: "1932-05-25"
+  patient_dob_spoken: "1932-05-25"
+  patient_dob_certainty: stated
+  caller_name_true: Tanya
+  caller_name_spoken: Tanya
+  caller_name_certainty: stated
+  relationship_to_patient: aide at his nursing home
+  relationship_certainty: stated
+  callback_phone_true: "4805550173"
+  callback_phone_spoken: "4805550173"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested wound dressing supplies for a resident
+  reason_category: supply_request
+  relevant_context: Hospice patient living in a nursing home with a sacral wound
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: gauze pads
+    supply_remaining: "8"
+    supply_unit: pads
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: roll gauze
+    supply_remaining: none
+    supply_unit: rolls
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: wound cleanser
+    supply_remaining: half a bottle
+    supply_unit: bottles
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: tape
+    supply_remaining: "1"
+    supply_unit: rolls
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: sacral wound with a small amount of drainage
+    symptom_present: true
+    body_location: sacrum
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: odor
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: gauze pads, roll gauze, wound cleanser and tape
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Tuesday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Tell the nurse about a bad smell, more drainage, spreading redness, or a fever
+    trigger_condition: bad smell; more drainage; spreading redness; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Ana.
+  Caller -> Hi, Ana. This is Tanya at Maplewood Manor. I'm an aide on the second floor. I'm calling for one of your patients, Mr. Alberto Fuentes. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tanya. Do you have his date of birth?
+  Caller -> I'm looking at the chart. May twenty fifth. Nineteen thirty two. || patient_dob
+  Nurse -> And is four eight oh, five five five, zero one seven three the best number? || callback_phone
+  Caller -> That's the nurses' station. Yes. || callback_phone
+  Nurse -> What do you need?
+  Caller -> Supplies for his wound care. The sore on his bottom. We're running low. || cc
+  Nurse -> Okay. What have you got?
+  Caller -> The gauze pads, the four by fours. I have eight. And roll gauze, none. We're out of the roll gauze. || A1, A2
+  Nurse -> Okay.
+  Caller -> The wound cleanser, there's about half a bottle. And tape, one roll. Just the one. || A3, A4
+  Nurse -> Okay. How does the wound look?
+  Caller -> About the same as Friday. It's a little drainage on the dressing. Not a lot. Just a small spot. || A5
+  Nurse -> Any smell?
+  Caller -> No smell. None. || A6
+  Nurse -> Okay. I'll order the gauze pads, the roll gauze, the wound cleanser, and the tape. || R1
+  Caller -> Thank you.
+  Nurse -> They'll come Tuesday. || R2
+  Caller -> Tuesday. I'll tell the day shift. They'll put it in the supply closet.
+  Nurse -> Perfect. And let the nurse know if you notice a bad smell, more drainage, redness spreading, or a fever. || E1
+  Caller -> Smell, more drainage, redness, fever. Okay. I'll put it in the chart.
+  Nurse -> Anything else?
+  Caller -> No. That's all. Thank you, Ana. Mr. Fuentes is comfortable today. He had a good lunch, and his granddaughter is visiting. She brought him tamales.
+  Nurse -> That's wonderful. Enjoy the tamales, Mr. Fuentes.
+  Caller -> He says he will. He's grinning at me. Thanks again.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alberto Fuentes, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1932-05-25", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tanya, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at his nursing home, certainty: stated, turns: [2]}
+    callback_phone: {value: "4805550173", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested wound dressing supplies for a resident.
+    speaker: Caller
+    turns: [8]
+    quote: "Supplies for his wound care. The sore on his bottom. We're running low."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Eight gauze pads remained and the roll gauze was gone.
+      speaker: Caller
+      turns: [10]
+      quote: "I have eight. And roll gauze, none."
+      explanation: Documents the gauze supplies.
+      facts:
+        - {type: supply, item: gauze pads, supply: 8 pads, certainty: stated}
+        - {type: supply, item: roll gauze, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: About half a bottle of wound cleanser and one roll of tape remained.
+      speaker: Caller
+      turns: [12]
+      quote: "The wound cleanser, there's about half a bottle. And tape, one roll."
+      explanation: Documents the cleanser and tape supplies.
+      facts:
+        - {type: supply, item: wound cleanser, supply: half a bottle, certainty: stated}
+        - {type: supply, item: tape, supply: 1 rolls, certainty: stated}
+      covers: [A3, A4]
+    - text: The sacral wound was about the same with a small amount of drainage.
+      speaker: Caller
+      turns: [14]
+      quote: "About the same as Friday. It's a little drainage on the dressing."
+      explanation: Documents the wound status.
+      facts:
+        - {type: symptom, name: sacral wound with a small amount of drainage, present: true, location: sacrum, certainty: stated}
+      covers: [A5]
+    - text: No odor was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No smell. None."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: odor, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to order gauze pads, roll gauze, wound cleanser, and tape.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll order the gauze pads, the roll gauze, the wound cleanser, and the tape."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Tuesday.
+      speaker: Nurse
+      turns: [19]
+      quote: "They'll come Tuesday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Tuesday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised telling the nurse about a bad smell, more drainage, spreading redness, or a fever.
+      speaker: Nurse
+      turns: [21]
+      quote: "let the nurse know if you notice a bad smell, more drainage, redness spreading, or a fever."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

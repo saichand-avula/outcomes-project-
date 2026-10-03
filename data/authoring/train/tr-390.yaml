@@ -1,0 +1,367 @@
+call_id: tr-390
+split: train
+blueprint: "A wife calls home health: her husband, two weeks after a heart stent, has had crushing chest pressure for fifteen minutes spreading to his left arm with sweating and nausea; one nitroglycerin under the tongue did nothing; pain eight, no fainting. Nurse tells her to call 911 now, chew an aspirin, sit him down, unlock the door, and stays on the line until paramedics arrive, notifying the on-call team and the hospital. Time-critical chest pain (breathing concern and escalation), spouse caller, patient 18-64, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: chest_pain
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, negated_risk_phrase]
+  clinical_domains: [chest_pain, cardiac, nausea_vomiting]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverside Home Health
+  agency_type: home_health
+  nurse_name: Lucille
+  call_timestamp_utc: "2026-10-31T21:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Raymond Thackeray
+  patient_name_spoken: Raymond Thackeray
+  patient_name_certainty: stated
+  patient_dob_true: "1965-02-11"
+  patient_dob_spoken: "1965-02-11"
+  patient_dob_certainty: stated
+  caller_name_true: Constance Thackeray
+  caller_name_spoken: Constance Thackeray
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3145550125"
+  callback_phone_spoken: "3145550125"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband has severe chest pain two weeks after a heart stent
+  reason_category: chest_pain
+  relevant_context: Home health patient two weeks after a coronary stent
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: chest pressure spreading to the left arm
+    symptom_present: true
+    severity: "8"
+    onset_or_duration: fifteen minutes
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: nitroglycerin
+    medication_name_spoken: nitroglycerin
+    medication_status: taking
+    dose: "1"
+    unit: tablet
+    frequency: as needed
+    prn: true
+    last_dose: ten minutes ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sweating and nausea
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: He had a heart stent placed two weeks ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: chest pressure with arm pain and sweating two weeks after a stent
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: aspirin
+    medication_name_spoken: aspirin
+    reason_or_trigger: chew one regular aspirin now
+    certainty: stated
+  - item_id: R3
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call team
+    reason_or_trigger: tell the team and the hospital he is coming
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hang up and call 911 now, unlock the front door, sit him down and keep him still, and have his medicine list and stent card ready
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not let him walk, drive or eat, loosen tight clothing, and tell the paramedics about the nitroglycerin and the time he took it
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Severe chest pressure with arm pain, sweating and nausea after a recent stent
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Riverside Home Health, this is Lucille.
+  Caller -> Lucille, thank God. This is Constance Thackeray. It's my husband. Raymond Thackeray. He's got chest pain. Bad chest pain. He had the stent two weeks ago. || caller_name, patient_name, relationship, cc, F1, A5
+  Nurse -> Okay Constance. I'm here. Is Raymond awake and with you?
+  Caller -> Yes. Yes. He's awake. I'm so sorry, I'm shaking. I can't think.
+  Nurse -> You're doing fine. Just answer my questions one at a time.
+  Caller -> He's right here. He's on the couch. He's gray. He's sweating. He's holding his chest.
+  Nurse -> Okay. How long has he had the pain?
+  Caller -> Fifteen minutes. Maybe twenty. It started when he was sitting watching the news. Just sitting. It got worse.
+  Nurse -> Was he doing anything strenuous? Walking, lifting, shoveling?
+  Caller -> No. He did his walk this morning. Around the block. Slow. The cardiac rehab lady said that's fine. This evening he just sat.
+  Nurse -> Okay. Ask him to describe it. Where is the pain?
+  Nurse -> I know that's a lot of questions. I'm asking so I can tell the hospital.
+  Caller -> I understand. Go ahead.
+  Caller -> Raymond, where? He says in the middle of his chest. Like an elephant. A heavy pressure, an eight, and it goes to his left arm. Down the arm. And his jaw a little. || A1
+  Nurse -> Okay. On a scale of zero to ten, with ten the worst, how bad is it?
+  Caller -> He says eight. An eight. He can hardly talk.
+  Nurse -> Okay. Is he having nausea? Is he sweating?
+  Caller -> Yes, both. He's drenched. His shirt is wet. And he says he feels like he's going to throw up. || A3
+  Nurse -> Okay. Did he take the nitroglycerin? || A2
+  Caller -> Yes. I gave it to him. One tablet. Under the tongue. About ten minutes ago. It didn't help. The pain is the same. || A2
+  Nurse -> Okay. Constance, this is an emergency. I need you to call 911 right now. Hang up with me and dial 911. Or put me on speaker and dial from your cell. Do you have a cell phone? || R1, E1, F2
+  Caller -> Yes. I have my cell. In my hand. Should I put you on the speaker? I'm so scared.
+  Nurse -> Put me on speaker, set the phone down, and use your cell to call 911. Do it now.
+  Caller -> Okay. Okay. Dialing. Nine one one. It's ringing. Hello? Yes. My husband is having chest pain. Heart attack. He has a stent. Four fifteen Elm Street. Yes. Two weeks ago. They're sending an ambulance.
+  Nurse -> Good job. How long did they say?
+  Nurse -> Did the dispatcher stay on the line with you?
+  Caller -> She said to stay with him and she'd send them right away. She said they know the address.
+  Nurse -> Good. Do exactly what she says as well.
+  Caller -> Six minutes. They said unlock the door.
+  Nurse -> Unlock the door now. Then come right back.
+  Caller -> Going. I'm going. It's open. I'm back. He's the same.
+  Nurse -> Good. Constance, do you have aspirin in the house? Regular aspirin, not the coated kind? || R2
+  Caller -> Yes. In the kitchen. The bottle. Three hundred twenty five. The regular. Do I get it?
+  Nurse -> Yes. Get one regular aspirin. Have him chew it, not swallow it whole. Is he allergic to aspirin? || R2
+  Caller -> No. He takes it every day. He takes the baby one. I'm getting it. I have the bottle. Okay. One tablet.
+  Nurse -> Have him chew it and swallow it. Do it now. || R2
+  Caller -> Raymond, chew this. Chew. All the way. Good. He's chewing. He made a face. It's bitter. He swallowed.
+  Nurse -> Good. Now, keep him sitting. Don't let him stand or walk. Loosen anything tight around his neck or waist.
+  Caller -> He's trying to talk. He says tell the nurse thank you. He says it's a six now. The pain. Maybe a six.
+  Nurse -> That's okay. Tell him to rest and not to talk much. The paramedics will check him.
+  Caller -> Raymond, rest. She says rest. He's nodding. He's very pale.
+  Caller -> He's sitting on the couch. Leaning back. I unbuttoned his collar. His belt's loose. Okay.
+  Caller -> The dog is going crazy. He's barking at the door. Should I put him out?
+  Caller -> The cat is under the table. Everyone's scared. Even the fish tank is bubbling louder.
+  Nurse -> Ha. Animals feel it.
+  Nurse -> Put him in another room, so the paramedics can get through. Close the door.
+  Caller -> Okay. Biscuit! Come! Come here, baby. I'm putting him in the bathroom. There. Quiet. Good boy. I'm back.
+  Nurse -> Good. Thank you.
+  Nurse -> Perfect. How is his color?
+  Caller -> Should I call my son? He's at college. He'd want to know.
+  Nurse -> Not yet. Stay with Raymond. Call him from the hospital, when you know more.
+  Caller -> Okay. I'll wait. He's going to be so upset. They're very close. They watch the games together.
+  Nurse -> Then Raymond has a lot to come home to.
+  Caller -> He does. He does.
+  Caller -> Gray. Pale. Sweaty. He's closing his eyes.
+  Nurse -> Talk to him. Keep him awake. Is he responding?
+  Caller -> Raymond! Raymond, look at me. He opened them. He said I'm here. He says I'm here, Connie. He called me Connie. He only does that when he's scared.
+  Nurse -> Does he have any history of heart trouble besides the stent?
+  Caller -> He had a heart attack in March. That's why the stent. They did the procedure two weeks ago. He's been doing so well. He walked the block this morning.
+  Nurse -> Okay. I'll tell the hospital.
+  Nurse -> Good. He's responding. Keep talking to him.
+  Caller -> Raymond, can you hear me? Squeeze my hand. He squeezed. He's squeezing very hard.
+  Nurse -> That's good. He's with you.
+  Caller -> I'm counting. One, two. I don't know why. I'm just counting.
+  Nurse -> That's okay. Count if it helps.
+  Caller -> Raymond, the ambulance is coming. They're almost here. Stay with me. Okay.
+  Caller -> I keep looking at the clock. It's been two minutes since she said six. It feels like an hour. Why does it feel like an hour?
+  Nurse -> Because you're scared, and every second counts for you. They're on their way. I can hear nothing but your voice, and you sound clear and strong.
+  Caller -> I don't feel strong. I feel like I'm made of paper.
+  Nurse -> You're doing everything right. You called, you gave the aspirin, you unlocked the door. That's all anyone can do. || R2
+  Caller -> Thank you. Raymond keeps saying he's sorry. Sorry for scaring me. Isn't that just like him.
+  Nurse -> It is the sweetest thing. Tell him not to apologize.
+  Caller -> Raymond, don't apologize. Hush. Hush. Okay.
+  Nurse -> Has he fainted or passed out at all?
+  Caller -> No. He hasn't passed out. He's awake. He's holding my hand. Hard. || A4
+  Nurse -> Good. Constance, I'm going to page the on-call team and let the hospital know he's coming. I'll stay on with you. || R3
+  Caller -> Thank you. Thank you.
+  Nurse -> What's Raymond's date of birth? I'll give it to the hospital.
+  Caller -> February eleventh, nineteen sixty five. || patient_dob
+  Nurse -> And your cell number?
+  Caller -> Three one four, five five five, zero one two five. || callback_phone
+  Nurse -> Three one four, five five five, zero one two five. Is that right? || callback_phone
+  Caller -> Yes. That's right.
+  Nurse -> Do you have his medicine list and the stent card? The paramedics will want them.
+  Caller -> The list is on the fridge. And the card is in his wallet. It's in his back pocket. Hold on. I'll get the list. I'm getting the list. Okay. I have it. The card, I'll get it from the wallet. It's in the bedroom. On the dresser. I'll go get it.
+  Nurse -> Quickly. Then come back to him.
+  Caller -> I'm going. I have it. I have the wallet. Okay. Back.
+  Nurse -> Good. Put them by the front door. And Constance, when the paramedics come, tell them about the nitroglycerin and what time he took it. Ten minutes ago, right? || A2
+  Caller -> About ten minutes ago. Yes. Around nine ten. I'll tell them. || E2
+  Nurse -> Don't let him walk to the ambulance. Let them bring a stretcher.
+  Caller -> Okay. He won't walk. He wants to walk. He's trying to stand.
+  Nurse -> Tell him to stay seated. Stay still.
+  Caller -> He wants water. His mouth is dry. Can I give him water?
+  Nurse -> Not now. No food or drink. Just a little ice chip if his mouth is dry. Only if the paramedics say.
+  Caller -> Okay. No water. I'll wet his lips with a cloth. A wet cloth.
+  Nurse -> That's fine. Just wet his lips.
+  Caller -> Raymond, stay. Sit. No. They'll come to you. Sit down. He's sitting. He's frustrated.
+  Nurse -> That's okay. He's stubborn. You're doing fine.
+  Caller -> He says it's a little better. The pain. Maybe a seven.
+  Caller -> My neighbor is here! She heard the dog. She's at the door. Marla! Come in! It's Raymond! Chest pain!
+  Nurse -> Is a neighbor with you now?
+  Caller -> Yes, Marla from next door. She's a retired nurse. She's holding his other hand. She's talking to him.
+  Nurse -> That's very good. Let her stay with him.
+  Caller -> She says his pulse is fast. Marla, what is it? She says one twenty.
+  Nurse -> Okay. Tell the paramedics.
+  Nurse -> That's okay. We still want him checked. Keep him still.
+  Caller -> I hear the siren. I think it's them.
+  Caller -> They're getting closer. I can hear the siren. It's loud now. It's turning onto our street.
+  Nurse -> Good. Go ahead and check the porch light is on.
+  Caller -> Marla turned it on. The porch light's on. The front door is wide open.
+  Nurse -> Marla, are you there? Can you hear me?
+  Caller -> She says yes. She says hello. She says she'll stay until they take him.
+  Nurse -> Good. Go to the door. Wave them in.
+  Caller -> They're pulling up. The lights. Okay. I'm going. I'm leaving the phone here. They're coming up the steps.
+  Nurse -> Go. I'll stay on the line.
+  Caller -> In here! He's on the couch! Chest pain! Two weeks since a stent! He took one nitro at nine ten, and an aspirin! He's sweating! Over here! || R2
+  Nurse -> Constance, you're doing great. Let them work.
+  Caller -> They're hooking him up. They have the machine. They're putting stickers on his chest.
+  Caller -> They're hooking him up. They have the machine. They're putting stickers on his chest.
+  Caller -> They're asking me what time the pain started. I said about eight fifty five. Is that right? I think so.
+  Nurse -> Tell them what you know. They'll sort it out.
+  Caller -> They're asking if he has allergies. Raymond, are you allergic to anything? He says penicillin. Penicillin.
+  Nurse -> Tell the paramedics that.
+  Caller -> I told them. They wrote it down. Okay.
+  Nurse -> Good. Tell them everything you know. I'll let the hospital know.
+  Caller -> They're asking questions. Okay. They say to go. They're taking him now. I'm going with him. I have to go.
+  Nurse -> Go. Call us when you can. I'm thinking of you both.
+  Nurse -> Do you have your keys and your phone and a purse?
+  Caller -> Marla is getting them. She's putting my purse by the door. She's going to lock up and bring Biscuit to her house.
+  Nurse -> Good. That's one less thing to worry about.
+  Caller -> Thank you. Thank you, Lucille. Bye.
+  Nurse -> Bye, Constance.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Raymond Thackeray, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1965-02-11", certainty: stated, heard_as: [], turns: [79]}
+    caller_name: {value: Constance Thackeray, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550125", certainty: stated, heard_as: [], turns: [81, 82]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had severe chest pain two weeks after a heart stent.
+    speaker: Caller
+    turns: [2]
+    quote: "He's got chest pain. Bad chest pain."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Heavy chest pressure for fifteen to twenty minutes, an eight, going down the left arm and into the jaw.
+      speaker: Caller
+      turns: [14]
+      quote: "Like an elephant. A heavy pressure, an eight, and it goes to his left arm."
+      explanation: Documents the chest pressure.
+      facts:
+        - {type: symptom, name: chest pressure spreading to the left arm, present: true, severity: "8", duration: fifteen minutes, certainty: stated}
+      covers: [A1]
+    - text: One nitroglycerin tablet under the tongue about ten minutes ago did not help.
+      speaker: Caller
+      turns: [20]
+      quote: "One tablet. Under the tongue."
+      explanation: Documents the nitroglycerin.
+      facts:
+        - {type: medication, name: nitroglycerin, dose: "1", unit: tablet, frequency: as needed, prn: true, last_dose: ten minutes ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was drenched in sweat and nauseated.
+      speaker: Caller
+      turns: [18]
+      quote: "He's drenched. His shirt is wet."
+      explanation: Documents the sweating and nausea.
+      facts:
+        - {type: symptom, name: sweating and nausea, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had not fainted or passed out.
+      speaker: Caller
+      turns: [75]
+      quote: "No. He hasn't passed out."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fainting, certainty: stated}
+      covers: [A4]
+    - text: He had a heart stent placed two weeks ago.
+      speaker: Caller
+      turns: [2]
+      quote: "He had the stent two weeks ago."
+      explanation: Documents the history.
+      facts:
+        - {type: context, text: He had a heart stent placed two weeks ago, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [21]
+      quote: "I need you to call 911 right now."
+      explanation: Documents the escalation advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Advised chewing one regular aspirin now.
+      speaker: Nurse
+      turns: [34]
+      quote: "Get one regular aspirin. Have him chew it, not swallow it whole."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: aspirin, certainty: stated}
+      covers: [R2]
+    - text: Planned to page the on-call team and tell the hospital he was coming.
+      speaker: Nurse
+      turns: [76]
+      quote: "I'm going to page the on-call team"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling 911, unlocking the door, sitting him down and having his medicine list and stent card ready.
+      speaker: Nurse
+      turns: [30]
+      quote: "Unlock the door now. Then come right back."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised not letting him walk or eat, loosening tight clothing, and telling the paramedics about the nitroglycerin and its time.
+      speaker: Nurse
+      turns: [90]
+      quote: "Don't let him walk to the ambulance."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He's got chest pain. Bad chest pain."}
+    - {category: escalation_request, turns: [21], quote: "I need you to call 911 right now."}

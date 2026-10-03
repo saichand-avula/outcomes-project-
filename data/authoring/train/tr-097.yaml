@@ -1,0 +1,194 @@
+call_id: tr-097
+split: train
+blueprint: "Sister reports that her 52-year-old brother had a seizure about 20 minutes ago lasting two minutes; he is now drowsy but responds and breathes normally. His surname is heard three ways and never settled (unresolved name drift; most frequent form kept). Nurse tells her to call 911 for first-time seizure evaluation per orders, keep him on his side, and stay with him. Flags: other_urgent and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [name_drift, hedging, crosstalk, split_turns, late_answers]
+  clinical_domains: [seizure]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-27T09:22:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dariusz Przybylski
+  patient_name_spoken: Dariusz Shibilski
+  patient_name_certainty: unclear
+  patient_dob_true: "1974-03-30"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Kasia
+  caller_name_spoken: Kasia
+  caller_name_certainty: stated
+  relationship_to_patient: sister
+  relationship_certainty: stated
+  callback_phone_true: "4145550116"
+  callback_phone_spoken: "4145550116"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her brother had a seizure
+  reason_category: seizure
+  relevant_context: Brother lives with her; first seizure she has seen
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: seizure
+    symptom_present: true
+    onset_or_duration: about 20 minutes ago, lasted about 2 minutes
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: drowsiness after the seizure
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: head injury
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: first seizure
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Keep him on his side, put nothing in his mouth, loosen tight clothing, clear the area, and stay with him until the ambulance arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Brother had a seizure about twenty minutes ago
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the sister to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hi. It's Kasia. It's about my brother. Dariusz. Dariusz Shibilski. He had a seizure. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Kasia. When did it happen?
+  Caller -> Like twenty minutes ago. It lasted, I don't know, two minutes? It felt like forever. || A1, F1
+  Nurse -> Okay. Is he awake now?
+  Caller -> He's, he's kind of sleepy. But he opens his eyes when I talk to him. He knows me. || A2
+  Nurse -> Mm-hm. How's his breathing?
+  Caller -> Normal. It's normal now. During it, it was, but now it's normal. || A3
+  Nurse -> Did he hit his head? Did he fall?
+  Caller -> He was in the chair. He kind of slid down. I caught him. No, he didn't hit his head. || A4
+  Nurse -> Okay. And what's his last name again? How do you spell it?
+  Caller -> Shibilski. S H I B, I don't know. P R Z, it's a Polish name. Przybylski. Something like that. Shibilski. || patient_name
+  Nurse -> Okay. Let me write that. Kasia, has he ever had a seizure before?
+  Caller -> Not that I know of. Not like this. This is the first one I saw.
+  Nurse -> Okay. I want you to call 911 now. He needs to be evaluated in the emergency room. || R1, F2
+  Caller -> Okay. Okay. What do I.
+  Nurse -> While you wait, keep him on his side. Don't put anything in his mouth. Loosen anything tight around his neck. Stay with him. || E1
+  Caller -> On his side. Nothing in his mouth. Okay. Okay, Dariusz. Okay.
+  Nurse -> And if he has another one before they get there, note the time. Tell them.
+  Caller -> I will. I'll tell them. Four one four, five five five, zero one one six, that's my cell if you need me. || callback_phone
+  Nurse -> Got it. Go call them now.
+  Caller -> Okay. Thank you.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Przybylski, heard_form: Dariusz Shibilski, fact_id: patient_name}
+  - {turn: auto, type: name_drift, true_form: Przybylski, heard_form: "P R Z, it's a Polish name. Przybylski.", fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dariusz Shibilski, certainty: unclear, heard_as: [Przybylski], turns: [2, 12]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Kasia, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: sister, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550116", certainty: stated, heard_as: [], turns: [20]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her brother had a seizure.
+    speaker: Caller
+    turns: [2]
+    quote: "He had a seizure."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A seizure occurred about 20 minutes earlier and lasted about 2 minutes.
+      speaker: Caller
+      turns: [4]
+      quote: "Like twenty minutes ago. It lasted, I don't know, two minutes?"
+      explanation: Documents the timing and duration of the seizure.
+      facts:
+        - {type: symptom, name: seizure, present: true, duration: about 20 minutes ago, lasted about 2 minutes, certainty: stated}
+      covers: [A1]
+    - text: He was sleepy after the seizure but opened his eyes and recognized her.
+      speaker: Caller
+      turns: [6]
+      quote: "He's, he's kind of sleepy. But he opens his eyes when I talk to him. He knows me."
+      explanation: Documents his post-seizure status.
+      facts:
+        - {type: symptom, name: drowsiness after the seizure, present: true, certainty: stated}
+      covers: [A2]
+    - text: His breathing was normal now.
+      speaker: Caller
+      turns: [8]
+      quote: "Normal. It's normal now."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A3]
+    - text: He did not hit his head.
+      speaker: Caller
+      turns: [10]
+      quote: "No, he didn't hit his head."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: head injury, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 immediately for emergency evaluation.
+      speaker: Nurse
+      turns: [15]
+      quote: "I want you to call 911 now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised keeping him on his side, putting nothing in his mouth, loosening tight clothing, and staying with him.
+      speaker: Nurse
+      turns: [17]
+      quote: "keep him on his side. Don't put anything in his mouth."
+      explanation: Documents seizure first aid.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "He had a seizure."}
+    - {category: escalation_request, turns: [15], quote: "I want you to call 911 now."}

@@ -1,0 +1,258 @@
+call_id: tr-118
+split: train
+blueprint: "MEDIUM medication call: 70-year-old patient on a prednisone taper (20 mg x3 days, 10 mg x3 days, 5 mg x3 days) cannot remember which day she is on; she thinks day 4 but her pill box shows two 10s taken. Nurse reads the taper from the chart and works out she should be on 10 mg for day 5 of the taper. Unclear counting (hedged). Moderate joint pain 3/10, sugar high note. Nurse messages the physician to confirm and plans a callback."
+setup:
+  scenario_category: medication
+  subtype: taper_confusion
+  secondary_tags: [hedging, contradiction, prn_and_scheduled, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [medication, pain, glucose]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Ana
+  call_timestamp_utc: "2026-11-17T13:55:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [omeprazole]
+chief_complaint:
+  patient_name_true: Henrietta Calloway
+  patient_name_spoken: Henrietta Calloway
+  patient_name_certainty: stated
+  patient_dob_true: "1956-11-30"
+  patient_dob_spoken: "1956-11-30"
+  patient_dob_certainty: stated
+  caller_name_true: Henrietta Calloway
+  caller_name_spoken: Henrietta Calloway
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2145550171"
+  callback_phone_spoken: "2145550171"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked which prednisone dose she should take today on her taper
+  reason_category: medication_question
+  relevant_context: Prednisone taper after a flare of arthritis
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: prednisone
+    medication_name_spoken: prednisone
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    last_dose: unsure which taper day she is on
+    certainty: unclear
+    unclear_detail: She thinks she is on day 4 but her pill box suggests day 5; both counts were uncertain
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: joint pain
+    symptom_present: true
+    severity: 3/10
+    body_location: hands and knees
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: morning blood sugar
+    vital_value: "168"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: take 10 mg today and tomorrow, then 5 mg for three days, per the chart taper
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: confirm the taper day and report the sugar
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Write the date on the calendar each time she takes a dose, take it with food in the morning, and do not stop it suddenly
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a sugar over 300, black stools, severe stomach pain, or a big flare of joint pain
+    trigger_condition: sugar over 300; black stools; severe stomach pain; large pain flare
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Ana.
+  Caller -> Hi, Ana. It's Henrietta Calloway. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Henrietta. Can you spell the last name?
+  Caller -> C A L L O W A Y. || patient_name
+  Nurse -> And your birthday?
+  Caller -> November thirtieth. Nineteen fifty six. || patient_dob
+  Nurse -> And I've got two one four, five five five, zero one seven one. || callback_phone
+  Caller -> Yes. That's my number. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> I'm on the, the steroid. The prednisone. And it's a taper. And I lost count. I don't know what day I'm on. || cc, A1
+  Nurse -> Okay. That's easy to do. Let me pull up the taper in your chart. Hold on one second.
+  Caller -> Okay. Take your time.
+  Nurse -> Mm-hm. Okay. I'm looking at it. So it says twenty milligrams for three days. Then ten milligrams for three days. Then five milligrams for three days. And stop. || A1
+  Caller -> Right. That's what I have on the paper too. Twenty, ten, five.
+  Nurse -> Okay. When did you start?
+  Caller -> Saturday. I started Saturday. || A1
+  Nurse -> So Saturday, Sunday, Monday was the twenty. Then Tuesday would be the first ten. Is that right?
+  Caller -> That's what I thought. But, here's the thing. I think I took the ten on Monday. Because I got confused and I looked at the pill box. || A1
+  Nurse -> Mm. Okay. So you might have started the ten a day early.
+  Caller -> Maybe. I don't know. I think. Or maybe I took the twenty twice on Sunday. I don't know. || A1
+  Nurse -> Okay. Henrietta, what does your pill box show? Which slots are empty?
+  Caller -> Hold on. Let me look. It's the, it's the one with the days on it. Saturday, empty. Sunday, empty. Monday, empty. Tuesday, empty. And Wednesday. That's today. Is empty too. I took it this morning. || A1
+  Nurse -> Okay. So five days. Saturday through today.
+  Caller -> Yes. Five days. But I only put in what the box tells me, and I don't know if I put in the right ones.
+  Nurse -> That's okay. Let's go by the calendar. If you started Saturday, then today is day five. Days one through three were twenty. Days four through six are ten. So today's dose is ten. || R1
+  Caller -> Okay. So I'm on the ten. And I took the ten today?
+  Nurse -> What did you take this morning?
+  Caller -> I took the ten. I'm pretty sure it was the ten. Two of the five. Or one of the ten. One of those. || A1
+  Nurse -> Okay. Either way, that's ten. Good.
+  Caller -> Oh good. Okay.
+  Nurse -> So, today and tomorrow are ten. Then five milligrams for three days. Then you stop. || R1
+  Caller -> Ten, ten. Then five, five, five. Then stop.
+  Nurse -> Right. I'm going to message your prescriber to confirm that, since you were a little unsure about the first few days. || R2
+  Caller -> Okay. Thank you. I don't want to mess it up.
+  Nurse -> You're doing fine. How are your joints? How's the pain?
+  Caller -> Better. They're better than last week. I'd say a three. My hands and my knees. It was an eight before the steroid. || A2
+  Nurse -> That's good. That's what we want. And have you been checking your sugar?
+  Caller -> This morning it was one sixty eight. Which is high for me. Usually I'm about one ten. || A3
+  Nurse -> Okay. The steroid can raise it. I'll pass that along too.
+  Caller -> Okay.
+  Nurse -> And you're taking this with food, in the morning?
+  Caller -> Yes. With my breakfast. And my stomach pill. The omeprazole. They told me to take that too.
+  Nurse -> Good. Keep doing that.
+  Caller -> Okay. I'm so sorry about all this. I feel silly.
+  Nurse -> Not at all. A taper is confusing. Henrietta, let's do this. Get a calendar and write the date every time you take a dose. Don't count on the pill box. || E1
+  Caller -> I have a calendar. From the church. I'll use that. It has big squares.
+  Nurse -> Perfect. And don't stop it suddenly. Finish the taper just as written. || E1
+  Caller -> I won't.
+  Nurse -> I'll call you this afternoon after I hear from the prescriber. || R3
+  Caller -> Okay. This afternoon.
+  Nurse -> And call us if your sugar goes over three hundred, if you see black stools, have bad stomach pain, or the joint pain comes roaring back. || E2
+  Caller -> Over three hundred. Black stools. Stomach pain. Pain back. Okay.
+  Nurse -> Have you noticed any swelling in your face or your ankles, or trouble sleeping on the steroid?
+  Caller -> My sleep is terrible. I'm awake at three, wide awake, and my mind is running. My face is a little puffy. My daughter said I look like a chipmunk. Ha.
+  Nurse -> That's common on this medicine. It gets better as the dose comes down.
+  Caller -> That's what I figured. I just wanted to hear it.
+  Nurse -> And are you eating okay? Any heartburn?
+  Caller -> I'm eating everything. I'm starving all the time. That's the steroid too, right?
+  Nurse -> Yes, it can make you very hungry. Try to choose lower sugar snacks while your sugars are up.
+  Caller -> Okay. I'll stay away from the cookies. My neighbor keeps bringing cookies, though. Lemon ones.
+  Nurse -> Ha. A little at a time.
+  Nurse -> Anything else?
+  Caller -> No. Thank you so much, Ana. You are a lifesaver.
+  Nurse -> Anytime.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Henrietta Calloway, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1956-11-30", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Henrietta Calloway, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2145550171", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked which prednisone dose she should take today on her taper.
+    speaker: Caller
+    turns: [10]
+    quote: "it's a taper. And I lost count. I don't know what day I'm on."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Prednisone taper counting was unclear (she thought she may have started the 10 mg dose a day early or taken 20 mg twice), and she believed she took 10 mg this morning.
+      speaker: Caller
+      turns: [28]
+      quote: "I took the ten. I'm pretty sure it was the ten. Two of the five. Or one of the ten. One of those."
+      explanation: Documents the uncertain dose history.
+      facts:
+        - {type: medication, name: prednisone, dose: "10", unit: mg, frequency: once a day, last_dose: unsure which taper day she is on, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: Joint pain in the hands and knees was rated 3/10, improved from 8/10 before the steroid.
+      speaker: Caller
+      turns: [36]
+      quote: "I'd say a three. My hands and my knees. It was an eight before the steroid."
+      explanation: Documents symptom improvement.
+      facts:
+        - {type: symptom, name: joint pain, present: true, severity: 3/10, location: hands and knees, certainty: stated}
+      covers: [A2]
+    - text: Morning blood sugar was 168, higher than her usual.
+      speaker: Caller
+      turns: [38]
+      quote: "This morning it was one sixty eight."
+      explanation: Documents the glucose reading.
+      facts:
+        - {type: vital, name: morning blood sugar, value: "168", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised taking 10 mg today and tomorrow, then 5 mg for three days, per the chart taper.
+      speaker: Nurse
+      turns: [31]
+      quote: "So, today and tomorrow are ten. Then five milligrams for three days. Then you stop."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber to confirm the taper day and report the sugar.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm going to message your prescriber to confirm that, since you were a little unsure about the first few days."
+      explanation: Documents the planned prescriber contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll call you this afternoon after I hear from the prescriber."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised writing the date on a calendar at each dose and not stopping the taper suddenly.
+      speaker: Nurse
+      turns: [45]
+      quote: "write the date every time you take a dose. Don't count on the pill box."
+      explanation: Documents medication tracking guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a sugar over 300, black stools, bad stomach pain, or a return of severe joint pain.
+      speaker: Nurse
+      turns: [51]
+      quote: "call us if your sugar goes over three hundred, if you see black stools, have bad stomach pain, or the joint pain comes roaring back."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

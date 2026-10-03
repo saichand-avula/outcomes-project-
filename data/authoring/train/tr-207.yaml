@@ -1,0 +1,206 @@
+call_id: tr-207
+split: train
+blueprint: "Son says his mother stopped taking her metoprolol three days ago because it made her dizzy and she did not tell anyone. She is still a little dizzy when she stands. Nurse messages the provider, tells him not to restart or change it until the provider answers, and calls back this afternoon. Flag: medication_concern (stopped on her own)."
+setup:
+  scenario_category: medication
+  subtype: stopped_meds
+  secondary_tags: [hedging, contradiction, late_answers, split_turns]
+  clinical_domains: [medication, cardiac, dizziness]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Gail
+  call_timestamp_utc: "2026-10-09T14:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Beatrix Lindqvist
+  patient_name_spoken: Beatrix Lindqvist
+  patient_name_certainty: stated
+  patient_dob_true: "1941-01-15"
+  patient_dob_spoken: "1941-01-15"
+  patient_dob_certainty: stated
+  caller_name_true: Anders Lindqvist
+  caller_name_spoken: Anders Lindqvist
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6125550166"
+  callback_phone_spoken: "6125550166"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his mother stopped a heart medicine on her own
+  reason_category: medication
+  relevant_context: Hospice patient on a heart medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: stopped
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness on standing
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: metoprolol stopped on her own
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not restart or change the metoprolol until the provider answers
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have her sit for a minute before standing and have someone beside her when she walks
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient stopped metoprolol on her own three days ago because of dizziness
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Evergreen Hospice, this is Gail.
+  Caller -> Hi, Gail. This is Anders Lindqvist. My mother is Beatrix Lindqvist. I just found out she stopped her metoprolol. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Anders. Thank you for telling me. What's her date of birth?
+  Caller -> January fifteenth. Nineteen forty one. || patient_dob
+  Nurse -> And is six one two, five five five, zero one six six still the best number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Tell me what you found out.
+  Caller -> I was sorting her pills for the week and the metoprolol was all still there. The twenty five milligram ones. She's supposed to take them twice a day. I asked her, and she said she stopped taking them three days ago. || A1, F1
+  Nurse -> Did she say why?
+  Caller -> She said they made her dizzy. And she didn't want to bother anyone. But she's still dizzy. She said it today when she got up. Not terrible. A little. When she stands. || A2
+  Nurse -> Okay. Has she fallen? Or almost fallen?
+  Caller -> No. No falls. She holds onto the furniture, though. I've seen her do that. || A3
+  Nurse -> Okay. I'm going to message the hospice provider about this, since she stopped it on her own. || R1, A1
+  Caller -> Should I give it to her now? Since I'm here? She hasn't had any today.
+  Nurse -> No. Please don't restart it and don't change anything until the provider answers. Stopping a heart medicine and then starting it again can be a problem, so we want a clinician to decide. || E1, A1
+  Caller -> Don't give it. Wait for the provider. Okay. That makes sense. I'll put the pills away.
+  Nurse -> I'll call you back this afternoon. || R2
+  Caller -> This afternoon. Okay.
+  Nurse -> And until then, have her sit for a minute before she stands, and have someone next to her when she walks. || E2
+  Caller -> Sit first. Someone next to her. I'm staying until tonight. Okay.
+  Nurse -> Is there anything else?
+  Caller -> No. I wish she'd just told me. She's like that. She doesn't want to be a trouble.
+  Nurse -> That's very common. I'm glad she has you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beatrix Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-01-15", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Anders Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6125550166", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother stopped a heart medicine on her own.
+    speaker: Caller
+    turns: [2]
+    quote: "I just found out she stopped her metoprolol."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol 25 mg twice a day had been stopped three days earlier by the patient.
+      speaker: Caller
+      turns: [8]
+      quote: "she said she stopped taking them three days ago."
+      explanation: Documents the stopped medication.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice a day, last_dose: three days ago, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: She was mildly dizzy when standing.
+      speaker: Caller
+      turns: [10]
+      quote: "A little. When she stands."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness on standing, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: No falls were reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No falls."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the hospice provider about the stopped medicine.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to message the hospice provider about this, since she stopped it on her own."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back this afternoon."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not restarting or changing the metoprolol until the provider answered.
+      speaker: Nurse
+      turns: [15]
+      quote: "Please don't restart it and don't change anything until the provider answers."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised having her sit for a minute before standing and having someone beside her when she walked.
+      speaker: Nurse
+      turns: [19]
+      quote: "have her sit for a minute before she stands, and have someone next to her when she walks."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I just found out she stopped her metoprolol."}

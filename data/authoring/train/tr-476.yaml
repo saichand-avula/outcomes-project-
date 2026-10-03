@@ -1,0 +1,248 @@
+call_id: tr-476
+split: train
+blueprint: "A son calls home health about his 79-year-old father's loose stools: four yesterday and three today, watery but no blood, eating less, drinking fluids, no fever. The nurse repeats the birth date wrong (November twelfth for the twenty first) and the son corrects it, and the call is full of line noise and repeats. Nurse plans a message to the team and a callback tomorrow, and teaches fluids and when to call. ASR number garble in the date of birth (corrected), adult child caller, patient 65+, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble_dob
+  secondary_tags: [hedging, late_answers, split_turns, contradiction]
+  clinical_domains: [diarrhea, intake_appetite]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cobblestone Home Health
+  agency_type: home_health
+  nurse_name: Philippa
+  call_timestamp_utc: "2026-11-16T22:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Barnabas Hollingsworth
+  patient_name_spoken: Barnabas Hollingsworth
+  patient_name_certainty: stated
+  patient_dob_true: "1947-11-21"
+  patient_dob_spoken: "1947-11-21"
+  patient_dob_certainty: stated
+  caller_name_true: Evander Hollingsworth
+  caller_name_spoken: Evander Hollingsworth
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7045550146"
+  callback_phone_spoken: "7045550146"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported two days of loose stools and eating less
+  reason_category: diarrhea
+  relevant_context: Home health patient living with his son
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: watery loose stools
+    symptom_present: true
+    severity: moderate
+    onset: two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating less
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blood in the stool or fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: report two days of loose stools
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of water, broth or an electrolyte drink often, and bland foods like rice, toast and bananas
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for blood in the stool, fever, dizziness, very little urine, or more than six watery stools in a day
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cobblestone Home Health, this is Philippa.
+  Caller -> Hello? Hello? Is this the home health line?
+  Nurse -> Yes, this is Philippa. I can hear you.
+  Caller -> Hi, Philippa. It's Evander Hollingsworth. Can you hear me? The line is, it's breaking up. I'm calling about my father, Barnabas Hollingsworth. He's had diarrhea. || caller_name, patient_name, relationship, cc
+  Nurse -> I can hear you, there's some static. Hi, Evander. Diarrhea. How long?
+  Caller -> Sorry. I'm in the driveway. I'll stand by the mailbox, it's better here.
+  Caller -> Two days. Since Sunday. Four times yesterday. Three today so far. It's watery. Very loose. Not formed at all. || A1
+  Nurse -> Okay. Four yesterday, three today. Is there any blood in it, or black stool?
+  Caller -> Four, and then three. Yes. Sorry, can you say that again? You cut out.
+  Nurse -> Four yesterday and three today.
+  Caller -> Right. Yes.
+  Caller -> No blood. I looked. It's brownish. Not black. No blood.
+  Nurse -> Okay.
+  Nurse -> Any fever, chills?
+  Caller -> No fever. I took it an hour ago. It's normal. He feels fine, except for the, you know. The running to the bathroom. || A3
+  Nurse -> Okay. Is he eating and drinking?
+  Caller -> Drinking, yes. Water, and some ginger ale. Eating less. He had half a piece of toast this morning and some applesauce at lunch. That's it. He says his stomach is, what's the word. Unsettled. || A2
+  Caller -> He says the ginger ale helps. I don't know if it does.
+  Nurse -> It's fine in small amounts.
+  Nurse -> Okay. Unsettled. Is he dizzy, when he stands up?
+  Caller -> I don't think so. He's been walking to the bathroom okay. Slow, but okay.
+  Nurse -> Good. Let me pull up his chart. What's his date of birth?
+  Caller -> Take your time. I'm not going anywhere.
+  Caller -> November twenty first. Nineteen forty seven. || patient_dob
+  Nurse -> November twelfth, nineteen forty seven?
+  Caller -> No, twenty first. November twenty first.
+  Nurse -> Okay. Twenty first. Sorry. The line is breaking up. November twenty first, nineteen forty seven.
+  Caller -> Yes. That's it.
+  Nurse -> Sorry about that.
+  Caller -> No problem. It's this line. It has been bad all week.
+  Nurse -> Thank you. And a number for you?
+  Caller -> Seven oh four, five five five, oh one four six. || callback_phone
+  Nurse -> Seven oh four, five five five, oh one four six. Is that right? || callback_phone
+  Caller -> Yes. That's my cell. I'm in the garage. The signal is bad out here.
+  Nurse -> Maybe move inside.
+  Caller -> It's cold in here. Hold on, let me grab my jacket.
+  Nurse -> No rush.
+  Caller -> I'll try. Hold on. I'm walking in. Is that better?
+  Nurse -> A little. Okay. Evander, has anything changed in his routine? New foods, new medicine?
+  Caller -> We had Chinese food Saturday night. Leftovers on Sunday. I wonder if that's it. Everyone else is fine, though. Just him.
+  Nurse -> Okay.
+  Caller -> Sorry, you're breaking up. Could you repeat?
+  Nurse -> I said, okay. Go on.
+  Nurse -> It could be. Leftovers can be tricky. Okay. I'm going to send a message to the team about the two days of diarrhea, so they can review his chart. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> I'll also call you tomorrow to see how he's doing. || R2
+  Caller -> Tomorrow. What time?
+  Caller -> What time was that? Sorry. The static.
+  Nurse -> Midday.
+  Nurse -> Midday.
+  Caller -> Okay. Good.
+  Caller -> I'll make sure I'm near the phone.
+  Nurse -> For now, offer him small sips often. Water, broth, or an electrolyte drink. And bland foods, like rice, toast, and bananas. || E1
+  Caller -> Small sips often. Broth. Electrolyte. Bland food. Okay. We have those sports drinks in the garage. The blue ones.
+  Nurse -> The blue ones are fine. Dilute them if they're too sweet.
+  Caller -> Ha. He hates the blue ones, but he'll drink them.
+  Caller -> Okay.
+  Nurse -> And call us if you see blood in the stool, if he gets a fever, if he gets dizzy, if he urinates very little, or has more than six watery stools in a day. || E2
+  Caller -> Blood. Fever. Dizzy. Very little urine. More than six. Okay. I have it. Can you say the last one again? The line cut out.
+  Nurse -> More than six watery stools in one day.
+  Caller -> Got it. More than six. I'll count.
+  Caller -> I'll make a tally on the fridge. Like a prison wall.
+  Nurse -> Ha. Whatever works.
+  Nurse -> Perfect.
+  Caller -> He's embarrassed, you know. He doesn't want me to help him. But I help anyway.
+  Nurse -> That's very kind. He's lucky.
+  Caller -> I'm the only one here. My sister's in Oregon.
+  Nurse -> Okay.
+  Nurse -> Make sure you get rest too.
+  Caller -> I'll try. Thank you, Philippa.
+  Nurse -> You're welcome. Take care.
+  Caller -> Bye. Hello? Are you there?
+  Nurse -> I'm here. Goodbye.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: "twenty first", heard_form: "November twelfth", fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Barnabas Hollingsworth, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1947-11-21", certainty: stated, heard_as: [], turns: [24]}
+    caller_name: {value: Evander Hollingsworth, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: son, certainty: stated, turns: [4]}
+    callback_phone: {value: "7045550146", certainty: stated, heard_as: [], turns: [32, 33]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported two days of loose stools and eating less.
+    speaker: Caller
+    turns: [4]
+    quote: "He's had diarrhea."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Watery loose stools for two days, four yesterday and three today.
+      speaker: Caller
+      turns: [7]
+      quote: "Two days. Since Sunday."
+      explanation: Documents the diarrhea.
+      facts:
+        - {type: symptom, name: watery loose stools, present: true, severity: moderate, onset: two days, certainty: stated}
+      covers: [A1]
+    - text: He was eating less, with half a piece of toast and some applesauce.
+      speaker: Caller
+      turns: [17]
+      quote: "Eating less."
+      explanation: Documents the reduced intake.
+      facts:
+        - {type: symptom, name: eating less, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: He had no blood in the stool and no fever.
+      speaker: Caller
+      turns: [15]
+      quote: "No fever. I took it an hour ago."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blood in the stool or fever, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the team about the diarrhea.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'm going to send a message to the team about the two days of diarrhea"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback tomorrow.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'll also call you tomorrow to see how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised small frequent sips of water, broth or an electrolyte drink and bland foods.
+      speaker: Nurse
+      turns: [53]
+      quote: "offer him small sips often."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for blood in the stool, fever, dizziness, very little urine, or more than six watery stools in a day.
+      speaker: Nurse
+      turns: [58]
+      quote: "call us if you see blood in the stool"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

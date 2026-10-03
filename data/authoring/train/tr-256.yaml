@@ -1,0 +1,272 @@
+call_id: tr-256
+split: train
+blueprint: "Mother of an 8-year-old with cerebral palsy: his legs and arms have been stiffer and his spasms worse for three days; his muscle relaxant (Baclofin, a confident garble of baclofen kept as stated) is 5 mg three times a day, last given at noon. A bit sleepy after doses, no fever, eating fine. She mentions the ASR-garbled drug name three times in the same wrong way. Nurse messages the neurologist, plans a nurse visit tomorrow, and gives stretching and warm-bath guidance. Pediatric, drug garble, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [spasticity, medication, sleep]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-23T14:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Etienne Fontaine
+  patient_name_spoken: Etienne Fontaine
+  patient_name_certainty: stated
+  patient_dob_true: "2018-07-19"
+  patient_dob_spoken: "2018-07-19"
+  patient_dob_certainty: stated
+  caller_name_true: Odette Fontaine
+  caller_name_spoken: Odette Fontaine
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "5045550186"
+  callback_phone_spoken: "5045550186"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son's stiffness and spasms are worse
+  reason_category: spasticity
+  relevant_context: Pediatric home care patient with cerebral palsy
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: baclofen
+    medication_name_spoken: Baclofin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: three times a day
+    last_dose: noon today
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: stiffer legs and arms with more spasms
+    symptom_present: true
+    onset_or_duration: three days
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepy after doses
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: neurologist
+    reason_or_trigger: worse stiffness and spasms on Baclofin
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Do gentle stretching after a warm bath, position him with pillows, and keep him warm
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep giving the Baclofin as prescribed and do not change the dose or skip doses
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, spasms that will not stop, trouble breathing, or new vomiting
+    trigger_condition: fever; constant spasms; trouble breathing; vomiting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Beth.
+  Caller -> Hi, Beth, it's Odette Fontaine. I'm calling about Etienne. || caller_name, relationship, patient_name
+  Nurse -> Hi, Odette. Hang on, let me pull him up. Birthday?
+  Caller -> July nineteenth. Twenty eighteen. || patient_dob
+  Nurse -> And I have five oh four, five five five, zero one eight six. || callback_phone
+  Caller -> Yes, that's right. That's my cell.
+  Nurse -> Great. Is Etienne with you right now?
+  Caller -> He's in his chair next to me. He's watching his show. The one with the trucks.
+  Nurse -> Ha. Good. A truck show.
+  Caller -> He loves them. Every episode. He knows the theme song. He hums.
+  Nurse -> Okay. What's going on with Etienne?
+  Caller -> He's stiff. He's been stiffer. His legs especially. And his arms, he's holding them tight against his chest. And the spasms are worse. || cc, A2
+  Nurse -> How long has it been worse?
+  Caller -> Three days. I think three. Since Sunday night. Yes, Sunday. So three days. || A2
+  Nurse -> Okay. Is it all day, or at certain times?
+  Caller -> Mostly mornings. And when I change him. When I move his legs he cries out. He doesn't usually do that.
+  Nurse -> Okay. Does anything seem to trigger it?
+  Caller -> I don't know. I thought maybe it was the cold weather. It got cold on Sunday. But it could be something else.
+  Nurse -> Has anything else changed? New foods, new medicines, a new sleeping position?
+  Caller -> Not that I can think of. We got a new mattress pad. Last week. It's the foam kind. But he sleeps fine on it.
+  Nurse -> Okay. I'll mention it.
+  Nurse -> It could be. Cold can make it worse. Is he on a muscle relaxant?
+  Caller -> Yes. The Baclofin. I give it three times a day. Five milligrams. || A1
+  Nurse -> Okay. The Baclofin. And when did he have it last? || A1
+  Caller -> At noon. I gave it at noon. And the one before at, um, eight this morning. And the one at, at four yesterday afternoon. Wait. That's not right. It's eight, noon, and then evening. About eight at night. || A1
+  Nurse -> Okay. So he gets it at eight in the morning, at noon, and at eight at night. Five milligrams each. Is that right?
+  Caller -> Yes. Eight, noon, eight. Five milligrams. The Baclofin. || A1
+  Nurse -> Perfect. Thank you for being so careful with that.
+  Caller -> I write it all down. It's on the fridge. Date, time, who gave it.
+  Nurse -> Okay. Have you missed any doses?
+  Caller -> No. Not that I know of. I've been careful. My husband does the night one and he's good about it. He writes it down.
+  Nurse -> Okay. That's good. Is he sleepy after he takes it?
+  Caller -> A little. He gets sleepy after the noon one especially. He naps for an hour. He's been sleepier since the stiffness started, I think. || A3
+  Nurse -> Okay. Any fever? Any cold symptoms?
+  Caller -> No fever. I took it this morning. Ninety eight four. No cold. His nose is fine. || A4
+  Nurse -> Okay. And he's eating and drinking?
+  Caller -> He's eating fine. He had a whole waffle this morning. And a cup of milk. His stomach's fine. He's pooping. Everything's regular.
+  Nurse -> That's good. Okay, Odette. I'd like to send a message to Etienne's neurologist about the stiffness getting worse. They might want to adjust the Baclofin. || R1, A1
+  Caller -> Okay. Please. Because I don't want to change it myself. I'd be afraid to.
+  Nurse -> No, don't change it on your own. Please don't skip a dose either. Keep giving the Baclofin the way it's prescribed until you hear from them. || E2, A1
+  Caller -> Okay. No changes. I'll keep giving it. The Baclofin. Okay. || A1
+  Nurse -> I'm also going to send a nurse out tomorrow to see him. || R2
+  Caller -> Tomorrow. Good. Is that the physical therapist or a nurse?
+  Nurse -> It's the nurse. She can check his muscle tone and talk to the therapist about whether he needs a visit.
+  Caller -> Okay. That sounds good. He loves the nurse. He calls her "the lady with the cold hands."
+  Nurse -> Ha. Warm them up, I'll tell her.
+  Caller -> Ha. Yes.
+  Nurse -> Does he tolerate the bath well, or does the water stiffen him up?
+  Caller -> He likes the water. It helps. He relaxes in it. It's the one time he's loose.
+  Nurse -> That's great. Then the bath is a good plan.
+  Nurse -> In the meantime, a warm bath can help loosen his muscles. And do some gentle stretching afterward, just like the therapist showed you. Position him with pillows, and keep him warm. || E1
+  Caller -> Warm bath. Gentle stretching. Pillows. Warm. Okay. I'll do the bath tonight. He likes the bath. He kicks the water.
+  Nurse -> And call us if he runs a fever, if the spasms won't stop, if he has any trouble breathing, or if he starts vomiting. || E3
+  Caller -> Fever. Constant spasms. Breathing. Vomiting. Okay. I'll watch.
+  Nurse -> Anything else, Odette?
+  Caller -> No. I just worry. When he's stiff like this, it breaks my heart. He can't tell me what hurts.
+  Nurse -> I know. That's the hardest part. You read him very well, though.
+  Caller -> I try. Thank you, Beth.
+  Nurse -> How are you holding up? Are you getting any sleep?
+  Caller -> Some. My husband takes the nights. I take the days. We trade off.
+  Nurse -> That's a good system. Make sure you rest when he naps.
+  Caller -> I try. The laundry doesn't fold itself though. Ha.
+  Nurse -> Anytime. I'll call you after I talk to the neurologist.
+  Nurse -> Say hi to Etienne for me.
+  Caller -> I will. He's waving at the phone. Okay. Bye now.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: baclofen, heard_form: Baclofin, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Etienne Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2018-07-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Odette Fontaine, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "5045550186", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son's stiffness and spasms were worse.
+    speaker: Caller
+    turns: [12]
+    quote: "He's stiff. He's been stiffer. His legs especially."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Baclofin 5 mg three times a day, at eight, noon and eight at night, was being given, with the last dose at noon today.
+      speaker: Caller
+      turns: [27]
+      quote: "Yes. Eight, noon, eight. Five milligrams. The Baclofin."
+      explanation: Documents the muscle relaxant.
+      facts:
+        - {type: medication, name: Baclofin, dose: "5", unit: mg, frequency: three times a day, last_dose: noon today, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: His stiffness and spasms had been worse for three days, since Sunday night.
+      speaker: Caller
+      turns: [14]
+      quote: "Three days. I think three. Since Sunday night."
+      explanation: Documents the worsening spasticity.
+      facts:
+        - {type: symptom, name: stiffer legs and arms with more spasms, present: true, onset: three days, certainty: stated}
+      covers: [A2]
+    - text: He was sleepy after doses, especially after the noon dose, and sleepier since the stiffness began.
+      speaker: Caller
+      turns: [33]
+      quote: "A little. He gets sleepy after the noon one especially."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: sleepy after doses, present: true, certainty: stated}
+      covers: [A3]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [35]
+      quote: "No fever. I took it this morning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the neurologist about the worse stiffness.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'd like to send a message to Etienne's neurologist about the stiffness getting worse."
+      explanation: Documents the planned specialist message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out tomorrow.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm also going to send a nurse out tomorrow to see him."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a warm bath, gentle stretching afterward, positioning with pillows, and keeping him warm.
+      speaker: Nurse
+      turns: [51]
+      quote: "a warm bath can help loosen his muscles. And do some gentle stretching afterward"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised continuing the Baclofin as prescribed without changing or skipping doses.
+      speaker: Nurse
+      turns: [40]
+      quote: "Please don't skip a dose either. Keep giving the Baclofin the way it's prescribed until you hear from them."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a fever, spasms that would not stop, trouble breathing, or vomiting.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if he runs a fever, if the spasms won't stop, if he has any trouble breathing, or if he starts vomiting."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

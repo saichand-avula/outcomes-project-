@@ -1,0 +1,299 @@
+call_id: tr-364
+split: train
+blueprint: "A wife calls home health: her husband with COPD on two liters of oxygen has been short of breath since morning, now cannot finish a sentence, lips look bluish, oxygen reading 84, albuterol neb at three did not help, no chest pain. Nurse tells her to call 911 now, unlock the door, keep him upright with the oxygen on, and stays on the line until the paramedics arrive, notifying the on-call team. High risk (breathing concern and escalation), spouse caller, time-critical, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [dyspnea, respiratory, equipment]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Ruben
+  call_timestamp_utc: "2026-10-25T13:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leroy Hargis
+  patient_name_spoken: Leroy Hargis
+  patient_name_certainty: stated
+  patient_dob_true: "1948-12-02"
+  patient_dob_spoken: "1948-12-02"
+  patient_dob_certainty: stated
+  caller_name_true: Odessa Hargis
+  caller_name_spoken: Odessa Hargis
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "8165550177"
+  callback_phone_spoken: "8165550177"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is severely short of breath
+  reason_category: dyspnea
+  relevant_context: Home health patient with COPD on home oxygen
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe shortness of breath
+    symptom_present: true
+    severity: severe
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "84"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: bluish lips
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    frequency: as needed
+    prn: true
+    last_dose: three o'clock
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has COPD and uses oxygen at two liters
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: severe shortness of breath with an oxygen reading of 84
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call team
+    reason_or_trigger: tell the team and the hospital he is coming
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hang up and call 911 now, unlock the front door, keep him sitting upright with the oxygen on, and gather his medicine list
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Lean him forward on a pillow on the table and have him breathe slowly through pursed lips
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Severe shortness of breath with bluish lips and an oxygen reading of 84
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Ruben.
+  Caller -> Oh, thank God. This is Odessa Hargis. It's my husband. Leroy. He can't breathe. Please. He can't breathe. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Odessa, I'm here. Is Leroy awake and talking to you?
+  Caller -> He's awake. He's in his chair. He can't talk. He can't finish a sentence. He says a word and he has to stop.
+  Nurse -> Okay. How long has he been like this?
+  Caller -> Since this morning. It's been getting worse. He was okay at breakfast. And now it's bad. It's very bad. || A1
+  Nurse -> Okay. Is he on his oxygen?
+  Caller -> Yes. Yes. The machine. It's on two. He's had it on all day. It's the tube in his nose. || A6
+  Nurse -> Okay. Do you have a little finger clip, the oxygen meter?
+  Caller -> I do. I put it on. It says eighty four. It was eighty eight an hour ago. It keeps going down. || A2
+  Nurse -> Okay. Odessa, look at his lips for me. What color are they?
+  Caller -> They're, they look blue. A little blue. Purple. And his fingers. I don't like it. || A3
+  Nurse -> Okay. Did he use his rescue medicine?
+  Caller -> The albuterol. The nebulizer. I did it at three o'clock. It didn't help. Not at all. || A4
+  Nurse -> Okay. Any chest pain? Is he holding his chest?
+  Caller -> No. No chest pain. He says it's just air. He can't get air. || A5
+  Nurse -> Okay. I need you to call 911 right now. Odessa, this is an emergency. Hang up with me and dial 911. Tell them your husband has COPD and can't breathe. || R1, E1, F2
+  Caller -> Should I? Yes. Okay. Should I hang up on you?
+  Nurse -> No, no. Put me on speaker, or call 911 from another phone. Do you have a cell?
+  Caller -> I have my cell. It's in my pocket. Okay. Okay. Let me. I'll put you on the house phone, on the speaker.
+  Nurse -> Good. Do it now. I'm staying on the line.
+  Caller -> I'm dialing. Nine one one. It's ringing. It's ringing.
+  Nurse -> I'm here, Odessa. Tell them the address.
+  Caller -> Yes. Hello? Hello. Yes. My husband can't breathe. Four oh two Maple Court. Yes. Yes. He has COPD. He's on oxygen. They're sending someone.
+  Nurse -> Good job. How far away are they?
+  Caller -> They said four minutes. Four minutes. They said to unlock the door.
+  Nurse -> Is the door unlocked? And the porch light on?
+  Caller -> The light's on. It's daytime but I turned it on anyway. Okay. Okay.
+  Nurse -> Good thinking.
+  Nurse -> Yes. Go unlock the front door. Right now. Then come right back to him.
+  Caller -> I'm going. I'm going. The door's open. I'm back. He's okay. He's still in the chair.
+  Nurse -> Good. Now, keep him sitting up straight. Keep the oxygen on. Do not lay him down.
+  Caller -> Sitting up. Oxygen on. Okay.
+  Nurse -> Can you get a pillow and put it on the table in front of him? Have him lean forward, with his arms on the pillow. That helps him breathe. || E2
+  Caller -> A pillow. On the table. Leroy. Lean forward. Honey, lean. Here. Lean on this. Okay. He's leaning.
+  Nurse -> Good. Tell him to breathe slowly. In through the nose, out through the lips, like he's blowing out a candle.
+  Caller -> Honey, slow. Like a candle. In. Out. In. Out.
+  Nurse -> Is it helping at all?
+  Caller -> He's gripping the table. He's holding on very tight.
+  Nurse -> That's okay. Let him hold on. Keep your hand on his back.
+  Caller -> I'm rubbing his back. Slow circles.
+  Caller -> A little. I think. He's less panicky. His shoulders went down.
+  Nurse -> Good. Keep doing that. Odessa, while we wait, can you gather his medicine list and his oxygen settings? The paramedics will want them.
+  Caller -> The list is on the fridge. I'll get it. Hold on. I'm taking it. I have it.
+  Nurse -> Perfect. I'm also going to let the on-call team know, and tell the hospital he's on the way. || R2
+  Caller -> Thank you. Thank you. Please.
+  Nurse -> What's his date of birth, Odessa? I'll give it to the hospital.
+  Caller -> December second, nineteen forty eight. || patient_dob
+  Nurse -> Thank you. And your cell number?
+  Caller -> Eight one six, five five five, zero one seven seven. || callback_phone
+  Nurse -> Eight one six, five five five, zero one seven seven. Is that right? || callback_phone
+  Caller -> Yes. That's it. That's my cell.
+  Nurse -> Okay. I've got it. Is Leroy still awake?
+  Caller -> Yes. Yes. His eyes are open. He's looking at me.
+  Nurse -> Good. Keep talking to him. Tell him help is coming.
+  Caller -> Leroy, help is coming. They're almost here. You're doing so good. Hold on.
+  Nurse -> What's his color now?
+  Caller -> Still blue. Maybe a little less. I can't tell. It's the light.
+  Nurse -> That's okay. They'll be there soon.
+  Caller -> I hear the siren. I hear it. It's close.
+  Nurse -> Good. Go to the door. Let them in. Leave the phone on the table.
+  Caller -> I'm going. Here they are. They're coming up the walk. Okay.
+  Nurse -> Go ahead. I'll stay on until they're in the room.
+  Caller -> In here! He's in here! In the chair! He's in the living room. They're here.
+  Nurse -> Odessa, you did everything right. I'll let the hospital know. They'll take good care of him.
+  Caller -> Thank you. Thank you, Ruben. Thank you so much.
+  Nurse -> Go with him. Call us when you can.
+  Caller -> I will. Bye. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leroy Hargis, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-12-02", certainty: stated, heard_as: [], turns: [48]}
+    caller_name: {value: Odessa Hargis, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550177", certainty: stated, heard_as: [], turns: [50, 51]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was severely short of breath.
+    speaker: Caller
+    turns: [2]
+    quote: "He can't breathe. Please. He can't breathe."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Severe shortness of breath since this morning, getting worse, unable to finish a sentence.
+      speaker: Caller
+      turns: [6]
+      quote: "Since this morning. It's been getting worse."
+      explanation: Documents the shortness of breath.
+      facts:
+        - {type: symptom, name: severe shortness of breath, present: true, severity: severe, duration: since this morning, certainty: stated}
+      covers: [A1]
+    - text: Oxygen reading was 84, down from 88 an hour earlier.
+      speaker: Caller
+      turns: [10]
+      quote: "It says eighty four."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "84", certainty: stated}
+      covers: [A2]
+    - text: Lips looked blue or purple.
+      speaker: Caller
+      turns: [12]
+      quote: "They're, they look blue."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: bluish lips, present: true, certainty: stated}
+      covers: [A3]
+    - text: An albuterol nebulizer was given at three o'clock and did not help.
+      speaker: Caller
+      turns: [14]
+      quote: "The albuterol. The nebulizer. I did it at three o'clock."
+      explanation: Documents the rescue medicine.
+      facts:
+        - {type: medication, name: albuterol, frequency: as needed, prn: true, last_dose: three o'clock, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: He had no chest pain.
+      speaker: Caller
+      turns: [16]
+      quote: "No. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5]
+    - text: He had COPD and was on oxygen at two liters.
+      speaker: Caller
+      turns: [8]
+      quote: "It's on two. He's had it on all day."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: He has COPD and uses oxygen at two liters, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [17]
+      quote: "I need you to call 911 right now."
+      explanation: Documents the escalation advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to let the on-call team and the hospital know.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm also going to let the on-call team know"
+      explanation: Documents the planned on-call notification.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911 now, unlocking the door, keeping him upright with the oxygen on, and gathering his medicine list.
+      speaker: Nurse
+      turns: [32]
+      quote: "Keep him sitting up straight. Keep the oxygen on."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised leaning him forward on a pillow on the table and breathing slowly through pursed lips.
+      speaker: Nurse
+      turns: [34]
+      quote: "Have him lean forward, with his arms on the pillow."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe. Please. He can't breathe."}
+    - {category: escalation_request, turns: [17], quote: "I need you to call 911 right now."}

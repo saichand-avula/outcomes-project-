@@ -1,0 +1,288 @@
+call_id: tr-145
+split: train
+blueprint: "Patient 8 days after a right knee replacement reports a little redness at one end of the incision, no drainage, temperature 99.1, pain 4/10 with oxycodone 5 mg every 6 hours (twice today), mild swelling. Nurse messages the surgeon's office, plans a nurse visit tomorrow, and reviews icing, elevation, and infection signs. Medium length."
+setup:
+  scenario_category: routine
+  subtype: post_surgical_wound
+  secondary_tags: [multi_issue, prn_and_scheduled, late_answers, split_turns, hedging]
+  clinical_domains: [wound_skin, pain, edema]
+  relationship_group: self
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-02T16:10:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lucille Vandermeer
+  patient_name_spoken: Lucille Vandermeer
+  patient_name_certainty: stated
+  patient_dob_true: "1955-04-26"
+  patient_dob_spoken: "1955-04-26"
+  patient_dob_certainty: stated
+  caller_name_true: Lucille Vandermeer
+  caller_name_spoken: Lucille Vandermeer
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "8605550148"
+  callback_phone_spoken: "8605550148"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported redness at one end of her knee incision
+  reason_category: wound
+  relevant_context: Eight days after a right knee replacement
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: redness at one end of the incision
+    symptom_present: true
+    body_location: right knee
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: drainage
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: temperature
+    vital_value: "99.1"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: knee pain
+    symptom_present: true
+    severity: 4/10
+    body_location: right knee
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every 6 hours
+    last_dose: twice today
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: patient
+    symptom_name: mild knee swelling
+    symptom_present: true
+    body_location: right knee
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Right knee replacement eight days ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: surgeon's office
+    reason_or_trigger: redness at the incision
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Ice the knee for 20 minutes at a time and keep the leg raised above the heart
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for spreading redness, pus, a bad smell, a temperature over 101, or sudden calf pain; 911 for chest pain or trouble breathing
+    trigger_condition: spreading redness; pus; smell; temperature over 101; calf pain; chest pain; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Lucille Vandermeer. I'm one of your patients. I had my knee done last week. || caller_name, relationship, patient_name, A7
+  Nurse -> Hi, Lucille. Yes, I see you. Let me confirm your date of birth.
+  Caller -> April twenty sixth. Nineteen fifty five. || patient_dob
+  Nurse -> And is eight six oh, five five five, zero one four eight still your number? || callback_phone
+  Caller -> Yes. The cell. I keep it with me because I can't get up and down fast. || callback_phone
+  Nurse -> I understand. What's going on with the knee?
+  Caller -> The incision. At the top end of it, there's a spot that's red. About the size of a dime. I noticed it when I changed the dressing this morning. I don't remember it being there yesterday. || cc, A1
+  Nurse -> Okay. Is the redness spreading, or does it stay in that one spot?
+  Caller -> I think it's the same since this morning. I looked again an hour ago. I'm not sure, honestly. I keep staring at it. || A1
+  Nurse -> That's okay. Is there any drainage? Any fluid, pus, anything on the dressing?
+  Caller -> No. The dressing was dry. Clean. No stains. || A2
+  Nurse -> Good. Any smell?
+  Caller -> No smell. Nothing. || A2
+  Nurse -> Okay. Have you checked your temperature?
+  Caller -> I did, just now. Ninety nine point one. || A3
+  Nurse -> Okay. That's slightly warm but not a fever. How is your pain?
+  Caller -> About a four. It's been about a four most of the day. It gets better when I'm sitting with my foot up. || A4
+  Nurse -> Okay. And what are you taking for it?
+  Caller -> The oxycodone. Five milligrams. Every six hours is what the bottle says. I've taken two today. One at seven and one at one. || A5
+  Nurse -> Okay. Good. And is there any swelling?
+  Caller -> A little. The whole knee is puffy, but the surgeon said it would be for weeks. It's not worse than yesterday, I don't think. It's about the same. || A6
+  Nurse -> Okay. That sounds like expected swelling. Lucille, here's what I'm going to do. I'm going to message your surgeon's office about the redness at the incision. || R1
+  Caller -> Okay. Do you think it's an infection?
+  Nurse -> I can't say from the phone. A small spot that isn't draining and no fever is reassuring. But we want the surgeon's office to know, and we want to look at it in person.
+  Caller -> Okay. That makes sense. I just didn't want to wait and have it get worse.
+  Nurse -> You did the right thing calling. A nurse will come see you tomorrow. || R2
+  Caller -> Tomorrow. Okay. In the morning or afternoon, do you know?
+  Nurse -> The scheduler will call you with a window. Is there a time that works better?
+  Caller -> Morning is better. My neighbor takes me to physical therapy at one, so before noon.
+  Nurse -> I'll pass that along to the scheduler.
+  Caller -> Thank you. That's very helpful.
+  Nurse -> Now, in the meantime, ice your knee for twenty minutes at a time, with a cloth between the ice and your skin. And keep your leg raised above your heart when you're resting. || E1
+  Caller -> Twenty minutes. Cloth. Leg up above my heart. Okay. I have a bag of frozen peas. They work great.
+  Nurse -> Frozen peas are perfect. And Lucille, call us right away if the redness spreads, if you see pus or smell something, if your temperature goes over one oh one, or if you get a sudden pain in your calf. If you get chest pain or trouble breathing, call nine one one. || E2
+  Caller -> Spreads, pus, smell, over one oh one, calf pain. Chest pain or can't breathe, nine one one. Okay. Let me write that down.
+  Nurse -> Take your time.
+  Caller -> Okay. Done. I have it on the fridge.
+  Nurse -> Good. How are you managing otherwise? Getting around the house okay?
+  Caller -> With the walker. It's slow, but I'm doing it. My daughter lives in Hartford and she's coming Saturday to help for a week. So I just have to get through till Saturday.
+  Nurse -> That's wonderful. A little help will make a big difference.
+  Nurse -> And are you sleeping okay with the knee?
+  Caller -> In pieces. An hour here, an hour there. I keep waking up when I roll over and bump it. My cat doesn't help. She sleeps right on the bad leg, I have to move her every time.
+  Nurse -> Ha. Cats find the one spot you can't have them. Try a pillow under the knee and one between your legs if you can.
+  Caller -> I'll try that tonight. The pillow thing. Thank you. I didn't think to ask anyone about sleeping, I figured it was just part of it.
+  Nurse -> Mention it to the nurse tomorrow too. Sleep matters for healing.
+  Caller -> I will.
+  Caller -> It really does. I miss my own bed, honestly, and the whole routine. The recliner is okay but my back is killing me, ha. Just kidding. It's fine.
+  Nurse -> Ha. If your back really bothers you, tell the nurse tomorrow too.
+  Caller -> I will. Thank you, Naomi. You're always so patient with me.
+  Nurse -> It's my pleasure, Lucille. Take care.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucille Vandermeer, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-04-26", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Lucille Vandermeer, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "8605550148", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported redness at one end of her knee incision.
+    speaker: Caller
+    turns: [8]
+    quote: "At the top end of it, there's a spot that's red."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She had a right knee replacement eight days ago.
+      speaker: Caller
+      turns: [2]
+      quote: "I had my knee done last week."
+      explanation: Documents the surgery.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: A red spot about the size of a dime was present at the top end of the incision.
+      speaker: Caller
+      turns: [8]
+      quote: "About the size of a dime."
+      explanation: Documents the redness.
+      facts:
+        - {type: symptom, name: redness at one end of the incision, present: true, location: right knee, certainty: stated}
+      covers: [A1]
+    - text: No drainage or smell was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. The dressing was dry. Clean. No stains."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: drainage, certainty: stated}
+      covers: [A2]
+    - text: Temperature was 99.1.
+      speaker: Caller
+      turns: [16]
+      quote: "Ninety nine point one."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.1", certainty: stated}
+      covers: [A3]
+    - text: Knee pain was about 4/10, better with her foot up.
+      speaker: Caller
+      turns: [18]
+      quote: "About a four. It's been about a four most of the day."
+      explanation: Documents pain level.
+      facts:
+        - {type: symptom, name: knee pain, present: true, severity: 4/10, location: right knee, certainty: stated}
+      covers: [A4]
+    - text: Oxycodone 5 mg every 6 hours was being taken, two doses today.
+      speaker: Caller
+      turns: [20]
+      quote: "Five milligrams. Every six hours is what the bottle says. I've taken two today."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 6 hours, last_dose: twice today, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: The knee was mildly swollen and about the same as yesterday.
+      speaker: Caller
+      turns: [22]
+      quote: "The whole knee is puffy"
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: mild knee swelling, present: true, location: right knee, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the surgeon's office about the redness.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to message your surgeon's office about the redness at the incision."
+      explanation: Documents the planned office message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [27]
+      quote: "A nurse will come see you tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised icing the knee for 20 minutes at a time and keeping the leg raised above the heart.
+      speaker: Nurse
+      turns: [33]
+      quote: "ice your knee for twenty minutes at a time, with a cloth between the ice and your skin."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for spreading redness, pus, a smell, a temperature over 101, or sudden calf pain, and calling 911 for chest pain or trouble breathing.
+      speaker: Nurse
+      turns: [35]
+      quote: "call us right away if the redness spreads, if you see pus or smell something, if your temperature goes over one oh one, or if you get a sudden pain in your calf."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

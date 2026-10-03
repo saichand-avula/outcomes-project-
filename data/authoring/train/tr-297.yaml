@@ -1,0 +1,376 @@
+call_id: tr-297
+split: train
+blueprint: "A daughter who fills her father's weekly pillbox discovers on Tuesday morning that on Sunday she put clonazepam (his bedtime anxiety pill) in the morning slots where clonidine (his blood pressure pill) belongs, so he has had an extra clonazepam two mornings in a row and no clonidine. He is drowsy and unsteady, blood pressure 164 over 96 this morning, no falls. She is mortified and talks in circles, spelling the labels. The nurse pages on-call, plans a visit today, tells her to stop giving anything from the pillbox until called back, plans a callback in thirty minutes, and coaches fall safety and relabeling. Wrong-medication flag with a look-alike drug pair, adult child, long v2."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [tall_man_drug, prn_and_scheduled, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, blood_pressure, sedation, falls_safety]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Meridian Home Health
+  agency_type: home_health
+  nurse_name: Quentin
+  call_timestamp_utc: "2026-10-29T14:55:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ignatius Doyle
+  patient_name_spoken: Ignatius Doyle
+  patient_name_certainty: stated
+  patient_dob_true: "1944-10-02"
+  patient_dob_spoken: "1944-10-02"
+  patient_dob_certainty: stated
+  caller_name_true: Noelle Abernathy
+  caller_name_spoken: Noelle Abernathy
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4145550181"
+  callback_phone_spoken: "4145550181"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that she put the wrong pills in her father's pillbox and he has taken them for two mornings
+  reason_category: medication
+  relevant_context: Home health patient whose daughter manages his weekly pillbox
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: clonazepam
+    medication_name_spoken: clonazepam
+    medication_status: extra_dose
+    dose: "0.5"
+    unit: mg
+    frequency: at bedtime
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: clonidine
+    medication_name_spoken: clonidine
+    medication_status: missed
+    dose: "0.1"
+    unit: mg
+    frequency: twice a day
+    last_dose: Saturday night
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: drowsiness and unsteadiness
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "164/96"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls or confusion
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: She filled the weekly pillbox on Sunday and found the mix-up on Tuesday when she compared the bottles
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong medication in the pillbox for two mornings
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: stop giving anything from the pillbox until the on-call clinician calls back
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him sitting or in bed, have someone with him whenever he stands, and use the walker for the bathroom
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep the two bottles apart, read the label twice before filling, and let the nurse help refill the pillbox
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he is very hard to wake, breathing slowly, confused, or has chest pain or a severe headache
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Wrong medication placed in the pillbox and given for two mornings
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Meridian Home Health, this is Quentin.
+  Caller -> Hi. Quentin? Hi. I need to tell somebody something and I'm afraid. I made a mistake with my dad's pills. A bad one. || cc, F1
+  Nurse -> Okay. I'm glad you called. Let's go through it. Who am I speaking with?
+  Caller -> It's Noelle. Noelle Abernathy. My dad is Ignatius Doyle. Everybody calls him Iggy. || caller_name, relationship, patient_name
+  Nurse -> Okay, Noelle. Hi. Can I get Mr. Doyle's date of birth?
+  Caller -> October second. Nineteen forty four. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> It's four one four, five five five, zero one eight one. || callback_phone
+  Nurse -> Got it. Okay, Noelle. Tell me what happened. Take your time.
+  Caller -> So, I do his pillbox on Sundays. The big one, the seven day one with the morning and bedtime. And I do it at the kitchen table after church. And I take out all the bottles. And I did it on Sunday, like always. And this morning I was, I was cleaning out the cabinet. And I looked at the bottles and I looked at the pillbox. And the pills in the morning slots don't match the bottle I thought they came from. || A6
+  Nurse -> Okay. So what did you find?
+  Caller -> I put the wrong one. There are two bottles that look the same. Clonidine and clonazepam. They both start with C L O N. They're both small white pills. I got them mixed. The clonidine is for his blood pressure, in the morning and at night. And the clonazepam is for his nerves. Just at bedtime. || A1, A2
+  Nurse -> Okay. So which pill did you put in the morning slots?
+  Caller -> The clonazepam. I put the clonazepam in the mornings. In every morning slot. Monday, Tuesday, Wednesday, all of them. And the clonidine, I put in the bedtime ones. Oh God. He's been taking the nerve pill in the morning. || A1
+  Nurse -> Okay. So he's gotten the clonazepam in the morning on Monday, and today, Tuesday. Is that right? || A1
+  Caller -> Yes. Monday and today. Two mornings. And then the clonidine at night. Which he was supposed to have in the morning and at night. So he's getting one clonidine instead of two. Wait, no. I put one in the evening slot. So one, not two. I think. I'm confusing myself. || A2
+  Nurse -> That's okay. Let's go slowly. His normal plan is clonidine, point one, twice a day, morning and night. And clonazepam, point five, at bedtime. Is that right? || A1, A2
+  Caller -> Yes. That's right. The clonidine point one milligrams. Twice a day. And the clonazepam point five. At bedtime. || A2
+  Nurse -> Okay. So over the last two mornings, he's gotten an extra point five of clonazepam in the morning, and he missed his morning clonidine both days. What about last night? What did he get at bedtime? || A1, A2
+  Caller -> He got the clonidine. From the bedtime slot. Because I put the clonidine there. And he didn't get his clonazepam at bedtime, because there wasn't any in that slot. So he had the nerve pill in the morning instead of at night. || A1, A2
+  Nurse -> Okay. So the pills got swapped. Did he get his clonidine on Sunday night? || A2
+  Caller -> Sunday night was from the old box. Saturday night I mean. I did the new box Sunday afternoon. He took the last of the old box Sunday morning. So the last real clonidine in the morning was Saturday night, or Sunday morning. Let me think. I think the last correct dose was Saturday night. || A2
+  Nurse -> Okay. Let's say the last full correct pair was around Saturday night. That's fine. Now how is he doing? How does he seem?
+  Caller -> He's sleepy. He's been sleepy since yesterday. He's kind of out of it. He's sitting in the recliner and he keeps dozing off. And when he stands up he's wobbly. He grabbed the wall this morning. He said he feels like he's on a boat. || A3
+  Nurse -> Okay. Has he fallen?
+  Caller -> No. He hasn't fallen. He grabbed the wall and he didn't fall. I was right there. I haven't let him go alone. No falls. || A5
+  Nurse -> Okay. Is he confused? Does he know where he is, who you are?
+  Caller -> He knows me. He knows where he is. He told me the Packers lost. He's not confused. Just sleepy. Slow. Slow to answer.
+  Nurse -> Okay. Good. Do you have a blood pressure cuff?
+  Caller -> I do. I took it twenty minutes ago because I was scared. It was one sixty four over ninety six. That's high for him. He's usually one thirty. || A4
+  Nurse -> Okay. That's higher because he missed the clonidine. And what's his pulse? || A2
+  Caller -> Eighty eight. I think. It said eighty eight. That's okay, right?
+  Nurse -> That's okay. Thank you for taking it. Noelle, did you give him anything else this morning besides what was in the pillbox?
+  Caller -> No. Just the pillbox. And his breakfast. He didn't eat much. He had toast.
+  Nurse -> Okay. Is he breathing normally? Any slow breathing or snoring that worries you?
+  Caller -> He breathes normal. He snores a little in the chair. He always does. I checked on him just now. He's breathing. I counted. It's like sixteen.
+  Nurse -> Good. That's normal. Thank you for checking. Noelle, I want you to know you did the right thing calling. This is a mistake that happens, and we can fix it.
+  Caller -> I'm so ashamed. I'm a pharmacist's assistant. I work at a drugstore. Of all people. I should know better.
+  Nurse -> Does your pharmacy do the pillboxes for him? Some do blister packs.
+  Caller -> They offered. Last year. I said no. I said I'd do it. I wanted to be the one. I didn't want to pay the fee. Now I feel like an idiot.
+  Nurse -> You're not an idiot. When the nurse comes, we can talk about blister packs. It might be a good idea.
+  Caller -> I think it is. I'll call them tomorrow. I'll ask them to start it.
+  Nurse -> It can happen to anyone. Especially with look-alike names. Okay. Here's what I'm going to do. I'm paging the on-call clinician right now to tell them what happened, and ask what they want for today's doses. || R1
+  Caller -> Okay. Please.
+  Nurse -> I'm also going to send a nurse out to see him today. To check his pressure, look him over, and sort out the pillbox with you. || R2
+  Caller -> Today. Okay. What time? I'm off today. I'm here all day.
+  Nurse -> I'll ask for this afternoon. The scheduler will call you with a time.
+  Caller -> Okay. Good.
+  Nurse -> And until the on-call clinician calls back, please don't give him anything else from the pillbox. No clonidine, no clonazepam. Hold everything until we tell you what to do. || R3
+  Caller -> Nothing from the pillbox. Okay. But his blood pressure, he needs the clonidine, doesn't he? Isn't that dangerous, to stop it? || A2
+  Nurse -> It can be, if it's stopped for a long time. That's why I'm paging right away. The clinician may tell you to give the clonidine from the bottle, today. I don't want to guess. We'll know within the half hour. || A2
+  Caller -> Okay. I'll wait. I'll wait.
+  Nurse -> I'll call you back in thirty minutes with their answer. || R4
+  Caller -> Thirty minutes. Okay. I can do that.
+  Nurse -> In the meantime, keep him in the recliner or in bed. Don't let him walk alone. Someone should be with him any time he stands, even to go to the bathroom. Use his walker. || E1
+  Caller -> Walker. Someone with him. Okay. He hates the walker. He says it makes him feel old. But I'll make him.
+  Caller -> He's eighty two. He says eighty two is not old. He says his father lived to ninety six.
+  Nurse -> Ha. Then he's got a long way to go. Tell him the walker is just for today.
+  Caller -> Okay. I'll pass that along. He'll grumble.
+  Nurse -> Tell him it's just for today.
+  Caller -> I will. I'll bribe him with ice cream.
+  Nurse -> Ha. That works. Also, call nine one one if he's very hard to wake, if his breathing gets slow, if he gets confused, or if he has chest pain or a really bad headache. || E3
+  Caller -> Hard to wake, slow breathing, confused, chest pain, bad headache. Nine one one. Okay. I wrote it on my hand.
+  Nurse -> Good. How is he right now? Can you check on him?
+  Caller -> Hold on. I'll go. Dad? Dad. Dad, it's Noelle. Open your eyes. Okay. He opened them. He said what. He's okay. He's looking at me. He said why are you yelling.
+  Nurse -> Ha. That's a good sign. He's responding.
+  Caller -> He is. He's grumpy. That's him.
+  Nurse -> Perfect. Noelle, while we wait, can you do something? Can you get the two bottles and put them in front of you? Read me the labels, so I can make sure we've got the doses right.
+  Caller -> Okay. Hold on. Okay. The first one. Clonidine. C L O N I D I N E. Point one milligram. Take one tablet by mouth twice a day. And the other one. Clonazepam. C L O N A Z E P A M. Point five milligram. Take one tablet by mouth at bedtime. || A1, A2
+  Nurse -> That matches what I have. Now, for the future, what I'd suggest is keep those two bottles in separate places. Different shelves, or put a colored sticker on one. And read the label twice before you fill. || E2
+  Caller -> Wait, I need a pen. And a sticker. Do I have stickers? I have the dots from my kid's garage sale.
+  Nurse -> Those will work.
+  Caller -> Red dots. Perfect. Okay, I have them.
+  Caller -> Different shelves. A sticker. Yes. I'll put a red sticker on the clonazepam. Red for the nerves. And the nurse can help me redo the pillbox. I'd like that. I don't trust myself. || A1
+  Nurse -> You can trust yourself. You just need a double check. The nurse will do it with you.
+  Caller -> Thank you. Thank you. I feel a little less sick. I felt like I poisoned him.
+  Nurse -> You didn't poison him. He got a dose of a medicine he's already prescribed, at the wrong time. That's a medication error, and we take it seriously, but it's not a disaster. We'll monitor him.
+  Caller -> Okay. Okay. I needed to hear that.
+  Nurse -> How's your dad's mood? Is he eating, drinking?
+  Caller -> He had some juice. He's drinking. He asked for a sandwich. I'll make him one. Turkey.
+  Nurse -> Good. Small amounts. Is he able to swallow okay, sitting upright?
+  Caller -> Yes. He eats fine. He just falls asleep in the middle of chewing sometimes. Ha. Don't laugh. It's not funny.
+  Nurse -> It's a little funny. Make sure he's awake and sitting up for the sandwich.
+  Caller -> I will. I'll hold the plate.
+  Nurse -> Perfect. Is there anyone else who can help you today? Someone to sit with him while you rest?
+  Caller -> I haven't slept. I was up at four. When I realized. I just lay there. I thought, what have I done.
+  Nurse -> That's a long morning. Try to eat something. Have some coffee, if that helps.
+  Caller -> I had two cups. My hands are shaking from the coffee and the fear.
+  Caller -> My husband comes home at five. And my brother. He's on his way. He lives twenty minutes away. I called him when I found the mistake. He said stay calm and call the nurse.
+  Nurse -> Your brother was right.
+  Caller -> He usually is. Don't tell him.
+  Nurse -> Ha. I won't.
+  Caller -> He's going to tease me about it forever. Mistake Noelle. That's what he'll call me.
+  Nurse -> Maybe. But he'll also be glad you caught it. A lot of people wouldn't have noticed.
+  Caller -> I only noticed because I was cleaning. I almost didn't.
+  Nurse -> Then it was lucky. That's what counts.
+  Caller -> I guess so. I keep thinking, what if I hadn't. What if it was a whole week.
+  Nurse -> You caught it on day two. That's early.
+  Caller -> That's true. Day two. Okay.
+  Nurse -> Exactly.
+  Caller -> Okay. I'll let you go and get the page done. I'm going to sit with Dad.
+  Nurse -> Okay. I'll call you in thirty minutes. Pick up even if the number's unfamiliar. It'll be me or the clinician.
+  Caller -> Okay. I will. Thank you, Quentin. You've been so kind.
+  Nurse -> You're welcome, Noelle. Sit with your dad.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ignatius Doyle, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1944-10-02", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Noelle Abernathy, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: daughter, certainty: stated, turns: [4]}
+    callback_phone: {value: "4145550181", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that she put the wrong pills in her father's pillbox and he had taken them for two mornings.
+    speaker: Caller
+    turns: [2]
+    quote: "I made a mistake with my dad's pills. A bad one."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Clonazepam 0.5 mg, his bedtime pill, was taken in the morning on two mornings, the last this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "The clonazepam. I put the clonazepam in the mornings."
+      explanation: Documents the wrong morning medication.
+      facts:
+        - {type: medication, name: clonazepam, dose: "0.5", unit: mg, frequency: at bedtime, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Clonidine 0.1 mg twice a day was missed in the morning for two days, with the last correct dose Saturday night.
+      speaker: Caller
+      turns: [18]
+      quote: "The clonidine point one milligrams. Twice a day."
+      explanation: Documents the missed blood pressure medication.
+      facts:
+        - {type: medication, name: clonidine, dose: "0.1", unit: mg, frequency: twice a day, last_dose: Saturday night, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: He had been drowsy and unsteady since yesterday and felt like he was on a boat.
+      speaker: Caller
+      turns: [24]
+      quote: "He's sleepy. He's been sleepy since yesterday."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: drowsiness and unsteadiness, present: true, onset: since yesterday, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 164/96 twenty minutes earlier.
+      speaker: Caller
+      turns: [30]
+      quote: "It was one sixty four over ninety six."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "164/96", certainty: stated}
+      covers: [A4]
+    - text: He had not fallen and was not confused.
+      speaker: Caller
+      turns: [26]
+      quote: "No. He hasn't fallen."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls or confusion, certainty: stated}
+      covers: [A5]
+    - text: She filled the weekly pillbox on Sunday and found the mix-up on Tuesday when comparing the bottles.
+      speaker: Caller
+      turns: [10]
+      quote: "I do his pillbox on Sundays."
+      explanation: Documents how the error happened.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician about the wrong medication.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit this afternoon to check him and sort out the pillbox.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm also going to send a nurse out to see him today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+    - text: Advised not giving anything from the pillbox until the on-call clinician called back.
+      speaker: Nurse
+      turns: [49]
+      quote: "please don't give him anything else from the pillbox."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in thirty minutes with the clinician's answer.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'll call you back in thirty minutes with their answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised keeping him in the recliner or bed and having someone with him with a walker whenever he stood.
+      speaker: Nurse
+      turns: [55]
+      quote: "Don't let him walk alone."
+      explanation: Documents fall safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the two bottles apart, reading the label twice before filling, and letting the nurse help refill the pillbox.
+      speaker: Nurse
+      turns: [70]
+      quote: "keep those two bottles in separate places."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if he was very hard to wake, breathing slowly, confused, or had chest pain or a severe headache.
+      speaker: Nurse
+      turns: [62]
+      quote: "call nine one one if he's very hard to wake"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I made a mistake with my dad's pills. A bad one."}

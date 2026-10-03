@@ -1,0 +1,178 @@
+call_id: va-002
+split: val
+blueprint: "Patient with an itchy incision, no redness or fever; nurse reassures, advises not to scratch, and confirms the scheduled Monday visit."
+setup:
+  scenario_category: routine
+  subtype: post_visit_followup
+  secondary_tags: [pertinent_negatives, negated_risk_phrase]
+  clinical_domains: [wound_skin]
+  relationship_group: self
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-09-13T14:55:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: low
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Terrence Obuya
+  patient_name_spoken: Terrence Obuya
+  patient_name_certainty: stated
+  patient_dob_true: "1969-06-08"
+  patient_dob_spoken: "1969-06-08"
+  patient_dob_certainty: stated
+  caller_name_true: Terrence Obuya
+  caller_name_spoken: Terrence Obuya
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5125550167"
+  callback_phone_spoken: "5125550167"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Itching around his surgical incision
+  reason_category: wound_skin
+  relevant_context: Knee surgery two weeks ago
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: itching around the incision
+    symptom_present: true
+    body_location: right knee incision
+    onset_or_duration: 2 days
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: redness or drainage
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: temperature
+    vital_value: "98.4"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Monday morning
+    reason_or_trigger: scheduled wound check
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Do not scratch; tap or press lightly, keep the area clean and dry, and wear loose clothing
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for redness, swelling, warmth, drainage, or a fever of 100.4 or higher
+    trigger_condition: redness; swelling; warmth; drainage; fever 100.4+
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Northstar Home Health, this is Priscilla.
+  Caller -> Hi. This is Terrence Obuya. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Terrence. Your date of birth?
+  Caller -> June eighth, nineteen sixty nine. || patient_dob
+  Nurse -> And I have five one two, five five five, zero one six seven. || callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> What's going on?
+  Caller -> My incision is itchy. On my knee, the right one. It's been two days. || cc, A1
+  Nurse -> Okay. Is there any redness, or any drainage?
+  Caller -> No. It looks good. No redness, no drainage. || A2
+  Nurse -> Any fever?
+  Caller -> No. I took it this morning. Ninety eight point four. || A3
+  Nurse -> That's reassuring. Itching around a healing incision is really common. It usually means the skin is healing.
+  Caller -> Oh good. I was worried.
+  Nurse -> Try not to scratch it. If it bothers you, tap it or press lightly. Keep the area clean and dry, and wear loose clothes over it. || E1
+  Caller -> Okay. Tap, not scratch. Got it.
+  Nurse -> Your nurse is scheduled to see you Monday morning. She'll look at it then. || R1
+  Caller -> Monday. Okay.
+  Nurse -> If you see redness, swelling, or warmth, or any drainage, or you get a fever of one hundred point four or higher, call us. || E2
+  Caller -> I will.
+  Nurse -> How's the knee feeling otherwise? Are you doing your exercises?
+  Caller -> Yes. Twice a day. It's stiff in the morning but it loosens up. I can bend it almost to ninety degrees now.
+  Nurse -> That's great progress for two weeks. Keep it up, and keep the ice on afterwards.
+  Caller -> I will. My wife helps me with the ice packs.
+  Nurse -> Good. Anything else?
+  Caller -> No. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Terrence Obuya, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1969-06-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Terrence Obuya, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5125550167", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported itching around his knee incision for two days.
+    speaker: Caller
+    turns: [8]
+    quote: "My incision is itchy. On my knee, the right one. It's been two days."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: No redness or drainage was reported.
+      speaker: Caller
+      turns: [10]
+      quote: "No. It looks good. No redness, no drainage."
+      explanation: Documents pertinent negatives for infection.
+      facts:
+        - {type: pertinent_negative, name: redness or drainage, certainty: stated}
+      covers: [A2]
+    - text: Temperature this morning was 98.4.
+      speaker: Caller
+      turns: [12]
+      quote: "No. I took it this morning. Ninety eight point four."
+      explanation: Documents the reported temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.4", certainty: stated}
+      covers: [A3]
+  response:
+    - text: A nurse visit was planned for Monday morning for a wound check.
+      speaker: Nurse
+      turns: [17]
+      quote: "Your nurse is scheduled to see you Monday morning. She'll look at it then."
+      explanation: Documents the scheduled visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Monday morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised not scratching, tapping lightly instead, keeping the area clean and dry, and wearing loose clothing.
+      speaker: Nurse
+      turns: [15]
+      quote: "Try not to scratch it. If it bothers you, tap it or press lightly."
+      explanation: Documents skin-care instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for redness, swelling, warmth, drainage, or a fever of 100.4 or higher.
+      speaker: Nurse
+      turns: [19]
+      quote: "If you see redness, swelling, or warmth, or any drainage, or you get a fever of one hundred point four or higher, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

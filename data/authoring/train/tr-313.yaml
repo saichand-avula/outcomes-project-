@@ -1,0 +1,337 @@
+call_id: tr-313
+split: train
+blueprint: "A daughter calls hospice because her father, who has COPD and lost his wife in the spring, said last night that he is thinking about taking all his pills to end it, then laughed and said he was kidding. He has been withdrawn for a week and his pill bottles and a morphine bottle are in the nightstand. She has not seen any attempt. The nurse takes the statement seriously, asks calm direct questions, pages on-call, plans a visit within two hours and a social worker and chaplain visit, tells her to move the medicines into a lockbox or her room, gives the 988 line and 911 instructions, and plans a callback in twenty minutes. Suicidal statement flag, adult child caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [mood, medication, caregiver_stress]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Compass Hospice
+  agency_type: hospice
+  nurse_name: Nadia
+  call_timestamp_utc: "2026-10-31T16:05:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [morphine]
+chief_complaint:
+  patient_name_true: Leopold Achebe
+  patient_name_spoken: Leopold Achebe
+  patient_name_certainty: stated
+  patient_dob_true: "1950-12-03"
+  patient_dob_spoken: "1950-12-03"
+  patient_dob_certainty: stated
+  caller_name_true: Imelda Achebe
+  caller_name_spoken: Imelda Achebe
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7045550182"
+  callback_phone_spoken: "7045550182"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father talked about taking all his pills to end it
+  reason_category: mood
+  relevant_context: Hospice patient with COPD living with his daughter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: talk of taking all his pills to end his life
+    symptom_present: true
+    onset_or_duration: last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: withdrawn and low mood
+    symptom_present: true
+    onset_or_duration: about a week
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: His pill bottles and a bottle of morphine are in his nightstand
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: any attempt or pills missing
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: His wife died in the spring and he lives with his daughter
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: patient talked about taking all his pills to end it
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R3
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker and chaplain
+    timeframe: today
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time for crisis support for him or for herself
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Move all his pills and the morphine into a lockbox or her own room, give his doses herself, and do not leave him alone for long
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 right away if he takes extra pills, tries to hurt himself or says he is about to
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient said he is thinking about taking all his pills to end it
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Compass Hospice, this is Nadia.
+  Caller -> Hi. Hi, Nadia. This is Imelda Achebe. I'm calling about my dad. Leopold Achebe. I'm not sure if this is the right thing to call about. || caller_name, relationship, patient_name
+  Nurse -> Hi, Imelda. Thanks for calling. You can call about anything. What's on your mind?
+  Caller -> Last night my dad said something. And I can't stop thinking about it. He said he's thinking about taking all his pills. To end it. || cc, A1, F1
+  Nurse -> Okay. I'm glad you called. Take a breath. I'm going to ask some questions, and we'll go through this together. First, can I get your dad's date of birth?
+  Caller -> December third. Nineteen fifty. || patient_dob
+  Nurse -> Thanks. And your number?
+  Caller -> Seven oh four, five five five, zero one eight two. || callback_phone
+  Nurse -> Got it. Is your dad home right now? Where is he?
+  Caller -> He's here. He's in the den. He's watching the TV. I'm in the kitchen. I came in here so he wouldn't hear me.
+  Nurse -> That was thoughtful. Is the TV loud enough that he won't hear you?
+  Caller -> It's a game show. It's loud. He has the hearing aids out. I'm fine.
+  Nurse -> Okay. Tell me exactly what he said last night, as best you remember.
+  Caller -> We were sitting at the table after dinner. He wasn't eating. And he said, I've been thinking about taking all my pills. And ending it. Just like that. And then I looked at him and he laughed. He said, I'm kidding. Don't look at me like that. But he didn't sound like he was kidding.
+  Nurse -> What did you say to him?
+  Caller -> Nothing. I froze. I got up and I cleared the dishes. I didn't know what to say.
+  Nurse -> That's very normal. Most people freeze.
+  Nurse -> Okay. That must have been scary. You're right to take it seriously.
+  Caller -> I didn't sleep. I kept thinking about it. I kept getting up to check on him.
+  Caller -> I stood at his door at two. And at four. I could hear him breathing. It was okay. I just stood there.
+  Nurse -> That must have been exhausting.
+  Nurse -> That makes sense. Has he said anything like that before?
+  Caller -> Not like that. He's said he's tired. He's said he's ready to go. He said that a lot in the spring after Mom died. But not about the pills. Not about doing it himself.
+  Nurse -> Okay. How has he been this past week? Tell me about his mood.
+  Caller -> He's quiet. He's withdrawn. He doesn't want to talk. He stays in the den. He doesn't want his friend to visit. The friend from church, Mr. Okoro. He told me to tell him not to come. And he's not eating much. He's not himself. || A2
+  Nurse -> Okay. About a week of that?
+  Caller -> About a week. It started after the anniversary. It was a month since Mom died on the twenty fourth. And then it was Halloween week and she loved Halloween. She decorated the whole porch. Every year. And this year I didn't. I couldn't. I think that hit him.
+  Nurse -> That makes sense. The holidays and the anniversaries can be hard.
+  Caller -> She would have decorated the whole house by now. Spider webs. The inflatable ghost.
+  Nurse -> It sounds like she brought a lot of joy.
+  Caller -> She did. She really did.
+  Nurse -> That's a lot of grief. For you both. Imelda, I'm sorry about your mom.
+  Caller -> Thank you. It's been hard. She died in April. April eleventh.
+  Nurse -> Okay. Your dad lives with you?
+  Caller -> He moved in with me when she got sick. In February. It's me and him and my teenager. My husband works nights. || A5
+  Nurse -> Okay. Let me ask something directly, because it's important. Do you know if he's done anything to hurt himself? Has he taken extra pills? Any pills missing?
+  Caller -> No. No. I checked. I counted. I counted the morphine and the others this morning while he was in the shower. Everything's there. Nothing's missing. He hasn't done anything. I would know. I do his pills. || A4
+  Nurse -> Okay. That's good. Where does he keep his medicines?
+  Caller -> In the nightstand. In his bedroom. The drawer. There's the pill bottles, all of them, and the liquid morphine. The whole bottle. It's on the top. I do his doses but the bottles stay in the drawer. || A3
+  Nurse -> Okay. And does he know where they are, obviously. And he could get to them.
+  Caller -> Yes. He could. They're right there. I never thought about it.
+  Nurse -> Have you ever had guns or anything else in the house that he could reach?
+  Caller -> No. My husband never wanted guns. Just the kitchen knives. And the garage tools.
+  Nurse -> Okay. Thank you for telling me.
+  Nurse -> That's okay. You didn't have a reason to before. We'll fix that. Imelda, I'm going to ask a few more things, and then I'll tell you what we're going to do. Is your dad having any pain right now?
+  Caller -> He says no. He says his breathing is the same. He's got the oxygen on. He hasn't complained about pain.
+  Nurse -> Okay. And has he said anything else about wanting to die, or about being a burden?
+  Caller -> He said he's a burden. He says I shouldn't have to take care of him. He says I should be with my kids. I told him he's not a burden. He just shakes his head.
+  Nurse -> Has he said what he wants for the days ahead?
+  Caller -> He wants to stay home. He said that. He said he doesn't want to go to a hospital or a home. He wants to be here, with the kids.
+  Nurse -> That's what we're here to help with.
+  Nurse -> Okay. That's helpful. What I'm going to do now is page the on-call clinician right away, so they know what he said and so they can talk with him. || R1
+  Caller -> Okay. Will they take him away?
+  Nurse -> No. They won't take him anywhere. Our job is to keep him comfortable at home. But we want to understand what he's feeling and support him. The clinician might want to talk with him by phone.
+  Caller -> Okay. That's fine. I don't want him to be sent anywhere. He'd hate that.
+  Nurse -> I understand. I'm also going to send a nurse to see him, within two hours. She'll talk with him and with you. || R2
+  Caller -> Two hours. Okay. Thank you.
+  Nurse -> And I'd like our social worker and our chaplain to come visit today. They're very good at this. They can talk with your dad about grief and about how he's feeling. And they can talk with you, too. || R3
+  Caller -> Mr. Okoro is his friend. The chaplain would be like a stranger. Will he talk to them?
+  Nurse -> Some people do and some don't. Sometimes it's easier to talk to a stranger. We can ask him. He can say no.
+  Caller -> Okay. I'll ask him. I'll tell him it's okay to say no.
+  Nurse -> And Imelda, if he does want to talk to someone, the chaplain doesn't have to talk about religion. Some just listen.
+  Caller -> That would suit him. He's not a talker. But he listens.
+  Nurse -> That's a good approach. Now, Imelda, a few things for today. First, can you put his pill bottles and the morphine somewhere safe? A lockbox if you have one. Or put them in your room, in a drawer or a closet that he can't easily get to. And you give him his doses yourself. || E2
+  Caller -> I have a lockbox. For my husband's tools. I can empty it. I'll put the pills in there. And the key goes on my keychain.
+  Nurse -> That's perfect. Do it today. Right after this call, if you can. And try not to leave him alone for long stretches today.
+  Caller -> Okay. My teenager is home. She's in her room. I can ask her to sit with him. She loves her grandpa.
+  Nurse -> That would be great. Just having someone around helps. Not to watch him, just to be there.
+  Caller -> Okay. I'll ask her to bring her homework to the den.
+  Caller -> She'll complain. But she'll do it. She has a physics test. She can study in there.
+  Nurse -> Perfect. A quiet study partner.
+  Nurse -> Good. I also want you to have a phone number. If you ever feel overwhelmed, or he does, you can call or text nine eight eight, any hour. It's the crisis line. It's for him, and for you. || E1
+  Caller -> Nine eight eight. Okay. I didn't know it was for family.
+  Nurse -> It is. It's for anyone who is struggling or worried about someone.
+  Caller -> I'll write it down. I'm putting it on the fridge.
+  Nurse -> Good. And if he takes extra pills, or tries to hurt himself, or says he's about to, call nine one one right away. Don't wait for us. || E3
+  Caller -> Nine one one. If he takes extra, tries to hurt himself, says he's about to. Okay. I don't think he will. But I'll remember.
+  Nurse -> I hope he won't. But we plan for the worst. How are you doing, Imelda?
+  Caller -> I'm okay. I'm shaking. I haven't slept. I'm so tired.
+  Nurse -> You're doing everything right. You noticed, you counted the pills, you called. That's exactly what to do.
+  Caller -> Thank you. I just feel so guilty. I should have seen how bad it was.
+  Nurse -> You saw it. That's why you called. Grief is hard to see inside of. You can't blame yourself.
+  Caller -> I'll try not to. My husband says the same thing.
+  Nurse -> He's right. I'm going to call you back in twenty minutes, after I talk to the clinician. || R4
+  Caller -> Twenty minutes. Okay. I'll go get the lockbox now.
+  Nurse -> Do that. I'll talk to you soon.
+  Caller -> Thank you, Nadia. Thank you for taking me seriously.
+  Nurse -> Of course. Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leopold Achebe, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1950-12-03", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Imelda Achebe, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550182", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father talked about taking all his pills to end it.
+    speaker: Caller
+    turns: [4]
+    quote: "Last night my dad said something. And I can't stop thinking about it."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He said last night that he was thinking about taking all his pills to end it, then laughed and said he was kidding.
+      speaker: Caller
+      turns: [4]
+      quote: "He said he's thinking about taking all his pills. To end it."
+      explanation: Documents the statement about ending his life.
+      facts:
+        - {type: symptom, name: talk of taking all his pills to end his life, present: true, onset: last night, certainty: stated}
+      covers: [A1]
+    - text: He had been quiet, withdrawn and eating little for about a week.
+      speaker: Caller
+      turns: [25]
+      quote: "He's quiet. He's withdrawn."
+      explanation: Documents the low mood.
+      facts:
+        - {type: symptom, name: withdrawn and low mood, present: true, onset: about a week, certainty: stated}
+      covers: [A2]
+    - text: His pill bottles and a bottle of morphine were in his nightstand drawer.
+      speaker: Caller
+      turns: [39]
+      quote: "In the nightstand. In his bedroom."
+      explanation: Documents access to medicines.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: No pills were missing and no attempt had been made.
+      speaker: Caller
+      turns: [37]
+      quote: "Everything's there. Nothing's missing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: any attempt or pills missing, certainty: stated}
+      covers: [A4]
+    - text: His wife died in April and he lived with his daughter, her husband and her teenager.
+      speaker: Caller
+      turns: [35]
+      quote: "He moved in with me when she got sick."
+      explanation: Documents the home and grief context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [52]
+      quote: "page the on-call clinician right away, so they know what he said"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'm also going to send a nurse to see him, within two hours."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+    - text: Planned a social worker and chaplain visit today.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'd like our social worker and our chaplain to come visit today."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: today, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in twenty minutes after speaking with the clinician.
+      speaker: Nurse
+      turns: [84]
+      quote: "I'm going to call you back in twenty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 any hour for support for him or herself.
+      speaker: Nurse
+      turns: [72]
+      quote: "you can call or text nine eight eight, any hour."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised moving his pills and morphine into a lockbox or her own room, giving his doses herself, and not leaving him alone for long.
+      speaker: Nurse
+      turns: [64]
+      quote: "can you put his pill bottles and the morphine somewhere safe?"
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 right away if he took extra pills, tried to hurt himself or said he was about to.
+      speaker: Nurse
+      turns: [76]
+      quote: "call nine one one right away. Don't wait for us."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [4], quote: "He said he's thinking about taking all his pills. To end it."}

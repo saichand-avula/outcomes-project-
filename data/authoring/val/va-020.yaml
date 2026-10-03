@@ -1,0 +1,171 @@
+call_id: va-020
+split: val
+blueprint: "Caregiver needs glucose test strips and lancets (about 10 strips and no lancets left); fasting sugar 132 this morning; nurse plans a supply order."
+setup:
+  scenario_category: supply
+  subtype: diabetic_supplies
+  secondary_tags: [phone_from_file]
+  clinical_domains: [glucose]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-09-28T09:35:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Beatrix Lindholm
+  patient_name_spoken: Beatrix Lindholm
+  patient_name_certainty: stated
+  patient_dob_true: "1946-05-05"
+  patient_dob_spoken: "1946-05-05"
+  patient_dob_certainty: stated
+  caller_name_true: Yesenia
+  caller_name_spoken: Yesenia
+  caller_name_certainty: stated
+  relationship_to_patient: caregiver
+  relationship_certainty: stated
+  callback_phone_true: "5035550179"
+  callback_phone_spoken: "5035550179"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Needs glucose test strips and lancets
+  reason_category: supply_diabetic
+  relevant_context: Patient checks her sugar twice a day
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: glucose test strips
+    supply_remaining: "10"
+    supply_unit: strips
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: lancets
+    supply_remaining: "0"
+    supply_unit: lancets
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: fasting blood sugar
+    vital_value: "132"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: test strips and lancets
+    timeframe: delivery in 2 days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check once a day in the morning until the new supplies arrive and write the numbers down
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if sugar is over 300 or under 70, or if she is confused, very thirsty, or shaky
+    trigger_condition: sugar over 300; sugar under 70; confusion; thirst; shaky
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Northstar Home Health, this is Priscilla.
+  Caller -> Hi, Priscilla. This is Yesenia, I'm the aide for Mrs. Lindholm. Beatrix Lindholm. || caller_name, relationship, patient_name
+  Nurse -> Hi, Yesenia. Mrs. Lindholm's date of birth?
+  Caller -> May fifth, nineteen forty six. || patient_dob
+  Nurse -> And I have five oh three, five five five, zero one seven nine on file. Is that you? || callback_phone
+  Caller -> That's the house. Yes. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> We're running low on her test strips. I think there are about ten left. And no lancets. None. || cc, A1, A2
+  Nurse -> Okay. How often does she check?
+  Caller -> Twice a day. Morning and evening.
+  Nurse -> Okay. What was her sugar this morning?
+  Caller -> One thirty two. Before breakfast. || A3
+  Nurse -> Okay. That's a good number. I'll order strips and lancets for you. They usually take about two days. || R1
+  Caller -> Two days. We have enough strips for five days, but no lancets. Is there anything we can do?
+  Nurse -> Can she reuse the lancet she has?
+  Caller -> There's one in the device now. We've been reusing it.
+  Nurse -> That's okay for a couple of days, if she's the only one using it. Just don't share it.
+  Caller -> No sharing. Okay.
+  Nurse -> And check just once a day, in the morning, until the supplies come, and write the number down. || E1
+  Caller -> Once a day. Okay.
+  Nurse -> Call if it goes over three hundred or under seventy, or if she's confused, very thirsty, or shaky. || E2
+  Caller -> Okay. I will.
+  Nurse -> How is Mrs. Lindholm doing otherwise? Is she eating and drinking well?
+  Caller -> She is. She likes her oatmeal and her tea. She's a little tired in the afternoons, but she walks with her walker every morning.
+  Nurse -> That's wonderful. Keep up the walking.
+  Nurse -> Anything else, Yesenia?
+  Caller -> No. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Beatrix Lindholm, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-05-05", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Yesenia, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550179", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported running low on glucose test strips and having no lancets.
+    speaker: Caller
+    turns: [8]
+    quote: "We're running low on her test strips. I think there are about ten left. And no lancets."
+    explanation: Documents the supply need prompting the call.
+    covers: [cc, A1, A2]
+  assessment:
+    - text: Fasting blood sugar this morning was 132.
+      speaker: Caller
+      turns: [12]
+      quote: "One thirty two. Before breakfast."
+      explanation: Documents the reported glucose.
+      facts:
+        - {type: vital, name: fasting blood sugar, value: "132", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to order test strips and lancets, with delivery in about 2 days.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'll order strips and lancets for you. They usually take about two days."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, timeframe: delivery in 2 days, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised checking once a day in the morning until supplies arrived and recording the numbers.
+      speaker: Nurse
+      turns: [19]
+      quote: "check just once a day, in the morning, until the supplies come, and write the number down."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a sugar over 300 or under 70, confusion, heavy thirst, or shakiness.
+      speaker: Nurse
+      turns: [21]
+      quote: "Call if it goes over three hundred or under seventy, or if she's confused, very thirsty, or shaky."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

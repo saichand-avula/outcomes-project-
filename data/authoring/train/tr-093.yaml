@@ -1,0 +1,227 @@
+call_id: tr-093
+split: train
+blueprint: "Early-morning hospice call: daughter reports her father has trouble breathing and agitation. Nurse reads the comfort kit orders: give morphine 0.25 mL under the tongue for breathing and lorazepam 0.5 mg for agitation; callback in 30 minutes. The daughter keeps talking to her father. Flag: breathing_concern. Messy, real-call-like."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [crosstalk, split_turns, late_answers, offtopic_chatter, liquid_concentration]
+  clinical_domains: [dyspnea, agitation_delirium, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-23T10:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wilbur Tennyson
+  patient_name_spoken: Wilbur Tennyson
+  patient_name_certainty: stated
+  patient_dob_true: "1940-02-27"
+  patient_dob_spoken: "1940-02-27"
+  patient_dob_certainty: stated
+  caller_name_true: Fiona
+  caller_name_spoken: Fiona
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6785550137"
+  callback_phone_spoken: "6785550137"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported trouble breathing and agitation in her father
+  reason_category: dyspnea
+  relevant_context: Hospice patient with a comfort kit at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: true
+    onset_or_duration: since about 4 this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: agitation
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Last medicines were given at about 10 last night
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give morphine 0.25 mL under the tongue for the breathing
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give lorazepam 0.5 mg for the agitation after the morphine if still restless
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 30 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise the head of the bed, keep the room cool with a fan blowing gently toward his face, and stay with him
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call back sooner than 30 minutes if the breathing gets worse
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Father is having trouble breathing
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Thank you for calling Pinecrest Hospice. This is Gwen. Can I have the patient's name?
+  Caller -> Wilbur Tennyson. W I L B U R. Tennyson. || patient_name
+  Nurse -> Thank you. And his date of birth?
+  Caller -> February twenty seventh, nineteen forty. Dad, hold on. Dad, stay in the bed. || patient_dob
+  Nurse -> And who am I speaking to?
+  Caller -> This is Fiona. His daughter. || caller_name, relationship
+  Nurse -> Thank you, Fiona. Can I have a good callback number in case we get disconnected?
+  Caller -> Six seven eight, five five five, zero one three seven. Sorry. Hold on. Dad. || callback_phone
+  Nurse -> That's okay.
+  Caller -> I'm sorry. Okay. He's having trouble breathing. And he's agitated. || cc, A1, A2, F1
+  Nurse -> Mm-hm.
+  Caller -> He started around four. I woke up and he was, he was breathing fast. || A1
+  Nurse -> Okay.
+  Nurse -> Is he moving around a lot? Trying to get out of bed?
+  Caller -> Yes. Yes. He keeps trying to sit up. He's pulling at the, at his shirt. || A2
+  Nurse -> Okay. When did he last have any medicine?
+  Caller -> Last night. Around ten. I gave him his normal stuff. || A3
+  Nurse -> Okay. Fiona, I'm looking at his comfort kit orders. For the trouble breathing, he can have the morphine, the point two five milliliters, under his tongue. || R1
+  Caller -> Okay.
+  Nurse -> Do you have the morphine bottle in front of you? || R1
+  Caller -> Yes, I have it. It's the little one with the dropper. Yes.
+  Nurse -> Okay. Go ahead and give that now.
+  Caller -> Okay. Okay. Dad, open. Open your mouth, Dad. Under the tongue. Okay. Okay. It's in.
+  Nurse -> Good. Now, for the agitation, he can have the lorazepam, the half a milligram. Give that now too, or if you want to start with the morphine and see, that's fine. || R2
+  Caller -> I think, let me see how he does. With just the morphine. || R1
+  Nurse -> Okay. That's okay.
+  Caller -> Okay.
+  Nurse -> If he's still restless in ten or fifteen minutes, give the lorazepam. || R2
+  Caller -> Okay. Fifteen minutes. Okay.
+  Nurse -> And I'll call you back in about thirty minutes to see how he's doing. || R3
+  Caller -> Thirty minutes. Okay. Thank you.
+  Nurse -> Raise the head of the bed up if you can. And put a fan, a small one, so it blows gently toward his face. That helps the feeling of breathing. || E1
+  Caller -> I have a fan. I'll get the fan. Okay.
+  Nurse -> And stay with him. If you need us sooner than that, call back. Don't wait for the thirty minutes. || E2
+  Caller -> Okay. Okay. I'm here. Thank you, Gwen.
+  Nurse -> Okay. Thank you. Okay.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "callback number", heard_form: "Sorry. Hold on. Dad.", fact_id: callback_phone}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wilbur Tennyson, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-02-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Fiona, certainty: stated, heard_as: [], turns: [6]}
+    relationship: {value: daughter, certainty: stated, turns: [6]}
+    callback_phone: {value: "6785550137", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported trouble breathing and agitation in her father.
+    speaker: Caller
+    turns: [10]
+    quote: "He's having trouble breathing. And he's agitated."
+    explanation: Documents the symptoms prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Fast breathing and trouble breathing began around 4 this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "He started around four. I woke up and he was, he was breathing fast."
+      explanation: Documents the onset of the breathing problem.
+      facts:
+        - {type: symptom, name: trouble breathing, present: true, duration: since about 4 this morning, certainty: stated}
+      covers: [A1]
+    - text: He was agitated, trying to sit up and pulling at his shirt.
+      speaker: Caller
+      turns: [15]
+      quote: "He keeps trying to sit up. He's pulling at the, at his shirt."
+      explanation: Documents the agitation.
+      facts:
+        - {type: symptom, name: agitation, present: true, certainty: stated}
+      covers: [A2]
+    - text: His last medicines were given around 10 last night.
+      speaker: Caller
+      turns: [17]
+      quote: "Last night. Around ten. I gave him his normal stuff."
+      explanation: Documents the timing of last medicines.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised giving morphine 0.25 mL under the tongue now for the trouble breathing.
+      speaker: Nurse
+      turns: [18]
+      quote: "For the trouble breathing, he can have the morphine, the point two five milliliters, under his tongue."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Advised giving lorazepam 0.5 mg if he was still restless in 10 to 15 minutes.
+      speaker: Nurse
+      turns: [28]
+      quote: "If he's still restless in ten or fifteen minutes, give the lorazepam."
+      explanation: Documents the second medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in about 30 minutes to check on him.
+      speaker: Nurse
+      turns: [30]
+      quote: "I'll call you back in about thirty minutes to see how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised raising the head of the bed and using a small fan blowing gently toward his face.
+      speaker: Nurse
+      turns: [32]
+      quote: "Raise the head of the bed up if you can. And put a fan, a small one, so it blows gently toward his face."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back sooner than 30 minutes if needed.
+      speaker: Nurse
+      turns: [34]
+      quote: "If you need us sooner than that, call back."
+      explanation: Documents the open invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [10], quote: "He's having trouble breathing."}

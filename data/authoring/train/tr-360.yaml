@@ -1,0 +1,381 @@
+call_id: tr-360
+split: train
+blueprint: "A 52-year-old woman with pancreatic cancer calls the palliative night line crying: her pain is a six on oxycodone but the worse thing is that she keeps thinking about taking all her pills so it stops. She has not taken extra, her husband is asleep upstairs, and the bottles are in her bedside drawer. The nurse asks directly about plan and intent, gets the husband involved to hold the medicines, gives 988 and 911 instructions, pages on-call, requests social work, plans a visit in the morning and a callback in thirty minutes. High risk, suicidal statement with a conditional plan, self caller, 18-64, name spelled, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [name_spelled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [mood, pain, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Imani
+  call_timestamp_utc: "2026-10-24T03:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dolores Teague
+  patient_name_spoken: Dolores Teague
+  patient_name_certainty: stated
+  patient_dob_true: "1974-02-08"
+  patient_dob_spoken: "1974-02-08"
+  patient_dob_certainty: stated
+  caller_name_true: Dolores Teague
+  caller_name_spoken: Dolores Teague
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7045550132"
+  callback_phone_spoken: "7045550132"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported thoughts of taking all her pills and severe distress
+  reason_category: mood
+  relevant_context: Palliative care patient with pancreatic cancer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: thoughts of taking all her pills
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: abdominal pain
+    symptom_present: true
+    severity: "6"
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: nine o'clock tonight
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: taking extra pills tonight
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: hopeless and tearful
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: patient
+    history_or_context_text: Her husband is asleep upstairs and her pill bottles are in her bedside drawer
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: thoughts of taking all her pills
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: distress and thoughts of self-harm
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Wake her husband now and hand him the pill bottles so he can keep them and give her doses
+    certainty: stated
+  - item_id: E2
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time for the suicide and crisis lifeline
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 right away if she feels she might act on the thoughts
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient said she keeps thinking about taking all her pills so it stops
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care after hours line, this is Imani.
+  Caller -> Hi. Hi. I'm sorry to call so late. I didn't know who else. It's Dolores. Dolores Teague. T E A G U E. I'm a patient. || caller_name, patient_name, relationship
+  Nurse -> Hi Dolores. I'm glad you called. It's okay that it's late. We're here all night. What's going on?
+  Caller -> I can't sleep. I'm just. I'm sitting on the edge of the bed. I'm crying. I don't, I don't know how to do this anymore.
+  Nurse -> I'm so sorry. I'm right here with you. Take your time.
+  Caller -> I'm sorry. I'm sorry. I don't want to wake my husband. He's so tired. He's been up with me every night.
+  Nurse -> It's okay. You're not bothering anyone. Is he in the house with you?
+  Caller -> He's upstairs. He's asleep. We sleep in separate rooms now. Because of the, because I'm up and down. I'm on the first floor. We have the hospital bed in the den.
+  Nurse -> Okay. So you're alone down there right now.
+  Caller -> Yes. Alone. With the TV off. It's very quiet.
+  Nurse -> Okay. Dolores, can I get your date of birth so I can pull up your chart?
+  Caller -> February eighth. Nineteen seventy four. I'm fifty two. I know. Young for this. || patient_dob
+  Nurse -> Thank you. And what number are you calling from, in case we get disconnected?
+  Caller -> It's the house line. Seven oh four, five five five, zero one three two. || callback_phone
+  Nurse -> Seven oh four, five five five, zero one three two. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. Thank you. Now tell me what's been going on tonight.
+  Caller -> I had a bad day. The pain is bad. And I got the call from the oncologist. The scan. It's, it's grown. They said there's nothing else to try. So that's it. That's the end of the line. || cc
+  Nurse -> Oh, Dolores. I'm so sorry. That's a lot to take in. When did you hear that?
+  Caller -> This afternoon. Four o'clock. I was in the kitchen. I told my husband. We cried. And then we ate dinner like nothing happened. And then I came down here.
+  Nurse -> That's a very hard day. Tell me about the pain tonight. How bad is it?
+  Caller -> It's, I'd say a six. In my belly and my back. It goes around. It's okay with the medicine but it's never gone. A six right now. || A2
+  Nurse -> A six. What have you taken for it?
+  Caller -> The oxycodone. Ten milligrams. I took one at nine. That's it. I know the rules. Every four hours, as needed. I only took the one. || A3
+  Nurse -> Okay. Good. Thank you for telling me. And how are you feeling in yourself? Besides the pain.
+  Caller -> I feel hopeless. Just, completely hopeless. I'm crying all the time. I don't want to talk to anyone. I don't want to eat. || A5
+  Nurse -> That sounds incredibly heavy. I want to ask you something, and I want you to be honest with me. Is that okay?
+  Caller -> Okay.
+  Nurse -> Have you had any thoughts of hurting yourself, or ending your life?
+  Caller -> Um. Yes. Sort of. I keep, I keep thinking about the pills. About taking all of them. So it stops. So I don't have to, so it doesn't get worse. I keep thinking about it. || A1, F1
+  Nurse -> Thank you for telling me. That took courage. I'm really glad you told me. Dolores, I want to ask a few more questions so I understand. Have you taken any extra pills tonight?
+  Caller -> No. No. I haven't. Just the one at nine. I swear. I just think about it. I haven't done anything. || A4
+  Nurse -> I believe you. Do you have a plan? Have you decided when or how?
+  Caller -> Not, not tonight. I don't think. I just, they're right here. In the drawer next to my bed. I look at the drawer. I keep looking at the drawer.
+  Nurse -> Okay. So the pill bottles are in the drawer right next to you.
+  Caller -> Yes. All of them. The oxycodone. The other ones. I've got maybe, I don't know, five or six bottles. || A6
+  Nurse -> Okay. And do you intend to take them tonight? Are you planning to act on these thoughts?
+  Caller -> I don't think so. I don't want to. Part of me doesn't want to. I think about my husband. And my daughter. She's in college. I don't want her to find, I don't want to hurt them.
+  Nurse -> That's the part of you I want to hear from. The part that thinks about your husband and your daughter. Can you tell me more about her?
+  Caller -> Marnie. She's a sophomore. She's coming home on Friday. For the weekend. She doesn't know about the scan.
+  Nurse -> She's coming Friday. That's something to hold on to.
+  Caller -> Yeah. Friday.
+  Nurse -> Dolores, I want to make sure you're safe tonight. And I want to make a plan with you. Can we do that together?
+  Caller -> Yeah. Okay.
+  Nurse -> First thing. I want you to wake up your husband. Right now. Can you do that? Go upstairs, or call him. And I want you to hand him the pill bottles, all of them, so he can keep them somewhere you can't reach, and give you your doses. || E1
+  Caller -> Oh. I don't want to wake him. He's so tired. He has work.
+  Nurse -> I know. I understand. But this is important, and he'd want to know. He would be so upset if he found out tomorrow that you went through this alone.
+  Caller -> He would. He would. He'd cry. He'd be so mad that I didn't wake him.
+  Nurse -> He wants to help you. Let him.
+  Caller -> Okay. Okay. I'll call him. Can I use the intercom? We have a baby monitor. From when Marnie was little. We use it now. For me.
+  Nurse -> That's perfect. Use the intercom. I'll stay on the phone with you.
+  Caller -> Okay. Hold on. Hold on. I'm pressing the button. Gary? Gary. It's me. I need you. Can you come down? Please. Yes. I'm okay. I just need you.
+  Nurse -> Good job. I'm right here.
+  Caller -> He's coming. I hear him on the stairs. He's, he's fast. He's running.
+  Nurse -> That's love, Dolores.
+  Caller -> Yeah. Okay. He's here. He's in the doorway. He looks scared.
+  Nurse -> Can you tell him what's going on? Or I can talk to him if you want.
+  Caller -> I'll tell him. Gary, I've been, I was thinking about the pills. I didn't take any. I just thought about it. I called the nurse. Come sit.
+  Caller -> He's sitting. He's holding my hand. He's crying. I'm crying. Okay. He says he'll take the pills.
+  Nurse -> Perfect. Ask him to take the whole drawer. All the bottles. Put them somewhere safe, upstairs, in a locked cabinet or in his car, whatever he has. And he'll bring you your doses on schedule.
+  Caller -> He says he has a lockbox. For his gun. No. Not the gun. Wait. He has a lockbox, for his papers. He says he'll put them in there.
+  Nurse -> Okay. And I'm glad you mentioned a gun. Is there a firearm in the house?
+  Caller -> Yes. In the garage. In a safe. He keeps it locked. I don't know the code. I don't. I've never known it.
+  Nurse -> Good. Gary, if you're listening, please keep that locked, and don't tell her the code.
+  Caller -> He says he won't. He says okay. He says he understands.
+  Nurse -> Thank you, Gary. Dolores, how are you feeling now? With him there?
+  Caller -> A little better. A little. He took the bottles. He's carrying them. He's going up. He said he'd be right back.
+  Nurse -> Okay. While he does that, I want to tell you a few things. If these thoughts get stronger, or if you ever feel you might act on them, I want you to call 911 right away. Or tell Gary to. || E3
+  Caller -> Call 911. Okay.
+  Nurse -> And there's another number that's available any time, day or night. Nine eight eight. You can call or text. It's the suicide and crisis lifeline. They talk to people who feel the way you feel tonight. || E2
+  Caller -> Nine eight eight. I've heard of that. I never thought I'd need it.
+  Nurse -> Lots of people never think they will. It's a good number to have.
+  Caller -> I'll write it. Gary will write it. He's back. He's got a pen.
+  Nurse -> Good. I'm also going to page the on-call clinician right now. They'll want to know about tonight, and they can talk about your medicines and how you're feeling. || R1
+  Caller -> Okay. Thank you. I didn't think anyone would. I thought I'd be a bother.
+  Nurse -> You're not a bother. This is what we're here for. Also, I'm going to ask our social worker to reach out to you. She helps with exactly this, with the feelings and the fear. || R2
+  Caller -> A social worker. Okay. I think I'd like that. I don't really have anybody to talk to. Besides Gary. And I don't want to put all of it on him.
+  Nurse -> She'll be someone just for you. I'll put the request in tonight so she sees it first thing.
+  Caller -> Okay. Thank you.
+  Nurse -> And I want to send a nurse out to see you tomorrow morning. To check on you, check on the pain, and talk. || R3
+  Caller -> Tomorrow morning. Okay. Gary's staying home. He's going to call in.
+  Nurse -> Good. I'm glad. Dolores, I'm going to call you back in thirty minutes to check in on you. Is this phone okay? || R4
+  Caller -> Yes. The house phone. Thirty minutes. I'll be here. Gary says he's not going anywhere. He's getting a blanket.
+  Caller -> He's back. He has the blanket. The yellow one, from the couch. He put it around me.
+  Nurse -> That sounds nice. Is it warm in there?
+  Caller -> It's okay. The heat's on. He's making tea. He went to the kitchen. I can hear the kettle.
+  Nurse -> Tea sounds good. I'll stay on the line while he makes it.
+  Caller -> The kettle is so loud. It's the old one. He won't replace it. It whistles like a train.
+  Nurse -> Ha. A train at three in the morning.
+  Caller -> It's the sound of home. I don't mind.
+  Caller -> He's coming with two cups. He put honey in mine. I don't like honey, but I'll drink it.
+  Nurse -> Take a few sips if you can.
+  Caller -> Okay. It's hot. It's good. He sat down on the bed. He's close.
+  Nurse -> What's he saying?
+  Caller -> He's not saying anything. He's just here. He's patting my hand.
+  Nurse -> Sometimes that's all there is to say.
+  Caller -> I know. He's not a talker. Thirty years. I'd have to say he talks to the dog more than me.
+  Nurse -> Ha. Is there a dog?
+  Caller -> Yes. Pickles. He's asleep on the rug. He sleeps through everything.
+  Nurse -> A good dog for a hard night.
+  Caller -> He snores. I can hear him from here. It's a funny little whistle. Like the kettle.
+  Nurse -> Ha. The two of them could start a band.
+  Caller -> Gary would be the drummer. He taps on everything.
+  Nurse -> Does Marnie play anything?
+  Caller -> The cello. She was in the orchestra. I never miss a concert. Or I didn't.
+  Nurse -> Good. Stay with him. Sit together. You don't have to do anything right now except get through the next half hour. Can you do that?
+  Caller -> I can do that.
+  Nurse -> Okay. Is there anything else you want to tell me before we hang up?
+  Caller -> I just, I wanted to say thank you. For answering. At three in the morning.
+  Nurse -> I'm glad you called. It was the right thing. You're not alone, okay? Gary's there, and we're here.
+  Caller -> Okay. I know. I feel it a little. Thank you.
+  Nurse -> I'll talk to you in thirty minutes.
+  Caller -> Okay. Bye. Bye.
+  Nurse -> Bye, Dolores.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dolores Teague, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1974-02-08", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Dolores Teague, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550132", certainty: stated, heard_as: [], turns: [14, 15]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported thoughts of taking all her pills and severe distress.
+    speaker: Caller
+    turns: [4]
+    quote: "I don't know how to do this anymore."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Had thoughts of taking all of her pills so it would stop.
+      speaker: Caller
+      turns: [30]
+      quote: "I keep thinking about the pills. About taking all of them."
+      explanation: Documents the suicidal thoughts.
+      facts:
+        - {type: symptom, name: thoughts of taking all her pills, present: true, certainty: stated}
+      covers: [A1]
+    - text: Abdominal and back pain was a six.
+      speaker: Caller
+      turns: [22]
+      quote: "I'd say a six."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: abdominal pain, present: true, severity: "6", certainty: stated}
+      covers: [A2]
+    - text: Oxycodone 10 mg every four hours as needed, one taken at nine tonight.
+      speaker: Caller
+      turns: [24]
+      quote: "The oxycodone. Ten milligrams. I took one at nine."
+      explanation: Documents the pain medicine.
+      facts:
+        - {type: medication, name: oxycodone, dose: "10", unit: mg, frequency: every four hours as needed, prn: true, last_dose: nine o'clock tonight, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She had not taken any extra pills tonight.
+      speaker: Caller
+      turns: [32]
+      quote: "No. No. I haven't. Just the one at nine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: taking extra pills tonight, certainty: stated}
+      covers: [A4]
+    - text: She felt hopeless and was crying.
+      speaker: Caller
+      turns: [26]
+      quote: "I feel hopeless."
+      explanation: Documents the mood.
+      facts:
+        - {type: symptom, name: hopeless and tearful, present: true, certainty: stated}
+      covers: [A5]
+    - text: Her husband was asleep upstairs and her pill bottles were in the drawer next to her bed.
+      speaker: Caller
+      turns: [36]
+      quote: "Yes. All of them. The oxycodone."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: Her husband is asleep upstairs and her pill bottles are in her bedside drawer, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'm also going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the social worker to reach out to her.
+      speaker: Nurse
+      turns: [76]
+      quote: "I'm going to ask our social worker to reach out to you."
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [80]
+      quote: "I want to send a nurse out to see you tomorrow morning."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [82]
+      quote: "I'm going to call you back in thirty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised waking her husband and handing him all the pill bottles so he could keep them and give her doses.
+      speaker: Nurse
+      turns: [45]
+      quote: "I want you to wake up your husband."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling or texting 988 any time for the suicide and crisis lifeline.
+      speaker: Nurse
+      turns: [70]
+      quote: "Nine eight eight. You can call or text."
+      explanation: Documents the crisis resource.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 right away if she felt she might act on the thoughts.
+      speaker: Nurse
+      turns: [68]
+      quote: "I want you to call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [30], quote: "I keep thinking about the pills. About taking all of them."}

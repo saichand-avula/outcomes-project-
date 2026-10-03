@@ -1,0 +1,280 @@
+call_id: tr-403
+split: train
+blueprint: "An 88-year-old hospice patient calls for herself on a quiet afternoon: pain a two with her scheduled Tylenol, she used her as-needed Ativan once this week, sleeping fine, eating small amounts, and she would like a visit from the chaplain. The nurse hears her name as 'Lou Mila Petra Cova' and uses it; the patient cannot remember her phone number, so the nurse uses the one on file. Nurse messages the team about the chaplain and plans a visit Friday. Routine, prn and scheduled, name drift on the patient, phone not given, self caller, v2 short."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [name_drift, name_spelled, phone_not_given, phone_from_file, prn_and_scheduled, hedging, late_answers, split_turns]
+  clinical_domains: [pain, sleep, intake_appetite, mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Gloria
+  call_timestamp_utc: "2026-11-05T19:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ludmila Petrakova
+  patient_name_spoken: Ludmila Petrakova
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Lou Mila Petra Cova]
+  patient_dob_true: "1938-07-04"
+  patient_dob_spoken: "1938-07-04"
+  patient_dob_certainty: stated
+  caller_name_true: Ludmila Petrakova
+  caller_name_spoken: Ludmila Petrakova
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Lou Mila Petra Cova]
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Gave a routine update and asked for a chaplain visit
+  reason_category: mood
+  relevant_context: Hospice patient living at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: mild aching pain
+    symptom_present: true
+    severity: "2"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "650"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: lorazepam
+    medication_name_spoken: Ativan
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: Tuesday night
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: sleeping well
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: eating small amounts
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: request a chaplain visit
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any time day or night, and an after hours nurse always answers
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Eat small portions of what she likes whenever she is hungry and sip fluids through the day
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Gloria.
+  Caller -> Hello, dear. This is Ludmila Petrakova. L U D M I L A. Petrakova, P E T R A K O V A. I am one of your patients. I am calling for no reason. I am fine. I want to report. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi Lou Mila. Good to hear from you. Lou Mila Petra Cova. That's a lot of syllables. Say it for me one more time?
+  Caller -> And you, dear. I always say, the nurse with the nice voice. That is you?
+  Nurse -> I hope so.
+  Caller -> It is you. I am sure.
+  Caller -> Lyud-mee-la. Pet-ra-ko-va. Russian. Everyone makes a mess of it. It's all right.
+  Nurse -> What do your friends call you?
+  Caller -> Mila. Or Lusya. My husband called me Lyuda. Nobody calls me anything now. Only you.
+  Nurse -> I could call you Mila if you like.
+  Caller -> No, no. Lyudmila. It is a beautiful name. You say it right, you win a prize.
+  Nurse -> Lyudmila. I'll work on it. Thank you.
+  Caller -> You are doing good. Better than the last one.
+  Nurse -> Ha. Thank you. So tell me, how are you feeling?
+  Caller -> I am good. A little pain in my back. Not much. I would say a two. Like a small ache. Like a cat is sitting on my back. A light cat. || A1
+  Nurse -> Does it get worse when you move?
+  Caller -> A little when I get out of bed. Then it is gone. I walk in the kitchen, it is gone.
+  Nurse -> A two. Okay. Do you take anything regularly for it?
+  Caller -> The Tylenol. Six hundred fifty. Three times a day. In the morning, at lunch, at night. I took this morning's at eight. It works. || A2
+  Nurse -> Good. And the as needed one? The Ativan for nerves? || A3
+  Caller -> The Ativan. I took one Tuesday night. Only one. This week. I could not sleep because the neighbor was playing the television. Half milligram. I took the little one and I slept. || A3
+  Nurse -> Did you feel groggy the next morning?
+  Caller -> No, no. I got up and cleaned the stove. Like a young girl.
+  Nurse -> Ha. Good.
+  Nurse -> Okay. Once this week, Tuesday night. Good. How is your sleep otherwise?
+  Caller -> Good. I sleep nine, ten hours. Like a baby. I wake up, I drink tea, I sleep again. || A4
+  Caller -> The neighbor's television is gone now. He went to his daughter. Quiet. I like quiet.
+  Nurse -> Peace is a nice thing.
+  Nurse -> That's wonderful. And your appetite?
+  Caller -> I eat little. A piece of bread with butter. Some soup. A boiled egg. Tea with jam. Little, little. I am not hungry like before. But I do not feel sick. || A5
+  Nurse -> That's okay. Eating small amounts is common. Lyudmila, I need your date of birth.
+  Caller -> July fourth. Nineteen thirty eight. I am an American citizen since nineteen seventy six. I was born on Independence Day, in a different country, you see the joke. || patient_dob
+  Nurse -> Ha. A good joke. And a number for you?
+  Caller -> My number? Oh, my. I do not know my number. I never call myself. It is on a paper by the telephone but I cannot find my glasses. Do you have it?
+  Nurse -> I have a number on file. Is it okay if I use that?
+  Caller -> Yes, yes. Use that. It is the same. I have the same number for thirty years.
+  Caller -> The telephone is the black one. With the cord. My daughter bought me a new one with buttons for the numbers. I do not use it.
+  Nurse -> The old phone works.
+  Caller -> It always works.
+  Nurse -> Perfect. Thank you. So what did you want to report?
+  Caller -> I want to ask. For a person. A priest. No, not a priest. I am Orthodox, but the chaplain is fine. A man or a woman, it does not matter. I would like to talk to someone about, you know. About things. Before. || cc
+  Nurse -> Of course. I'm going to leave a message for the team to request a chaplain visit. They'll find someone who is right for you. || R1
+  Caller -> Thank you. That is what I want. I have been thinking. I am not afraid. But I would like to talk.
+  Nurse -> That's very natural. It's good that you asked.
+  Caller -> My late husband used to say, you must say what is in your heart. Before it is too late. I think he was right.
+  Nurse -> He sounds wise.
+  Caller -> He was a stubborn man. But wise. Yes.
+  Nurse -> I'd also like to send a nurse out Friday, to see you and check how you're doing. || R2
+  Caller -> Friday. Good. I will make tea. Do you like tea? The nurse will like my tea.
+  Nurse -> Ha. I'm sure.
+  Caller -> I make it with a spoon of jam. Like at home. In the glass with the metal holder.
+  Nurse -> That sounds lovely. Lyudmila, remember, you can call us any time, day or night. Even if it's just to talk. An after hours nurse always answers. || E1
+  Caller -> Even at night? I do not want to bother.
+  Nurse -> Even at night. You are never a bother.
+  Caller -> That is a kindness. Thank you.
+  Nurse -> And keep eating small portions of whatever you like, whenever you feel hungry. And sip fluids through the day. || E2
+  Caller -> Little portions. Tea with jam. Yes. This I can do very well.
+  Nurse -> Ha. You're an expert.
+  Caller -> Fifty years of practice.
+  Nurse -> Do you have a visitor today?
+  Caller -> My daughter at six. She brings the groceries. She scolds me about the stairs. She is right.
+  Caller -> I drink five or six glasses a day. My daughter says that is too many. I say no.
+  Nurse -> Tea counts as fluid. That's good for you.
+  Nurse -> Anything else you wanted to tell me?
+  Caller -> No. Only that I am fine. And thank you. Goodbye, dear.
+  Nurse -> Goodbye, Lyudmila. See you Friday.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Ludmila Petrakova, heard_form: Lou Mila Petra Cova, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ludmila Petrakova, certainty: unclear, heard_as: [Lou Mila Petra Cova], turns: [2]}
+    patient_dob: {value: "1938-07-04", certainty: stated, heard_as: [], turns: [32]}
+    caller_name: {value: Ludmila Petrakova, certainty: unclear, heard_as: [Lou Mila Petra Cova], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Gave a routine update and asked for a chaplain visit.
+    speaker: Caller
+    turns: [41]
+    quote: "I want to ask. For a person."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: A mild back ache, a two.
+      speaker: Caller
+      turns: [15]
+      quote: "I would say a two."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: mild aching pain, present: true, severity: "2", certainty: stated}
+      covers: [A1]
+    - text: Tylenol 650 mg three times a day, last taken this morning at eight.
+      speaker: Caller
+      turns: [19]
+      quote: "The Tylenol. Six hundred fifty. Three times a day."
+      explanation: Documents the scheduled medicine.
+      facts:
+        - {type: medication, name: Tylenol, dose: "650", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Ativan 0.5 mg as needed, one taken Tuesday night.
+      speaker: Caller
+      turns: [21]
+      quote: "I took one Tuesday night. Only one."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: Ativan, dose: "0.5", unit: mg, frequency: as needed, prn: true, last_dose: Tuesday night, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She was sleeping well, nine to ten hours.
+      speaker: Caller
+      turns: [26]
+      quote: "I sleep nine, ten hours."
+      explanation: Documents the sleep.
+      facts:
+        - {type: symptom, name: sleeping well, present: true, certainty: stated}
+      covers: [A4]
+    - text: She was eating small amounts but did not feel sick.
+      speaker: Caller
+      turns: [30]
+      quote: "I eat little."
+      explanation: Documents the appetite.
+      facts:
+        - {type: symptom, name: eating small amounts, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to leave a message for the team to request a chaplain visit.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm going to leave a message for the team to request a chaplain visit."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit Friday.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'd also like to send a nurse out Friday"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling any time day or night, with an after hours nurse always answering.
+      speaker: Nurse
+      turns: [52]
+      quote: "you can call us any time, day or night."
+      explanation: Documents the invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E1]
+    - text: Advised eating small portions of what she liked when hungry and sipping fluids through the day.
+      speaker: Nurse
+      turns: [56]
+      quote: "keep eating small portions of whatever you like"
+      explanation: Documents hydration and nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+  risk_flags: []

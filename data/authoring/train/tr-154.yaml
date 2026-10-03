@@ -1,0 +1,186 @@
+call_id: tr-154
+split: train
+blueprint: "Wife caring for her husband with dementia says she is exhausted, sleeping 3 hours a night, and asks for help. Nurse asks about safety; she says she would never hurt him or herself, she is just worn out (negated risk phrase, no flag). Nurse plans a social work referral and a respite discussion, and a callback tomorrow."
+setup:
+  scenario_category: routine
+  subtype: caregiver_strain
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns]
+  clinical_domains: [caregiver_stress, sleep, cognition]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-10-03T19:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ellis Draper
+  patient_name_spoken: Ellis Draper
+  patient_name_certainty: stated
+  patient_dob_true: "1944-11-05"
+  patient_dob_spoken: "1944-11-05"
+  patient_dob_certainty: stated
+  caller_name_true: Marilyn Draper
+  caller_name_spoken: Marilyn Draper
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7275550168"
+  callback_phone_spoken: "7275550168"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Said she is exhausted caring for her husband and asked for help
+  reason_category: caregiver_stress
+  relevant_context: Husband has dementia
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: caregiver exhaustion
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping about 3 hours a night
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: thoughts of hurting him or herself
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Husband wakes and wanders several times each night
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    reason_or_trigger: caregiver strain and respite options
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time she feels overwhelmed or unsafe, and call the agency any hour
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Joanne.
+  Caller -> Joanne, it's Marilyn Draper. I'm calling about my husband, Ellis. Ellis Draper. And, really, I think I'm calling about me. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Marilyn. I'm glad you called. What's his date of birth?
+  Caller -> November fifth. Nineteen forty four. || patient_dob
+  Nurse -> And the best number for you, seven two seven, five five five, zero one six eight? || callback_phone
+  Caller -> Yes. Yes, that's right. || callback_phone
+  Nurse -> What's going on, Marilyn?
+  Caller -> I'm tired. I'm so tired I can't think. I'm sleeping about three hours a night. If that. || A1, A2
+  Nurse -> Tell me about the nights.
+  Caller -> He gets up. Four, five times. He wanders. He thinks it's morning, he wants to go to work, he's been retired fifteen years. I have to follow him around the house. I can't sleep when he's awake. || A4
+  Nurse -> That sounds exhausting. Marilyn, I have to ask. When you say you can't do this anymore, are you having any thoughts of hurting yourself, or him?
+  Caller -> Oh, no. No, no. Never. I would never hurt him. And I'd never hurt myself. I'm not like that. I'm just worn out. I just need a break. A real one. || A3
+  Nurse -> Okay. Thank you for telling me. I believe you. And needing a break is not a failure.
+  Caller -> It feels like one.
+  Nurse -> I know. I'm going to ask our social worker to call you about respite care, someone to come in so you can sleep. || R1
+  Caller -> Oh. That would be, yes. Please. I didn't know there was such a thing.
+  Nurse -> There is. And I'll call you tomorrow to see how the night went. || R2
+  Caller -> Okay. Tomorrow. Thank you.
+  Nurse -> Marilyn, if you ever feel overwhelmed or unsafe, you can call or text nine eight eight any time. And you can call us any hour. || E1
+  Caller -> Nine eight eight. And you. Okay. Thank you for asking me. Nobody asks about me.
+  Nurse -> I'm asking. Anything else?
+  Caller -> No. That's it. Thank you, Joanne.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ellis Draper, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-11-05", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Marilyn Draper, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7275550168", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Said she is exhausted caring for her husband and asked for help.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I'm calling about me."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She was exhausted and sleeping about 3 hours a night.
+      speaker: Caller
+      turns: [8]
+      quote: "I'm tired. I'm so tired I can't think. I'm sleeping about three hours a night."
+      explanation: Documents her exhaustion.
+      facts:
+        - {type: symptom, name: caregiver exhaustion, present: true, certainty: stated}
+        - {type: symptom, name: sleeping about 3 hours a night, present: true, certainty: stated}
+      covers: [A1, A2]
+    - text: Her husband woke and wandered four or five times each night and she followed him around the house.
+      speaker: Caller
+      turns: [10]
+      quote: "He gets up. Four, five times. He wanders."
+      explanation: Documents the night-time wandering.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: She denied any thoughts of hurting him or herself and said she was just worn out.
+      speaker: Caller
+      turns: [12]
+      quote: "Never. I would never hurt him. And I'd never hurt myself."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: thoughts of hurting him or herself, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to ask the social worker to call about respite care.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to ask our social worker to call you about respite care"
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call tomorrow to see how the night went.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you tomorrow to see how the night went."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling or texting 988 any time she felt overwhelmed or unsafe and calling the agency at any hour.
+      speaker: Nurse
+      turns: [19]
+      quote: "if you ever feel overwhelmed or unsafe, you can call or text nine eight eight any time."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+  risk_flags: []

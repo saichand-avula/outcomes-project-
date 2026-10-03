@@ -1,0 +1,223 @@
+call_id: tr-138
+split: train
+blueprint: "Husband gave his wife two doses of morphine concentrate within ten minutes by mistake; she is drowsy but wakes to her name and is breathing about 12 a minute with no trouble. Nurse pages on-call, plans a callback in 5 minutes, and tells him to stay with her, give nothing more, and call 911 if she cannot be woken or her breathing slows. Flag: medication_concern."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [liquid_concentration, hedging, late_answers, split_turns]
+  clinical_domains: [medication, sedation]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-02T04:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cordelia Hutchins
+  patient_name_spoken: Cordelia Hutchins
+  patient_name_certainty: stated
+  patient_dob_true: "1944-06-05"
+  patient_dob_spoken: "1944-06-05"
+  patient_dob_certainty: stated
+  caller_name_true: Leonard Hutchins
+  caller_name_spoken: Leonard Hutchins
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "9285550165"
+  callback_phone_spoken: "9285550165"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that he gave his wife two doses of morphine by mistake
+  reason_category: medication
+  relevant_context: Hospice patient on morphine concentrate
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: extra_dose
+    dose: "5"
+    unit: mg
+    frequency: two doses within 10 minutes
+    last_dose: about 15 minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: drowsy but wakes to her name
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "12"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: double dose of morphine
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 5 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with her, give nothing more, and keep checking her breathing and whether she wakes to her name
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she cannot be woken, her breathing slows a lot, or her lips turn blue
+    trigger_condition: cannot be woken; breathing slows; blue lips
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller gave two doses of morphine concentrate within ten minutes by mistake
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Beth.
+  Caller -> Beth, it's Leonard Hutchins. It's my wife Cordelia. I think I did something wrong with her medicine. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Leonard, I'm here. Tell me her date of birth first.
+  Caller -> June fifth. Nineteen forty four. || patient_dob
+  Nurse -> And I have nine two eight, five five five, zero one six five for you. || callback_phone
+  Caller -> Yes. Yes, that's the house. || callback_phone
+  Nurse -> What happened with the medicine?
+  Caller -> The morphine. The liquid. I gave her the dose, the five milligrams, and then I forgot I did it. And I gave her another one. About ten minutes later. Two doses. I gave her two. || A1, F1
+  Nurse -> Okay. When was the second one?
+  Caller -> Fifteen minutes ago. Maybe. I looked at the clock. || A1
+  Nurse -> Okay. How is she right now? Is she awake?
+  Caller -> She's sleepy. Very. But if I say her name she opens her eyes. Cordelia. Cordelia. Yeah. She opened them. And closed them. || A2
+  Nurse -> Okay. Is she breathing okay? Can you count her breaths for one minute?
+  Caller -> Hold on. I'll count. One, two, three. Okay. About twelve. Twelve in a minute. Steady. || A3
+  Nurse -> Any gasping? Any blue color around her lips?
+  Caller -> No. No. Her lips are pink. Her breathing's calm. It's just slow-ish. No trouble. || A4
+  Nurse -> Okay. Leonard, thank you for telling me right away. I'm going to page our on-call nurse right now. || R1
+  Caller -> Okay. Please.
+  Nurse -> And I'll call you back in five minutes. || R2
+  Caller -> Five minutes. Okay.
+  Nurse -> Until then, stay right next to her. Don't give her anything else. Keep checking her breathing, and keep saying her name to see if she wakes. || E1
+  Caller -> Stay with her. Nothing else. Breathing. Name. Okay.
+  Nurse -> And Leonard, if you can't wake her, if her breathing slows way down, or her lips turn blue, call nine one one right away. Don't wait for me. || E2
+  Caller -> Nine one one. Can't wake her. Slow. Blue. Yes. Okay.
+  Nurse -> I'll call in five.
+  Caller -> I'm so sorry. I'm so sorry.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cordelia Hutchins, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-06-05", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Leonard Hutchins, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "9285550165", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that he gave his wife two doses of morphine by mistake.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I did something wrong with her medicine."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two 5 mg doses of morphine liquid were given about ten minutes apart by mistake, the second about 15 minutes earlier.
+      speaker: Caller
+      turns: [8]
+      quote: "I gave her the dose, the five milligrams, and then I forgot I did it. And I gave her another one. About ten minutes later."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: two doses within 10 minutes, last_dose: about 15 minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was very sleepy but opened her eyes when her name was said.
+      speaker: Caller
+      turns: [12]
+      quote: "She's sleepy. Very. But if I say her name she opens her eyes."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: drowsy but wakes to her name, present: true, certainty: stated}
+      covers: [A2]
+    - text: Her breathing rate was about 12 a minute and steady.
+      speaker: Caller
+      turns: [14]
+      quote: "About twelve. Twelve in a minute. Steady."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "12", certainty: stated}
+      covers: [A3]
+    - text: No trouble breathing or blue lips were reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No. No. Her lips are pink. Her breathing's calm."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call nurse about the double dose.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in 5 minutes.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back in five minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 5 minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised staying next to her, giving nothing more, and checking her breathing and whether she woke to her name.
+      speaker: Nurse
+      turns: [21]
+      quote: "stay right next to her. Don't give her anything else."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if she could not be woken, her breathing slowed a lot, or her lips turned blue.
+      speaker: Nurse
+      turns: [23]
+      quote: "if you can't wake her, if her breathing slows way down, or her lips turn blue, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "And I gave her another one."}

@@ -1,0 +1,261 @@
+call_id: tr-427
+split: train
+blueprint: "A son calls palliative care about his 68-year-old mother's nausea after her latest treatment; he reads the anti-nausea medicine as 'Zo fran' four milligram dissolving tablet, as needed every eight hours. She had one this morning, still queasy, nibbled crackers, sipping ginger ale, no vomiting today. Nurse recognizes ondansetron/Zofran, plans to message the team about adding a second medicine, a callback tomorrow, and gives tips on small meals and fluids. ASR drug garble, adult child caller, patient 65-89, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [nausea_vomiting, medication, intake_appetite]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Aspen Bridge Palliative Care
+  agency_type: palliative
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-11-14T17:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marguerite Ellsworth
+  patient_name_spoken: Marguerite Ellsworth
+  patient_name_certainty: stated
+  patient_dob_true: "1957-12-09"
+  patient_dob_spoken: "1957-12-09"
+  patient_dob_certainty: stated
+  caller_name_true: Jerome Ellsworth
+  caller_name_spoken: Jerome Ellsworth
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "3145550194"
+  callback_phone_spoken: "3145550194"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported ongoing nausea in his mother despite her anti-nausea tablet
+  reason_category: nausea_vomiting
+  relevant_context: Palliative care patient with nausea after treatment
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zofran
+    medication_name_spoken: Zo fran
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every eight hours as needed
+    prn: true
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: ongoing nausea
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating only crackers and sipping ginger ale
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting today
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team
+    reason_or_trigger: ask about adding a second anti-nausea medicine
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Let the tablet dissolve on the tongue, wait at least eight hours before another, and do not give extra doses
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small bland meals every two hours, sip clear fluids or ice chips, and avoid greasy or strong smelling food
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Aspen Bridge Palliative Care, this is Joanne.
+  Caller -> Hi, Joanne. This is Jerome Ellsworth. It's about my mom, Marguerite. Marguerite Ellsworth. She's still queasy. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Jerome. I'm sorry to hear that. How long has she been feeling queasy?
+  Caller -> Thank you. I wasn't sure whether to call on a Saturday. I figured you'd have someone.
+  Nurse -> We're always here. You did the right thing.
+  Caller -> Since Tuesday. Since the treatment. It comes in waves. It's better in the morning, worse at night.
+  Caller -> She was supposed to feel better by Friday. That's what the paper said. It's Saturday and she's not.
+  Nurse -> Okay. Let me open her chart. Can I confirm her date of birth?
+  Caller -> Take your time. I'm just standing in the hallway. She's napping in the bedroom.
+  Caller -> December ninth. Nineteen fifty seven. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> Three one four, five five five, zero one nine four. || callback_phone
+  Nurse -> Got it. What is she taking for the nausea?
+  Caller -> The little tablet. It's called Zo fran. Z O, then F R A N. Four milligrams. It melts on her tongue. The label says every eight hours as needed. || A1
+  Nurse -> That's Zofran, the brand name for ondansetron. Zo fran, yes. When did she last have one? || A1
+  Caller -> Okay. So the label might have the generic name on the bottom. Yes, it does. I see it now. Small print.
+  Nurse -> That's the same medicine.
+  Caller -> This morning. Around eight. She took one and said it helped a little. For a couple of hours.
+  Caller -> I wrote it on the chart. Eight oh five. With the green pen. My sister gave me a chart.
+  Nurse -> And how is the nausea now?
+  Caller -> Moderate, I'd say. She's holding her stomach. She says it's a six. A six out of ten. She's pale. She keeps swallowing. || A2
+  Nurse -> Okay. Is she vomiting?
+  Caller -> Not today. Yesterday she threw up once. But not today. She's afraid to try. She's scared she'll throw up if she eats. || A4
+  Caller -> It was after she tried the oatmeal. It's probably the oatmeal. I won't make that again.
+  Nurse -> What has she been able to eat or drink?
+  Caller -> Crackers. Saltines. About six of them. And ginger ale, flat. A few sips. That's it. She's not hungry. || A3
+  Nurse -> Okay. That's something. It's important to keep sipping. Is she urinating regularly?
+  Caller -> Yes. Three times today. Normal color. Pale yellow.
+  Caller -> I'm watching, believe me. I pay attention to the bathroom more than I ever thought I would.
+  Nurse -> Ha. That's what caregivers do.
+  Nurse -> Good. That's reassuring.
+  Caller -> I don't know what else to do. I made her toast. I made chicken soup. She looks at it and turns green.
+  Caller -> My neighbor brought a casserole. A tuna one. My mom smelled it from the porch and had to lie down.
+  Nurse -> Ha. Tuna is definitely off the list.
+  Nurse -> The smell can set it off. A lot of people do better with cold or room temperature food, because there's less smell.
+  Caller -> Oh. That makes sense. Cold chicken? I could do a cold chicken sandwich.
+  Nurse -> Maybe a very small one. Or plain yogurt, or applesauce.
+  Caller -> She likes applesauce. I'll try that. With cinnamon?
+  Nurse -> Skip the cinnamon. Keep it plain.
+  Caller -> Plain. Okay.
+  Caller -> I'm writing it all down. Small meals. Cold food. Plain. No cinnamon.
+  Nurse -> Here's my plan. I'll message the team and ask whether they want to add a second anti-nausea medicine, since the Zofran only helps for a little while. || R1
+  Caller -> Oh, please. That would be great. She hates feeling this way.
+  Nurse -> In the meantime, the tablet can only be taken every eight hours. That means the next one is at four tomorrow morning, or whenever eight hours have passed. Please don't give extra doses. || E1
+  Caller -> No extras. I won't. It's one of those you don't want to double.
+  Caller -> I'll set an alarm for four in the morning. Or I'll just stay up. I'm not sleeping much anyway.
+  Nurse -> Right. And let it dissolve on her tongue, don't swallow it.
+  Caller -> On the tongue. That's how she does it. She makes a face.
+  Nurse -> Ha. It's fine.
+  Nurse -> For food, offer small bland meals every two hours, even a few bites. Sip clear fluids or suck on ice chips. And avoid greasy or strong smelling foods. || E2
+  Caller -> Small meals every two hours. Clear fluids. Ice chips. No greasy. I'll set a timer.
+  Nurse -> That's a good plan. I'll call you tomorrow to see how she's doing, and tell you what the team says. || R2
+  Caller -> Tomorrow. What time, roughly?
+  Caller -> I have to run to the pharmacy for her mouth rinse. It'll take thirty minutes. I'll be back by one.
+  Nurse -> In the afternoon, after lunch.
+  Caller -> Perfect. I'll be here. I'm taking the week off. I'm sleeping on her couch.
+  Caller -> My boss was great about it. He said take whatever you need. I almost cried at my desk.
+  Nurse -> That's wonderful. She's lucky to have you.
+  Caller -> I'm lucky to have her. She raised me alone. I owe her everything.
+  Nurse -> It shows. You're doing a lot.
+  Caller -> She keeps saying she's a burden. I tell her, you carried me nine months, I can carry a bowl.
+  Nurse -> Ha. That's a good answer.
+  Caller -> I made it up on the spot. I'm proud of it.
+  Nurse -> You should be.
+  Caller -> Okay. I'll let you go. Thank you, Joanne.
+  Nurse -> Anytime. Take care of yourself too.
+  Caller -> I will. Bye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Zofran, heard_form: Zo fran, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marguerite Ellsworth, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1957-12-09", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Jerome Ellsworth, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550194", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported ongoing nausea in his mother despite her anti-nausea tablet.
+    speaker: Caller
+    turns: [2]
+    quote: "She's still queasy."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Zo fran 4 mg dissolving tablet every eight hours as needed, last taken this morning around eight.
+      speaker: Caller
+      turns: [14]
+      quote: "It's called Zo fran. Z O, then F R A N. Four milligrams."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: Zo fran, dose: "4", unit: mg, frequency: every eight hours as needed, prn: true, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Nausea was moderate, about a six out of ten.
+      speaker: Caller
+      turns: [21]
+      quote: "Moderate, I'd say."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: ongoing nausea, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: She ate only about six saltine crackers and sipped flat ginger ale.
+      speaker: Caller
+      turns: [26]
+      quote: "Crackers. Saltines. About six of them."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: eating only crackers and sipping ginger ale, present: true, certainty: stated}
+      covers: [A3]
+    - text: She had not vomited today.
+      speaker: Caller
+      turns: [23]
+      quote: "Not today."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting today, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the team about adding a second anti-nausea medicine.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'll message the team and ask whether they want to add a second anti-nausea medicine"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow afternoon.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'll call you tomorrow to see how she's doing"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised letting the tablet dissolve on the tongue, waiting eight hours between doses and giving no extra doses.
+      speaker: Nurse
+      turns: [44]
+      quote: "Please don't give extra doses."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised small bland meals every two hours, clear fluids or ice chips and avoiding greasy or strong smelling food.
+      speaker: Nurse
+      turns: [50]
+      quote: "offer small bland meals every two hours"
+      explanation: Documents nutrition teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+  risk_flags: []

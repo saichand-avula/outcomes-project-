@@ -1,0 +1,292 @@
+call_id: tr-277
+split: train
+blueprint: "A care aide at an assisted living facility calls the home health agency because a resident with a sacral wound is down to two foam dressings and a nearly empty bottle of wound wash, and the drainage soaked through the old dressing yesterday. No fever, no bad smell per the aide. The aide gets interrupted by a call light and the front desk. Nurse places the supply order, coordinates delivery to the front desk, plans a visit in two days, gives dressing guidance. Supply category, facility_staff caller, v2 short, interruptions."
+setup:
+  scenario_category: supply
+  subtype: wound_supplies
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [wound_skin, equipment]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Heron Valley Home Health
+  agency_type: home_health
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-31T17:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Irene Valdivia
+  patient_name_spoken: Irene Valdivia
+  patient_name_certainty: stated
+  patient_dob_true: "1941-02-26"
+  patient_dob_spoken: "1941-02-26"
+  patient_dob_certainty: stated
+  caller_name_true: Marcus Tillery
+  caller_name_spoken: Marcus Tillery
+  caller_name_certainty: stated
+  relationship_to_patient: aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "2125550124"
+  callback_phone_spoken: "2125550124"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that a resident is running low on wound dressings and wound wash
+  reason_category: supply
+  relevant_context: Assisted living resident with a sacral wound followed by home health
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: foam dressings
+    supply_remaining: two left
+    supply_unit: dressings
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: wound wash saline
+    supply_remaining: nearly empty
+    supply_unit: bottle
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: wound drainage soaking through the dressing
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or foul smell from the wound
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: Dressing was last changed on Monday by the visiting nurse and is due to be changed on Thursday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: low wound dressings and wound wash
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: front desk
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: in two days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: If the dressing soaks through before the next change, replace it with a clean foam dressing, wash hands first, and write the time on the chart
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call back if there is fever, a bad smell, redness spreading or a sudden increase in drainage
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Heron Valley Home Health, this is Priya.
+  Caller -> Yeah, hi, Priya, this is Marcus Tillery over at Maple Court. Assisted living. We have one of your clients. Hold on. Hold on one sec. Sorry. Okay. || caller_name, relationship
+  Nurse -> No problem. Take your time. Which client?
+  Caller -> It's Mrs. Valdivia. Irene Valdivia. We're running out of the dressings for her, her bottom, the sacral. And the wash stuff too. || patient_name, cc
+  Nurse -> Okay. Irene Valdivia. Can I get her date of birth?
+  Caller -> Um, I have it right here on the sheet. February twenty sixth. Nineteen forty one. || patient_dob
+  Nurse -> Perfect. And what's a good number to call you back at?
+  Caller -> The med room line. It's two one two. Five five five. One two four. Wait, zero one two four. || callback_phone
+  Nurse -> Two one two, five five five, zero one two four. Okay. Is that a direct line? || callback_phone
+  Caller -> It's, uh, it rings at the med cart station, so somebody picks up, but it might not be me.
+  Nurse -> Got it. So if I call I should ask for Marcus.
+  Caller -> Yeah, ask for Marcus. Or whoever. They'll find me.
+  Nurse -> Okay. Tell me about the dressings. How many does she have left?
+  Caller -> Let me look. Let me go count. Hold on. Hang on. Don't hang up. Okay, I'm in her room, she's sleeping. I'm trying to be quiet. Okay. The foam ones. There's two. Two left in the box. And the box says change every three days. || A1
+  Nurse -> And these are the foam dressings, the four by four ones?
+  Caller -> Four by four, yes. The square ones with the, the sticky border.
+  Nurse -> Okay. And you mentioned the wound wash?
+  Caller -> The saline. The bottle, it's, it's almost empty. There's like a splash in the bottom. I don't think it'll do one more change. || A2
+  Nurse -> Okay. Got it. So two dressings and a nearly empty bottle of saline.
+  Caller -> Yes. That's all we've got for her.
+  Nurse -> When was her dressing last changed?
+  Caller -> The nurse did it Monday. And it's due again Thursday, I think. That's what the sheet says. || A5
+  Nurse -> And it's what day today?
+  Caller -> Wednesday. It's Wednesday. So tomorrow. No wait. Thursday's tomorrow. Yeah.
+  Nurse -> Right. So she's due tomorrow. How does the dressing look right now?
+  Caller -> It's, so, that's the other thing. Yesterday I noticed it was kind of wet. Like it soaked through. The drainage went through the edge of the dressing and got on her gown. So I changed the gown. And I put a little gauze over it. I hope that's okay.
+  Nurse -> That's fine. It sounds like she's draining more than usual.
+  Caller -> A little bit more. It was wet yesterday and it's wet again today a little bit. || A3
+  Nurse -> Okay. Does she have a fever? Is she warm at all?
+  Caller -> No. She's not warm. They took her temperature this morning. It was normal. I think ninety eight something.
+  Nurse -> And any bad smell from the wound? When the dressing is off, or on?
+  Caller -> No. No smell. I would notice. Her room smells like lavender. Her daughter brings the, the spray. || A4
+  Nurse -> Okay. Good. That's reassuring.
+  Caller -> Oh, hold on. Hold on. Her light's going off next door. I have to, I'll be right back. Sorry. Sorry.
+  Nurse -> No problem. I'll be here.
+  Caller -> Okay. Sorry. It was Mr. Delgado. He wanted the TV remote. Every time.
+  Nurse -> Ha. That's the job, right?
+  Caller -> That's the job. Okay. So, do you guys send the stuff, or do we get it ourselves? Because the last time the lady said it takes three days from the, the supplier.
+  Nurse -> I can place the order for you. I'll put in a box of the foam dressings and two bottles of the saline wash, and I'll mark it urgent since she's almost out.
+  Caller -> Oh, that'd be great. Yes. Please.
+  Nurse -> Okay. Give me a second. I'm entering it now.
+  Caller -> Sure. Sure. Take your time.
+  Nurse -> It's in. I just placed the order with the supply company for the dressings and the saline wash. || R1
+  Caller -> Oh, great. Great. Thank you.
+  Nurse -> Where should they deliver it? To your front desk?
+  Caller -> The front desk. Yes. Ask for Carla. She signs for everything. Don't leave it with the door guy, he sets it on the floor and forgets.
+  Nurse -> Got it. Front desk, Carla. I'll ask them to deliver it tomorrow morning before noon. I'll note on the order that it needs to go to Carla at the front desk. || R2
+  Caller -> Perfect. That works. Thank you.
+  Nurse -> In the meantime, you've got two dressings. If the dressing soaks through before her next change, put a clean foam dressing on, wash your hands first, and write the time on her chart. Don't reuse a wet one. || E1
+  Caller -> Okay. Wash hands. Clean dressing. Write the time. Not reuse the wet one. Got it. I'm writing it on my hand. Hold on, I need a pen.
+  Nurse -> Take your time.
+  Caller -> Okay. Okay. I have it.
+  Nurse -> And with the saline, if you run out before the delivery, use a clean sterile saline vial from the med room if you have any. Otherwise just wait and don't use tap water.
+  Caller -> Okay. We have the little vials in the med cart. I'll check.
+  Nurse -> Good. Now, I'll also have a nurse come out to see her in two days, so I can look at the wound and the drainage. || R3
+  Caller -> Two days. So Friday. Is it going to be you?
+  Nurse -> Probably me, or one of the other nurses. I'll write on the schedule.
+  Caller -> Okay. Because Mrs. Valdivia likes you. She said you're gentle.
+  Nurse -> Aw. That's nice to hear.
+  Caller -> She said the other one pulls too hard.
+  Nurse -> Ha. I'll make a note.
+  Caller -> Please do. She's very particular.
+  Nurse -> Now, call us back right away if she gets a fever, if the wound smells bad, if the redness is spreading, or if the drainage suddenly gets a lot heavier. || E2
+  Caller -> Fever, smell, redness spreading, a lot more drainage. Okay. Got it. I'll tell the next shift too. They don't always read the notes.
+  Nurse -> That would be great. Let them know to call us.
+  Caller -> I will. I'll put it on the board in the med room.
+  Nurse -> Is there anything else she needs? Any other supplies?
+  Caller -> I think that's it. Oh. Wait. The gloves. No. We have gloves. Facility has gloves. Never mind.
+  Nurse -> Okay. Good.
+  Caller -> And her daughter might call. She calls a lot. She worries.
+  Nurse -> That's fine. They can call here too.
+  Caller -> Okay. I'll tell her. Thank you, Priya.
+  Nurse -> You're welcome, Marcus. Thanks for calling it in early.
+  Caller -> Sure thing. Have a good one.
+  Nurse -> You too.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Irene Valdivia, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1941-02-26", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Marcus Tillery, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550124", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a resident was running low on wound dressings and wound wash.
+    speaker: Caller
+    turns: [4]
+    quote: "We're running out of the dressings for her, her bottom, the sacral."
+    explanation: Documents the supply concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two foam dressings were left in the box.
+      speaker: Caller
+      turns: [14]
+      quote: "Two left in the box."
+      explanation: Documents the dressing supply.
+      facts:
+        - {type: supply, item: foam dressings, supply: two left, certainty: stated}
+      covers: [A1]
+    - text: The saline wound wash bottle was almost empty.
+      speaker: Caller
+      turns: [18]
+      quote: "it's almost empty."
+      explanation: Documents the wound wash supply.
+      facts:
+        - {type: supply, item: wound wash saline, supply: nearly empty, certainty: stated}
+      covers: [A2]
+    - text: Wound drainage had soaked through the dressing since yesterday.
+      speaker: Caller
+      turns: [28]
+      quote: "It was wet yesterday and it's wet again today a little bit."
+      explanation: Documents the drainage.
+      facts:
+        - {type: symptom, name: wound drainage soaking through the dressing, present: true, onset: since yesterday, certainty: stated}
+      covers: [A3]
+    - text: No fever or bad smell was reported.
+      speaker: Caller
+      turns: [32]
+      quote: "No smell. I would notice."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or foul smell from the wound, certainty: stated}
+      covers: [A4]
+    - text: The dressing was last changed Monday by the nurse and was due again Thursday.
+      speaker: Caller
+      turns: [22]
+      quote: "The nurse did it Monday."
+      explanation: Documents the dressing change schedule.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Placed an order with the supply company for the dressings and the saline wash.
+      speaker: Nurse
+      turns: [43]
+      quote: "I just placed the order with the supply company for the dressings and the saline wash."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery to the front desk tomorrow morning.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll ask them to deliver it tomorrow morning before noon."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit in two days to look at the wound.
+      speaker: Nurse
+      turns: [55]
+      quote: "I'll also have a nurse come out to see her in two days"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: in two days, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised replacing a soaked dressing with a clean foam dressing after washing hands and writing the time on the chart.
+      speaker: Nurse
+      turns: [49]
+      quote: "put a clean foam dressing on, wash your hands first, and write the time on her chart."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back for fever, bad smell, spreading redness or a sudden increase in drainage.
+      speaker: Nurse
+      turns: [63]
+      quote: "call us back right away if she gets a fever"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

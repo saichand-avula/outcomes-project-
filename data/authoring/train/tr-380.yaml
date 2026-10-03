@@ -1,0 +1,307 @@
+call_id: tr-380
+split: train
+blueprint: "A daughter helping bathe her 84-year-old hospice mother finds two fentanyl patches on her back: an older one from Friday and a new one her brother applied this morning without removing the old one. Mother is sleepier than usual but wakes to her name, breathing about fourteen a minute, no blue lips. Nurse tells her to peel off the older patch now, pages on-call, plans a nurse visit within two hours and a callback in twenty minutes, and has her watch breathing and wakefulness, fold and dispose of the patch safely, and call 911 if she becomes hard to wake. High risk (double patch, medication concern), adult child, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, negated_risk_phrase]
+  clinical_domains: [medication, sedation, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Quiet Waters Hospice
+  agency_type: hospice
+  nurse_name: Rafael
+  call_timestamp_utc: "2026-10-28T20:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ottilie Hesselgrave
+  patient_name_spoken: Ottilie Hesselgrave
+  patient_name_certainty: stated
+  patient_dob_true: "1942-02-03"
+  patient_dob_spoken: "1942-02-03"
+  patient_dob_certainty: stated
+  caller_name_true: Maren Hesselgrave
+  caller_name_spoken: Maren Hesselgrave
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5055550155"
+  callback_phone_spoken: "5055550155"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother has two fentanyl patches on at the same time
+  reason_category: medication
+  relevant_context: Hospice patient on a fentanyl patch for pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl
+    medication_name_spoken: fentanyl
+    medication_status: extra_dose
+    dose: "25"
+    unit: mcg
+    frequency: every three days
+    last_dose: new patch this morning and old patch from Friday
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepier than usual
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "14"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: hard to wake or blue lips
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: two fentanyl patches on and increased sleepiness
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: fentanyl
+    medication_name_spoken: fentanyl
+    reason_or_trigger: peel off the older patch now and keep the new one on
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Fold the removed patch sticky sides together, double bag it and keep it away from children and pets until the nurse takes it
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check her breathing and whether she wakes to her name every ten minutes
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she is hard to wake, her breathing slows or becomes shallow, or her lips turn blue
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Two fentanyl patches on at the same time with increased sleepiness
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Quiet Waters Hospice, this is Rafael.
+  Caller -> Hi. Hi. This is Maren Hesselgrave. I'm calling about my mother. Ottilie Hesselgrave. I found something. She has two patches on. Two. I don't think she's supposed to. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Okay Maren. Take a breath. Tell me about the patches. Are these her pain patches?
+  Caller -> Yes. The fentanyl. I was giving her a bath. A sponge bath. I turned her and there's one on her back, the left shoulder blade. And another one, lower, on the right. Two. || A1
+  Nurse -> Okay. Two patches on. Do you know when each was put on?
+  Caller -> The new one, my brother put it on this morning. At nine. It was changing day. He didn't take the old one off. I asked him just now. He said, I thought the old one fell off. The old one is from Friday. Friday night. || A1
+  Nurse -> Okay. So one from Friday night, and one from this morning. How strong is each one?
+  Caller -> They both say fentanyl twenty five. Micrograms. Twenty five. It's printed on them. Twenty five. || A1
+  Nurse -> Okay. Twenty five micrograms each. So she's had fifty for about the last twelve hours. How is she acting? Is she sleepy?
+  Caller -> She's sleepier. Yes. She's been asleep all afternoon. More than usual. But she wakes up when I say her name. She opened her eyes and said, Maren, you're hurting my back. || A2
+  Nurse -> Okay. She wakes to her name. That's a good sign. Is she talking normally?
+  Caller -> A little slow. She's mumbling a little. But she makes sense. She asked for her tea.
+  Nurse -> Okay. Maren, I want you to look at her breathing. Count how many breaths she takes in one minute. Can you do that?
+  Caller -> Yes. Hold on. I have my phone timer. Okay. I'm looking at her chest. One, two, three. I'll count to sixty. Okay. Fourteen. Fourteen breaths. || A3
+  Nurse -> Fourteen is okay. Is her breathing regular, not shallow?
+  Caller -> Regular. A little deep. No pauses. It's like she's sleeping.
+  Caller -> She's snoring a little. A soft snore. She does that when she's really out.
+  Nurse -> Okay. Soft snoring is fine, as long as she wakes up.
+  Nurse -> Okay. Look at her lips and fingertips. What color?
+  Caller -> Pink. Normal. No blue. And she wakes up. She's not hard to wake. She's grumpy when I wake her. || A4
+  Nurse -> Good. Okay. Now I'd like you to do something. I want you to peel off the older fentanyl patch now. The one from Friday. Keep the new one on. Is that clear? || R2
+  Caller -> Take off the old one. The one from Friday. Which is the lower one, I think. The brother said he put the new one on the left. So the right is the old one.
+  Nurse -> Check the date. People write the date and time on the patch. Does either one have writing on it?
+  Caller -> Yes. The right one says Friday, ten p.m. The left one says today, nine a.m. So take off the right. The Friday one.
+  Nurse -> Correct. Peel it off slowly. Hold the skin down with your other hand.
+  Caller -> Okay. Peeling. It's sticky. It's coming. Okay. It's off. I have it. It's in my hand.
+  Nurse -> Good. Now fold it in half, sticky sides together. Then put it in a bag, a sealed bag, and then another bag. Keep it away from kids and pets until the nurse takes it. || E1
+  Caller -> Fold. Sticky sides together. Double bag. I have a freezer bag. And another. I'm doing it. There. Done. I put it in the cupboard above the sink. The high one.
+  Nurse -> Perfect. Wash your hands. And wipe her skin where it was, with plain water.
+  Caller -> Washing my hands. I'll wipe her back. Okay. There's a mark. A little red square. It looks like a sunburn.
+  Caller -> The water's warm. She says thank you. She's awake enough to say thank you.
+  Nurse -> That's a good sign.
+  Nurse -> That's normal where a patch has been. Okay. I'm paging the on-call clinician now. They'll want to know about the two patches and how sleepy she is. || R1
+  Caller -> Okay. Please. I'm scared. Is she going to be okay?
+  Caller -> I keep thinking, what if I'd waited until tomorrow to bathe her. I almost did.
+  Nurse -> You didn't wait. That's what matters.
+  Nurse -> I know it's frightening. Let's take it one step at a time.
+  Caller -> Okay. One step.
+  Nurse -> She's awake, she's talking, she's breathing at a good rate. Those are all good. But we need to watch her closely. That's why I'm sending a nurse out within the next two hours. || R3
+  Caller -> Two hours. Okay. Thank you.
+  Nurse -> And I'll call you back in twenty minutes. || R4
+  Caller -> Twenty minutes. Okay. I'll keep my phone with me.
+  Nurse -> In the meantime, I need you to check her every ten minutes. Look at her breathing, and say her name to see if she wakes up. || E2
+  Caller -> Every ten minutes. Breathing. Say her name. I'll set a timer. Ten minutes.
+  Nurse -> Good. And if she's hard to wake, if her breathing slows or gets shallow, or if her lips turn blue, call 911 right away. Don't wait for me. || E3
+  Caller -> Hard to wake. Slow breathing. Blue lips. 911. Okay. I'll do it.
+  Nurse -> Is there someone else with you?
+  Caller -> My brother is here. He's in the kitchen. He feels terrible. He's crying.
+  Caller -> He drove in from Tucson on Sunday. He's been doing the nights so I can sleep. He's exhausted.
+  Nurse -> It's easy to make a mistake when you're that tired.
+  Nurse -> Tell him it's okay. Mistakes like this happen. He did the right thing by telling you.
+  Caller -> I'll tell him. He's a mess. He keeps saying, I killed her. I told him she's fine.
+  Nurse -> Reassure him. She's fine right now, and we're watching.
+  Caller -> He's in the doorway now. He's asking if he can come sit with her.
+  Nurse -> Yes. Let him sit with her. That might help him too.
+  Caller -> Okay. Come in, Dev. Sit. He's sitting. He took her hand.
+  Caller -> I will.
+  Nurse -> What's your mother's date of birth, Maren? For the on-call.
+  Caller -> February third. Nineteen forty two. || patient_dob
+  Nurse -> And your number?
+  Caller -> Five oh five, five five five, zero one five five. || callback_phone
+  Nurse -> Five oh five, five five five, zero one five five. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. I'll talk to you in twenty minutes.
+  Caller -> Thank you, Rafael.
+  Nurse -> You did well.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ottilie Hesselgrave, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-02-03", certainty: stated, heard_as: [], turns: [59]}
+    caller_name: {value: Maren Hesselgrave, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550155", certainty: stated, heard_as: [], turns: [61, 62]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother had two fentanyl patches on at the same time.
+    speaker: Caller
+    turns: [2]
+    quote: "She has two patches on. Two."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two 25 mcg fentanyl patches were on, one from Friday night and a new one applied this morning at nine.
+      speaker: Caller
+      turns: [8]
+      quote: "They both say fentanyl twenty five."
+      explanation: Documents the double patch.
+      facts:
+        - {type: medication, name: fentanyl, dose: "25", unit: mcg, frequency: every three days, last_dose: new patch this morning and old patch from Friday, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was sleepier than usual but woke to her name.
+      speaker: Caller
+      turns: [10]
+      quote: "She's sleepier. Yes."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: sleepier than usual, present: true, certainty: stated}
+      covers: [A2]
+    - text: Breathing rate was fourteen a minute.
+      speaker: Caller
+      turns: [14]
+      quote: "Fourteen breaths."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "14", certainty: stated}
+      covers: [A3]
+    - text: Her lips were pink and she was not hard to wake.
+      speaker: Caller
+      turns: [20]
+      quote: "Pink. Normal. No blue."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: hard to wake or blue lips, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm paging the on-call clinician now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised peeling off the older patch now and keeping the new one on.
+      speaker: Nurse
+      turns: [21]
+      quote: "I want you to peel off the older fentanyl patch now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: fentanyl, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm sending a nurse out within the next two hours."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised folding the removed patch sticky sides together, double bagging it and keeping it away from children and pets.
+      speaker: Nurse
+      turns: [27]
+      quote: "fold it in half, sticky sides together."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised checking her breathing and whether she woke to her name every ten minutes.
+      speaker: Nurse
+      turns: [43]
+      quote: "check her every ten minutes."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if she was hard to wake, her breathing slowed or became shallow, or her lips turned blue.
+      speaker: Nurse
+      turns: [45]
+      quote: "call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "She has two patches on. Two."}

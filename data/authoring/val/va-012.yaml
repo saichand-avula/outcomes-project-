@@ -1,0 +1,306 @@
+call_id: va-012
+split: val
+blueprint: "Medium call: the patient's last name is heard as Kowalski, Kowalsky, and Kovalski and is never confirmed or spelled (identity unclear); constipation for 3 days with mild bloating, no vomiting; nurse advises MiraLAX that is already ordered, and plans a nurse visit and a message to the provider; speaker-label error and split turns."
+setup:
+  scenario_category: asr_error
+  subtype: name_conflict_unresolved
+  secondary_tags: [name_drift, identity_unresolved, speaker_label_errors, split_turns]
+  clinical_domains: [constipation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-09-19T17:40:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Stefan Kowalski
+  patient_name_spoken: Stefan Kowalski
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Kowalsky, Kovalski]
+  patient_dob_true: "1944-10-12"
+  patient_dob_spoken: "1944-10-12"
+  patient_dob_certainty: stated
+  caller_name_true: Monica
+  caller_name_spoken: Monica
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2485550187"
+  callback_phone_spoken: "2485550187"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Father has not had a bowel movement for 3 days
+  reason_category: constipation
+  relevant_context: Recovering from a hip fracture repair
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: constipation
+    symptom_present: true
+    onset_or_duration: 3 days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: abdominal bloating
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: polyethylene glycol
+    medication_name_spoken: MiraLAX
+    medication_status: prescribed
+    prn: true
+    history_or_context_text: Has it at home and has not used it
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    strength: 5 mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased appetite
+    symptom_present: true
+    severity: eats a few bites at a time because he feels full
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: severe abdominal pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: polyethylene glycol
+    medication_name_spoken: MiraLAX
+    dose: 1 capful
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: assess bowel function
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: surgeon
+    reason_or_trigger: constipation after hip surgery
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Fluids, prune juice, fiber, and short walks with the walker
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, a hard swollen belly, severe pain, or no bowel movement after the MiraLAX within 24 hours
+    trigger_condition: vomiting; hard swollen belly; severe pain; no BM in 24 hours
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, Rhonda. This is Monica. I'm calling about my dad. Stefan Kowalski. || caller_name, relationship, patient_name
+  Nurse -> Hi, Monica. Stefan Kowalsky. And his date of birth?
+  Caller -> October twelfth, nineteen forty four. || patient_dob
+  Nurse -> Thank you. And your phone number?
+  Caller -> Two four eight, five five five, zero one eight seven. || callback_phone
+  Nurse -> Okay, got it. And what's going on with your father, Mr. Kovalski?
+  Caller -> He hasn't had a bowel movement in three days. || cc, A1
+  Nurse -> Okay. Is he having any pain in his belly?
+  Caller -> Some bloating. His belly feels full, and it's a little puffy. But not terrible pain. || A2, A5
+  Nurse -> Okay. Is he throwing up?
+  Caller -> No. No vomiting. || A3
+  Nurse -> Okay. Let me look at his orders. Okay. He recently had the hip repair, right?
+  Caller -> Yes. Two weeks ago. He's been on the pain pills, and he's not moving much. I think that's why.
+  Nurse -> That's very likely. Pain medicine and less movement both slow the bowels. I see MiraLAX on his list as needed. Do you have it? || A4
+  Caller -> We do. At home. I haven't used it. I wasn't sure if I should. || A4
+  Nurse -> What is he taking for pain right now?
+  Caller -> The oxycodone. Five milligrams, twice a day. He says it helps. || A6
+  Nurse -> Okay. Is he using it every day?
+  Caller -> Every day, morning and night. He hates to miss it.
+  Nurse -> That may be contributing to the constipation.
+  Caller -> I figured. Should he stop it?
+  Nurse -> No, not on your own. Keep giving it as prescribed, and let's treat the constipation. The surgeon can adjust the pain plan if needed.
+  Caller -> Okay. I won't stop it.
+  Nurse -> And how's his appetite?
+  Caller -> He's eating less, because he feels full. A few bites at a time. || A7
+  Nurse -> Okay. That fits with the constipation too. I'd go ahead and give him one capful of the MiraLAX today, in eight ounces of water or juice. || R1
+  Caller -> One capful. Okay. In juice is fine?
+  Nurse -> Juice is fine.
+  Nurse -> It's the bottle on the bathroom shelf, I think. || label_error
+  Caller -> Okay. The bathroom shelf. I'll find it. Thank you.
+  Nurse -> And a lot of fluids, like water, and prune juice, and fiber, like fruit and oatmeal. And short walks with the walker, every couple of hours. || E1
+  Caller -> He walks to the kitchen and back. I'll get him to do more.
+  Nurse -> That's great. I'm also going to send a nurse out tomorrow, to check on his bowels, and look at how he's doing. || R2
+  Caller -> Oh good. Thank you.
+  Nurse -> And I'll send a message to his surgeon about the constipation, since it's after surgery. || R3
+  Caller -> Okay. I would appreciate that.
+  Nurse -> If he starts throwing up, or his belly gets hard and swollen, or he has severe pain, or he hasn't gone within twenty four hours after the MiraLAX, call us right away. || E2
+  Caller -> Okay. Vomiting, hard belly, severe pain, or twenty four hours. Got it.
+  Nurse -> How is he doing otherwise? Is he eating?
+  Caller -> He's eating less, because he feels full. But he's drinking. He's a little grumpy, to be honest. He hates being stuck at home.
+  Nurse -> That's understandable. Is he doing his physical therapy?
+  Caller -> The therapist comes twice a week. He likes her. He calls her the drill sergeant.
+  Nurse -> Ha. Those are the best ones.
+  Caller -> He says she's the only person who makes him move. I told him that's her job.
+  Nurse -> Ha. And a good one. How are you holding up, Monica? You sound like you're doing a lot.
+  Caller -> I'm okay. I live forty minutes away, so I come three or four times a week. My brother lives closer. He does the weekends.
+  Nurse -> That sounds like a good plan. Is your father alone during the week?
+  Caller -> Mostly. He has a neighbor, Mr. Okafor, who checks on him. And a medical alert button he wears around his neck.
+  Nurse -> That's good. Does he wear it all the time?
+  Caller -> I make him. He complains that it's itchy. I bought him a softer cord, and that helped.
+  Nurse -> Perfect. Safety first. Is there a rug or anything he could trip on?
+  Caller -> I took the rugs out. And my brother put in a grab bar in the bathroom last weekend.
+  Nurse -> That's wonderful. You've thought of everything.
+  Caller -> I'm trying. It's a lot, but we manage. He's a stubborn man, but he's a good man. He was a machinist for forty years.
+  Nurse -> A machinist! So he's used to precision and doing things right.
+  Caller -> Ha. That's why he's so particular about his recovery. He tracks his own steps on a little notepad.
+  Nurse -> I love that. Tell him the nurse will want to see the notepad tomorrow.
+  Caller -> He'll be thrilled. He'll probably give a presentation.
+  Nurse -> Is there anything else you need?
+  Caller -> No. I think that's it. Thank you so much, Rhonda.
+  Nurse -> You're welcome, Monica. Take care.
+  Caller -> You too. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Kowalski, heard_form: Kowalsky, fact_id: patient_name}
+  - {turn: auto, type: name_drift, true_form: Kowalski, heard_form: Kovalski, fact_id: patient_name}
+  - {turn: auto, type: speaker_label, true_form: "caller reply", heard_form: "It's the bottle on the bathroom shelf", fact_id: A4}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Stefan Kowalski, certainty: unclear, heard_as: [Kowalsky, Kovalski], turns: [2]}
+    patient_dob: {value: "1944-10-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Monica, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2485550187", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father had no bowel movement for 3 days.
+    speaker: Caller
+    turns: [8]
+    quote: "He hasn't had a bowel movement in three days."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: Mild abdominal bloating and fullness were reported without severe pain.
+      speaker: Caller
+      turns: [10]
+      quote: "Some bloating. His belly feels full, and it's a little puffy. But not terrible pain."
+      explanation: Documents associated abdominal symptoms.
+      facts:
+        - {type: symptom, name: abdominal bloating, present: true, severity: mild, certainty: stated}
+        - {type: pertinent_negative, name: severe abdominal pain, certainty: stated}
+      covers: [A2, A5]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+    - text: Oxycodone 5 mg twice a day was being taken for pain after the hip repair.
+      speaker: Caller
+      turns: [18]
+      quote: "The oxycodone. Five milligrams, twice a day. He says it helps."
+      explanation: Documents the opioid that may be contributing to the constipation.
+      facts:
+        - {type: medication, name: oxycodone, strength: 5 mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A6]
+    - text: Appetite was reduced, with only a few bites at a time because he felt full.
+      speaker: Caller
+      turns: [26]
+      quote: "He's eating less, because he feels full. A few bites at a time."
+      explanation: Documents decreased appetite.
+      facts:
+        - {type: symptom, name: decreased appetite, present: true, severity: eats a few bites at a time because he feels full, certainty: stated}
+      covers: [A7]
+    - text: MiraLAX was available at home but had not been used.
+      speaker: Caller
+      turns: [16]
+      quote: "We do. At home. I haven't used it. I wasn't sure if I should."
+      explanation: Documents availability and non-use of the bowel medication.
+      facts:
+        - {type: medication, name: MiraLAX, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised one capful of MiraLAX in 8 ounces of water or juice today.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'd go ahead and give him one capful of the MiraLAX today, in eight ounces of water or juice."
+      explanation: Documents the bowel medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: MiraLAX, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to check his bowels.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm also going to send a nurse out tomorrow, to check on his bowels, and look at how he's doing."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to message his surgeon about the constipation after surgery.
+      speaker: Nurse
+      turns: [36]
+      quote: "And I'll send a message to his surgeon about the constipation, since it's after surgery."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised fluids, prune juice, fiber, and short walks with the walker every couple of hours.
+      speaker: Nurse
+      turns: [32]
+      quote: "And a lot of fluids, like water, and prune juice, and fiber, like fruit and oatmeal."
+      explanation: Documents supportive bowel-care guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for vomiting, a hard swollen belly, severe pain, or no bowel movement within 24 hours after MiraLAX.
+      speaker: Nurse
+      turns: [38]
+      quote: "If he starts throwing up, or his belly gets hard and swollen, or he has severe pain, or he hasn't gone within twenty four hours after the MiraLAX, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

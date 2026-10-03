@@ -1,0 +1,415 @@
+call_id: tr-485
+split: train
+blueprint: "A 62-year-old woman with chronic back pain after spinal surgery calls home health herself: pain has climbed to a seven despite Tylenol, she is barely sleeping and low, and says 'I just wish I wouldn't wake up.' She has no plan or intent, no stockpiled pills, no firearms, and her sister is staying with her. Nurse takes it seriously, asks about intent and means, offers the 988 line, pages on-call, plans a nurse visit today and a social work referral, and calls back within the hour. Passive wish not to wake up with uncontrolled pain (suicidal statement and uncontrolled symptom), self caller, patient 18-64, v2 long."
+setup:
+  scenario_category: high_risk
+  subtype: passive_suicidal_statement_pain
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [pain, mood, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Cascade Home Health
+  agency_type: home_health
+  nurse_name: Elias
+  call_timestamp_utc: "2026-11-20T18:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hadley Winterbourne
+  patient_name_spoken: Hadley Winterbourne
+  patient_name_certainty: stated
+  patient_dob_true: "1964-03-08"
+  patient_dob_spoken: "1964-03-08"
+  patient_dob_certainty: stated
+  caller_name_true: Hadley Winterbourne
+  caller_name_spoken: Hadley Winterbourne
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5055550176"
+  callback_phone_spoken: "5055550176"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported worsening back pain, poor sleep, low mood, and wishing she would not wake up
+  reason_category: pain
+  relevant_context: Home health patient recovering from spinal surgery
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe back pain
+    symptom_present: true
+    severity: severe
+    onset: worse over two weeks
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "1000"
+    unit: mg
+    frequency: every eight hours as needed
+    prn: true
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: poor sleep and low mood
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: wishing she would not wake up
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: plan or intent to harm herself
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: severe pain and a passive wish not to wake up
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R3
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: support for mood and pain
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time, and call 911 or us right away if the thoughts get stronger or she thinks of acting on them
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep her sister with her today and keep her medicines where the sister manages them
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Use a heating pad for fifteen minutes at a time, change position every hour, and take short slow walks in the house
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Passive wish not to wake up with severe pain and low mood
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Back pain rated seven that is not controlled by Tylenol
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cascade Home Health, this is Elias.
+  Caller -> Hello? Hi. Is this the nurse line?
+  Nurse -> Yes, this is Elias. I'm a nurse. How can I help?
+  Caller -> Hi, Elias. It's Hadley Winterbourne. I'm a patient. I had my back surgery in September. I'm calling because the pain is getting worse and I'm not doing well. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Hadley. Thank you for calling. Is now a good time to talk?
+  Caller -> Yes. My sister is in the kitchen. I'm in the bedroom with the door shut.
+  Nurse -> Great. Thanks.
+  Nurse -> Okay. Take your time.
+  Nurse -> Hi, Hadley. I'm glad you called. Tell me what's going on.
+  Caller -> I've been working up to it all morning. I picked up the phone four times.
+  Nurse -> I'm glad the fifth time worked.
+  Caller -> The pain. It's a seven. All the time. It was a four, two weeks ago. Now it's a seven. In my lower back, down my left leg. The Tylenol isn't touching it. || A1, F2
+  Nurse -> I'm sorry. That's a lot to carry around.
+  Caller -> It is. I keep telling people I'm fine. I'm not fine.
+  Nurse -> A seven out of ten, and getting worse over two weeks. What are you taking for it?
+  Caller -> Tylenol. A thousand milligrams. Every eight hours if I need it. I took one this morning around nine. I've been taking it every time I can. It does nothing. || A2
+  Nurse -> Okay.
+  Nurse -> Okay. Tylenol, a thousand milligrams, as needed, every eight hours. Last at nine this morning. || A2
+  Caller -> I wish it did more. I'd take anything at this point. Not anything. Sorry.
+  Nurse -> I know what you mean.
+  Caller -> Right. I'm not allowed to take more. I know.
+  Nurse -> That's the right thing to follow. Thank you for being careful.
+  Nurse -> How is your sleep?
+  Caller -> Terrible. I sleep two hours, maybe three. I lie there. I watch the clock. And I'm just. I'm low. I feel flat. I cry for no reason. I cried at a commercial yesterday. A dog food commercial. || A3
+  Nurse -> That's exhausting.
+  Caller -> I've started to dread the night. The house gets so quiet.
+  Nurse -> I'm sorry. That sounds really hard. How long has your mood been low?
+  Caller -> About two weeks. Since the pain got worse. Maybe longer. It's hard to say. Time is weird.
+  Nurse -> I understand.
+  Caller -> Before that I was doing well. I was walking. I was knitting.
+  Nurse -> You've lost some of that.
+  Nurse -> Hadley, I'd like to ask you something directly, because I care about how you're doing. Are you having any thoughts about hurting yourself, or about not wanting to live?
+  Caller -> Um. Not exactly. I mean. Not like a plan. But I'll say this. I just wish I wouldn't wake up. Some mornings. I lie there and I think, I wish I just hadn't woken up. || A4, F1
+  Nurse -> Take your time. There's no wrong answer.
+  Nurse -> Thank you for telling me that. That took courage. I'm taking it seriously. Do you have a plan to hurt yourself or end your life?
+  Caller -> I've never said it out loud. I'm shaking.
+  Nurse -> It's okay. I'm right here. I'm not going anywhere.
+  Caller -> No. No plan. I don't want to do anything. I'm not going to do anything. I just wish it would stop. The pain. And the thinking. I'm so tired.
+  Nurse -> Thank you for being honest.
+  Caller -> I'm a teacher. I taught third grade for thirty years. I know about being honest.
+  Nurse -> It shows.
+  Nurse -> I hear that. Have you taken anything extra, or thought about taking a lot of your pills?
+  Caller -> I understand why you ask.
+  Caller -> No. I'd never. I've never thought about that. I have the Tylenol and that's it. And my sister took my other pills away. The prescription ones. She keeps them at her place. || A2
+  Nurse -> Okay.
+  Nurse -> Okay. Is there anything in the house that you might use to hurt yourself? Firearms? Large amounts of medicine?
+  Caller -> No guns. We never had guns. The medicine is just the Tylenol bottle. About twenty tablets. I counted. I've been counting. || A5
+  Nurse -> I'm glad to hear it.
+  Nurse -> Okay. Thank you for answering. Are you alone right now?
+  Caller -> Sorry. I keep thanking you.
+  Caller -> It's easier to say it over the phone than to someone's face.
+  Nurse -> A lot of people feel that way.
+  Caller -> I'm in my room. I shut the door.
+  Caller -> No. My sister Dorothea is here. She's staying with me. She's in the kitchen making soup. She has no idea I'm calling. She thinks I'm calling about the pain.
+  Nurse -> That's good that she's with you.
+  Caller -> She drove up from Tucson on Tuesday. She said she'd stay two weeks. She's been wonderful.
+  Nurse -> I'm glad.
+  Nurse -> Would you be willing to tell her? Or let me talk with her?
+  Caller -> Maybe. Not right now. I don't want to scare her.
+  Nurse -> You won't be scaring her. She'll want to help.
+  Caller -> She lost her husband last year. I don't want to put this on her.
+  Nurse -> I understand that worry.
+  Nurse -> I understand. I'd like us to work on that together in a minute. First, I'd like to get a few details. What's your date of birth?
+  Caller -> Okay. Thank you for not rushing me.
+  Caller -> March eighth. Nineteen sixty four. || patient_dob
+  Nurse -> Thank you.
+  Nurse -> And your number?
+  Caller -> Five oh five, five five five, oh one seven six. || callback_phone
+  Nurse -> Five oh five, five five five, oh one seven six. Right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Hadley, here's what I'm going to do. I'm going to page the on-call clinician right now, about the pain and what you told me. They need to know. || R1
+  Caller -> Okay. Go ahead.
+  Caller -> Okay. Is that necessary?
+  Caller -> I just don't want to make a big deal.
+  Nurse -> It isn't a big deal. It's care.
+  Nurse -> Yes. I want you to have the right help. Your pain is not controlled, and you're feeling low. Those two things need attention today.
+  Nurse -> And I'll stay on the line as long as you like.
+  Caller -> I do want help. I think that's why I called.
+  Nurse -> That's a strong thing to say.
+  Caller -> Okay. Okay. You won't send the police, will you?
+  Nurse -> I understand why you're asking.
+  Nurse -> I'm not sending anyone to your door against your wishes. You've told me you have no plan, and you're safe right now. I'd like a nurse to come see you today. || R2
+  Caller -> Today? Oh. Okay. That's, that would be good. I'd feel better with a person.
+  Caller -> I haven't seen a nurse since the staples came out.
+  Nurse -> It's time.
+  Nurse -> I'll ask for this afternoon. And I'll also put in a referral to our social worker. They can help with the low mood, and with managing the pain. || R3
+  Caller -> Is it the same nurse as before? The one with the curly hair?
+  Nurse -> It may be. I'll find out.
+  Caller -> I've never seen a social worker. Is that like a therapist?
+  Nurse -> Many people haven't. They're kind and practical.
+  Nurse -> It's similar. They help people cope and find support. Many of our patients find them very helpful.
+  Caller -> Okay. I'm willing.
+  Nurse -> That's great.
+  Nurse -> I'll call you back within the hour, after I've talked to the clinician. || R4
+  Caller -> Within the hour. Okay. I'll be right here. I'm not going anywhere. I can't, with my back. Ha.
+  Caller -> Dorothea just called me from the kitchen. She wants to know if I want soup. I said yes.
+  Nurse -> That's a good sign.
+  Nurse -> If you need me before that, call right back.
+  Caller -> I will.
+  Nurse -> I appreciate your humor. It helps. Now, there's a crisis line you can call or text any time, day or night. It's nine eight eight. If the thoughts get stronger, or you think about acting on them, call or text it, call us, or call nine one one. || E1
+  Caller -> It's how I survive, honestly. Humor and soup.
+  Nurse -> Both are good.
+  Caller -> Nine eight eight. I've seen that on TV. I'll save it in my phone. Right now.
+  Nurse -> It's free and it's there any time.
+  Nurse -> Go ahead. I'll wait.
+  Caller -> Hold on. Where's my phone. Oh. It's the one I'm talking on. Ha.
+  Nurse -> Ha. Use the one in your hand. Take your time.
+  Caller -> Okay. Saved. Nine eight eight. Under C for crisis. Ha. I'm very organized.
+  Nurse -> Good. You can also text it if talking is hard.
+  Caller -> I didn't know you could text. That helps.
+  Nurse -> Perfect. And Hadley, please keep your sister with you today. And have her manage your medicines, so you don't have to. || E2
+  Caller -> I'll text her the list too. She's good with lists.
+  Caller -> She'd never leave me alone anyway. She follows me to the bathroom door.
+  Nurse -> Ha. A good sister.
+  Caller -> Dorothea has the other pills at her house. The Tylenol I'll give to her. She can keep it in her purse. || A2
+  Nurse -> That's a great idea.
+  Caller -> She's good at that. She was a bookkeeper.
+  Caller -> I'll tell her. I think I'll tell her. Let me think about how.
+  Nurse -> You're doing fine. Take your time.
+  Nurse -> You can say, I talked with the nurse, and I need your help today. That's enough.
+  Caller -> I need your help today. Okay. I can say that.
+  Nurse -> Exactly.
+  Nurse -> For the pain, in the meantime, a heating pad can help. Fifteen minutes at a time, with a cloth between it and your skin. Change position every hour, and take short, slow walks in the house. || E3
+  Caller -> Heating pad, fifteen. Change position. Short walks. Okay. I can do those. I stopped walking. I was afraid it would hurt more.
+  Nurse -> Always with a cloth between it and your skin.
+  Nurse -> Slow and steady.
+  Caller -> I have a pad in the closet. Dorothea can plug it in for me.
+  Nurse -> Gentle walking usually helps. Just a few minutes.
+  Caller -> I have a cane. I haven't used it. Pride, I guess.
+  Caller -> It's in the umbrella stand. Next to an actual umbrella. Ha.
+  Nurse -> There's no shame in a cane.
+  Caller -> I'll walk to the mailbox. With Dorothea.
+  Nurse -> That sounds great.
+  Caller -> The mailbox is about forty steps. I counted once. When I could count steps.
+  Nurse -> Forty steps is a fine goal.
+  Caller -> Elias?
+  Nurse -> Yes?
+  Caller -> Thank you for not freaking out. I thought you'd freak out.
+  Caller -> My last nurse got that look. You know, the look. You didn't.
+  Nurse -> I'm just glad you told me.
+  Nurse -> It sounds like it was hard to say. I'm glad you said it. I'm not freaking out. I'm worried about you, and I want to help.
+  Caller -> It was. I've been carrying it for two weeks. It feels lighter already.
+  Nurse -> I'm glad.
+  Caller -> I'm glad I called. I almost didn't.
+  Nurse -> So am I. You did something hard today.
+  Caller -> It didn't feel hard. It felt like drowning, and then it felt like someone held out a hand.
+  Nurse -> That's a good way to say it.
+  Nurse -> Me too. Let's talk soon. Go find your sister.
+  Caller -> I'll go find her now. I'll sit with her in the kitchen. She's making soup.
+  Caller -> I'm putting my slippers on. They're the purple ones.
+  Nurse -> Take your time.
+  Nurse -> The soup sounds good.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hadley Winterbourne, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1964-03-08", certainty: stated, heard_as: [], turns: [65]}
+    caller_name: {value: Hadley Winterbourne, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "5055550176", certainty: stated, heard_as: [], turns: [68, 69]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported worsening back pain, poor sleep, low mood, and wishing she would not wake up.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm calling because the pain is getting worse and I'm not doing well."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Back pain rose from a four to a seven over two weeks, in the lower back and down the left leg.
+      speaker: Caller
+      turns: [12]
+      quote: "The pain. It's a seven. All the time."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: severe back pain, present: true, severity: severe, onset: worse over two weeks, certainty: stated}
+      covers: [A1]
+    - text: Tylenol 1000 mg was taken every eight hours as needed, last at nine this morning.
+      speaker: Caller
+      turns: [16]
+      quote: "Tylenol. A thousand milligrams. Every eight hours if I need it."
+      explanation: Documents the pain medicine.
+      facts:
+        - {type: medication, name: Tylenol, dose: "1000", unit: mg, frequency: every eight hours as needed, prn: true, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She slept two to three hours a night and felt flat and tearful.
+      speaker: Caller
+      turns: [24]
+      quote: "I sleep two hours, maybe three."
+      explanation: Documents the sleep and mood.
+      facts:
+        - {type: symptom, name: poor sleep and low mood, present: true, severity: moderate, certainty: stated}
+      covers: [A3]
+    - text: She wished she would not wake up some mornings.
+      speaker: Caller
+      turns: [33]
+      quote: "I just wish I wouldn't wake up."
+      explanation: Documents the passive wish.
+      facts:
+        - {type: symptom, name: wishing she would not wake up, present: true, certainty: stated}
+      covers: [A4]
+    - text: She had no plan or intent to harm herself and no guns, with about twenty Tylenol in the house.
+      speaker: Caller
+      turns: [38]
+      quote: "No plan. I don't want to do anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: plan or intent to harm herself, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician about the pain and what she shared.
+      speaker: Nurse
+      turns: [71]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [82]
+      quote: "I'd like a nurse to come see you today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+    - text: Planned a social worker referral for mood and pain support.
+      speaker: Nurse
+      turns: [86]
+      quote: "I'll also put in a referral to our social worker."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a callback within the hour.
+      speaker: Nurse
+      turns: [94]
+      quote: "I'll call you back within the hour"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 any time and calling 911 or the agency if the thoughts got stronger.
+      speaker: Nurse
+      turns: [100]
+      quote: "there's a crisis line you can call or text any time, day or night."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping her sister with her today and having the sister manage her medicines.
+      speaker: Nurse
+      turns: [111]
+      quote: "please keep your sister with you today."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised a heating pad for fifteen minutes, changing position hourly, and short slow walks.
+      speaker: Nurse
+      turns: [123]
+      quote: "a heating pad can help."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [33], quote: "I just wish I wouldn't wake up."}
+    - {category: uncontrolled_symptom, turns: [12], quote: "The pain. It's a seven. All the time."}

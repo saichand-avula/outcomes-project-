@@ -1,0 +1,380 @@
+call_id: tr-140
+split: train
+blueprint: "Daughter managing her father's insulin says his sugars are high for two days (312 before breakfast, 245 before lunch) and she is unsure about the sliding scale and about giving lispro when he eats less. Glargine 20 units at bedtime. He is very thirsty and urinating a lot, no low-sugar spells, drinking juice and sweet tea. Nurse reads the chart (metformin is a distractor), says to follow the scale with no extras, messages the provider, calls back this evening, and visits Friday. No flag. Long."
+setup:
+  scenario_category: medication
+  subtype: insulin_sliding_scale
+  secondary_tags: [chart_reading_distractor, multi_issue, prn_and_scheduled, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [glucose, medication, intake_appetite]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Dennis
+  call_timestamp_utc: "2026-10-02T17:25:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [metformin]
+chief_complaint:
+  patient_name_true: Alistair Mbatha
+  patient_name_spoken: Alistair Mbatha
+  patient_name_certainty: stated
+  patient_dob_true: "1949-09-09"
+  patient_dob_spoken: "1949-09-09"
+  patient_dob_certainty: stated
+  caller_name_true: Thandi Mbatha
+  caller_name_spoken: Thandi Mbatha
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7065550173"
+  callback_phone_spoken: "7065550173"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father's blood sugars have been high for two days and she is unsure she is giving his shots correctly
+  reason_category: glucose
+  relevant_context: Home health patient with diabetes on insulin who lives with his daughter
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: insulin glargine
+    medication_name_spoken: glargine
+    medication_status: taking
+    dose: "20"
+    unit: units
+    frequency: at bedtime
+    last_dose: last night at ten
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: insulin lispro
+    medication_name_spoken: lispro
+    medication_status: taking
+    dose: "8"
+    unit: units
+    frequency: sliding scale before meals
+    last_dose: 4 units before lunch today
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar before breakfast
+    vital_value: "312"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar before lunch
+    vital_value: "245"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased thirst and urination
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shaky or sweaty spells
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Unsure whether to give the mealtime insulin when he does not eat much
+    certainty: stated
+  - item_id: A8
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Ate only half his oatmeal this morning
+    certainty: stated
+  - item_id: A9
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Drinks juice and sweet tea during the day
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: high blood sugars on the current scale
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    reason_or_trigger: review the shot technique and the scale
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his sugar before each meal and at bedtime and write the numbers down
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if his sugar is over 400 or under 70, or if he is shaky, sweaty, very sleepy or confused; 911 if he cannot be woken
+    trigger_condition: sugar over 400; sugar under 70; shaky; sweaty; very sleepy; confused
+    certainty: stated
+  - item_id: E3
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the mealtime insulin exactly by the scale, give no extra, and check with the nurse first if he will not eat at least half the meal
+    certainty: stated
+  - item_id: E4
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Swap juice and sweet tea for water or unsweetened tea
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Dennis.
+  Caller -> Hi, Dennis. It's Thandi Mbatha. I'm calling about my father, Alistair Mbatha. It's his sugar. It's been high two days and I'm not sure I'm doing his shots right. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Thandi. We'll go through it together. First, his date of birth?
+  Caller -> September ninth. Nineteen forty nine. || patient_dob
+  Nurse -> And for you, seven oh six, five five five, zero one seven three? || callback_phone
+  Caller -> That's right. That's my cell. || callback_phone
+  Nurse -> Okay. What was his sugar this morning?
+  Caller -> Three twelve. Before breakfast. Yesterday morning it was two ninety something. I didn't write it down. || A3
+  Nurse -> Okay. And what did you give him this morning?
+  Caller -> The lispro. Okay, I have the sheet right here. The sliding scale. It says two fifty one to three hundred is six units. Three oh one to three fifty is eight units. So I gave him eight. || A2
+  Nurse -> Okay. So eight units of lispro at three twelve. That matches the scale you just read me. What about his long-acting one?
+  Caller -> The glargine. Twenty units at bedtime. Every night. I gave it last night at ten. || A1
+  Nurse -> Okay. Glargine, twenty units at bedtime. Let me pull up his chart so we're looking at the same orders.
+  Caller -> Okay. Take your time.
+  Nurse -> Okay, I have it. Glargine twenty units at bedtime, and the lispro sliding scale before meals. I also see metformin on his list, and we're not changing that today.
+  Caller -> Okay. Fine. That's the one he takes with breakfast and dinner.
+  Nurse -> Right. What was his sugar before lunch today?
+  Caller -> Two forty five. I gave him four units. That's what the scale says for two oh one to two fifty. || A4, A2
+  Nurse -> Okay. Is that four units of the lispro?
+  Caller -> Yes. The lispro. Four. || A2
+  Nurse -> Okay. Thandi, are you giving the lispro before he eats or after?
+  Caller -> Before. I check the sugar, then I do the shot, then I make the food. But sometimes he doesn't want to eat after. He says he isn't hungry. Like this morning, he only ate half his oatmeal. || A7, A8
+  Nurse -> Okay. That's a really good question to ask. We'll talk about it in a second. First, has he been thirsty, or going to the bathroom a lot?
+  Caller -> Yes. Both. He's drinking and drinking. Juice, mostly. And sweet tea, the way my mother used to make it. And he was up three times last night to pee. || A5, A9
+  Nurse -> Okay. Has he had any shaky, sweaty spells? Any low sugars?
+  Caller -> No. None. His lowest this week was one forty. No shaking. No sweating. He's fine that way. || A6
+  Nurse -> Okay. So the sugars are running high, but there are no lows. That's helpful. Here's what I'd like you to do. Keep giving the lispro exactly by the scale. Don't give extra. || A2, E3
+  Caller -> Okay. No extra. I was tempted to give more this morning. I looked at the number and I thought, it's too high, I'll add two.
+  Nurse -> I understand the instinct. But extra insulin on top of the scale can drop him low, especially if he doesn't eat much. || A2
+  Caller -> That's what I was afraid of. That's why I called.
+  Nurse -> You did the right thing. Now, your question about eating. If he says he's not going to eat at least half of the meal, check with me before you give the lispro. || A2, A7, E3
+  Caller -> Check with you. Okay. At any hour?
+  Nurse -> During the day, call us. After hours, the on-call nurse will pick up the same number.
+  Caller -> Okay. I'll put that on the fridge.
+  Nurse -> Good. Thandi, tell me about how you give it. Do you use the pen?
+  Caller -> Yes. The pen. I prime it, two units, to make sure it comes out. Then I dial the dose. Then I put it in his belly, I hold it for ten seconds. And I move around so it's not the same spot. My cousin is a nurse and she showed me over video, which helped a lot.
+  Nurse -> That's right. You're doing the technique well, and a video lesson from a nurse in the family is a real help. We'll watch you do it when the nurse visits so you can feel sure.
+  Caller -> Okay. That would help.
+  Nurse -> I'm going to message his provider about the high numbers and ask if the scale needs to change. || R1
+  Caller -> Okay. Thank you. Do you think it will change?
+  Nurse -> I can't say. That's up to the provider. I'll call you back this evening to tell you what they say. || R2
+  Caller -> This evening. Okay. I'm home by six.
+  Nurse -> Good. And a nurse will come out Friday to go over the shot technique and the scale with you. || R3
+  Caller -> Friday. Okay. Can it be after five? I work till four thirty.
+  Nurse -> I'll ask the scheduler to give you a late window.
+  Caller -> Thank you. That helps a lot.
+  Nurse -> Now, a few things until then. Check his sugar before every meal and at bedtime, and write every number down, even the ones you don't like. That way the provider can see the whole picture. || E1
+  Caller -> Before every meal and bedtime. Write them down. I'll get a notebook.
+  Nurse -> And about the drinks. Try to swap the juice and the sweet tea for water or unsweetened tea. Those drinks push his sugar up a lot. || E4
+  Caller -> Oh. Okay. He's not going to like that. He loves his sweet tea. He says it's the one thing he has left.
+  Nurse -> I hear you. Maybe a small glass with a meal, and water the rest of the time. We can talk about it when we visit.
+  Caller -> Okay. I'll try. I'll tell him the nurse said so. He listens to nurses more than he listens to me.
+  Nurse -> Ha. That's fine with me. Does he eat the same things every day, or does it change?
+  Caller -> Mostly the same. Oatmeal in the morning with brown sugar. Rice and stew for lunch, he loves rice. And at night whatever I cook, usually chicken. I've been trying less salt too, because of his pressure.
+  Nurse -> That sounds like a good base. The brown sugar and the big portions of rice are things we can look at together when we visit.
+  Caller -> Okay. I never thought about the brown sugar. I thought oatmeal was healthy.
+  Nurse -> It is. It's just the sugar on top. A little cinnamon is a nice swap.
+  Caller -> Cinnamon. He might go for that. He used to put it on his toast.
+  Nurse -> Ha. That's fine with me. And Thandi, I want you to call us if his sugar goes over four hundred or under seventy, or if he gets shaky, sweaty, very sleepy, or confused. And if you can't wake him, call nine one one. || E2
+  Caller -> Over four hundred. Under seventy. Shaky, sweaty, sleepy, confused. Can't wake him, nine one one. Okay. I'm writing it down.
+  Nurse -> Good. If he's under seventy, give him half a cup of juice and recheck in fifteen minutes, then call us.
+  Caller -> Juice. Half a cup. Recheck. That's a good use for the juice, then.
+  Nurse -> Exactly. Keep a little bit in the house for that.
+  Caller -> I will. Okay.
+  Nurse -> How are you holding up? This is a lot to manage.
+  Caller -> I'm okay. It's a lot. He moved in with me in the spring after my mother passed. I'm learning as I go. Honestly, I didn't know anything about diabetes in March.
+  Nurse -> You're doing a great job. Most people would not have noticed the numbers or called.
+  Caller -> Thank you. That means a lot. I just don't want to get it wrong.
+  Nurse -> You're not getting it wrong. You're asking questions, and that's what keeps people safe.
+  Caller -> My brother says I'm overdoing it. He says Dad should just eat what he wants at his age. But I can't do that. I can't watch him get sick.
+  Nurse -> That's a hard place to be. It's your call as the one helping him every day, and the plan we're making is a good one.
+  Caller -> Thank you. I'll tell my brother you said that too.
+  Caller -> Okay. Thank you, Dennis.
+  Nurse -> Anything else tonight?
+  Caller -> No. I think that's it. I'll be waiting for your call this evening.
+  Nurse -> I'll call you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alistair Mbatha, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-09-09", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Thandi Mbatha, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7065550173", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father's blood sugars have been high for two days and she is unsure she is giving his shots correctly.
+    speaker: Caller
+    turns: [2]
+    quote: "It's been high two days and I'm not sure I'm doing his shots right."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Blood sugar before breakfast this morning was 312.
+      speaker: Caller
+      turns: [8]
+      quote: "Three twelve. Before breakfast."
+      explanation: Documents the morning reading.
+      facts:
+        - {type: vital, name: blood sugar before breakfast, value: "312", certainty: stated}
+      covers: [A3]
+    - text: Blood sugar before lunch was 245.
+      speaker: Caller
+      turns: [18]
+      quote: "Two forty five. I gave him four units."
+      explanation: Documents the lunchtime reading.
+      facts:
+        - {type: vital, name: blood sugar before lunch, value: "245", certainty: stated}
+      covers: [A4]
+    - text: Lispro was given by sliding scale before meals, 8 units this morning and 4 units before lunch.
+      speaker: Caller
+      turns: [10]
+      quote: "Three oh one to three fifty is eight units. So I gave him eight."
+      explanation: Documents the mealtime insulin.
+      facts:
+        - {type: medication, name: lispro, dose: "8", unit: units, frequency: sliding scale before meals, last_dose: 4 units before lunch today, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Glargine 20 units at bedtime was being taken, last given last night at ten.
+      speaker: Caller
+      turns: [12]
+      quote: "Twenty units at bedtime. Every night. I gave it last night at ten."
+      explanation: Documents the long-acting insulin.
+      facts:
+        - {type: medication, name: glargine, dose: "20", unit: units, frequency: at bedtime, last_dose: last night at ten, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: She was unsure whether to give the mealtime insulin when he did not eat much.
+      speaker: Caller
+      turns: [22]
+      quote: "But sometimes he doesn't want to eat after. He says he isn't hungry."
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: He ate only half his oatmeal this morning.
+      speaker: Caller
+      turns: [22]
+      quote: "Like this morning, he only ate half his oatmeal."
+      explanation: Documents his intake.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+    - text: He had increased thirst and urinated three times last night.
+      speaker: Caller
+      turns: [24]
+      quote: "He's drinking and drinking."
+      explanation: Documents the symptoms of high sugar.
+      facts:
+        - {type: symptom, name: increased thirst and urination, present: true, certainty: stated}
+      covers: [A5]
+    - text: He drank juice and sweet tea during the day.
+      speaker: Caller
+      turns: [24]
+      quote: "Juice, mostly. And sweet tea, the way my mother used to make it."
+      explanation: Documents his drinks.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A9]
+    - text: No shaky or sweaty spells were reported, and his lowest sugar this week was 140.
+      speaker: Caller
+      turns: [26]
+      quote: "No shaking. No sweating."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shaky or sweaty spells, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the provider about the high sugars and ask whether the scale needs to change.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to message his provider about the high numbers and ask if the scale needs to change."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this evening with the provider's reply.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call you back this evening to tell you what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for Friday to review the shot technique and the scale.
+      speaker: Nurse
+      turns: [43]
+      quote: "a nurse will come out Friday to go over the shot technique and the scale with you."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving the lispro exactly by the scale with no extra, and checking with the nurse first if he would not eat at least half the meal.
+      speaker: Nurse
+      turns: [27]
+      quote: "Keep giving the lispro exactly by the scale. Don't give extra."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E3]
+    - text: Advised checking his sugar before each meal and at bedtime and writing the numbers down.
+      speaker: Nurse
+      turns: [47]
+      quote: "Check his sugar before every meal and at bedtime, and write every number down"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised swapping juice and sweet tea for water or unsweetened tea.
+      speaker: Nurse
+      turns: [49]
+      quote: "Try to swap the juice and the sweet tea for water or unsweetened tea."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E4]
+    - text: Advised calling for a sugar over 400 or under 70, or if he was shaky, sweaty, very sleepy, or confused, and calling 911 if he could not be woken.
+      speaker: Nurse
+      turns: [59]
+      quote: "call us if his sugar goes over four hundred or under seventy, or if he gets shaky, sweaty, very sleepy, or confused."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

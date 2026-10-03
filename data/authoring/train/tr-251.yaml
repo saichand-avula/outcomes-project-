@@ -1,0 +1,262 @@
+call_id: tr-251
+split: train
+blueprint: "Daughter of an 84-year-old hospice patient discovers that she and her brother each gave their mother her evening lorazepam (0.5 mg) about twenty minutes apart without telling each other. Mom is sleepy but rousable and breathing comfortably. The daughter is embarrassed and defensive, the brother can be heard arguing in the background. Nurse pages on-call, advises no more doses tonight and a check on breathing and waking every hour, and calls back in an hour. Flag: medication_concern (extra dose). Sibling communication failure, v2 short."
+setup:
+  scenario_category: medication
+  subtype: medication_concern
+  secondary_tags: [hedging, contradiction, crosstalk, late_answers, split_turns, prn_and_scheduled]
+  clinical_domains: [medication, sedation, caregiver_stress]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-21T01:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosalie Quintanilla
+  patient_name_spoken: Rosalie Quintanilla
+  patient_name_certainty: stated
+  patient_dob_true: "1942-01-19"
+  patient_dob_spoken: "1942-01-19"
+  patient_dob_certainty: stated
+  caller_name_true: Beatriz Quintanilla
+  caller_name_spoken: Beatriz Quintanilla
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7135550119"
+  callback_phone_spoken: "7135550119"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother was given her sleep and anxiety medicine twice
+  reason_category: medication
+  relevant_context: Hospice patient cared for by two adult children
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: extra_dose
+    dose: "0.5"
+    unit: mg
+    last_dose: twenty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepy but wakes when spoken to
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing or slow breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: two doses of lorazepam about twenty minutes apart
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more lorazepam tonight, write each dose and time on one sheet, and agree on one person who gives medicines
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check that she wakes easily and breathes normally every hour tonight and keep her on her side
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she cannot be woken or her breathing becomes slow or shallow
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient received lorazepam twice about twenty minutes apart from two family members
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Hi. Hi, Carla. I think we made a mistake. A medication mistake. It's Beatriz Quintanilla. My mother is Rosalie Quintanilla. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Beatriz. I'm glad you called. Tell me what happened.
+  Caller -> Okay. Okay. Hold on, let me sit down. I'm in the hall. My mother's room is right there.
+  Nurse -> Take your time. I'm here.
+  Caller -> I'm shaking a little. I haven't slept.
+  Nurse -> That's okay. Go ahead when you're ready.
+  Caller -> So it was time for her lorazepam. The point five. The bedtime one. And I gave it to her. At about, um, twelve forty. || A1, F1
+  Nurse -> Okay. Twelve forty.
+  Caller -> And then my brother, he came in, and he didn't know I had given it. And he gave it to her too. About twenty minutes later. || A1, F1
+  Nurse -> I see. So she's had two doses of the lorazepam, about twenty minutes apart. || A1
+  Caller -> Yes. Two. A half milligram each. I mean, I think. I can check the bottle. || A1
+  Nurse -> Can you check the bottle for me, please? Just to confirm the strength.
+  Caller -> Sure. Hold on. I have it in my hand, actually. I took it out of the room. It says, point five milligram, take one tablet at bedtime. That's right.
+  Nurse -> Okay. Thank you.
+  Caller -> And it says "as needed for anxiety or sleep." So I thought, you know, she was restless, so.
+  Nurse -> That's okay. Let's keep going.
+  Nurse -> Okay. How is she right now?
+  Caller -> She's sleepy. She's really sleepy. But she's awake. If I talk to her she opens her eyes. She said, "What?" She said "What, honey?" || A2
+  Nurse -> Okay. And her breathing? Is it regular? Is it slow?
+  Caller -> It's normal. I think. I'm watching her. Her chest is going up and down, it's regular. It's not slow. It's like how she breathes when she's sleeping. || A3
+  Caller -> Daniel, I'm on the phone. Yes, it's the hospice. Because of you. Because you didn't tell me.
+  Nurse -> Beatriz, is your brother there with you?
+  Caller -> He's right here. He's standing here. He's saying it's my fault because I didn't write it down.
+  Caller -> Daniel, stop. Not now. Go sit with Mom.
+  Caller -> Sorry. He's going in to sit with her. He's more upset than he's showing.
+  Nurse -> Of course he is. It's frightening.
+  Nurse -> It doesn't matter whose fault it is right now. What matters is that your mother is safe. Let's focus on her.
+  Caller -> Okay. You're right. I'm sorry. It's one in the morning. We're both exhausted.
+  Nurse -> I understand. It's an easy mistake when two people are giving medicine. Beatriz, what's her date of birth?
+  Caller -> January nineteenth. Nineteen forty two. || patient_dob
+  Nurse -> Thank you. And is your number seven one three, five five five, zero one one nine? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Great. Is that the best number tonight?
+  Caller -> Yes. Daniel's phone is dead. He lost his charger. Don't ask.
+  Nurse -> Ha. Okay. I'll call you.
+  Nurse -> Okay. I'm going to page the on-call clinician right now, so we know what to watch for. || R1
+  Caller -> Okay. Please. Is she going to be okay?
+  Nurse -> She's awake, she's breathing normally, and she's responding to you. That's reassuring. But I want the on-call clinician to weigh in.
+  Caller -> Okay. Okay. What do I do until then?
+  Nurse -> No more lorazepam tonight. Not from either of you. || E1, A1
+  Caller -> No more. I told Daniel. He knows. He said he'd throw the bottle away. I said no, don't throw it away.
+  Nurse -> No, don't throw it away. Just put it up where neither of you will grab it by accident. Then write down both doses, with the times, on one sheet. || E1, A1
+  Caller -> Both doses. The times. Twelve forty and, one o'clock? I'll write twelve fifty-five. No, it was closer to one. I'll write one.
+  Nurse -> Write what you think. It's okay if it's approximate.
+  Caller -> Okay. I have the sheet. It's on the refrigerator. I'm writing.
+  Nurse -> Take your time.
+  Caller -> There's already a sheet. I never used it. It has columns. Date, time, medicine, who.
+  Nurse -> That's the one. Use that.
+  Caller -> Okay. Done. Date. Time. Lorazepam. Beatriz. And then Daniel. Two lines. || A1
+  Nurse -> From now on, pick one person who gives the medicines, and that person writes it down. That way this can't happen again.
+  Caller -> Yes. I'll do it. Daniel can do the mornings. I'll do nights. And we'll both write it down.
+  Nurse -> Good. And if you're ever not sure whether a dose was given, call us. Don't give it just in case.
+  Caller -> Right. Don't guess. I understand that now.
+  Nurse -> That sounds good. Now, for tonight. Keep her on her side, and check on her every hour. Make sure she wakes up easily and that her breathing is normal. || E2
+  Caller -> Every hour. On her side. Wakes easily. Breathing normal. Okay. We'll take turns. I'll set an alarm on my phone.
+  Nurse -> Good. And Beatriz, if she can't be woken up, or if her breathing slows down or gets shallow, call nine one one right away. || E3
+  Caller -> Can't wake her. Slow breathing. Nine one one. Okay. I've got it. Daniel, you hear that? Okay.
+  Nurse -> I'll call you back in an hour to check on her. || R2
+  Caller -> In an hour. Okay. It'll be two. Is that okay?
+  Nurse -> Yes. I'll be up. And Beatriz, call me before then if you're worried about anything at all.
+  Caller -> I will. I will. Thank you, Carla. I'm sorry for the, you know, the yelling.
+  Nurse -> No need. You're both doing a hard thing.
+  Caller -> We are. We really are. Okay. Thank you.
+  Nurse -> Talk to you in an hour.
+  Caller -> Okay. Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply to the nurse about her mother", heard_form: "Daniel, I'm on the phone. Yes, it's the hospice", fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosalie Quintanilla, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-01-19", certainty: stated, heard_as: [], turns: [31]}
+    caller_name: {value: Beatriz Quintanilla, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550119", certainty: stated, heard_as: [], turns: [32]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother was given her sleep and anxiety medicine twice.
+    speaker: Caller
+    turns: [2]
+    quote: "I think we made a mistake. A medication mistake."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two doses of lorazepam 0.5 mg were given about twenty minutes apart, the second about twenty minutes before the call.
+      speaker: Caller
+      turns: [10]
+      quote: "And then my brother, he came in, and he didn't know I had given it. And he gave it to her too."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, last_dose: twenty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was sleepy but opened her eyes and answered when spoken to.
+      speaker: Caller
+      turns: [19]
+      quote: "She's sleepy. She's really sleepy. But she's awake."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: sleepy but wakes when spoken to, present: true, certainty: stated}
+      covers: [A2]
+    - text: Her breathing was regular and not slow.
+      speaker: Caller
+      turns: [21]
+      quote: "It's normal. I think. I'm watching her."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing or slow breathing, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to page the on-call clinician right now, so we know what to watch for."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [59]
+      quote: "I'll call you back in an hour to check on her."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving no more lorazepam tonight, recording both doses on one sheet, and having one person give the medicines.
+      speaker: Nurse
+      turns: [41]
+      quote: "No more lorazepam tonight. Not from either of you."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping her on her side and checking every hour that she woke easily and breathed normally.
+      speaker: Nurse
+      turns: [55]
+      quote: "Keep her on her side, and check on her every hour."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if she could not be woken or her breathing slowed or became shallow.
+      speaker: Nurse
+      turns: [57]
+      quote: "if she can't be woken up, or if her breathing slows down or gets shallow, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [10], quote: "And then my brother, he came in, and he didn't know I had given it. And he gave it to her too."}

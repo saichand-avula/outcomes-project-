@@ -1,0 +1,254 @@
+call_id: va-049
+split: val
+blueprint: "A son, Linus Ballantyne, calls about his mother Eugenia, who has scheduled gabapentin and as-needed oxycodone for leg pain. He first says gabapentin 100 mg, then corrects himself to 300 mg after checking the bottle. He is unsure whether the oxycodone can be given close to the gabapentin. Nurse explains which is scheduled and which is as-needed, confirms a gap rule, and schedules a callback. Explicit medication correction, PRN plus scheduled, v2 short."
+setup:
+  scenario_category: medication
+  subtype: prn_and_scheduled
+  secondary_tags: [prn_and_scheduled, explicit_self_correction, adult_child, split_turns, late_answers]
+  clinical_domains: [pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_health
+  nurse_name: Ingrid
+  call_timestamp_utc: "2026-11-25T18:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [Tylenol, ibuprofen]
+chief_complaint:
+  patient_name_true: Eugenia Ballantyne
+  patient_name_spoken: Eugenia Ballantyne
+  patient_name_certainty: stated
+  patient_dob_true: "1941-11-30"
+  patient_dob_spoken: "1941-11-30"
+  patient_dob_certainty: stated
+  caller_name_true: Linus Ballantyne
+  caller_name_spoken: Linus Ballantyne
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "8085550158"
+  callback_phone_spoken: "8085550158"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked how to give his mother's scheduled gabapentin and as-needed oxycodone together for leg pain
+  reason_category: medication_question
+  relevant_context: Home health patient with leg pain on a scheduled and an as-needed medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: gabapentin
+    medication_name_spoken: gabapentin
+    medication_status: taking
+    dose: "300"
+    unit: mg
+    frequency: three times daily
+    prn: false
+    last_dose: at noon
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: at two this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: leg pain
+    symptom_present: true
+    severity: five out of ten
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: excess sleepiness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: The gabapentin is scheduled three times a day regardless of pain, and the oxycodone is only as needed at least four hours apart
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she is very sleepy, confused, or the pain stays high after oxycodone
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Ingrid.
+  Caller -> Hi, Ingrid. It's Linus Ballantyne. I'm calling about my mom, Eugenia Ballantyne. She's on your service. || caller_name, relationship, patient_name
+  Nurse -> Hi, Linus. How can I help?
+  Caller -> I have a pill question. About her leg pain meds. I think I'm confused about which is which. || cc
+  Nurse -> Sure. Let's sort it out together.
+  Caller -> Thanks. I've been staring at these bottles for twenty minutes.
+  Nurse -> That's what I'm here for. Which medicines are you looking at?
+  Caller -> There's two. One is the gabapentin. And one is the oxycodone. I've got the bottles on the counter. || A1, A2
+  Nurse -> Okay. Read me the gabapentin label. || A1
+  Caller -> Gabapentin. One hundred milligrams. Three times a day. No wait. Hang on. Let me look at it again. I'm reading the wrong line. It's three hundred milligrams. Three hundred. Three times a day. || A1
+  Nurse -> Three hundred milligrams, three times a day. Okay. When was her last dose?
+  Caller -> At noon. I gave it with her lunch.
+  Nurse -> Good. And the oxycodone? || A2
+  Caller -> Oxycodone, five milligrams. Every four hours as needed for pain. It says one tablet. || A2
+  Nurse -> When did she last have it?
+  Caller -> Two o'clock. Right after her nap. She said her leg was killing her. So I gave her one.
+  Nurse -> Okay. Did it help?
+  Caller -> Yes, some. She said it went from a seven to a five. But it's still there. It's a dull, throbby ache in the calf. || A3
+  Nurse -> Okay. Is she sleepy? More sleepy than usual?
+  Caller -> No. She's awake. She's watching her game shows. She's, you know, she's herself. She's yelling at the contestants. || A4
+  Nurse -> Does she get the answers right?
+  Caller -> Mostly. She's insufferable about it.
+  Nurse -> Ha. That's a good sign.
+  Caller -> Yeah. She's got opinions.
+  Nurse -> What's her date of birth, Linus?
+  Caller -> November thirtieth, nineteen forty one. || patient_dob
+  Nurse -> And your number in case I need to call back?
+  Caller -> Eight oh eight, five five five, zero one five eight. || callback_phone
+  Nurse -> Got it. So what's your question exactly?
+  Caller -> I don't know which one she's supposed to take when. Like, the gabapentin, is that for the pain? Or is that a different thing? And can I give the oxycodone right now, because she's hurting again? It's almost five. || A1, A2
+  Nurse -> Good question. They work differently. The gabapentin is for nerve pain. She takes it three times a day, every day, on a schedule, whether or not she's hurting. It builds up and works over time. || A1
+  Caller -> Okay. So that's not a, an as needed one.
+  Nurse -> Right. It's scheduled. The oxycodone is the as-needed. You give it only when she has pain, and there has to be at least four hours between doses. || E1
+  Caller -> Four hours. Two o'clock, so, six o'clock.
+  Nurse -> Correct. It's almost five now, so she'd have to wait until after six.
+  Caller -> Okay. But she's hurting now. What do I do for the next hour?
+  Nurse -> Try a warm compress on the calf, keep the leg propped up, and see if she'd like a distraction. Is her next gabapentin due at dinner? || A1
+  Caller -> Yes. At dinner. Around six.
+  Nurse -> That's fine. Give the gabapentin at dinner. You can give the oxycodone at six too, if she still needs it. It's safe to give them close together as long as she isn't very sleepy. || A1, A2
+  Caller -> At six. Both. If she needs it. Okay. And if she's sleepy?
+  Nurse -> Then skip the oxycodone and call us. Some people get drowsy when both are in their system. || A2
+  Caller -> Okay. That makes sense. I'll watch her.
+  Nurse -> Did you give any other medicine for the leg? Tylenol? Ibuprofen?
+  Caller -> No. Just those two.
+  Nurse -> Good. Please don't add any other pain pills without asking us.
+  Caller -> Okay. I won't.
+  Nurse -> I'm going to call you tomorrow morning to see how she did overnight. || R1
+  Caller -> Tomorrow morning. That's great. What time?
+  Nurse -> Between nine and ten.
+  Caller -> I'll be here. I work from home.
+  Nurse -> That helps. Is she alone when you're on calls?
+  Caller -> No, I set up in the living room next to her. She talks through my meetings.
+  Nurse -> Perfect. And Linus, call us if she gets very sleepy, confused, or if the pain stays high even after the oxycodone. || E2
+  Caller -> Sleepy. Confused. Pain doesn't budge. Okay.
+  Nurse -> Is the leg swollen or red or warm?
+  Caller -> No. It looks the same as last week. The nurse looked at it on Monday.
+  Nurse -> Good. That's reassuring.
+  Caller -> Do you want me to write down the times? Like a log?
+  Nurse -> Yes, that's a great idea. Write the drug, the dose, and the time every time you give it.
+  Caller -> I have a notepad on the fridge. I'll put it there.
+  Nurse -> Good. Also keep both bottles on a high shelf, away from the TV tray.
+  Caller -> They are. I put them in the cabinet after each dose.
+  Nurse -> Perfect.
+  Caller -> I'm sorry I got the gabapentin mixed up. I'm still learning all this. || A1
+  Nurse -> You caught it yourself, Linus. That's exactly what we want. Always read the label twice.
+  Caller -> Twice. I'll make it a rule.
+  Nurse -> Perfect.
+  Caller -> I will. Thank you, Ingrid.
+  Nurse -> You're welcome. Talk tomorrow.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eugenia Ballantyne, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-11-30", certainty: stated, heard_as: [], turns: [26]}
+    caller_name: {value: Linus Ballantyne, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550158", certainty: stated, heard_as: [], turns: [28]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked how to give his mother's scheduled gabapentin and as-needed oxycodone together for leg pain.
+    speaker: Caller
+    turns: [4]
+    quote: "I have a pill question."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Gabapentin 300 mg three times daily, corrected from an initial misread of 100 mg, last given at noon.
+      speaker: Caller
+      turns: [10]
+      quote: "It's three hundred milligrams. Three hundred. Three times a day."
+      explanation: Documents the corrected gabapentin dose.
+      facts:
+        - {type: medication, name: gabapentin, dose: "300", unit: mg, frequency: three times daily, prn: false, last_dose: at noon, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 5 mg every four hours as needed, last given at two this afternoon.
+      speaker: Caller
+      turns: [14]
+      quote: "Oxycodone, five milligrams."
+      explanation: Documents the as-needed oxycodone.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: at two this afternoon, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Leg pain eased from seven to five out of ten after the oxycodone, a dull throbbing ache in the calf.
+      speaker: Caller
+      turns: [18]
+      quote: "She said it went from a seven to a five."
+      explanation: Documents the leg pain.
+      facts:
+        - {type: symptom, name: leg pain, present: true, severity: five out of ten, certainty: stated}
+      covers: [A3]
+    - text: She was awake and not more sleepy than usual.
+      speaker: Caller
+      turns: [20]
+      quote: "No. She's awake."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: excess sleepiness, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a callback tomorrow morning to check on her overnight.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to call you tomorrow morning"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Explained the gabapentin is scheduled three times daily and the oxycodone is as needed at least four hours apart.
+      speaker: Nurse
+      turns: [33]
+      quote: "there has to be at least four hours between doses."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if she is very sleepy, confused, or the pain stays high.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if she gets very sleepy, confused"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

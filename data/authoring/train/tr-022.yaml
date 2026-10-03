@@ -1,0 +1,192 @@
+call_id: tr-022
+split: train
+blueprint: "Patient missed his morning levetiracetam; no seizure activity; nurse advises taking it now since the next dose is at 8 PM, and plans a note to neurology; last name spelled."
+setup:
+  scenario_category: medication
+  subtype: missed_dose
+  secondary_tags: [tall_man_drug, negated_risk_phrase, phone_from_file, name_spelled]
+  clinical_domains: [seizure, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-09-05T17:31:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: low
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Jerome Whitlock
+  patient_name_spoken: Jerome Whitlock
+  patient_name_certainty: stated
+  patient_dob_true: "1985-12-03"
+  patient_dob_spoken: "1985-12-03"
+  patient_dob_certainty: stated
+  caller_name_true: Jerome Whitlock
+  caller_name_spoken: Jerome Whitlock
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3175550130"
+  callback_phone_spoken: "3175550130"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Missed morning levetiracetam dose
+  reason_category: medication_missed_dose
+  relevant_context: History of seizures, recovering at home
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: levetiracetam
+    medication_name_spoken: levetiracetam
+    medication_status: missed
+    strength: 500 mg
+    frequency: twice a day
+    last_dose_time: last night at 8
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: seizure activity
+    symptom_present: false
+    history_or_context_text: No twitching, no aura, no unusual feelings
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: levetiracetam
+    medication_name_spoken: levetiracetam
+    timeframe: take the missed dose now
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: neurology office
+    reason_or_trigger: missed dose
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not double up; take the 8 PM dose as usual and set a phone alarm for both doses
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for any twitching, aura, or confusion; 911 for a seizure lasting over 5 minutes
+    trigger_condition: twitching; aura; confusion; seizure over 5 minutes
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi. This is Jerome Whitlock. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Jerome. Can you spell the last name for me?
+  Caller -> W H I T L O C K. || patient_name
+  Nurse -> Thank you. And your date of birth?
+  Caller -> December third, nineteen eighty five. || patient_dob
+  Nurse -> Okay. And I've got three one seven, five five five, zero one three zero for you. || callback_phone
+  Caller -> That's it. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> So I forgot to take my levetiracetam this morning. The Keppra. || cc, A1
+  Caller -> I take five hundred milligrams twice a day. And I took the one last night at eight, but this morning I just totally spaced. || A1
+  Nurse -> Okay. What time is it for you right now?
+  Caller -> It's almost noon. So it's like, four hours late. Maybe more.
+  Nurse -> Okay. Have you had any seizure activity? Any twitching, or that funny feeling you get before one?
+  Caller -> No. Nothing. I feel completely normal. || A2
+  Nurse -> Okay, good. Here's what I want you to do. Go ahead and take the levetiracetam now, the missed dose. || R1
+  Caller -> Now? Okay. And then my regular one tonight?
+  Nurse -> Yes. Take the one at eight tonight like usual. Don't double up, don't take extra. || E1
+  Caller -> Okay. Just the regular one tonight.
+  Nurse -> Right. And set an alarm on your phone for both doses so it doesn't happen again. || E1
+  Caller -> Yeah. Good idea. I'll do that today.
+  Nurse -> I'm going to send a note to your neurology office, just to let them know you missed one. || R2
+  Caller -> Okay. Thanks.
+  Nurse -> If you notice any twitching, or that aura feeling, or you feel confused, call us. If you ever have a seizure that lasts more than five minutes, that's nine one one. || E2
+  Caller -> Okay. I will.
+  Nurse -> Anything else?
+  Caller -> Nope. Thanks, Marcus.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Jerome Whitlock, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1985-12-03", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Jerome Whitlock, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3175550130", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported missing his morning levetiracetam dose.
+    speaker: Caller
+    turns: [10]
+    quote: "So I forgot to take my levetiracetam this morning. The Keppra."
+    explanation: Documents the missed medication prompting the call.
+    covers: [cc]
+  assessment:
+    - text: This morning's levetiracetam 500 mg dose was missed; the patient takes it twice a day and the last dose was taken last night at 8.
+      speaker: Caller
+      turns: [11]
+      quote: "I take five hundred milligrams twice a day. And I took the one last night at eight, but this morning I just totally spaced."
+      explanation: Documents the missed dose and last administration.
+      facts:
+        - {type: medication, name: levetiracetam, strength: 500 mg, frequency: twice a day, last_dose: last night at 8, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: No seizure activity was reported, and he felt completely normal.
+      speaker: Caller
+      turns: [15]
+      quote: "No. Nothing. I feel completely normal."
+      explanation: Documents a pertinent negative for seizure activity.
+      facts:
+        - {type: pertinent_negative, name: seizure activity, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Advised taking the missed levetiracetam dose now.
+      speaker: Nurse
+      turns: [16]
+      quote: "Go ahead and take the levetiracetam now, the missed dose."
+      explanation: Documents the missed-dose instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: levetiracetam, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a note to the neurology office about the missed dose.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'm going to send a note to your neurology office, just to let them know you missed one."
+      explanation: Documents the planned physician-office notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking the regular 8 PM dose tonight without doubling up and setting phone alarms for both doses.
+      speaker: Nurse
+      turns: [18]
+      quote: "Take the one at eight tonight like usual. Don't double up, don't take extra."
+      explanation: Documents missed-dose safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for twitching, aura, or confusion, and calling 911 for a seizure lasting more than 5 minutes.
+      speaker: Nurse
+      turns: [24]
+      quote: "If you notice any twitching, or that aura feeling, or you feel confused, call us."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

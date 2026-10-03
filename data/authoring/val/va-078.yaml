@@ -1,0 +1,328 @@
+call_id: va-078
+split: val
+blueprint: "A 76-year-old woman, Winifred Larkin, calls herself because she cannot tell whether she took last night's Levemir: her daughter says she did, her own memory says she did not, and the pen counter is no help. Fasting glucose this morning was two twelve, she is a bit thirsty, and she is clear-headed. Nurse says not to take an extra dose, keep checking glucose, messages the clinician, and sends a nurse today to read the pen log. Unresolved contradiction about a dose, self caller, medium, v2."
+setup:
+  scenario_category: ambiguous
+  subtype: unsure_if_dose_taken
+  secondary_tags: [self_caller, contradiction, hedging, prn_and_scheduled, late_answers, split_turns]
+  clinical_domains: [glucose, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Briar Hill Home Health
+  agency_type: home_health
+  nurse_name: Anselmo
+  call_timestamp_utc: "2026-12-09T16:10:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Winifred Larkin
+  patient_name_spoken: Winifred Larkin
+  patient_name_certainty: stated
+  patient_dob_true: "1950-09-09"
+  patient_dob_spoken: "1950-09-09"
+  patient_dob_certainty: stated
+  caller_name_true: Winifred Larkin
+  caller_name_spoken: Winifred Larkin
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7135550132"
+  callback_phone_spoken: "7135550132"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Unsure whether she took last night's long-acting insulin
+  reason_category: medication_question
+  relevant_context: Home health patient with diabetes on bedtime insulin
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Levemir
+    medication_name_spoken: Levemir
+    medication_status: taking
+    dose: "14"
+    unit: units
+    frequency: once a day at bedtime
+    prn: false
+    last_dose: unclear whether last night's dose was taken
+    certainty: unclear
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: fasting glucose
+    vital_value: "212"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild thirst
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: confusion or vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: Her daughter says she took it and she remembers not taking it, so it is unresolved
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: clinician
+    reason_or_trigger: unsure if bedtime insulin was taken with a glucose of 212
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take an extra dose now, take tonight's dose as usual unless the clinician says otherwise, and write down every dose from now on
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check glucose before meals and at bedtime, drink water, and call for readings over three hundred or under seventy
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for confusion, vomiting that will not stop, trouble breathing, or fainting
+    trigger_condition: confusion; persistent vomiting; trouble breathing; fainting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Briar Hill Home Health, this is Anselmo.
+  Caller -> Hi, Anselmo. This is Winifred Larkin. I'm a patient. I have a question about my insulin. I can't remember if I took it last night. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Winifred. Okay. Let's work through it. Which insulin?
+  Caller -> I know it's silly. I've been taking it for nine years. I should know.
+  Nurse -> Nine years of nightly habit means you do it without thinking. That's exactly why it's easy to lose track.
+  Caller -> The Levemir. The long one. Fourteen units. At bedtime. Every night. || A1
+  Nurse -> Do you keep the pen in the refrigerator or at room temperature?
+  Caller -> The one in use is on the nightstand. The spare pens are in the fridge door.
+  Nurse -> That's right. The one in use is fine at room temperature.
+  Nurse -> Okay. And you're not sure you took it last night.
+  Caller -> I'm not sure. My daughter was here. She says she saw me do it. She says I took it at ten, and I said good night. But I don't remember. I remember sitting on the bed with the pen in my hand. And then I remember the morning. || A5
+  Nurse -> Were you tired, or distracted? Was the television on?
+  Caller -> The television was on. A baking show. She had the remote. We were talking about her son's soccer game.
+  Nurse -> That would do it.
+  Nurse -> Hmm. Do you see the pen? Is the counter on it? Can you tell how many units you dialed?
+  Caller -> I have it. It's right here. It's got the little window. It shows a zero. It always goes back to zero after I inject. So that doesn't tell me anything.
+  Nurse -> Right. It resets. Is there a log? A notebook where you write the doses?
+  Caller -> I'm supposed to write it. I wrote it Monday. I didn't write Tuesday. Last night is Tuesday. So I don't know.
+  Nurse -> Okay. What did your sugar read this morning?
+  Caller -> Two twelve. Fasting. Normally I'm a hundred forty or so. || A2
+  Nurse -> That's higher than usual. Is it high enough to suggest you missed the dose? It could be. It could also be from something you ate.
+  Caller -> Wait, say that again? I missed the first part.
+  Nurse -> Of course. Let me say it slower.
+  Caller -> I had a piece of cake at the church thing. And ice cream. I know. I know.
+  Caller -> It was Gloria's retirement party. I couldn't say no. Nobody says no to Gloria.
+  Nurse -> Ha. One piece of cake and a scoop of ice cream isn't a crime.
+  Nurse -> Ha. That could do it.
+  Caller -> Can you hear me okay? The signal's a little weak.
+  Nurse -> I can hear you fine.
+  Caller -> It could. So it might not be the insulin. I just don't know.
+  Nurse -> Okay. How are you feeling today? Thirsty, tired, urinating a lot?
+  Caller -> A little thirsty. I've had two glasses of water already. Not too bad. I'm a little tired but I always am. || A3
+  Caller -> Is that the sugar? Or the salt from the soup?
+  Nurse -> Could be either. Keep sipping water and we'll see how the readings look.
+  Nurse -> Any nausea, vomiting? Any confusion, or trouble thinking?
+  Caller -> No. No, I'm clear. I did the crossword. I'm clear as a bell. || A4
+  Nurse -> How did you do?
+  Caller -> Finished it. Even the one about the Roman emperor.
+  Nurse -> Impressive.
+  Nurse -> Good. Winifred, can I get your date of birth?
+  Caller -> Sorry, I keep going back and forth. It's been a long day.
+  Nurse -> I understand. Take a breath.
+  Caller -> September ninth, nineteen fifty. || patient_dob
+  Nurse -> And your number?
+  Caller -> Seven one three, five five five, zero one three two. || callback_phone
+  Nurse -> Got it. So here's the thing. I can't tell you for sure whether you took it. Your daughter says yes, you say you don't remember. We can't solve that over the phone.
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> That's what I figured. What do I do?
+  Nurse -> Please do not take an extra dose now to make up for it. If you did take it last night, a second dose could drop your sugar a lot.
+  Caller -> No extra. Okay. I wouldn't have.
+  Nurse -> For tonight, take your regular fourteen units at bedtime, unless the clinician tells you otherwise. I'm going to message them and ask. || E1
+  Caller -> Regular dose tonight. Unless they say. Okay. And I'll write it down. I'll write the time.
+  Nurse -> Good. And from now on, write down every dose, every night, right when you take it. Even before you put the pen away.
+  Caller -> I'll put the notebook on the pillow so I can't forget. Right on the pillow.
+  Caller -> I'll put a pencil on a string, too. Like at the bank.
+  Nurse -> Ha. A good idea.
+  Nurse -> That's smart.
+  Caller -> Sorry, I just dropped my pen.
+  Nurse -> That's all right.
+  Caller -> Thank you. My daughter bought me a pill alarm too. It beeps. I turn it off and then I forget.
+  Nurse -> A good tool, as long as you don't snooze it.
+  Caller -> I snooze everything.
+  Nurse -> Ha. Don't turn it off until you've written it in the notebook.
+  Caller -> That's a good rule. I'll do that.
+  Nurse -> I'm messaging the clinician now about the two twelve and the unsure dose. || R2
+  Caller -> Yes. Thank you.
+  Nurse -> And I'll send a nurse to see you this afternoon. She can look at the pen log, check your sugar, and go over a plan with you. || R1
+  Caller -> This afternoon. Okay. What time?
+  Nurse -> The scheduler will call. Probably between two and four.
+  Caller -> Okay. I've got a notebook now. Go ahead.
+  Nurse -> Alright.
+  Caller -> I'll be home. I'm not going anywhere. My daughter's coming at five. She'll be so relieved.
+  Nurse -> Winifred, keep checking your sugar before meals and at bedtime. Drink water through the day. And call us if it's over three hundred or under seventy. || E2
+  Caller -> Before meals and at bedtime. Water. Over three hundred or under seventy. Okay. I'll check at lunch.
+  Nurse -> Perfect. Also, call nine one one if you get confused, can't stop vomiting, have trouble breathing, or faint. || E3
+  Caller -> Confused. Vomiting. Breathing. Faint. Nine one one. I have a sticker on the phone with the number.
+  Nurse -> Good. Do you have someone who can check on you tonight?
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> My daughter. She calls at nine. And the neighbor across the hall pops in.
+  Nurse -> What's the neighbor's name?
+  Caller -> Mr. Delacroix. He's ninety one and he checks on me. It's backwards, but it works.
+  Nurse -> Ha. We take what we get.
+  Nurse -> Great. You have a good support system.
+  Caller -> I do. I'm lucky. I just hate being a burden.
+  Nurse -> You're not a burden. You called. That's exactly what we want.
+  Caller -> Thank you for saying so.
+  Caller -> My daughter wants me to move in with her. I keep saying no. I like my own kitchen.
+  Nurse -> That's a family decision. We can help you think through safety at home.
+  Caller -> I'd appreciate that. Maybe the nurse can talk to her too.
+  Nurse -> Is there anything else you want to talk about?
+  Caller -> I don't think so. Just that I'm embarrassed. A grown woman who can't remember her own insulin.
+  Nurse -> It happens to everyone. Try not to be hard on yourself.
+  Caller -> My late husband used to give me my shots. I never worried when he was here.
+  Nurse -> That's a big adjustment. You're doing better than you think.
+  Caller -> Thank you. I miss him every night at bedtime.
+  Nurse -> I'm sure. That routine carries a lot of memory.
+  Caller -> Hang on, let me move to the other room. It's loud in here.
+  Nurse -> No problem, take your time.
+  Caller -> Okay. I'll try. Thank you, Anselmo.
+  Caller -> One more. When the nurse comes, should I have the pen and the log out?
+  Nurse -> Yes. Put the pen, the notebook, and the meter on the table where she can see them.
+  Caller -> I'll set it all out. Like a tea party.
+  Nurse -> Ha. A very clinical tea party.
+  Caller -> I'll use the good cups for the pencils.
+  Nurse -> You're welcome. Talk to you later today.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winifred Larkin, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1950-09-09", certainty: stated, heard_as: [], turns: [43]}
+    caller_name: {value: Winifred Larkin, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550132", certainty: stated, heard_as: [], turns: [45]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Unsure whether she took last night's long-acting insulin.
+    speaker: Caller
+    turns: [2]
+    quote: "I can't remember if I took it last night."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear whether last night's dose was taken) Levemir 14 units at bedtime every night.
+      speaker: Caller
+      turns: [6]
+      quote: "The Levemir. The long one. Fourteen units."
+      explanation: Documents the bedtime insulin with an uncertain last dose.
+      facts:
+        - {type: medication, name: Levemir, dose: "14", unit: units, frequency: once a day at bedtime, prn: false, last_dose: unclear whether last night's dose was taken, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: Fasting glucose was 212, usually around 140.
+      speaker: Caller
+      turns: [20]
+      quote: "Two twelve. Fasting."
+      explanation: Documents the glucose.
+      facts:
+        - {type: vital, name: fasting glucose, value: "212", certainty: stated}
+      covers: [A2]
+    - text: She was a little thirsty and had two glasses of water.
+      speaker: Caller
+      turns: [32]
+      quote: "A little thirsty."
+      explanation: Documents the thirst.
+      facts:
+        - {type: symptom, name: mild thirst, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She had no confusion or vomiting.
+      speaker: Caller
+      turns: [36]
+      quote: "No. No, I'm clear."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: confusion or vomiting, certainty: stated}
+      covers: [A4]
+    - text: (unclear) Her daughter said she took it at ten but she did not remember taking it.
+      speaker: Caller
+      turns: [11]
+      quote: "She says she saw me do it."
+      explanation: Documents the conflicting accounts.
+      facts:
+        - {type: context, text: Her daughter says she took it and she remembers not taking it so it is unresolved, certainty: unclear}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit this afternoon to check the pen log and glucose.
+      speaker: Nurse
+      turns: [68]
+      quote: "I'll send a nurse to see you this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the clinician about the glucose and the unsure dose.
+      speaker: Nurse
+      turns: [66]
+      quote: "I'm messaging the clinician now about the two twelve and the unsure dose."
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not taking an extra dose, taking the regular dose tonight unless told otherwise, and logging every dose.
+      speaker: Nurse
+      turns: [50]
+      quote: "Please do not take an extra dose now to make up for it."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised checking glucose before meals and at bedtime, drinking water, and calling for readings over 300 or under 70.
+      speaker: Nurse
+      turns: [74]
+      quote: "keep checking your sugar before meals and at bedtime."
+      explanation: Documents symptom monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for confusion, vomiting that will not stop, trouble breathing, or fainting.
+      speaker: Nurse
+      turns: [76]
+      quote: "call nine one one if you get confused"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

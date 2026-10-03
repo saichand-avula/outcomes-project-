@@ -1,0 +1,280 @@
+call_id: tr-365
+split: train
+blueprint: "A son calls home health on a Sunday afternoon: his father's oxygen concentrator has started beeping and shutting off, the backup portable tanks are down to two, and the oxygen company's after hours line has not called back. Father is breathing comfortably at the moment with a reading of 93. Nurse says she will call the oxygen vendor for an emergency visit and delivery tonight, tells him to switch to a tank, check the tubing and keep flames away, and plans a callback in thirty minutes. Supply (oxygen equipment), adult child caller, v2 short."
+setup:
+  scenario_category: supply
+  subtype: oxygen_equipment
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverside Home Health
+  agency_type: home_health
+  nurse_name: Lucille
+  call_timestamp_utc: "2026-10-25T20:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gustavo Pelletier
+  patient_name_spoken: Gustavo Pelletier
+  patient_name_certainty: stated
+  patient_dob_true: "1946-04-17"
+  patient_dob_spoken: "1946-04-17"
+  patient_dob_certainty: stated
+  caller_name_true: Marcel Pelletier
+  caller_name_spoken: Marcel Pelletier
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9195550150"
+  callback_phone_spoken: "9195550150"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his father's oxygen concentrator is beeping and shutting off
+  reason_category: equipment
+  relevant_context: Home health patient on home oxygen
+assessment:
+  - item_id: A1
+    item_type: context
+    reporter: caller
+    history_or_context_text: The concentrator is beeping and shutting off and the oxygen company has not called back
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: portable oxygen tanks
+    supply_remaining: two left
+    supply_unit: tanks
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "93"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oxygen company
+    reason_or_trigger: emergency visit and a replacement concentrator
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Switch him to a portable tank at two liters, check that the tubing is not kinked or pinched, and use one tank at a time
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the oxygen away from flames, candles, the stove and anyone smoking
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away or 911 if he gets short of breath, his lips turn bluish, or he becomes confused or very sleepy
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverside Home Health, this is Lucille.
+  Caller -> Hi. I hope I'm not interrupting your Sunday. It's Marcel Pelletier. I'm calling about my dad. Gustavo Pelletier. His oxygen machine is acting up. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi Marcel. You're not interrupting. That's what the line is for. What's going on with the machine?
+  Caller -> It's beeping. A high beep. Every few minutes. And it shuts off. Then it turns back on. Then it beeps again. It started about an hour ago. || A1
+  Nurse -> Okay. Is there a light on it? A red light, or a code?
+  Caller -> There's a red light. It says, hold on. It says low flow. And then a little wrench symbol.
+  Nurse -> Okay. Is it plugged in, firmly? The outlet?
+  Caller -> I checked. Twice. I unplugged and plugged it. I moved it to a different outlet. Same thing.
+  Nurse -> Okay. And you've called the oxygen company?
+  Caller -> I called their after hours number. Twice. I left messages. Nobody called back. It's been an hour and a half.
+  Nurse -> Okay. That's frustrating. How's your dad doing right now?
+  Caller -> He's okay. He's breathing okay. He's watching the football game. He's cranky about the beeping but he's fine. || A4
+  Nurse -> Okay. Do you have a finger oxygen meter?
+  Caller -> Yes. We have one. Hold on. I'll put it on. Dad, give me your finger. It says ninety three. Ninety three. || A3
+  Nurse -> Okay. Good. Ninety three is okay for him. Is that his usual?
+  Caller -> I think so. It's usually ninety two to ninety four.
+  Nurse -> Perfect. Do you have the backup tanks?
+  Caller -> The little portable ones. The green tanks. We have two. One is a quarter full, I think, and one's full. || A2
+  Nurse -> Okay. Two tanks. Marcel, what's your dad's date of birth, so I can pull him up?
+  Caller -> April seventeenth, nineteen forty six. || patient_dob
+  Nurse -> Thank you. And a number for you?
+  Caller -> Nine one nine, five five five, zero one five zero. || callback_phone
+  Nurse -> Nine one nine, five five five, zero one five zero. Right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Okay. Here's what I'm going to do. I'm going to call the oxygen company myself, on the priority line, and ask for an emergency visit and a replacement concentrator. And I'll arrange the delivery for tonight. || R1, R2
+  Caller -> Oh, thank you. Would they come tonight? Really?
+  Nurse -> They have an on call tech for equipment failures. I'll push it. I'm aiming for tonight.
+  Caller -> Thank you. That would be a relief. I was about to drive down and pick something up myself.
+  Nurse -> No, don't do that. Let me call. In the meantime, I want you to switch your dad to a tank. Set it at two liters, the same as the machine. Is that how he's set?
+  Caller -> Two liters. Yes. It's set to two. I can switch him. How do I do it?
+  Nurse -> Take the tube off the concentrator, connect it to the tank. Open the valve on top. Set the dial to two. You should hear a hiss and see the gauge.
+  Caller -> Okay. Okay. The valve. It's like a little silver knob?
+  Nurse -> Yes. Turn it a quarter turn to open. Look at the gauge. Is it in the green?
+  Caller -> The full one is in the green. The other one is in the yellow.
+  Nurse -> Use the full one first. Only one at a time. And check that the tubing isn't kinked or pinched. Follow it down with your hand.
+  Caller -> Okay. I'm doing it. Dad, I'm switching you. It's okay. Okay. The tank's on. Two liters. The tubing's straight. I followed it. || E1
+  Nurse -> Perfect. Is he comfortable?
+  Caller -> He says he's fine. He says the football game is the only thing bothering him. The refs.
+  Nurse -> Ha. Good. How long does a full tank last at two liters?
+  Caller -> The tag says about four hours. I don't know if it's four. I'll watch the gauge.
+  Nurse -> Good. Keep an eye on it. Also, Marcel, keep the oxygen away from any flames. No candles, no stove, and no one smoking nearby. || E2
+  Caller -> No flames. No stove. He doesn't smoke. My wife burns a candle in the kitchen. I'll blow it out. I'll tell her.
+  Nurse -> Thank you. Better to be safe.
+  Caller -> Yes, ma'am. Of course.
+  Nurse -> And call us right away, or 911, if he gets short of breath, if his lips turn blue, or if he gets confused or very sleepy. || E3
+  Caller -> Short of breath. Blue lips. Confused or sleepy. Call. Okay. I'll watch him.
+  Nurse -> Good. I'll call the oxygen company now. And then I'll call you back in thirty minutes with an update. || R3
+  Caller -> Thirty minutes. Okay. I'll be right here. I'm on the couch next to him.
+  Nurse -> Perfect. Thank you for staying calm.
+  Caller -> I'm not calm. I'm just quiet.
+  Nurse -> Ha. That works.
+  Caller -> My dad's been on oxygen for two years. This never happened before.
+  Nurse -> It does happen. These machines are good, but they're machines.
+  Caller -> I know. He's called it Betsy since the day they delivered it.
+  Nurse -> Betsy the concentrator.
+  Caller -> He's offended. He says she's never let him down.
+  Nurse -> Ha. We'll get Betsy fixed.
+  Caller -> Please. He'll sulk.
+  Nurse -> Does Betsy have a warranty or a service sticker on the side?
+  Caller -> There's a sticker. It says serviced in March. And a phone number.
+  Nurse -> Good. The company will have it on file.
+  Caller -> Okay. Should I read the serial number?
+  Nurse -> They'll have that too. Don't worry about it.
+  Nurse -> Anything else, Marcel?
+  Caller -> No. That's it. Thank you so much.
+  Nurse -> Talk to you in thirty minutes.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gustavo Pelletier, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-04-17", certainty: stated, heard_as: [], turns: [20]}
+    caller_name: {value: Marcel Pelletier, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550150", certainty: stated, heard_as: [], turns: [22, 23]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father's oxygen concentrator was beeping and shutting off.
+    speaker: Caller
+    turns: [2]
+    quote: "His oxygen machine is acting up."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The concentrator was beeping and shutting off, and the oxygen company had not called back.
+      speaker: Caller
+      turns: [4]
+      quote: "It's beeping. A high beep."
+      explanation: Documents the equipment problem.
+      facts:
+        - {type: context, text: The concentrator is beeping and shutting off and the oxygen company has not called back, certainty: stated}
+      covers: [A1]
+    - text: Two portable oxygen tanks were left, one full and one about a quarter full.
+      speaker: Caller
+      turns: [18]
+      quote: "We have two."
+      explanation: Documents the backup tank supply.
+      facts:
+        - {type: supply, item: portable oxygen tanks, supply: two left, certainty: stated}
+      covers: [A2]
+    - text: Oxygen reading was 93.
+      speaker: Caller
+      turns: [14]
+      quote: "It says ninety three."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "93", certainty: stated}
+      covers: [A3]
+    - text: He was breathing okay with no shortness of breath.
+      speaker: Caller
+      turns: [12]
+      quote: "He's breathing okay."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call the oxygen company for an emergency visit and a replacement concentrator.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm going to call the oxygen company myself"
+      explanation: Documents the planned vendor order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to arrange delivery tonight.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'm aiming for tonight."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you back in thirty minutes with an update."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised switching to a portable tank at two liters, checking the tubing for kinks and using one tank at a time.
+      speaker: Nurse
+      turns: [29]
+      quote: "I want you to switch your dad to a tank."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the oxygen away from flames, candles, the stove and smoking.
+      speaker: Nurse
+      turns: [41]
+      quote: "keep the oxygen away from any flames."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away or 911 for shortness of breath, blue lips, confusion or heavy sleepiness.
+      speaker: Nurse
+      turns: [45]
+      quote: "call us right away, or 911, if he gets short of breath"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

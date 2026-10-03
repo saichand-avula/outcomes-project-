@@ -1,0 +1,198 @@
+call_id: tr-144
+split: train
+blueprint: "Patient with a colostomy needs supplies: 2 flange wafers left, 5 pouches, no adhesive remover wipes. Skin around the stoma is a little pink, no open areas. Nurse orders them for Monday and reviews skin and pouch care. Short."
+setup:
+  scenario_category: supply
+  subtype: ostomy_supplies
+  secondary_tags: [phone_from_file, split_turns, late_answers]
+  clinical_domains: [equipment, skin]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-10-02T18:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Reuben Katz
+  patient_name_spoken: Reuben Katz
+  patient_name_certainty: stated
+  patient_dob_true: "1946-11-29"
+  patient_dob_spoken: "1946-11-29"
+  patient_dob_certainty: stated
+  caller_name_true: Reuben Katz
+  caller_name_spoken: Reuben Katz
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2395550125"
+  callback_phone_spoken: "2395550125"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested colostomy supplies
+  reason_category: supply_request
+  relevant_context: Home care patient with a colostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: flange wafers
+    supply_remaining: "2"
+    supply_unit: wafers
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: pouches
+    supply_remaining: "5"
+    supply_unit: pouches
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: patient
+    supply_item: adhesive remover wipes
+    supply_remaining: none
+    supply_unit: wipes
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: pink skin around the stoma
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: flange wafers, pouches and adhesive remover wipes
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Monday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Clean the skin with warm water only, pat it dry, and make sure the wafer opening fits snugly around the stoma
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Joanne.
+  Caller -> Hi, Joanne. This is Reuben Katz. I'm one of your patients. I'm low on my ostomy supplies. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Reuben. I'll help you with that. What's your date of birth?
+  Caller -> November twenty ninth. Nineteen forty six. || patient_dob
+  Nurse -> And two three nine, five five five, zero one two five for you? || callback_phone
+  Caller -> Yes. That's right. || callback_phone
+  Nurse -> Okay. What are you low on?
+  Caller -> The wafers. The flanges. I have two left. Two. || A1
+  Nurse -> Okay. And pouches?
+  Caller -> I have five pouches. But I run through them. I change every other day. || A2
+  Nurse -> Okay.
+  Caller -> And the adhesive remover wipes. The little packets. I'm out. Completely. I've been using warm water and it takes forever. || A3
+  Nurse -> Okay. How does the skin around the stoma look?
+  Caller -> A little pink. Not red. Pink. I think from pulling off the wafer without the wipes. No sores. No open spots. || A4
+  Nurse -> Okay. I'll order the flange wafers, the pouches, and the adhesive remover wipes. || R1
+  Caller -> Thank you.
+  Nurse -> They'll deliver Monday. || R2
+  Caller -> Monday. I'll be home. I'm always home.
+  Nurse -> Until then, clean the skin with warm water only, and pat it dry. And make sure the hole in the wafer fits snugly around the stoma, not too big. || E1
+  Caller -> Warm water. Pat dry. The hole is cut to the right size, I measured. I'll check again.
+  Nurse -> Good. Anything else?
+  Caller -> No. Thank you, Joanne. You always make this easy. The last person I talked to at another agency kept me on hold for twenty minutes.
+  Nurse -> Sorry about that. We try not to do that to people.
+  Caller -> Well, you don't. Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Reuben Katz, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-11-29", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Reuben Katz, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2395550125", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested colostomy supplies.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm low on my ostomy supplies."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two flange wafers remained.
+      speaker: Caller
+      turns: [8]
+      quote: "I have two left. Two."
+      explanation: Documents the wafer supply.
+      facts:
+        - {type: supply, item: flange wafers, supply: 2 wafers, certainty: stated}
+      covers: [A1]
+    - text: Five pouches remained, changed every other day.
+      speaker: Caller
+      turns: [10]
+      quote: "I have five pouches."
+      explanation: Documents the pouch supply.
+      facts:
+        - {type: supply, item: pouches, supply: 5 pouches, certainty: stated}
+      covers: [A2]
+    - text: Adhesive remover wipes were gone.
+      speaker: Caller
+      turns: [12]
+      quote: "I'm out. Completely."
+      explanation: Documents the wipe supply.
+      facts:
+        - {type: supply, item: adhesive remover wipes, supply: none, certainty: stated}
+      covers: [A3]
+    - text: The skin around the stoma was pink, with no sores or open spots.
+      speaker: Caller
+      turns: [14]
+      quote: "A little pink. Not red. Pink."
+      explanation: Documents the skin finding.
+      facts:
+        - {type: symptom, name: pink skin around the stoma, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order flange wafers, pouches, and adhesive remover wipes.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll order the flange wafers, the pouches, and the adhesive remover wipes."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Monday.
+      speaker: Nurse
+      turns: [17]
+      quote: "They'll deliver Monday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Monday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised cleaning the skin with warm water only, patting it dry, and making sure the wafer opening fits snugly.
+      speaker: Nurse
+      turns: [19]
+      quote: "clean the skin with warm water only, and pat it dry."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+  risk_flags: []

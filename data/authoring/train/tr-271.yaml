@@ -1,0 +1,262 @@
+call_id: tr-271
+split: train
+blueprint: "Son of a 90-year-old hospice patient calls because his mother's pharmacy delivered a new bottle of the liquid morphine that looks different (a different pharmacy label, a clear bottle instead of amber) and the concentration printed on the label is 10 mg per mL, not the 20 mg per mL she has been using. He does not want to give a dose until he knows the amount. Mother is comfortable at the moment, pain 3, last dose four hours ago. Nurse reads the order, confirms the new bottle is a different strength, gives the new volume (half a milliliter for the same five milligrams), calls the pharmacy (completed), and plans a nurse visit tomorrow. Liquid concentration change, v2 short, careful and slow."
+setup:
+  scenario_category: medication
+  subtype: dose_question
+  secondary_tags: [liquid_concentration, prn_and_scheduled, trap_phrasing, hedging, late_answers, split_turns, chart_reading_distractor]
+  clinical_domains: [medication, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Alan
+  call_timestamp_utc: "2026-10-30T17:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [senna, acetaminophen]
+chief_complaint:
+  patient_name_true: Odalys Montenegro
+  patient_name_spoken: Odalys Montenegro
+  patient_name_certainty: stated
+  patient_dob_true: "1935-12-01"
+  patient_dob_spoken: "1935-12-01"
+  patient_dob_certainty: stated
+  caller_name_true: Julian Montenegro
+  caller_name_spoken: Julian Montenegro
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7865550141"
+  callback_phone_spoken: "7865550141"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked how much liquid morphine to give from a new bottle with a different strength
+  reason_category: medication_question
+  relevant_context: Hospice patient in her nineties
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    strength: 10 mg per mL
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: four hours ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: "3"
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The pharmacy delivered a new bottle of a different strength with a different label and a clear bottle
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give half a milliliter from the new ten milligram per milliliter bottle for a five milligram dose
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pharmacy
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    reason_or_trigger: confirm the morphine strength change
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Use only the new bottle with half a milliliter on the oral syringe, put away the old twenty milligram bottle, and write the strength and dose on the label
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for pain above a five after a dose, hard to wake, or slow breathing
+    trigger_condition: pain above five; hard to wake; slow breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Alan.
+  Caller -> Hi, Alan. This is Julian Montenegro. I'm calling about my mother, Odalys Montenegro. I have a question about her morphine. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Julian. Let me pull up her chart. What's her date of birth?
+  Caller -> December first. Nineteen thirty five. || patient_dob
+  Nurse -> And I have seven eight six, five five five, zero one four one for you. || callback_phone
+  Caller -> That's right. That's my cell. I'm in the kitchen.
+  Nurse -> Is your mom in the room with you, or somewhere else?
+  Caller -> She's in her bedroom. I have the baby monitor on the counter. I can hear her breathing. It's calm.
+  Nurse -> Good. Then we can take a minute.
+  Nurse -> Okay. Tell me what's going on.
+  Caller -> So the pharmacy delivered a new bottle today. The liquid morphine. And it looks different. || A1, A3
+  Nurse -> Different how?
+  Caller -> The old one was brown. Amber. This one is clear. And the label is a different kind. Different pharmacy name. It used to say Oak Street Pharmacy and now it says something else. || A3
+  Nurse -> Okay. Have you read the strength on the new label?
+  Caller -> Yes. That's the problem. The old one said twenty milligrams per milliliter. This one says ten. Ten milligrams per milliliter. || A1
+  Nurse -> Okay. You're right to notice that. That is a different strength. Good catch.
+  Caller -> I almost gave it. I had the syringe ready. I was going to draw up a quarter, like I always do. And then I looked at the bottle.
+  Nurse -> What made you look at the bottle?
+  Caller -> The color. It looked weird. Clear. I thought, huh, is this water? So I picked it up and read the label.
+  Nurse -> That's a great instinct.
+  Nurse -> And you stopped. That was exactly right. Tell me, how is your mother right now?
+  Caller -> She's comfortable. She's asleep, I think. She's in the bedroom. She said her pain was a three earlier. || A2
+  Nurse -> Okay. A three. And when was her last dose?
+  Caller -> Four hours ago. About one o'clock. A quarter milliliter from the old bottle. That's five milligrams. || A1
+  Nurse -> Okay. And what does her order say? Every four hours as needed?
+  Caller -> Yes. Every four hours if she needs it. The label on the old one says that. The new one has the same instructions, but it says, "one half milliliter." Is that right?
+  Nurse -> Let me check what I have in her chart. Give me a moment.
+  Caller -> Sure. Take your time.
+  Nurse -> Okay. I see her order. It's for five milligrams every four hours as needed. With the old twenty milligram per milliliter bottle, that's a quarter of a milliliter. With the new ten milligram per milliliter bottle, five milligrams is half a milliliter. || R1, A1
+  Caller -> Half a milliliter. Okay. So it's twice as much liquid, because it's half as strong.
+  Nurse -> That's right.
+  Caller -> I'm an electrician. I understand ratios. I don't understand why the pharmacy changed it without telling anybody.
+  Nurse -> It's a fair question. I'll make sure our office follows up with them.
+  Nurse -> Exactly. The dose in milligrams is the same. The volume is twice as much, because the new bottle is half as concentrated.
+  Caller -> Okay. That makes sense. But I'm still a little scared. Because if I'd given a quarter from the new bottle, she'd get less. But if I'd used the half from the old bottle, she'd get way too much.
+  Nurse -> That's exactly why this is risky, and why I want to make sure we get it right. Julian, I'm going to call the pharmacy right now to confirm the strength change. || R2
+  Caller -> Okay. Thank you. Yes. I'd feel better.
+  Nurse -> Can you hold on a moment? Or I'll call you right back.
+  Caller -> I'll hold. I'm not going anywhere.
+  Nurse -> Okay. Julian, I'm back. I reached the pharmacy about the morphine. They confirmed it. They're switching to the ten milligram per milliliter bottle for all their hospice patients. They should have called you. || R2
+  Caller -> Nobody called. There was just a bag on the porch.
+  Nurse -> I'm sorry about that. I'll let our office know. So the plan is the same, five milligrams, which is half a milliliter from the new bottle.
+  Caller -> Half a milliliter from the new bottle. Okay. And what about the old bottle? There's still some left.
+  Nurse -> Please put the old bottle away, somewhere separate, so you don't use it by mistake. The nurse can collect it tomorrow. || E1, A1
+  Caller -> I'll put it in a bag. And mark it. In the cabinet above the fridge. Okay.
+  Nurse -> And write the strength and dose on the new bottle, big letters. Ten milligrams per milliliter. Half a milliliter. || E1, A1
+  Caller -> Ten per milliliter. Half a mil. In marker. I have one here. Okay. I'm writing. Done.
+  Nurse -> Take a picture of the label with your phone too, if you can.
+  Caller -> Good idea. Okay. I took one. Front and back.
+  Nurse -> Perfect. And use the oral syringe. Draw up to the half milliliter line.
+  Caller -> The half line. It's the middle of the first section. Okay. I see it.
+  Nurse -> That's it. You'll have the nurse come tomorrow to double-check. I'm going to send a nurse out tomorrow. || R3
+  Caller -> Tomorrow. Good. I'd like that. I want somebody to watch me do it the first time.
+  Nurse -> That's a smart plan. Julian, what time is she due for her next dose?
+  Caller -> Five o'clock. In about fifty minutes. If she needs it.
+  Nurse -> And how many doses has she needed the last few days? Is it about the same?
+  Caller -> About two a day. Sometimes three. Never more than three.
+  Nurse -> Okay. That's useful for the nurse tomorrow.
+  Nurse -> Okay. If she's in pain by then, you can give the half milliliter from the new bottle. If she's comfortable, you don't have to.
+  Caller -> Okay. If pain, half milliliter, new bottle. Okay.
+  Nurse -> And call us if her pain stays above a five after a dose, if she's hard to wake, or if her breathing gets slow. || E2
+  Caller -> Above a five. Hard to wake. Slow breathing. Okay. She's resting easy right now.
+  Nurse -> Good. Do you have my number if you want to double-check before you give it?
+  Caller -> I have the hospice number on the fridge. I'll call if I'm unsure. Thanks, Alan. I'm glad I called.
+  Nurse -> I'm glad you did. You did everything right.
+  Caller -> Thank you. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odalys Montenegro, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1935-12-01", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Julian Montenegro, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "7865550141", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked how much liquid morphine to give from a new bottle with a different strength.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about her morphine."
+    explanation: Documents the question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine liquid at 10 mg per mL on the new bottle, with a 5 mg dose every four hours as needed, last given four hours earlier.
+      speaker: Caller
+      turns: [15]
+      quote: "This one says ten. Ten milligrams per milliliter."
+      explanation: Documents the new concentration.
+      facts:
+        - {type: medication, name: morphine, strength: 10 mg per mL, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: four hours ago, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Pain was a three earlier.
+      speaker: Caller
+      turns: [22]
+      quote: "She said her pain was a three earlier."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: "3", certainty: stated}
+      covers: [A2]
+    - text: The pharmacy delivered a new bottle with a different label, a clear bottle, and a different strength.
+      speaker: Caller
+      turns: [13]
+      quote: "The old one was brown. Amber. This one is clear."
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that 5 mg is half a milliliter from the new bottle.
+      speaker: Nurse
+      turns: [29]
+      quote: "With the new ten milligram per milliliter bottle, five milligrams is half a milliliter."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Reached the pharmacy, which confirmed the switch to the ten milligram per milliliter bottle.
+      speaker: Nurse
+      turns: [40]
+      quote: "I reached the pharmacy about the morphine. They confirmed it."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, certainty: stated}
+      covers: [R2]
+    - text: Planned to send a nurse out tomorrow to double-check the dosing.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm going to send a nurse out tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised putting away the old bottle, labeling the new bottle with its strength and dose, and drawing up to the half-milliliter line.
+      speaker: Nurse
+      turns: [44]
+      quote: "Please put the old bottle away, somewhere separate, so you don't use it by mistake."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for pain above a five after a dose, difficulty waking her, or slow breathing.
+      speaker: Nurse
+      turns: [61]
+      quote: "call us if her pain stays above a five after a dose, if she's hard to wake, or if her breathing gets slow."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

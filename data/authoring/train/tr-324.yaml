@@ -1,0 +1,394 @@
+call_id: tr-324
+split: train
+blueprint: "A mother calls the pediatric nurse because her 7-year-old son Mateo, who has asthma, has been wheezing since the afternoon after playing at a cousin's house with a cat; two albuterol nebulizer treatments (4:00 and 4:30) have not helped, his chest is pulling in with each breath, he speaks in short phrases, his lips look a little bluish and the pulse oximeter reads 90. No fever. The nurse tells her to call 911 now, stays on the line while she uses the landline, coaches a third albuterol treatment while waiting, sitting upright, unlocking the door and bringing his medicines, pages on-call, and plans a callback. Breathing concern with 911 escalation, pediatric, parent caller, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing, offtopic_chatter]
+  clinical_domains: [dyspnea, medication, cough_uri]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Tidewater Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Paloma
+  call_timestamp_utc: "2026-10-27T21:40:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mateo Ibanez
+  patient_name_spoken: Mateo Ibanez
+  patient_name_certainty: stated
+  patient_dob_true: "2019-04-17"
+  patient_dob_spoken: "2019-04-17"
+  patient_dob_certainty: stated
+  caller_name_true: Lucinda Ibanez
+  caller_name_spoken: Lucinda Ibanez
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "5035550136"
+  callback_phone_spoken: "5035550136"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son is wheezing and struggling to breathe despite breathing treatments
+  reason_category: dyspnea
+  relevant_context: Pediatric home care patient with asthma
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: wheezing with the chest pulling in
+    symptom_present: true
+    onset_or_duration: since the afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "90"
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    dose: "2.5"
+    unit: mg
+    frequency: by nebulizer
+    last_dose: four thirty
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: speaking only in short phrases
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: bluish lips
+    symptom_present: true
+    severity: slight
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has asthma and the wheezing began after playing at his cousin's house where there is a cat
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: wheezing with chest retractions, bluish lips and an oxygen reading of 90 after two treatments
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    reason_or_trigger: give a third albuterol treatment while waiting for the ambulance
+    certainty: stated
+  - item_id: R3
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Sit him upright leaning slightly forward, keep her voice calm, and let him sit on her lap or lean on pillows
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Unlock the front door, hand the paramedics his inhaler, nebulizer and medicine list, and tell them the oxygen reading and the times of the treatments
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Child wheezing with chest pulling in, bluish lips and oxygen of 90 despite two albuterol treatments
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Tidewater Pediatric Home Care, this is Paloma.
+  Caller -> Paloma, it's Lucinda Ibanez. It's Mateo. He can't breathe right. He's wheezing and his chest is going in and out. The treatments aren't working. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Lucinda. I'm here. How old is Mateo? Is he awake?
+  Caller -> He's seven. He's awake. He's sitting on the couch. He's leaning forward. He's gasping. His ribs are sucking in. Every time he breathes, the skin between his ribs goes in.
+  Nurse -> Is he making a whistling sound when he breathes out?
+  Caller -> Yes. It's loud. I can hear it from across the room. A high whistle. And a cough in between.
+  Nurse -> Okay. That's the wheeze.
+  Nurse -> Okay. What treatments have you done?
+  Caller -> The albuterol. The two point five milligram vial in the nebulizer. I did one at four. It helped a little for a few minutes. Then he got worse. I did another at four thirty. Nothing. He's worse. The machine is still going. I mean the second one finished. || A3
+  Nurse -> Did he use his rescue inhaler at all, the one with the spacer?
+  Caller -> Before the machine. Four puffs. At three forty. It did a little. Then nothing.
+  Nurse -> Okay. Tell the paramedics that too.
+  Nurse -> Okay. Two treatments. At four and four thirty. What time is it now?
+  Caller -> Five. Five oh five. Almost. It's almost five oh five.
+  Nurse -> Okay. Lucinda, I need you to hang up and call nine one one right now. He needs an ambulance. || F2, R1
+  Caller -> Nine one one. Okay. Okay. Okay. Wait. Is he going to be okay?
+  Nurse -> We're getting him help right now. The best thing is the call.
+  Caller -> Okay. Okay. I'm dialing. I'm dialing.
+  Nurse -> Call them right now. I'll stay with you. Do you have another phone? A landline?
+  Caller -> My husband's phone is on the counter. He's at work. It's here. I'll use his. Put you on speaker. Hold on.
+  Nurse -> Good. Go.
+  Caller -> Mateo, honey, stay sitting. Mama's calling the ambulance. Okay. It's ringing. Hello? Yes. My son can't breathe. He has asthma. He's seven. He's wheezing. His chest is pulling in. Forty nine Cypress Lane. Ibanez. Yes. Yes. They're coming. Six minutes.
+  Nurse -> Great. Stay on with them as long as they want. I'm right here on the other phone. Lucinda, does Mateo have a pulse oximeter?
+  Caller -> They want me to stay on. But I can't hold two. I'll put you on speaker and them on the other. They're both on the counter.
+  Nurse -> That works.
+  Caller -> They said unlock the door and put away the dog. We don't have a dog.
+  Nurse -> Ha. Standard instruction.
+  Caller -> Yes. The little clip. On his finger. I put it on when he got worse. It says ninety. Ninety. It was ninety six this morning. || A2
+  Nurse -> Good that you have the clip. Is he cooperating with it?
+  Caller -> He's holding his hand still. He's being so brave. He's my brave boy.
+  Nurse -> He is. Tell him I said so.
+  Caller -> Mateo, the nurse says you're brave. He's nodding.
+  Nurse -> Okay. Ninety. That's low for him. Tell the paramedics ninety. Look at his lips. What color are they?
+  Caller -> A little blue. Bluish. Around the edge. Not a lot. But yes. Oh God. || A5
+  Nurse -> Take a breath, Lucinda. I'm here.
+  Caller -> Okay. Okay. I'm breathing.
+  Nurse -> Okay. Stay calm for him. Can he talk to you?
+  Caller -> He says short things. One word. Two words. He said help. He said Mama. He can't say a full sentence. He tried and he ran out of air. || A4
+  Nurse -> Is he using his belly to breathe? Does his stomach move a lot?
+  Caller -> Yes. His belly goes in and out. Fast. And his nostrils. They flare. Like a horse.
+  Nurse -> Okay. That's the effort. The paramedics will see it.
+  Nurse -> Okay. That's important. Tell the paramedics he can only speak in short phrases. Lucinda, you can give him another treatment while we wait. Another albuterol. Is the nebulizer set up? || A3, R2
+  Caller -> It's on the table. The cup is there. I have vials. I can do it. Yes.
+  Nurse -> I want you to give a third albuterol treatment now. Put the vial in, turn it on, and have him breathe through the mouthpiece. Sitting up, leaning forward a little. || R2
+  Caller -> Okay. Third treatment. Now. I'm doing it. I'm twisting the vial. It's in. I'm turning on the machine. It's going. Mateo, here, breathe this. Breathe in. Slow. Good boy. It's misting. He's holding it.
+  Nurse -> Good. Keep it on his mouth. Sit him on your lap if you can, leaning forward on a pillow or against your chest. Keep your voice calm. He feeds off your fear. || E1
+  Caller -> I'm trying. I'm trying. He's on my lap. He's leaning on me. I'm holding him. Shh, shh. I've got you. It's okay.
+  Caller -> He's tapping my arm. He wants me to rub his back. I'm rubbing. It's helping a little. He's closing his eyes.
+  Nurse -> Don't let him fall asleep. Keep him talking, even short things.
+  Caller -> Mateo, tell me your favorite color. Blue. He said blue. Good.
+  Nurse -> Perfect. Keep him telling you things.
+  Nurse -> That's perfect. You're doing so well, Lucinda. What's been going on today? How did this start?
+  Caller -> We were at my sister's. In the afternoon. Her house. They have a cat. A new cat. A fluffy one. Mateo was playing with it. He was on the floor. And he started coughing. And then wheezing. We left. I brought him home and did the neb. || A6
+  Nurse -> How long were you at your sister's?
+  Caller -> Two hours. He was playing with the cat the whole time. I didn't think. He's never reacted that bad.
+  Nurse -> It doesn't matter now. We'll focus on the next few minutes.
+  Nurse -> Okay. That's helpful. Does he have a fever?
+  Caller -> No. I took his temperature at four. Ninety eight point six. No fever. He's not sick. It's the cat. I know it's the cat. He's allergic. He's always been. I should have known. || A7
+  Nurse -> It's not your fault. Keep him on the neb. Is the front door unlocked for the paramedics?
+  Caller -> My husband is going to be so upset I didn't call him first. He's driving a truck on the interstate, he doesn't answer.
+  Nurse -> You can call him once the ambulance is with you. Right now it's about Mateo.
+  Caller -> I know. I'll call him from the ambulance. He'll meet us at the hospital.
+  Nurse -> Which hospital do they usually take you to?
+  Caller -> Children's. The one by the river. It's twelve minutes. He's been there before. For the asthma, two winters ago.
+  Nurse -> Then they know him. That helps.
+  Caller -> They have all his records. They know his weight, his allergies. The doctor there, Dr. Rahman, he's the one who set up the neb for us. He's very kind.
+  Nurse -> That's wonderful. I'm sure he'll be in good hands.
+  Caller -> I hope they have a bed. Last time we waited in the hall for three hours.
+  Nurse -> With oxygen of ninety and chest pulling, they'll take him right back. Don't worry about the wait.
+  Caller -> Okay. That makes me feel a little better. A little.
+  Nurse -> Keep breathing yourself. In and out.
+  Caller -> I'm trying. I'm doing the breathing with him. We're both breathing together.
+  Nurse -> That's beautiful. He's following your breathing. Keep it slow and steady.
+  Caller -> In and out. In and out. He's matching me. His shoulders are coming down a little.
+  Caller -> No. I'll have to get up. The door is locked. Can I?
+  Nurse -> Put the neb on the table and carry him. Or is there someone else in the house?
+  Caller -> My daughter. Isabel. She's twelve. She's upstairs. Isabel! Isabel, come down! Open the front door! Right now! The ambulance is coming!
+  Nurse -> Good. She can unlock the door and wait for them.
+  Caller -> She's coming. She's running. Isabel, unlock the door. And turn on the porch light. And wait outside. Okay. She did. She's on the porch.
+  Caller -> She's crying. She's scared. She's twelve.
+  Nurse -> Tell her she's doing a great job. She's helping her brother.
+  Caller -> Isabel, the nurse says you're doing great. She's nodding. She's wiping her eyes.
+  Nurse -> Good. Now, grab his inhaler, the nebulizer, the vials, and his medicine list. Is the list on the fridge?
+  Caller -> On the fridge. Isabel! Bring me the list from the fridge! And Mateo's backpack. The blue one. It has the inhaler. Yes. She's bringing.
+  Caller -> She's here. She has the blue backpack. And the list. And his stuffed bear. I didn't ask for the bear. But he wants it.
+  Nurse -> Bring the bear. He'll feel better with it.
+  Nurse -> Perfect. When the paramedics arrive, hand them the inhaler, the nebulizer and the list. Tell them the oxygen was ninety, the treatments were at four and four thirty, and the third one is going now. || E2
+  Caller -> Ninety. Four, four thirty. Third one now. Okay.
+  Caller -> Should I take off his shirt? He's sweaty.
+  Nurse -> If he's hot, loosen it. Don't take it all off.
+  Caller -> I loosened the collar. Okay.
+  Nurse -> I'm paging the on-call clinician right now so they're aware. || R3
+  Caller -> Okay. Thank you.
+  Nurse -> Lucinda, can I get Mateo's date of birth for my notes? And your number?
+  Caller -> April seventeenth. Two thousand nineteen. And my cell is five oh three, five five five, zero one three six. || patient_dob, callback_phone
+  Nurse -> Got it. How is he breathing now?
+  Caller -> The same. A little slower? He's still pulling. Maybe a little less. The color is the same. The neb is almost done. It's sputtering.
+  Nurse -> Check the oximeter again.
+  Caller -> Ninety one. Ninety one. It went up one. It's ninety one.
+  Nurse -> Good. Slow improvement. That's what we want.
+  Caller -> It was ninety. Now ninety one. Maybe ninety two. It's jumping. It's hard to tell. He's moving.
+  Nurse -> Don't worry about the exact number. Tell the paramedics what you see.
+  Nurse -> Good. That's a little better. Keep him upright. Don't lay him down.
+  Caller -> I won't. He's on my lap.
+  Nurse -> Is he able to cough? Is anything coming up?
+  Caller -> He's coughing. A little. Dry. It's tight. He says his chest is tight. He says it's a rock.
+  Caller -> He says he's scared. He said, Mama, I'm scared. Oh. My heart.
+  Nurse -> It's okay to be scared. Tell him you're right here and the ambulance is coming. You're not leaving him.
+  Caller -> I'm not leaving you. I'm right here. Mama's here.
+  Nurse -> A rock. That's how it feels. The paramedics will have stronger medicine. They'll help him.
+  Caller -> I hear the siren. I hear it. It's close.
+  Nurse -> Is Isabel at the door?
+  Caller -> She's at the curb waving her arms. She's good at it. She's so serious.
+  Nurse -> She's doing a great job.
+  Nurse -> Good. Isabel's outside. Good job, Isabel. Lucinda, I'm going to let you go. They're here. I'll call you in fifteen minutes. If you're at the hospital, pick up. || R4
+  Caller -> Okay. I will. Thank you so much, Paloma. Thank you.
+  Nurse -> You did everything right. Go.
+  Caller -> Bye. They're here. They're coming in.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mateo Ibanez, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2019-04-17", certainty: stated, heard_as: [], turns: [95]}
+    caller_name: {value: Lucinda Ibanez, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550136", certainty: stated, heard_as: [], turns: [95]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son was wheezing and struggling to breathe despite breathing treatments.
+    speaker: Caller
+    turns: [2]
+    quote: "He can't breathe right."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was wheezing with his chest and ribs pulling in with each breath.
+      speaker: Caller
+      turns: [4]
+      quote: "His ribs are sucking in."
+      explanation: Documents the wheezing and retractions.
+      facts:
+        - {type: symptom, name: wheezing with the chest pulling in, present: true, onset: since the afternoon, certainty: stated}
+      covers: [A1]
+    - text: Oxygen saturation was 90, down from 96 in the morning.
+      speaker: Caller
+      turns: [28]
+      quote: "It says ninety. Ninety."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "90", certainty: stated}
+      covers: [A2]
+    - text: Two albuterol nebulizer treatments were given at four and four thirty without lasting relief.
+      speaker: Caller
+      turns: [9]
+      quote: "The albuterol. The two point five milligram vial in the nebulizer. I did one at four."
+      explanation: Documents the breathing treatments.
+      facts:
+        - {type: medication, name: albuterol, dose: "2.5", unit: mg, frequency: by nebulizer, last_dose: four thirty, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He could only speak in short phrases and ran out of air.
+      speaker: Caller
+      turns: [38]
+      quote: "He can't say a full sentence."
+      explanation: Documents the difficulty talking.
+      facts:
+        - {type: symptom, name: speaking only in short phrases, present: true, certainty: stated}
+      covers: [A4]
+    - text: His lips looked slightly bluish around the edges.
+      speaker: Caller
+      turns: [34]
+      quote: "A little blue. Bluish."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: bluish lips, present: true, severity: slight, certainty: stated}
+      covers: [A5]
+    - text: He has asthma and the wheezing began after playing with a cat at his aunt's house.
+      speaker: Caller
+      turns: [53]
+      quote: "They have a cat. A new cat."
+      explanation: Documents the likely trigger.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+    - text: He had no fever.
+      speaker: Caller
+      turns: [58]
+      quote: "No. I took his temperature at four."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [15]
+      quote: "I need you to hang up and call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Advised giving a third albuterol treatment while waiting for the ambulance.
+      speaker: Nurse
+      turns: [44]
+      quote: "I want you to give a third albuterol treatment now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: albuterol, certainty: stated}
+      covers: [R2]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [92]
+      quote: "I'm paging the on-call clinician right now so they're aware."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [115]
+      quote: "I'll call you in fifteen minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised sitting him upright and leaning forward on her lap or pillows and keeping her voice calm.
+      speaker: Nurse
+      turns: [46]
+      quote: "Sit him on your lap if you can, leaning forward on a pillow or against your chest."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised handing the paramedics his inhaler, nebulizer and medicine list and telling them the oxygen reading and treatment times.
+      speaker: Nurse
+      turns: [87]
+      quote: "hand them the inhaler, the nebulizer and the list."
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe right."}
+    - {category: escalation_request, turns: [15], quote: "I need you to hang up and call nine one one right now."}

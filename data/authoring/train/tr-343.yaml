@@ -1,0 +1,343 @@
+call_id: tr-343
+split: train
+blueprint: "A flustered daughter calls hospice about 'Mom' who has been vomiting since the morning, then slips and says 'he threw up again'. Both of her parents are hospice patients in the same home, so the nurse stops and sorts out who is sick: it is her father Hector, 79. He has vomited three times since the morning, cannot keep fluids down, the Zofran 4 mg twice has not helped, his belly is swollen and tight with pain a six, and he has not had a bowel movement in six days. No fever. The nurse pages on-call, plans a nurse visit within two hours, tells her to give only sips and hold oral pills, and plans a callback in thirty minutes. Ambiguous identity mix-up with uncontrolled symptom flag, adult child caller, medium v2."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, identity_unresolved, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [nausea_vomiting, constipation, pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Golden Meadow Hospice
+  agency_type: hospice
+  nurse_name: Rafael
+  call_timestamp_utc: "2026-10-24T17:45:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [morphine, senna]
+chief_complaint:
+  patient_name_true: Hector Duarte
+  patient_name_spoken: Hector Duarte
+  patient_name_certainty: stated
+  patient_dob_true: "1947-05-18"
+  patient_dob_spoken: "1947-05-18"
+  patient_dob_certainty: stated
+  caller_name_true: Alma Duarte
+  caller_name_spoken: Alma Duarte
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3035550188"
+  callback_phone_spoken: "3035550188"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father has been vomiting since the morning and cannot keep fluids down
+  reason_category: nausea_vomiting
+  relevant_context: Hospice patient living with his wife, who is also a hospice patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    onset_or_duration: three times since the morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: swollen tight belly
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: six days
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: belly pain
+    symptom_present: true
+    severity: "6"
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zofran
+    medication_name_spoken: Zofran
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: as needed
+    prn: true
+    last_dose: second dose at two this afternoon
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: repeated vomiting, swollen belly and six days without a bowel movement
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold oral pills and give only sips until the clinician calls
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Give only small sips of water or ice chips, no food, and keep him upright or on his side with a bowl nearby
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call right away if he vomits again, the belly pain gets worse, or he stops responding normally
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Repeated vomiting and belly pain of six that persist despite two doses of Zofran
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Golden Meadow Hospice, this is Rafael.
+  Caller -> Rafael, hi, it's Alma Duarte. My mom is throwing up. She's been throwing up since the morning. I don't know what to do. || caller_name, relationship, cc
+  Nurse -> Take a breath. I'm here. We'll figure it out step by step.
+  Caller -> Okay. Okay. I'm in the kitchen. Dad's in the bedroom. Mom's in the den. I'm running back and forth.
+  Nurse -> Okay, Alma. Sorry to hear that. I want to make sure I have the right person. Which patient is it? Your mom?
+  Caller -> Yes. My mom. Imelda. She's been, no wait. Hold on. Hold on. No. It's him. He threw up again. Sorry. It's my dad. It's Dad.
+  Nurse -> Okay. So it's your dad who's throwing up. Both your parents are patients with us, right?
+  Caller -> Yes. Both. I keep mixing them up. I'm so sorry. It's Dad. It's Hector. Hector Duarte. Mom's fine. She's asleep. She's fine. It's my father. || patient_name
+  Nurse -> Good. Is your mom comfortable?
+  Caller -> She's fine. She had lunch. She's on her oxygen. She's asleep in the recliner. Her breathing is normal.
+  Nurse -> How long has she been with us?
+  Caller -> Three months. Dad came on in August. They were both on within a month of each other. It was awful. We got the news twice.
+  Nurse -> I'm so sorry. That's a lot for a family.
+  Nurse -> Okay. Let's get back to Hector.
+  Nurse -> No need to be sorry. It's been a long day. So Hector Duarte. I'll pull up his chart. Can you give me his date of birth?
+  Caller -> May eighteenth. Nineteen forty seven. He's seventy nine. Mom's the one who's eighty one. Imelda. Ugh. || patient_dob
+  Caller -> I swear I know who is who. It's just the long day. I have their charts open on the kitchen table, one on top of the other.
+  Nurse -> It happens. With two patients in one house, it happens all the time.
+  Nurse -> Thanks. And your number?
+  Caller -> Three oh three, five five five, zero one eight eight. || callback_phone
+  Nurse -> Is that the cell, or the house?
+  Caller -> Both. It's a landline that forwards to my cell. When I'm out. I'm home now.
+  Nurse -> Perfect. Okay, Alma. Tell me about your dad. When did the vomiting start?
+  Caller -> This morning. Around eight. He threw up his breakfast. Then again at noon. And again at, I think three. Three times. He can't keep anything down. Not even water. He sips water and it comes up. || A1
+  Nurse -> Is he able to take the Zofran under the tongue, or is it coming back up too? || A5
+  Caller -> It melts. It dissolves. I put it on his tongue. It's gone before he can throw up. But the vomiting still came.
+  Nurse -> Okay. That's helpful.
+  Nurse -> What was breakfast?
+  Caller -> Oatmeal. And half a banana. And his tea. It all came up. Like it was never in him.
+  Nurse -> Okay.
+  Nurse -> Okay. Three times since the morning, and he can't keep fluids down. Is it bile? Green, yellow? Any blood?
+  Caller -> Yellowish. Greenish yellow. A bit brown at the end. No blood. I don't think. I looked. No red.
+  Nurse -> Does it smell bad? Like stool?
+  Caller -> A little. A sour smell. Not exactly like stool. I don't know. It's sour.
+  Nurse -> Okay. Thank you.
+  Nurse -> Okay. Has he taken anything for the nausea?
+  Caller -> The Zofran. The little tablet that melts. Four milligrams. He took one at ten. It didn't help. He took another at two. Still nothing. He threw up at three. || A5
+  Nurse -> Okay. Zofran four, at ten and again at two, no relief. What does his belly look like? || A5
+  Caller -> Big. Swollen. Hard. Tight like a drum. It's bigger than yesterday. He says it hurts. He's holding it. A six, he said. A six. He keeps rubbing it. || A2, A4, F1
+  Nurse -> Okay. A six. Is it constant or does it come and go?
+  Caller -> Comes and goes. Cramps. Then it's steady. He groans. He curls up.
+  Nurse -> Is he able to find a comfortable position?
+  Caller -> On his side with his knees up. He's been like that all afternoon. He gets up to try the bathroom and nothing happens.
+  Nurse -> Okay. That fits what I'm worried about.
+  Nurse -> Okay. And when was his last bowel movement?
+  Caller -> Oh. Oh no. It's been days. Six days. I think. I don't know. It's been about six days. I've been telling him to take the stool softener but he forgets. He says he's not constipated. || A3
+  Nurse -> What's he taking for his bowels?
+  Caller -> The softener. One at night. And the senna. They gave it to him when they started the morphine. But he hasn't been taking it. Not since last Wednesday.
+  Nurse -> Okay. That could be part of it. We'll sort that out.
+  Nurse -> Okay. That's important. Six days. Does he pass gas?
+  Caller -> No. I asked. He says no. He says nothing's moving.
+  Nurse -> Okay. Does he have a fever?
+  Caller -> No. His temperature was ninety eight two. At noon. No fever. He's cool. He's not hot. || A6
+  Nurse -> Okay. Alma, what you're describing is something I want the on-call clinician to look at right away. The vomiting that isn't stopping, the swollen hard belly, and no bowel movement or gas. I'm paging them now. || R1
+  Caller -> Is it serious? Is he dying? Is this the end?
+  Caller -> I'm sorry. I'm scared. It's a lot.
+  Nurse -> It's okay to be scared. That's normal.
+  Nurse -> I understand the fear. Let's not jump ahead. I'm going to get him help now. That's the plan.
+  Caller -> Okay. Okay. You're right.
+  Nurse -> I can't say that. What I can say is it needs attention today. It could be a blockage, which is something we can treat to make him comfortable. I'm also sending a nurse to your house. I want her there within two hours. || R2
+  Caller -> Within two hours. Okay. Thank you.
+  Nurse -> Until she arrives, please hold off on any pills by mouth. He won't keep them down anyway. Give him only small sips of water, or ice chips. Nothing to eat. Keep him upright or lying on his side, with a bowl next to him. || R3, E1
+  Caller -> No pills. Sips. Ice chips. Bowl. Upright or on his side. Okay. I'll get the bowl. I have a basin.
+  Caller -> I have a salad bowl too. A big one. Should I use that?
+  Nurse -> Any bowl or basin works. Put a towel under it for spills.
+  Nurse -> Good. I'll call you back in thirty minutes with what the on-call clinician says. || R4
+  Caller -> Thirty minutes. Okay. Rafael, what about my mom? She's fine. She's asleep. Should I be worried about her?
+  Nurse -> It sounds like she's fine. If anything changes for her, call us. Right now, let's focus on Hector.
+  Caller -> Okay. Okay. Thank you.
+  Nurse -> And please call back right away if he vomits again, if the pain gets worse, or if he stops responding normally.
+  Caller -> Vomits again, pain worse, not responding right. Okay. I'll call. I'll write it down. || E2
+  Nurse -> Alma, tell me about the pain medicines. Is he on something for the belly pain, other than the Zofran? || A5
+  Caller -> He has the morphine liquid. He took it yesterday. He hasn't taken any today. He forgot. Or he didn't want it.
+  Nurse -> Okay. Don't give anything by mouth for now. We'll ask the clinician about another way.
+  Nurse -> You're doing great, Alma. I know it's overwhelming with both parents.
+  Nurse -> And Alma, one more thing. Please don't give him anything else by mouth, not even a cracker. Let the clinician decide.
+  Caller -> Nothing. Not a cracker. I'll tell Mom too. She likes to bring him soup.
+  Nurse -> Good idea. No soup tonight.
+  Caller -> It's a lot. My brother lives in Denver. It's mostly me. But I'm okay. I'll be okay.
+  Caller -> My mom doesn't really know what's happening. She thinks he's just tired. I don't want to tell her till I know.
+  Nurse -> That's your decision. We can help you tell her when the time comes.
+  Nurse -> Is there someone who can stay with you tonight?
+  Caller -> My husband gets home at seven. He'll help.
+  Nurse -> Good. I'll talk to you in thirty minutes.
+  Caller -> Thank you, Rafael. Bye.
+  Nurse -> Bye, Alma.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hector Duarte, certainty: stated, heard_as: [], turns: [8]}
+    patient_dob: {value: "1947-05-18", certainty: stated, heard_as: [], turns: [16]}
+    caller_name: {value: Alma Duarte, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550188", certainty: stated, heard_as: [], turns: [20]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father had been vomiting since the morning and could not keep fluids down.
+    speaker: Caller
+    turns: [2]
+    quote: "My mom is throwing up. She's been throwing up since the morning."
+    explanation: Documents the problem prompting the call before the patient was clarified as her father.
+    covers: [cc]
+  assessment:
+    - text: He vomited three times since the morning and could not keep water down.
+      speaker: Caller
+      turns: [24]
+      quote: "He can't keep anything down."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, onset: three times since the morning, certainty: stated}
+      covers: [A1]
+    - text: His belly was swollen, hard and tight, bigger than the day before.
+      speaker: Caller
+      turns: [39]
+      quote: "Big. Swollen. Hard. Tight like a drum."
+      explanation: Documents the abdominal swelling.
+      facts:
+        - {type: symptom, name: swollen tight belly, present: true, certainty: stated}
+      covers: [A2]
+    - text: He had not had a bowel movement for about six days and passed no gas.
+      speaker: Caller
+      turns: [46]
+      quote: "Six days. I think."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, onset: six days, certainty: stated}
+      covers: [A3]
+    - text: Belly pain was a six, coming and going with cramps.
+      speaker: Caller
+      turns: [39]
+      quote: "A six, he said. A six."
+      explanation: Documents the belly pain.
+      facts:
+        - {type: symptom, name: belly pain, present: true, severity: "6", certainty: stated}
+      covers: [A4]
+    - text: Zofran 4 mg was taken at ten and again at two without relief.
+      speaker: Caller
+      turns: [37]
+      quote: "The Zofran. The little tablet that melts. Four milligrams."
+      explanation: Documents the anti-nausea medicine.
+      facts:
+        - {type: medication, name: Zofran, dose: "4", unit: mg, frequency: as needed, prn: true, last_dose: second dose at two this afternoon, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: He had no fever.
+      speaker: Caller
+      turns: [53]
+      quote: "No. His temperature was ninety eight two."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'm paging them now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'm also sending a nurse to your house. I want her there within two hours."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+    - text: Advised holding oral pills and giving only small sips until the clinician called.
+      speaker: Nurse
+      turns: [62]
+      quote: "please hold off on any pills by mouth."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in thirty minutes with the clinician's advice.
+      speaker: Nurse
+      turns: [66]
+      quote: "I'll call you back in thirty minutes with what the on-call clinician says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised small sips of water or ice chips, no food, and keeping him upright or on his side with a bowl nearby.
+      speaker: Nurse
+      turns: [62]
+      quote: "Give him only small sips of water, or ice chips."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back right away if he vomited again, the pain worsened or he stopped responding normally.
+      speaker: Nurse
+      turns: [70]
+      quote: "please call back right away if he vomits again"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [39], quote: "Big. Swollen. Hard. Tight like a drum."}

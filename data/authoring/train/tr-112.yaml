@@ -1,0 +1,304 @@
+call_id: tr-112
+split: train
+blueprint: "MEDIUM supply call: 63-year-old with type 2 diabetes on insulin is low on test strips (about 10), pen needles (5 left) and lancets (out), and had a low sugar of 58 yesterday that she treated with juice; also asks about rotating injection sites. Nurse orders supplies for Thursday, messages the prescriber about the low, teaches hypoglycemia treatment and site rotation. No flags."
+setup:
+  scenario_category: supply
+  subtype: diabetic_supplies
+  secondary_tags: [multi_issue, prn_and_scheduled, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [glucose, equipment, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-11-11T16:30:00Z"
+  length_bucket: medium
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marguerite Tillman
+  patient_name_spoken: Marguerite Tillman
+  patient_name_certainty: stated
+  patient_dob_true: "1963-02-02"
+  patient_dob_spoken: "1963-02-02"
+  patient_dob_certainty: stated
+  caller_name_true: Marguerite Tillman
+  caller_name_spoken: Marguerite Tillman
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9195550184"
+  callback_phone_spoken: "9195550184"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested diabetes testing and injection supplies
+  reason_category: supply_request
+  relevant_context: Uses insulin and checks sugars four times a day
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: test strips
+    supply_remaining: "10"
+    supply_unit: strips
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: pen needles
+    supply_remaining: "5"
+    supply_unit: needles
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: patient
+    supply_item: lancets
+    supply_remaining: none
+    supply_unit: lancets
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: low blood sugar yesterday
+    vital_value: "58"
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: patient
+    medication_name_true: insulin glargine
+    medication_name_spoken: Lantus
+    medication_status: taking
+    dose: "20"
+    unit: units
+    frequency: at bedtime
+    certainty: stated
+  - item_id: A6
+    item_type: caller_concern
+    reporter: patient
+    caller_concern_text: Asked how to rotate injection sites because her belly is bruised
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: test strips, pen needles and lancets
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: sugar of 58 yesterday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: For a sugar under 70, take 15 grams of fast sugar such as half a cup of juice, recheck in 15 minutes, and repeat if still low
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Rotate injection sites, keep an inch from the last spot, and use thighs and the back of the arms as well as the belly
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if she is too confused or drowsy to swallow; call us for any sugar under 70
+    trigger_condition: confusion or drowsiness; sugar under 70
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi, Gwen. It's Marguerite Tillman. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Marguerite. Can I get your birthday?
+  Caller -> February second, nineteen sixty three. Groundhog Day. Ha. || patient_dob
+  Nurse -> Ha. Easy to remember. And I have nine one nine, five five five, zero one eight four. || callback_phone
+  Caller -> That's me. || callback_phone
+  Nurse -> What do you need today?
+  Caller -> Supplies. Diabetes stuff. I'm running out of things. The test strips, I have like ten. Ten left. || cc, A1
+  Nurse -> Okay.
+  Caller -> And the pen needles. I have five. And I'm completely out of the lancets. || A2, A3
+  Nurse -> Okay. Out of lancets. How many times a day are you checking?
+  Caller -> Four. Before meals and at bedtime. So the ten strips is, what, two days.
+  Nurse -> Right. Okay. We'll get that fixed. Anything else going on with your sugars?
+  Caller -> Well, yesterday I had a low. It was fifty eight. In the afternoon. I felt shaky and sweaty. || A4
+  Nurse -> Oh. Okay. What did you do?
+  Caller -> I drank juice. Orange juice. Half a glass. And I felt better in like fifteen minutes. || A4
+  Nurse -> Good. That's the right thing. Did you recheck?
+  Caller -> I did. It came up to ninety something. So I was okay.
+  Nurse -> Okay. And what insulin are you on? || A5
+  Caller -> The Lantus. Twenty units at bedtime. || A5
+  Nurse -> Mm-hm. Okay. And had you eaten that day?
+  Caller -> I had a late lunch. I skipped my morning snack. I was busy. I was watching my niece. She's, she's three, she's a handful.
+  Nurse -> Ha. I bet. Okay.
+  Caller -> Yeah. She had me running. We were at the park.
+  Nurse -> That'll do it. More activity and less food. Okay.
+  Caller -> Yeah. That's probably what it was.
+  Nurse -> How have your fasting numbers been, the morning ones, this week?
+  Caller -> Pretty good. One ten, one twenty. A hundred and thirty one day. Nothing crazy.
+  Nurse -> That's good. And have you noticed any of those shaky feelings at night? Waking up sweaty?
+  Caller -> No. Not at night. Just that once, at the park.
+  Nurse -> Okay. How are your feet? Any sores, numbness, tingling?
+  Caller -> My feet are okay. A little tingling sometimes, in the toes. It's been like that for a year. I look at them every night like they told me.
+  Nurse -> Good. Keep doing that. And your eyes, are you seeing okay?
+  Caller -> I have an appointment next month. I'm okay, I think. Reading glasses.
+  Nurse -> Good. Keep that appointment.
+  Caller -> I will.
+  Nurse -> I'm going to let your prescriber know about the fifty eight, in case she wants to adjust anything. || R3
+  Caller -> Okay. I don't want to go lower on it. I mean I don't want lows.
+  Nurse -> Right. Nobody does. Now, what about your injection sites? How do those look?
+  Caller -> That's the other thing. My belly is all bruised. I always use my belly. I don't know where else to go. || A6
+  Nurse -> Okay. So you can rotate. Use the thighs, the back of your upper arms, and the belly, but move around. Stay at least an inch away from the last spot. || E2
+  Caller -> An inch. Thighs. Back of the arms. Okay.
+  Nurse -> And a new needle every time. That will help with bruising too.
+  Caller -> I do use a new one. I think. Most of the time. I stretch them sometimes.
+  Nurse -> That's why we're ordering more. Don't stretch them.
+  Caller -> Okay. Okay.
+  Nurse -> I'll put in the order for test strips, pen needles and lancets. || R1
+  Caller -> Thank you.
+  Nurse -> It'll be delivered Thursday. Is somebody home? || R2
+  Caller -> I'm home. I work from home.
+  Nurse -> Perfect. Now one more time on the lows. If your sugar is under seventy, take fifteen grams of fast sugar. Half a cup of juice is about right. Wait fifteen minutes, recheck, and repeat if it's still low. || E1
+  Caller -> Under seventy. Half a cup. Fifteen minutes. Recheck. Okay.
+  Nurse -> And call nine one one if you're too confused or sleepy to swallow. Call us for any sugar under seventy, even if you fixed it. || E3
+  Caller -> Confused, sleepy, nine one one. Under seventy, call you. Okay.
+  Nurse -> And who helps if you do have a bad low and you're alone?
+  Caller -> My sister lives two doors down. She has a key. And I wear my medical bracelet, always. It says diabetic, and it has my sister's phone number on the back.
+  Nurse -> That's great. Good planning.
+  Caller -> Thanks. After the low I made her promise to check on me more.
+  Nurse -> Do you keep juice or glucose tabs by your bed?
+  Caller -> Juice in the fridge, and crackers in the nightstand drawer too, for emergencies.
+  Caller -> Juice in the fridge. I'll put some glucose tabs in my purse and by the bed.
+  Nurse -> Good idea. Anything else?
+  Caller -> No. That's it. Thanks so much, Gwen.
+  Nurse -> Take care, Marguerite.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marguerite Tillman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1963-02-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Marguerite Tillman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550184", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested diabetes testing and injection supplies.
+    speaker: Caller
+    turns: [8]
+    quote: "Supplies. Diabetes stuff. I'm running out of things."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: About 10 test strips remained.
+      speaker: Caller
+      turns: [8]
+      quote: "The test strips, I have like ten. Ten left."
+      explanation: Documents the strip supply.
+      facts:
+        - {type: supply, item: test strips, supply: 10 strips, certainty: stated}
+      covers: [A1]
+    - text: Five pen needles remained and lancets were gone.
+      speaker: Caller
+      turns: [10]
+      quote: "And the pen needles. I have five. And I'm completely out of the lancets."
+      explanation: Documents the needle and lancet supply.
+      facts:
+        - {type: supply, item: pen needles, supply: 5 needles, certainty: stated}
+        - {type: supply, item: lancets, supply: none, certainty: stated}
+      covers: [A2, A3]
+    - text: A low blood sugar of 58 occurred yesterday afternoon with shakiness and sweating, treated with juice.
+      speaker: Caller
+      turns: [14]
+      quote: "It was fifty eight. In the afternoon. I felt shaky and sweaty."
+      explanation: Documents the hypoglycemia episode.
+      facts:
+        - {type: vital, name: low blood sugar yesterday, value: "58", certainty: stated}
+      covers: [A4]
+    - text: Lantus 20 units at bedtime was in use.
+      speaker: Caller
+      turns: [20]
+      quote: "The Lantus. Twenty units at bedtime."
+      explanation: Documents the insulin regimen.
+      facts:
+        - {type: medication, name: Lantus, dose: "20", unit: units, frequency: at bedtime, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: She asked how to rotate injection sites because her belly was bruised.
+      speaker: Caller
+      turns: [40]
+      quote: "My belly is all bruised. I always use my belly. I don't know where else to go."
+      explanation: Documents the injection-site concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to let the prescriber know about the sugar of 58.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to let your prescriber know about the fifty eight, in case she wants to adjust anything."
+      explanation: Documents the planned prescriber notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned to order test strips, pen needles, and lancets.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll put in the order for test strips, pen needles and lancets."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Thursday.
+      speaker: Nurse
+      turns: [49]
+      quote: "It'll be delivered Thursday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised rotating sites to the thighs and back of the arms as well as the belly, staying an inch from the last spot.
+      speaker: Nurse
+      turns: [41]
+      quote: "Use the thighs, the back of your upper arms, and the belly, but move around. Stay at least an inch away from the last spot."
+      explanation: Documents injection-site rotation.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised that for a sugar under 70 she take 15 grams of fast sugar such as half a cup of juice, recheck in 15 minutes, and repeat if still low.
+      speaker: Nurse
+      turns: [51]
+      quote: "If your sugar is under seventy, take fifteen grams of fast sugar. Half a cup of juice is about right."
+      explanation: Documents hypoglycemia treatment.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if she was too confused or sleepy to swallow, and calling the agency for any sugar under 70.
+      speaker: Nurse
+      turns: [53]
+      quote: "call nine one one if you're too confused or sleepy to swallow."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

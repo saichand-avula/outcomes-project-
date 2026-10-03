@@ -1,0 +1,269 @@
+call_id: tr-438
+split: train
+blueprint: "A nurse at an assisted living facility calls home health because the pharmacy delivered glyburide for a resident whose order is glipizide five milligrams twice a day; she noticed before giving any, and his sugar this morning was one hundred forty. She sets the bottle aside and wants to know what to do about his dose and sugar checks. Nurse pages on-call, contacts the pharmacy to correct the order, and plans a callback in an hour; reviews checking sugars before meals. Look-alike drug dispensing error caught before giving (medication concern), tall-man pair, facility staff caller, patient 65-89, v2 short."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication_dispensed
+  secondary_tags: [tall_man_drug, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, glucose]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Marlowe Home Health
+  agency_type: home_health
+  nurse_name: Fatima
+  call_timestamp_utc: "2026-11-23T14:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lyle Stroheim
+  patient_name_spoken: Lyle Stroheim
+  patient_name_certainty: stated
+  patient_dob_true: "1951-12-03"
+  patient_dob_spoken: "1951-12-03"
+  patient_dob_certainty: stated
+  caller_name_true: Nadine Okwuosa
+  caller_name_spoken: Nadine Okwuosa
+  caller_name_certainty: stated
+  relationship_to_patient: nurse at the facility
+  relationship_certainty: stated
+  callback_phone_true: "8085550157"
+  callback_phone_spoken: "8085550157"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that the pharmacy delivered the wrong diabetes pill for a resident
+  reason_category: medication
+  relevant_context: Home health patient living in an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: glipizide
+    medication_name_spoken: glipizide
+    medication_status: prescribed
+    dose: "5"
+    unit: mg
+    frequency: twice a day before meals
+    prn: false
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: glyburide
+    medication_name_spoken: glyburide
+    medication_status: given_previously
+    dose: "5"
+    unit: mg
+    frequency: delivered in error and not given
+    prn: false
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "140"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong diabetes pill delivered and doses due
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: correct the order and send the right medicine
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give the glyburide, set the bottle aside labeled do not use, and hold his diabetes pill until the clinician calls back
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his sugar before each meal and at bedtime and write the numbers down, and call for under seventy or over three hundred
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Pharmacy delivered glyburide instead of the ordered glipizide
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Marlowe Home Health, this is Fatima.
+  Caller -> Hi, Fatima. This is Nadine Okwuosa. O K W U O S A. I'm the nurse at Sunnyfield Assisted Living. I'm calling about Mr. Lyle Stroheim. S T R O H E I M. The pharmacy delivered the wrong pill. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi, Nadine. Thanks for calling. Tell me what you found.
+  Caller -> Thanks for picking up. I have been on hold with three different offices this morning.
+  Nurse -> I'm sorry about that. Let's get you answers.
+  Caller -> His order says glipizide. Five milligrams. Twice a day before meals. The new bottle that came this morning says glyburide. G L Y B U R I D E. Five milligrams. Similar name. Similar pill. || A1, A2
+  Nurse -> Okay. Glipizide on the order, glyburide in the bottle. Did anyone give him any? || A1, A2
+  Caller -> I took a photo of both labels with my phone. I can send it if you want it for the record.
+  Nurse -> Keep it for now. You can show the clinician later.
+  Caller -> No. I caught it. I always compare the label to the order before I pour. Nobody gave him any. It's on my cart, set aside. || A2
+  Caller -> It's a habit from nursing school. My instructor drilled it into us. Three checks before you pour. Right drug, right dose, right patient.
+  Nurse -> Ha. She'd be proud.
+  Nurse -> Good catch. What's his date of birth?
+  Caller -> It could have been bad. He lives on his own schedule, and his appetite is not always reliable.
+  Caller -> December third. Nineteen fifty one. || patient_dob
+  Nurse -> Thanks. And your number?
+  Caller -> Eight oh eight, five five five, zero one five seven. || callback_phone
+  Nurse -> And his sugar today?
+  Caller -> I use the facility's meter. It's calibrated every week. I have the log right here.
+  Caller -> I checked it before breakfast. One forty. That's a good number for him. || A3
+  Nurse -> Okay. Did he eat breakfast without the pill?
+  Caller -> Eggs and toast and a little fruit. He ate it all. He eats well at breakfast.
+  Caller -> Yes. He ate a normal breakfast. I held the pill because I didn't want to give the wrong one. His lunch is in about forty minutes.
+  Caller -> No dizziness, no shakiness. He's fine. I checked on him twice.
+  Nurse -> That was the right decision. Now, Nadine, glyburide is stronger and can drop sugar more than glipizide, especially in older adults. We don't want him to have it. || E1
+  Caller -> That's what I was worried about. I almost gave it. The pills are the same white color. Same shape.
+  Caller -> The other nurses on the floor said they've seen that mix up before. At another facility.
+  Nurse -> It's one of the most common look-alike errors.
+  Nurse -> It's a common mix up. Let me page the on-call clinician so we can decide what to do about his dose at lunch. || R1
+  Caller -> Okay. Thank you. Do I give nothing until you call?
+  Caller -> I don't want to withhold anything for too long. But I don't want to guess either.
+  Nurse -> Right. Hold his diabetes pill until the clinician calls back. Set the glyburide bottle aside, label it do not use, and keep it away from the cart. || A2
+  Caller -> Do not use. I have a red sticker. I'll put it on now.
+  Caller -> I stuck one on the lid and one on the side. Now it looks like a hazard. Good.
+  Nurse -> Ha. That's exactly the point.
+  Nurse -> Good. I'll also contact the pharmacy and ask them to correct the order and send the right medicine. || R2
+  Caller -> Please. I called them but they put me on hold for twenty minutes and I gave up.
+  Caller -> The pharmacist on the phone was nice, but she had to go find a manager. I think the manager was on lunch.
+  Nurse -> Phone lines are slow today. Thank you for your patience.
+  Caller -> Thank you. I've already filled out our incident report. The administrator knows.
+  Caller -> They have to track these things. State rules. I have to give them a copy of the labels too.
+  Nurse -> That's good. I'll call you back in an hour with the clinician's answer. || R3
+  Caller -> Do you want me to call the family? His daughter is his contact. She might worry.
+  Nurse -> That's up to your facility's policy. It's fine to wait until we have the plan.
+  Caller -> An hour. Okay. I'll hold the lunch tray for a few minutes if I need to.
+  Caller -> I also held the dessert. Because he had pudding at breakfast. Don't tell him.
+  Nurse -> Ha. A secret.
+  Nurse -> And in the meantime, check his sugar before each meal and at bedtime, and write the numbers down. Call us if it goes under seventy or over three hundred. || E2
+  Caller -> Before each meal, bedtime. Under seventy or over three hundred. I will. I have his log.
+  Caller -> He keeps a little notebook too. He writes the numbers in blue ink and draws a smiley face if it's under one fifty.
+  Nurse -> Perfect. How is he feeling?
+  Caller -> He's good. He's playing cards in the lounge. He doesn't know there's a fuss.
+  Caller -> He says if he loses a hand, it's the pharmacist's fault. He blames everyone.
+  Nurse -> Ha. That's a good sport.
+  Nurse -> Ha. Good. Let's keep it that way.
+  Caller -> He's a retired postal worker. He calls me Postmaster. I don't know why.
+  Nurse -> Ha. You're in charge of the mail of the facility.
+  Caller -> He says he's going to promote me to Postmaster General if the pills show up on time.
+  Caller -> I told him I only handle pills. He said, close enough.
+  Nurse -> Ha. He sounds fun.
+  Caller -> He tells the same joke every morning. About a mailbox. It's actually pretty good.
+  Nurse -> Ha. A morning ritual.
+  Caller -> He is. Okay. I'll wait for your call. Thanks, Fatima.
+  Nurse -> Anytime, Nadine. Bye.
+  Caller -> I'm glad I called. I almost wasn't going to bother you.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lyle Stroheim, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1951-12-03", certainty: stated, heard_as: [], turns: [15]}
+    caller_name: {value: Nadine Okwuosa, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: nurse at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550157", certainty: stated, heard_as: [], turns: [17]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the pharmacy delivered the wrong diabetes pill for a resident.
+    speaker: Caller
+    turns: [2]
+    quote: "The pharmacy delivered the wrong pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: His order was glipizide 5 mg twice a day before meals.
+      speaker: Caller
+      turns: [6]
+      quote: "His order says glipizide. Five milligrams. Twice a day before meals."
+      explanation: Documents the ordered medicine.
+      facts:
+        - {type: medication, name: glipizide, dose: "5", unit: mg, frequency: twice a day before meals, prn: false, med_status: prescribed, certainty: stated}
+      covers: [A1]
+    - text: The pharmacy delivered glyburide 5 mg instead and none was given.
+      speaker: Caller
+      turns: [6]
+      quote: "The new bottle that came this morning says glyburide."
+      explanation: Documents the wrong medicine.
+      facts:
+        - {type: medication, name: glyburide, dose: "5", unit: mg, frequency: delivered in error and not given, prn: false, med_status: given_previously, certainty: stated}
+      covers: [A2]
+    - text: Blood sugar before breakfast was 140.
+      speaker: Caller
+      turns: [20]
+      quote: "One forty."
+      explanation: Documents the blood sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "140", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [29]
+      quote: "Let me page the on-call clinician"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact the pharmacy to correct the order and send the right medicine.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll also contact the pharmacy"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'll call you back in an hour"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not giving the glyburide, labeling the bottle do not use and holding his diabetes pill until the clinician called back.
+      speaker: Nurse
+      turns: [32]
+      quote: "Hold his diabetes pill until the clinician calls back."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised checking his sugar before each meal and at bedtime and calling for under seventy or over three hundred.
+      speaker: Nurse
+      turns: [48]
+      quote: "check his sugar before each meal and at bedtime"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "The pharmacy delivered the wrong pill."}

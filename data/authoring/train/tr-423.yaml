@@ -1,0 +1,250 @@
+call_id: tr-423
+split: train
+blueprint: "A 62-year-old man with atrial fibrillation calls home health himself to admit he stopped taking his Eliquis three days ago because he kept getting large bruises on his forearms and was afraid of bleeding. No bleeding now, no chest pain, no stroke symptoms. Nurse explains the clot and stroke risk, asks him not to restart or stop on his own before the clinician speaks with him, pages on-call, sends a nurse tomorrow, and reviews warning signs of stroke. Stopped medication (medication concern), self caller, patient 18-64, v2 short."
+setup:
+  scenario_category: medication
+  subtype: stopped_medication
+  secondary_tags: [phone_not_given, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, bleeding, cardiac, neurologic]
+  relationship_group: self
+  na_reason: null
+  agency_name: Orchard Lane Home Health
+  agency_type: home_health
+  nurse_name: Samir
+  call_timestamp_utc: "2026-11-12T15:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leonard Vasquez
+  patient_name_spoken: Leonard Vasquez
+  patient_name_certainty: stated
+  patient_dob_true: "1964-02-18"
+  patient_dob_spoken: "1964-02-18"
+  patient_dob_certainty: stated
+  caller_name_true: Leonard Vasquez
+  caller_name_spoken: Leonard Vasquez
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Reported that he stopped his blood thinner three days ago because of bruising
+  reason_category: medication
+  relevant_context: Home health patient with atrial fibrillation on a blood thinner
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Eliquis
+    medication_name_spoken: Eliquis
+    medication_status: stopped
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: large bruises on forearms
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: bleeding or stroke symptoms
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: patient stopped his blood thinner three days ago
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not restart or stop the Eliquis until the clinician calls, because stopping raises the risk of a clot and stroke
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for face drooping, arm weakness, slurred speech, chest pain, or sudden shortness of breath
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Stopped blood thinner on his own three days ago
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Orchard Lane Home Health, this is Samir.
+  Caller -> Hi, Samir. This is Leonard Vasquez. V A S Q U E Z. I'm a patient. And, um, I have a confession. I stopped my Eliquis. The five milligram pill, twice a day. || caller_name, patient_name, relationship, cc, A1, F1
+  Nurse -> Thanks for telling me, Leonard. I'm glad you called. When did you stop?
+  Caller -> I almost didn't. I wanted to see if the bruises would fade first.
+  Nurse -> I'm glad you didn't wait any longer.
+  Caller -> Three days ago. Saturday. I took the morning one and then I didn't take the night one. And I haven't taken any since.
+  Caller -> I was out of town. At a wedding. I had too much cake, and then I felt bad about everything.
+  Nurse -> Okay. Can I ask why?
+  Caller -> It's silly, when I say it out loud.
+  Caller -> The bruises. They're huge. On both forearms. Purple, like grapes. I bumped the cabinet door and it turned black. I got scared. I thought I'd bleed to death over a cabinet.
+  Caller -> I keep my sleeves down. My cousin asked if I got in a fight. I said, with a cabinet.
+  Nurse -> Ha. A cabinet is a tough opponent.
+  Nurse -> That's a scary thing to see. How big are the bruises?
+  Caller -> One is the size of my hand. The other, a bit smaller. And a few small ones. They don't hurt too much. They're just ugly. || A2
+  Caller -> I took a picture. Do you want me to send it? I can send it to the team.
+  Nurse -> The nurse will look at them tomorrow. A photo can't hurt, if you want.
+  Nurse -> Okay. Let me ask a few things. Is there any bleeding right now? Nosebleeds, bleeding gums, blood in your urine or stool?
+  Caller -> No. None. Nothing like that. I checked. I even looked in the toilet. Which is gross, but I looked.
+  Caller -> I haven't cut myself shaving either. I used the electric one, just in case.
+  Nurse -> Good. Any chest pain, or trouble breathing?
+  Caller -> My heart has been quiet. I keep checking the watch like a nervous kid.
+  Caller -> No. I feel fine. My heart feels normal. No fluttering. No pain.
+  Nurse -> And any signs of a stroke? Face drooping, weakness in an arm, trouble speaking?
+  Caller -> No. Nothing like that. I'm talking fine. I did the smile thing in the mirror. It's even. || A3
+  Nurse -> Good. Leonard, what's your date of birth?
+  Caller -> I feel like such an idiot. I'm sorry for wasting your time.
+  Nurse -> You're not wasting my time at all.
+  Caller -> February eighteenth. Nineteen sixty four. || patient_dob
+  Nurse -> Thank you. And the number to reach you? I want to be sure I have it right.
+  Caller -> It's the same one as always. You have it. I don't want to say it again, I've said it to three people this week.
+  Nurse -> No problem. I'll use the number on file. Leonard, I want to explain something. The Eliquis is what protects you from forming clots in your heart, which can travel to your brain and cause a stroke. When you stop it suddenly, the risk goes up, especially in the first days. || A1
+  Nurse -> Is there another way to reach you, like a text?
+  Caller -> The cell is best. I keep it on the loud setting. I even took the ring off silent.
+  Caller -> I know. I know. I looked it up after. I felt guilty. But the bruises scared me more.
+  Caller -> I read it on three different websites. They all said the same thing. I should've called sooner.
+  Nurse -> Bruising is a very common side effect of blood thinners. It's usually not dangerous. But it's something we should talk about with the clinician. They might adjust things.
+  Caller -> Can I just restart it tonight? Is that okay?
+  Nurse -> I'd like you to wait for the clinician to call you before you restart or stop anything. I'm going to page them right now. It shouldn't be long. || R1
+  Caller -> Okay. I'll wait. I just don't want to have a stroke.
+  Caller -> I'm just sitting in the kitchen. I made coffee but I can't drink it. My stomach is in knots.
+  Nurse -> I understand. That's why you did the right thing by calling. Please don't restart on your own, and please don't stop anything else. Let the clinician decide. || E1
+  Caller -> Okay. Not on my own. Got it.
+  Caller -> I'll put the bottle in the cupboard so I'm not tempted to take one by habit.
+  Nurse -> Actually, leave it where you can see it. We want to make it easy to restart once the clinician says to.
+  Caller -> Oh. Right. I'll leave it on the counter.
+  Nurse -> I'd also like a nurse to come see you tomorrow, look at the bruises, and go over your medicines. || R2
+  Caller -> Tomorrow. That's good. I'm home. I'm off on Fridays.
+  Caller -> I'll have my pill bottles out on the table. All of them. And my list.
+  Nurse -> That's great. It helps a lot.
+  Nurse -> Perfect.
+  Caller -> I feel embarrassed. I'm sixty two. I should know better.
+  Nurse -> Don't be. Lots of people stop a medicine out of fear. Calling is what counts.
+  Caller -> My wife is going to kill me. She told me not to stop.
+  Nurse -> Ha. She'll be glad you called.
+  Caller -> She's at her sister's. She'll be back tonight. I'll tell her. She'll roll her eyes.
+  Nurse -> Ha. Let her.
+  Caller -> She's the one who counts my pills every Sunday. She'll know right away.
+  Nurse -> In the meantime, call 911 right away if your face droops, if an arm gets weak, if your speech slurs, if you have chest pain, or if you get suddenly short of breath. || E2
+  Caller -> Face. Arm. Speech. Chest pain. Short of breath. Nine one one. Okay. I know the signs. My dad had a stroke.
+  Nurse -> I'm sorry. That's a good reason to be careful.
+  Caller -> He was seventy. He survived. But it changed everything.
+  Nurse -> Then you know how serious it is. Thank you for calling instead of waiting.
+  Caller -> I'll wait by the phone. Thank you, Samir.
+  Nurse -> The clinician will call you. Take care, Leonard.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leonard Vasquez, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-02-18", certainty: stated, heard_as: [], turns: [28]}
+    caller_name: {value: Leonard Vasquez, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he stopped his blood thinner three days ago because of bruising.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a confession. I stopped my Eliquis."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Eliquis 5 mg twice a day was stopped three days ago.
+      speaker: Caller
+      turns: [2]
+      quote: "I stopped my Eliquis. The five milligram pill, twice a day."
+      explanation: Documents the stopped medicine.
+      facts:
+        - {type: medication, name: Eliquis, dose: "5", unit: mg, frequency: twice a day, prn: false, last_dose: three days ago, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: He had large purple bruises on both forearms.
+      speaker: Caller
+      turns: [10]
+      quote: "The bruises. They're huge. On both forearms."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: large bruises on forearms, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: He had no bleeding or stroke symptoms.
+      speaker: Caller
+      turns: [24]
+      quote: "No. Nothing like that. I'm talking fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: bleeding or stroke symptoms, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'm going to page them right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'd also like a nurse to come see you tomorrow"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not restarting or stopping the Eliquis until the clinician called, because stopping raises the risk of a clot and stroke.
+      speaker: Nurse
+      turns: [41]
+      quote: "please don't restart on your own"
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for face drooping, arm weakness, slurred speech, chest pain or sudden shortness of breath.
+      speaker: Nurse
+      turns: [58]
+      quote: "call 911 right away if your face droops"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I have a confession. I stopped my Eliquis."}

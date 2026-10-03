@@ -1,0 +1,203 @@
+call_id: tr-208
+split: train
+blueprint: "52-year-old hospice patient calls himself and says that lately he thinks everyone would be better off if he just did not wake up. No plan, no means he mentions, but he is low and lonely. Nurse stays with him, pages the on-call, plans a social work referral and a callback tonight, and gives 988. Flag: suicidal_statement (passive ideation)."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [hedging, late_answers, split_turns, phone_from_file]
+  clinical_domains: [mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Mina
+  call_timestamp_utc: "2026-10-09T02:40:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Everett Dahlgren
+  patient_name_spoken: Everett Dahlgren
+  patient_name_certainty: stated
+  patient_dob_true: "1973-08-03"
+  patient_dob_spoken: "1973-08-03"
+  patient_dob_certainty: stated
+  caller_name_true: Everett Dahlgren
+  caller_name_spoken: Everett Dahlgren
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4255550115"
+  callback_phone_spoken: "4255550115"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Called feeling very low and said everyone would be better off if he did not wake up
+  reason_category: mood
+  relevant_context: Hospice patient who lives alone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: low mood and loneliness
+    symptom_present: true
+    onset_or_duration: lately
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: plan to harm himself
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: patient
+    history_or_context_text: Lives alone and his brother lives out of state
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: passive suicidal thoughts
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time, call 911 if he feels he might act on the thoughts, and call the hospice line any hour
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient said everyone would be better off if he did not wake up
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Mina.
+  Caller -> Hi. It's, um, it's Everett Dahlgren. I'm a patient. I'm sorry to call so late. || caller_name, relationship, patient_name
+  Nurse -> Don't be sorry, Everett. I'm glad you called. What's going on tonight?
+  Caller -> I don't know. I'm just really low. Lately. And I keep thinking everyone would be better off if I just didn't wake up. || cc, A1, F1
+  Nurse -> Thank you for telling me that. That's hard to say. I'm going to stay right here with you. Can I ask you something directly?
+  Caller -> Okay.
+  Nurse -> Are you thinking about hurting yourself? Do you have a plan, or something with you that you'd use?
+  Caller -> No. No, nothing like that. I don't have a plan. I just, I think it, and I don't know what to do with it. || A2
+  Nurse -> Okay. That's honest, and it helps me. Is anybody there with you tonight?
+  Caller -> No. I live alone. My brother's in Oregon, we talk on Sundays. That's about it. || A3
+  Nurse -> Okay. So it's quiet there, and it's late, and that's a lonely combination. Everett, can I get your birth date and a number to reach you?
+  Caller -> August third, nineteen seventy three. || patient_dob
+  Nurse -> And I have four two five, five five five, zero one one five. Is that right? || callback_phone
+  Caller -> Yeah. That's my cell. || callback_phone
+  Nurse -> Okay. Everett, I'm going to page the on-call clinician now so someone is looking at this tonight. || R1
+  Caller -> Okay. I don't want to be a trouble.
+  Nurse -> You're not. This is exactly what we're here for. I'm also going to ask our social worker to reach out to you. || R2
+  Caller -> Okay. I'd like that. I think I'd like to talk to somebody.
+  Nurse -> Good. And I'll call you back tonight myself, to check in. || R3
+  Caller -> Tonight. Okay.
+  Nurse -> If these thoughts get stronger, or you feel like you might act on them, call nine one one. You can also call or text nine eight eight any time, and you can always call our line, any hour. || E1
+  Caller -> Nine eight eight. Nine one one. Your line. Okay. I wrote it down.
+  Nurse -> Is there something you can do for the next little while, like a cup of tea, or the radio?
+  Caller -> I could put the radio on. The ball game replay is on. That helps.
+  Nurse -> Do that. I'm here. I'll talk to you soon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everett Dahlgren, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1973-08-03", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Everett Dahlgren, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4255550115", certainty: stated, heard_as: [], turns: [13, 14]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Called feeling very low and said everyone would be better off if he did not wake up.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm just really low. Lately."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Low mood had been present lately.
+      speaker: Caller
+      turns: [4]
+      quote: "I'm just really low. Lately."
+      explanation: Documents the mood symptom.
+      facts:
+        - {type: symptom, name: low mood and loneliness, present: true, onset: lately, certainty: stated}
+      covers: [A1]
+    - text: No plan to harm himself was reported.
+      speaker: Caller
+      turns: [8]
+      quote: "I don't have a plan."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: plan to harm himself, certainty: stated}
+      covers: [A2]
+    - text: He lived alone and his brother lived out of state.
+      speaker: Caller
+      turns: [10]
+      quote: "I live alone. My brother's in Oregon, we talk on Sundays."
+      explanation: Documents the social context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to page the on-call clinician now so someone is looking at this tonight."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the social worker to reach out to him.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm also going to ask our social worker to reach out to you."
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tonight to check in.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back tonight myself, to check in."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling 911 if he felt he might act on the thoughts, calling or texting 988 at any time, and calling the hospice line at any hour.
+      speaker: Nurse
+      turns: [21]
+      quote: "call nine one one. You can also call or text nine eight eight any time"
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: suicidal_statement, turns: [4], quote: "I keep thinking everyone would be better off if I just didn't wake up."}

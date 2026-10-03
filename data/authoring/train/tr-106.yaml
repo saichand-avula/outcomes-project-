@@ -1,0 +1,379 @@
+call_id: tr-106
+split: train
+blueprint: "LONG escalating COPD call: wife says her 82-year-old husband has been more winded since morning (albuterol 2 puffs three times, wet cough with yellow sputum, temp 99.8, no chest pain). Oxygen reading is 89 on 2 liters; nurse raises flow to 3 liters per order and coaches pursed-lip breathing. After ten minutes the reading is 86, he cannot finish sentences and his lips look bluish: nurse tells her to call 911. He initially resists the hospital. Flags: breathing_concern and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [crosstalk, split_turns, late_answers, hedging, multi_issue, contradiction]
+  clinical_domains: [dyspnea, cough_uri, medication, fever]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-11-05T08:55:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: [prednisone]
+chief_complaint:
+  patient_name_true: Hollis Prentiss
+  patient_name_spoken: Hollis Prentiss
+  patient_name_certainty: stated
+  patient_dob_true: "1944-02-16"
+  patient_dob_spoken: "1944-02-16"
+  patient_dob_certainty: stated
+  caller_name_true: Verna Prentiss
+  caller_name_spoken: Verna Prentiss
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "4045550139"
+  callback_phone_spoken: "4045550139"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband with COPD is more short of breath than usual
+  reason_category: dyspnea
+  relevant_context: Husband has COPD and uses oxygen at 2 liters
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased shortness of breath
+    symptom_present: true
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: given_previously
+    dose: "2"
+    unit: puffs
+    last_dose: three times since waking
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: wet cough with yellow sputum
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.8"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation on 2 liters
+    vital_value: "89"
+    certainty: stated
+  - item_id: A7
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation on 3 liters
+    vital_value: "86"
+    certainty: stated
+  - item_id: A8
+    item_type: symptom
+    reporter: caller
+    symptom_name: unable to finish sentences and bluish lips
+    symptom_present: true
+    onset_or_duration: during this call
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: raise oxygen from 2 to 3 liters per his order
+    certainty: stated
+  - item_id: R2
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: oxygen 86 on 3 liters with trouble speaking and bluish lips
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pulmonologist and emergency department
+    reason_or_trigger: heads-up about the transfer
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Sit upright leaning slightly forward, breathe in through the nose and out slowly through pursed lips
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, unlock the door, do not drive him, keep the oxygen on at 3 liters, and have his medication list ready
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Oxygen reading dropped to eighty six with trouble speaking and bluish lips
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the wife to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Verna Prentiss. I'm calling about my husband. Hollis. Hollis Prentiss. || caller_name, relationship, patient_name
+  Nurse -> Hi, Verna. How do you spell Prentiss?
+  Caller -> P R E N T I S S. || patient_name
+  Nurse -> Thanks. His date of birth?
+  Caller -> February sixteenth. Nineteen forty four. || patient_dob
+  Nurse -> And I have four oh four, five five five, zero one three nine. || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> Okay. What's going on this morning?
+  Caller -> He's more short of breath than usual. Since this morning. He woke up like that. || cc, A1
+  Nurse -> Mm-hm. How much more?
+  Caller -> Um. It's hard to say. He's, he's winded just going to the bathroom. And that's like ten feet. || A1
+  Nurse -> Okay. Has he used his inhaler?
+  Caller -> The albuterol. Yes. Two puffs. He's had it three times since he woke up. || A2
+  Nurse -> Three times. And does it help?
+  Caller -> A little. For maybe a half hour. And then it's back. || A2
+  Nurse -> Okay.
+  Nurse -> Is he coughing?
+  Caller -> Yes. It's wet. Since yesterday. And it's yellow. What comes up. It's yellow. || A3
+  Nurse -> Okay. Has he had a fever?
+  Caller -> I took it. Ninety nine point eight. || A4
+  Nurse -> Okay. Any chest pain?
+  Caller -> No. He says no chest pain. I asked him twice. || A5
+  Nurse -> Has he had any swelling in his legs? Any weight gain lately?
+  Caller -> No. His legs are the same. They're thin, honestly. He's lost weight.
+  Nurse -> Okay. And did he sleep at all last night?
+  Caller -> Not much. He was up coughing. I heard him at one and at four. And he was wheezing a little. I could hear it from the bedroom.
+  Nurse -> Has he been using a spacer with the inhaler, or just the inhaler by itself?
+  Caller -> Just the inhaler. He doesn't like the spacer. He says it's a pain.
+  Nurse -> Okay. I'll talk to him about that another time. It does help it work better.
+  Caller -> Okay. Yeah, I keep telling him that. He never listens to me.
+  Nurse -> Ha. Husbands. They never do. Alright.
+  Caller -> Ha. No. They don't.
+  Nurse -> Mm-hm. Does he have a nebulizer machine at home, or just the inhaler?
+  Caller -> Just the inhaler. The nebulizer broke last year. We never replaced it. I should have said something.
+  Nurse -> That's okay. We'll deal with that later. Okay, Verna, do you have the pulse oximeter on him?
+  Caller -> I do. Hold on. Hollis, give me your finger. Hold still. Okay. It says eighty nine. || A6
+  Nurse -> Eighty nine. And he's on how many liters right now? || A6, R1
+  Caller -> Two. It's on two. The usual. || A6, R1
+  Nurse -> Okay. His order lets us go up to three. I want you to turn it up to three liters. || R1
+  Caller -> Three. Okay. The knob. Okay. It's on three.
+  Nurse -> Good. Now, Hollis, if you can hear me, I want him sitting up, leaning forward a little. Elbows on his knees if he can. || E1
+  Caller -> He's in the recliner. Hollis, lean forward. Lean forward, honey. Okay.
+  Nurse -> And I want him breathing in through his nose, and then out slowly through pursed lips. Like blowing out a candle. || E1
+  Caller -> Like a candle. Hollis, like blowing out a candle. In through the nose. Okay. He's doing it.
+  Nurse -> Good. Let's give that ten minutes and recheck. Stay on with me, I'll wait.
+  Caller -> Okay. Okay.
+  Nurse -> While we wait, let me ask you a few things. Has anyone been sick at the house? A grandchild, anyone with a cold?
+  Caller -> Our grandson was here Sunday. He had a runny nose. He was sneezing. I should have, I didn't think anything of it.
+  Nurse -> It's not your fault. These things happen. Has Hollis been eating and drinking okay?
+  Caller -> He had half a piece of toast. A little coffee. He didn't want breakfast. He just wanted to sit.
+  Nurse -> Okay. And did he sleep in the bed or the recliner last night?
+  Caller -> The recliner. He's been sleeping there for three weeks. He says he breathes better sitting up.
+  Nurse -> That makes sense.
+  Caller -> Yeah.
+  Nurse -> Is he on any steroids right now, like prednisone, that you know of? Anything new from the doctor?
+  Caller -> No. Nothing new. Not since September. The doctor was going to see him this week, Thursday I think. For a check.
+  Nurse -> Okay. Is there anyone else at the house with you?
+  Caller -> No. It's just me. Our son is forty minutes away. He keeps calling. He's very worried.
+  Nurse -> I understand. You're doing great, Verna. You're watching him closely and that's what counts.
+  Caller -> Thank you. I'm trying to stay calm. It's hard.
+  Nurse -> I know. Is he still sitting forward? Still doing the candle breathing?
+  Caller -> He's trying. He keeps leaning back.
+  Nurse -> Gently remind him. Forward. Elbows on his knees.
+  Caller -> Hollis, forward. Elbows. There you go. Yes.
+  Nurse -> Verna, does Hollis have a living will, or any papers about what he wants if he gets very sick?
+  Caller -> He does. It's in the blue folder. It says he doesn't want to be on a machine, a breathing machine, for a long time. But he does want to be treated for things like this. Pneumonia and so on.
+  Nurse -> Okay. That's helpful to know. If we do need to send him in, they'll want that folder.
+  Caller -> I'll get it. It's in the kitchen drawer.
+  Nurse -> Maybe grab it now, while he's sitting. I'm still here.
+  Caller -> Okay. Hold on. I'm just walking to the kitchen. Hollis, I'm right here, I'm just in the kitchen. Okay. I've got it.
+  Nurse -> Perfect. Put it by the door.
+  Caller -> Okay. By the door. Done.
+  Nurse -> Good. How are you doing, Verna?
+  Caller -> I'm okay. I'm nervous. He doesn't want to go to the hospital. He's said that a hundred times. He hates it there.
+  Nurse -> I understand. Let's see how he does on the higher oxygen.
+  Caller -> Okay.
+  Caller -> Dad, you're okay. It's fine. Oh, sorry. That's my son on the other line. He's calling from work.
+  Nurse -> That's okay. Take your time.
+  Caller -> Okay. I told him I'd call back. Okay. How's it been, ten minutes?
+  Nurse -> About that. Check the oxygen again.
+  Caller -> Hold on. Hollis, finger. Okay. Hmm. It says eighty six. On three. || A7
+  Nurse -> Eighty six. On three liters? || A7
+  Caller -> Yes. On three. And he's, he's not good. He's breathing really fast. He can't talk, he tried to say something and he couldn't get a sentence out. || A8, F1
+  Nurse -> Okay. Look at his lips for me. What color are they?
+  Caller -> They're, I don't know. They look a little blue. Purple-ish. Oh God. || A8, F1
+  Nurse -> Okay, Verna, listen to me. I want you to call 911 right now. He needs an ambulance. || R2, E2, F2
+  Caller -> But he doesn't want to. He said he doesn't want to go.
+  Nurse -> I know. But his oxygen is dropping even with more oxygen, and he can't speak. This is more than we can fix at home. He needs to be seen. || R2
+  Caller -> Okay. Okay. Hollis. Hollis, honey, I'm calling the ambulance. I'm calling. I know. I know you don't want to. Okay.
+  Nurse -> Tell him it's just to get him breathing better. He can come home.
+  Caller -> I'll tell him. Hollis, it's just to get your breathing better. You're coming home. I promise. Okay.
+  Nurse -> Is he still awake? Is he still responding to you?
+  Caller -> Yes. He's looking at me. He nodded. He's squeezing my hand. He's scared. He's just scared.
+  Nurse -> Of course. Keep talking to him, keep holding his hand.
+  Caller -> I will.
+  Caller -> Okay. I'll tell him. Okay. I'm hanging up and calling.
+  Nurse -> One more thing. Leave the oxygen on three liters. Unlock the front door. Don't try to drive him yourself. And have his medication list ready for the paramedics. || E2
+  Caller -> Three liters. Door. List. Okay. It's on the fridge.
+  Nurse -> I'm going to call his lung doctor and the emergency department so they know he's coming. || R3
+  Caller -> Thank you. Thank you, Tom.
+  Nurse -> Go ahead, Verna. Go now.
+  Caller -> Okay. Okay. Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single statement", heard_form: "Dad, you're okay. It's fine. Oh, sorry. That's my son on the other line.", fact_id: A6}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hollis Prentiss, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1944-02-16", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Verna Prentiss, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550139", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband with COPD is more short of breath than usual.
+    speaker: Caller
+    turns: [10]
+    quote: "He's more short of breath than usual. Since this morning."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Shortness of breath was worse since this morning, with him winded after walking about 10 feet to the bathroom.
+      speaker: Caller
+      turns: [12]
+      quote: "He's winded just going to the bathroom."
+      explanation: Documents the exertional breathlessness.
+      facts:
+        - {type: symptom, name: increased shortness of breath, present: true, duration: since this morning, certainty: stated}
+      covers: [A1]
+    - text: Albuterol 2 puffs was used three times since waking, helping for about half an hour each time.
+      speaker: Caller
+      turns: [14]
+      quote: "The albuterol. Yes. Two puffs. He's had it three times since he woke up."
+      explanation: Documents rescue inhaler use.
+      facts:
+        - {type: medication, name: albuterol, dose: "2", unit: puffs, last_dose: three times since waking, prn: true, med_status: given_previously, certainty: stated}
+      covers: [A2]
+    - text: A wet cough with yellow sputum began yesterday.
+      speaker: Caller
+      turns: [19]
+      quote: "Yes. It's wet. Since yesterday. And it's yellow."
+      explanation: Documents the respiratory symptoms.
+      facts:
+        - {type: symptom, name: wet cough with yellow sputum, present: true, duration: since yesterday, certainty: stated}
+      covers: [A3]
+    - text: Temperature was 99.8.
+      speaker: Caller
+      turns: [21]
+      quote: "Ninety nine point eight."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.8", certainty: stated}
+      covers: [A4]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [23]
+      quote: "No. He says no chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5]
+    - text: Oxygen saturation was 89 on 2 liters.
+      speaker: Caller
+      turns: [37]
+      quote: "Okay. It says eighty nine."
+      explanation: Documents the first oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation on 2 liters, value: "89", certainty: stated}
+      covers: [A6]
+    - text: After the oxygen was raised to 3 liters, saturation was 86.
+      speaker: Caller
+      turns: [82]
+      quote: "Hmm. It says eighty six."
+      explanation: Documents the falling oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation on 3 liters, value: "86", certainty: stated}
+      covers: [A7]
+    - text: He was breathing fast, could not get a sentence out, and his lips looked bluish.
+      speaker: Caller
+      turns: [84]
+      quote: "He's breathing really fast. He can't talk, he tried to say something and he couldn't get a sentence out."
+      explanation: Documents respiratory distress.
+      facts:
+        - {type: symptom, name: unable to finish sentences and bluish lips, present: true, duration: during this call, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Advised raising the oxygen from 2 to 3 liters per his order.
+      speaker: Nurse
+      turns: [40]
+      quote: "His order lets us go up to three. I want you to turn it up to three liters."
+      explanation: Documents the oxygen instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Advised calling 911 immediately for an ambulance.
+      speaker: Nurse
+      turns: [87]
+      quote: "I want you to call 911 right now. He needs an ambulance."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R2]
+    - text: Planned to call his lung doctor and the emergency department so they expected him.
+      speaker: Nurse
+      turns: [100]
+      quote: "I'm going to call his lung doctor and the emergency department so they know he's coming."
+      explanation: Documents the planned notifications.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised sitting upright and leaning slightly forward, and breathing in through the nose and out slowly through pursed lips.
+      speaker: Nurse
+      turns: [44]
+      quote: "I want him breathing in through his nose, and then out slowly through pursed lips."
+      explanation: Documents breathing technique coaching.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the oxygen at 3 liters, unlocking the door, not driving him, and having his medication list ready.
+      speaker: Nurse
+      turns: [98]
+      quote: "Leave the oxygen on three liters. Unlock the front door. Don't try to drive him yourself."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [84], quote: "He can't talk, he tried to say something and he couldn't get a sentence out."}
+    - {category: escalation_request, turns: [87], quote: "I want you to call 911 right now."}

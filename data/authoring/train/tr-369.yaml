@@ -1,0 +1,359 @@
+call_id: tr-369
+split: train
+blueprint: "A night aide at an assisted living facility calls hospice at 2 AM: a resident on the blood thinner apixaban slipped getting to the bathroom and hit her head on the sink edge; there is a two-inch cut on her forehead that is bleeding steadily despite pressure for ten minutes, she is awake but a little repetitive and says she has a headache, and the facility nurse is off site. Nurse tells the aide to keep pressure on and call 911 now because of the thinner and head injury, stays on the line until the paramedics arrive, notifies the on-call team, and later gets the DOB and phone for the hospital. High risk (fall with bleeding on anticoagulant: other urgent and escalation), facility staff caller, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: fall_with_injury
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, name_spelled]
+  clinical_domains: [falls, bleeding, neurologic]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Calvin
+  call_timestamp_utc: "2026-10-26T07:05:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lucinda Farragut
+  patient_name_spoken: Lucinda Farragut
+  patient_name_certainty: stated
+  patient_dob_true: "1941-01-28"
+  patient_dob_spoken: "1941-01-28"
+  patient_dob_certainty: stated
+  caller_name_true: Dwayne Ferreira
+  caller_name_spoken: Dwayne Ferreira
+  caller_name_certainty: stated
+  relationship_to_patient: night aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "3035550152"
+  callback_phone_spoken: "3035550152"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that a resident fell and has a bleeding cut on her forehead
+  reason_category: falls
+  relevant_context: Hospice patient living in an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fall in the bathroom
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bleeding cut on the forehead
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: apixaban
+    medication_name_spoken: apixaban
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    last_dose: last night at eight
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: headache and repeating herself
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: passing out
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: head injury with bleeding on a blood thinner
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: head injury on a blood thinner
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: after she reaches the hospital
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Keep firm pressure on the cut with clean gauze without lifting to look, keep her lying flat, and send the medicine list and face sheet with her
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not let her stand or walk, keep her warm, and tell the paramedics she is on apixaban and when she took it
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Fall with head injury and steady bleeding on a blood thinner
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice after hours, this is Calvin.
+  Caller -> Calvin, hi, this is Dwayne Ferreira. D W A Y N E. I'm the night aide at Cedar Court Assisted Living. I got a resident who fell. She's bleeding from the head. I need a nurse. || caller_name, relationship, cc, F1
+  Nurse -> Okay Dwayne. I'm a nurse. I'm here. Tell me the resident's name.
+  Caller -> Lucinda Farragut. F A R R A G U T. Room fourteen. She's one of yours. She's on hospice. || patient_name
+  Nurse -> Okay. Lucinda Farragut. Is she awake?
+  Caller -> She's awake. She's sitting on the bathroom floor. I'm with her. I've got a towel on her head.
+  Nurse -> Okay. Tell me what happened.
+  Caller -> She got up to go to the bathroom. About, I don't know, ten minutes ago. I heard a crash. I came running. She'd slipped. There was water on the floor, from the sink. She hit her head on the sink. The edge. And then she was on the floor. || A1
+  Nurse -> Okay. Did she pass out, as far as you know?
+  Caller -> No. She says no. She was awake when I got there. She was talking. She said, oh my, I fell. She never passed out. || A5
+  Nurse -> Okay. Good. Now, the cut. Where is it? How big?
+  Caller -> On her forehead. The right side, up by the hairline. It's about two inches, I'd say. It's open. It's bleeding a lot. I've had pressure on it with a towel for ten minutes and it's soaked through. || A2
+  Nurse -> Okay. Ten minutes of pressure and it's still bleeding. Dwayne, is she on any blood thinners?
+  Caller -> Let me look at the MAR. Hold on. Yes. Apixaban. Five milligrams. Twice a day. Eliquis, it says in parentheses. || A3
+  Nurse -> Okay. When was her last dose?
+  Caller -> Last night at eight. The evening one. And she gets one in the morning at eight. So not yet this morning.
+  Nurse -> Okay. Dwayne, because of the blood thinner and the head injury, I need you to call 911 right now. This is an emergency. Do you have another phone? || R1, F2
+  Caller -> I have the facility phone and my cell. I can use my cell. Should I hang up with you?
+  Nurse -> No. Put me on speaker. Use your cell to call 911, and keep me on the facility phone, right next to you.
+  Caller -> Okay. Okay. I'm putting you on speaker. Dialing. Hold on.
+  Nurse -> I'm right here. I'm not going anywhere.
+  Caller -> It's ringing. Hello? Yes. I need an ambulance. At Cedar Court Assisted Living. It's twenty one oh three Pine Street. A resident fell and hit her head. She's bleeding and she's on a blood thinner. Yes. She's awake. Room fourteen. Yes. Okay. They're sending a crew.
+  Nurse -> Good job. Did they give you a time?
+  Caller -> They said six to eight minutes. The firehouse is on the next block.
+  Caller -> The dispatcher is a woman. She stayed on at first, then said the crew had my location and I could go back to my resident.
+  Nurse -> That's fine. I'm here with you.
+  Nurse -> Good. Now, Dwayne. Keep your hand on that towel. Press firmly. Do not lift it to look. If it soaks through, put another one on top. Don't take the first one off. || E1
+  Caller -> Press firmly. Don't lift. Add on top. Okay. I'm doing that. She's saying ow. I'm sorry, Mrs. Farragut. I know it's tight.
+  Nurse -> It has to be tight. Keep it steady.
+  Caller -> She's holding my arm. Her hand is cold.
+  Nurse -> Okay. Is she on the floor, lying down, or sitting?
+  Caller -> Sitting against the wall. Next to the toilet.
+  Nurse -> I'd like her lying flat, if you can do it without moving her head and neck much. Is there a pillow or a folded blanket you can put under her head? Don't move her if she says her neck hurts.
+  Caller -> Mrs. Farragut, does your neck hurt? She says no. Just my head. Okay. I'm going to have her lie back. I have a bath mat, folded. And a towel.
+  Nurse -> Slowly. Let her go down slowly. Keep the pressure on the cut the whole time.
+  Caller -> Slowly. Okay. She's down. She's lying on the mat. Her head's on a folded towel. I still have my hand on it.
+  Nurse -> Good. Is she cold? Does she have a blanket?
+  Caller -> She's got her robe. I'll get a blanket from the closet. I can reach it. Hold on.
+  Nurse -> What's the resident like, usually? Chatty? Quiet?
+  Caller -> Chatty. She plays the piano in the lobby on Thursdays. Show tunes. She's got the whole floor singing.
+  Nurse -> What a lovely thing.
+  Caller -> She taught music for forty years. She corrects the off key ones.
+  Nurse -> Don't let go of the cut. Can someone else help?
+  Caller -> There's one other aide on the floor. Marguerite. I'll holler. Marguerite! Bring a blanket! Room fourteen! Hurry!
+  Nurse -> Good.
+  Caller -> She's coming. Okay. She's here. She's putting the blanket on. She's got the face sheet. She's going to get the medicine list.
+  Nurse -> Perfect. Have her put those by the door so the paramedics get them. And Dwayne, tell the paramedics she's on apixaban and tell them the time she last took it. Last night at eight. || E2
+  Caller -> Apixaban. Eight last night. Okay. I wrote it on my hand. I always do that. || A3
+  Nurse -> Good. Now, how is she acting? Is she making sense?
+  Caller -> She's a little, she's asking me the same thing. She keeps asking, did I fall? Did I fall? And I say yes. And then she asks again. And she says her head hurts. || A4
+  Nurse -> Okay. That's important. Tell the paramedics that too. The repeating and the headache.
+  Caller -> I will. Is that bad?
+  Nurse -> It can be after a head injury, so we want her checked. That's why we called. You're doing the right thing.
+  Caller -> Okay. Okay. She's looking at me. She says, who are you? Oh no.
+  Nurse -> Stay calm. Tell her your name. Gently.
+  Caller -> Mrs. Farragut, it's Dwayne. Your night aide. I bring you your tea. She says, oh, Dwayne. Okay. She knows me. Whew.
+  Nurse -> Good. Keep talking to her. Tell her where she is. Tell her help is coming.
+  Caller -> She's looking around the bathroom. She says, this isn't my house. I say, it's your room at Cedar Court.
+  Nurse -> That's right. Keep orienting her.
+  Caller -> She says, where's my husband? He passed in March. I don't know whether to tell her.
+  Nurse -> Don't argue. Just say he's not here right now, and that you're here.
+  Caller -> Okay. Mrs. Farragut, he's not here right now. I'm here. She says, okay.
+  Caller -> You're at Cedar Court, Mrs. Farragut. You fell in the bathroom. The ambulance is coming. You're going to be okay.
+  Nurse -> Good. Dwayne, I'm going to page the on-call clinician now, so they know what's happening. I'll still be on the line with you through the speaker. || R2
+  Caller -> Okay. Thank you. I'm shaking a little.
+  Caller -> My hands are cold. I took a first aid class in June. I'm glad I did.
+  Nurse -> It shows. You're calm and clear.
+  Caller -> Inside I'm a mess. My heart's going like a drum.
+  Nurse -> Breathe. Slowly. You're doing fine.
+  Nurse -> That's normal. You're doing great.
+  Caller -> I've never had one bleed this much.
+  Caller -> I've been here four years. Mostly it's falls where nobody's hurt. Maybe a bruise.
+  Nurse -> This is a different level. Which is why you call.
+  Caller -> Yeah. Yeah. I know.
+  Nurse -> Head cuts bleed a lot. It looks worse than it is, usually. But because of the blood thinner, she needs to be seen.
+  Caller -> Is it going to leave a scar?
+  Nurse -> I can't say. The doctors at the hospital will decide how to close it.
+  Caller -> She's vain about her hair. She'll be upset about the shaved spot.
+  Nurse -> Ha. We'll worry about that later.
+  Caller -> Yes. Yes. I understand.
+  Nurse -> What's Lucinda's date of birth? I'll give it to the hospital.
+  Caller -> January twenty eighth, nineteen forty one. It's on the face sheet. || patient_dob
+  Caller -> The sheet is right here. I'm holding it in my other hand. I can read you anything. Her doctor, her room, her emergency contact.
+  Nurse -> Good. Keep it by the door for them.
+  Caller -> Okay. I'll put it on top of the pile.
+  Nurse -> Thank you. And a good number to reach you?
+  Caller -> My cell. Three oh three, five five five, zero one five two. || callback_phone
+  Nurse -> Three oh three, five five five, zero one five two. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. Is the front door unlocked?
+  Caller -> Marguerite is going to the front. She'll bring them back. The code's on the keypad. She knows it.
+  Nurse -> Good. Check the towel. Is it still soaking through?
+  Nurse -> How's she feeling? Is she cold?
+  Caller -> She says she's cold. Marguerite put a second blanket. And I put the sweater over her feet.
+  Nurse -> Good.
+  Caller -> Her feet are tiny. Like a little girl. I don't know why I noticed.
+  Caller -> It's, hold on. I put the second one on. It's slowing down, I think. It's not dripping.
+  Nurse -> Good. Keep it on.
+  Caller -> Okay. She's breathing fine. Her color is okay. Maybe a little pale.
+  Caller -> Marguerite is at the front door. She's flashing the porch light. So they find us.
+  Nurse -> Smart.
+  Caller -> It's raining a little. The ground's wet. I hope they don't slip.
+  Nurse -> They're used to it.
+  Nurse -> That's okay.
+  Caller -> I hear them. I hear the sirens. It's the fire truck first.
+  Nurse -> Is the hallway clear for them? Any walkers, carts, wheelchairs?
+  Caller -> Marguerite moved the med cart. There's a walker by room twelve. I'll have her push it aside.
+  Nurse -> Good. Clear a path.
+  Caller -> She's doing it. It's tight in the hall. We have the old carpet runner and it bunches up.
+  Nurse -> Make sure nobody trips on it.
+  Caller -> I'll write that up too. I keep telling the director about that runner.
+  Nurse -> Good. Tell Marguerite to bring them straight in.
+  Caller -> Marguerite is bringing them. They're in the hall. Here they are. Back here! Room fourteen! In the bathroom!
+  Nurse -> Dwayne, give the paramedics a quick report. Fall, head, bleeding, apixaban, last dose last night at eight, repeating herself, headache. || A3
+  Caller -> Yes. I will. Hi. Yes. She slipped. She hit her head on the sink. She's on apixaban. Last dose eight last night. Yes. She's been repeating herself. || A3
+  Nurse -> I'll stay on until you tell me they've got her.
+  Caller -> They're taking over. They're looking at her head. They're asking her questions. Okay. They're going to put her on a stretcher.
+  Nurse -> Okay. Go ahead and let go. They've got her. Which hospital are they taking her to?
+  Caller -> They said Saint Anne's. The emergency room.
+  Nurse -> Okay. I'll let the hospital know she's coming and that she's on hospice. I'll call you after she gets there. || R3
+  Caller -> Thank you. Thank you so much, Calvin. I didn't know what to do.
+  Nurse -> You knew exactly what to do. You did everything right.
+  Caller -> I feel like it's my fault. The water on the floor.
+  Nurse -> It's not your fault. Accidents happen. Write it up when things calm down.
+  Caller -> I will. Okay. They're rolling her out. I have to go.
+  Nurse -> Go. Thank you, Dwayne.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucinda Farragut, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1941-01-28", certainty: stated, heard_as: [], turns: [82]}
+    caller_name: {value: Dwayne Ferreira, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: night aide at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550152", certainty: stated, heard_as: [], turns: [87, 88]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a resident fell and had a bleeding cut on her forehead.
+    speaker: Caller
+    turns: [2]
+    quote: "I got a resident who fell. She's bleeding from the head."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She slipped on a wet floor and fell in the bathroom, hitting her head on the sink.
+      speaker: Caller
+      turns: [8]
+      quote: "She hit her head on the sink."
+      explanation: Documents the fall.
+      facts:
+        - {type: symptom, name: fall in the bathroom, present: true, certainty: stated}
+      covers: [A1]
+    - text: A two inch cut on the right forehead was bleeding through a towel after ten minutes of pressure.
+      speaker: Caller
+      turns: [12]
+      quote: "It's about two inches, I'd say. It's open."
+      explanation: Documents the bleeding cut.
+      facts:
+        - {type: symptom, name: bleeding cut on the forehead, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Apixaban 5 mg twice a day, last dose last night at eight.
+      speaker: Caller
+      turns: [14]
+      quote: "Apixaban. Five milligrams. Twice a day."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: apixaban, dose: "5", unit: mg, frequency: twice a day, last_dose: last night at eight, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She had a headache and kept asking the same question.
+      speaker: Caller
+      turns: [50]
+      quote: "She keeps asking, did I fall?"
+      explanation: Documents the symptoms after the fall.
+      facts:
+        - {type: symptom, name: headache and repeating herself, present: true, certainty: stated}
+      covers: [A4]
+    - text: She did not pass out.
+      speaker: Caller
+      turns: [10]
+      quote: "She never passed out."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: passing out, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [17]
+      quote: "I need you to call 911 right now."
+      explanation: Documents the escalation advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [64]
+      quote: "I'm going to page the on-call clinician now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back after she reached the hospital.
+      speaker: Nurse
+      turns: [120]
+      quote: "I'll call you after she gets there."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: after she reaches the hospital, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping firm pressure on the cut without lifting it, keeping her lying flat and sending the medicine list with her.
+      speaker: Nurse
+      turns: [27]
+      quote: "Keep your hand on that towel. Press firmly."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised telling the paramedics she was on apixaban and when she last took it.
+      speaker: Nurse
+      turns: [47]
+      quote: "tell the paramedics she's on apixaban"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "She's bleeding from the head."}
+    - {category: escalation_request, turns: [17], quote: "I need you to call 911 right now."}

@@ -1,0 +1,289 @@
+call_id: va-063
+split: val
+blueprint: "A son, Magnus Strathearn, notices the new bottle his father Ferdinand was given by the pharmacy says hydroxyzine, while the discharge paper says hydralazine for his blood pressure. His father took one tablet last night and is sleepy this morning with a blood pressure of one sixty eight over ninety six. Nurse tells him to hold the bottle, pages on-call, contacts the pharmacy, and plans a visit today. Look-alike drug error, adult child caller, medication concern flag, v2 short."
+setup:
+  scenario_category: medication
+  subtype: look_alike_drug_error
+  secondary_tags: [tall_man, adult_child, hedging, split_turns, late_answers]
+  clinical_domains: [medication, cardiac, drowsiness]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Prairie Rose Home Care
+  agency_type: home_health
+  nurse_name: Estelle
+  call_timestamp_utc: "2026-12-02T14:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ferdinand Strathearn
+  patient_name_spoken: Ferdinand Strathearn
+  patient_name_certainty: stated
+  patient_dob_true: "1946-09-17"
+  patient_dob_spoken: "1946-09-17"
+  patient_dob_certainty: stated
+  caller_name_true: Magnus Strathearn
+  caller_name_spoken: Magnus Strathearn
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6105550103"
+  callback_phone_spoken: "6105550103"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that the pharmacy bottle may be the wrong blood pressure medicine
+  reason_category: medication
+  relevant_context: Recently discharged home health patient on a new blood pressure medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    prn: false
+    last_dose: one tablet last night
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    medication_status: prescribed
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    prn: false
+    last_dose: none
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepiness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "168/96"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: possible wrong medication dispensed with high blood pressure
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: dispensing pharmacy
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any more from the bottle, keep the bottle and the discharge paper together, and wait for the clinician's call
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, a severe headache, confusion, weakness on one side, or if he is hard to wake
+    trigger_condition: chest pain; severe headache; weakness on one side; hard to wake
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Pharmacy bottle labeled hydroxyzine when the discharge paper lists hydralazine, and one dose was given
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Prairie Rose Home Care, this is Estelle.
+  Caller -> Hi, Estelle. It's Magnus Strathearn. My father is Ferdinand Strathearn. I think the pharmacy gave us the wrong pill. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Magnus. Tell me what you're seeing.
+  Caller -> The discharge paper says hydralazine. For his blood pressure. Twenty five milligrams, three times a day. But the bottle from the pharmacy says hydroxyzine. Hydroxy, not hydral. Twenty five milligrams. Three times a day. The same. || A1, A2
+  Nurse -> Okay. Let me make sure I have this. The paper says H Y D R A L A Z I N E.
+  Caller -> Yes. And the bottle says H Y D R O X Y Z I N E. They look almost the same. I only caught it this morning because I was reading the paper again.
+  Nurse -> Okay. Is he taking the pills from that bottle?
+  Caller -> Sorry, I'm a little scattered today.
+  Nurse -> That's completely understandable.
+  Caller -> He took one last night. At bedtime. The bottle was new. I gave it to him.
+  Nurse -> One tablet. And none today?
+  Caller -> None today. I stopped as soon as I saw it. I haven't given the morning one.
+  Nurse -> Good. That's the right thing. How is he now?
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> Is it okay if I put you on speaker? My hands are full.
+  Nurse -> That's fine.
+  Caller -> Kind of sleepy. He's in his chair. He keeps nodding off. He's not out of it. He answers me. But more tired than usual. || A3
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> I think the line cut out for a second. Are you still there?
+  Nurse -> Yes, I'm here.
+  Caller -> Sorry, somebody's at the door. Hang on a second.
+  Nurse -> No problem, I'll hold.
+  Caller -> Yes. I took it. Hang on. It was a hundred sixty eight over ninety six. That's high for him. || A4
+  Nurse -> Okay. Thank you. Is he having a headache, chest pain, vision changes?
+  Caller -> No. No headache. No chest pain. He says he's just sleepy.
+  Nurse -> Good. What's his date of birth, Magnus?
+  Caller -> Sorry, I lost my train of thought.
+  Nurse -> That's okay. We were just getting started.
+  Caller -> September seventeenth, nineteen forty six. || patient_dob
+  Nurse -> And your number?
+  Caller -> Sorry, somebody's at the door. Hang on a second.
+  Nurse -> No problem, I'll hold.
+  Caller -> Sorry, I keep going back and forth. It's been a long day.
+  Nurse -> I understand. Take a breath.
+  Caller -> Six one zero, five five five, zero one zero three. || callback_phone
+  Nurse -> Got it. Here's what I want you to do. Do not give any more from that bottle. Keep the bottle and the discharge paper together, in a bag, so we can show the pharmacy. Don't throw anything away. || E1
+  Caller -> Don't give any more. Bottle and paper together. Okay. I'll put them in a bag right now.
+  Nurse -> I'm going to page the on-call clinician about the blood pressure and the wrong tablet. They'll tell you what to do about the hydralazine. || R1
+  Caller -> Okay. Does he need to go to the hospital?
+  Nurse -> That's for the clinician. Right now he's alert and not having chest pain, so we're watching. I'll also call the pharmacy to find out what was dispensed. || R2
+  Caller -> I called them already. They said they'd look into it. But they didn't sound sure.
+  Nurse -> I'll follow up directly. And I'm sending a nurse to see him this afternoon. || R3
+  Caller -> This afternoon. Okay. What time?
+  Nurse -> The scheduler will call you. Probably one to three.
+  Caller -> I appreciate you being patient with me.
+  Nurse -> Not a problem at all.
+  Caller -> I'll be here. I'm working remotely.
+  Nurse -> Magnus, call nine one one if he has chest pain, a severe headache, confusion, weakness on one side, or if he's hard to wake. || E2
+  Caller -> Chest pain. Bad headache. Confused. One side weak. Hard to wake. Nine one one. Okay.
+  Nurse -> Good. Do you know what hydroxyzine is for? || A1
+  Caller -> Okay. I'm back. What was the question?
+  Nurse -> I'll repeat it, no trouble.
+  Caller -> It's an allergy pill, right? It makes you sleepy. That's why I'm nervous.
+  Nurse -> That's right. One tablet is usually not dangerous, but it can make him drowsy. That's why we're checking him.
+  Caller -> Okay. I've got a notebook now. Go ahead.
+  Nurse -> Alright.
+  Caller -> Okay. That's what I thought.
+  Nurse -> Don't beat yourself up. The labels are very similar. Pharmacies mix these up more than people know.
+  Caller -> Sorry, I lost my train of thought.
+  Nurse -> That's okay. We were just getting started.
+  Caller -> I'm just glad I caught it.
+  Nurse -> You did. Anything else?
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> No. That's it. Thank you, Estelle.
+  Nurse -> The clinician will call you within fifteen minutes.
+  Caller -> I'll keep my phone close.
+  Nurse -> Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ferdinand Strathearn, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-09-17", certainty: stated, heard_as: [], turns: [30]}
+    caller_name: {value: Magnus Strathearn, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550103", certainty: stated, heard_as: [], turns: [36]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the pharmacy bottle may be the wrong blood pressure medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "I think the pharmacy gave us the wrong pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The pharmacy bottle said hydroxyzine 25 mg three times a day, and one tablet was given last night.
+      speaker: Caller
+      turns: [4]
+      quote: "But the bottle from the pharmacy says hydroxyzine."
+      explanation: Documents the bottle contents.
+      facts:
+        - {type: medication, name: hydroxyzine, dose: "25", unit: mg, frequency: three times a day, prn: false, last_dose: one tablet last night, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: The discharge paper listed hydralazine 25 mg three times a day, which he had not received.
+      speaker: Caller
+      turns: [4]
+      quote: "The discharge paper says hydralazine."
+      explanation: Documents the intended medicine.
+      facts:
+        - {type: medication, name: hydralazine, dose: "25", unit: mg, frequency: three times a day, prn: false, last_dose: none, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: He was sleepy and nodding off but answered questions.
+      speaker: Caller
+      turns: [18]
+      quote: "Kind of sleepy."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: sleepiness, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 168/96.
+      speaker: Caller
+      turns: [24]
+      quote: "It was a hundred sixty eight over ninety six."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "168/96", certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to page the on-call clinician"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy to find out what was dispensed.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll also call the pharmacy to find out what was dispensed."
+      explanation: Documents the pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm sending a nurse to see him this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving no more from the bottle and keeping the bottle and discharge paper together.
+      speaker: Nurse
+      turns: [37]
+      quote: "Do not give any more from that bottle."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for chest pain, severe headache, confusion, one-sided weakness, or trouble waking him.
+      speaker: Nurse
+      turns: [49]
+      quote: "call nine one one if he has chest pain"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think the pharmacy gave us the wrong pill."}

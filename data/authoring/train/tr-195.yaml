@@ -1,0 +1,189 @@
+call_id: tr-195
+split: train
+blueprint: "Wife of a hospice patient reports nausea after meals for two days with one episode of vomiting yesterday; ondansetron helps. A caller reply is mislabeled as the nurse and a few words are dropped. Nurse messages the provider and calls back tomorrow; gives small-meal advice. ASR speaker-label error and dropped words."
+setup:
+  scenario_category: asr_error
+  subtype: speaker_label_dropped_words
+  secondary_tags: [speaker_label_errors, late_answers, split_turns, hedging]
+  clinical_domains: [nausea_vomiting, intake_appetite]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-10-07T21:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Floyd Harmon
+  patient_name_spoken: Floyd Harmon
+  patient_name_certainty: stated
+  patient_dob_true: "1938-10-26"
+  patient_dob_spoken: "1938-10-26"
+  patient_dob_certainty: stated
+  caller_name_true: Irma Harmon
+  caller_name_spoken: Irma Harmon
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9365550118"
+  callback_phone_spoken: "9365550118"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband has been nauseated after meals for two days
+  reason_category: nausea_vomiting
+  relevant_context: Hospice patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: nausea after meals
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    onset_or_duration: once yesterday
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every 8 hours as needed
+    last_dose: this afternoon
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: nausea after meals
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer six small meals a day, bland foods, and sips between meals, and keep him upright for 30 minutes after eating
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Rhonda.
+  Caller -> Hi, Rhonda. It's Irma Harmon. I'm calling about my husband, Floyd Harmon. || caller_name, relationship, patient_name
+  Nurse -> Hi, Irma. What's Floyd's date of birth?
+  Caller -> October twenty sixth. Nineteen thirty eight. || patient_dob
+  Nurse -> And is nine three six, five five five, zero one one eight a good number? || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> What's going on?
+  Caller -> He's been sick to his stomach. After he eats. For two days. Not all the time, just after meals. || cc, A1
+  Nurse -> Okay. Has he vomited?
+  Nurse -> Once. Yesterday, after supper. Just once. It was mostly food. || A2, label_error
+  Nurse -> Okay. Does he take anything for nausea?
+  Caller -> The ondansetron. Four milligrams. He takes it every eight, if he needs it. He took one this afternoon around two. It helps. It takes the edge off. || A3
+  Nurse -> Okay. Any belly pain?
+  Caller -> No. Just nauseous. He doesn't feel like eating but I keep pushing. || A1
+  Nurse -> Okay. I'll message his provider about the nausea after meals. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And I'll call you tomorrow to see how he's doing. || R2
+  Caller -> Tomorrow. Okay.
+  Nurse -> Irma, try six small meals a day instead of three big ones. Keep the food bland, with sips in between, and keep him sitting up for thirty minutes after he eats. || E1
+  Caller -> Six small ones. Bland. Sips. Sitting up thirty minutes. Okay. I've been giving him big plates. That's probably my fault.
+  Nurse -> It's not your fault. Small amounts are just easier on the stomach. Anything else?
+  Caller -> No. Thank you, Rhonda. It's nice to hear a friendly voice.
+  Nurse -> Anytime. Take care.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "Once. Yesterday, after supper.", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Floyd Harmon, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-10-26", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Irma Harmon, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9365550118", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband has been nauseated after meals for two days.
+    speaker: Caller
+    turns: [8]
+    quote: "He's been sick to his stomach. After he eats. For two days."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nausea occurred after meals for two days, with no belly pain.
+      speaker: Caller
+      turns: [8]
+      quote: "Not all the time, just after meals."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: nausea after meals, present: true, duration: two days, certainty: stated}
+      covers: [A1]
+    - text: He vomited once yesterday after supper, mostly food.
+      speaker: Caller
+      turns: [10]
+      quote: "Once. Yesterday, after supper. Just once. It was mostly food."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, duration: once yesterday, certainty: stated}
+      covers: [A2]
+    - text: Ondansetron 4 mg every 8 hours as needed was being taken, the last dose around two this afternoon, and it helped.
+      speaker: Caller
+      turns: [12]
+      quote: "The ondansetron. Four milligrams. He takes it every eight, if he needs it."
+      explanation: Documents the nausea medication.
+      facts:
+        - {type: medication, name: ondansetron, dose: "4", unit: mg, frequency: every 8 hours as needed, prn: true, last_dose: this afternoon, med_status: taking, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the provider about the nausea after meals.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll message his provider about the nausea after meals."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you tomorrow to see how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised six small bland meals a day with sips in between and keeping him sitting up for thirty minutes after eating.
+      speaker: Nurse
+      turns: [19]
+      quote: "try six small meals a day instead of three big ones."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+  risk_flags: []

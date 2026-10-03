@@ -1,0 +1,174 @@
+call_id: tr-188
+split: train
+blueprint: "Mother of a 9-year-old with epilepsy: he is having a full-body seizure right now, started 4 minutes ago by her timer, lips slightly blue, on the floor on his side. Rescue medicine (diazepam gel) given 2 minutes ago has not stopped it. Nurse tells her to call 911 now, keep him on his side, time it, and not put anything in his mouth. Flags: other_urgent and escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [seizure, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-06T21:15:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Caspian Dufresne
+  patient_name_spoken: Caspian Dufresne
+  patient_name_certainty: stated
+  patient_dob_true: "2017-02-20"
+  patient_dob_spoken: "2017-02-20"
+  patient_dob_certainty: stated
+  caller_name_true: Brigitte Dufresne
+  caller_name_spoken: Brigitte Dufresne
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "5035550149"
+  callback_phone_spoken: "5035550149"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son is having a seizure that has not stopped
+  reason_category: seizure
+  relevant_context: Child with epilepsy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: ongoing full-body seizure
+    symptom_present: true
+    onset_or_duration: four minutes so far
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: lips slightly blue
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: diazepam gel
+    medication_name_spoken: diazepam gel
+    medication_status: given_previously
+    last_dose: given two minutes ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: seizure not stopped by rescue medicine
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep him on his side on the floor, keep timing, put nothing in his mouth, and clear anything hard from around him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Child is having a seizure that has lasted four minutes and has not stopped after rescue medicine
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the mother to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Priya, it's Brigitte Dufresne. Caspian is having a seizure. It won't stop. It's been four minutes. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Brigitte, I'm here. Is he breathing? Where is he?
+  Caller -> On the floor. In the kitchen. He's on his side. He's breathing but his lips are a little blue. His whole body is jerking. || A2
+  Nurse -> Okay. Did you give his rescue medicine?
+  Caller -> Yes. The diazepam gel. I gave it two minutes ago. It hasn't done anything. || A3
+  Nurse -> Okay. Brigitte, I want you to call nine one one right now. A seizure over five minutes needs an ambulance, and the gel hasn't worked. || R1, F2
+  Caller -> Oh God. Okay. Should I hang up?
+  Nurse -> Yes, hang up and call. Keep him on his side on the floor. Keep timing it. Don't put anything in his mouth. Move anything hard away from him. || E1
+  Caller -> Side. Timing. Nothing in his mouth. Move things. Okay. I'm calling.
+  Nurse -> And give them his date of birth if they ask.
+  Caller -> February twentieth. Twenty seventeen. And five oh three, five five five, zero one four nine. I'll tell them. || patient_dob, callback_phone
+  Nurse -> Good. Go. I'll alert his doctor. Is anyone else home who can unlock the front door for the ambulance?
+  Caller -> My husband is upstairs, he heard me yelling. He's coming down. Mark! Mark, unlock the front door and call nine one one! Okay, he's calling. He's calling right now.
+  Nurse -> Good. Stay with Caspian. Keep timing it, and tell the paramedics how long it's been going.
+  Caller -> Okay. Thank you. Caspian. Caspian, Mommy's here. Mommy's here.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Caspian Dufresne, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2017-02-20", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Brigitte Dufresne, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550149", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son is having a seizure that has not stopped.
+    speaker: Caller
+    turns: [2]
+    quote: "Caspian is having a seizure. It won't stop. It's been four minutes."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A full-body seizure had lasted four minutes so far, with his whole body jerking.
+      speaker: Caller
+      turns: [4]
+      quote: "His whole body is jerking."
+      explanation: Documents the seizure.
+      facts:
+        - {type: symptom, name: ongoing full-body seizure, present: true, duration: four minutes so far, certainty: stated}
+      covers: [A1]
+    - text: His lips were a little blue.
+      speaker: Caller
+      turns: [4]
+      quote: "He's breathing but his lips are a little blue."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: lips slightly blue, present: true, certainty: stated}
+      covers: [A2]
+    - text: Diazepam gel was given two minutes earlier without effect.
+      speaker: Caller
+      turns: [6]
+      quote: "The diazepam gel. I gave it two minutes ago. It hasn't done anything."
+      explanation: Documents the rescue medicine.
+      facts:
+        - {type: medication, name: diazepam gel, last_dose: given two minutes ago, med_status: given_previously, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 immediately because the seizure had not stopped after the rescue medicine.
+      speaker: Nurse
+      turns: [7]
+      quote: "I want you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised keeping him on his side on the floor, continuing to time it, putting nothing in his mouth, and moving hard objects away.
+      speaker: Nurse
+      turns: [9]
+      quote: "Keep him on his side on the floor. Keep timing it. Don't put anything in his mouth."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "Caspian is having a seizure. It won't stop. It's been four minutes."}
+    - {category: escalation_request, turns: [7], quote: "I want you to call nine one one right now."}

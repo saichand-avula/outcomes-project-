@@ -1,0 +1,481 @@
+call_id: tr-129
+split: train
+blueprint: "Daughter reconciling her father's medicines four days after a heart failure discharge reads the list aloud: metoprolol succinate, apixaban, furosemide, new potassium chloride not yet started, atorvastatin on the chart (distractor). She realizes she gave aspirin, which was stopped at discharge, for the last three mornings from the old pillbox. New forearm bruises, no other bleeding, mild dizziness on standing, BP 118/70. Nurse tells her to stop aspirin, calls the cardiologist, asks the pharmacy for a clean list, visits Thursday, calls back tomorrow. Flag: medication_concern. Long."
+setup:
+  scenario_category: medication
+  subtype: reconciliation_error
+  secondary_tags: [chart_reading_distractor, multi_issue, hedging, late_answers, split_turns, prn_and_scheduled]
+  clinical_domains: [medication, bleeding, cardiac, dizziness]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-01T18:05:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [atorvastatin]
+chief_complaint:
+  patient_name_true: Bertram Oyelowo
+  patient_name_spoken: Bertram Oyelowo
+  patient_name_certainty: stated
+  patient_dob_true: "1939-05-16"
+  patient_dob_spoken: "1939-05-16"
+  patient_dob_certainty: stated
+  caller_name_true: Adaeze Oyelowo
+  caller_name_spoken: Adaeze Oyelowo
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3015550168"
+  callback_phone_spoken: "3015550168"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that she may have given her father a medicine she should not have since his hospital discharge
+  reason_category: medication
+  relevant_context: Home health patient recently discharged after a heart failure admission
+assessment:
+  - item_id: A10
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Discharged four days ago after a hospital stay for heart failure
+    certainty: stated
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol succinate
+    medication_name_spoken: metoprolol succinate
+    medication_status: taking
+    dose: "50"
+    unit: mg
+    frequency: once a day in the morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: apixaban
+    medication_name_spoken: apixaban
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: every morning
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: potassium chloride
+    medication_name_spoken: potassium chloride
+    medication_status: prescribed
+    dose: "20"
+    unit: mEq
+    frequency: once a day
+    last_dose: not started
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: aspirin
+    medication_name_spoken: aspirin
+    medication_status: stopped
+    dose: "81"
+    unit: mg
+    last_dose: this morning
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: new bruises
+    symptom_present: true
+    body_location: forearms
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: bleeding
+    symptom_present: false
+    history_or_context_text: No blood in stool or urine and no nosebleeds
+    certainty: stated
+  - item_id: A8
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 118/70
+    certainty: stated
+  - item_id: A9
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness on standing
+    symptom_present: true
+    onset_or_duration: since he got home
+    certainty: stated
+  - item_id: A11
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: at night sometimes
+    certainty: stated
+  - item_id: A12
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Her brother thinks the aspirin is good for the heart and should have been continued
+    certainty: stated
+response:
+  - item_id: R5
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: stop the aspirin and take it out of the pillbox
+    certainty: stated
+  - item_id: R1
+    action_type: physician_notification
+    action_status: planned
+    actor: nurse
+    recipient_or_target: cardiologist
+    reason_or_trigger: three days of aspirin with apixaban, new bruises, and the potassium
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: print a clean medication list and check for leftover prescriptions
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    reason_or_trigger: set up the pillbox from scratch
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    reason_or_trigger: after hearing from the cardiologist
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Hold off on the potassium until the cardiologist is heard from
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for black or bloody stools, blood in the urine, a nosebleed that will not stop, or a fall with a head strike
+    trigger_condition: black stool; blood in urine; nosebleed that will not stop; fall with head strike
+    certainty: stated
+  - item_id: E3
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh him every morning on the same scale and call for a gain of 3 pounds in a day or 5 in a week
+    trigger_condition: gain of 3 pounds in a day or 5 in a week
+    certainty: stated
+  - item_id: E4
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Tylenol is okay but avoid ibuprofen and naproxen
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller gave her father aspirin, which was stopped at discharge, for the last three mornings while he takes apixaban
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Adaeze Oyelowo. I'm calling about my father, Bertram Oyelowo. He came home from the hospital a few days ago, and I have a whole bag of pills, and I think I messed something up. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Adaeze. Take a breath. We'll go through it together. Can I get his date of birth first?
+  Caller -> May sixteenth. Nineteen thirty nine. || patient_dob
+  Nurse -> And the best number for you, is it three oh one, five five five, zero one six eight? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What was the hospital stay for?
+  Caller -> His heart. Heart failure. Five days in. They sent him home four days ago. || A10
+  Nurse -> Okay. And what's worrying you?
+  Caller -> The pills. They gave me a new list when he left. But we also had his old pillbox from before. And I filled the box from the old bottles, and then tonight I looked at the paper and I think I gave him something I shouldn't have.
+  Nurse -> Okay. Let's sort it out. Do you have the discharge paper and the bottles in front of you?
+  Caller -> Yes. All of them. They're on the kitchen table. Hold on, let me sit down.
+  Nurse -> Take your time. Let's start with the paper. What does it list?
+  Caller -> Okay. Metoprolol succinate. Fifty milligrams. Once a day in the morning. || A1
+  Nurse -> Okay. Metoprolol succinate, fifty milligrams, once a day in the morning. Is he taking that? || A1
+  Caller -> Yes. Every morning since he's been home. || A1
+  Nurse -> Good. Next one.
+  Caller -> Um. Eliquis. No, wait. Apixaban. Five milligrams, twice a day. || A2
+  Nurse -> Okay. Apixaban, five milligrams, twice a day. That's his blood thinner. Is he taking it? || A2
+  Caller -> Yes. Morning and night. I set an alarm on my phone so I don't forget. || A2
+  Nurse -> Great. Next.
+  Caller -> Furosemide. Forty milligrams. Morning. || A3
+  Nurse -> Okay. Furosemide, forty, every morning. Taking that? || A3
+  Caller -> Yes. Every morning. He complains because he has to keep going to the bathroom. || A3
+  Nurse -> That's what it's for. Next.
+  Caller -> Potassium chloride. Twenty. Milliequivalents? M E Q. Once a day. It's new. I picked it up yesterday. But I haven't started it, because I wasn't sure. The paper says start, but the pharmacist said maybe ask. || A4
+  Nurse -> Okay. Potassium chloride, twenty milliequivalents, once a day. So he hasn't taken any yet? || A4
+  Caller -> No. None. It's still sealed in the bag.
+  Nurse -> Okay. Hold off on the potassium until I hear back from his cardiologist. I'll explain in a second. || A4, E1
+  Caller -> Okay. Hold off. Okay.
+  Nurse -> Is there anything else on the paper?
+  Caller -> Atorvastatin at night. That's on the list too. And then under it there's a section that says stopped.
+  Nurse -> Okay. What's under stopped?
+  Caller -> Aspirin. Eighty one milligrams. It says discontinue. And, oh no. Oh no. Tom, I gave him the aspirin. || A5, F1
+  Nurse -> Okay. When did you give him the aspirin? || A5
+  Caller -> Every morning since he came home. This morning too. It was in the old pillbox. I filled the box from the old bottles, and the aspirin was one of them. I gave him the aspirin the last three mornings. || A5, F1
+  Nurse -> Okay. I'm glad you caught it, Adaeze. I need to ask a few things. He's on the apixaban, and aspirin on top of that can raise the risk of bleeding. Has he had any bleeding? Nosebleeds, blood in his stool or urine? || A2, A5
+  Caller -> No. None of that. No blood in his stool, I check. No blood in his urine. And no nosebleeds. || A7
+  Nurse -> Any new bruises?
+  Caller -> Actually, yes. On his forearms. A couple of purple ones. I thought it was from the hospital IV, but I think they're new. They weren't there when he came home. || A6
+  Nurse -> Okay. Thank you for telling me. How is he feeling today? Dizzy? Short of breath?
+  Caller -> He gets a little dizzy when he stands up. Since he got home. Not falling or anything. Just a little woozy. And his breathing is okay. || A9
+  Nurse -> Do you have a blood pressure cuff?
+  Caller -> Yes. I took it this morning. One eighteen over seventy. || A8
+  Nurse -> Okay. That's reasonable. Adaeze, here's what I'm going to do. First, stop the aspirin completely. Take it out of the pillbox today and put the bottle away. || A5, R5
+  Caller -> Okay. Out of the box. Bottle away. Okay.
+  Nurse -> Second, I'm going to call his cardiologist about the three days of aspirin with the apixaban, and about the new bruises, and ask about the potassium. || R1, A2, A4, A5, A6
+  Caller -> Okay. Thank you. Can I ask something? My brother says I should have just left the aspirin in because it's good for the heart. Is he right? || A12, A5
+  Nurse -> The hospital stopped the aspirin for a reason, and a big part of that is the apixaban. Let the cardiologist decide, not your brother. || A5, A2
+  Caller -> Okay. I'll tell him. He's going to argue, but I'll tell him.
+  Nurse -> Third, I'm going to ask his pharmacy to print a clean medication list and check that there's nothing else left over from the old prescriptions. || R2
+  Caller -> Oh, that would help. Because the old bottles are the problem. I can bring them all to you.
+  Nurse -> You can, actually. A nurse will come out Thursday and sit down with you and set up the pillbox from scratch. || R3
+  Caller -> Thursday. Okay. Good. Thank you. I feel so stupid.
+  Nurse -> You shouldn't. This happens a lot after a hospital stay. The paperwork is confusing, and you caught it.
+  Caller -> I caught it because I got curious about the list. If I hadn't, he'd have gotten it tomorrow too.
+  Nurse -> Well, you did look. Adaeze, is he taking anything else? Anything over the counter, for pain, or a sleep aid?
+  Caller -> Just Tylenol at night sometimes. For his knee. Five hundred milligrams. || A11
+  Nurse -> Okay. Tylenol is fine. But don't give him ibuprofen or naproxen, like Advil or Aleve. Those can cause bleeding and also hurt the heart. || A11, E4
+  Caller -> Okay. Tylenol is okay. No Advil. No Aleve. I think there's a bottle of Advil in the cabinet. I'll throw it out. || A11, E4
+  Nurse -> Good. And I'll call you back tomorrow morning once I hear from the cardiologist. || R4
+  Caller -> Tomorrow morning. Okay. I work from nine but I'll have my phone on me.
+  Nurse -> That's fine. Now, here are the things to watch for. Black or bloody stools, blood in his urine, a nosebleed that won't stop, or if he falls and hits his head, call nine one one. || E2
+  Caller -> Black stools, blood in urine, nosebleed that won't stop, fall and hit his head. Okay. I'm writing it on the paper.
+  Nurse -> Good. Also, weigh him every morning, same scale, after he uses the bathroom. Call us if he's up three pounds in a day or five in a week. || E3
+  Caller -> Okay. Three in a day, five in a week. We have a scale. I wrote down his weight from the hospital on the paper.
+  Nurse -> Perfect. And the atorvastatin at night stays the same. No changes there.
+  Caller -> Okay. I thought so.
+  Nurse -> How is he doing otherwise? Is he eating?
+  Caller -> He's eating okay. He's grumpy. He hates the low salt food. He keeps asking for his soup from the can.
+  Nurse -> Ha. Yes, that's a hard one. Canned soup is very salty. Maybe try making a batch yourself without added salt.
+  Caller -> I could do that. My mother used to make a pepper soup, with the chicken, and the little peppers, and ginger. I'll try to remember how she made it. He'd love that. He grew up on it.
+  Nurse -> That sounds wonderful. Anything else you want to go over tonight?
+  Caller -> No. I think that's it. Thank you, Tom. Really. I was panicking. My hands were shaking when I read the word stopped.
+  Nurse -> I'd have been the same. Honestly, the fact that you read the whole paper is why we caught this.
+  Caller -> My husband keeps saying I read too much. Tonight I'm telling him he's wrong.
+  Nurse -> Ha. Tell him I said so.
+  Nurse -> You did the right thing by calling. We'll talk tomorrow.
+  Caller -> Okay. Goodnight.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bertram Oyelowo, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-05-16", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Adaeze Oyelowo, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3015550168", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that she may have given her father a medicine she should not have since his hospital discharge.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I messed something up."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was discharged four days earlier after a hospital stay for heart failure.
+      speaker: Caller
+      turns: [8]
+      quote: "Heart failure. Five days in. They sent him home four days ago."
+      explanation: Documents the recent admission.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A10]
+    - text: Metoprolol succinate 50 mg once a day in the morning was being taken.
+      speaker: Caller
+      turns: [14]
+      quote: "Metoprolol succinate. Fifty milligrams. Once a day in the morning."
+      explanation: Documents a current medication.
+      facts:
+        - {type: medication, name: metoprolol succinate, dose: "50", unit: mg, frequency: once a day in the morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Apixaban 5 mg twice a day was being taken.
+      speaker: Caller
+      turns: [18]
+      quote: "Apixaban. Five milligrams, twice a day."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: apixaban, dose: "5", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Furosemide 40 mg every morning was being taken.
+      speaker: Caller
+      turns: [22]
+      quote: "Furosemide. Forty milligrams. Morning."
+      explanation: Documents a current medication.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Potassium chloride 20 mEq once a day was newly prescribed but not yet started because the caller was unsure.
+      speaker: Caller
+      turns: [26]
+      quote: "I haven't started it, because I wasn't sure."
+      explanation: Documents the new medication not yet started.
+      facts:
+        - {type: medication, name: potassium chloride, dose: "20", unit: mEq, frequency: once a day, last_dose: not started, med_status: prescribed, certainty: stated}
+      covers: [A4]
+    - text: Aspirin 81 mg, which was stopped at discharge, was given in error for the last three mornings, including this morning.
+      speaker: Caller
+      turns: [36]
+      quote: "I gave him the aspirin the last three mornings."
+      explanation: Documents the medication error.
+      facts:
+        - {type: medication, name: aspirin, dose: "81", unit: mg, last_dose: this morning, med_status: stopped, certainty: stated}
+      covers: [A5]
+    - text: New purple bruises were present on the forearms.
+      speaker: Caller
+      turns: [40]
+      quote: "On his forearms. A couple of purple ones."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: new bruises, present: true, location: forearms, certainty: stated}
+      covers: [A6]
+    - text: No bleeding was reported, with no blood in the stool or urine and no nosebleeds.
+      speaker: Caller
+      turns: [38]
+      quote: "No blood in his stool, I check. No blood in his urine. And no nosebleeds."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: bleeding, certainty: stated}
+      covers: [A7]
+    - text: He was mildly dizzy when standing since he got home.
+      speaker: Caller
+      turns: [42]
+      quote: "He gets a little dizzy when he stands up. Since he got home."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness on standing, present: true, duration: since he got home, certainty: stated}
+      covers: [A9]
+    - text: Blood pressure this morning was 118/70.
+      speaker: Caller
+      turns: [44]
+      quote: "One eighteen over seventy."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 118/70, certainty: stated}
+      covers: [A8]
+    - text: Tylenol 500 mg was taken at night sometimes for his knee.
+      speaker: Caller
+      turns: [58]
+      quote: "Just Tylenol at night sometimes. For his knee. Five hundred milligrams."
+      explanation: Documents an over-the-counter medication.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, frequency: at night sometimes, med_status: taking, certainty: stated}
+      covers: [A11]
+    - text: Her brother thought the aspirin was good for the heart and should have been continued.
+      speaker: Caller
+      turns: [48]
+      quote: "My brother says I should have just left the aspirin in because it's good for the heart."
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A12]
+  response:
+    - text: Advised stopping the aspirin completely and taking it out of the pillbox.
+      speaker: Nurse
+      turns: [45]
+      quote: "stop the aspirin completely. Take it out of the pillbox today and put the bottle away."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R5]
+    - text: Planned to call the cardiologist about the aspirin with apixaban, the new bruises, and the potassium.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to call his cardiologist about the three days of aspirin with the apixaban, and about the new bruises, and ask about the potassium."
+      explanation: Documents the planned physician contact.
+      facts:
+        - {type: action, action_type: physician_notification, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the pharmacy to print a clean medication list and check for leftover prescriptions.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm going to ask his pharmacy to print a clean medication list"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for Thursday to set up the pillbox from scratch.
+      speaker: Nurse
+      turns: [53]
+      quote: "A nurse will come out Thursday and sit down with you and set up the pillbox from scratch."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back tomorrow morning after hearing from the cardiologist.
+      speaker: Nurse
+      turns: [61]
+      quote: "I'll call you back tomorrow morning once I hear from the cardiologist."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised holding off on the potassium until the cardiologist was heard from.
+      speaker: Nurse
+      turns: [29]
+      quote: "Hold off on the potassium until I hear back from his cardiologist."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised that Tylenol was fine but ibuprofen and naproxen should be avoided.
+      speaker: Nurse
+      turns: [59]
+      quote: "Tylenol is fine. But don't give him ibuprofen or naproxen, like Advil or Aleve."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E4]
+    - text: Advised calling 911 for black or bloody stools, blood in the urine, a nosebleed that would not stop, or a fall with a head strike.
+      speaker: Nurse
+      turns: [63]
+      quote: "Black or bloody stools, blood in his urine, a nosebleed that won't stop, or if he falls and hits his head, call nine one one."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+    - text: Advised weighing him every morning and calling for a gain of 3 pounds in a day or 5 in a week.
+      speaker: Nurse
+      turns: [65]
+      quote: "Call us if he's up three pounds in a day or five in a week."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [36], quote: "I gave him the aspirin the last three mornings."}

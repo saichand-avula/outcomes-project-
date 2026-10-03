@@ -1,0 +1,324 @@
+call_id: tr-236
+split: train
+blueprint: "Son of an 87-year-old hospice patient: two nights of evening/night agitation, calling for his late wife, picking at blankets. Lorazepam 0.5 mg at nine last night settled him for about two hours; six tablets left. No pain behaviors, no falls. Nurse reads the chart (haloperidol, furosemide, atorvastatin are listed and not discussed), messages the provider, plans a nurse visit tomorrow and a callback tomorrow morning, gives night-time calming and medication guidance. Long, rambling, messy v2 short call: interruptions, dropped line, tangent about a ball game, caller talks to his father mid-call."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [chart_reading_distractor, offtopic_chatter, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [agitation_delirium, medication, sleep]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Alan
+  call_timestamp_utc: "2026-10-15T03:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: [haloperidol, furosemide, atorvastatin]
+chief_complaint:
+  patient_name_true: Harold Tessier
+  patient_name_spoken: Harold Tessier
+  patient_name_certainty: stated
+  patient_dob_true: "1938-07-08"
+  patient_dob_spoken: "1938-07-08"
+  patient_dob_certainty: stated
+  caller_name_true: Gil Tessier
+  caller_name_spoken: Gil Tessier
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "8015550129"
+  callback_phone_spoken: "8015550129"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his father has been agitated at night for two nights
+  reason_category: agitation
+  relevant_context: Hospice patient in his late eighties
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: agitation at night
+    symptom_present: true
+    onset_or_duration: last two nights
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: calling out for his late wife
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    prn: true
+    last_dose: nine last night
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: lorazepam tablets
+    supply_remaining: "6"
+    supply_unit: tablets
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: grimacing or signs of pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: night-time agitation for two nights
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep a night light on, keep the room quiet, speak calmly, and do not argue with or correct him about his wife
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the lorazepam only as written on the label and not sooner than the label allows
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, trying to climb out of bed, striking out, or agitation he cannot be calmed from
+    trigger_condition: fall; climbing out of bed; striking out; cannot be calmed
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Alan.
+  Caller -> Hi. Hi, Alan. Is this, is this the hospice? The nighttime number?
+  Nurse -> It is. This is the after-hours line. How can I help?
+  Caller -> Okay. Okay good. It's Gil Tessier. My dad is Harold Tessier. I'm sorry it's so late, I know it's, what is it, three? || caller_name, relationship, patient_name
+  Nurse -> It's a little after three. Don't worry about that, that's what we're here for. What's going on with your dad?
+  Caller -> Well, he's, he's agitated. He's been agitated at night, this is the second night now. He's up, he's calling for my mom, and she's, she passed in, uh, two thousand and nineteen. || cc, A1, A2
+  Nurse -> Okay. I'm sorry, Gil. That sounds like a hard night. Let me pull up his chart. Can you give me your dad's date of birth?
+  Caller -> Yeah. It's July eighth. Nineteen thirty eight. || patient_dob
+  Nurse -> Thank you. Give me a second, I'm typing.
+  Caller -> Sure. Take your time. I'm just, I'm in the hallway outside his room. I didn't want him to hear me.
+  Nurse -> That's smart. Okay, I have him. And is eight oh one, five five five, zero one two nine the number you're on? || callback_phone
+  Caller -> Yes. Yeah. That's my cell.
+  Nurse -> Okay. So tell me how it started. When did this begin?
+  Caller -> Um, so, Monday night. No wait. Tuesday. It was Tuesday, because the, the aide had come that day. Tuesday night and then last night. So two nights. || A1
+  Nurse -> Okay, so Tuesday night and last night.
+  Caller -> Right. Right. And he's usually, he's fine in the day. A little foggy. He knows who I am. But then it gets dark and he gets, I don't know the word. Wound up. He's picking at the blanket. Pulling at it. Over and over.
+  Nurse -> Mm-hm. Picking at the blankets. Is he saying anything?
+  Caller -> He keeps saying, "Where's Ellen? Is Ellen coming?" That's my mom. Ellen. And I said Dad, Mom's not here, and that made it worse, he got really upset. So now I don't say anything. || A2
+  Nurse -> Okay. Gil, that's helpful. And what, what's he doing right this minute?
+  Caller -> He's, hold on. Hold on, let me look. Dad? Dad, it's okay. It's Gil. Go back to sleep. Okay. He's lying down. He's mumbling. He's kind of, he's quieter now.
+  Nurse -> Okay. Good. Is he showing any signs of pain? Grimacing, moaning, guarding anywhere?
+  Caller -> No. No, I don't think so. I've been watching for that, because the nurse told us what to look for. His face is relaxed. He doesn't grimace. It's not that. It's, it's more like confused and scared. || A5
+  Nurse -> Okay. Has he had a fall? Or tried to get out of bed?
+  Caller -> No falls. He tried to sit up last night, I think, but I was right there. I just, I held his shoulder. No falls. || A6
+  Nurse -> Okay. And is he on anything for agitation? What have you given him?
+  Caller -> Yes, the lorazepam. The point five milligram. The little white one. I gave him one last night. At nine. Around nine o'clock. || A3
+  Nurse -> Okay. Did it help?
+  Caller -> It did. For a while. He was calm for about, I'd say two hours. Then he was up again, around eleven. But I didn't give him another because I wasn't sure if I was allowed. || A3
+  Nurse -> Okay. That's good that you checked. I'm looking at his list here. I see the lorazepam, I see the haloperidol, the furosemide, the atorvastatin. || A3
+  Caller -> Yeah. Yeah, I don't give him the, the haloperidol. The nurse said that's only if the lorazepam doesn't work. And the other ones are, those are his regular ones. Morning ones. || A3
+  Nurse -> Right. Okay. So you've only used the lorazepam, once, last night at nine. || A3
+  Caller -> Yes. Just once. And tonight, nothing yet. I'm trying to wait.
+  Nurse -> Okay. How many tablets do you have left?
+  Caller -> Let me look. Hang on, I have the bottle in my, it's in my robe pocket. Okay. Six. There are six. Six left. || A4
+  Nurse -> Okay. Six. Thank you.
+  Caller -> Is that enough? Should I be worried about running out?
+  Nurse -> For now it's okay. I'll mention it to the provider and we'll watch it.
+  Caller -> Okay. Okay. Sorry. Sorry, I'm, can you hear me? I think I'm going to lose you, the signal in the hall is terrible.
+  Nurse -> I can hear you fine. If we drop, I'll call you right back at the number you gave me.
+  Caller -> Okay. Thank you. Sorry. It's just, it's hard to see him like this. He was a, he taught high school. History. Thirty-one years. And now he doesn't know what year it is.
+  Nurse -> I'm sorry. That's a lot to carry, watching that.
+  Caller -> It is. It really is. And my sister's in Phoenix, so it's mostly me.
+  Nurse -> You're doing a great job being there. Okay, here's what I'd like to do. I'm going to send a message to the hospice provider about the agitation, since it's happened two nights in a row. || R1
+  Caller -> Okay. Will they change something? The medicine?
+  Nurse -> They might. That's their decision. They could adjust the dose or the timing, or add something. I don't want to promise. But they'll see it first thing in the morning.
+  Caller -> Okay. That's fair. That's fine.
+  Nurse -> And I'll have a nurse come out tomorrow to see him and look at the whole picture. || R2
+  Caller -> Tomorrow. Okay. What time, do you know?
+  Nurse -> I don't have a time yet. The scheduler will call you in the morning. I'll give them your number.
+  Caller -> Okay. Because I have to take my daughter to school at eight, but then I'm home.
+  Nurse -> I'll note that. And I'll call you tomorrow morning myself, once I've talked to the day team. || R3
+  Caller -> Tomorrow morning. Okay. You're, you're not even on in the morning though, are you?
+  Nurse -> I'm on until seven. I'll either call you before I go, or I'll hand it off, and one of the day nurses will call. Either way, you'll hear from us.
+  Caller -> Okay. Okay. Thank you.
+  Nurse -> In the meantime, for the rest of tonight. Keep a little light on in his room, a night light is perfect. Keep the room quiet, keep the TV off, and speak softly.
+  Caller -> Okay. A night light. We have one somewhere. I'll put the little one from the bathroom in there. || E1
+  Nurse -> And Gil, when he asks for your mom, try not to correct him. You don't have to say she's gone, and you don't have to say she's coming. You can say something like, "You're safe, Dad, I'm here," and ask him about her. || E1
+  Caller -> Ask him about her. Okay. That, that actually makes sense. I was trying to tell him the truth and it just upset him.
+  Nurse -> It's very common. You're not doing anything wrong.
+  Caller -> The Dodgers game was on earlier, I had it on for him, and I thought that would help. He used to love it. But he just stared.
+  Nurse -> That can be a lot of noise for him at night. The quieter the better, honestly.
+  Caller -> Yeah. I'll turn it off. I already did. I turned it off at midnight. I should've done it sooner.
+  Nurse -> You're learning as you go. Now, about the lorazepam. Please only give it the way the label says, and don't give it any sooner than the label allows. If you're not sure whether it's time, call me and ask. || E2, A3
+  Caller -> Okay. The label. Not sooner. And call if I'm not sure. Okay. It says every, I think every eight hours as needed. I'll look at it.
+  Nurse -> Good. Look at it and tell me what it says if you want to double-check.
+  Caller -> It says, one tablet by mouth every eight hours as needed for agitation. Okay. So it's been, it's been six hours, so not until nine or so.
+  Nurse -> Right. Okay. And Gil, one more thing. If he falls, if he tries to climb out of bed, if he starts striking out at you, or if he gets so upset that you can't calm him down at all, call us right away, any hour. || E3
+  Caller -> Falls. Climbing out. Hitting. Can't calm him. Okay. I have the number. It's, it's on the fridge. I have it.
+  Nurse -> Good. Is there someone who can sit with you? Even a neighbor?
+  Caller -> Not at three in the morning. No, I'm good. I'll just sit in the chair. I do it every night.
+  Nurse -> All right. Try to rest if he settles. Even twenty minutes helps.
+  Caller -> I'll try. Okay. Thank you, Alan. Really. I didn't think anybody would pick up.
+  Nurse -> We always pick up. Anytime.
+  Caller -> Okay. Bye. Bye now.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "I'm in the hallway outside his room", heard_form: "I'm just, I'm in the hallway outside his room", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Harold Tessier, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1938-07-08", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Gil Tessier, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: son, certainty: stated, turns: [4]}
+    callback_phone: {value: "8015550129", certainty: stated, heard_as: [], turns: [11]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father had been agitated at night for two nights.
+    speaker: Caller
+    turns: [6]
+    quote: "he's agitated. He's been agitated at night, this is the second night now."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Agitation at night had occurred on Tuesday night and last night.
+      speaker: Caller
+      turns: [14]
+      quote: "Tuesday night and then last night. So two nights."
+      explanation: Documents the agitation and its timing.
+      facts:
+        - {type: symptom, name: agitation at night, present: true, onset: last two nights, certainty: stated}
+      covers: [A1]
+    - text: He was calling out for his late wife.
+      speaker: Caller
+      turns: [18]
+      quote: "He keeps saying, \"Where's Ellen? Is Ellen coming?\""
+      explanation: Documents the confusion.
+      facts:
+        - {type: symptom, name: calling out for his late wife, present: true, certainty: stated}
+      covers: [A2]
+    - text: Lorazepam 0.5 mg was given once last night at about nine and calmed him for about two hours.
+      speaker: Caller
+      turns: [26]
+      quote: "I gave him one last night. At nine."
+      explanation: Documents the as-needed medication use.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, prn: true, last_dose: nine last night, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Six lorazepam tablets remained.
+      speaker: Caller
+      turns: [34]
+      quote: "Six. There are six. Six left."
+      explanation: Documents the supply left.
+      facts:
+        - {type: supply, item: lorazepam tablets, supply: 6 tablets, certainty: stated}
+      covers: [A4]
+    - text: No grimacing or signs of pain were noted.
+      speaker: Caller
+      turns: [22]
+      quote: "His face is relaxed. He doesn't grimace."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: grimacing or signs of pain, certainty: stated}
+      covers: [A5]
+    - text: No falls were reported.
+      speaker: Caller
+      turns: [24]
+      quote: "No falls."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the hospice provider about the agitation on two nights.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to send a message to the hospice provider about the agitation, since it's happened two nights in a row."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to have a nurse come out tomorrow.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll have a nurse come out tomorrow to see him and look at the whole picture."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow morning after talking to the day team.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you tomorrow morning myself, once I've talked to the day team."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised a night light, a quiet room, calm speech, and not correcting him about his wife.
+      speaker: Nurse
+      turns: [55]
+      quote: "Keep a little light on in his room, a night light is perfect."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised giving the lorazepam only as the label directs and not sooner.
+      speaker: Nurse
+      turns: [63]
+      quote: "Please only give it the way the label says, and don't give it any sooner than the label allows."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling any hour for a fall, climbing out of bed, striking out, or agitation that could not be calmed.
+      speaker: Nurse
+      turns: [67]
+      quote: "If he falls, if he tries to climb out of bed, if he starts striking out at you, or if he gets so upset that you can't calm him down at all, call us right away, any hour."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

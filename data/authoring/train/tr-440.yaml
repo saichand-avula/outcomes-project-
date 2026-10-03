@@ -1,0 +1,372 @@
+call_id: tr-440
+split: train
+blueprint: "A son sorts out his hospice mother's three look-alike bottles at the end of a long day: scheduled MS Contin (morphine extended release) thirty milligrams every twelve hours, as-needed hydromorphone liquid two milligrams every four hours, and hydroxyzine twenty five milligrams at bedtime only for itching. He double-negates when asked what he gave ('I didn't not give the hydromorphone') and the nurse clarifies each dose and time. Pain is a four, she is awake and not drowsy, no confusion. Nurse explains the difference between the names, plans to message the team and pharmacy about separate bags and a medication schedule sheet, a nurse visit tomorrow and a callback tonight. Tall-man pairs, scheduled plus as-needed opioids, trap phrasing, negated risk phrases (no flag), adult child, long v2."
+setup:
+  scenario_category: medication
+  subtype: tall_man_clarification
+  secondary_tags: [tall_man_drug, prn_and_scheduled, trap_phrasing, negated_risk_phrase, liquid_concentration, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, pain, sedation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harborview Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-11-25T01:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Seraphina Dragomir
+  patient_name_spoken: Seraphina Dragomir
+  patient_name_certainty: stated
+  patient_dob_true: "1942-10-24"
+  patient_dob_spoken: "1942-10-24"
+  patient_dob_certainty: stated
+  caller_name_true: Gideon Dragomir
+  caller_name_spoken: Gideon Dragomir
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9195550130"
+  callback_phone_spoken: "9195550130"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked for help sorting out his mother's three look-alike medicines and which he had given
+  reason_category: medication
+  relevant_context: Hospice patient on scheduled and as-needed opioids and an antihistamine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: MS Contin
+    medication_name_spoken: MS Contin
+    medication_status: taking
+    dose: "30"
+    unit: mg
+    frequency: every twelve hours
+    prn: false
+    last_dose: eight this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydromorphone
+    medication_name_spoken: hydromorphone
+    medication_status: taking
+    dose: "2"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: two hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: prescribed
+    dose: "25"
+    unit: mg
+    frequency: at bedtime as needed for itching
+    prn: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: "4"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: drowsiness or confusion
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: The three bottles have look-alike names and come in the same pharmacy bag
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team and pharmacy
+    reason_or_trigger: ask for separate bags, large-print labels and a dosing schedule sheet
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the extended release tablet only at eight and eight, never crush it, use the liquid only when pain is above a three and at least four hours apart, and give the itching pill only at bedtime
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Write each dose and time on the log right after giving it, keep the three bottles in different places, and read the name on the label out loud before every dose
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call day or night before giving a dose if he is unsure which bottle is which
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harborview Hospice, this is Lena.
+  Caller -> Lena, hi. It's Gideon Dragomir. I'm calling about my mother, Seraphina Dragomir. D R A G O M I R. I'm sorry for the hour. I just need to make sure I didn't mess something up. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Gideon. Don't apologize. We're here at night too. Tell me what you're worried about.
+  Caller -> It's just that it's one thirty in the morning. I feel bad. You probably have other calls.
+  Nurse -> I have time for you. Take a breath.
+  Caller -> The bottles. She has three that look the same. I've been giving her pills all day and now I'm not sure I got them right. || A6
+  Nurse -> It sounds like you want to double check everything. That's smart.
+  Nurse -> Okay. Let's go through them together. First, her date of birth.
+  Caller -> October twenty fourth. Nineteen forty two. || patient_dob
+  Nurse -> Perfect. She's eighty three, then.
+  Caller -> She'll be eighty four next month. She keeps saying she's going to be eighty four forever.
+  Nurse -> Thank you. And your cell, in case we get cut off?
+  Caller -> Nine one nine, five five five, zero one three oh. || callback_phone
+  Nurse -> And that's your cell?
+  Caller -> Yes, I never leave it. It's glued to my hand tonight.
+  Nurse -> Got it. Now, read me the first bottle.
+  Caller -> The first one says MS Contin. Thirty milligrams. One tablet every twelve hours. It's the one for the steady pain. || A1
+  Caller -> It's the big white bottle with the orange cap. At least I think so. The caps are all kind of orange.
+  Nurse -> Okay. MS Contin. That's the long acting morphine, the scheduled one. When did you give it today? || A1
+  Caller -> I know. The nurse told us. She said it's like the background. And the other one is the extra.
+  Caller -> This morning at eight. I'm sure of that one. I wrote it down. The next one is eight tonight. I haven't given the eight tonight yet because it's only, what time is it? One thirty in the morning?
+  Nurse -> It's after midnight, so the eight tonight means the evening, which was a few hours ago. Did she get a dose at eight in the evening?
+  Caller -> I'm trying to remember. I don't think I didn't give it. I mean, I'm pretty sure I gave it. I wouldn't say I didn't. Wait.
+  Nurse -> That's a lot of negatives. Let's make it simple. Do you have the log?
+  Caller -> Ha. Yes, let me look. I'm sorry. My brain is mush.
+  Nurse -> Take your time. Is it written on your log?
+  Caller -> Let me find the log. It's under the pill organizer. Okay. It says eight PM. MS Contin. One tablet. There's a check mark. So yes, I gave it. I gave the MS Contin at eight tonight. || A1
+  Caller -> It's in a spiral notebook. The cover has a cat on it. My daughter's old notebook. I use it for all of this.
+  Nurse -> Perfect. So she got the MS Contin at eight this morning and eight this evening. That is exactly right. || A1
+  Caller -> I'm so relieved. For a second I thought I had skipped it. Or given it twice.
+  Nurse -> It happens to the best caregivers. The log is the answer.
+  Caller -> Okay. Good. That's the first one. A relief.
+  Nurse -> And the second bottle?
+  Caller -> The second one is hydromorphone. H Y D R O M O R P H O N E. The liquid. It says one milligram per milliliter. Take two milliliters, that's two milligrams, every four hours as needed for pain. || A2
+  Caller -> This one is the brown bottle with the oral syringe in the box. It's the one I measure. I have a little cup too.
+  Nurse -> Always use the syringe. The cup is not accurate for small amounts.
+  Nurse -> Okay. That's the as needed one. When did she last get it?
+  Caller -> I gave her some two hours ago. I didn't not give it. I think I did. About eleven thirty, a little before midnight. Because she was moaning a bit. I measured two milliliters in the syringe.
+  Caller -> I stood in the kitchen and looked at the line on the syringe three times. I didn't want to get it wrong.
+  Nurse -> Okay. So you gave the hydromorphone liquid, two milliliters, about two hours ago, for pain. || A2
+  Caller -> Yes. That's what I'm saying. I gave it. Sorry, I'm confusing myself with the doubles.
+  Nurse -> Perfect. No need to apologize.
+  Nurse -> It's late, you're tired. It's okay. The next dose of that one wouldn't be until about three thirty.
+  Caller -> Three thirty. Four hours. Got it. I won't give it before then.
+  Caller -> I'll set an alarm on my phone. I'll call it a drug alarm. No, a medicine alarm. Sounds better.
+  Nurse -> Ha. Medicine alarm it is.
+  Nurse -> And the third bottle?
+  Caller -> Hydroxyzine. H Y D R O X Y Z I N E. Twenty five milligrams. One tablet at bedtime as needed for itching. || A3
+  Caller -> This is the little white bottle. The tiniest one. It's almost full. We hardly ever use it.
+  Nurse -> Right. That's the itching one, a completely different medicine from the hydromorphone. Did you give her any hydroxyzine tonight? || A2, A3
+  Caller -> No. I didn't give her the itch pill. She wasn't itchy. She hasn't been scratching tonight. So I did not give that one. I'm sure.
+  Caller -> She was itchy last week, after the new lotion. We stopped the lotion and it got better. So we only needed two pills the whole week.
+  Nurse -> Good. So the hydroxyzine wasn't given, and nothing is mixed up. The three are hydromorphone for pain as needed, MS Contin for steady pain on a schedule, and hydroxyzine for itching only. || A3
+  Caller -> Okay. So none of them are wrong. I got them right.
+  Caller -> You can't imagine what that means. I've been so scared of getting this wrong.
+  Nurse -> I understand. You've been doing it carefully.
+  Nurse -> From what you've told me, yes. Everything you gave tonight was the right medicine at the right time.
+  Caller -> Thank God. I was sitting here at the kitchen table doubting myself. The names are so close. Hydromorphone. Hydroxyzine. They start with the same letters. It makes my head spin. || A2, A3
+  Caller -> I feel like a jigsaw puzzle with half the pieces missing. A tired puzzle.
+  Nurse -> They really do. Many people mix them up. That's why I want to help make it harder to mistake them.
+  Caller -> Please. What can I do?
+  Nurse -> A few things. Keep the three bottles in different places, not all together. Read the name on the label out loud before each dose. And write the dose and the time on the log right after you give it. || E2
+  Caller -> Out loud. I like that. I'll do it. I'll feel silly but I'll do it.
+  Caller -> My mother used to read labels out loud at the grocery store. She would hold up each can and announce what was in it.
+  Nurse -> Ha. A family tradition.
+  Caller -> She also reads the ingredients of everything. She once refused a cake because of the margarine.
+  Nurse -> It's not silly. It works.
+  Caller -> And the log. I do write it. I just didn't check it as often as I should.
+  Nurse -> The log saved you tonight.
+  Caller -> It did. I'll put it right on the table in front of me.
+  Caller -> I'll also put a pen on a string, so it doesn't walk off like the last one did.
+  Nurse -> Gideon, how is her pain right now?
+  Caller -> She says it's a four. Four out of ten. She's resting. Her face is relaxed. She's not wincing right now. || A4
+  Nurse -> Is she awake? Is she drowsy, or confused?
+  Caller -> She's awake. She just asked for water. She's not confused. She knows me. She's not drowsy, if anything. She's not not awake, if that makes sense. I mean she's very awake.
+  Caller -> I gave her a few sips with the straw. She said thank you, and then she said, you're a good boy.
+  Nurse -> Ha. That's sweet.
+  Nurse -> It makes sense. Good. And her breathing is normal?
+  Caller -> Normal. Regular. I'm sitting right next to her. I'd notice. || A5
+  Caller -> I've been watching her chest on and off tonight, out of habit. It has been steady all evening.
+  Nurse -> That's what I want to hear. Gideon, I'm going to message our team and the pharmacy and ask for separate bags for each medicine, large print labels, and a medication schedule sheet that shows each one with its time. || R1
+  Caller -> A schedule sheet would be fantastic. Right now I'm working from a handwritten list. I made it myself.
+  Caller -> My handwriting is terrible. I drew little suns and moons for morning and night, to help my wife read it.
+  Nurse -> Ha. That's creative.
+  Nurse -> A printed one will be easier. I'd like a nurse to visit tomorrow to go through the whole setup with you. || R2
+  Caller -> Tomorrow. That's great. In the morning would be best. My wife can sit with my mother.
+  Caller -> My wife teaches school, so she leaves at seven. But my daughter's grandmother comes at ten, so there's always someone.
+  Nurse -> Morning should work. I'll also call you back tonight, in an hour or so, to check on her pain and see if you have questions. || R3
+  Caller -> Oh, that would be wonderful. I'm not going to sleep anyway. I'll be up with her.
+  Caller -> I'll make coffee. Decaf. I'm a bit wired already.
+  Nurse -> One more thing about the doses. The MS Contin is only at eight and eight. Never crush it or cut it. The hydromorphone liquid is only when she has pain above a three, and at least four hours apart. And the hydroxyzine is only at bedtime. || E1
+  Caller -> MS Contin eight and eight, never crush. Hydromorphone for pain over a three, four hours apart. Hydroxyzine bedtime only. I'm writing all of it. The pen is dying. Hold on. || A1, A2, A3
+  Nurse -> Take your time.
+  Caller -> Okay. I have it. I'm also going to write the three names on three different colored sticky notes. Blue, yellow, pink. Blue is the MS Contin. || A1
+  Nurse -> That's a great idea. Color coding helps.
+  Caller -> I have a pack of sticky notes in the drawer. My daughter uses them for school.
+  Nurse -> How old is your daughter?
+  Caller -> Eleven. She's fifth grade. She's asleep. She loves her grandma. She draws her pictures every day.
+  Nurse -> That's sweet.
+  Caller -> She taped one to the wall by the bed. It's a drawing of a garden. With a purple dragon. For some reason.
+  Nurse -> Ha. A purple dragon sounds like good company.
+  Caller -> She says the dragon protects the garden. And my mother. She's very serious about it.
+  Nurse -> I love that.
+  Caller -> Me too. It's the little things.
+  Nurse -> And Gideon, call us any time, day or night, before you give a dose, if you're ever unsure which bottle is which. We'd rather you ask than guess. || E3
+  Caller -> Any time. Before giving a dose. Okay. I will. That makes me feel so much better.
+  Nurse -> You did a great job tonight, checking and calling.
+  Caller -> Thank you. I really appreciate it, Lena. I'll wait for your call.
+  Nurse -> Talk soon, Gideon. Get some rest if you can.
+  Caller -> One last thing. If my mother wakes up and asks for her pills, what should I tell her?
+  Nurse -> Tell her you've given her everything she needs, and that she can rest. She's comfortable.
+  Caller -> That's good. She worries about being a bother.
+  Caller -> I'll try. Bye.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Seraphina Dragomir, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-10-24", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Gideon Dragomir, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550130", certainty: stated, heard_as: [], turns: [13]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked for help sorting out his mother's three look-alike medicines and which he had given.
+    speaker: Caller
+    turns: [2]
+    quote: "I just need to make sure I didn't mess something up."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: MS Contin 30 mg every twelve hours was given at eight this morning and eight this evening.
+      speaker: Caller
+      turns: [17]
+      quote: "The first one says MS Contin. Thirty milligrams. One tablet every twelve hours."
+      explanation: Documents the scheduled opioid.
+      facts:
+        - {type: medication, name: MS Contin, dose: "30", unit: mg, frequency: every twelve hours, prn: false, last_dose: eight this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Hydromorphone liquid 2 mg every four hours as needed was last given about two hours ago.
+      speaker: Caller
+      turns: [34]
+      quote: "Take two milliliters, that's two milligrams, every four hours as needed for pain."
+      explanation: Documents the as-needed opioid.
+      facts:
+        - {type: medication, name: hydromorphone, dose: "2", unit: mg, frequency: every four hours as needed, prn: true, last_dose: two hours ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Hydroxyzine 25 mg at bedtime as needed for itching was not given tonight.
+      speaker: Caller
+      turns: [48]
+      quote: "Twenty five milligrams. One tablet at bedtime as needed for itching."
+      explanation: Documents the as-needed itching pill.
+      facts:
+        - {type: medication, name: hydroxyzine, dose: "25", unit: mg, frequency: at bedtime as needed for itching, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A3]
+    - text: Pain was a four out of ten and she was resting with a relaxed face.
+      speaker: Caller
+      turns: [73]
+      quote: "She says it's a four. Four out of ten."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: "4", certainty: stated}
+      covers: [A4]
+    - text: She was awake, not drowsy or confused, and breathing normally.
+      speaker: Caller
+      turns: [75]
+      quote: "She's awake. She just asked for water. She's not confused."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: drowsiness or confusion, certainty: stated}
+      covers: [A5]
+    - text: The three bottles had look-alike names and similar bags.
+      speaker: Caller
+      turns: [6]
+      quote: "She has three that look the same."
+      explanation: Documents the look-alike problem.
+      facts:
+        - {type: context, text: The three bottles have look-alike names and come in the same pharmacy bag, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the team and pharmacy about separate bags, large print labels and a schedule sheet.
+      speaker: Nurse
+      turns: [81]
+      quote: "I'm going to message our team and the pharmacy"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [85]
+      quote: "I'd like a nurse to visit tomorrow"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tonight in an hour or so.
+      speaker: Nurse
+      turns: [88]
+      quote: "I'll also call you back tonight, in an hour or so"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised giving the extended release tablet only at eight and eight without crushing it, the liquid only for pain above three and four hours apart, and the itching pill only at bedtime.
+      speaker: Nurse
+      turns: [91]
+      quote: "The MS Contin is only at eight and eight. Never crush it or cut it."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the bottles in different places, reading the label out loud and logging each dose right away.
+      speaker: Nurse
+      turns: [62]
+      quote: "Keep the three bottles in different places"
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling day or night before giving a dose if unsure which bottle was which.
+      speaker: Nurse
+      turns: [105]
+      quote: "call us any time, day or night, before you give a dose"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags: []

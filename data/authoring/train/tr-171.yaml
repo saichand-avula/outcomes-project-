@@ -1,0 +1,226 @@
+call_id: tr-171
+split: train
+blueprint: "46-year-old palliative patient says the pharmacy gave her Celebrex (celecoxib 200 mg) instead of her Celexa (citalopram 20 mg); she took one Celebrex this morning before noticing. She feels fine. Nurse tells her to stop and keep the bottle, calls the pharmacy (completed), messages the provider, and calls back this afternoon. Flag: medication_concern (wrong medicine). Tall-man sound-alike."
+setup:
+  scenario_category: medication
+  subtype: pharmacy_error
+  secondary_tags: [tall_man_drug, trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [medication, mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Aspen Grove Palliative Care
+  agency_type: palliative
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-05T15:40:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Priya Raman
+  patient_name_spoken: Priya Raman
+  patient_name_certainty: stated
+  patient_dob_true: "1980-04-12"
+  patient_dob_spoken: "1980-04-12"
+  patient_dob_certainty: stated
+  caller_name_true: Priya Raman
+  caller_name_spoken: Priya Raman
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5105550168"
+  callback_phone_spoken: "5105550168"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the pharmacy gave her the wrong medicine and she took a dose
+  reason_category: medication
+  relevant_context: Palliative patient who takes an antidepressant
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: Celebrex
+    medication_name_spoken: Celebrex
+    medication_status: extra_dose
+    dose: "200"
+    unit: mg
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: Celexa
+    medication_name_spoken: Celexa
+    medication_status: missed
+    dose: "20"
+    unit: mg
+    frequency: every morning
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: stomach pain or other symptoms since the dose
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: wrong medicine dispensed
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: Celebrex taken instead of Celexa
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take any more Celebrex, keep the bottle to show the pharmacist, and do not take Celexa until the pharmacy brings the right bottle
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for stomach pain, black stools, vomiting, or low mood after missing the Celexa
+    trigger_condition: stomach pain; black stool; vomiting; low mood
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Pharmacy dispensed Celebrex instead of Celexa and the patient took a dose
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Aspen Grove Palliative Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Priya Raman. I'm a patient. The pharmacy gave me the wrong medicine. I took one. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Priya. I'm here. Let me get your date of birth.
+  Caller -> April twelfth. Nineteen eighty. || patient_dob
+  Nurse -> And is five one oh, five five five, zero one six eight your number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Tell me what happened.
+  Caller -> I picked up my refill yesterday. It's supposed to be Celexa. Twenty milligrams. For my mood. I took it this morning and then I looked at the bottle, and it says Celebrex. Two hundred milligrams. That's the arthritis one. I took a Celebrex. || A1, A2, F1
+  Nurse -> Okay. Thank you for catching it. So you took one Celebrex two hundred this morning, instead of your Celexa.
+  Caller -> Yes. And I haven't had my Celexa. I've missed it today. I've never missed it. || A1, A2
+  Nurse -> Okay. How do you feel right now? Any stomach pain, nausea, anything unusual?
+  Caller -> No. Nothing. I feel the same as always. My stomach is fine. || A3
+  Nurse -> Okay. That's reassuring. I already called the pharmacy while you were telling me, and they're going to bring the right bottle. || R1
+  Caller -> Oh. Good. They can bring it here? I'm not supposed to drive after the last treatment.
+  Nurse -> They'll arrange it. I'm also going to message your provider about the mix-up. || R2
+  Caller -> Okay. Thank you. What do I do until then?
+  Nurse -> Please don't take any more Celebrex, and keep that bottle so you can show the pharmacist. And hold off on the Celexa until the right bottle comes. || E1, A1, A2
+  Caller -> Hold the Celexa until the new bottle. Keep the Celebrex bottle. Okay.
+  Nurse -> I'll call you back this afternoon. || R3
+  Caller -> This afternoon. Okay.
+  Nurse -> And call us if you get stomach pain, black stools, vomiting, or if your mood dips because of the missed Celexa. || E2
+  Caller -> Stomach pain, black stool, vomiting, mood. Okay. I will.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Naomi. I was so upset when I saw the bottle. I thought I'd done something terrible.
+  Nurse -> You didn't. You caught it. That's what matters.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Priya Raman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1980-04-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Priya Raman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5105550168", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the pharmacy gave her the wrong medicine and she took a dose.
+    speaker: Caller
+    turns: [2]
+    quote: "The pharmacy gave me the wrong medicine. I took one."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Celebrex 200 mg was taken this morning by mistake instead of Celexa.
+      speaker: Caller
+      turns: [8]
+      quote: "it says Celebrex. Two hundred milligrams. That's the arthritis one. I took a Celebrex."
+      explanation: Documents the wrong medication taken.
+      facts:
+        - {type: medication, name: Celebrex, dose: "200", unit: mg, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Celexa 20 mg every morning had been missed today.
+      speaker: Caller
+      turns: [8]
+      quote: "It's supposed to be Celexa. Twenty milligrams."
+      explanation: Documents the missed medication.
+      facts:
+        - {type: medication, name: Celexa, dose: "20", unit: mg, frequency: every morning, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: No stomach pain or other symptoms were reported since the dose.
+      speaker: Caller
+      turns: [12]
+      quote: "No. Nothing. I feel the same as always. My stomach is fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: stomach pain or other symptoms since the dose, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Already called the pharmacy, which was bringing the right bottle.
+      speaker: Nurse
+      turns: [13]
+      quote: "I already called the pharmacy while you were telling me, and they're going to bring the right bottle."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the mix-up.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm also going to message your provider about the mix-up."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back this afternoon."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised taking no more Celebrex, keeping the bottle for the pharmacist, and holding the Celexa until the right bottle arrived.
+      speaker: Nurse
+      turns: [17]
+      quote: "please don't take any more Celebrex, and keep that bottle so you can show the pharmacist."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for stomach pain, black stools, vomiting, or a dip in mood from the missed Celexa.
+      speaker: Nurse
+      turns: [21]
+      quote: "call us if you get stomach pain, black stools, vomiting, or if your mood dips because of the missed Celexa."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "The pharmacy gave me the wrong medicine. I took one."}

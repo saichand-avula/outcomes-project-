@@ -1,0 +1,288 @@
+call_id: tr-309
+split: train
+blueprint: "A mother of a 9-year-old with cystic fibrosis calls the pediatric nurse because his cough has been worse for three days with thicker yellow mucus, and they have only four saline nebulizer vials left. He does four albuterol treatments a day, no fever. Two lines come through with the speaker labels swapped. The nurse orders vials (completed), arranges delivery tomorrow, plans a visit Thursday, messages the pulmonologist about the cough, and gives nebulizer cleaning and warning-sign advice. ASR speaker-label errors, pediatric, parent caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: speaker_label
+  secondary_tags: [speaker_label_errors, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [cough_uri, equipment, medication, dyspnea]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Sunflower Pediatric Nursing
+  agency_type: pediatric_home_care
+  nurse_name: Rosa
+  call_timestamp_utc: "2026-10-28T16:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Tobias Hargrove
+  patient_name_spoken: Tobias Hargrove
+  patient_name_certainty: stated
+  patient_dob_true: "2017-02-08"
+  patient_dob_spoken: "2017-02-08"
+  patient_dob_certainty: stated
+  caller_name_true: Annika Hargrove
+  caller_name_spoken: Annika Hargrove
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6465550192"
+  callback_phone_spoken: "6465550192"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a worsening cough and low saline vials for her son's breathing treatments
+  reason_category: cough_uri
+  relevant_context: Pediatric home care patient with cystic fibrosis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: worse cough with thick yellow mucus
+    symptom_present: true
+    onset_or_duration: three days
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: saline nebulizer vials
+    supply_remaining: four left
+    supply_unit: vials
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    frequency: four times a day by nebulizer
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: low saline nebulizer vials
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R4
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pulmonologist
+    reason_or_trigger: worse cough with thick yellow mucus
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Wash the nebulizer cup and mouthpiece after every treatment and let them air dry, and use a fresh vial each time
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fever, blood in the mucus, fast breathing or lips looking blue, and call 911 if he cannot speak a full sentence
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sunflower Pediatric Nursing, this is Rosa.
+  Caller -> Hi, Rosa. It's Annika Hargrove. I'm calling about my son, Tobias Hargrove. I have two things. His cough, and the vials. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Annika. Let me pull up Tobias. Date of birth?
+  Caller -> February eighth. Twenty seventeen. || patient_dob
+  Nurse -> Thanks. And your number?
+  Caller -> Six four six, five five five, zero one nine two. || callback_phone
+  Nurse -> Got it. Let's start with the cough. Tell me what you're seeing.
+  Caller -> Sorry, I'm putting him to work. Tobias, honey, go get your inhaler. The blue one. Yes, that one. Okay.
+  Nurse -> No problem. Is that for later or now?
+  Caller -> For after dinner. He likes to line things up.
+  Caller -> It's worse. It's been worse for three days. It's wetter. And the stuff he coughs up is thick and yellow. Yesterday it was clear. Today it's yellow. And he coughs more at night. || A1
+  Nurse -> Okay. Is he bringing it up easily?
+  Caller -> Sort of. He does his vest and it comes up. But it takes longer. He coughs and coughs and then it comes.
+  Nurse -> Does he complain of any chest pain with the coughing?
+  Caller -> No. He says his ribs are tired. That's how he puts it. His ribs are tired.
+  Nurse -> That's a good way to say it.
+  Nurse -> Okay. Does he have a fever?
+  Caller -> No. His temperature this morning was ninety eight point four. And he feels fine. He's eating. He's running around. He's not breathless. He did soccer practice on Saturday. || A4
+  Nurse -> That's wonderful that he can still play. Is he getting short of breath on the field?
+  Caller -> He gets winded a little. The coach lets him sit out for a minute. He doesn't mind.
+  Nurse -> Okay. That's reassuring. What about his breathing treatments? How often is he doing them?
+  Caller -> Four times a day. The albuterol first, then the saline, then the vest. He does it at seven, noon, four and bedtime. He did the seven this morning. || A3
+  Nurse -> Okay. Four albuterol treatments, and he did the morning one. Are you doing any extras for the cough? || A3
+  Caller -> I did an extra saline last night, because he was coughing. And I'm almost out of the vials. That's the other thing.
+  Nurse -> Okay. How many saline vials do you have left?
+  Nurse -> Four. Four vials left in the box. And there's no more in the closet. I looked. I thought I had a second box. || A2, label_error
+  Nurse -> Okay. Four vials. That's about a day and a half.
+  Caller -> Right. So I wanted to get ahead of it. I don't want to run out on Thursday.
+  Nurse -> Smart. Okay. I'm going to place the order right now. Give me a moment. I'll enter it.
+  Caller -> I'm placing the order for the saline vials now. A box of sixty, marked urgent, so it comes tomorrow. It's in. || R1, label_error
+  Caller -> Thank you. That's great. When will it come?
+  Nurse -> I'll ask them to deliver it tomorrow afternoon. Is somebody home? || R2
+  Caller -> Yes. Me, in the afternoon. After two. My husband gets home at five.
+  Nurse -> Perfect. They should call when they get there.
+  Nurse -> Good. Annika, now about the cough. I'm going to message his pulmonologist today about the worse cough and the thick yellow mucus. They'll probably want to see him or change something. || R4
+  Caller -> Okay. Should I do something different tonight?
+  Nurse -> Keep doing the treatments on schedule. The vest, the saline, all of it. The extra saline you did last night is fine. Keep him drinking water.
+  Caller -> He drinks a lot of water. He has a big bottle.
+  Nurse -> Perfect. I'm also going to have a nurse come see him Thursday. That's the day after tomorrow, right? || R3
+  Caller -> Thursday. Yes. That's our regular day. Is it going to be you?
+  Nurse -> Probably. I'll listen to his lungs and check his oxygen.
+  Caller -> Okay. He likes you. He says you have funny shoes.
+  Nurse -> Ha. They're the sparkly ones.
+  Caller -> Do you want me to tell the school about the cough? He has a gym class on Friday.
+  Nurse -> Let him do what he feels up to. If he coughs a lot, he can sit out. The school nurse can help.
+  Caller -> I'll let her know. She's good about it.
+  Caller -> He loves the sparkly ones.
+  Nurse -> Annika, one thing about the vials and the nebulizer. After every treatment, wash the cup and the mouthpiece with warm soapy water, rinse well and let them air dry. And use a fresh vial each time. Don't reuse the leftover. || E1
+  Caller -> Wash the cup, mouthpiece, air dry. Fresh vial each time. I do. Mostly. I sometimes put the leftover in the fridge for later.
+  Nurse -> Please don't. Throw the leftover away. Bacteria can grow in it.
+  Caller -> Oh. Okay. I thought that was okay. The one nurse said it was okay for a few hours.
+  Nurse -> It's safest to use a fresh one. We have plenty coming.
+  Caller -> Got it. Fresh every time.
+  Caller -> Thanks for telling me. I'm going to put a note on the fridge. Fresh vial, every time.
+  Nurse -> That's a great idea.
+  Nurse -> And please call us if he gets a fever, if you see blood in the mucus, if his breathing gets fast, or his lips look blue. And call nine one one if he can't speak a full sentence. || E2
+  Caller -> Fever, blood, fast breathing, blue lips. Nine one one if he can't talk in a whole sentence. Okay. I'll watch.
+  Nurse -> Good. How are you doing? Are you getting enough rest?
+  Caller -> I'm okay. His dad helps in the evenings. It's a lot but we're used to it.
+  Nurse -> And Tobias, how is he handling it? Is he in good spirits?
+  Caller -> He's great. He's always been. He says his lungs are just extra loud. He calls the vest his robot suit.
+  Nurse -> I love that. A robot suit.
+  Nurse -> You're doing a great job.
+  Caller -> Thanks, Rosa. I appreciate it. I'll wait for the delivery.
+  Nurse -> And I'll message the pulmonologist right away. Bye, Annika.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "Four. Four vials left in the box", fact_id: A2}
+  - {turn: auto, type: speaker_label, true_form: "Nurse statement", heard_form: "I'm placing the order for the saline vials now", fact_id: R1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Tobias Hargrove, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2017-02-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Annika Hargrove, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "6465550192", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a worsening cough and low saline vials for her son's breathing treatments.
+    speaker: Caller
+    turns: [2]
+    quote: "I have two things. His cough, and the vials."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: His cough had been worse for three days with thick yellow mucus.
+      speaker: Caller
+      turns: [11]
+      quote: "It's been worse for three days."
+      explanation: Documents the worsening cough.
+      facts:
+        - {type: symptom, name: worse cough with thick yellow mucus, present: true, onset: three days, certainty: stated}
+      covers: [A1]
+    - text: Four saline nebulizer vials were left in the box.
+      speaker: Caller
+      turns: [26]
+      quote: "Four. Four vials left in the box."
+      explanation: Documents the vial supply.
+      facts:
+        - {type: supply, item: saline nebulizer vials, supply: four left, certainty: stated}
+      covers: [A2]
+    - text: Albuterol by nebulizer four times a day was in use, with the morning treatment done.
+      speaker: Caller
+      turns: [22]
+      quote: "Four times a day. The albuterol first, then the saline, then the vest."
+      explanation: Documents the breathing treatments.
+      facts:
+        - {type: medication, name: albuterol, frequency: four times a day by nebulizer, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He had no fever or breathing trouble.
+      speaker: Caller
+      turns: [18]
+      quote: "No. His temperature this morning was ninety eight point four."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Placed an order for saline vials marked urgent.
+      speaker: Nurse
+      turns: [30]
+      quote: "I'm placing the order for the saline vials now."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery tomorrow afternoon.
+      speaker: Nurse
+      turns: [32]
+      quote: "I'll ask them to deliver it tomorrow afternoon."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit Thursday to listen to his lungs and check his oxygen.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm also going to have a nurse come see him Thursday."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R3]
+    - text: Planned to message the pulmonologist about the worse cough and thick yellow mucus.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm going to message his pulmonologist today about the worse cough"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised washing the nebulizer cup and mouthpiece after every treatment, air drying, and using a fresh vial each time.
+      speaker: Nurse
+      turns: [48]
+      quote: "After every treatment, wash the cup and the mouthpiece with warm soapy water"
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fever, blood in the mucus, fast breathing or blue lips, and calling 911 if he could not speak a full sentence.
+      speaker: Nurse
+      turns: [56]
+      quote: "please call us if he gets a fever, if you see blood in the mucus"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

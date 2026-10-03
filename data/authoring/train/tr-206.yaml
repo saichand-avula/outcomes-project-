@@ -1,0 +1,205 @@
+call_id: tr-206
+split: train
+blueprint: "Wife of a 56-year-old hospice patient reports he has vomited three times since morning. The nurse mishears the surname (Kowalczyk heard as Kovalchik) and misreads the callback number back by one digit; the caller does not correct either. No blood in the vomit. His Zofran was last taken at seven. Nurse messages the team, calls back in two hours, and gives sips-of-fluids guidance."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, number_garble, hedging, late_answers, split_turns]
+  clinical_domains: [gi, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Alan
+  call_timestamp_utc: "2026-10-08T18:10:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Tomasz Kowalczyk
+  patient_name_spoken: Tomasz Kowalczyk
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Tomas Kovalchik]
+  patient_dob_true: "1969-09-30"
+  patient_dob_spoken: "1969-09-30"
+  patient_dob_certainty: stated
+  caller_name_true: Halina Kowalczyk
+  caller_name_spoken: Halina Kowalczyk
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7135550191"
+  callback_phone_spoken: "7135550191"
+  callback_phone_certainty: unclear
+  callback_phone_heard_as: ["7135550197"]
+  patient_pronoun: his
+  reason_for_call: Reported that her husband has been vomiting since morning
+  reason_category: nausea_vomiting
+  relevant_context: Hospice patient with nausea medicine at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    severity: three times
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blood in the vomit
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zofran
+    medication_name_spoken: Zofran
+    medication_status: taking
+    last_dose: seven this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: ongoing vomiting
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of clear fluids or ice chips every few minutes and rest the stomach before food
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for blood in the vomit, severe belly pain, or if he cannot keep any fluids down
+    trigger_condition: blood in vomit; severe belly pain; cannot keep fluids down
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Alan.
+  Caller -> Hi, Alan. This is Halina Kowalczyk. It's my husband, Tomasz. He's been throwing up since this morning. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Halina, I'm sorry to hear that. Let me pull up Tomas Kovalchik. Can you give me his date of birth?
+  Caller -> September thirtieth, nineteen sixty nine. || patient_dob
+  Nurse -> And what's a good callback number?
+  Caller -> Seven one three, five five five, oh one nine one. || callback_phone
+  Nurse -> Okay, seven one three, five five five, oh one nine seven. || callback_phone
+  Caller -> Okay. Yes.
+  Nurse -> Now, how many times has Tomas thrown up?
+  Caller -> Three times. Since about, uh, eight. The last one was maybe an hour ago. || A1
+  Nurse -> Okay. Is there any blood in it? Anything dark, like coffee grounds?
+  Caller -> No. No blood. It's mostly what he drank, and some yellow. || A2
+  Nurse -> Okay. Has he had his nausea medicine today?
+  Caller -> Yes. The Zofran. He took it at seven. Before the first time he threw up. So I don't know if it stayed down. || A3
+  Nurse -> Okay. I'm going to send a message to the hospice provider about the vomiting. || R1
+  Caller -> Okay. Good. Thank you.
+  Nurse -> And I'll call you back in two hours to see how he's doing. || R2
+  Caller -> Two hours. Okay.
+  Nurse -> In the meantime, let his stomach rest. Offer him small sips of clear fluid or an ice chip every few minutes, and hold off on food until he's kept the fluids down. || E1
+  Caller -> Sips. Ice chips. No food. Okay. He likes the ice chips.
+  Nurse -> Good. If you see blood in it, if he gets bad belly pain, or if he can't keep even the sips down, call us right away. || E2
+  Caller -> Blood, belly pain, can't keep the sips down. Okay. I'll call.
+  Nurse -> Is there anything else, Halina?
+  Caller -> No. Just that I hate to see him like this. He's been so tired.
+  Nurse -> I know. We'll keep a close eye on him.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Tomasz Kowalczyk, heard_form: Tomas Kovalchik, fact_id: patient_name}
+  - {turn: auto, type: number_garble, true_form: "oh one nine one", heard_form: "oh one nine seven", fact_id: callback_phone}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Tomasz Kowalczyk, certainty: unclear, heard_as: [Tomas Kovalchik], turns: [2]}
+    patient_dob: {value: "1969-09-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Halina Kowalczyk, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550191", certainty: unclear, heard_as: ["7135550197"], turns: [6, 7]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had been vomiting since morning.
+    speaker: Caller
+    turns: [2]
+    quote: "He's been throwing up since this morning."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Vomiting had occurred three times since about eight this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "Three times. Since about, uh, eight."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: three times, onset: since this morning, certainty: stated}
+      covers: [A1]
+    - text: No blood was reported in the vomit.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No blood."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blood in the vomit, certainty: stated}
+      covers: [A2]
+    - text: Zofran was taken at seven this morning, before the first vomiting.
+      speaker: Caller
+      turns: [14]
+      quote: "The Zofran. He took it at seven."
+      explanation: Documents the nausea medication.
+      facts:
+        - {type: medication, name: Zofran, last_dose: seven this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the hospice provider about the vomiting.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to send a message to the hospice provider about the vomiting."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in two hours.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back in two hours to see how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in two hours, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised small sips of clear fluid or ice chips every few minutes and holding food until fluids stayed down.
+      speaker: Nurse
+      turns: [19]
+      quote: "Offer him small sips of clear fluid or an ice chip every few minutes"
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for blood in the vomit, severe belly pain, or inability to keep sips down.
+      speaker: Nurse
+      turns: [21]
+      quote: "If you see blood in it, if he gets bad belly pain, or if he can't keep even the sips down, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

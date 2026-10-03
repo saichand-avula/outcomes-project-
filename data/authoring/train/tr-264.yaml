@@ -1,0 +1,282 @@
+call_id: tr-264
+split: train
+blueprint: "Wife of a 74-year-old hospice patient is worn out: he refuses the large potassium tablet ('the horse pill') every morning and she cannot get it down him, while his small levothyroxine goes down fine. She says 'he's driving me up the wall' and 'I'm about to jump out of my skin' and 'I'm going to lose my mind' (figurative, no flag). He chokes a little on big pills but swallows liquids and soft food. Nurse messages the provider for a liquid or smaller alternative, tells her not to crush the potassium, plans a social work referral for her, and calls back tomorrow. Figurative risk language, caregiver stress, medication, v2 short."
+setup:
+  scenario_category: medication
+  subtype: medication_question
+  secondary_tags: [figurative_risk_language, trap_phrasing, phone_from_file, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [medication, swallowing, caregiver_stress]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Alan
+  call_timestamp_utc: "2026-10-27T13:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alphonse Greer
+  patient_name_spoken: Alphonse Greer
+  patient_name_certainty: stated
+  patient_dob_true: "1952-04-11"
+  patient_dob_spoken: "1952-04-11"
+  patient_dob_certainty: stated
+  caller_name_true: Dolly Greer
+  caller_name_spoken: Dolly Greer
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6785550143"
+  callback_phone_spoken: "6785550143"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked for help because her husband will not swallow a large pill
+  reason_category: medication_question
+  relevant_context: Hospice patient with trouble swallowing large pills
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: potassium
+    medication_name_spoken: potassium
+    medication_status: missed
+    frequency: every morning
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: levothyroxine
+    medication_name_spoken: levothyroxine
+    medication_status: taking
+    frequency: every morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: trouble swallowing large pills
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: She is the only caregiver and is exhausted
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: cannot swallow large potassium tablet, request liquid or smaller alternative
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not crush or break the potassium, keep giving the levothyroxine as usual, and wait for the provider to change the form
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Seat him fully upright for pills and meals, give small sips with each pill, and stop if he coughs or chokes
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any hour if she needs help, including for her own stress
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Alan.
+  Caller -> Hi, Alan. Dolly Greer. I'm calling about Alphonse. My husband. He's, ugh. I need help with his pills. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Dolly. Let me get his chart. What's Alphonse's date of birth?
+  Caller -> April eleventh. Nineteen fifty two. || patient_dob
+  Nurse -> And I have six seven eight, five five five, zero one four three on file. || callback_phone
+  Caller -> Yes. That's the house. I'm sitting at the kitchen table. I've been sitting here for twenty minutes.
+  Nurse -> Is Alphonse nearby?
+  Caller -> He's in the living room. He's got the game on. The volume is up. He can't hear me, ha.
+  Nurse -> Good. Then we can talk freely.
+  Nurse -> Take a breath. Tell me what's going on with the pills.
+  Caller -> Okay. So he has this potassium. It's a big pill. It's like a horse pill. It's this big, it's the size of my thumbnail. And every morning I give it to him and he spits it out. Or he coughs. Or he just holds it in his cheek until I turn around. || A1
+  Nurse -> Okay. Has he been taking it at all?
+  Caller -> Not for three days. Three days I haven't gotten it into him. I've tried applesauce. I've tried pudding. I tried cutting it, but then it's powder and it tastes awful. He makes a face like I'm poisoning him. || A1
+  Nurse -> Okay. What is the potassium for, do you know? || A1
+  Caller -> It's because of the water pill. The doctor said he loses potassium. I don't remember all of it. || A1
+  Nurse -> That's right. Okay.
+  Nurse -> Okay. Please don't cut it or crush it. I'll come back to that. What about his other pills?
+  Caller -> The little ones go down fine. The levothyroxine. The tiny one. He takes it every morning with water. No problem. || A2
+  Nurse -> Okay. So it's just the big one.
+  Caller -> Just the big one. He chokes on it. He coughs and says it's stuck. He can eat soft food and drink, no problem. But the big pill, no. || A3
+  Nurse -> Okay. That's helpful. Does he cough or choke with meals, or only with the big pill?
+  Caller -> Just the pill. Meals are fine. He ate a whole bowl of oatmeal this morning.
+  Nurse -> Does he drink liquids without coughing?
+  Caller -> Yes. Tea, juice, water, no problem. He had two cups of coffee this morning.
+  Nurse -> Okay. That's good.
+  Nurse -> Good.
+  Caller -> I'm sorry. I'm just, I'm at the end of my rope. He's driving me up the wall. Every morning it's a fight and I'm about to jump out of my skin. || A4
+  Nurse -> It sounds like it's wearing you down. Are you doing this all by yourself?
+  Caller -> By myself. Yes. It's just me. Our daughter lives in Phoenix. I haven't slept past five in two weeks. I'm going to lose my mind, I swear. || A4
+  Nurse -> That's a long stretch. Do you get any breaks? Does anyone come in?
+  Caller -> The aide comes on Tuesdays and Fridays for two hours. I go to the grocery store. That's my break. It's a nice break. Ha.
+  Nurse -> I hope you get a coffee too.
+  Caller -> I sit in the car. In the parking lot. Five minutes. Don't tell.
+  Nurse -> Your secret's safe.
+  Nurse -> I hear you. Dolly, I want to make sure I understand. When you say you're going to lose your mind, you mean you're overwhelmed and exhausted. Is that right?
+  Caller -> Yes. Exactly. I'm not, I'd never do anything. I'm just tired. I'm so tired. I'm seventy-two.
+  Nurse -> Okay. Thank you for telling me. That's what I thought. You're doing a very hard job.
+  Caller -> Thank you. It's nice to hear.
+  Nurse -> Okay. Let's fix the pill problem. First, please don't crush or cut the potassium. Some potassium is made to release slowly, and crushing it can cause stomach irritation or too much at once. || E1
+  Caller -> Oh. Oh. I didn't know that. I cut it once. Last week. Only once.
+  Nurse -> It's okay. Let's not do it again. I'm going to message the hospice provider and ask for a liquid form, or a smaller tablet. || R1
+  Caller -> They make a liquid? Oh, that would be wonderful. He'll drink anything. He'd drink the pickle juice if I put it in a cup.
+  Nurse -> Ha. We'll see what the provider says. I can't promise, but it's a very common request.
+  Caller -> Okay. Please. I'd be so grateful.
+  Nurse -> Can I ask the name of your pharmacy, in case they have to change the order?
+  Caller -> It's the one on Dawson Street. The big chain one. I can get the name. It's on the bag.
+  Nurse -> That's okay. We have it on file.
+  Caller -> Oh good.
+  Nurse -> In the meantime, keep giving the levothyroxine as usual. And for any pill, sit him fully upright, give small sips with each pill, and stop if he coughs or chokes. || E1, E2
+  Caller -> Upright. Small sips. Stop if he coughs. Okay. He's usually on the couch. I'll put him in the dining chair.
+  Nurse -> The dining chair is better. And it's okay to skip the potassium for another day or two until the provider answers. I'll make sure they see this today. || A1
+  Caller -> Okay. A day or two. Not dangerous?
+  Nurse -> I'd like the provider to weigh in on that, but it's not an emergency. I'll call you tomorrow with what they say. || R3
+  Caller -> Tomorrow. Okay. Thank you.
+  Nurse -> Dolly, I'd also like our social worker to call you. She helps caregivers. You deserve some help too. || R2
+  Caller -> Oh. That would be nice. I haven't talked to anybody in a long time. Not really.
+  Nurse -> I'm sorry it's been so lonely.
+  Caller -> It's okay. I talk to the TV. Alphonse says I talk to the TV too much.
+  Nurse -> Ha. I bet the TV doesn't mind.
+  Nurse -> I'll put in the referral. And you can call us any hour, even if it's just that you're having a hard night. || E3
+  Caller -> Any hour. Okay. Thank you, Alan. You're very kind.
+  Nurse -> Take care of yourself. Maybe have a cup of tea and sit for a minute.
+  Caller -> I'm going to. I've got the kettle on. Ha. It's been on for ten minutes. I forgot it.
+  Nurse -> Ha. Go get it before it boils dry.
+  Caller -> I will. Bye, dear.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alphonse Greer, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-04-11", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Dolly Greer, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6785550143", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked for help because her husband would not swallow a large pill.
+    speaker: Caller
+    turns: [2]
+    quote: "I need help with his pills."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The potassium tablet had not been given for three days because he spat it out or coughed on it.
+      speaker: Caller
+      turns: [13]
+      quote: "Not for three days. Three days I haven't gotten it into him."
+      explanation: Documents the missed potassium.
+      facts:
+        - {type: medication, name: potassium, frequency: every morning, last_dose: three days ago, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Levothyroxine was taken every morning with water without trouble.
+      speaker: Caller
+      turns: [18]
+      quote: "The levothyroxine. The tiny one. He takes it every morning with water."
+      explanation: Documents the thyroid medication.
+      facts:
+        - {type: medication, name: levothyroxine, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He choked on large pills but ate soft food and drank without trouble.
+      speaker: Caller
+      turns: [20]
+      quote: "He chokes on it. He coughs and says it's stuck."
+      explanation: Documents the trouble swallowing large pills.
+      facts:
+        - {type: symptom, name: trouble swallowing large pills, present: true, certainty: stated}
+      covers: [A3]
+    - text: She was the only caregiver and was exhausted.
+      speaker: Caller
+      turns: [29]
+      quote: "By myself. Yes. It's just me."
+      explanation: Documents the caregiver context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the hospice provider to ask for a liquid form or smaller tablet.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to message the hospice provider and ask for a liquid form, or a smaller tablet."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to put in a social work referral for her.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'll put in the referral."
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow with the provider's answer.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'll call you tomorrow with what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not crushing or cutting the potassium and continuing the levothyroxine as usual.
+      speaker: Nurse
+      turns: [39]
+      quote: "please don't crush or cut the potassium."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised seating him fully upright, giving small sips with each pill, and stopping if he coughed or choked.
+      speaker: Nurse
+      turns: [49]
+      quote: "sit him fully upright, give small sips with each pill, and stop if he coughs or chokes."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Invited her to call any hour, including for her own stress.
+      speaker: Nurse
+      turns: [60]
+      quote: "you can call us any hour, even if it's just that you're having a hard night."
+      explanation: Documents the invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags: []

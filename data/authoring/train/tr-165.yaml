@@ -1,0 +1,227 @@
+call_id: tr-165
+split: train
+blueprint: "Daughter reports her mother has burning with urination for two days and a temperature of 101.2 today, drinking less, no flank pain. Nurse messages the provider for a urine test, plans a nurse visit tomorrow morning and a callback this evening, and gives fluid and fever precautions. Routine, short."
+setup:
+  scenario_category: routine
+  subtype: possible_uti
+  secondary_tags: [hedging, late_answers, split_turns, phone_from_file]
+  clinical_domains: [urinary, fever]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-04T17:40:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ruby Castellan
+  patient_name_spoken: Ruby Castellan
+  patient_name_certainty: stated
+  patient_dob_true: "1944-01-30"
+  patient_dob_spoken: "1944-01-30"
+  patient_dob_certainty: stated
+  caller_name_true: Odette Castellan
+  caller_name_spoken: Odette Castellan
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "9855550112"
+  callback_phone_spoken: "9855550112"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported burning with urination and a fever in her mother
+  reason_category: urinary
+  relevant_context: Home health patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: burning with urination
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "101.2"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: drinking less
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: back or side pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: burning with urination and fever
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water or diluted juice every hour while she is awake
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature over 102, chills, back pain, confusion, or no urine for 8 hours; 911 if she cannot be woken
+    trigger_condition: temperature over 102; chills; back pain; confusion; no urine for 8 hours
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Denise.
+  Caller -> Hi, Denise. It's Odette Castellan. I'm calling about my mother, Ruby Castellan. She's not feeling well. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Odette. What's her date of birth?
+  Caller -> January thirtieth. Nineteen forty four. || patient_dob
+  Nurse -> And is nine eight five, five five five, zero one one two the best number? || callback_phone
+  Caller -> Yes. My cell. || callback_phone
+  Nurse -> What's going on with your mom?
+  Caller -> She says it burns when she pees. For two days. And today she felt hot. I took her temperature and it was a hundred and one point two. || A1, A2
+  Nurse -> Okay. Is she going to the bathroom a lot?
+  Caller -> Yes. A lot. Little bits each time. She keeps getting up.
+  Nurse -> Okay. Is she drinking?
+  Caller -> Not as much. She's pushing the water away. She says it makes the burning worse. I've gotten maybe three glasses into her today. || A3
+  Nurse -> Okay. Any pain in her back or her side?
+  Caller -> No. Not that I know of. She'd say. She says it's just the burning. And low in her tummy a bit. || A4
+  Nurse -> Okay. I'll message her provider about the burning and the fever. They may want a urine test. || R1
+  Caller -> Okay. Good. Thank you.
+  Nurse -> And a nurse will come see her tomorrow morning. || R2
+  Caller -> Tomorrow morning. Okay.
+  Nurse -> I'll call you back this evening to see how she's doing. || R3
+  Caller -> Okay. This evening.
+  Nurse -> Until then, offer her water or diluted juice every hour while she's awake. Small amounts are fine. || E1
+  Caller -> Every hour. Diluted juice. Okay. She'll drink apple juice if it's watered down.
+  Nurse -> Perfect. And call us if her temperature goes over one oh two, if she gets chills, back pain, or confusion, or if she doesn't pass urine for eight hours. If you can't wake her, call nine one one. || E2
+  Caller -> Over one oh two. Chills. Back pain. Confused. No urine, eight hours. Can't wake her, nine one one. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Denise.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ruby Castellan, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-01-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Odette Castellan, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "9855550112", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported burning with urination and a fever in her mother.
+    speaker: Caller
+    turns: [2]
+    quote: "She's not feeling well."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Burning with urination had been present for two days.
+      speaker: Caller
+      turns: [8]
+      quote: "She says it burns when she pees. For two days."
+      explanation: Documents the urinary symptom.
+      facts:
+        - {type: symptom, name: burning with urination, present: true, duration: two days, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 101.2.
+      speaker: Caller
+      turns: [8]
+      quote: "I took her temperature and it was a hundred and one point two."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "101.2", certainty: stated}
+      covers: [A2]
+    - text: She was drinking less, about three glasses today.
+      speaker: Caller
+      turns: [12]
+      quote: "Not as much. She's pushing the water away."
+      explanation: Documents reduced fluids.
+      facts:
+        - {type: symptom, name: drinking less, present: true, certainty: stated}
+      covers: [A3]
+    - text: No back or side pain was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No. Not that I know of."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: back or side pain, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the provider about the burning and the fever.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll message her provider about the burning and the fever."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow morning.
+      speaker: Nurse
+      turns: [17]
+      quote: "a nurse will come see her tomorrow morning."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back this evening to see how she's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering water or diluted juice every hour while she was awake.
+      speaker: Nurse
+      turns: [21]
+      quote: "offer her water or diluted juice every hour while she's awake."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a temperature over 102, chills, back pain, confusion, or no urine for 8 hours, and calling 911 if she could not be woken.
+      speaker: Nurse
+      turns: [23]
+      quote: "call us if her temperature goes over one oh two, if she gets chills, back pain, or confusion, or if she doesn't pass urine for eight hours."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,323 @@
+call_id: tr-323
+split: train
+blueprint: "A mother calls the home care agency about her 23-year-old son Jonah, who has cerebral palsy: a mild cough and runny nose for two days, temperature 99.1, still eating and happy, baclofen 10 mg three times a day as usual. She also wants to move Thursday's aide shift because of a dental appointment and asks whether the nurse can check his weight. Nurse messages the coordinator about the schedule, plans to move the visit, and gives temperature, fluid and warning-sign advice. Routine multi-issue, parent caller, young adult patient aged 18-64, medium v2, warm and talkative."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [multi_issue, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [cough_uri, fever, medication, equipment]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Sunrise Valley Home Care
+  agency_type: home_care
+  nurse_name: Wren
+  call_timestamp_utc: "2026-10-27T16:15:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Jonah Pellegrino
+  patient_name_spoken: Jonah Pellegrino
+  patient_name_certainty: stated
+  patient_dob_true: "2003-07-08"
+  patient_dob_spoken: "2003-07-08"
+  patient_dob_certainty: stated
+  caller_name_true: Carmela Pellegrino
+  caller_name_spoken: Carmela Pellegrino
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "9015550195"
+  callback_phone_spoken: "9015550195"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a mild cold in her son and asked to change a visit
+  reason_category: cough_uri
+  relevant_context: Home care client with cerebral palsy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild cough and runny nose
+    symptom_present: true
+    onset_or_duration: two days
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.1"
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing or poor eating
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: She has a dental appointment on Thursday morning and wants the aide shift moved
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: scheduling coordinator
+    reason_or_trigger: move Thursday's aide shift for a dental appointment
+    certainty: stated
+  - item_id: R2
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday afternoon
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his temperature morning and evening, write it down, and watch his breathing and how much he drinks
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water, diluted juice or warm broth often and keep him upright for meals
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature of one hundred one or higher, fast or noisy breathing, thick green mucus or if he refuses drinks, and call 911 for blue lips or struggling to breathe
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sunrise Valley Home Care, this is Wren.
+  Caller -> Hi, Wren! It's Carmela Pellegrino. I'm calling about my son, Jonah Pellegrino. I'm calling with a few little things. Nothing big. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Carmela. Good to hear your voice. How's Jonah?
+  Caller -> He's good. He's happy. He's in his chair watching the football highlights. He's got his Eagles shirt on. He says hi.
+  Nurse -> What are the Eagles doing this season?
+  Caller -> Don't ask. He's been grumpy since Sunday. They lost. He pouted all day. Ha.
+  Nurse -> Hi, Jonah. I can't hear him but I bet he's smiling.
+  Caller -> He's smiling. He's making the sound. The happy sound. You know.
+  Nurse -> I do. Okay, let me pull up his chart so I have everything in front of me. What's his date of birth?
+  Caller -> July eighth. Two thousand three. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Nine oh one, five five five, zero one nine five. Same as always. || callback_phone
+  Nurse -> Perfect. So what are the little things?
+  Caller -> Okay. Number one. He has a cold. A mild one. A little cough and a runny nose. Started Saturday. So two days. He's sneezing. He's not coughing a lot. It's a little dry cough. || A1
+  Nurse -> Was anyone else in the house sick?
+  Caller -> My husband had the sniffles last week. And Jonah's cousin was here. She's four. She's a germ factory.
+  Nurse -> Ha. Kids are. Okay.
+  Nurse -> Okay. Two days of a mild cough and a runny nose. Does he have a fever?
+  Caller -> I took it this morning. Ninety nine point one. In the ear. So just a little warm. Not a fever.
+  Nurse -> Okay. And tonight?
+  Caller -> I haven't done it again. I'll do it before bed. I just wanted to check in.
+  Nurse -> What kind of thermometer do you use?
+  Caller -> The ear one. The one the nurse gave us. It beeps. He hates the beep. He covers his ear with his hand.
+  Nurse -> Ha. That works.
+  Nurse -> Okay. Good. Ninety nine point one this morning. || A2
+  Caller -> Yes. Which is nothing. He's normally ninety seven something. So it's up a bit.
+  Nurse -> Right. That's a little warm. Is he eating and drinking okay?
+  Caller -> He's eating great. He had pancakes this morning. Two. He had a whole pancake with the syrup. And he's drinking. I use the cup with the straw. He drinks a lot of water.
+  Caller -> I also put a little apple juice in it. For taste. Is that okay?
+  Nurse -> That's fine.
+  Nurse -> Good. Any trouble breathing? Wheezing? Noisy breathing?
+  Caller -> No. His breathing's quiet. He's a little stuffy at night. I put the humidifier on. But it's not noisy. He's breathing normal. He has the same color. His lips are pink. || A4
+  Nurse -> Where do you keep the humidifier?
+  Caller -> On the dresser across from the bed. The cool mist one. I wash it every day. The nurse showed me how.
+  Nurse -> Good. That's the right way.
+  Nurse -> Okay. That's very reassuring. How about the cough? Is it wet, dry?
+  Caller -> Dry mostly. A little tickle. He clears his throat. It's not bothering him much. It's more bothering me.
+  Nurse -> Does it keep him awake?
+  Caller -> No. He sleeps through. I wake up and check on him four times, though. Ha.
+  Nurse -> Ha. Moms. Okay. What about his medicine? Is he taking the baclofen as usual? || A3
+  Caller -> Yes. The baclofen. Ten milligrams. Three times a day. He took the morning one at eight. The next one's at two. And one at bedtime. Same as always. I haven't changed anything. || A3
+  Nurse -> Okay. Baclofen ten, three times a day, and he took this morning's. Good. Any extra stiffness or spasms with the cold? || A3
+  Caller -> A little more stiffness in the mornings. But that's the same as when he gets any cold. It goes away after the stretches.
+  Nurse -> Does he seem uncomfortable during the stretches?
+  Caller -> Not really. He grunts. He likes the one where Marisol rolls his ankles. He closes his eyes.
+  Nurse -> Okay. That's pretty normal. Do you do the stretches in the morning?
+  Caller -> Yes. Every morning. Fifteen minutes. The aide helps. Marisol. She's wonderful.
+  Caller -> She brought him a birthday card in July. And a balloon. She's the only one he lets do his hair.
+  Nurse -> Aw. That's special.
+  Nurse -> Marisol is great. Okay, what's number two?
+  Caller -> Number two. Thursday. I have a dental appointment. Thursday morning at ten. And Marisol comes at nine. And I'd like to move it. To the afternoon. Is that possible? I tried to call scheduling but nobody answered. || A5
+  Caller -> The voicemail was full. I felt bad. I didn't want to be annoying.
+  Nurse -> You're not annoying. The voicemail is full because it's Monday.
+  Caller -> Ha. Mondays.
+  Nurse -> I can help with that. Let me message the scheduling coordinator now. What time in the afternoon would work?
+  Caller -> After one. One thirty, two. My appointment's at ten and I'll be back by noon. Jonah naps from noon to one. So after one.
+  Nurse -> Do you need me to arrange anything for the dentist trip? A ride?
+  Caller -> No, my husband is taking me. He works from home. He'll stay with Jonah until I'm back.
+  Nurse -> Perfect. Then the aide isn't even necessary in the morning.
+  Caller -> Right. But Thursday is the day I do the laundry. I need her for the afternoon.
+  Nurse -> Okay. I'll message the coordinator to move Thursday's shift to after one in the afternoon. || R1
+  Caller -> Oh, thank you. That would be wonderful.
+  Nurse -> I'll also move the nurse visit to Thursday afternoon. That way both can overlap if that's easier. || R2
+  Caller -> Oh, that works. The nurse comes Thursdays too? I forgot.
+  Nurse -> She does. At ten, I see here. I'll move it to the afternoon too.
+  Caller -> Perfect. Thank you. You're an angel.
+  Nurse -> No problem. I'll call you tomorrow morning to confirm the new times. || R3
+  Caller -> Tomorrow morning. Okay. Good. Number three. Can the nurse check his weight on Thursday? He's been looking thin. And I want to check his weight to see if the feeding is enough.
+  Nurse -> Sure. I'll note that on the visit. We'll weigh him in his chair and subtract the chair. Do you remember what he weighed last time?
+  Caller -> A hundred and ten. A hundred and ten pounds. That was in August. He's six foot. He's long.
+  Nurse -> Okay. I'll make a note.
+  Caller -> Thank you. I just worry. He's twenty three and he's still my baby. He can't tell me what's wrong.
+  Nurse -> I understand. You know him better than anyone. If you think something's off, trust that.
+  Caller -> I do. That's why I called about the cold. A mom knows.
+  Nurse -> Absolutely. What does your dentist say about the tooth?
+  Caller -> It's a crown. I'm getting a crown. I'm terrified. My mouth is the one thing I don't let anyone near.
+  Nurse -> Ha. You'll be fine. They numb it.
+  Nurse -> You were right to call. Okay, Carmela. For the cold, a few things. Check his temperature morning and evening and write it down. And watch his breathing and how much he's drinking. || E1
+  Caller -> Morning and evening. Write it down. Breathing. Drinking. I have a notebook.
+  Nurse -> And keep offering fluids. Water, watered down juice, warm broth. Small amounts, often. Keep him sitting up for meals. || E2
+  Caller -> Water, juice, broth. Small and often. Sitting up. Yes. I always sit him up straight.
+  Nurse -> And please call us if his temperature gets to one hundred one or higher, if his breathing gets fast or noisy, if his mucus turns thick and green, or if he refuses to drink. And nine one one for blue lips or if he's struggling to breathe. || E3
+  Caller -> One hundred one. Fast or noisy breathing. Green mucus. Won't drink. Nine one one for blue lips or struggling. Okay. I have it.
+  Nurse -> Perfect. Is there anything else?
+  Caller -> No. That's all. Thank you for listening. It helps to talk to someone who knows him.
+  Nurse -> Of course. Tell Jonah I said go Eagles.
+  Caller -> Oh, he'll love that. He's laughing. He heard you. He likes you.
+  Nurse -> Aw. I like him too. Talk to you tomorrow, Carmela.
+  Caller -> Bye, Wren. Thanks again.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Jonah Pellegrino, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2003-07-08", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Carmela Pellegrino, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550195", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a mild cold in her son and asked to change a visit.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling with a few little things. Nothing big."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He had a mild dry cough and runny nose for two days.
+      speaker: Caller
+      turns: [14]
+      quote: "He has a cold. A mild one. A little cough and a runny nose."
+      explanation: Documents the cold symptoms.
+      facts:
+        - {type: symptom, name: mild cough and runny nose, present: true, onset: two days, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 99.1 in the ear this morning.
+      speaker: Caller
+      turns: [19]
+      quote: "Ninety nine point one. In the ear."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.1", certainty: stated}
+      covers: [A2]
+    - text: Baclofen 10 mg three times a day was taken, including this morning at eight.
+      speaker: Caller
+      turns: [41]
+      quote: "The baclofen. Ten milligrams. Three times a day."
+      explanation: Documents the muscle relaxant.
+      facts:
+        - {type: medication, name: baclofen, dose: "10", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He had no trouble breathing and was eating and drinking well.
+      speaker: Caller
+      turns: [32]
+      quote: "No. His breathing's quiet."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing or poor eating, certainty: stated}
+      covers: [A4]
+    - text: She had a dental appointment Thursday morning and wanted the aide shift moved.
+      speaker: Caller
+      turns: [51]
+      quote: "Thursday. I have a dental appointment."
+      explanation: Documents the scheduling request.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the scheduling coordinator to move Thursday's shift to the afternoon.
+      speaker: Nurse
+      turns: [61]
+      quote: "I'll message the coordinator to move Thursday's shift to after one in the afternoon."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to move the nurse visit to Thursday afternoon.
+      speaker: Nurse
+      turns: [63]
+      quote: "I'll also move the nurse visit to Thursday afternoon."
+      explanation: Documents the planned appointment change.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, timeframe: Thursday afternoon, certainty: stated}
+      covers: [R2]
+    - text: Planned to call tomorrow morning to confirm the new times.
+      speaker: Nurse
+      turns: [67]
+      quote: "I'll call you tomorrow morning to confirm the new times."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking his temperature morning and evening, writing it down, and watching his breathing and drinking.
+      speaker: Nurse
+      turns: [78]
+      quote: "Check his temperature morning and evening and write it down."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised offering water, diluted juice or warm broth often and keeping him upright for meals.
+      speaker: Nurse
+      turns: [80]
+      quote: "keep offering fluids. Water, watered down juice, warm broth."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a temperature of 101 or higher, fast or noisy breathing, thick green mucus or refusing drinks, and 911 for blue lips or struggling to breathe.
+      speaker: Nurse
+      turns: [82]
+      quote: "please call us if his temperature gets to one hundred one or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

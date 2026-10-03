@@ -1,0 +1,308 @@
+call_id: tr-394
+split: train
+blueprint: "A mother calls the pediatric palliative nurse as her 9-year-old son with epilepsy is having a seizure that has lasted four minutes: stiff and jerking, eyes rolled, lips a little dusky. The seizure plan says to give the nasal rescue medicine (midazolam) for a seizure over five minutes. Nurse has her time it, lay him on his side, give the nasal spray at five minutes and call 911, stays on the line; the seizure stops at six minutes, he is breathing and sleepy when paramedics arrive. High risk (prolonged seizure, other urgent and escalation), parent caller, pediatric, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: seizure
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, name_spelled]
+  clinical_domains: [seizure, neurologic, respiratory]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Harbor Pediatric Palliative Care
+  agency_type: pediatric_home_care
+  nurse_name: Camille
+  call_timestamp_utc: "2026-11-01T22:05:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lucas Halvorsen
+  patient_name_spoken: Lucas Halvorsen
+  patient_name_certainty: stated
+  patient_dob_true: "2017-06-26"
+  patient_dob_spoken: "2017-06-26"
+  patient_dob_certainty: stated
+  caller_name_true: Brigitte Halvorsen
+  caller_name_spoken: Brigitte Halvorsen
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "9185550114"
+  callback_phone_spoken: "9185550114"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son is having a seizure
+  reason_category: seizure
+  relevant_context: Pediatric palliative care patient with epilepsy and a seizure rescue plan
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: ongoing seizure
+    symptom_present: true
+    onset_or_duration: four minutes so far
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: midazolam
+    medication_name_spoken: midazolam
+    medication_status: prescribed
+    frequency: as needed for a seizure over five minutes
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: lips a little bluish
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepy and breathing after the seizure stopped
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: seizure lasting more than five minutes
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: midazolam
+    medication_name_spoken: midazolam
+    reason_or_trigger: give the nasal midazolam now since the seizure reached five minutes
+    certainty: stated
+  - item_id: R3
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call team
+    reason_or_trigger: tell the team and the hospital he is coming
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Time the seizure, lay him on his side on a soft surface away from hard objects, put nothing in his mouth, and call 911 once it reaches five minutes
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Loosen tight clothing, stay with him and watch his breathing, and tell the paramedics when the seizure started and when the spray was given
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Child having a seizure lasting more than four minutes with dusky lips
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 for a seizure over five minutes
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Little Harbor Pediatric Palliative Care, this is Camille.
+  Caller -> Camille, it's Brigitte. Brigitte Halvorsen. Lucas is seizing. He's having a seizure right now. It's been four minutes. || caller_name, patient_name, relationship, cc, A1, F1
+  Nurse -> Okay Brigitte. I'm here. Stay with me. Where is Lucas?
+  Caller -> I'm sorry, I'm shaking so hard. I don't know what to do with my hands.
+  Nurse -> Put one hand near his head to protect it. That's all.
+  Caller -> On the living room floor. On the rug. He was on the couch and he slid down. He's stiff and jerking. His arms and legs. His eyes are rolled up.
+  Nurse -> Okay. Is he on his side? Turn him on his side if he isn't.
+  Caller -> I turned him. He's on his right side. There's a cushion under his head. I moved the coffee table.
+  Nurse -> Good. Is there anything sharp or hard near him? A toy, the TV stand?
+  Caller -> I pushed the toys away. There's a Lego tower. I knocked it over. It's across the floor. It's far from him.
+  Nurse -> Perfect.
+  Nurse -> Good. That's exactly right. Is there anything in his mouth?
+  Caller -> No. Nothing. I haven't put anything. Just his teeth together. Foam, a little foam. He's drooling.
+  Nurse -> That's normal. Don't put anything in. Brigitte, what time did it start?
+  Caller -> I looked at the clock. It was six forty one. It's six forty five now. Four minutes. Almost five.
+  Nurse -> Okay. You've done everything right. Do you have the rescue medicine? The nasal spray?
+  Caller -> Yes. It's in the bag. In the bag by the door. Midazolam. The nasal one. It says give for a seizure longer than five minutes. || A2
+  Nurse -> Is the bag where it usually is?
+  Caller -> Yes, by the door. With the seizure plan, the extra clothes, the little oxygen sensor.
+  Nurse -> Great. You were ready.
+  Caller -> We practice every month. I never thought I'd be doing it for real.
+  Nurse -> Okay. Get it now. Open the package. We're about to hit five.
+  Caller -> I have it. I'm opening it. It's the little blue thing. One spray in each nostril? Or one?
+  Nurse -> Read me the dose on the box. Or the card in the bag. The seizure plan.
+  Caller -> The plan says one spray, one nostril. Five milligrams. He's thirty five pounds. Yes. One spray in one nostril.
+  Nurse -> Okay. It's five minutes now. Give the midazolam. Tilt his head slightly back, put the tip in one nostril, and push the plunger firmly. || A2, R2
+  Caller -> Okay. I'm doing it. Tilting. In. Pushing. It went in. I pushed it all the way. Okay. I did it.
+  Nurse -> Good. You gave it at about five minutes. Write that down, six forty six. Also, I need you to call 911 now. Seizure over five minutes. Put me on speaker and dial from another phone. || R1, R2, E1, F2
+  Caller -> Another phone. My cell is on the counter. Let me. I'm getting it. Dialing. It's ringing. Hello? Yes. My son is having a seizure. He has epilepsy. It's been five minutes. We gave the nasal medicine. Eleven nineteen Pine Ridge Road. Yes. Yes. They're coming.
+  Nurse -> Good. Did they give a time?
+  Caller -> They said seven minutes. I told them he's nine. He's thirty five pounds. He's on hospice. Palliative care. They said okay.
+  Caller -> The dispatcher said she wants me to stay on with her too. But I have you. I'm on both. Is that okay?
+  Nurse -> It's okay. Do whatever she says. I'll be quiet if she's talking.
+  Nurse -> Good. Brigitte, how are his lips? Look at his color.
+  Caller -> A little blue. Dusky. Around the mouth. I think. It's hard to tell. The light is dim. || A3
+  Nurse -> Okay. Is he breathing?
+  Caller -> Yes. I see his chest. He's breathing. Fast. And noisy. With the jerking he isn't breathing deep.
+  Nurse -> Okay. Keep him on his side. Don't hold him down. Just keep him safe from hitting anything.
+  Caller -> Okay. I'm just keeping my hand near his head. It's still going. It's still jerking. How long? Six minutes?
+  Nurse -> It's about to be six. The medicine takes a few minutes. Hang on.
+  Caller -> My husband's at work. He's twenty minutes away. I called him on the way and he's driving. He said he's coming.
+  Nurse -> Good. He'll meet you at the hospital or here.
+  Caller -> Oh God. Oh Lucas. It's okay, baby. Mommy's here. Mommy's here.
+  Nurse -> Keep talking to him. It helps you, and he may hear you.
+  Caller -> Lucas, it's Mom. You're okay. You're okay. The medicine's going to work. The ambulance is coming.
+  Nurse -> I'm going to page the on-call team and let the hospital know. I'll stay on with you. || R3
+  Caller -> Thank you.
+  Caller -> It's slowing. I think it's slowing. The jerking. It's getting less. His arm stopped. His legs are still, a little. Now they're stopped. It stopped!
+  Nurse -> Okay. What time is it?
+  Caller -> Six forty seven. No. Six forty eight. It stopped at six forty eight. That's seven minutes.
+  Nurse -> Okay. Seven minutes total. Good job timing. Is he breathing?
+  Caller -> Yes. He's breathing. Slower. Deep now. He's snoring a little.
+  Nurse -> That's normal after a seizure. He'll be very sleepy. Keep him on his side. Check his lips again.
+  Caller -> They're pinker. Much pinker. Oh, thank you. Thank God. He's so limp. He's sleeping. || A4
+  Nurse -> That's what we expect. He's sleepy, he's breathing, and his color is coming back. The paramedics will still check him.
+  Caller -> Yes. I want them to. Should I wake him?
+  Caller -> His eyelids are fluttering. He's stirring. Lucas? Lucas? He's not awake. He moved his hand.
+  Nurse -> That's okay. He may drift in and out. Let him.
+  Nurse -> No. Let him sleep. Just keep watching his breathing.
+  Caller -> Okay. I'm watching. His chest is going up and down. In, out. In, out.
+  Caller -> He's so little. He's so limp. His hair is wet with sweat.
+  Nurse -> That's normal. He worked hard. His body is wiped out.
+  Caller -> He looks like a baby. He was a baby ten minutes ago. He was singing at dinner.
+  Nurse -> What was he singing?
+  Caller -> The theme to his cartoon. He sings it every night. I'm going to hear it for the rest of my life.
+  Nurse -> And you'll hear it again tomorrow.
+  Caller -> Please.
+  Nurse -> Brigitte, what's Lucas's date of birth? For the hospital.
+  Caller -> June twenty sixth. Twenty seventeen. || patient_dob
+  Nurse -> And your cell?
+  Caller -> Nine one eight, five five five, zero one one four. || callback_phone
+  Nurse -> Nine one eight, five five five, zero one one four. Is that right? || callback_phone
+  Caller -> Yes. That's my cell. I called from the house phone. The cell is the one with the 911.
+  Nurse -> Okay. When the paramedics arrive, tell them when the seizure started, six forty one, and when you gave the spray, six forty six. And loosen anything tight on him. || E2
+  Caller -> Started six forty one. Spray six forty six. It stopped six forty eight. I wrote it on my hand. I always do that.
+  Nurse -> Perfect. Is the door unlocked?
+  Caller -> My husband is going to the door. He just got home. He's here. He heard me yelling. He's at the front.
+  Nurse -> Good. Let him bring them in.
+  Caller -> They're here. I hear them. The siren. They're at the door. Okay. In here! He's on the rug!
+  Nurse -> Go. I'll stay on until they're with you.
+  Caller -> They're asking me about his medicines. I'm reading from the list on the fridge. They're writing it down.
+  Nurse -> Good. Take your time.
+  Caller -> They said he did well. They said I did well. I don't feel like I did anything.
+  Nurse -> You timed it, you gave the spray, you called. That's everything.
+  Caller -> They're kneeling. They're checking him. They're asking me what happened. I'm telling them. Okay. They have a mask. They have the oxygen on him.
+  Nurse -> Good. That's all right. You did great, Brigitte.
+  Caller -> They want to take him to Children's. I'm riding with him. My husband's following.
+  Nurse -> Go. I'll let the hospital know. Call us when you can.
+  Caller -> Thank you, Camille. Thank you so much. Bye.
+  Nurse -> Bye, Brigitte.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucas Halvorsen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2017-06-26", certainty: stated, heard_as: [], turns: [69]}
+    caller_name: {value: Brigitte Halvorsen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550114", certainty: stated, heard_as: [], turns: [71, 72]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son was having a seizure.
+    speaker: Caller
+    turns: [2]
+    quote: "Lucas is seizing. He's having a seizure right now."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ongoing seizure, four minutes at the start of the call, stiff and jerking with eyes rolled up.
+      speaker: Caller
+      turns: [2]
+      quote: "It's been four minutes."
+      explanation: Documents the seizure.
+      facts:
+        - {type: symptom, name: ongoing seizure, present: true, duration: four minutes so far, certainty: stated}
+      covers: [A1]
+    - text: Midazolam nasal spray was prescribed for a seizure lasting more than five minutes.
+      speaker: Caller
+      turns: [17]
+      quote: "Midazolam. The nasal one."
+      explanation: Documents the rescue medicine.
+      facts:
+        - {type: medication, name: midazolam, frequency: as needed for a seizure over five minutes, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: His lips looked a little blue or dusky around the mouth.
+      speaker: Caller
+      turns: [35]
+      quote: "A little blue. Dusky. Around the mouth."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: lips a little bluish, present: true, certainty: stated}
+      covers: [A3]
+    - text: After the seizure stopped he was breathing, snoring a little and sleepy with pinker lips.
+      speaker: Caller
+      turns: [52]
+      quote: "Yes. He's breathing. Slower. Deep now."
+      explanation: Documents the state after the seizure.
+      facts:
+        - {type: symptom, name: sleepy and breathing after the seizure stopped, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 for a seizure over five minutes.
+      speaker: Nurse
+      turns: [28]
+      quote: "I need you to call 911 now."
+      explanation: Documents the escalation advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Advised giving the nasal midazolam at five minutes.
+      speaker: Nurse
+      turns: [26]
+      quote: "Give the midazolam. Tilt his head slightly back"
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: midazolam, certainty: stated}
+      covers: [R2]
+    - text: Planned to page the on-call team and tell the hospital.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm going to page the on-call team"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping him on his side on a soft surface, putting nothing in his mouth, timing the seizure and calling 911 at five minutes.
+      speaker: Nurse
+      turns: [7]
+      quote: "Okay. Is he on his side? Turn him on his side if he isn't."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised loosening tight clothing and telling the paramedics when the seizure started and when the spray was given.
+      speaker: Nurse
+      turns: [74]
+      quote: "tell them when the seizure started"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "Lucas is seizing. He's having a seizure right now."}
+    - {category: escalation_request, turns: [28], quote: "I need you to call 911 now."}

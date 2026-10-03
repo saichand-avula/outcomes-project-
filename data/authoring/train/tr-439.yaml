@@ -1,0 +1,222 @@
+call_id: tr-439
+split: train
+blueprint: "A paid caregiver gives a routine update on a 72-year-old client with an indwelling urinary catheter: urine is clear yellow and draining well, the bag is emptied every few hours, no fever, no burning, no leaking. She wants to confirm the catheter change is still Thursday. Nurse confirms, plans the Thursday visit, and reviews keeping the bag below the bladder, fluids and hand washing. Routine catheter update, paid caregiver, v2 short."
+setup:
+  scenario_category: routine
+  subtype: catheter_update
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [urinary_catheter, hydration, infection_risk]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Willowmere Home Care
+  agency_type: home_care
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-11-24T16:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bertrand Lockhart
+  patient_name_spoken: Bertrand Lockhart
+  patient_name_certainty: stated
+  patient_dob_true: "1953-06-21"
+  patient_dob_spoken: "1953-06-21"
+  patient_dob_certainty: stated
+  caller_name_true: Yolanda Mbeki
+  caller_name_spoken: Yolanda Mbeki
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "9195550153"
+  callback_phone_spoken: "9195550153"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on her client's urinary catheter and confirmed the change visit
+  reason_category: urinary_catheter
+  relevant_context: Home care client with an indwelling urinary catheter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: clear yellow urine draining well
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: The catheter bag is emptied every few hours and the catheter change is due Thursday
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or burning or leaking around the catheter
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Keep the bag below the level of the bladder, never on the floor, and keep the tubing free of kinks
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water or other fluids regularly through the day and wash hands before and after emptying the bag
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willowmere Home Care, this is Gwen.
+  Caller -> Hi, Gwen. It's Yolanda Mbeki. M B E K I. I'm one of the caregivers for Mr. Bertrand Lockhart. I'm calling with a quick update on his catheter. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Yolanda. Thanks for calling. Let me bring up his chart. What's his date of birth?
+  Caller -> Sure. Sorry for calling at the end of my shift. I wanted to make sure I told you before I forgot.
+  Nurse -> No need to apologize. I'm glad you did.
+  Caller -> June twenty first. Nineteen fifty three. || patient_dob
+  Nurse -> And your number?
+  Caller -> Nine one nine, five five five, zero one five three. || callback_phone
+  Nurse -> Great. How's the catheter doing?
+  Caller -> I'm so glad he's doing well. The last client I had with a catheter had a lot of trouble.
+  Caller -> Good. It's draining well. The urine is clear. Light yellow. Like lemonade. No sediment, no blood. I check the bag every time I empty it. || A1
+  Nurse -> And no smell?
+  Caller -> No smell. Just normal. I'm careful about cleaning the area every morning.
+  Nurse -> And how often are you emptying it?
+  Caller -> Every three or four hours. I record it on the sheet. Today we're at about eleven hundred milliliters since morning. That's about right for him, from the sheet.
+  Nurse -> That's good record keeping.
+  Caller -> I have a clipboard on the bedside table. I write the time and the amount in pencil.
+  Nurse -> Good. Any fever?
+  Caller -> No. I took his temperature at noon. Normal. No burning that he says. And no leaking around the catheter. The skin around it is clean and dry. || A3
+  Caller -> He's also been walking more with the walker. His legs are stronger than last month.
+  Nurse -> That's wonderful.
+  Nurse -> That's great. Is he drinking enough?
+  Caller -> I think so. He has water, juice, and he loves his tea. About eight cups a day. I keep a glass by him.
+  Caller -> His favorite is peppermint tea. He drinks it from a mug that says World's Okayest Grandpa.
+  Nurse -> Ha. I love that.
+  Nurse -> Good. And is the bag staying below his bladder when he's up in the chair?
+  Caller -> Yes. I hook it to the side of the chair, low. It never touches the floor. I put it in the cloth cover.
+  Caller -> It has a little clip. I found it in the supplies box. It's handy.
+  Nurse -> Perfect. That's exactly right.
+  Caller -> Thanks. I was nervous about doing it right when I started. Now it's second nature.
+  Nurse -> It shows in how well you describe things.
+  Caller -> I also wanted to confirm. The catheter change. Is it still Thursday? || A2
+  Nurse -> Let me check. Yes, I have it down for Thursday. I'll come by myself. || R1
+  Caller -> Thursday. What time? He gets nervous. He likes to know.
+  Caller -> He's fine once it's over. It's just the waiting. He's a bit of a worrier.
+  Nurse -> Probably around ten in the morning.
+  Caller -> Ten. Okay. I'll tell him the night before, so he can mentally prepare.
+  Nurse -> That's a good idea. A few reminders. Keep the bag below the level of the bladder, never on the floor. And make sure the tubing isn't kinked. || E1
+  Caller -> Below the bladder. Never on the floor. No kinks. Yes. I check the tubing every time I turn him.
+  Caller -> I'm teaching the weekend caregiver all of this too. She's new. She's nervous.
+  Caller -> I also clean the bag with vinegar water once a week, like the sheet says.
+  Nurse -> Good. Keep following the sheet.
+  Nurse -> Good. Everyone should follow the same routine.
+  Nurse -> And keep offering fluids, and wash your hands before and after you empty the bag. || E2
+  Caller -> I wash for twenty seconds. Happy birthday, twice. Like they taught us.
+  Nurse -> Ha. The classic.
+  Caller -> It works. Twenty seconds feels long until you start singing.
+  Caller -> I sing it quietly. Mr. Lockhart tells me I'm off key.
+  Caller -> His granddaughter calls on Sundays. She wants him to teach her to play the piano over video.
+  Nurse -> Ha. He's a critic.
+  Caller -> He also corrects my grammar. Gently. He's a retired English teacher.
+  Caller -> He sings in a church choir. He's a bass. He says I should try alto.
+  Nurse -> Ha. A music coach for free.
+  Caller -> He says the choir needs a soprano. I told him I would be a disaster.
+  Caller -> Exactly. He also gives me crossword hints. He's better at them than me.
+  Nurse -> Sounds like a good match.
+  Caller -> His wife passed three years ago. He has her picture on the piano. He says good morning to her every day.
+  Nurse -> That's a sweet detail.
+  Caller -> He's the nicest client I've had. He says thank you for everything.
+  Caller -> This week he gave me a card with a ten dollar bill. I told him I can't take it, so I put it in the donation jar at the agency.
+  Nurse -> That's a lovely gesture, and the right thing to do.
+  Nurse -> That makes a difference. Okay, Yolanda. Anything else?
+  Caller -> No. That's all. Thanks, Gwen.
+  Caller -> Thank you for always being so patient with my questions. I've learned so much from you.
+  Nurse -> Thanks for the update. Bye.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bertrand Lockhart, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1953-06-21", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Yolanda Mbeki, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550153", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on her client's urinary catheter and confirmed the change visit.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling with a quick update on his catheter."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The catheter was draining well with clear light yellow urine and no sediment or blood.
+      speaker: Caller
+      turns: [11]
+      quote: "It's draining well. The urine is clear. Light yellow."
+      explanation: Documents the urine output.
+      facts:
+        - {type: symptom, name: clear yellow urine draining well, present: true, certainty: stated}
+      covers: [A1]
+    - text: The bag was emptied every three or four hours and the catheter change was due Thursday.
+      speaker: Caller
+      turns: [32]
+      quote: "The catheter change. Is it still Thursday?"
+      explanation: Documents the catheter care context.
+      facts:
+        - {type: context, text: The catheter bag is emptied every few hours and the catheter change is due Thursday, certainty: stated}
+      covers: [A2]
+    - text: He had no fever or burning or leaking around the catheter.
+      speaker: Caller
+      turns: [19]
+      quote: "No. I took his temperature at noon. Normal."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or burning or leaking around the catheter, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned a nurse visit Thursday for the catheter change.
+      speaker: Nurse
+      turns: [33]
+      quote: "Yes, I have it down for Thursday. I'll come by myself."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised keeping the bag below the bladder and off the floor with no kinks in the tubing.
+      speaker: Nurse
+      turns: [38]
+      quote: "Keep the bag below the level of the bladder, never on the floor."
+      explanation: Documents equipment teaching.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised offering fluids regularly and washing hands before and after emptying the bag.
+      speaker: Nurse
+      turns: [44]
+      quote: "keep offering fluids, and wash your hands"
+      explanation: Documents hydration and hygiene teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,307 @@
+call_id: tr-347
+split: train
+blueprint: "A husband and wife share one phone and talk over each other: he says she has been thirsty and tired for two days, her sugar this morning was 212, and she took her metformin as usual; she says from across the room that she forgot this morning's and maybe last night's. She also has mildly blurry vision. He gives her birth year as 1951 then corrects himself to 1952. No nausea or vomiting. The nurse sorts out the conflicting medicine account without taking sides (last dose unclear), messages the provider, plans a nurse visit tomorrow and a callback this evening, and gives fluids and monitoring advice. Ambiguous contradiction with crosstalk and a self-corrected DOB, spouse caller, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, crosstalk, dob_self_corrected, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [glucose, medication, fatigue]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Prairie Rose Home Health
+  agency_type: home_health
+  nurse_name: Nolan
+  call_timestamp_utc: "2026-10-23T18:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marjorie Ellsworth
+  patient_name_spoken: Marjorie Ellsworth
+  patient_name_certainty: stated
+  patient_dob_true: "1952-03-02"
+  patient_dob_spoken: "1952-03-02"
+  patient_dob_certainty: stated
+  caller_name_true: Winston Ellsworth
+  caller_name_spoken: Winston Ellsworth
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "7135550175"
+  callback_phone_spoken: "7135550175"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported thirst, tiredness and a high sugar in his wife
+  reason_category: glucose
+  relevant_context: Home health patient with type 2 diabetes
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning or last night
+    certainty: unclear
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: thirsty and tired
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "212"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: mildly blurry vision
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: sugar of 212 with thirst and possible missed metformin
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check her sugar before dinner and at bedtime and write each number and time down, and write down when each pill is given from now on
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water through the evening and avoid juice and regular soda
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for confusion, vomiting that does not stop, fruity breath or trouble staying awake, and call back for a sugar over three hundred
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Prairie Rose Home Health, this is Nolan.
+  Caller -> Nolan, hi. It's Winston Ellsworth. W I N S T O N. Ellsworth. I'm calling about my wife, Marjorie. She's been thirsty and tired. || caller_name, relationship, patient_name, cc
+  Caller -> I'm not tired, I'm just resting my eyes.
+  Nurse -> Hi, Marjorie. Good to hear you. How are you feeling?
+  Caller -> Fine. I'm fine. He worries.
+  Nurse -> Hi, Winston. Hi, Marjorie. Is that you in the background?
+  Caller -> That's her. She's in the chair. She's got opinions. Don't mind her.
+  Nurse -> I like opinions. Let me pull up her chart. What's her date of birth?
+  Caller -> March second. Nineteen fifty one. No. Fifty two. Nineteen fifty two. I'm sorry. She'll correct me. || patient_dob
+  Caller -> Fifty two. You always get it wrong. Fifty two.
+  Nurse -> Nineteen fifty two. Thanks, both. And your number, Winston?
+  Caller -> Seven one three, five five five, zero one seven five. || callback_phone
+  Nurse -> Great. Okay. Tell me what's going on.
+  Caller -> Two days she's been drinking and drinking. Water, tea, juice. Always a glass in her hand. And she's tired. She's napping all day. That's not like her. || A2
+  Nurse -> About how many glasses a day, would you say?
+  Caller -> Twelve, fifteen. The big blue cup. I fill it at the sink and by the time I'm back it's gone.
+  Nurse -> Okay. That's a lot.
+  Caller -> I'm tired because I was up all night peeing. That's the sugar. That's what the lady said.
+  Nurse -> Marjorie, you've been up at night going to the bathroom?
+  Caller -> Four times. Five. I counted. It's the sugar.
+  Nurse -> Okay. Did you check her sugar, Winston?
+  Caller -> This morning. Two twelve. It was two twelve before breakfast. That's high for her. She's usually one forty, one fifty. || A3
+  Nurse -> Okay. Two twelve before breakfast. And has she had a sugar check since?
+  Caller -> No. I haven't done it since. I'll do it after we talk.
+  Nurse -> Do you have a meter that gives you the number right away?
+  Caller -> The one with the strips. It takes five seconds. She doesn't like the poke so I do her finger.
+  Caller -> He pokes too hard.
+  Nurse -> A new lancet each time helps. We'll show you tomorrow.
+  Nurse -> Okay. Now, her pills. Is she taking the metformin? || A1
+  Caller -> She takes it. Five hundred milligrams, twice a day. Morning and night. She took it this morning. I put it in her hand. || A1
+  Caller -> I did not. I forgot this morning. And I forgot last night too. I think. I fell asleep in the chair.
+  Caller -> She did take it. I watched her.
+  Caller -> You did not watch me. You were making eggs.
+  Nurse -> Okay, okay. It sounds like we're not sure if she took this morning's, or last night's. Is that right?
+  Caller -> I think she took it. But she says she didn't. I don't know. I put it in her hand but I didn't see her swallow. || A1
+  Nurse -> Okay. That's fine. We'll say it's unclear. Marjorie, do you remember if you swallowed it?
+  Caller -> I remember the pill in my hand. I remember putting it on the table. I don't remember swallowing. The pill might still be on the table. Winston, look on the table.
+  Caller -> There's nothing on the table. There's a napkin. A plate. No pill.
+  Nurse -> Okay. Maybe the dog got it. Ha. No, I'm kidding. Let's not worry about that. Marjorie, how's your vision?
+  Caller -> A little blurry. Mostly when I read. The newspaper is fuzzy. It was fine last week. || A4
+  Nurse -> Okay. That can happen when the sugar is high. Any nausea or vomiting?
+  Caller -> No. None. My stomach's fine. I ate a big breakfast. Eggs and toast. I'm hungry all the time. || A5
+  Nurse -> Any weight change that you've noticed?
+  Caller -> She's lost a bit. Her clothes are loose. But she's eaten more lately.
+  Caller -> I lost five pounds. I'm happy about it.
+  Nurse -> Okay. I'll let the provider know about that too.
+  Nurse -> Okay. Winston and Marjorie, here's what I'm going to do. I'm going to message the provider about the high sugar, the thirst, and the question about the metformin. || R1
+  Caller -> Okay. Will they change her pills?
+  Nurse -> They might. That's their decision. Don't give extra metformin tonight to make up for the possible missed dose. Just the regular dose. Okay? || A1
+  Caller -> Just the regular. Okay. I'll do the evening one. And I'll watch her swallow.
+  Caller -> I'll swallow it. I always swallow it. I just forget I did.
+  Nurse -> Ha. I'm also sending a nurse out tomorrow to check her sugar and look at her medicines. || R2
+  Caller -> Tomorrow. Good.
+  Nurse -> And I'll call you back this evening with the provider's answer. || R3
+  Caller -> This evening. We'll be here. We're always here. Where would we go?
+  Nurse -> Ha. Right. Winston, check her sugar before dinner and again at bedtime. Write down each number and the time. And from now on, write down when each pill is given, so you both know. || E1
+  Caller -> Write the pill time. Yes. I'll make a chart. On the fridge. With a pen on a string.
+  Caller -> I told him to do that last year.
+  Nurse -> Ha. A good idea. Also, keep offering her water through the evening. Avoid juice and regular soda. || E2
+  Caller -> No juice. I love my orange juice.
+  Nurse -> I know. It's just for tonight, until we see the number tomorrow.
+  Caller -> Fine. Then I'll have water with a lemon.
+  Caller -> Water. Just for tonight.
+  Nurse -> Right. And call nine one one if she gets confused, can't stop vomiting, has fruity smelling breath, or is hard to keep awake. And call us back if the sugar is over three hundred. || E3
+  Caller -> Confused, vomiting, fruity breath, can't stay awake. Nine one one. Over three hundred, call. I'm writing it down.
+  Nurse -> Perfect. Thanks, both.
+  Caller -> Thank you, Nolan.
+  Nurse -> Anything else I can help with?
+  Caller -> No. It was nice to talk to somebody.
+  Caller -> We don't get many calls.
+  Nurse -> You can call anytime.
+  Caller -> Bye, Nolan. Don't let him write anything wrong.
+  Nurse -> Ha. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marjorie Ellsworth, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-03-02", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Winston Ellsworth, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550175", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported thirst, tiredness and a high sugar in his wife.
+    speaker: Caller
+    turns: [2]
+    quote: "She's been thirsty and tired."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metformin 500 mg twice a day may or may not have been taken this morning or last night (unclear; the husband and wife gave conflicting accounts).
+      speaker: Caller
+      turns: [35]
+      quote: "I think she took it. But she says she didn't."
+      explanation: Documents the uncertain medication dose.
+      facts:
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, last_dose: this morning or last night, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: She had been drinking constantly and napping for two days, and was up several times at night to urinate.
+      speaker: Caller
+      turns: [14]
+      quote: "Two days she's been drinking and drinking."
+      explanation: Documents the thirst and tiredness.
+      facts:
+        - {type: symptom, name: thirsty and tired, present: true, onset: two days, certainty: stated}
+      covers: [A2]
+    - text: Fasting blood sugar was 212 this morning, high for her.
+      speaker: Caller
+      turns: [22]
+      quote: "Two twelve. It was two twelve before breakfast."
+      explanation: Documents the high sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "212", certainty: stated}
+      covers: [A3]
+    - text: Her vision was mildly blurry, mostly when reading.
+      speaker: Caller
+      turns: [40]
+      quote: "A little blurry. Mostly when I read."
+      explanation: Documents the blurry vision.
+      facts:
+        - {type: symptom, name: mildly blurry vision, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: She had no nausea or vomiting.
+      speaker: Caller
+      turns: [42]
+      quote: "No. None. My stomach's fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vomiting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about the high sugar, thirst and the metformin question.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to message the provider about the high sugar, the thirst, and the question about the metformin."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to check her sugar and medicines.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm also sending a nurse out tomorrow to check her sugar and look at her medicines."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with the provider's answer.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll call you back this evening with the provider's answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking her sugar before dinner and at bedtime and writing down each pill with the time.
+      speaker: Nurse
+      turns: [56]
+      quote: "check her sugar before dinner and again at bedtime."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised offering water through the evening and avoiding juice and regular soda.
+      speaker: Nurse
+      turns: [59]
+      quote: "keep offering her water through the evening."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for confusion, uncontrolled vomiting, fruity breath or trouble staying awake, and calling back for a sugar over 300.
+      speaker: Nurse
+      turns: [64]
+      quote: "call nine one one if she gets confused"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

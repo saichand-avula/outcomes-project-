@@ -1,0 +1,256 @@
+call_id: va-061
+split: val
+blueprint: "A volunteer driver, Jarrett Sundquist, delivering groceries finds Opal Fitch sitting on her kitchen floor and unable to get up; she says she is fine. He does not know her birth date, and the nurse hears her surname as Fitz. He cannot tell whether she fell or slid down. She has no obvious injury and says nothing hurts, but he is unsure. Nurse tells him not to lift her alone, helps him check for pain, pages on-call and sends a nurse within two hours. Ambiguous volunteer caller, name drift, DOB not stated, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: found_on_floor_volunteer
+  secondary_tags: [friend_neighbor, name_drift, dob_not_stated, hedging, late_answers, split_turns]
+  clinical_domains: [fall, safety]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Harborview Home Care
+  agency_type: home_health
+  nurse_name: Cosima
+  call_timestamp_utc: "2026-12-01T17:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Opal Fitch
+  patient_name_spoken: Opal Fitch
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Opal Fitz]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Jarrett Sundquist
+  caller_name_spoken: Jarrett Sundquist
+  caller_name_certainty: stated
+  relationship_to_patient: volunteer driver
+  relationship_certainty: stated
+  callback_phone_true: "9015550137"
+  callback_phone_spoken: "9015550137"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Found a woman sitting on her kitchen floor unable to get up
+  reason_category: fall
+  relevant_context: Home care client who lives alone and receives volunteer grocery deliveries
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: found on the floor and unable to get up
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain or injury
+    symptom_present: false
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: unknown whether she fell or slid down
+    symptom_present: true
+    certainty: unclear
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: hitting her head or losing consciousness
+    symptom_present: false
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not lift her alone, keep her warm with a blanket and a cushion, and stay with her until the nurse arrives
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she has pain, cannot move a leg, becomes confused or hard to wake, or has trouble breathing
+    trigger_condition: pain; cannot move a leg; confusion; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harborview Home Care, this is Cosima.
+  Caller -> Hi. Hi. I don't know if I'm calling the right place. I'm Jarrett Sundquist. I'm a volunteer driver, with the senior meals. I'm at the house of Opal Fitch. She's on the floor. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Jarrett. Slow down. Opal Fitz is on the floor? Is she hurt?
+  Caller -> I don't think so. She says she's fine. She's sitting on the kitchen floor. She won't, or can't, get up. I knocked and the door was open and I heard her calling. || A1
+  Nurse -> Okay. Is she conscious? Talking to you?
+  Caller -> Yes, yes. She's talking. She says she's fine. She keeps saying I'm fine, I'm fine, I just sat down.
+  Nurse -> Did she fall, do you think?
+  Caller -> I don't know. I wasn't here. She says she sat down on purpose. But she's on the floor, in front of the fridge. And the chair is across the room. So I don't know. || A3
+  Nurse -> Okay. Did she hit her head?
+  Caller -> She says no. I don't see any blood. Or a bump. Her hair is, I don't want to touch her. I don't think so.
+  Nurse -> Did she pass out? Or did she black out, even for a moment?
+  Caller -> I appreciate you being patient with me.
+  Nurse -> Not a problem at all.
+  Caller -> She says no. But I mean, I'm not sure she'd tell me. She's very proud. || A4
+  Nurse -> Okay. Does anything hurt? Her hip, her back, her wrist?
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> I asked. She says no. Nothing hurts. But then when I asked if she wanted me to help her up she said no, not yet. So maybe it does. I don't know. || A2
+  Nurse -> That's a good observation. Don't lift her. Let's talk through this together. How old is she, do you know?
+  Caller -> Sorry, I lost my train of thought.
+  Nurse -> That's okay. We were just getting started.
+  Caller -> Eighty something. I deliver there every Tuesday. She's always very nice. I don't know her birthday, I'm sorry. I only know her name from the delivery sheet.
+  Nurse -> That's all right. I can find her with her name and address. What's the address?
+  Caller -> Sorry, I keep going back and forth. It's been a long day.
+  Nurse -> I understand. Take a breath.
+  Caller -> Three twelve Birch. Birch Lane. I'm at her door. Wait. I'm inside. Three twelve.
+  Nurse -> Got it. And what number are you on?
+  Caller -> Nine oh one, five five five, zero one three seven. That's my cell. || callback_phone
+  Nurse -> Thank you. Jarrett, here's what I want. Please do not try to lift her by yourself. It's easy to hurt her, or yourself. Get a blanket or a coat and put it over her. Put a cushion behind her back if there's one nearby. || E1
+  Caller -> A blanket. There's a throw on the couch. I'll get it. Hang on.
+  Nurse -> Take your time.
+  Caller -> Can I ask you to hold for a moment? The kettle is going.
+  Nurse -> Of course.
+  Caller -> Okay. I put it on her shoulders. She says thank you. She says, you're a nice boy. I'm fifty two.
+  Nurse -> Ha. That's sweet.
+  Caller -> Yes.
+  Nurse -> Now, I'm going to page the on-call clinician, and I'm sending a nurse out. She should be there within two hours. || R1, R2
+  Caller -> Two hours. Okay. I can stay. I don't have another route until four.
+  Nurse -> That's very kind. Please stay with her. I'm also going to have a nurse call you.
+  Caller -> Sorry, I'm writing this down as we go.
+  Nurse -> Good idea. I'll pause.
+  Caller -> Okay. What if she wants to get up? She keeps trying to push on the floor.
+  Nurse -> Tell her to wait. Is she able to move her legs, both arms? Without pain?
+  Caller -> Can you hear me okay? The signal's a little weak.
+  Nurse -> I can hear you fine.
+  Caller -> Hold on. Opal, can you wiggle your toes? She's wiggling. Both feet. She says that's fine. She can move her arms.
+  Nurse -> Good. And her color? Is she pale or sweaty?
+  Caller -> Okay. I'm back. What was the question?
+  Nurse -> I'll repeat it, no trouble.
+  Caller -> Sorry, I just dropped my pen.
+  Nurse -> That's all right.
+  Caller -> I think the line cut out for a second. Are you still there?
+  Nurse -> Yes, I'm here.
+  Caller -> She's normal. A little pink. She's talking my ear off about the cat.
+  Nurse -> Okay. Keep her talking. That's good. If she has any pain, if she can't move a leg, if she gets confused or hard to wake up, or if she has trouble breathing, call nine one one right away. || E2
+  Caller -> Pain. Can't move a leg. Confused. Hard to wake. Trouble breathing. Nine one one. Got it. I'm writing it on the delivery sheet.
+  Nurse -> Perfect.
+  Caller -> Um. Let me think. I'm trying to remember.
+  Nurse -> Take your time, there's no rush.
+  Caller -> Should I call her family?
+  Nurse -> We'll contact the family from our records. You just stay with her.
+  Caller -> Okay. I will.
+  Nurse -> Thank you for calling, Jarrett. You did the right thing.
+  Caller -> I almost didn't. I wasn't sure it was an emergency.
+  Nurse -> It's never wrong to call.
+  Caller -> I'll sit with her. I'll sit on the floor too. She likes company.
+  Nurse -> That's lovely.
+  Caller -> Thank you. I'll wait.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Fitch, heard_form: Fitz, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Opal Fitch, certainty: unclear, heard_as: [Opal Fitz], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Jarrett Sundquist, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: volunteer driver, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550137", certainty: stated, heard_as: [], turns: [28]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Found a woman sitting on her kitchen floor unable to get up.
+    speaker: Caller
+    turns: [2]
+    quote: "She's on the floor."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She was sitting on the kitchen floor and could not or would not get up.
+      speaker: Caller
+      turns: [4]
+      quote: "She's sitting on the kitchen floor."
+      explanation: Documents the finding.
+      facts:
+        - {type: symptom, name: found on the floor and unable to get up, present: true, certainty: stated}
+      covers: [A1]
+    - text: (unclear; she says nothing hurts but declined help up) Pain or injury was not apparent.
+      speaker: Caller
+      turns: [18]
+      quote: "Nothing hurts."
+      explanation: Documents uncertain absence of pain.
+      facts:
+        - {type: symptom, name: pain or injury, present: false, certainty: unclear}
+      covers: [A2]
+    - text: (unclear) It was not known whether she fell or sat down on purpose.
+      speaker: Caller
+      turns: [8]
+      quote: "She says she sat down on purpose."
+      explanation: Documents the uncertain mechanism.
+      facts:
+        - {type: symptom, name: unknown whether she fell or slid down, present: true, certainty: unclear}
+      covers: [A3]
+    - text: (unclear) She denied hitting her head or passing out.
+      speaker: Caller
+      turns: [10]
+      quote: "I don't see any blood."
+      explanation: Documents uncertain negatives.
+      facts:
+        - {type: pertinent_negative, name: hitting her head or losing consciousness, certainty: unclear}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to page the on-call clinician"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm sending a nurse out."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not lifting her alone, keeping her warm with a blanket and cushion, and staying with her.
+      speaker: Nurse
+      turns: [29]
+      quote: "Please do not try to lift her by yourself."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for pain, inability to move a leg, confusion or hard waking, or trouble breathing.
+      speaker: Nurse
+      turns: [55]
+      quote: "call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

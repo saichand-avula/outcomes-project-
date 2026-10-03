@@ -1,0 +1,272 @@
+call_id: tr-262
+split: train
+blueprint: "Caller says he is the nephew of a hospice patient, spells the aunt's last name (Dubois, 'like the French, D U B O I S'), is vague about his own role, and reports that she is more restless and pulling at her oxygen tubing since this morning, while he sat with her for the afternoon. He mis-hears the nurse twice, the nurse repeats her sentences, and the hospice phone drops once and he calls back. Oxygen saturation is not available. Nurse plans an on-call page and a nurse visit this evening, advises keeping the oxygen on, and says she will call back in an hour. Nephew caller, restless and pulling at tubing, name spelled, call dropped and resumed, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [name_spelled, hedging, late_answers, split_turns, speaker_label_errors, crosstalk]
+  clinical_domains: [agitation_delirium, dyspnea, equipment]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-26T22:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Simone Dubois
+  patient_name_spoken: Simone Dubois
+  patient_name_certainty: stated
+  patient_dob_true: "1944-08-15"
+  patient_dob_spoken: "1944-08-15"
+  patient_dob_certainty: stated
+  caller_name_true: Cyrus Dubois
+  caller_name_spoken: Cyrus Dubois
+  caller_name_certainty: stated
+  relationship_to_patient: nephew
+  relationship_certainty: stated
+  callback_phone_true: "5045550102"
+  callback_phone_spoken: "5045550102"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his aunt is restless and pulling at her oxygen tubing
+  reason_category: agitation
+  relevant_context: Hospice patient on home oxygen
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: restless and pulling at her oxygen tubing
+    symptom_present: true
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: breathing looks faster
+    symptom_present: true
+    certainty: unclear
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has been sitting with her since the afternoon and her usual caregiver left at three
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blue lips or fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: restlessness and possibly faster breathing in a patient on oxygen
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Keep the oxygen tubing on and the concentrator running, check that the tubing is not kinked, and gently guide her hands away from the tubing
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if her lips turn blue, she struggles to breathe, or she cannot be woken
+    trigger_condition: blue lips; struggling to breathe; cannot be woken
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Hi. Is this, uh, the hospice? I'm calling for my aunt. She's one of yours.
+  Nurse -> Yes, this is hospice. What's your aunt's name?
+  Caller -> Simone Dubois. D U B O I S. Like the French. || patient_name
+  Nurse -> Dubois. Okay. And your name?
+  Caller -> I'm Cyrus. Cyrus Dubois. I'm her nephew. My dad is her brother. || caller_name, relationship
+  Nurse -> Okay, Cyrus. Can you give me Simone's date of birth?
+  Caller -> Um. August fifteenth? Nineteen forty four. I think. I had to ask my cousin earlier. || patient_dob
+  Nurse -> Okay. And a number for you?
+  Caller -> Five oh four, five five five, zero one zero two. || callback_phone
+  Nurse -> Got it. Cyrus, what's going on?
+  Caller -> She's restless. She's been, since this morning I think, since before I got here. The caregiver said that. She keeps pulling at the tube. The oxygen tube. In her nose. || cc, A1
+  Nurse -> Okay. Pulling at the oxygen tubing. How long have you been with her?
+  Caller -> I got here around, I don't know. Two? The regular lady left at three. So I've been here since the afternoon. Since two or three. || A3
+  Nurse -> Okay. So you're there alone with her.
+  Caller -> Yes. It's just me. I'm the only one here. My cousin's on the way, but she's an hour away.
+  Nurse -> Okay. Is the front door locked or unlocked? In case the nurse arrives before your cousin.
+  Caller -> I'll unlock it. It's the blue door with the wreath. There's a ramp on the side.
+  Nurse -> Perfect. Leave the porch light on.
+  Nurse -> Okay. Is she awake? Is she talking?
+  Caller -> She's sort of awake. Her eyes are open. She's mumbling. I can't really tell what she's saying. She keeps reaching up and tugging. Then I put it back, and then she does it again.
+  Nurse -> Okay. Cyrus, I'm sorry, you faded out for a second. Can you say that again?
+  Caller -> I said she keeps tugging at it. And I keep putting it back.
+  Nurse -> Okay. Is she breathing okay? Does she look short of breath?
+  Caller -> I don't know. She, I'm not really sure. It looks fast to me. Faster than before? But I'm not good at this. I don't know what normal is. || A2
+  Nurse -> Okay. Can you count her breaths for thirty seconds? Watch her chest.
+  Caller -> Hold on. Hold on. I'm, ugh, I lost count. She moved. I'll try again. Hold on.
+  Caller -> I got, it's, I think twelve? In the thirty seconds? Or fourteen? I'm sorry, it's hard.
+  Nurse -> That's okay. That's helpful. That could be a little fast. How are her lips?
+  Caller -> Her lips are, they're pink. Not blue. Well, I think pink. The lamp is yellow so it's hard to tell. They don't look blue. || A4
+  Nurse -> Okay. Has she fallen, or is she sitting up in the bed?
+  Caller -> She's in the hospital bed. It's raised. She's propped up. No fall. She's just in the bed. || A4
+  Nurse -> Okay. Can you turn on a brighter light and look at her lips again?
+  Caller -> Okay. Hold on. I'm turning on the overhead. Okay. They're pink. Normal pink. Not blue.
+  Caller -> Sorry, my phone is dying. I'm plugging it in. Hold on.
+  Nurse -> Cyrus? Hello? Cyrus?
+  Nurse -> Hello? If you can hear me, please call back.
+  Caller -> Sorry. Hi. Sorry. It cut out. I had to plug in the phone. Are you there?
+  Nurse -> I'm here. Okay. Cyrus, I want to get a nurse out to see her tonight. I'm going to page the on-call clinician now. || R1
+  Caller -> Okay. Okay. Thank you. Will you call me?
+  Nurse -> Yes. I'll call you back in an hour. || R3
+  Caller -> An hour. Okay. And somebody's coming? Tonight?
+  Nurse -> I'm sending a nurse out this evening. || R2
+  Caller -> Okay. Good. Because I'm kind of scared. I've never done this alone.
+  Nurse -> That's okay. You're doing fine. Let's go through a couple of things you can do right now.
+  Caller -> Okay. Yes. Please.
+  Nurse -> Keep the oxygen on. Make sure the machine is running and the tubing isn't kinked or bent. And if she pulls at it, gently move her hand away and put it back. || E1
+  Caller -> Machine's on. It's humming. The tube isn't kinked, I checked. I'll hold her hand when she reaches. Okay.
+  Nurse -> Does she seem to be in any pain? Is she grimacing or moaning?
+  Caller -> No. She's not moaning. She's more like, agitated. Like she's looking for something.
+  Nurse -> Okay. I'll let the on-call clinician know that.
+  Caller -> Okay. Thank you.
+  Nurse -> That's perfect. Talk to her calmly. Tell her who you are.
+  Caller -> I told her. She looked at me and said, "Cyrus." So she knows. She knows me.
+  Nurse -> That's wonderful. That's a good sign.
+  Caller -> Okay. Yeah.
+  Nurse -> One more thing. If her lips turn blue, if she's struggling to breathe, or if you can't wake her, call nine one one right away. || E2
+  Caller -> Blue lips. Struggling. Can't wake her. Nine one one. Okay. I've got it.
+  Nurse -> Okay. And Cyrus, who is the regular caregiver? Do you have her number?
+  Caller -> Her name is Joyce. I have her number on my phone. I could call her.
+  Nurse -> It might help to call her and let her know. Maybe she can come back, or tell you what's normal.
+  Caller -> Okay. I'll call her. Right after this.
+  Nurse -> And if the phone dies again, call this number back. We're here all night.
+  Caller -> I plugged it into the wall. It's at five percent. It's coming up.
+  Nurse -> Good.
+  Nurse -> Good. I'll let you go so you can do that. And I'll call you in an hour.
+  Caller -> An hour. Okay. Thank you. Thank you, Carla.
+  Nurse -> You're welcome. You're not alone in this.
+  Caller -> Okay. Bye.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "since this morning", heard_form: "since this morning I think, since before I got here", fact_id: A1}
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "Hold on. I'm turning on the overhead", fact_id: A4}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Simone Dubois, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1944-08-15", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Cyrus Dubois, certainty: stated, heard_as: [], turns: [6]}
+    relationship: {value: nephew, certainty: stated, turns: [6]}
+    callback_phone: {value: "5045550102", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his aunt was restless and pulling at her oxygen tubing.
+    speaker: Caller
+    turns: [12]
+    quote: "She's restless."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She was restless and kept pulling at her oxygen tubing since this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "She keeps pulling at the tube."
+      explanation: Documents the restlessness.
+      facts:
+        - {type: symptom, name: restless and pulling at her oxygen tubing, present: true, onset: since this morning, certainty: stated}
+      covers: [A1]
+    - text: Her breathing looked faster than before (unclear; the caller was unsure what normal was).
+      speaker: Caller
+      turns: [25]
+      quote: "It looks fast to me."
+      explanation: Documents the possible fast breathing while preserving the uncertainty.
+      facts:
+        - {type: symptom, name: breathing looks faster, present: true, certainty: unclear}
+      covers: [A2]
+    - text: He had been sitting with her since the afternoon after her regular caregiver left at three.
+      speaker: Caller
+      turns: [14]
+      quote: "The regular lady left at three."
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: Her lips looked pink and not blue, and there was no fall.
+      speaker: Caller
+      turns: [34]
+      quote: "They're pink. Normal pink. Not blue."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blue lips or fall, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to page the on-call clinician now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out this evening.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm sending a nurse out this evening."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call you back in an hour."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping the oxygen on and running, checking that the tubing was not kinked, and gently moving her hand away from it.
+      speaker: Nurse
+      turns: [47]
+      quote: "Keep the oxygen on. Make sure the machine is running and the tubing isn't kinked or bent."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if her lips turned blue, she struggled to breathe, or she could not be woken.
+      speaker: Nurse
+      turns: [57]
+      quote: "If her lips turn blue, if she's struggling to breathe, or if you can't wake her, call nine one one right away."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

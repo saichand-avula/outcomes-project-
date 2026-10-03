@@ -1,0 +1,400 @@
+call_id: tr-332
+split: train
+blueprint: "A wife who just took over her husband's medicines gave him an extra Dilantin (100 mg) at three, thinking it was the Dilaudid for his belly pain; the two bottles sit side by side with similar labels. His pain is a seven and he has not had any Dilaudid, and since the extra dose he is sleepy, unsteady and a little queasy; no seizure. The nurse sorts out the bottles line by line, pages on-call, tells her to hold both medicines until the clinician calls, plans a visit within the hour and a callback in twenty minutes, and gives fall and seizure precautions. Wrong-medication flag plus uncontrolled pain, tall-man look-alike pair, spouse caller, phone from file, long v2."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [tall_man_drug, prn_and_scheduled, phone_from_file, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, pain, sedation, falls_safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Highland Hospice
+  agency_type: hospice
+  nurse_name: Isidro
+  call_timestamp_utc: "2026-10-25T21:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marshall Quigley
+  patient_name_spoken: Marshall Quigley
+  patient_name_certainty: stated
+  patient_dob_true: "1964-07-18"
+  patient_dob_spoken: "1964-07-18"
+  patient_dob_certainty: stated
+  caller_name_true: Delores Quigley
+  caller_name_spoken: Delores Quigley
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2125550167"
+  callback_phone_spoken: "2125550167"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported giving the wrong medicine for her husband's pain and that he is now sleepy and unsteady
+  reason_category: medication
+  relevant_context: Hospice patient with cancer pain and a seizure disorder
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Dilantin
+    medication_name_spoken: Dilantin
+    medication_status: extra_dose
+    dose: "100"
+    unit: mg
+    frequency: three times a day
+    last_dose: an extra one at three
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Dilaudid
+    medication_name_spoken: Dilaudid
+    medication_status: prescribed
+    dose: "2"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: none today
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: belly pain
+    symptom_present: true
+    severity: "7"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepy and unsteady
+    symptom_present: true
+    onset_or_duration: since three
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: nausea
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: seizure activity
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: context
+    reporter: caller
+    history_or_context_text: The Dilantin and Dilaudid bottles sit side by side with similar labels and she only recently took over his medicines
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: extra Dilantin given by mistake with pain of seven and sleepiness
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold the Dilantin and the Dilaudid until the clinician calls
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him in bed or the recliner, help him every time he gets up, and keep the bed rail up and a light on
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Put the Dilantin and Dilaudid bottles on different shelves, read each label twice, and write down every dose and time
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he has a seizure lasting more than five minutes, cannot be woken or is breathing slowly
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Gave an extra Dilantin by mistake instead of Dilaudid
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Belly pain of seven out of ten with no pain medicine given
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Highland Hospice, this is Isidro.
+  Caller -> Isidro, hi. It's Delores Quigley. I did something wrong with my husband's medicine. Marshall Quigley. I gave him the wrong one. I think I gave him the wrong one. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Delores. Let's slow down. I'm here. Tell me your husband's date of birth first.
+  Caller -> July eighteenth. Nineteen sixty four. || patient_dob
+  Nurse -> Thank you. And I have a phone number on file. Is it two one two, five five five, zero one six seven? || callback_phone
+  Caller -> Yes. That's the house. That's the one. I'm in the kitchen. He's in the bedroom.
+  Nurse -> Is he able to hear you from there?
+  Caller -> No. The door is half closed. I took the cordless to the kitchen so he wouldn't hear me upset.
+  Nurse -> That's thoughtful. You're doing fine.
+  Caller -> I don't feel fine. I feel like I poisoned my husband.
+  Nurse -> You didn't poison him. We'll go through it step by step.
+  Nurse -> Good. Now, what happened?
+  Caller -> So. Marshall's belly hurts. It's been hurting all day. And I was supposed to give him the Dilaudid. The pain one. And I went to the pill basket, and I picked up the bottle that I thought was Dilaudid. And I gave him one. And then I looked at the bottle again after, and it says Dilantin. D I L A N T I N. It was the wrong bottle. || A1
+  Nurse -> Where was the bottle when you gave it? In the basket?
+  Caller -> In the basket. I picked it up and tapped one out. I didn't read it. I always read it, I always do, but I was in a hurry because he was groaning and I wanted to help.
+  Nurse -> That's understandable.
+  Nurse -> Okay. So you gave him a Dilantin tablet instead of the Dilaudid. Do you know what time? || A1, A2
+  Caller -> At three. It's nine thirty now. That's six and a half hours ago. And it's not his regular time. His regular time for the Dilantin is eight, two and eight. Three times a day. So I gave him an extra. Plus the two o'clock one. An hour later. || A1
+  Nurse -> Okay. So he got his regular two o'clock Dilantin and then an extra one at three. How many milligrams is the tablet? || A1
+  Caller -> Hundred. Hundred milligrams. Each one. So he got two hundred in one hour. Oh God.
+  Nurse -> Take a deep breath, Delores.
+  Caller -> I'm trying. I'm breathing. Okay.
+  Nurse -> Okay. That's the amount. Thank you for being so clear. And the Dilaudid, what is the dose? || A2
+  Caller -> Two milligrams. Every four hours if he needs it. For the pain. But I haven't given him any today. Not one. He's been in pain all day and I didn't give him any Dilaudid because I gave him the wrong thing. So his pain is bad. And I made it worse. || A2
+  Nurse -> Okay. Delores, you didn't make his pain worse. You made a mistake, and we'll fix it. But I want to ask about the pain. What would he say it is, zero to ten?
+  Caller -> He says seven. A seven. He's been a seven since lunch. He was a five this morning. Now a seven. He says it's the low belly. Like a squeezing. He's curled up. || A3, F2
+  Nurse -> Does he say where exactly it hurts? Low on one side, or all across?
+  Caller -> Low, across. Like a belt. He's holding his stomach. He's got his knees pulled up.
+  Nurse -> Okay. That's the usual place for him?
+  Caller -> Yes. The cancer is in his bowel. It's always there. But today it's worse.
+  Nurse -> Okay. A seven. That's significant and we need to take care of it. How is he otherwise? Since the extra Dilantin, is he different? || A1
+  Caller -> He's sleepy. Very sleepy. He's been dozing since four. And when he wakes he's slow. And he tried to go to the bathroom at six and he was wobbly. He bumped into the door frame. He wasn't like that before. || A4
+  Caller -> His speech is a little slower. Not slurred. Just slow, like he's thinking before each word.
+  Nurse -> Okay. That's something to tell the clinician.
+  Nurse -> Okay. Is he still sleepy right now?
+  Caller -> He's asleep. He's snoring. I just checked. I woke him a few minutes ago, to ask if he wanted a drink, and he said no. And then he went right back to sleep.
+  Nurse -> Are his lips pink? Is he breathing at a normal pace?
+  Caller -> Pink. Normal. In and out. Slow, like sleeping. About, I counted, fourteen in a minute.
+  Nurse -> That's normal. Good.
+  Nurse -> Okay. Can he be woken easily? If you say his name loudly or touch his shoulder?
+  Caller -> Yes. He wakes up. He opens his eyes and says what. And then he closes them. He's not unconscious. He just goes right back.
+  Nurse -> Okay. That's important. Any seizure activity? Jerking, staring, anything like that?
+  Caller -> No. No seizure. Nothing. He's had seizures before, in the spring. So I'm watching. But no. Nothing like that. || A6
+  Nurse -> Good. Nausea? Vomiting?
+  Caller -> A little queasy. He said he felt sick to his stomach. Around seven. He didn't throw up. He had a couple of crackers and a little ginger ale and kept it down. || A5
+  Nurse -> Has he had anything else to eat or drink today?
+  Caller -> Toast this morning. Some broth at noon. A little pudding. He doesn't eat much anymore.
+  Nurse -> Okay. That's helpful.
+  Nurse -> Okay. Delores, I want to explain something. Dilantin in a higher amount can cause sleepiness, unsteadiness and nausea. That's what you're seeing. It's usually not dangerous with one extra tablet, but I want the on-call clinician to decide what to do. I'm going to page them right now. || R1
+  Caller -> Okay. Please. What do I do about the pain?
+  Nurse -> Here's what I want. Please don't give the Dilantin or the Dilaudid until the clinician calls back. Not the next Dilantin, not the Dilaudid. Hold both until we hear. || R2
+  Caller -> But he's in pain. A seven. Can't I give him anything?
+  Nurse -> I understand. The Dilaudid is a strong pain medicine and it can make him even sleepier. Because he's already sleepy from the Dilantin, I need the clinician to say what's safe. It should only be a short wait. I'll call you back in twenty minutes. || R4
+  Caller -> Twenty minutes. Okay. And I just wait. And he hurts.
+  Nurse -> I know. It's hard. In the meantime, there are non-medicine things we can do. A warm heating pad on low, over a thin cloth, on his belly. A pillow under his knees. Quiet. And talk to him gently.
+  Caller -> A heating pad. We have one. I'll get it. Okay.
+  Caller -> It's on the shelf in the hall closet. I'll plug it in by the bed. I'll put a towel under it so it's not directly on him.
+  Nurse -> Perfect. Only on low.
+  Nurse -> Also, I'm sending a nurse out within the hour. She'll bring supplies and examine him. || R3
+  Caller -> Within the hour. Okay. Good. That's good.
+  Nurse -> Delores, tell me about the bottles. You said they're side by side?
+  Caller -> Yes. In a basket on the kitchen counter. All his bottles. There are eight. They look the same. Same orange bottle. Same white cap. The labels have the same layout. And they both start with D I L A. Dilantin and Dilaudid. I picked up the one on the left. I thought the Dilaudid was on the left. || A7
+  Nurse -> Do all of his bottles have child caps?
+  Caller -> Most do. Two don't. I asked for easy ones because of my arthritis. So some are the easy kind and some are the kind you push and twist.
+  Nurse -> Okay. That's fine. We'll talk about organizing.
+  Nurse -> Okay. That's a classic mix-up. They look alike and sound alike. Have you been giving his medicines for long?
+  Caller -> Just since last week. His sister was doing it. She went back to Phoenix. So it's me now. I'm not good with this. I'm a bookkeeper. I'm good with numbers. But not with this.
+  Caller -> I do the books for a bakery. Twenty two years. I'm fine with ledgers. Medicines are different. The numbers are all in the little print.
+  Nurse -> Ha. I'd rather read a ledger.
+  Nurse -> You're doing fine. You noticed the mistake and you called. That's what counts.
+  Caller -> I'm so scared. I'm scared he's going to have a seizure. Or not wake up.
+  Caller -> His last seizure was in April. It was awful. His whole body. For two minutes. Then he was out for an hour.
+  Nurse -> That sounds frightening. I'm glad you're watching for it.
+  Nurse -> I understand. Let's talk about what to watch for. Call nine one one if he has a seizure that lasts more than five minutes, if you can't wake him up, or if his breathing is slow or noisy. || E3
+  Caller -> Seizure over five minutes. Can't wake him. Slow or noisy breathing. Nine one one. Okay. I'm writing it down. I have a pen.
+  Nurse -> Good. Also, keep him in bed or in his recliner. Help him every time he gets up, even to the bathroom. Keep the rail up and a light on. I don't want him falling. || E1
+  Caller -> Rail up. Light on. Help him up. Okay. I'll sit by the bed. I'll bring the chair.
+  Caller -> I have the rocking chair. It was my mother's. It's the most comfortable one.
+  Nurse -> Bring it in. You'll be there a while.
+  Nurse -> Perfect. And after this is sorted, let's make the bottles safer. Put the Dilantin and the Dilaudid on different shelves. Read each label twice before you give anything. And write down every dose and time. || E2
+  Caller -> Different shelves. Two times. Write it down. I'll put a sticker on the Dilaudid. A big red one. For pain. || A2
+  Nurse -> That's a good idea.
+  Caller -> His sister calls every night at nine. She's going to ask. Do I tell her?
+  Nurse -> That's up to you. If you'd like me to talk to her, I can, with your permission.
+  Caller -> No. I'll tell her. She'll yell. But I'll tell her.
+  Caller -> I'm so sorry. I'm so, so sorry.
+  Nurse -> Don't apologize. Mistakes happen, especially for someone new to this. You did the right thing by calling right away.
+  Caller -> Thank you for not yelling at me. My sister yells at me.
+  Caller -> She thinks I'm incompetent. She's been saying it for thirty years. Since I was nineteen.
+  Nurse -> That sounds hard. You're doing a hard job right now.
+  Caller -> I'm trying. Marshall says I'm doing fine.
+  Nurse -> Then trust Marshall.
+  Nurse -> No yelling here. We just fix it.
+  Caller -> Can I ask something? Is he going to be okay after this? Is there any lasting harm?
+  Nurse -> One extra tablet like this is very unlikely to cause lasting harm. The clinician will tell us whether to adjust his doses. I don't want to promise, but this is fixable.
+  Caller -> Okay. That's what I needed to hear. Fixable.
+  Caller -> Okay. Okay. I'll go sit with him. I'll get the heating pad.
+  Caller -> Should I wake him to check on him? Or let him sleep?
+  Nurse -> Let him sleep, but peek at him every ten or fifteen minutes. If he stirs, check that he answers you.
+  Caller -> Every fifteen. I'll set a timer on the stove.
+  Nurse -> Perfect. And keep your phone close.
+  Caller -> It's in my apron pocket. I haven't put it down since three.
+  Nurse -> Good. We'll talk soon.
+  Nurse -> Do that. I'm paging now. I'll call you in twenty minutes.
+  Caller -> Okay. Bye. Thank you, Isidro.
+  Nurse -> Bye, Delores.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marshall Quigley, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-07-18", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Delores Quigley, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550167", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported giving the wrong medicine for her husband's pain and that he was now sleepy and unsteady.
+    speaker: Caller
+    turns: [2]
+    quote: "I did something wrong with my husband's medicine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: An extra Dilantin 100 mg was given at three, an hour after his regular two o'clock dose.
+      speaker: Caller
+      turns: [18]
+      quote: "So I gave him an extra. Plus the two o'clock one. An hour later."
+      explanation: Documents the wrong extra dose.
+      facts:
+        - {type: medication, name: Dilantin, dose: "100", unit: mg, frequency: three times a day, last_dose: an extra one at three, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Dilaudid 2 mg every four hours as needed had not been given at all today.
+      speaker: Caller
+      turns: [24]
+      quote: "Two milligrams. Every four hours if he needs it."
+      explanation: Documents the intended pain medicine.
+      facts:
+        - {type: medication, name: Dilaudid, dose: "2", unit: mg, frequency: every four hours as needed, prn: true, last_dose: none today, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: Low belly pain was a seven, up from a five that morning, with a squeezing feeling.
+      speaker: Caller
+      turns: [26]
+      quote: "He says seven. A seven."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: belly pain, present: true, severity: "7", certainty: stated}
+      covers: [A3]
+    - text: He had been sleepy since four and was wobbly, bumping into the door frame.
+      speaker: Caller
+      turns: [32]
+      quote: "He's sleepy. Very sleepy."
+      explanation: Documents the sleepiness and unsteadiness.
+      facts:
+        - {type: symptom, name: sleepy and unsteady, present: true, onset: since three, certainty: stated}
+      covers: [A4]
+    - text: He was a little queasy without vomiting.
+      speaker: Caller
+      turns: [45]
+      quote: "A little queasy."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: nausea, present: true, severity: mild, certainty: stated}
+      covers: [A5]
+    - text: There was no seizure activity.
+      speaker: Caller
+      turns: [43]
+      quote: "No. No seizure. Nothing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: seizure activity, certainty: stated}
+      covers: [A6]
+    - text: The Dilantin and Dilaudid bottles sat side by side with similar labels, and she had only recently taken over his medicines.
+      speaker: Caller
+      turns: [62]
+      quote: "They look the same. Same orange bottle."
+      explanation: Documents how the mix-up happened.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'm going to page them right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised holding both the Dilantin and the Dilaudid until the clinician called back.
+      speaker: Nurse
+      turns: [51]
+      quote: "Please don't give the Dilantin or the Dilaudid until the clinician calls back."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [59]
+      quote: "I'm sending a nurse out within the hour."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised keeping him in bed or the recliner, helping him whenever he got up, with the rail up and a light on.
+      speaker: Nurse
+      turns: [76]
+      quote: "keep him in bed or in his recliner."
+      explanation: Documents fall safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the Dilantin and Dilaudid on different shelves, reading each label twice and writing down every dose and time.
+      speaker: Nurse
+      turns: [80]
+      quote: "Put the Dilantin and the Dilaudid on different shelves."
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for a seizure lasting more than five minutes, being unable to wake him or slow or noisy breathing.
+      speaker: Nurse
+      turns: [74]
+      quote: "Call nine one one if he has a seizure that lasts more than five minutes"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I gave him the wrong one."}
+    - {category: uncontrolled_symptom, turns: [26], quote: "He says seven. A seven."}

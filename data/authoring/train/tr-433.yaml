@@ -1,0 +1,260 @@
+call_id: tr-433
+split: train
+blueprint: "A wife calls hospice on a choppy cell connection about her 81-year-old husband's constipation: words drop out ('He hasn't had. In three days.') and she repeats them clearly. No bowel movement in three days, mild bloating, on oxycodone for pain, MiraLAX as needed which he has refused. No vomiting. Nurse plans to message the team about a stronger bowel regimen, a nurse visit tomorrow, and gives fluid and fiber tips. ASR dropped words, spouse caller, patient 65-89, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: dropped_words
+  secondary_tags: [dropped_words, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [constipation, medication, nausea_vomiting]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Tern Harbor Hospice
+  agency_type: hospice
+  nurse_name: Raul
+  call_timestamp_utc: "2026-11-18T17:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: [oxycodone]
+chief_complaint:
+  patient_name_true: Lawrence Kettleborough
+  patient_name_spoken: Lawrence Kettleborough
+  patient_name_certainty: stated
+  patient_dob_true: "1945-06-19"
+  patient_dob_spoken: "1945-06-19"
+  patient_dob_certainty: stated
+  caller_name_true: Dorothea Kettleborough
+  caller_name_spoken: Dorothea Kettleborough
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9195550168"
+  callback_phone_spoken: "9195550168"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband has not had a bowel movement in three days
+  reason_category: constipation
+  relevant_context: Hospice patient on opioid pain medicine
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement in three days
+    symptom_present: true
+    severity: moderate
+    onset: three days
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: MiraLAX
+    medication_name_spoken: MiraLAX
+    medication_status: prescribed
+    dose: "17"
+    unit: g
+    frequency: once a day as needed
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild belly bloating
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team
+    reason_or_trigger: ask about a stronger bowel regimen
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer prune juice and warm fluids, small amounts of fruit and fiber, and keep him moving when he can
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, severe belly pain, a hard swollen belly or no bowel movement after tomorrow's visit
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Tern Harbor Hospice, this is Raul.
+  Caller -> Raul, hi. I'm so sorry to call right at suppertime.
+  Nurse -> No problem. Take your time, Dorothea.
+  Nurse -> It's no trouble. Go ahead.
+  Caller -> Hello? Raul? It's Dorothea Kettleborough. Can you hear me? I'm calling about my husband, Lawrence Kettleborough. K E T T L E B O R O U G H. || caller_name, patient_name, relationship
+  Nurse -> Yes, Dorothea. You're a little choppy. I can hear you. What's going on with Lawrence?
+  Caller -> I'm in the hallway. The signal is bad in the house. The walls are thick. They're old plaster walls.
+  Caller -> It's his bowels. He hasn't had. In three days. And he's, I think he's uncomfortable. || cc, A1
+  Nurse -> I'm sorry, I lost part of that. He hasn't had what in three days?
+  Caller -> A bowel movement. He hasn't had a bowel movement in three days. Three days. || A1
+  Nurse -> Okay. Three days. Thanks for repeating that. Let me get his chart open. What's his date of birth?
+  Caller -> Sorry. I'm not good with these phones. My granddaughter set it up and I don't know half the buttons.
+  Caller -> June nineteenth. Nineteen forty five. || patient_dob
+  Nurse -> Thank you. Is he awake right now?
+  Caller -> He's in his chair with the crossword. He's doing it in pencil. He's very proud of his pencil.
+  Nurse -> And your number, in case we lose you?
+  Caller -> Nine one nine, five five five, zero one six eight. || callback_phone
+  Nurse -> Got it. Tell me about his belly. Is it swollen? Does it hurt?
+  Caller -> Sorry, one second, the line dropped again. I'm back. Can you still hear me?
+  Nurse -> I can. You're clear now.
+  Caller -> A little bloated. It's tight. He says it's uncomfortable but not a pain. Not sharp. He keeps rubbing it. || A3
+  Nurse -> Is he nauseated? Has he vomited?
+  Caller -> No vomiting. No throwing up. He ate a little toast this morning and kept it down. || A4
+  Nurse -> Good. What is he taking for pain?
+  Caller -> He's been on it since September. The pain has been much better. He's sleeping again.
+  Caller -> The oxycodone. Every four hours. It's the one that stops him up, I know. The nurse told us.
+  Nurse -> Right. Is he taking anything for his bowels? Do you have MiraLAX, or senna? || A2
+  Caller -> We have MiraLAX. The powder. Seventeen grams in water, once a day as needed. But he won't drink it. He says it tastes like a swimming pool. || A2
+  Nurse -> Ha. Some people say that. Have you tried mixing it in juice?
+  Caller -> I told him it's like medicine in a pool. He said, I don't swim in medicine.
+  Nurse -> Ha. He has a point.
+  Caller -> I tried apple juice. He said no. He said I was trying to trick him. Which I was.
+  Nurse -> Ha. That's the right approach. Okay. Dorothea, I'd like to ask the team about a stronger bowel regimen. I'll message them. || R1
+  Caller -> Thank you. You're always so kind. I don't know what we'd do without hospice.
+  Caller -> Yes, please. I don't want him to be uncomfortable. He's been so good. He never complains.
+  Caller -> He did go every day before the pain pills. Like a clock. It's strange to see him like this.
+  Nurse -> It's a common side effect. We have a lot of ways to help.
+  Nurse -> And I'll have a nurse visit tomorrow to examine him and see what's needed. || R2
+  Caller -> Tomorrow. Okay. Could they come in the morning? He's better in the morning.
+  Caller -> I'll put the kettle on and make sure the porch is clear. It snowed a little. A dusting.
+  Nurse -> I'll ask for morning.
+  Caller -> Thank you. Oh, are you still there? The line is cutting out.
+  Nurse -> I'm here. I can hear you.
+  Caller -> Okay. I'm standing by the window. It gets better by the window.
+  Nurse -> Smart. Stay there. For now, try prune juice. Warm if he'll take it. Small bits of fruit and fiber. And get him moving a little, if he's up to it. || E1
+  Caller -> Prune juice. He likes prune juice. Warm. Okay. And fruit. And walking? He can walk to the kitchen.
+  Nurse -> Ha. That's good. It's an old remedy but it works for many people.
+  Caller -> We have a carton in the pantry. I bought it for him last month. I'll put it in a mug and warm it up.
+  Nurse -> Short walks are great. Don't push him.
+  Caller -> I won't. He has his walker. He'll take it slow.
+  Caller -> He thinks the walker is a nuisance. He calls it the chariot.
+  Nurse -> Ha. That's a good name.
+  Nurse -> And call us if he vomits, if the pain gets severe, if his belly gets hard and swollen, or if he still hasn't had a bowel movement after the nurse comes tomorrow. || E2
+  Caller -> Vomiting. Severe pain. Hard swollen belly. Still nothing after tomorrow. Okay. I wrote it.
+  Caller -> Do I need to worry tonight? Should I call if he's up in the night?
+  Nurse -> Call if any of those warning signs show up, any time of day or night.
+  Nurse -> Perfect.
+  Caller -> He's calling me from the other room. He says, who are you talking to? I'll tell him.
+  Nurse -> Tell him hello from Raul.
+  Caller -> I will. He likes it when people remember him.
+  Caller -> Lawrence! It's Raul from hospice! He says hello. He says tell him to bring cake.
+  Nurse -> Ha. I'll see what I can do.
+  Caller -> He's a charmer. Okay. Thank you. Goodbye.
+  Caller -> He says the cake should be chocolate. With the fudge on top. He's very specific.
+  Nurse -> Bye, Dorothea.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "He hasn't had a bowel movement in three days", heard_form: "He hasn't had. In three days.", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lawrence Kettleborough, certainty: stated, heard_as: [], turns: [5]}
+    patient_dob: {value: "1945-06-19", certainty: stated, heard_as: [], turns: [13]}
+    caller_name: {value: Dorothea Kettleborough, certainty: stated, heard_as: [], turns: [5]}
+    relationship: {value: wife, certainty: stated, turns: [5]}
+    callback_phone: {value: "9195550168", certainty: stated, heard_as: [], turns: [17]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had not had a bowel movement in three days.
+    speaker: Caller
+    turns: [8]
+    quote: "It's his bowels."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He had not had a bowel movement in three days.
+      speaker: Caller
+      turns: [10]
+      quote: "A bowel movement. He hasn't had a bowel movement in three days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement in three days, present: true, severity: moderate, onset: three days, certainty: stated}
+      covers: [A1]
+    - text: MiraLAX 17 g once a day as needed was prescribed but he would not drink it.
+      speaker: Caller
+      turns: [28]
+      quote: "We have MiraLAX. The powder. Seventeen grams in water, once a day as needed."
+      explanation: Documents the as-needed laxative.
+      facts:
+        - {type: medication, name: MiraLAX, dose: "17", unit: g, frequency: once a day as needed, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: His belly was a little bloated and tight, uncomfortable but not sharp.
+      speaker: Caller
+      turns: [21]
+      quote: "A little bloated. It's tight."
+      explanation: Documents the bloating.
+      facts:
+        - {type: symptom, name: mild belly bloating, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: He had not vomited.
+      speaker: Caller
+      turns: [23]
+      quote: "No vomiting. No throwing up."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the team about a stronger bowel regimen.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'll message them."
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'll have a nurse visit tomorrow"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised prune juice, warm fluids, small amounts of fruit and fiber and short walks.
+      speaker: Nurse
+      turns: [45]
+      quote: "try prune juice."
+      explanation: Documents hydration and nutrition teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for vomiting, severe belly pain, a hard swollen belly or no bowel movement after tomorrow's visit.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if he vomits"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

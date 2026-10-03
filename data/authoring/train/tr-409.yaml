@@ -1,0 +1,323 @@
+call_id: tr-409
+split: train
+blueprint: "A wife calls home health in a panic: her husband's face drooped on the right side, his words are slurred, his right arm is limp, and it began about twenty minutes ago while they were eating breakfast. No fall, no head injury. Nurse recognizes stroke signs, tells her to call 911 now, note the time he was last normal, give nothing by mouth, unlock the door, and stays on the line until paramedics arrive; pages the on-call team and the hospital. Time-critical stroke (other urgent and escalation request), spouse caller, patient 65-89, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: stroke_911
+  secondary_tags: [hedging, late_answers, split_turns, crosstalk, multi_issue, phone_from_file]
+  clinical_domains: [neurologic, speech, falls_safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Brightwater Home Health
+  agency_type: home_health
+  nurse_name: Priya
+  call_timestamp_utc: "2026-11-05T13:05:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Wendell Abernathy
+  patient_name_spoken: Wendell Abernathy
+  patient_name_certainty: stated
+  patient_dob_true: "1955-04-21"
+  patient_dob_spoken: "1955-04-21"
+  patient_dob_certainty: stated
+  caller_name_true: Odalys Abernathy
+  caller_name_spoken: Odalys Abernathy
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9185550137"
+  callback_phone_spoken: "9185550137"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported sudden facial droop, slurred speech and arm weakness in her husband
+  reason_category: neurologic
+  relevant_context: Home health patient with sudden stroke symptoms
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: right facial droop
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: slurred speech
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: weakness of the right arm
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: Symptoms began about twenty minutes ago at breakfast when he was last normal
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or head injury
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: facial droop, slurred speech and arm weakness suggesting a stroke
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call team and hospital
+    reason_or_trigger: tell them a possible stroke patient is coming
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hang up and call 911 now, unlock the front door, keep him sitting or lying with his head up, and tell the paramedics the time he was last normal
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Give him nothing to eat or drink or any pills, do not let him stand or walk, and loosen tight clothing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Sudden facial droop, slurred speech and arm weakness consistent with stroke
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Brightwater Home Health, this is Priya.
+  Caller -> Priya, please, it's Odalys Abernathy. It's my husband, Wendell Abernathy. His face is falling. His whole face on one side. And he can't talk right. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Odalys, I'm here. Stay with me. Is he awake?
+  Caller -> I don't know what to do. I don't know what to do. He was fine. He was fine ten minutes ago.
+  Nurse -> I know. You called the right place. I'm going to walk you through it.
+  Caller -> He's awake. He's sitting at the table. He's looking at me. He's trying to say something and it comes out wrong. It's mush. It sounds like mush. || A2
+  Caller -> He keeps saying the same word. It sounds like, I don't know, like a name. I can't tell.
+  Nurse -> That's okay. Don't try to figure it out. Just stay calm.
+  Nurse -> Which side of his face is drooping?
+  Caller -> The right. The right side. His mouth is pulled down. And his eye is, it's sagging. He looks like a different person. || A1
+  Nurse -> Okay. Listen to me. Can he lift both arms for me, can you ask him?
+  Caller -> Wendell, lift your arms. Lift them up. Like this. He's lifting the left one. The right one is, it just drops. It's like it's made of sand. He can't hold it up. || A3
+  Nurse -> Okay. Odalys, what you're describing sounds like a stroke. This is an emergency. I need you to hang up and call 911 right now. Do you understand? || R1, E1, F2
+  Caller -> A stroke? Oh my God. Oh no. Oh my God.
+  Nurse -> I know. It's scary. But you can help him by acting fast. Hang up with me and call 911. Or put me on speaker, and dial from your cell. Which is easier?
+  Caller -> My cell. Hold on. I'm putting you on speaker. It's on the table. I'm dialing. Wendell, stay with me. It's ringing. 
+  Nurse -> Good. Tell them your address, and that you think your husband is having a stroke.
+  Caller -> It's ringing. It's still ringing. Why is it still ringing?
+  Nurse -> It will pick up. Take a breath.
+  Caller -> Hello? Yes. Hello. My husband is having a stroke. It's, um, the address is, forty one forty Larch Avenue. In Tulsa. Larch Avenue. Yes. Yes, I'll stay on. Okay.
+  Caller -> They're sending someone. They said stay on the line with them. Priya, they want me to stay on with them.
+  Nurse -> Then do what they ask. I'm here too. You can listen to both of us.
+  Caller -> Okay. They're asking me questions. Is he breathing? Yes. Is he awake? Yes. Okay.
+  Nurse -> That's fine. I'll stay right here. Put them on speaker too if you can. Odalys, when did this start? What time?
+  Caller -> I don't know. Twenty minutes ago? We were having breakfast. He was reading the paper out loud. Like he does. And he stopped in the middle of a word. Then his face went. That's when it started. About twenty minutes ago. It was eight forty. || A4
+  Nurse -> Okay. That's very important. He was normal at eight forty. Tell the paramedics that exact time. They'll ask.
+  Caller -> Eight forty. He was normal at eight forty. Okay.
+  Caller -> Eight forty. I looked at the clock when it happened. I always look at the clock. It's a habit from nursing.
+  Nurse -> That's very helpful, Odalys. You were a nurse?
+  Caller -> Forty years. Labor and delivery. And I can't think straight right now. Isn't that something?
+  Nurse -> It's different when it's your own husband. You're doing great.
+  Nurse -> Did he fall? Did he hit his head on anything?
+  Caller -> No. No. He didn't fall. He didn't hit anything. He was in his chair the whole time. He just, slumped a little to the side. I caught him. || A5
+  Nurse -> Good. Odalys, I need you to not give him anything. No food, no water, no pills. Not even aspirin. Okay?
+  Caller -> No aspirin. Nothing. Okay. I was going to give him water. His mouth is dry.
+  Caller -> Why not aspirin? I always hear aspirin.
+  Nurse -> With a stroke we don't know yet if it's a clot or bleeding. The hospital has to find out first. Aspirin could make a bleed worse.
+  Caller -> Oh. Okay. I understand. No aspirin.
+  Nurse -> No water. Not right now. He could choke, because the muscles in his throat may be weak. Wet his lips with a damp cloth if you want, but nothing to swallow. || E2
+  Caller -> A damp cloth. Okay. I have a paper towel. I'm wetting it. Wendell, here. Honey. There.
+  Caller -> He's drinking from the paper towel. Sucking on it a little. He seems better with his mouth wet.
+  Nurse -> Good. Just keep it to the lips. Nothing to swallow.
+  Nurse -> Keep him sitting up, or lying down with his head raised. Don't let him stand or walk. If he tries to stand, gently keep him seated.
+  Caller -> He's sitting. He's slumping to the right. Should I prop him up with a cushion?
+  Nurse -> Yes, a cushion on the right side to support him. Gently. Don't pull on the weak arm.
+  Caller -> I'm putting the couch pillow there. There. He's straighter now.
+  Nurse -> Perfect. That's exactly right. Keep him comfortable and keep talking to him.
+  Caller -> He's trying to stand up. Wendell, no, sit. Sit down. You have to sit. He's mad at me. He's trying to say something. I can't understand him.
+  Nurse -> It's okay. He's frustrated. Just keep your voice calm and keep him seated. Odalys, is the front door unlocked?
+  Caller -> Wendell, honey, I know. I know. They're coming. I'm right here.
+  Caller -> He pushed my hand away. He's never done that.
+  Nurse -> It's the stroke. He's scared and frustrated. It's not you.
+  Caller -> It's locked. The deadbolt. I'll go. Wendell, I'm going to the door, stay in the chair. I'm going. Priya, are you still there?
+  Nurse -> I'm still here. Go unlock it, and turn on the porch light. Then come right back to him.
+  Caller -> Okay. It's unlocked. Back. I'm back. He's still in the chair. He's holding on to the table with the good hand.
+  Nurse -> Good job. You're doing everything right.
+  Caller -> I'm so scared. He's my whole life. We've been married fifty one years.
+  Nurse -> I know. And you're helping him right now. This is exactly what he needs you to do.
+  Caller -> Okay. Okay. Okay.
+  Nurse -> Odalys, I'm going to page our on-call team, and let the hospital know a possible stroke is on the way. I'll stay with you the whole time. || R2
+  Caller -> Please. Thank you. I'm going to keep talking to him. Wendell, you're okay. The ambulance is coming.
+  Nurse -> Can you tell me his date of birth while we wait? So I can give it to the hospital?
+  Caller -> April twenty first. Nineteen fifty five. || patient_dob
+  Nurse -> Thank you. Does he take any blood thinners, or any other medicines you can think of?
+  Caller -> He takes a few things. For blood pressure. And cholesterol. I'll have the list. It's on the refrigerator. I'll grab it in a second. I don't think blood thinners. I don't think so. I'll check the list.
+  Nurse -> Good. Get the list and put it by the door. And his insurance card, if it's handy.
+  Caller -> The wallet. His wallet is on the dresser. I'll get it. Hold on. Wendell, I'm going to the bedroom, I'll be one second. Don't move. Okay. I have the wallet. And the list. Both.
+  Nurse -> Perfect. Put them by the front door.
+  Caller -> Done. They're on the bench. Priya, I can hear sirens. Is that them?
+  Caller -> Should I put on a coat on him? He's only in his shirt. It's cold out.
+  Nurse -> Put a blanket over his shoulders. Keep him seated.
+  Caller -> The afghan. The one from the couch. I'll get it. Wendell, here, I'm putting this on you. There. Warm.
+  Nurse -> It might be. Let's keep the line open. Is the porch light on?
+  Caller -> It's on. I turned it on. I don't see them yet. I'm looking out the window.
+  Nurse -> How is he doing right now? Any change in his face or his arm?
+  Caller -> Same. The same. His face is still drooping. He's still holding on with the left hand. He's looking at me. He's crying a little. I think he knows something's wrong.
+  Nurse -> That's okay. Hold his good hand. Tell him help is coming.
+  Caller -> Wendell, honey, help is coming. I'm right here. I have you.
+  Nurse -> Odalys, you're doing everything right. When the paramedics arrive, tell them what happened, and tell them eight forty was the last time he was normal.
+  Caller -> Eight forty. Okay. Eight forty. I'll tell them. I've said it so many times I'll never forget it.
+  Caller -> I see a truck. A red truck. The fire truck. They're pulling in. They're getting out. Priya, they're here.
+  Caller -> The neighbors are coming out. They're on the lawn. Mr. Delgado is waving.
+  Nurse -> That's okay. The paramedics can handle it.
+  Nurse -> Good. Open the door and let them in. Leave the phone on the table. I'll stay on until you tell me to go.
+  Caller -> Okay. Okay. Coming. In here! He's in the kitchen! Right here! It's a stroke! His face and his arm! Since eight forty! Over here!
+  Nurse -> I can hear them. Odalys, answer their questions. I'll be right here.
+  Caller -> He's in the chair. Eight forty. No, he didn't fall. The list is by the door. Yes. Yes. Thank you.
+  Nurse -> Odalys, are they with him now?
+  Caller -> Yes. They have him. They're talking to him. They're checking his hand. They're asking him to squeeze.
+  Nurse -> Good. Which hospital are they taking him to?
+  Caller -> They said Saint Gabriel's. The one on Peoria. The stroke center.
+  Nurse -> That's a good one. I'll call them now and let them know he's coming. I'll also tell our on-call clinician.
+  Caller -> Thank you. Thank you so much. I'm going to go with him in the ambulance. They said I can.
+  Nurse -> Go with him. Take the list and your phone. Do you have your keys?
+  Caller -> Should I bring his slippers? He'll want his slippers. He hates cold floors.
+  Nurse -> Bring them if they're near, but don't delay. The paramedics can wait a moment.
+  Caller -> The slippers are by the bed. Got them. I'm taking his glasses too. He can't read without them.
+  Caller -> Yes. In my purse. I have my purse. I'm putting on my shoes. Wait. Can you lock the door? No, I can't ask you that.
+  Nurse -> I can't, but the paramedics usually wait while you lock up. Take your time. Lock it behind you.
+  Caller -> Okay. I'm going. They're lifting him. They have a stretcher. Wendell, I'm coming. I'm right behind you.
+  Nurse -> Odalys, before you go. Is your cell still nine one eight, five five five, zero one three seven? || callback_phone
+  Caller -> Yes. Nine one eight, five five five, zero one three seven. That's it. I'll have it on. || callback_phone
+  Nurse -> Good. Go. Take care of him. We'll follow up tomorrow.
+  Caller -> Thank you, Priya. Thank you for staying on. I couldn't have done it.
+  Caller -> I'm in the ambulance now. I'm sitting by his head. He's looking at me. He squeezed my hand. With the good hand.
+  Nurse -> That's a great sign that he knows you. Keep talking to him.
+  Caller -> Wendell, I love you. I'm right here.
+  Nurse -> You did it. You called fast. Go be with him. Bye for now.
+  Caller -> Bye. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wendell Abernathy, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-04-21", certainty: stated, heard_as: [], turns: [63]}
+    caller_name: {value: Odalys Abernathy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550137", certainty: stated, heard_as: [], turns: [101, 102]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported sudden facial droop, slurred speech and arm weakness in her husband.
+    speaker: Caller
+    turns: [2]
+    quote: "His face is falling. His whole face on one side. And he can't talk right."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The right side of his face was drooping with the mouth pulled down and the eye sagging.
+      speaker: Caller
+      turns: [10]
+      quote: "The right. The right side. His mouth is pulled down."
+      explanation: Documents the facial droop.
+      facts:
+        - {type: symptom, name: right facial droop, present: true, severity: severe, certainty: stated}
+      covers: [A1]
+    - text: His speech was slurred and sounded like mush.
+      speaker: Caller
+      turns: [6]
+      quote: "It's mush. It sounds like mush."
+      explanation: Documents the speech change.
+      facts:
+        - {type: symptom, name: slurred speech, present: true, severity: severe, certainty: stated}
+      covers: [A2]
+    - text: His right arm dropped and he could not hold it up.
+      speaker: Caller
+      turns: [12]
+      quote: "The right one is, it just drops."
+      explanation: Documents the arm weakness.
+      facts:
+        - {type: symptom, name: weakness of the right arm, present: true, severity: severe, certainty: stated}
+      covers: [A3]
+    - text: Symptoms began about twenty minutes ago at breakfast, when he was last normal at eight forty.
+      speaker: Caller
+      turns: [25]
+      quote: "About twenty minutes ago. It was eight forty."
+      explanation: Documents the onset.
+      facts:
+        - {type: context, text: Symptoms began about twenty minutes ago at breakfast when he was last normal, certainty: stated}
+      covers: [A4]
+    - text: He had no fall or head injury.
+      speaker: Caller
+      turns: [33]
+      quote: "No. No. He didn't fall. He didn't hit anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or head injury, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 now for suspected stroke.
+      speaker: Nurse
+      turns: [13]
+      quote: "I need you to hang up and call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call team and alert the hospital.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'm going to page our on-call team"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised hanging up to call 911, unlocking the door, keeping him seated with his head up and telling the paramedics the time he was last normal.
+      speaker: Nurse
+      turns: [17]
+      quote: "Tell them your address, and that you think your husband is having a stroke."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised giving nothing by mouth and not letting him stand or walk.
+      speaker: Nurse
+      turns: [34]
+      quote: "I need you to not give him anything."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "His face is falling. His whole face on one side."}
+    - {category: escalation_request, turns: [13], quote: "I need you to hang up and call 911 right now."}

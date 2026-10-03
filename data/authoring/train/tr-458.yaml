@@ -1,0 +1,244 @@
+call_id: tr-458
+split: train
+blueprint: "A neighbor with a spare key calls home care: she found the 79-year-old woman next door on the bathroom floor after a fall, awake and alert, severe right hip pain (eight out of ten), cannot stand, small forehead cut that stopped bleeding, did not black out. Nurse tells her to call 911 now, not to move her, keep her warm, and stay with her; nurse will notify the team. Fall with possible hip fracture (uncontrolled symptom + escalation), friend or neighbor caller, patient 65+, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: fall_with_injury
+  secondary_tags: [hedging, split_turns, late_answers]
+  clinical_domains: [falls, pain]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Cedar Mill Home Care
+  agency_type: home_care
+  nurse_name: Bettina
+  call_timestamp_utc: "2026-11-07T13:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wilhelmina Strand
+  patient_name_spoken: Wilhelmina Strand
+  patient_name_certainty: stated
+  patient_dob_true: "1944-12-03"
+  patient_dob_spoken: "1944-12-03"
+  patient_dob_certainty: stated
+  caller_name_true: Rosalind Tuohy
+  caller_name_spoken: Rosalind Tuohy
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "5055550147"
+  callback_phone_spoken: "5055550147"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Found the patient on the bathroom floor after a fall with severe hip pain
+  reason_category: falls
+  relevant_context: Home care client who lives alone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fall with severe right hip pain and unable to stand
+    symptom_present: true
+    severity: severe
+    onset: about twenty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: small forehead cut
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: loss of consciousness or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: fall with severe hip pain and unable to stand
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: tell the team about the fall and the 911 call
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Do not move her, keep her warm with a blanket, press gently on the cut with a clean cloth, and stay with her until help arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Severe hip pain rated eight out of ten after a fall and unable to stand
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Mill Home Care, this is Bettina.
+  Caller -> Hi. Hi. My name is Rosalind Tuohy. I'm the neighbor of Wilhelmina Strand. She's one of your clients. She fell. She's on the bathroom floor and she says her hip is killing her. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Okay. Take a breath. I'm here.
+  Caller -> Sorry. I'm just a little shaky. I've never found anybody on a floor before.
+  Nurse -> Okay, Rosalind. Are you with her right now?
+  Caller -> Yes. I'm on my cell. I'm kneeling next to her. I have a key. She gave me a key for emergencies. I heard her calling out through the wall.
+  Nurse -> Good thing you heard her.
+  Caller -> The walls here are thin. Thank goodness.
+  Nurse -> Okay. Is she awake? Is she talking to you?
+  Caller -> She's awake. She's talking. She's scared, but she's talking.
+  Nurse -> That's good. Keep talking to her.
+  Caller -> I am. I'm telling her about my sister's wedding. To keep her calm.
+  Nurse -> When did she fall?
+  Caller -> About twenty minutes ago. She says. She was getting up from the toilet. I think. She isn't sure. || A1
+  Nurse -> That's okay. We don't need an exact time.
+  Caller -> She keeps saying she's sorry for the trouble.
+  Nurse -> Did she hit her head? Did she black out?
+  Caller -> She hit her forehead on the edge of the sink. There's a cut. A small one. It bled and it's stopped now. She didn't pass out. She knows me. She knows what day it is. She's mad at herself. || A2, A3
+  Nurse -> Okay.
+  Caller -> She also asked me whether I fed her cat. I said the cat is fine.
+  Nurse -> Okay. Where does it hurt?
+  Caller -> She's looking at me. She keeps squeezing my hand.
+  Caller -> Her hip. The right one. She says it's a sharp pain whenever she tries to move. She tried to sit up and she screamed. I told her not to.
+  Nurse -> Okay. Please have her stay flat.
+  Caller -> Wilhelmina, honey, stay flat. Don't try again.
+  Nurse -> How bad is the pain, on a scale of zero to ten?
+  Caller -> Wilhelmina, how bad is it? Zero to ten? She says eight. Eight out of ten.
+  Nurse -> Okay. Can she move her leg or stand?
+  Caller -> No. She can't stand. She tried and she says she can't put weight on it. The leg looks a little turned. The foot is pointing out. I don't know if that's normal for her.
+  Nurse -> Okay. That is helpful to know.
+  Caller -> I'm sorry. I'm not a nurse.
+  Nurse -> You're doing fine.
+  Nurse -> Okay, Rosalind. I need you to call 911 right now. She needs to be seen in the emergency room. || R1, F2
+  Caller -> Okay. Okay. Right now?
+  Caller -> I thought you would send somebody.
+  Nurse -> I understand. This one needs an ambulance faster than we can get there.
+  Nurse -> Yes. Right now. Put me on speaker, if you can, and call from another phone. Or hang up and call, and call us back.
+  Caller -> I'll hang up and call. I'm doing it.
+  Nurse -> Before you go. Don't move her. Keep her warm with a blanket. Press gently on the cut with a clean cloth. And stay with her until they arrive. || E1
+  Caller -> Don't move her. Blanket. Clean cloth on the cut. Stay. Okay. I'm getting the blanket from her bed.
+  Caller -> It's a quilt. It's heavy. Is that okay?
+  Nurse -> A quilt is fine. Just keep it light on her.
+  Nurse -> Good. Tell the crew she lives alone and where the key is. Unlock the front door for them.
+  Caller -> I'll unlock it. I'll tell them.
+  Nurse -> Thank you.
+  Caller -> The door is the green one. They can't miss it.
+  Nurse -> I'm going to let the team know about the fall and the 911 call right now. || R2
+  Caller -> Thank you. Thank you. I didn't know who to call.
+  Caller -> I'm sorry. I keep saying thank you.
+  Nurse -> That's what we're here for.
+  Caller -> Her son lives in Denver. I'll call him after.
+  Nurse -> You did the right thing.
+  Caller -> I'm calling now. Hold on.
+  Caller -> Oh, my phone is dying. I have eleven percent.
+  Nurse -> Then let's keep this short. Go ahead and call.
+  Nurse -> Go ahead. Call 911 and I will stay on the other line.
+  Caller -> No, I'll call you back. I need both hands.
+  Nurse -> Okay. Before you hang up, what's her date of birth?
+  Caller -> I don't know off the top of my head. She's seventy nine. Hang on, she's telling me. December third, nineteen forty four. || patient_dob
+  Nurse -> And your number, in case we get disconnected?
+  Caller -> Five oh five, five five five, oh one four seven. || callback_phone
+  Nurse -> Five oh five, five five five, oh one four seven. Right? || callback_phone
+  Caller -> Yes. Yes. I'm calling them.
+  Caller -> Okay. I have the keypad open.
+  Caller -> It's ringing. It's ringing.
+  Nurse -> Go. I'll be here.
+  Caller -> Okay. Dialing.
+  Caller -> Wilhelmina, you stay still. Help is coming. I'm right here.
+  Nurse -> Good. Talk to her until they get there.
+  Nurse -> Rosalind, you're doing great.
+  Caller -> Thank you. I'm calling. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wilhelmina Strand, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-12-03", certainty: stated, heard_as: [], turns: [59]}
+    caller_name: {value: Rosalind Tuohy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550147", certainty: stated, heard_as: [], turns: [61, 62]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Found the patient on the bathroom floor after a fall with severe hip pain.
+    speaker: Caller
+    turns: [2]
+    quote: "She fell. She's on the bathroom floor and she says her hip is killing her."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She fell about twenty minutes ago and had severe right hip pain, rated eight out of ten, and could not stand.
+      speaker: Caller
+      turns: [29]
+      quote: "She can't stand."
+      explanation: Documents the fall and hip pain.
+      facts:
+        - {type: symptom, name: fall with severe right hip pain and unable to stand, present: true, severity: severe, onset: about twenty minutes ago, certainty: stated}
+      covers: [A1]
+    - text: She had a small cut on her forehead that had stopped bleeding.
+      speaker: Caller
+      turns: [18]
+      quote: "There's a cut. A small one."
+      explanation: Documents the head injury.
+      facts:
+        - {type: symptom, name: small forehead cut, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: She did not lose consciousness and was oriented.
+      speaker: Caller
+      turns: [18]
+      quote: "She didn't pass out."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: loss of consciousness or confusion, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised calling 911 right away for emergency room evaluation.
+      speaker: Nurse
+      turns: [33]
+      quote: "I need you to call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to notify the team about the fall and the emergency call.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to let the team know about the fall"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not moving her, keeping her warm, pressing gently on the cut with a clean cloth, and staying with her until help arrived.
+      speaker: Nurse
+      turns: [39]
+      quote: "Don't move her."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [27], quote: "She says eight. Eight out of ten."}
+    - {category: escalation_request, turns: [33], quote: "I need you to call 911 right now."}

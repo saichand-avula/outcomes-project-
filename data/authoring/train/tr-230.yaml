@@ -1,0 +1,164 @@
+call_id: tr-230
+split: train
+blueprint: "68-year-old patient asks for a refill of her Ativin (a confident garble of Ativan, kept as stated), 1 mg at bedtime as needed for anxiety, with three tablets left. Nurse sends the refill request (completed) and plans a callback tomorrow. Drug garble in a refill call."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, hedging, late_answers, split_turns]
+  clinical_domains: [medication, mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Renee
+  call_timestamp_utc: "2026-10-14T14:50:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1, R1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dorothy Hargrove
+  patient_name_spoken: Dorothy Hargrove
+  patient_name_certainty: stated
+  patient_dob_true: "1957-11-03"
+  patient_dob_spoken: "1957-11-03"
+  patient_dob_certainty: stated
+  caller_name_true: Dorothy Hargrove
+  caller_name_spoken: Dorothy Hargrove
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4075550166"
+  callback_phone_spoken: "4075550166"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested a refill of her anxiety medicine
+  reason_category: refill_request
+  relevant_context: Home care patient who takes a medicine at bedtime for anxiety
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: lorazepam
+    medication_name_spoken: Ativin
+    medication_status: taking
+    dose: "1"
+    unit: mg
+    frequency: at bedtime as needed
+    prn: true
+    supply_remaining: "3"
+    supply_unit: tablets
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: completed
+    actor: nurse
+    recipient_or_target: prescriber
+    medication_name_true: lorazepam
+    medication_name_spoken: Ativin
+    reason_or_trigger: Ativin refill
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take only at bedtime and only as needed, do not mix with alcohol, and make the last tablets last until the refill is approved
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Renee.
+  Caller -> Hi, Renee. This is Dorothy Hargrove. I need a refill on my Ativin. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Dorothy. Let me pull up your chart. What's your date of birth?
+  Caller -> November third, nineteen fifty seven. || patient_dob
+  Nurse -> And is four oh seven, five five five, zero one six six your number? || callback_phone
+  Caller -> Yes. That's the house phone. || callback_phone
+  Nurse -> Okay. Tell me about the Ativin. What strength is it and how do you take it?
+  Caller -> It's one milligram. At bedtime, if I need it. For my nerves. I don't take it every night, maybe three or four nights a week. || A1
+  Nurse -> Okay. How many tablets do you have left?
+  Caller -> Three. Three left. I counted them twice. || A1
+  Nurse -> Okay. I've sent the refill request for the Ativin to your prescriber just now. It's done. || R1, A1
+  Caller -> Oh, thank you. How long does it take, usually?
+  Nurse -> Usually a day or two. I'll call you back tomorrow to let you know where it stands. || R2
+  Caller -> Tomorrow. Okay.
+  Nurse -> Until then, take the Ativin only at bedtime and only when you really need it, no alcohol with it, and try to stretch the three you have. || E1, A1
+  Caller -> Only at bedtime. No wine. Stretch it. Okay. I can do a few nights without. I have my chamomile tea.
+  Nurse -> That's a good backup. Anything else I can help with?
+  Caller -> No. That's it. I'm doing okay, just the sleep. Thank you, Renee.
+  Nurse -> Is the tea helping at all with the sleep, or is it mostly the Ativin?
+  Caller -> Mostly the Ativin, honestly. The tea is just something warm to hold. I wake up at three and my mind starts going. That's when I want it. || A1
+  Nurse -> That's useful for the prescriber to know. I'll pass it along with the request.
+  Caller -> Oh, would you? Thank you. I didn't want to sound like I was asking for more.
+  Nurse -> You're welcome. Take care, Dorothy.
+  Caller -> You too, dear.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Ativan, heard_form: Ativin, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dorothy Hargrove, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1957-11-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Dorothy Hargrove, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4075550166", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested a refill of her anxiety medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "I need a refill on my Ativin."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ativin 1 mg at bedtime as needed was being taken, about three or four nights a week; three tablets remained.
+      speaker: Caller
+      turns: [8]
+      quote: "It's one milligram. At bedtime, if I need it."
+      explanation: Documents the medication use.
+      facts:
+        - {type: medication, name: Ativin, dose: "1", unit: mg, frequency: at bedtime as needed, prn: true, supply: 3 tablets, med_status: taking, certainty: stated}
+      covers: [A1]
+  response:
+    - text: Sent the Ativin refill request to the prescriber.
+      speaker: Nurse
+      turns: [11]
+      quote: "I've sent the refill request for the Ativin to your prescriber just now."
+      explanation: Documents the completed refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: completed, medication: Ativin, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'll call you back tomorrow to let you know where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking Ativin only at bedtime and only when needed, with no alcohol, and stretching the remaining tablets.
+      speaker: Nurse
+      turns: [15]
+      quote: "take the Ativin only at bedtime and only when you really need it, no alcohol with it"
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

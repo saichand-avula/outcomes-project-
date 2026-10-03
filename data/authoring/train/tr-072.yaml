@@ -1,0 +1,203 @@
+call_id: tr-072
+split: train
+blueprint: "71-year-old says she takes morphine extended release 'fifty' milligrams twice a day (ASR/speech garble); nurse reads the order as fifteen mg every twelve hours, caller confirms 'fifteen'. Resolved in the call, so 15 mg is stated. She wants to take tonight's dose an hour early for a dinner; nurse says not to change times herself and plans a pharmacist check."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [liquid_concentration, hedging, late_answers, split_turns]
+  clinical_domains: [pain, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-02T21:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Valentina Rojas
+  patient_name_spoken: Valentina Rojas
+  patient_name_certainty: stated
+  patient_dob_true: "1955-08-22"
+  patient_dob_spoken: "1955-08-22"
+  patient_dob_certainty: stated
+  caller_name_true: Valentina Rojas
+  caller_name_spoken: Valentina Rojas
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3055550117"
+  callback_phone_spoken: "3055550117"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether she could take her evening pain medicine an hour early
+  reason_category: medication_question
+  relevant_context: Has an event this evening
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: morphine extended release
+    medication_name_spoken: morphine extended release
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    frequency: every 12 hours
+    last_dose: 8 this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: back pain
+    symptom_present: true
+    severity: 3/10
+    body_location: lower back
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: patient
+    caller_concern_text: Wants to take the evening dose an hour early because she is going to a family dinner
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: keep the usual 12-hour schedule until the pharmacist confirms an early dose is safe
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacist
+    reason_or_trigger: whether the dose can be moved up an hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 20 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Swallow the extended-release tablet whole; do not crush or chew it
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Valentina Rojas. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Valentina. What's your birthday?
+  Caller -> August twenty second. Nineteen fifty five. || patient_dob
+  Nurse -> And the best number is three oh five, five five five, zero one one seven? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> So I have a, a family dinner tonight. And I take my morphine, the long acting. At eight and eight. In the morning and at night. And I wanted to know if I can take tonight's early. Like an hour early. || cc, A3
+  Nurse -> Okay. Let me see your list. What dose do you take? You said the morphine extended release. || A1
+  Caller -> Fifty milligrams. Fifty, twice a day. || A1
+  Nurse -> Fifty? Hmm. I'm showing fifteen milligrams, every twelve hours. Let me make sure, is it fifteen? || A1
+  Caller -> Fifteen. Yes. Fifteen. I said fifteen. || A1
+  Nurse -> Okay, good. Fifteen, every twelve hours. And when did you take the last one?
+  Caller -> This morning at eight. || A1
+  Nurse -> And how's your pain right now?
+  Caller -> It's okay. It's, my back, the lower back. About a three. || A2
+  Nurse -> Okay. Valentina, I don't want you to change the time on your own. These long-acting ones are timed on purpose. Let me check with the pharmacist about whether you can move it up an hour. || R1, R2
+  Caller -> Oh. Okay. I didn't think it mattered that much.
+  Nurse -> It can matter. I'll call you back in twenty minutes. If you don't hear from me, stick to the regular time. || R3, R1
+  Caller -> Twenty minutes. Okay. And if it's no, I'll just take it at eight.
+  Nurse -> Right. And swallow it whole, remember. Don't crush it or chew it, even if you're running late. || E1
+  Caller -> I know. I know. Whole.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Marcus.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: fifteen, heard_form: Fifty milligrams, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Valentina Rojas, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-08-22", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Valentina Rojas, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3055550117", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether she could take her evening pain medicine an hour early.
+    speaker: Caller
+    turns: [8]
+    quote: "I wanted to know if I can take tonight's early. Like an hour early."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine extended release 15 mg every 12 hours was in use, last taken at 8 this morning; the dose was confirmed as 15 after first being heard as 50.
+      speaker: Caller
+      turns: [12]
+      quote: "Fifteen. Yes. Fifteen. I said fifteen."
+      explanation: Documents the confirmed dose.
+      facts:
+        - {type: medication, name: morphine extended release, dose: "15", unit: mg, frequency: every 12 hours, last_dose: 8 this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Lower back pain was rated 3/10.
+      speaker: Caller
+      turns: [16]
+      quote: "my back, the lower back. About a three."
+      explanation: Documents the current pain.
+      facts:
+        - {type: symptom, name: back pain, present: true, severity: 3/10, location: lower back, certainty: stated}
+      covers: [A2]
+    - text: She wanted to take the evening dose an hour early for a family dinner.
+      speaker: Caller
+      turns: [8]
+      quote: "I have a, a family dinner tonight."
+      explanation: Documents the reason for the question.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised keeping the usual schedule until the pharmacist confirmed whether an earlier dose was safe.
+      speaker: Nurse
+      turns: [17]
+      quote: "I don't want you to change the time on your own."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to check with the pharmacist about moving the dose up an hour.
+      speaker: Nurse
+      turns: [17]
+      quote: "Let me check with the pharmacist about whether you can move it up an hour."
+      explanation: Documents the planned pharmacist contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 20 minutes.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 20 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised swallowing the extended-release tablet whole and not crushing or chewing it.
+      speaker: Nurse
+      turns: [21]
+      quote: "swallow it whole, remember. Don't crush it or chew it, even if you're running late."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

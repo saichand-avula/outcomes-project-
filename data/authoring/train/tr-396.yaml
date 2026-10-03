@@ -1,0 +1,264 @@
+call_id: tr-396
+split: train
+blueprint: "A neighbor who checks on an 83-year-old hospice patient living alone calls on a Sunday evening: his morphine tablets ran out, last dose at three, pain is a five and he is grimacing, and his regular pharmacy is closed until tomorrow. Nurse pages on-call, contacts the on-call pharmacy for an emergency supply to be delivered tonight, tells her what comfort measures to use until then, and plans a callback in thirty minutes. High risk (ran out of pain medicine), friend/neighbor caller, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: ran_out_medication
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [medication, pain]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-11-02T23:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leopold Marchand
+  patient_name_spoken: Leopold Marchand
+  patient_name_certainty: stated
+  patient_dob_true: "1943-09-03"
+  patient_dob_spoken: "1943-09-03"
+  patient_dob_certainty: stated
+  caller_name_true: Harriet Pickett
+  caller_name_spoken: Harriet Pickett
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "8085550199"
+  callback_phone_spoken: "8085550199"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her neighbor ran out of his morphine tablets and is in pain
+  reason_category: medication
+  relevant_context: Hospice patient living alone with a neighbor checking on him
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: missed
+    dose: "15"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: three o'clock this afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain and grimacing
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The pill bottle is empty and the pharmacy is closed until tomorrow
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: out of morphine tablets with pain of five
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call pharmacy
+    reason_or_trigger: emergency supply of morphine delivered tonight
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Help him find the position that hurts least with pillows, use a warm blanket or heating pad on low over a cloth, play quiet music and sit with him
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the pain gets worse than a seven, he cannot get comfortable, or he becomes confused or short of breath
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Pain medicine ran out with no pharmacy open and pain of five
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Marcus.
+  Caller -> Hello? Yes, hello. My name is Harriet Pickett. I'm the neighbor of Mr. Marchand. Leopold Marchand. He's one of yours. He's in pain and he's out of his medicine. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi Harriet. Thank you for calling. I'm here. Are you with Mr. Marchand right now?
+  Caller -> I'm in his bedroom. On the chair by the bed. He's looking at me. He says hello.
+  Nurse -> Hello, Mr. Marchand. Okay.
+  Caller -> I'm at his house. I have a key. I come every evening at six with his supper. I came and he was lying in bed, wincing. He told me the medicine was gone.
+  Nurse -> Okay. Which medicine?
+  Caller -> The morphine. The little pills. I have the bottle. It's empty. I shook it. Nothing. It says morphine, fifteen milligrams, every four hours as needed. || A1, A3
+  Nurse -> Okay. Morphine fifteen, every four hours as needed. When did he last take one? || A1
+  Caller -> He says three o'clock. He took the last one at three. And that was the last pill. He didn't tell anyone. He didn't want to bother me.
+  Nurse -> That's very considerate of him. Does he often hide when he's hurting?
+  Caller -> All the time. He's from a generation that doesn't complain. He said his back was fine, and I could see it wasn't.
+  Nurse -> Okay. So it's been about eight and a half hours. How is he now? How's his pain?
+  Caller -> He says it's a five. A five out of ten. He's grimacing. He keeps his teeth shut. He says, oh, when he moves. He's trying to be tough. || A2
+  Caller -> I told him tough guys take their pills. He told me tough guys wait for Monday.
+  Nurse -> Ha. We'll fix that.
+  Nurse -> Okay. Is he awake and talking to you?
+  Caller -> Yes. He's talking. He's cranky. He said, don't call, it's Sunday, they'll be closed. I said, hospice is never closed, Leopold.
+  Nurse -> Ha. You're right. We're never closed. Harriet, thank you for calling. Can I get his date of birth?
+  Caller -> September third. Nineteen forty three. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> Eight oh eight, five five five, zero one nine nine. || callback_phone
+  Nurse -> Eight oh eight, five five five, zero one nine nine. Is that right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Okay. Here's what I'm going to do. I'm paging the on-call clinician right now. They need to approve an emergency supply. || R1
+  Caller -> Okay. His regular pharmacy closes at six on Sundays. It's closed. It opens at nine tomorrow.
+  Nurse -> I understand. We have an on-call pharmacy that works with us. I'll contact them to get an emergency supply of the morphine delivered tonight. || R2
+  Caller -> Delivered? Oh, that would be wonderful. To his house? I'll be here.
+  Nurse -> To his house. It may take a couple of hours. I'll let you know the time.
+  Caller -> I'll wait. I don't have anywhere else to be. My husband's at the lodge meeting.
+  Caller -> I made extra pot roast. I'll bring it over for his lunch tomorrow.
+  Nurse -> That's very kind. Thank you.
+  Nurse -> What lodge?
+  Caller -> The Elks. They meet the first Sunday. He'll be home late. They have a raffle.
+  Nurse -> Ha. Hopefully he wins.
+  Caller -> He never does. Forty years.
+  Nurse -> Thank you, Harriet. In the meantime, let's make him more comfortable. Can you help him find the position that hurts the least? Pillows under his knees, or behind his back? || E1
+  Caller -> He's on his side. With a pillow between his knees. I can add one behind his back. Hold on. Leopold, can you lean? There. He says that's a little better. A four.
+  Nurse -> That's helpful. Is there a warm blanket, or a heating pad?
+  Caller -> A heating pad. In the closet. I'll find it.
+  Nurse -> Put it on low, and over a cloth, not against his skin. And play some quiet music if he likes. And sit with him.
+  Caller -> He likes the old country songs. I'll find the radio. Hold on. I have it. Okay. It's on low.
+  Nurse -> Good. How's he doing?
+  Caller -> He says, that's Patsy Cline. He's humming.
+  Nurse -> Ha. That's a good sign.
+  Caller -> He knows every word. Every Patsy Cline song ever recorded.
+  Caller -> He sings along when he thinks I'm not listening. Terrible voice. Really loud.
+  Nurse -> Music is great medicine.
+  Nurse -> I'll call you back in thirty minutes with the pharmacy plan. || R3
+  Caller -> Thirty minutes. Okay. I'll keep the phone near.
+  Nurse -> And call if his pain gets worse than a seven, if he can't get comfortable, or if he gets confused or short of breath. || E2
+  Caller -> Worse than seven. Can't get comfortable. Confused. Short of breath. Okay. I'll watch.
+  Nurse -> Is he able to take sips of water? Is he eating?
+  Caller -> He ate half his supper. The pot roast. And he drank his tea.
+  Nurse -> Good. That's reassuring.
+  Nurse -> Does he have anyone else, Harriet? Family?
+  Caller -> A son in Oregon. He calls on Sundays. He called this morning. I didn't tell him about the pills. I didn't know.
+  Caller -> I wrote the son's number on a card on the refrigerator. I can call him if you want me to.
+  Nurse -> Not yet. Let's get the medicine sorted first.
+  Nurse -> That's okay. We'll tell him as needed. Thank you for being there.
+  Caller -> He'd do the same for me. He did, when my husband was sick. He brought casseroles for a month.
+  Nurse -> Good neighbors are rare.
+  Caller -> We take care of each other. Okay. I'll let you go. Thank you, Marcus.
+  Nurse -> Talk soon, Harriet.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leopold Marchand, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-09-03", certainty: stated, heard_as: [], turns: [20]}
+    caller_name: {value: Harriet Pickett, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550199", certainty: stated, heard_as: [], turns: [22, 23]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her neighbor ran out of his morphine tablets and was in pain.
+    speaker: Caller
+    turns: [2]
+    quote: "He's in pain and he's out of his medicine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine 15 mg every four hours as needed ran out, with the last dose at three this afternoon.
+      speaker: Caller
+      turns: [8]
+      quote: "It says morphine, fifteen milligrams, every four hours as needed."
+      explanation: Documents the empty pain medicine.
+      facts:
+        - {type: medication, name: morphine, dose: "15", unit: mg, frequency: every four hours as needed, prn: true, last_dose: three o'clock this afternoon, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Pain was a five and he was grimacing.
+      speaker: Caller
+      turns: [14]
+      quote: "He says it's a five. A five out of ten."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain and grimacing, present: true, severity: "5", certainty: stated}
+      covers: [A2]
+    - text: The pill bottle was empty and the pharmacy was closed until tomorrow.
+      speaker: Caller
+      turns: [8]
+      quote: "It's empty. I shook it. Nothing."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: The pill bottle is empty and the pharmacy is closed until tomorrow, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm paging the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact the on-call pharmacy for an emergency supply to be delivered tonight.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'll contact them to get an emergency supply of the morphine delivered tonight."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll call you back in thirty minutes with the pharmacy plan."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised finding the position that hurt least with pillows, a heating pad on low over a cloth, quiet music and sitting with him.
+      speaker: Nurse
+      turns: [37]
+      quote: "let's make him more comfortable."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the pain went above seven, he could not get comfortable, or he became confused or short of breath.
+      speaker: Nurse
+      turns: [51]
+      quote: "call if his pain gets worse than a seven"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "He's in pain and he's out of his medicine."}

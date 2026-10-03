@@ -1,0 +1,375 @@
+call_id: tr-200
+split: train
+blueprint: "92-year-old man who is hard of hearing (his hearing aid battery died) calls himself: he took his morning metoprolol and Lasix twice because he forgot he had already taken them, and now feels lightheaded and weak when he stands, BP 98/56, pulse 52. The call is full of repeats and ASR errors: metoprolol heard as 'metro pro lol', Lasix heard as 'lay six', and the pulse heard as 'fifty too'; the nurse repeats each back and he confirms. He did not fall or faint. Nurse tells him to lie down, hold tonight's pills until the on-call nurse calls, pages on-call, plans a visit within two hours and a callback in 20 minutes, and gives safety and 911 instructions. Flag: medication_concern (extra dose). Long."
+setup:
+  scenario_category: asr_error
+  subtype: hard_of_hearing_garbles
+  secondary_tags: [garbled_drug, name_drift, tall_man_drug, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, dizziness, blood_pressure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-08T17:35:00Z"
+  length_bucket: long
+  patient_age_group: "90+"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1, A2]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Odell Whitmire
+  patient_name_spoken: Odell Whitmire
+  patient_name_certainty: stated
+  patient_dob_true: "1934-01-28"
+  patient_dob_spoken: "1934-01-28"
+  patient_dob_certainty: stated
+  caller_name_true: Odell Whitmire
+  caller_name_spoken: Odell Whitmire
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9315550165"
+  callback_phone_spoken: "9315550165"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported feeling lightheaded after taking his morning pills twice
+  reason_category: medication
+  relevant_context: Home health patient who lives alone and is hard of hearing
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: extra_dose
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning, taken twice
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: Lasix
+    medication_name_spoken: Lasix
+    medication_status: extra_dose
+    dose: "20"
+    unit: mg
+    frequency: every morning
+    last_dose: this morning, taken twice
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: lightheaded and weak when standing
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: blood pressure
+    vital_value: 98/56
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: patient
+    vital_name: pulse
+    vital_value: "52"
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fall or fainting
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Lives alone, forgot he had already taken his morning pills, and his hearing aid battery died
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold tonight's metoprolol and Lasix until the on-call nurse calls
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: double dose with low blood pressure and slow pulse
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 20 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Lie down or sit with his feet up, stand up slowly with a hand on the wall, and keep the phone beside him
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he faints, has chest pain, a pulse under 40, or cannot get up
+    trigger_condition: faint; chest pain; pulse under 40; cannot get up
+    certainty: stated
+  - item_id: E4
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink a glass of water slowly and eat a few crackers because the extra water pill can dry him out
+    certainty: stated
+  - item_id: E3
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Replace the hearing aid battery and use a day-and-time pill organizer with a note when each dose is taken
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient took his morning metoprolol and Lasix twice and is lightheaded with low blood pressure
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hello? Hello? Is this the nurse? I can barely hear. Hold on. My hearing aid. It's dead. Can you talk louder?
+  Nurse -> Yes, this is Tom, the nurse at Lakeshore Home Health. Can you hear me better now?
+  Caller -> A little. Say it slow. It's Odell. Odell Whitmire. I'm calling because I did something silly. || caller_name, relationship, patient_name
+  Nurse -> Hi, Odell. I'm listening. First, what is your date of birth?
+  Caller -> What? Say again.
+  Nurse -> Your date of birth, Odell?
+  Caller -> January twenty eighth. Nineteen thirty four. || patient_dob
+  Nurse -> Thank you. And your phone number?
+  Caller -> Nine three one, five five five, zero one six five. || callback_phone
+  Nurse -> Nine three one, five five five, zero one six five. Is that right? || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> Okay. I'm going to speak slowly. Odell, can you tell me what happened?
+  Caller -> What? Tell you what happened? Yes. Hold on. Let me turn the TV off. It's the game show. Hold on. Okay. It's off. I can hear you a little better.
+  Nurse -> Good. Tell me what happened.
+  Caller -> I took my pills this morning. And then I took them again. I forgot that I took them. Both times. The metro pro lol and the lay six. Both of them. Twice. || cc, A1, A2, F1
+  Nurse -> I'm sorry, I want to make sure I understand. Which pills did you take twice? Was it metoprolol, the heart pill? || A1
+  Caller -> What? Metoprolol? Yes. Metoprolol. The twenty five. That's the one. || A1
+  Nurse -> And the other one, was it Lasix, the water pill? || A2
+  Caller -> Lasix. Yes, the water pill. The twenty. I took two. Twice. I mean I took the Lasix twice. And the metoprolol twice. || A2
+  Nurse -> Okay. Metoprolol twenty five milligrams twice this morning, and Lasix twenty milligrams twice this morning. Is that right? || A1, A2
+  Caller -> Yes. That's right. Twice. I'm ninety two years old and I forgot I took them. My daughter used to set them out for me but she moved to Arizona.
+  Nurse -> I understand. When did you take the second set?
+  Caller -> What? The second what?
+  Nurse -> The second time you took the pills. What time?
+  Caller -> About noon. Maybe a little after. I took the first at eight. I saw them on the table and I thought, oh, I forgot my pills. || A1, A2, A7
+  Nurse -> Okay. How are you feeling right now?
+  Caller -> Dizzy. When I stand up. Lightheaded. And weak. My legs feel like noodles. And my heart is slow, I can feel it, thump, and then a wait, and then thump. || A3
+  Nurse -> Okay. That sounds uncomfortable. Let's check your blood pressure. Take your time.
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> What? A cuff? Yes. My daughter got me one with the big numbers. Hold on. Let me put it on. It takes a while. Okay. It says ninety eight over fifty six. || A4
+  Nurse -> Ninety eight over fifty six. Is that right?
+  Caller -> Yes. Ninety eight over fifty six. And the pulse says fifty too. || A5
+  Nurse -> Fifty two? Did you say fifty two for the pulse?
+  Caller -> Yes. Fifty two. Not fifty too. Fifty two. That's what it says. || A5
+  Nurse -> Okay. Thank you. Odell, have you fallen, or fainted at all?
+  Caller -> What? Fallen? No. I almost did. I grabbed the counter. But no. I didn't fall. I'm sitting in my chair now. || A6
+  Nurse -> Okay. That's good. Have you had anything to eat or drink today?
+  Caller -> What? Eat? Oatmeal at eight, with the pills. And coffee. Two cups. That's all. I wasn't hungry. And I don't drink much water, it makes me go to the bathroom.
+  Nurse -> Okay. Odell, I'd like you to drink a glass of water now, slowly, and eat a few crackers if you have them. The water pill can dry you out, and you took two. || E4, A2
+  Caller -> What? A glass of water and crackers. The water pill dries me out. Okay. I have crackers in the cupboard but I'll have to stand. I'll do it slow. Or I'll wait. I have a bottle of water here by my chair. I'll drink that.
+  Nurse -> Good, the bottle by your chair is perfect. Please stay seated, or better, lie down. I'm going to help you. Are you alone in the house?
+  Caller -> What? Alone. Yes. Just me and the cat. My wife passed ten years ago. || A7
+  Nurse -> I'm sorry, Odell. Okay. First, I want you to hold your pills tonight. Don't take the evening metoprolol, and don't take any more Lasix, until the on-call nurse calls you. || R1
+  Caller -> What? Hold the pills? Don't take them? Okay. Don't take the evening ones. Okay. Until she calls. I understand. I'll leave them in the box.
+  Nurse -> Good. I'm going to page our on-call nurse right now. || R2
+  Caller -> What? Page? Okay. I don't know what that is. But okay.
+  Nurse -> It means I'm sending a message to the nurse on call so she can help you tonight. A nurse will also come to your house within two hours. || R3
+  Caller -> Within two hours. Okay. Someone is coming. Good. The door will be locked. I'll have to unlock it.
+  Nurse -> Yes. When you're able, please unlock the front door, but don't stand up fast. Go slowly.
+  Caller -> Slowly. Okay.
+  Nurse -> And I'll call you back in twenty minutes. || R4
+  Caller -> Twenty minutes? Okay. Will I hear the phone? My hearing aid is dead.
+  Nurse -> Odell, do you have a fresh battery for your hearing aid?
+  Caller -> What? Battery? I think there are some in the drawer. In the kitchen. I'd have to get up.
+  Nurse -> Wait until you feel steadier. When you can, replace the battery so you can hear the phone. If you can't find one, keep the phone right next to you, with the ringer turned up. || E3
+  Caller -> Ringer up. Phone next to me. Okay. I'll try to find the battery after the nurse comes.
+  Nurse -> That works. Now, here are some safety things. Lie down, or sit with your feet up. Stand up slowly with a hand on the wall. And keep the phone beside you. || E1
+  Caller -> Feet up. Hand on the wall. Phone beside me. Okay. I put a pillow under my feet. That's good. I feel a little better sitting.
+  Nurse -> Good. And Odell, call nine one one if you faint, if you have chest pain, if your pulse goes under forty, or if you can't get up. || E2
+  Caller -> What? Nine one one if I faint. Chest pain. Pulse under forty. Can't get up. Okay. I understand that one.
+  Nurse -> Perfect. Now, so this doesn't happen again, I'd like to help you with a pill organizer. The kind with the day and the time on each box, and a note where you write when you've taken them. || E3
+  Caller -> A pill organizer. Yes. My daughter said that. I have one somewhere. A purple one. It's in the closet. I never used it. I thought I didn't need it.
+  Nurse -> The nurse who visits tonight can help you set it up. It's not a failing. It's a tool. Many people your age use one, and many younger people too.
+  Caller -> Okay. I'll use it. I don't want to do this again. It scared me.
+  Nurse -> I'm glad you called. That was the right thing. Do you have any family nearby who could come over tonight?
+  Caller -> What? Family? My son lives forty minutes away. He works nights at the plant. My daughter is in Arizona. I don't want to bother them. They worry.
+  Nurse -> I understand. But I'd like you to let your son know, even if he can't come. He'd want to know. Could you call him after we hang up?
+  Caller -> Call my son. Yes. He'll yell at me. Then he'll come. He always yells and then he comes.
+  Nurse -> That sounds like love. Okay. How's your cat? What's the cat's name?
+  Caller -> What? The cat? Biscuit. She's on my lap. She won't leave me alone. She knows something's wrong. She's an orange one, nineteen years old, same as the hearing aid, ha. We're both on our last batteries.
+  Nurse -> Animals do know. Keep her close. I'll call you in twenty minutes.
+  Caller -> Twenty minutes. Okay. Thank you, Tom. Thank you for talking slow.
+  Nurse -> Of course. Hang in there.
+  Caller -> I will. Goodbye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: metoprolol, heard_form: metro pro lol, fact_id: A1}
+  - {turn: auto, type: drug_garble, true_form: Lasix, heard_form: lay six, fact_id: A2}
+  - {turn: auto, type: number_garble, true_form: "fifty two", heard_form: "fifty too", fact_id: A5}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odell Whitmire, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1934-01-28", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Odell Whitmire, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "9315550165", certainty: stated, heard_as: [], turns: [10, 11, 12]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported feeling lightheaded after taking his morning pills twice.
+    speaker: Caller
+    turns: [16]
+    quote: "I took my pills this morning. And then I took them again."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol 25 mg twice a day was taken twice this morning, at eight and again around noon.
+      speaker: Caller
+      turns: [18]
+      quote: "Metoprolol? Yes. Metoprolol. The twenty five. That's the one."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice a day, last_dose: this morning, taken twice, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Lasix 20 mg every morning was taken twice this morning.
+      speaker: Caller
+      turns: [20]
+      quote: "Lasix. Yes, the water pill. The twenty."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: Lasix, dose: "20", unit: mg, frequency: every morning, last_dose: this morning, taken twice, med_status: extra_dose, certainty: stated}
+      covers: [A2]
+    - text: He lived alone, forgot that he had already taken his morning pills, and his hearing aid battery had died.
+      speaker: Caller
+      turns: [22]
+      quote: "I'm ninety two years old and I forgot I took them."
+      explanation: Documents the circumstances.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: He was dizzy, lightheaded, and weak when standing.
+      speaker: Caller
+      turns: [28]
+      quote: "Dizzy. When I stand up. Lightheaded. And weak."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: lightheaded and weak when standing, present: true, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 98/56.
+      speaker: Caller
+      turns: [31]
+      quote: "It says ninety eight over fifty six."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 98/56, certainty: stated}
+      covers: [A4]
+    - text: Pulse was 52.
+      speaker: Caller
+      turns: [35]
+      quote: "Yes. Fifty two. Not fifty too. Fifty two."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "52", certainty: stated}
+      covers: [A5]
+    - text: He did not fall or faint, though he almost did and grabbed the counter.
+      speaker: Caller
+      turns: [37]
+      quote: "I almost did. I grabbed the counter. But no. I didn't fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or fainting, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised holding tonight's metoprolol and Lasix until the on-call nurse called.
+      speaker: Nurse
+      turns: [44]
+      quote: "Don't take the evening metoprolol, and don't take any more Lasix, until the on-call nurse calls you."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned within two hours.
+      speaker: Nurse
+      turns: [48]
+      quote: "A nurse will also come to your house within two hours."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in 20 minutes.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 20 minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised lying down or sitting with his feet up, standing slowly with a hand on the wall, and keeping the phone beside him.
+      speaker: Nurse
+      turns: [58]
+      quote: "Lie down, or sit with your feet up. Stand up slowly with a hand on the wall."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if he fainted, had chest pain, his pulse dropped under 40, or he could not get up.
+      speaker: Nurse
+      turns: [60]
+      quote: "call nine one one if you faint, if you have chest pain, if your pulse goes under forty, or if you can't get up."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+    - text: Advised drinking a glass of water slowly and eating a few crackers because the extra Lasix could dry him out.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'd like you to drink a glass of water now, slowly, and eat a few crackers if you have them."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E4]
+    - text: Advised replacing the hearing aid battery and using a day-and-time pill organizer with a note of each dose taken.
+      speaker: Nurse
+      turns: [62]
+      quote: "I'd like to help you with a pill organizer."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [16], quote: "I took my pills this morning. And then I took them again."}

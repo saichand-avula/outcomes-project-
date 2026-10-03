@@ -1,0 +1,274 @@
+call_id: tr-342
+split: train
+blueprint: "A daughter calls hospice about her mother's agitation at night, saying her mother takes 'Seer oh quell' (a confident garble of Seroquel, kept as stated) 25 mg at bedtime but was still up wandering and shouting last night; two lines come through with swapped speaker labels. Daytime she is calm. No falls, no pain. The nurse repeats the drug name as the daughter said it, messages the provider about the breakthrough night agitation, plans a visit tomorrow and a callback this evening, and gives sundowning routines and safety. Drug garble with speaker-label errors, adult child caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [speaker_label_errors, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [agitation_delirium, sleep, medication, falls_safety]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Pine Ridge Hospice
+  agency_type: hospice
+  nurse_name: Faye
+  call_timestamp_utc: "2026-10-24T14:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cordelia Whitlow
+  patient_name_spoken: Cordelia Whitlow
+  patient_name_certainty: stated
+  patient_dob_true: "1943-12-19"
+  patient_dob_spoken: "1943-12-19"
+  patient_dob_certainty: stated
+  caller_name_true: Lydia Whitlow
+  caller_name_spoken: Lydia Whitlow
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3125550192"
+  callback_phone_spoken: "3125550192"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother was agitated and wandering at night despite her bedtime medicine
+  reason_category: agitation_delirium
+  relevant_context: Hospice patient with dementia
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Seroquel
+    medication_name_spoken: Seer oh quell
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: at bedtime
+    last_dose: last night at nine
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: wandering and shouting at night
+    symptom_present: true
+    onset_or_duration: last night
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: calm during the day
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls or pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: night agitation despite her bedtime Seer oh quell
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the same calm evening routine, dim the lights after dinner, avoid caffeine and naps late in the day, and use a night light and soft music
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put a chime on her door, clear the path to the bathroom, stay close at night, and add a slide lock up high on the front door
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pine Ridge Hospice, this is Faye.
+  Caller -> Hi, Faye. It's Lydia Whitlow. I'm calling about my mother, Cordelia Whitlow. She was up all night. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Lydia. I can hear you're tired. Take a breath. Tell me when you're ready.
+  Caller -> I'm ready. I just needed to hear a person.
+  Nurse -> Hi, Lydia. I'm sorry to hear that. Let me bring up her chart. What's her date of birth?
+  Caller -> December nineteenth. Nineteen forty three. || patient_dob
+  Nurse -> Got it. And your number?
+  Caller -> Three one two, five five five, zero one nine two. || callback_phone
+  Nurse -> Is that a cell or the house?
+  Caller -> My cell. The house phone is in the kitchen. I'm in the hall. I can see her through the door. She's asleep in the chair now.
+  Nurse -> Good. I'll try the cell.
+  Nurse -> Okay. Tell me what happened last night.
+  Caller -> Where do I start? She went to bed at nine. I thought we were good. I gave her the pill, I turned on the night light, I sat with her till she was asleep.
+  Nurse -> That sounds like a good routine.
+  Caller -> It was. Until midnight.
+  Caller -> She wandered. She was up from about midnight. She went from room to room. She was shouting. She was calling for her mother. Her mother passed in nineteen eighty. She was going door to door. She opened the front door. I had to bring her back. || A2
+  Nurse -> Was she dressed? Was it cold outside?
+  Caller -> In her nightgown and her slippers. It was cold. Forty degrees. I put a coat on her. She didn't even feel it.
+  Nurse -> That's frightening. I'm glad you were there.
+  Nurse -> Okay. That sounds scary. Did she fall?
+  Nurse -> No. No fall. I was right behind her. I had my hand on her back the whole time. And no injuries. And she doesn't have pain. I asked her, does anything hurt? She said no. || A4, label_error
+  Nurse -> Good. Is she on anything for sleep or agitation?
+  Caller -> She takes the Seer oh quell. Twenty five milligrams. At bedtime. I gave it to her at nine. Like always. || A1
+  Nurse -> Okay. The Seer oh quell, twenty five at bedtime, given at nine. And it didn't settle her? || A1
+  Caller -> It didn't. She was up at midnight and didn't sleep till five. And I'm exhausted. And I don't know if I should give her more. Or call someone.
+  Caller -> I'm so afraid of drugging her. I don't want her to be a zombie.
+  Nurse -> That's a real concern. We want her calm but still herself. The provider can help find the balance.
+  Caller -> Lydia, you did the right thing calling. Don't give more yet. I'll message the provider about the night agitation despite the Seer oh quell. || R1, label_error
+  Caller -> Okay. Thank you. I didn't want to give her extra.
+  Nurse -> Was she frightened or angry when she was wandering?
+  Caller -> Frightened. She was crying. She kept saying, Where is Mama. Where's my mama. She wanted to go home.
+  Nurse -> That sounds very sad.
+  Nurse -> How is she in the daytime?
+  Caller -> Calm. She's calm all day. She eats. She smiles. She watches her shows. It's only at night. After dark. Around five or six it starts. She gets restless. And then midnight is the worst. || A3
+  Caller -> I draw the curtains at four. I turn on all the lights. I thought it would help. It doesn't seem to.
+  Nurse -> That's a thoughtful idea. Sometimes bright lights make it worse in the evening. We can talk about adjusting.
+  Nurse -> That's called sundowning. It's very common with dementia. Lydia, I'm also going to send a nurse out tomorrow to see her. || R2
+  Caller -> Tomorrow. Okay. What time?
+  Nurse -> The scheduler will call. And I'll call you this evening after I hear from the provider. || R3
+  Caller -> This evening. Okay. Good.
+  Nurse -> For tonight, a few things. Keep the same calm routine every evening. Dim the lights after dinner. No caffeine, and try to avoid naps late in the afternoon. Use a night light and some soft music. || E1
+  Caller -> Dim lights. No caffeine. Short naps only. Night light. Music. Okay. She likes Patsy Cline. I can play that.
+  Nurse -> Patsy Cline is perfect. Soft and familiar.
+  Caller -> "Crazy." She sings along even now. She forgets the words but gets the tune.
+  Nurse -> That's lovely. Music reaches people in a special way.
+  Caller -> She has her tea at four. Decaf. Is decaf okay?
+  Nurse -> Decaf is fine. A weak herbal tea is even better.
+  Caller -> Chamomile. She loves chamomile.
+  Nurse -> That sounds perfect. And for safety, put a chime or a bell on her door, clear the path to the bathroom, and stay close to her at night. || E2
+  Caller -> A bell on the door. I'll use the jingle bells from Christmas. Ha. Clear the path. Stay close. I sleep in the chair.
+  Nurse -> Do you have gates or locks on the front door?
+  Caller -> A deadbolt. She can't turn it. But she was working on it last night. Pulling and pulling. I heard the rattle.
+  Nurse -> A slide lock up high can help. Something she can't reach.
+  Caller -> My husband can put one up this weekend.
+  Nurse -> How are you holding up? Are you getting any sleep?
+  Caller -> A couple of hours. In the chair. My husband helps on weekends. He's a good man. He doesn't complain.
+  Nurse -> I'm glad you have him. Please let us know if you need more help.
+  Caller -> I may. Thank you. I might.
+  Nurse -> Good. Anything else, Lydia?
+  Caller -> One thing. Should I be worried that she's going to die soon? She's been so confused. And she lost weight.
+  Nurse -> It's a fair question. She has a serious illness, and the confusion and weight loss are part of that. The nurse tomorrow can talk with you about what to expect. I don't want to guess over the phone.
+  Caller -> That's fair. I'll ask her.
+  Caller -> No. Thank you. You were really helpful.
+  Nurse -> Talk to you this evening.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Seroquel, heard_form: Seer oh quell, fact_id: A1}
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "No. No fall. I was right behind her", fact_id: A4}
+  - {turn: auto, type: speaker_label, true_form: "Nurse statement", heard_form: "Lydia, you did the right thing calling", fact_id: R1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cordelia Whitlow, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-12-19", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Lydia Whitlow, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550192", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother was agitated and wandering at night despite her bedtime medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "She was up all night."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Seer oh quell 25 mg at bedtime was taken, last given at nine the night before.
+      speaker: Caller
+      turns: [23]
+      quote: "She takes the Seer oh quell. Twenty five milligrams. At bedtime."
+      explanation: Documents the bedtime medicine.
+      facts:
+        - {type: medication, name: Seer oh quell, dose: "25", unit: mg, frequency: at bedtime, last_dose: last night at nine, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: She wandered and shouted for her mother from about midnight until five.
+      speaker: Caller
+      turns: [16]
+      quote: "She wandered. She was up from about midnight."
+      explanation: Documents the night wandering.
+      facts:
+        - {type: symptom, name: wandering and shouting at night, present: true, onset: last night, certainty: stated}
+      covers: [A2]
+    - text: She was calm during the day and restless from around five or six in the evening.
+      speaker: Caller
+      turns: [34]
+      quote: "Calm. She's calm all day."
+      explanation: Documents the daytime calm.
+      facts:
+        - {type: symptom, name: calm during the day, present: true, certainty: stated}
+      covers: [A3]
+    - text: She had no falls or pain.
+      speaker: Caller
+      turns: [21]
+      quote: "No. No fall. I was right behind her."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls or pain, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the provider about the night agitation despite her bedtime medicine.
+      speaker: Nurse
+      turns: [28]
+      quote: "I'll message the provider about the night agitation despite the Seer oh quell."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm also going to send a nurse out tomorrow to see her."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening after hearing from the provider.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'll call you this evening after I hear from the provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised a calm evening routine, dimmed lights after dinner, no caffeine or late naps, and a night light and soft music.
+      speaker: Nurse
+      turns: [41]
+      quote: "Keep the same calm routine every evening."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised a chime on her door, a clear path to the bathroom, staying close at night and a high slide lock on the front door.
+      speaker: Nurse
+      turns: [49]
+      quote: "put a chime or a bell on her door"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

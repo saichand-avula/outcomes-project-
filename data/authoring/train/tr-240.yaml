@@ -1,0 +1,380 @@
+call_id: tr-240
+split: train
+blueprint: "Wife of an 80-year-old hospice patient calls with a pile of things at once: his low back pain is a six and keeps him from sleeping, he has not had a bowel movement in three days, and the hospital bed that was due yesterday never arrived. Oxycodone 5 mg every four hours as needed (last dose two hours ago) and senna twice a day. No nausea. The wife wanders between topics, corrects herself on dates, a neighbor interrupts, and she nearly forgets to ask about the bed. Nurse messages the provider, coordinates the bed for this afternoon, plans a nurse visit tomorrow and a callback this afternoon. Medium v2 multi-issue call."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [multi_issue, offtopic_chatter, hedging, contradiction, late_answers, split_turns, prn_and_scheduled, trap_phrasing]
+  clinical_domains: [pain, constipation, equipment, sleep, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Gail
+  call_timestamp_utc: "2026-10-16T14:20:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ignatius Boyle
+  patient_name_spoken: Ignatius Boyle
+  patient_name_certainty: stated
+  patient_dob_true: "1946-01-27"
+  patient_dob_spoken: "1946-01-27"
+  patient_dob_certainty: stated
+  caller_name_true: Philomena Boyle
+  caller_name_spoken: Philomena Boyle
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2155550177"
+  callback_phone_spoken: "2155550177"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported back pain, constipation, and a hospital bed that has not been delivered
+  reason_category: pain
+  relevant_context: Hospice patient at home with his wife
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: low back pain
+    symptom_present: true
+    severity: "6"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: two hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: three days
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    frequency: twice a day
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The hospital bed due yesterday has not been delivered and he is on the couch
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: caller
+    symptom_name: trouble sleeping because of the pain
+    symptom_present: true
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: back pain at a six and no bowel movement for three days
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment company
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the oxycodone every four hours as needed on the label and keep taking the senna twice a day
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer plenty of fluids and prune juice and note any bowel movement
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Use a pillow behind his lower back and a warm blanket, not a heating pad, and help him change position often
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, a hard swollen belly, pain that stays above a six after a dose, or sleepiness that is hard to wake
+    trigger_condition: vomiting; hard swollen belly; pain above six; hard to wake
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Gail.
+  Caller -> Hello, Gail. Oh, I'm glad it's you. It's Philomena Boyle. I think I've got you before. I'm Ignatius Boyle's wife. || caller_name, relationship, patient_name
+  Nurse -> Hi, Philomena. Yes, of course. How are you? How's Ignatius?
+  Caller -> Well, that's why I'm calling, honey. There's three things. Or four. I wrote them down on the back of an envelope and now I can't find the envelope. || cc
+  Nurse -> That's all right. We'll go through them one at a time. First, let me confirm his date of birth.
+  Caller -> January twenty seventh. Nineteen forty six. || patient_dob
+  Nurse -> Thank you. And I have two one five, five five five, zero one seven seven for you. || callback_phone
+  Caller -> That's the house. Yes. That's right.
+  Nurse -> Okay. What's the first thing?
+  Caller -> His back. His back is bothering him. The low back. It's been, oh, it's been worse for a few days. He was up all night. I could hear him. || A1, A6
+  Nurse -> Okay. Can you ask him how bad it is, zero to ten? Is he near you?
+  Caller -> He's right here. He's on the couch. Ignatius. Iggy. Honey, what number is your back, zero to ten? Hm? He says a six. A six, honey? Okay. He says a six. || A1
+  Nurse -> A six. Okay. And has he had anything for it today?
+  Caller -> The oxycodone. The five milligram. He had one two hours ago. I wrote it down. Hold on. Ten o'clock. He had it at ten. || A2
+  Nurse -> Okay. And the label says what, how often?
+  Caller -> Every four hours if he needs it. So he can have the next one at two. It's what, a quarter after two now, no, it's, it's not quite. I'm looking at the stove clock. It's twenty past two, no, hm, the stove is five minutes fast. || A2
+  Nurse -> It's fine. We can go by the label. So he's due at two, and it's just after two now. If he's in pain, he can have it.
+  Caller -> Oh. Oh good. Okay. I'll get it. Hold on a second, I'll, no, I'll do it after. Go on.
+  Nurse -> Okay. What else is going on?
+  Caller -> The second thing. He hasn't gone. The bathroom. Number two. Three days. It's been three days. || A3
+  Nurse -> Okay. Is he taking anything for that?
+  Caller -> The senna. Twice a day. He takes it, I make sure. Morning and night. || A4
+  Nurse -> Okay. Any belly pain? Is his stomach swollen? Any nausea or vomiting?
+  Caller -> No. No throwing up. No nausea, nothing like that. He's eating a little. He had half a sandwich. His stomach is, it's soft. I touched it. It's not hard. || A7
+  Nurse -> Okay. That's good to know. And what was the third thing?
+  Caller -> The bed! The bed. Oh, I almost forgot, thank you. The hospital bed. They were supposed to bring it yesterday. Wednesday. No, Tuesday. Hm. Yesterday was Thursday? || A5
+  Nurse -> Today is Friday, so yesterday was Thursday.
+  Caller -> Then it was supposed to be yesterday, Thursday. They said between noon and four. I waited all day. Nobody came. And he's on the couch. He's been sleeping on the couch since Tuesday because he can't get up the stairs, and that's probably why the back is so bad. || A5
+  Nurse -> Okay. That makes sense. A couch is hard on a back. Did the company call you at all?
+  Caller -> No. Nobody called. I called twice and I got a recording.
+  Nurse -> Okay. I'll call them for you. What's the company?
+  Caller -> I don't know. It's a name, it's on a sticker on the, hold on, wait. It's, it's on the paper from the social worker. I'll find it. I think it's, no. I don't remember. It's Peak something.
+  Nurse -> Is it Peak Medical Equipment, maybe?
+  Caller -> That's it! Peak Medical. Yes. Oh, you're a lifesaver. Is it in the computer?
+  Nurse -> It is. I'll have the number in front of me in a second.
+  Nurse -> That's okay. I'll find it in his chart. I'll call them right after this and I'll push for delivery this afternoon. || R2
+  Caller -> Oh, thank you, honey. This afternoon. By when? Because I want to make sure someone is here.
+  Nurse -> I'll ask for by three, but I'll call you as soon as I hear from them. || R2
+  Caller -> Okay. By three. I'm not going anywhere. Where would I go.
+  Nurse -> Ha. Fair enough. Is there someone who can help get him to the bathroom in the meantime?
+  Caller -> My son comes after work. Around six. He's the one who lifts. I'm too small to lift him, I'm five foot one.
+  Nurse -> Philomena, for the back pain. A six, and he was up all night. I'm going to send a message to the hospice provider. I'd like them to know about the pain, and the three days without a bowel movement. || R1
+  Caller -> Oh, please. Please do. Is there something stronger? Could the oxycodone be stronger? || A2
+  Nurse -> That's the provider's decision. They might adjust it, or add something. I don't want to promise. But they'll see this today.
+  Caller -> Okay. That's all I'm asking. I just want him comfortable.
+  Nurse -> I know. We want that too. In the meantime, I'd go ahead and give him the oxycodone now, since it's been two hours, no, since it's due. Just the one, five milligrams. || E1, A2
+  Caller -> One. The five. Okay. I'll go do it. Hold on. Mrs. Kowalski, it's just the phone, sit down. Sorry, that's the neighbor. She comes by with soup.
+  Nurse -> That's very kind of her.
+  Caller -> She's very kind. She's very loud. Okay. Let me give him the pill. Hold on.
+  Nurse -> Does she need to be in the room while we talk? No hurry.
+  Caller -> No, no, she's in the kitchen with the soup. She's talking to the dog. We have a dog.
+  Nurse -> That's nice company for him, I bet.
+  Nurse -> Take your time. I'll be right here.
+  Caller -> Iggy, open up. Here's the pill. Water. There. Good boy, I mean, good, honey. Ha.
+  Caller -> Okay. Gave it. He swallowed it. He had water. Okay, I'm back.
+  Nurse -> Good. Write down the time. And keep giving the senna twice a day, don't skip it. || E1, A4
+  Caller -> Senna. Twice a day. I won't skip. I wrote the oxycodone time on the paper by the phone. It's, it's two twenty-five. No, two twenty. I'll write two twenty. || A2, A4
+  Nurse -> And you gave the last one at ten, so you're right on time.
+  Caller -> Oh good. I always worry I'm doing it wrong. I counted wrong once and gave it late and I felt terrible all day.
+  Nurse -> Perfect. Now, for the constipation, offer him plenty of fluids, and prune juice is good. Even if he doesn't want much. And note if he has a bowel movement. || E2
+  Caller -> Prune juice. We have prune juice. Mrs. Kowalski brought me a whole bottle. I think she thought, I don't know what she thought. Ha. Okay. Fluids. And write it down.
+  Nurse -> Right. Also, for his back, put a pillow behind his lower back when he's on the couch, and a warm blanket. No heating pad. And help him change position often. || E3
+  Caller -> A pillow behind his back. Blanket. No heating pad. Move him around. Okay. I'm not strong enough to turn him by myself, though. Is that okay? Do I need to?
+  Nurse -> You don't have to turn him. Just encourage him to shift when he's awake, and I'll have the nurse show you some easy ways tomorrow.
+  Caller -> Tomorrow? Is somebody coming tomorrow?
+  Nurse -> Yes. I'm going to send a nurse out tomorrow to see him, check his back, and look at the bowel situation. || R3
+  Caller -> Oh good. Oh, that's wonderful. What time?
+  Nurse -> The scheduler will call you in the morning with a time. I'll tell them you prefer after nine.
+  Caller -> Yes, after nine. I like to get him washed up first. He doesn't like visitors if he's not shaved. He's vain, you know. Ha.
+  Nurse -> Ha. That's good, it keeps him going. And I'll call you back this afternoon about the bed and about what the provider says. || R4
+  Caller -> This afternoon. Okay. Okay, honey. I'll have the phone in my pocket. I'll keep it on me, I'll walk around with it.
+  Nurse -> One more thing, Philomena. If he starts vomiting, if his belly gets hard and swollen, if the pain stays above a six even after a dose, or if he gets so sleepy you can't wake him easily, call us right away. || E4
+  Caller -> Vomiting. Hard belly. Pain above a six. Hard to wake. Okay. I have a pen. Let me write it. Vomiting, hard belly, six, hard to wake. Got it. I'll put it on the envelope. If I can find it.
+  Nurse -> Ha. Put it on a new envelope. Is there anything else on your list?
+  Caller -> Oh. Hm. I don't think so. There was one more but I forgot it. It'll come to me.
+  Nurse -> If it does, call me back. Anytime.
+  Caller -> I will. I will. Thank you, Gail. Honestly. You don't know what it means. I was crying this morning. I wasn't going to call because I felt silly.
+  Nurse -> Is anyone checking on you, Philomena? You sound tired.
+  Caller -> My son, and my sister calls. And you do. I'm fine, I'm tougher than I look.
+  Nurse -> Never feel silly. These are real things, and you're handling a lot.
+  Caller -> I'm trying. Iggy says I'm doing a good job. He told me last night. He's sweet. When he's not grumpy. Ha.
+  Nurse -> I'm glad. Tell him I said hello.
+  Caller -> Iggy, Gail says hello. He waved. He can't talk, he's got the, he's chewing a cracker. Ha. He waved.
+  Nurse -> Take care, both of you. I'll call you this afternoon.
+  Caller -> Okay. Bye, honey. Bye bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply about the next dose time", heard_form: "Oh good. Okay. I'll get it. Hold on a second, I'll, no, I'll do it after. Go on", fact_id: A2}
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "It's twenty past two, no, hm, the stove is five minutes fast", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ignatius Boyle, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-01-27", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Philomena Boyle, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2155550177", certainty: stated, heard_as: [], turns: [7]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported back pain, constipation, and a hospital bed that had not been delivered.
+    speaker: Caller
+    turns: [4]
+    quote: "There's three things. Or four."
+    explanation: Documents the multiple concerns prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Low back pain was rated a six and had worsened over a few days.
+      speaker: Caller
+      turns: [12]
+      quote: "He says a six. A six, honey? Okay. He says a six."
+      explanation: Documents the pain severity.
+      facts:
+        - {type: symptom, name: low back pain, present: true, severity: "6", certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 5 mg every four hours as needed was being used, with the last dose at ten this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "The oxycodone. The five milligram. He had one two hours ago."
+      explanation: Documents the as-needed pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: two hours ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: There had been no bowel movement for three days.
+      speaker: Caller
+      turns: [20]
+      quote: "Three days. It's been three days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: three days, certainty: stated}
+      covers: [A3]
+    - text: Senna was being given twice a day, morning and night.
+      speaker: Caller
+      turns: [22]
+      quote: "The senna. Twice a day."
+      explanation: Documents the stool softener use.
+      facts:
+        - {type: medication, name: senna, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: The hospital bed due Thursday had not been delivered and he had been sleeping on the couch.
+      speaker: Caller
+      turns: [28]
+      quote: "They said between noon and four. I waited all day. Nobody came."
+      explanation: Documents the missed equipment delivery.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+    - text: He was up all night with pain and had trouble sleeping.
+      speaker: Caller
+      turns: [10]
+      quote: "He was up all night. I could hear him."
+      explanation: Documents the sleep disturbance.
+      facts:
+        - {type: symptom, name: trouble sleeping because of the pain, present: true, certainty: stated}
+      covers: [A6]
+    - text: No nausea or vomiting was reported and his belly was soft.
+      speaker: Caller
+      turns: [24]
+      quote: "No. No throwing up. No nausea, nothing like that."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vomiting, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to message the hospice provider about the back pain and the three days without a bowel movement.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm going to send a message to the hospice provider."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the equipment company and push for bed delivery this afternoon.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll call them right after this and I'll push for delivery this afternoon."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+    - text: Planned to send a nurse out tomorrow.
+      speaker: Nurse
+      turns: [66]
+      quote: "I'm going to send a nurse out tomorrow to see him, check his back, and look at the bowel situation."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back this afternoon about the bed and the provider's answer.
+      speaker: Nurse
+      turns: [70]
+      quote: "I'll call you back this afternoon about the bed and about what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised giving the oxycodone as labeled and continuing the senna twice a day.
+      speaker: Nurse
+      turns: [56]
+      quote: "And keep giving the senna twice a day, don't skip it."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised offering plenty of fluids and prune juice and noting any bowel movement.
+      speaker: Nurse
+      turns: [60]
+      quote: "offer him plenty of fluids, and prune juice is good."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised a pillow behind his lower back and a warm blanket, with no heating pad, and changing position often.
+      speaker: Nurse
+      turns: [62]
+      quote: "put a pillow behind his lower back when he's on the couch, and a warm blanket. No heating pad."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+    - text: Advised calling for vomiting, a hard swollen belly, pain staying above a six after a dose, or sleepiness that made him hard to wake.
+      speaker: Nurse
+      turns: [72]
+      quote: "If he starts vomiting, if his belly gets hard and swollen, if the pain stays above a six even after a dose, or if he gets so sleepy you can't wake him easily, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags: []

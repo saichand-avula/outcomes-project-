@@ -1,0 +1,228 @@
+call_id: tr-182
+split: train
+blueprint: "Wife of a hospice patient says the oxycodone tablets ran out this morning (the pharmacy refill never came) and he is in pain 6/10 and getting worse. Nurse pages on-call to authorize an emergency supply, plans a delivery tonight, and a callback within an hour. Flag: medication_concern (ran out)."
+setup:
+  scenario_category: medication
+  subtype: ran_out
+  secondary_tags: [hedging, late_answers, split_turns, phone_from_file]
+  clinical_domains: [medication, pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-06T17:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rolf Engstrom
+  patient_name_spoken: Rolf Engstrom
+  patient_name_certainty: stated
+  patient_dob_true: "1944-03-14"
+  patient_dob_spoken: "1944-03-14"
+  patient_dob_certainty: stated
+  caller_name_true: Marit Engstrom
+  caller_name_spoken: Marit Engstrom
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3205550138"
+  callback_phone_spoken: "3205550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband's pain medicine ran out
+  reason_category: medication
+  relevant_context: Hospice patient on oxycodone for pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: stopped
+    dose: "5"
+    unit: mg
+    frequency: every 4 hours
+    last_dose: last night at eleven
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: oxycodone tablets
+    supply_remaining: none
+    supply_unit: tablets
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 6/10
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: The pharmacy refill never arrived
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: emergency oxycodone supply
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    reason_or_trigger: deliver oxycodone
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Help him into a comfortable position, use a warm pack on the sore area, and keep the room quiet until the medicine arrives
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any hour if his pain gets worse before the oxycodone arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: His oxycodone ran out this morning because the refill never arrived
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Beth.
+  Caller -> Beth, it's Marit Engstrom. My husband is Rolf Engstrom. His pain pills ran out. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Oh no. Okay, Marit, I'm here. What's his date of birth?
+  Caller -> March fourteenth. Nineteen forty four. || patient_dob
+  Nurse -> And is three two oh, five five five, zero one three eight the best number? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> Okay. Tell me what happened.
+  Caller -> The oxycodone. The five milligram tablets. He takes one every four hours. I gave him the last one last night at eleven. There are none left. Zero. The refill was supposed to come on Monday, the pharmacy said, and it never came. || A1, A2, A4, F1
+  Nurse -> Okay. And how is his pain now?
+  Caller -> It's getting worse. He said a six when he woke up and now it's more. He's been holding his side for an hour. I think it's a seven or an eight now. But he said six, so I'll say six. || A3
+  Nurse -> Okay. Marit, I'm going to page our on-call nurse right now to get an emergency supply. || R1
+  Caller -> Thank you. Oh, thank you. I didn't know who to call.
+  Nurse -> You did the right thing. We'll get the oxycodone delivered to you tonight. || R2
+  Caller -> Tonight. Okay. Does somebody have to bring it? I can't leave him.
+  Nurse -> Yes. A driver will bring it to the door. I'll call you back within the hour to give you the time. || R3
+  Caller -> Within the hour. Okay.
+  Nurse -> Until it arrives, help him into the most comfortable position, and try a warm pack on the sore area. Keep the room quiet. || E1
+  Caller -> Warm pack. Quiet. Okay. I have the rice sock. I'll warm it.
+  Nurse -> And call me any hour if his pain gets worse before the oxycodone comes. || E2
+  Caller -> Any hour. Okay. Thank you, Beth. I'm so sorry to bother you.
+  Nurse -> You're not bothering me. This is exactly what we're here for.
+  Caller -> I know. I just hate asking for help. We've always done everything ourselves.
+  Nurse -> It's okay to ask now. Talk to you within the hour.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rolf Engstrom, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-03-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Marit Engstrom, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3205550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband's pain medicine ran out.
+    speaker: Caller
+    turns: [2]
+    quote: "His pain pills ran out."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Oxycodone 5 mg every 4 hours was last given last night at eleven, with no tablets left.
+      speaker: Caller
+      turns: [8]
+      quote: "I gave him the last one last night at eleven. There are none left."
+      explanation: Documents the medication running out.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 4 hours, last_dose: last night at eleven, med_status: stopped, certainty: stated}
+        - {type: supply, item: oxycodone tablets, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: The pharmacy refill that was supposed to come on Monday never arrived.
+      speaker: Caller
+      turns: [8]
+      quote: "The refill was supposed to come on Monday, the pharmacy said, and it never came."
+      explanation: Documents the cause.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: Pain was about 6/10 and getting worse.
+      speaker: Caller
+      turns: [10]
+      quote: "It's getting worse. He said a six when he woke up and now it's more."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 6/10, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call nurse for an emergency supply.
+      speaker: Nurse
+      turns: [11]
+      quote: "I'm going to page our on-call nurse right now to get an emergency supply."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery of the oxycodone was planned for tonight.
+      speaker: Nurse
+      turns: [13]
+      quote: "We'll get the oxycodone delivered to you tonight."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back within the hour with the delivery time.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll call you back within the hour to give you the time."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within an hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised a comfortable position, a warm pack on the sore area, and a quiet room until the medicine arrived.
+      speaker: Nurse
+      turns: [17]
+      quote: "help him into the most comfortable position, and try a warm pack on the sore area."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling at any hour if his pain got worse before the oxycodone arrived.
+      speaker: Nurse
+      turns: [19]
+      quote: "call me any hour if his pain gets worse before the oxycodone comes."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "His pain pills ran out."}

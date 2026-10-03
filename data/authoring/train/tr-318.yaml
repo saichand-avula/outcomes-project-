@@ -1,0 +1,319 @@
+call_id: tr-318
+split: train
+blueprint: "A wife calls home health because her husband, who has liver disease with known esophageal varices, vomited bright red blood twice in the last fifteen minutes, about a cup each time, and now looks pale and dizzy; he also had a black stool this morning. He takes propranolol. The nurse recognizes a likely bleed and tells her to call 911 immediately, stays on the line, coaches her to turn him onto his side, give nothing by mouth, keep a bowl, unlock the door and gather his medicine list, pages on-call, and plans a callback. Bleeding with 911 escalation, spouse caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: other_urgent
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [bleeding, nausea_vomiting, dizziness, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Bayview Home Health
+  agency_type: home_health
+  nurse_name: Anselm
+  call_timestamp_utc: "2026-10-28T11:25:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hollis Brandt
+  patient_name_spoken: Hollis Brandt
+  patient_name_certainty: stated
+  patient_dob_true: "1955-02-19"
+  patient_dob_spoken: "1955-02-19"
+  patient_dob_certainty: stated
+  caller_name_true: Marlene Brandt
+  caller_name_spoken: Marlene Brandt
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7045550109"
+  callback_phone_spoken: "7045550109"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is vomiting bright red blood
+  reason_category: bleeding
+  relevant_context: Home health patient with liver disease and esophageal varices
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting bright red blood
+    symptom_present: true
+    onset_or_duration: twice in fifteen minutes
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pale and dizzy
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: black stool
+    symptom_present: true
+    onset_or_duration: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has liver disease with esophageal varices that were banded last spring
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: propranolol
+    medication_name_spoken: propranolol
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: twice a day
+    last_dose: eight this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: vomiting bright red blood with dizziness and a black stool
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Lay him on his left side with his head turned, keep a bowl beside him, and give nothing by mouth
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Unlock the front door, hand the paramedics his medicine list, and tell them about the varices and the blood
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Vomiting bright red blood with dizziness in a patient with varices
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the caller to call 911
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Bayview Home Health, this is Anselm.
+  Caller -> Anselm, it's Marlene Brandt. Hollis is throwing up blood. Bright red blood. A lot of it. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Marlene. I'm here. Where is Hollis right now?
+  Caller -> He's in the bathroom. On the floor. I mean, he's sitting on the edge of the tub. He's holding the toilet. He threw up twice. Just now. Twice in fifteen minutes. It's all over the floor.
+  Nurse -> Marlene, are you in the room with him?
+  Caller -> I'm in the doorway. I came in when I heard him retching. I called his name and he couldn't answer. He just waved his hand.
+  Nurse -> Okay. Stay with him.
+  Nurse -> Okay. How much blood? Can you tell?
+  Caller -> A lot. A cup. Maybe more. Each time. It's bright red. Not dark. It's like a bright red. It's terrible. I've never seen that.
+  Caller -> I'm a retired school nurse, and I've never seen this much. I don't know what to do with my hands.
+  Nurse -> That's okay. I'm going to tell you exactly what to do. First thing is the call.
+  Nurse -> Okay. Marlene, I need you to call nine one one right now. This is an emergency. He needs an ambulance. || F2, R1
+  Caller -> Nine one one. Okay. Should I? Yes. Yes. Okay. But I'm scared to leave him.
+  Nurse -> You don't have to leave him. You can call from the next room or the hall. Just stay within sight.
+  Caller -> Okay. I can see him from the hallway. I'll stand where I can see his feet.
+  Nurse -> I know. Do you have another phone besides this one? So I can stay on with you?
+  Caller -> I have the cordless in the bedroom. It's charging. I'll get it. Hold on. Let me put you on speaker.
+  Caller -> It's ringing. Is it supposed to take this long?
+  Nurse -> It may take a few rings. Hang on.
+  Nurse -> Perfect. Go.
+  Caller -> Okay. Got the cordless. I'm dialing. Hello? Yes. My husband is vomiting blood. Bright red blood. Yes. He has liver disease. Forty four Seabright Road. Brandt. Hollis Brandt. They said they're coming. Seven minutes.
+  Caller -> They want me to stay on with them until the paramedics are there, so I'll put this one down on the counter right here.
+  Caller -> They said stay on the line but I can't hear them well with two phones. They said they'll stay on until the crew gets here.
+  Nurse -> Stay on with them. I'll be right here too.
+  Nurse -> Good. Stay on with them if they ask. Is Hollis awake?
+  Caller -> He's awake. He's pale. His face is gray. He's sweaty. He says he's dizzy. He says the room is moving. || A2
+  Nurse -> Is he able to answer you when you speak to him?
+  Caller -> Yes. He says yes and no. He's slow. He's mumbling. He knows my name. He called me Marley, which is what he calls me when he's, when he's soft.
+  Nurse -> That's a good sign. Keep talking to him.
+  Nurse -> Okay. Marlene, here's what I want you to do. Get him to lie down on his left side, with his head turned a little, so if he vomits again he doesn't choke. Can you do that?
+  Caller -> On the floor? On the bath mat? I'll put towels. He's so heavy.
+  Nurse -> Don't lift him. Slide a towel or a blanket under his head and let him lie where he is.
+  Caller -> Okay. A towel. I have the thick one. There. Okay.
+  Nurse -> Don't try to lift him. If he can lie down where he is, have him do that. If he can't, he can stay sitting leaning against the tub. But no standing. Put a bowl or a bucket next to him. And nothing by mouth. No water, no pills. || E1
+  Caller -> No water. No pills. A bowl. I have the big pot. I'll put it beside him. Hollis, honey, lie down. On your side. Slow. There. He's on his side. He's on the mat. I put a towel under his head.
+  Nurse -> Good. That's right. Is he breathing okay?
+  Caller -> He's breathing. He's breathing fast. He's pale. He says he's cold.
+  Nurse -> Is his breathing noisy? Gurgly?
+  Caller -> No gurgling. It's quick and shallow. Short breaths. He looks scared.
+  Nurse -> Tell him you're right there.
+  Nurse -> Cover him with a blanket. Don't overheat him. Just a light one.
+  Caller -> There's a towel. And the bathrobe. I'll put the robe on him. Okay. Done.
+  Nurse -> Good. Marlene, has he had any black stools? Today or yesterday?
+  Caller -> Yes. This morning. He said it was black. Like tar. He didn't tell me till after. I should have called then. || A3
+  Nurse -> It's okay. A lot of people don't realize how serious it is. You called now.
+  Caller -> I just thought it was his stomach. He's had a stomach thing all week.
+  Nurse -> It's not your fault. We'll get him help.
+  Nurse -> It's okay. You called now. That's what matters. Does he have a history of this? You said liver disease.
+  Caller -> He has cirrhosis. And the varices. The veins in his throat. They banded them in the spring. The doctor said if they bleed he needs to go right away. || A4
+  Nurse -> Exactly. And that's what we're doing.
+  Caller -> I just wish I'd called sooner.
+  Nurse -> Don't blame yourself.
+  Nurse -> Okay. That's important. Tell the paramedics that. Tell them it's varices that were banded in the spring. Is he on any blood thinners?
+  Caller -> No. No blood thinners. He takes the propranolol. Twenty milligrams. Twice a day. For the varices. He took the morning one at eight. || A5
+  Nurse -> Okay. Propranolol, twenty, twice a day, last at eight. Good. Marlene, can you go unlock the front door while he's lying there? He should be okay for a few seconds. || A5
+  Caller -> Okay. Hollis, I'll be right back. One second. I'm unlocking the door. Okay. It's open. I'm back. I turned the porch light on.
+  Nurse -> Good. Do you have his medicine list?
+  Caller -> On the fridge. I'll grab it. Hold on. Okay. I have it. The list. And his bottles are in the cabinet. I'll bring the propranolol. || A5
+  Nurse -> Good. Bring the bottle with the list.
+  Nurse -> Perfect. When they arrive, hand them the list and tell them the varices, the blood, and that it started fifteen minutes ago. || E2
+  Caller -> Varices. Blood. Fifteen minutes. Okay. It's more like twenty now. I'll say twenty.
+  Caller -> It was on a Tuesday, the last time, a few years back. The ambulance came. It was different. This one is worse.
+  Nurse -> I know. They'll take good care of him.
+  Nurse -> Say twenty. I'm going to page the on-call clinician right now, so they know. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> What's his date of birth, in case the paramedics ask?
+  Caller -> February nineteenth. Nineteen fifty five. He's seventy one. || patient_dob
+  Nurse -> And the number you're on?
+  Caller -> Seven oh four, five five five, zero one zero nine. It's the cordless. || callback_phone
+  Nurse -> Great. Is he still awake?
+  Caller -> He is. He's looking at me. He says he feels weak. He says he's so tired.
+  Nurse -> Is he trying to sit up? Please keep him down.
+  Caller -> He's trying. He wants to go to the bed. I told him no. He's frustrated.
+  Nurse -> Tell him the nurse says stay put. Doctor's orders.
+  Caller -> Hollis, the nurse says stay put. He says okay. He's closing his eyes.
+  Nurse -> Keep him talking. Don't let him fall asleep.
+  Caller -> Hollis. Hollis, look at me. Tell me about the boat. He's saying the boat. The boat in Florida.
+  Nurse -> That's good. Keep him telling you about the boat.
+  Nurse -> Keep talking to him. Tell him help is coming.
+  Caller -> Hollis, they're coming. You're going to be okay. I'm here. I'm right here.
+  Nurse -> Do you hear anything?
+  Caller -> Sirens. I hear the siren. It's close.
+  Caller -> The dog is going crazy. Duke! Duke, quiet. I'll put him in the garage. No, I can't. I'll leave him.
+  Nurse -> Don't worry about the dog. The paramedics are used to it.
+  Nurse -> Good. Go to the door and bring them in. I'll let you go. I'll call you back in twenty minutes. Answer if you can. || R3
+  Caller -> Okay. Thank you. Thank you, Anselm. Oh God, they're here.
+  Nurse -> Go. Be with him.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hollis Brandt, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-02-19", certainty: stated, heard_as: [], turns: [67]}
+    caller_name: {value: Marlene Brandt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550109", certainty: stated, heard_as: [], turns: [69]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was vomiting bright red blood.
+    speaker: Caller
+    turns: [2]
+    quote: "Hollis is throwing up blood. Bright red blood. A lot of it."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He vomited bright red blood twice in fifteen minutes, about a cup each time.
+      speaker: Caller
+      turns: [4]
+      quote: "Twice in fifteen minutes."
+      explanation: Documents the bleeding.
+      facts:
+        - {type: symptom, name: vomiting bright red blood, present: true, onset: twice in fifteen minutes, certainty: stated}
+      covers: [A1]
+    - text: He was pale, sweaty and dizzy.
+      speaker: Caller
+      turns: [26]
+      quote: "He's pale. His face is gray. He's sweaty."
+      explanation: Documents the pallor and dizziness.
+      facts:
+        - {type: symptom, name: pale and dizzy, present: true, certainty: stated}
+      covers: [A2]
+    - text: He had a black tarry stool this morning.
+      speaker: Caller
+      turns: [44]
+      quote: "Yes. This morning. He said it was black. Like tar."
+      explanation: Documents the black stool.
+      facts:
+        - {type: symptom, name: black stool, present: true, onset: this morning, certainty: stated}
+      covers: [A3]
+    - text: He had cirrhosis with esophageal varices that were banded in the spring.
+      speaker: Caller
+      turns: [49]
+      quote: "He has cirrhosis. And the varices."
+      explanation: Documents the medical history.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: Propranolol 20 mg twice a day was taken, last at eight this morning.
+      speaker: Caller
+      turns: [54]
+      quote: "He takes the propranolol. Twenty milligrams. Twice a day."
+      explanation: Documents the medication.
+      facts:
+        - {type: medication, name: propranolol, dose: "20", unit: mg, frequency: twice a day, last_dose: eight this morning, med_status: taking, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [12]
+      quote: "I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [64]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [85]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised laying him on his left side with his head turned, keeping a bowl beside him and giving nothing by mouth.
+      speaker: Nurse
+      turns: [30]
+      quote: "Get him to lie down on his left side, with his head turned a little"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised handing the paramedics his medicine list and telling them about the varices and the blood.
+      speaker: Nurse
+      turns: [60]
+      quote: "hand them the list and tell them the varices, the blood"
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "Hollis is throwing up blood. Bright red blood. A lot of it."}
+    - {category: escalation_request, turns: [12], quote: "I need you to call nine one one right now."}

@@ -1,0 +1,272 @@
+call_id: tr-245
+split: train
+blueprint: "Daughter calls in tears from her kitchen: her 75-year-old hospice father told her an hour ago, 'I'm done, I'm going to take all of them tonight,' meaning his pills. He has not done anything yet and is in the next room watching TV. She has not been able to bring herself to go back in. The nurse keeps her on the line, asks about access to the medicines, has her gather and lock up the pill bottles, pages the on-call clinician, plans a social work referral and a callback in twenty minutes, and gives 988 and 911 guidance. Flag: suicidal_statement. Long v2 emotional call with interruptions."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [mood, medication, caregiver_stress]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Sofia
+  call_timestamp_utc: "2026-10-18T23:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: [morphine]
+chief_complaint:
+  patient_name_true: Gaston Delacroix
+  patient_name_spoken: Gaston Delacroix
+  patient_name_certainty: stated
+  patient_dob_true: "1951-02-18"
+  patient_dob_spoken: "1951-02-18"
+  patient_dob_certainty: stated
+  caller_name_true: Marisa Delacroix
+  caller_name_spoken: Marisa Delacroix
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5045550139"
+  callback_phone_spoken: "5045550139"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father said he was going to take all his pills tonight
+  reason_category: mood
+  relevant_context: Hospice patient living with his daughter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: statement of intent to take all his pills
+    symptom_present: true
+    onset_or_duration: about an hour ago
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has not taken anything yet and is in the next room watching TV
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: All of his medicines are in a basket on the kitchen counter
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: low mood and withdrawal this week
+    symptom_present: true
+    onset_or_duration: this week
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: patient said he would take all his pills tonight
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Gather all the pill bottles into a locked box or a bag she keeps with her, stay within sight of him, and give him his medicines yourself
+    certainty: stated
+  - item_id: E2
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988, call the hospice line any hour, and call 911 if he takes any pills or tries to harm himself
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient told his daughter he was done and would take all his pills tonight
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Sofia.
+  Caller -> Hi. Hi, I need, I need to talk to someone. It's my dad. It's my dad, he's a patient.
+  Nurse -> Okay. I'm here. I'm a nurse. What's your name?
+  Caller -> Marisa. Marisa Delacroix. My dad is Gaston Delacroix. || caller_name, relationship, patient_name
+  Nurse -> Okay, Marisa. Take a breath. I'm listening. What's happening with your dad?
+  Caller -> He said something. About an hour ago. He said, "I'm done. I'm going to take all of them tonight." || cc, A1, F1
+  Nurse -> All of them. His pills?
+  Caller -> His pills. Yes. I think so. He didn't say pills but I know what he meant. The basket on the counter. He looked at the basket. || A1, A3
+  Nurse -> Okay. Marisa, I'm really glad you called me. Where is your dad right now?
+  Caller -> He's in the living room. He's watching TV. He's on the recliner. I can hear it from here. I'm in the kitchen. || A2
+  Nurse -> Okay. Has he taken anything? Any pills at all, since he said it?
+  Caller -> No. No. I don't think so. I've been in here, I've been, I haven't gone back in. I couldn't. I came in here and I stood at the sink. || A2
+  Nurse -> Okay. That's okay. Is the basket where you are? In the kitchen?
+  Caller -> Yes. It's right here on the counter. By the toaster. It's the basket with all of his bottles.
+  Nurse -> Okay. Marisa, I'd like you to pick up the basket, and take it somewhere he can't reach. Do you have a closet or a box that locks, or a drawer?
+  Caller -> I have a lockbox. A little one. For papers. It's in my bedroom. It's got a key.
+  Nurse -> That's good. Can you go get it, and put the bottles in it? Stay where you can hear the TV.
+  Caller -> Okay. Okay. Hold on. Hold on, I'll put the phone, I'll take the phone with me.
+  Nurse -> Yes. Take me with you.
+  Caller -> I'm walking. I'm in the hall. Okay. I'm in my room. I have the box. It's open. Okay. I'm putting the basket in, it's too big. I'll take out the bottles. One. Two. Three. There's seven. There's seven bottles. || E1
+  Nurse -> Take your time. Put all seven in, and close it. Is there anything else? Any liquid in the fridge, any patches, anything like that?
+  Caller -> The morphine is in the fridge. The liquid. Oh. I forgot. I'll get it. Hold on.
+  Nurse -> Okay. Go get it. I'll stay here.
+  Caller -> Okay. I'm in the kitchen. I have it. It's the little brown bottle. I'll put it in the box too. Okay. Done. I'm locking it. It's locked. I have the key. It's on a string. I'm putting it around my neck.
+  Nurse -> Good. That's very good, Marisa. That was a hard thing to do and you did it quickly.
+  Caller -> I'm shaking. Look at my hand.
+  Nurse -> I can hear it. That's okay. You're doing everything right. Now I want to ask you something. Has your dad said anything like this before?
+  Caller -> No. Not like that. He's been quiet this week. He stopped eating at the table. He just wants to be in his chair. He doesn't want the aide to come. || A4
+  Nurse -> Okay. So he's been low and withdrawn this week.
+  Caller -> Yes. Since his friend died. Last Sunday. His friend Leon, they played cards for fifty years. He didn't go to the funeral. He said he didn't want to.
+  Nurse -> I'm so sorry. That's a big loss for him, and for you. Okay. Marisa, I'd like to page the on-call clinician right now so that someone who can help is looking at this tonight. || R1
+  Caller -> Please. Yes. Please. I don't know what to do.
+  Nurse -> I'm also going to ask our social worker to reach out to your dad, and to you. || R2
+  Caller -> Okay. Okay. He might not want to talk to her.
+  Nurse -> That's okay. We'll go at his pace. Right now the most important thing is that someone stays with him tonight. Can you do that?
+  Caller -> Yes. I'm not going anywhere. I'll sit in the living room with him. I'll sleep on the couch.
+  Nurse -> Good. Stay within sight of him, and you give him his medicines yourself, from the box, when it's time. Nobody else.
+  Caller -> I give him his medicine. From the box. Okay. I have the key. Okay.
+  Nurse -> Is there anyone who can come be with you tonight? A sibling, a neighbor?
+  Caller -> My brother lives in Baton Rouge. I could call him. He'd come but it's three hours. My neighbor Pat has a key.
+  Nurse -> Maybe call Pat. Even just to sit with you for a bit.
+  Caller -> Okay. I'll text her. She's up late. She does crosswords.
+  Nurse -> Marisa, I'd like you to go back and sit with him now. Keep the phone with you. Is that okay?
+  Caller -> Yes. Okay. I'm walking. Hold on. I'm in the hall. I can see him. He's in the chair. He's got the blanket. He's awake. He's looking at the TV.
+  Nurse -> Good. Don't confront him. Just sit near him. If he talks, listen. You don't have to fix anything.
+  Caller -> Okay. I'm sitting. I'm on the couch. He looked at me. He said, "What are you doing?" I said, "Nothing, Dad. I'm just sitting with you." He said okay.
+  Nurse -> That's perfect. That's exactly what to say.
+  Caller -> He's looking at the screen again. It's a game show. It's something with a wheel.
+  Nurse -> Does he seem drowsy at all? Or confused? Any slurring?
+  Caller -> No. He's sharp. He answered a question on the show before the contestant did.
+  Nurse -> That's a good sign that he's clear. Okay.
+  Caller -> He always does that. He used to say he should be on it.
+  Nurse -> Okay. Marisa, can I get your dad's date of birth, and your phone number? In case we get cut off.
+  Caller -> February eighteenth. Nineteen fifty one. And my number is five oh four, five five five, zero one three nine. || patient_dob, callback_phone
+  Nurse -> Got it. I'm going to hang up and page the on-call right now, and I'll call you back in twenty minutes. || R3
+  Caller -> Twenty minutes. Okay. Don't, you won't, you'll call me?
+  Nurse -> I'll call you. And if you need me before then, call right back. This number, any hour.
+  Caller -> Okay. Any hour. Okay.
+  Nurse -> And Marisa, if he does take any pills, or tries to hurt himself, don't wait for me. Call nine one one. You can also call or text nine eight eight, the crisis line, any time, for him or for you. || E2
+  Caller -> Nine one one if he takes anything. Nine eight eight. Okay. I have my phone. I wrote it on my hand.
+  Nurse -> Good. You're not alone in this. I'm going to page the on-call now.
+  Caller -> Thank you. Thank you so much. I'm so scared.
+  Nurse -> It makes sense that you are. You're also being very brave.
+  Nurse -> I know. I'll call you in twenty minutes.
+  Caller -> Okay.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "I haven't gone back in", heard_form: "I've been, I haven't gone back in", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gaston Delacroix, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1951-02-18", certainty: stated, heard_as: [], turns: [54]}
+    caller_name: {value: Marisa Delacroix, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: daughter, certainty: stated, turns: [4]}
+    callback_phone: {value: "5045550139", certainty: stated, heard_as: [], turns: [54]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father said he was going to take all his pills tonight.
+    speaker: Caller
+    turns: [6]
+    quote: "He said, \"I'm done. I'm going to take all of them tonight.\""
+    explanation: Documents the statement prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He said about an hour earlier that he was going to take all his pills tonight.
+      speaker: Caller
+      turns: [6]
+      quote: "He said something. About an hour ago."
+      explanation: Documents the timing of the statement.
+      facts:
+        - {type: symptom, name: statement of intent to take all his pills, present: true, onset: about an hour ago, certainty: stated}
+      covers: [A1]
+    - text: He had not taken anything and was in the next room watching TV.
+      speaker: Caller
+      turns: [10]
+      quote: "He's in the living room. He's watching TV."
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: All of his medicines were in a basket on the kitchen counter.
+      speaker: Caller
+      turns: [8]
+      quote: "The basket on the counter."
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: He had been quiet and withdrawn this week, stopped eating at the table, and did not want the aide to come.
+      speaker: Caller
+      turns: [28]
+      quote: "He's been quiet this week."
+      explanation: Documents the low mood.
+      facts:
+        - {type: symptom, name: low mood and withdrawal this week, present: true, onset: this week, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'd like to page the on-call clinician right now so that someone who can help is looking at this tonight."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the social worker to reach out to him and to her.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm also going to ask our social worker to reach out to your dad, and to you."
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [55]
+      quote: "I'll call you back in twenty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised locking up all the medicine bottles, staying within sight of him, and giving him his medicines herself.
+      speaker: Nurse
+      turns: [37]
+      quote: "Stay within sight of him, and you give him his medicines yourself, from the box, when it's time."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if he took any pills or tried to hurt himself, and calling or texting 988 at any time.
+      speaker: Nurse
+      turns: [59]
+      quote: "if he does take any pills, or tries to hurt himself, don't wait for me. Call nine one one."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: suicidal_statement, turns: [6], quote: "He said, \"I'm done. I'm going to take all of them tonight.\""}

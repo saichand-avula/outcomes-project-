@@ -1,0 +1,211 @@
+call_id: tr-021
+split: train
+blueprint: "Husband asks to give liquid morphine early; last dose about an hour ago; the order is every 2 hours as needed; nurse tells him to wait and plans a callback; pain 6/10; wife patient."
+setup:
+  scenario_category: medication
+  subtype: dose_timing_question
+  secondary_tags: [liquid_concentration, prn_and_scheduled, late_answers, split_turns]
+  clinical_domains: [pain]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-04T05:48:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dolores Pruszynski
+  patient_name_spoken: Dolores Pruszynski
+  patient_name_certainty: stated
+  patient_dob_true: "1942-09-18"
+  patient_dob_spoken: "1942-09-18"
+  patient_dob_certainty: stated
+  caller_name_true: Stanley
+  caller_name_spoken: Stanley
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "5755550129"
+  callback_phone_spoken: "5755550129"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether he can give morphine earlier than ordered
+  reason_category: medication_timing
+  relevant_context: Early morning call; patient in pain
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 6/10
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    strength: 20 mg/mL
+    dose: "0.25"
+    unit: mL
+    route: under the tongue
+    frequency: every 2 hours
+    prn: true
+    last_dose_time: about an hour ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    timeframe: wait until 2 hours after the last dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 30 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: The ordered interval is every 2 hours; giving it early risks too much sedation
+    timing_or_threshold: every 2 hours
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition, cool cloth, and a calm quiet room while waiting
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if pain is not eased about an hour after the next dose, or if she becomes very hard to wake
+    trigger_condition: no relief an hour after next dose; hard to wake
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Tom, hi. It's Stanley. It's my wife. Dolores. Dolores Pruszynski. || caller_name, relationship, patient_name
+  Nurse -> Hi, Stanley. Can you spell the last name?
+  Caller -> P R U S Z Y N S K I. || patient_name
+  Nurse -> Thank you. And her birthday?
+  Caller -> September eighteenth, nineteen forty two. || patient_dob
+  Nurse -> And your number is five seven five, five five five, zero one two nine? || callback_phone
+  Caller -> Yep. || callback_phone
+  Nurse -> What's going on, Stanley?
+  Caller -> She's hurting. It's about a six. She's moaning, and I can't stand it. || cc, A1
+  Nurse -> Okay. What have you given her?
+  Caller -> The morphine. The liquid. It's twenty milligrams per milliliter, the little dropper. I gave her point two five milliliters under the tongue. || A2
+  Nurse -> Okay. And when was that?
+  Caller -> About an hour ago. A little less. || A2
+  Caller -> And I want to give her another one now. Can I? Because it's not working yet. || cc
+  Nurse -> Okay. Let me look at the orders. So I'm showing the morphine, twenty milligrams per milliliter, point two five milliliters under the tongue, every two hours as needed. || A2
+  Caller -> Right. That's what it says.
+  Nurse -> So the next dose isn't due for another hour or so. I'd like you to wait with the morphine until it's been two full hours. Sometimes it takes forty five minutes, an hour, to really work. || R1
+  Caller -> But she's in pain now.
+  Nurse -> I know. I know it's hard. The reason I'm saying wait is, if we give it too soon, she could get too sleepy, or her breathing could slow down. I don't want that for her. || E1
+  Caller -> Okay. I understand.
+  Nurse -> While you wait, you can try repositioning her, a cool cloth on her forehead, and keep the room quiet and calm. || E2
+  Caller -> Okay. I'll do that. I'll turn her on her side.
+  Nurse -> Good. And I'll call you back in thirty minutes to see how she's doing. || R2
+  Caller -> Okay. Thirty minutes.
+  Nurse -> If she's still not comfortable an hour after the next dose, or she's very hard to wake, call me right away. || E3
+  Caller -> I will. Thank you, Tom.
+  Nurse -> You're doing a good job, Stanley.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "second request", heard_form: "And I want to give her another one now", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dolores Pruszynski, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1942-09-18", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Stanley, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "5755550129", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife was in pain and asked whether he could give another morphine dose early.
+    speaker: Caller
+    turns: [15]
+    quote: "And I want to give her another one now. Can I? Because it's not working yet."
+    explanation: Documents the medication-timing question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Pain of about 6/10 with moaning was reported.
+      speaker: Caller
+      turns: [10]
+      quote: "She's hurting. It's about a six. She's moaning, and I can't stand it."
+      explanation: Documents the reported pain severity.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 6/10, certainty: stated}
+      covers: [A1]
+    - text: Morphine 20 mg/mL, 0.25 mL under the tongue every 2 hours as needed, was ordered; the last dose was given about an hour ago.
+      speaker: Caller
+      turns: [12]
+      quote: "It's twenty milligrams per milliliter, the little dropper. I gave her point two five milliliters under the tongue."
+      explanation: Documents the liquid concentration, dose, and recent administration.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg/mL, dose: "0.25", unit: mL, route: under the tongue, frequency: every 2 hours, prn: true, last_dose: about an hour ago, med_status: taking, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Advised waiting until 2 full hours after the last dose before giving more morphine.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'd like you to wait with the morphine until it's been two full hours."
+      explanation: Documents the medication timing instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: morphine, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in 30 minutes to check on her comfort.
+      speaker: Nurse
+      turns: [24]
+      quote: "And I'll call you back in thirty minutes to see how she's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Explained that giving the dose too soon could cause excessive sleepiness or slowed breathing.
+      speaker: Nurse
+      turns: [20]
+      quote: "if we give it too soon, she could get too sleepy, or her breathing could slow down."
+      explanation: Documents the rationale for the dosing interval.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised repositioning, a cool cloth, and a quiet calm room while waiting.
+      speaker: Nurse
+      turns: [22]
+      quote: "you can try repositioning her, a cool cloth on her forehead, and keep the room quiet and calm."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if she was still uncomfortable an hour after the next dose or became very hard to wake.
+      speaker: Nurse
+      turns: [26]
+      quote: "If she's still not comfortable an hour after the next dose, or she's very hard to wake, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

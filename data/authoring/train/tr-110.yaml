@@ -1,0 +1,471 @@
+call_id: tr-110
+split: train
+blueprint: "LONG medication reconciliation: son of an 85-year-old discharged yesterday after a heart failure admission reads the discharge list: metoprolol succinate 25 mg daily, furosemide 40 mg daily (up from 20), apixaban 5 mg twice a day, atorvastatin 40 mg nightly, losartan 25 mg daily (new), levothyroxine 50 mcg every morning, donepezil 5 mg nightly. The old lisinopril 10 mg should have been stopped, but he gave both lisinopril and losartan this morning. BP 104/62, a little lightheaded. Nurse stops lisinopril, messages the prescriber and pharmacist, plans a visit tomorrow, teaches BP checks and safety. Flag: medication_concern."
+setup:
+  scenario_category: medication
+  subtype: medication_reconciliation
+  secondary_tags: [chart_reading_distractor, tall_man_drug, hedging, split_turns, late_answers, multi_issue, prn_and_scheduled]
+  clinical_domains: [medication, blood_pressure, dizziness, cardiac]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-11-09T15:00:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alphonse Reyes
+  patient_name_spoken: Alphonse Reyes
+  patient_name_certainty: stated
+  patient_dob_true: "1941-06-06"
+  patient_dob_spoken: "1941-06-06"
+  patient_dob_certainty: stated
+  caller_name_true: Julian Reyes
+  caller_name_spoken: Julian Reyes
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "3105550118"
+  callback_phone_spoken: "3105550118"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked for help sorting out his father's medicines after hospital discharge
+  reason_category: medication_reconciliation
+  relevant_context: Discharged yesterday after a heart failure admission
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol succinate
+    medication_name_spoken: metoprolol succinate
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: apixaban
+    medication_name_spoken: apixaban
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: atorvastatin
+    medication_name_spoken: atorvastatin
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: at night
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: losartan
+    medication_name_spoken: losartan
+    medication_status: prescribed
+    dose: "25"
+    unit: mg
+    frequency: once a day
+    last_dose: given this morning
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: extra_dose
+    dose: "10"
+    unit: mg
+    last_dose: given this morning along with losartan, but the discharge list says to stop it
+    certainty: stated
+  - item_id: A7
+    item_type: medication
+    reporter: caller
+    medication_name_true: levothyroxine
+    medication_name_spoken: levothyroxine
+    medication_status: taking
+    dose: "50"
+    unit: mcg
+    frequency: every morning
+    certainty: stated
+  - item_id: A8
+    item_type: medication
+    reporter: caller
+    medication_name_true: donepezil
+    medication_name_spoken: donepezil
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: at night
+    certainty: stated
+  - item_id: A9
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 104/62
+    certainty: stated
+  - item_id: A10
+    item_type: symptom
+    reporter: caller
+    symptom_name: lightheadedness
+    symptom_present: true
+    onset_or_duration: this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: stop lisinopril for good and give only losartan, with no more blood pressure pills today
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber and pharmacist
+    reason_or_trigger: both lisinopril and losartan given this morning
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: go through every bottle
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    reason_or_trigger: relay the prescriber's response
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Put the lisinopril bottle in a bag away from the others and use a weekly pill box
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check blood pressure sitting and standing twice a day and write it down
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Help him stand slowly and sit on the edge of the bed first
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the top number is below 90, he faints, or he is very weak; call 911 for chest pain
+    trigger_condition: top number below 90; fainting; very weak; chest pain
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Both lisinopril and losartan were given this morning though lisinopril should have been stopped
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Julian Reyes. My dad is Alphonse Reyes. He came home yesterday from the hospital and I'm trying to figure out his medicines. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Julian. How do you spell Reyes?
+  Caller -> R E Y E S. || patient_name
+  Nurse -> And his date of birth?
+  Caller -> June sixth. Nineteen forty one. || patient_dob
+  Nurse -> And I have three one oh, five five five, zero one one eight for you. || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Do you have the discharge papers in front of you?
+  Caller -> I do. I have the list. And I have all the bottles on the kitchen table. There's like twelve of them. || cc
+  Nurse -> Okay. Let's go through it one at a time. Start with whatever's first on the list.
+  Caller -> Okay. So the first one is metoprolol. Succinate. Twenty five milligrams. Once a day. || A1
+  Nurse -> Okay. In the morning?
+  Caller -> Yes. In the morning. Yes.
+  Nurse -> Good. Next.
+  Caller -> Furosemide. Forty milligrams. Once a day. It says increased. Before it was twenty. || A2
+  Nurse -> Right. That's the water pill. They doubled it in the hospital.
+  Caller -> Okay. Okay.
+  Nurse -> Next.
+  Caller -> Apixaban. Five milligrams. Twice a day. Morning and night. || A3
+  Nurse -> That's the Eliquis. The blood thinner. Good. || A3
+  Caller -> Yeah. That one I'm very careful with. I give it at eight and eight.
+  Nurse -> Perfect. Keep doing that.
+  Caller -> Okay. Next is atorvastatin. Forty milligrams. At night. || A4
+  Nurse -> Okay. Cholesterol pill. Good.
+  Caller -> Then levothyroxine. Fifty micrograms. Every morning. Empty stomach. || A7
+  Nurse -> Right. And donepezil?
+  Caller -> Yes. Donepezil. Five milligrams. At night. For his memory. || A8
+  Nurse -> Good. That's seven. And what about his blood pressure pill?
+  Caller -> Okay. This is where I'm confused. This is the thing. || A5
+  Nurse -> Go ahead.
+  Caller -> The list says losartan. Twenty five milligrams. Once a day. And it says NEW next to it. And then it says STOP lisinopril. In capital letters. || A5, A6
+  Nurse -> Right. They switched him. Lisinopril is out. Losartan is in. || A5, A6
+  Caller -> Yeah. But here's the problem. The bottle of lisinopril is right here. It's the one he's always taken. Ten milligrams. And I gave it to him this morning. And I also gave the losartan. Because I saw both on the table and I wasn't sure. || A6, F1
+  Nurse -> Okay. So he got both this morning.
+  Caller -> Yes. Both. I'm sorry. I'm so sorry. I didn't read the STOP until just now. || A6, F1
+  Nurse -> It's okay, Julian. I'm glad you called. Let's figure out how he's doing. Is he dizzy? Lightheaded?
+  Caller -> A little. He said he felt kind of lightheaded after breakfast. He's been sitting since. || A10
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> I do. The hospital gave us one. Hold on. I'll do it now. Dad, arm out. Okay. It says one oh four over sixty two. || A9
+  Nurse -> One oh four over sixty two. That's on the low side, especially for him. Okay.
+  Caller -> Is that bad? Is that dangerous?
+  Nurse -> It's lower than I'd like, with the two together. So here's what I want. No more blood pressure pills today. Not the lisinopril and not the losartan. Nothing more. || R1
+  Caller -> Nothing more. Okay.
+  Nurse -> And from tomorrow on, lisinopril is stopped for good. Only the losartan. That's what the hospital wants. || R1, A5, A6
+  Caller -> Only losartan. Lisinopril is done. Okay. || A5, A6
+  Nurse -> I'm going to message his prescriber and the pharmacist right now, and tell them he got both this morning. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> I'll call you this evening with what they say. || R4
+  Caller -> This evening. Okay.
+  Nurse -> And I'm coming tomorrow to go through every bottle with you. We'll set up a pill box. || R3
+  Caller -> Oh, good. That would be so helpful. Thank you.
+  Nurse -> For now, take that lisinopril bottle and put it in a bag, away from the others. Out of sight. || E1
+  Caller -> A bag. Yes. I'll put it in the garage. Okay.
+  Nurse -> And a weekly pill box would help a lot. They're a couple dollars at the drugstore.
+  Caller -> I'll get one tonight. I'll run out. My wife can stay with him.
+  Nurse -> Good. Now, blood pressure. Check it twice a day, sitting and then again after he stands for a minute. Write both down. || E2
+  Caller -> Sitting and standing. Twice a day. Okay.
+  Nurse -> And help him up slowly. Have him sit on the edge of the bed for a minute before he stands. Walk with him. || E3
+  Caller -> Slowly. Edge of the bed. Okay.
+  Nurse -> Julian, call me if the top number is under ninety. Or if he faints, or he's very weak and can't stand. Or if he gets chest pain, that's nine one one. || E4
+  Caller -> Under ninety. Faint. Weak. Chest pain, nine one one. Okay.
+  Nurse -> Has he eaten today? Any nausea, any trouble with his stomach since the pills?
+  Caller -> He ate breakfast. Eggs and toast. No nausea. He's been fine with food. He had a little soup at lunch.
+  Nurse -> Okay, good. And is he making urine normally, with the new water pill dose?
+  Caller -> Yes. A lot, actually. He's up and down to the bathroom. Which is why I'm watching him on his feet.
+  Nurse -> That's what the higher dose does. That's expected.
+  Caller -> Okay.
+  Nurse -> And one thing, Julian, make sure he isn't taking any over-the-counter pain pills or cold medicine from the drugstore. Those can strain the heart and the kidneys, and add to his pills.
+  Caller -> No. I don't think so. I'll check the cabinet though. I'll take them out.
+  Nurse -> That would be good.
+  Nurse -> Is he sitting right now?
+  Caller -> Yes. He's in the recliner. He's watching the news. He's fine. He says what's the fuss.
+  Nurse -> Ha. Okay. Tell him the fuss is that we want him to be safe.
+  Caller -> I will.
+  Nurse -> Did you give the apixaban this morning, too? || A3
+  Caller -> Yes. At eight. And I'll give the evening one at eight.
+  Nurse -> Perfect. That one stays on schedule.
+  Caller -> Okay.
+  Nurse -> One more thing. Did they give you any other instructions at discharge? Diet, fluids, weights?
+  Caller -> Yes. They said low salt. And to weigh him every morning. And to limit fluids, I think it was like two liters a day. Let me look. Yes, two liters.
+  Nurse -> Okay. Good. Are you doing the daily weights?
+  Caller -> I did this morning. He was one seventy four. They told us his dry weight is one seventy. So he's still a little over.
+  Nurse -> Okay. That's good that you have that number. Keep writing it down with the blood pressure.
+  Caller -> Okay. I will. I have a notebook and a pen right on the table.
+  Nurse -> Perfect. Does he have a follow-up appointment with the heart doctor?
+  Caller -> Friday. At ten. Dr. Mendez. I'm taking off work to drive him.
+  Nurse -> Good. Bring all the bottles and the notebook with you.
+  Caller -> Okay. All twelve bottles. Ha. And the notebook.
+  Nurse -> Does he have any trouble with stairs at the house, or is everything on one floor?
+  Caller -> One floor. Thank God. There's one step at the front door, with a rail. He does okay with that.
+  Nurse -> Good. And is he using a walker, a cane?
+  Caller -> A walker. The hospital gave him one. He doesn't love it, but he uses it.
+  Nurse -> And what about at night? Who's staying with him?
+  Caller -> I'm staying here. I'm in my old room. My wife comes in the day and I go to work, then switch. We're making it work.
+  Nurse -> That's a lot of juggling. How are you holding up?
+  Caller -> I'm okay. It was a scare. He was in the hospital six days. I've been a mess.
+  Nurse -> I'm sure. It's good that you're all pitching in.
+  Caller -> Yeah. My sister's coming in from Phoenix next week.
+  Nurse -> That will help. Okay.
+  Nurse -> Anything else before we hang up?
+  Caller -> No. I feel a lot better. I was really freaking out.
+  Nurse -> You did the right thing calling. Talk to you tonight.
+  Caller -> Thanks, Marcus.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: lisinopril and losartan both given, heard_form: "Yes. Both. I'm sorry.", fact_id: A6}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alphonse Reyes, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1941-06-06", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Julian Reyes, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "3105550118", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked for help sorting out his father's medicines after hospital discharge.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm trying to figure out his medicines."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol succinate 25 mg once a day was listed.
+      speaker: Caller
+      turns: [12]
+      quote: "metoprolol. Succinate. Twenty five milligrams. Once a day."
+      explanation: Documents a discharge medication.
+      facts:
+        - {type: medication, name: metoprolol succinate, dose: "25", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Furosemide 40 mg once a day, increased from 20 mg, was listed.
+      speaker: Caller
+      turns: [16]
+      quote: "Furosemide. Forty milligrams. Once a day."
+      explanation: Documents a discharge medication with a dose change.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Apixaban 5 mg twice a day, morning and night, was listed.
+      speaker: Caller
+      turns: [20]
+      quote: "Apixaban. Five milligrams. Twice a day. Morning and night."
+      explanation: Documents the anticoagulant.
+      facts:
+        - {type: medication, name: apixaban, dose: "5", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Atorvastatin 40 mg at night was listed.
+      speaker: Caller
+      turns: [24]
+      quote: "atorvastatin. Forty milligrams. At night."
+      explanation: Documents a discharge medication.
+      facts:
+        - {type: medication, name: atorvastatin, dose: "40", unit: mg, frequency: at night, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Levothyroxine 50 mcg every morning on an empty stomach was listed.
+      speaker: Caller
+      turns: [26]
+      quote: "levothyroxine. Fifty micrograms. Every morning."
+      explanation: Documents a discharge medication.
+      facts:
+        - {type: medication, name: levothyroxine, dose: "50", unit: mcg, frequency: every morning, med_status: taking, certainty: stated}
+      covers: [A7]
+    - text: Donepezil 5 mg at night was listed.
+      speaker: Caller
+      turns: [28]
+      quote: "Donepezil. Five milligrams. At night."
+      explanation: Documents a discharge medication.
+      facts:
+        - {type: medication, name: donepezil, dose: "5", unit: mg, frequency: at night, med_status: taking, certainty: stated}
+      covers: [A8]
+    - text: Losartan 25 mg once a day was newly prescribed at discharge.
+      speaker: Caller
+      turns: [32]
+      quote: "The list says losartan. Twenty five milligrams. Once a day."
+      explanation: Documents the new blood pressure medication.
+      facts:
+        - {type: medication, name: losartan, dose: "25", unit: mg, frequency: once a day, last_dose: given this morning, med_status: prescribed, certainty: stated}
+      covers: [A5]
+    - text: Lisinopril 10 mg was given this morning along with losartan, although the discharge list said to stop lisinopril.
+      speaker: Caller
+      turns: [34]
+      quote: "And I gave it to him this morning. And I also gave the losartan."
+      explanation: Documents the duplicate blood pressure medication error.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, last_dose: given this morning along with losartan, but the discharge list says to stop it, med_status: extra_dose, certainty: stated}
+      covers: [A6]
+    - text: He felt a little lightheaded after breakfast.
+      speaker: Caller
+      turns: [38]
+      quote: "He said he felt kind of lightheaded after breakfast."
+      explanation: Documents the symptom after the extra dose.
+      facts:
+        - {type: symptom, name: lightheadedness, present: true, duration: this morning, certainty: stated}
+      covers: [A10]
+    - text: Blood pressure was 104/62.
+      speaker: Caller
+      turns: [40]
+      quote: "It says one oh four over sixty two."
+      explanation: Documents the blood pressure reading.
+      facts:
+        - {type: vital, name: blood pressure, value: 104/62, certainty: stated}
+      covers: [A9]
+  response:
+    - text: Advised no more blood pressure pills today and stopping lisinopril permanently, giving only losartan from tomorrow.
+      speaker: Nurse
+      turns: [43]
+      quote: "No more blood pressure pills today. Not the lisinopril and not the losartan."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber and pharmacist about the double dose.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to message his prescriber and the pharmacist right now, and tell them he got both this morning."
+      explanation: Documents the planned clinical notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with their response.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll call you this evening with what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R4]
+    - text: Planned a visit tomorrow to go through every bottle and set up a pill box.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm coming tomorrow to go through every bottle with you."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised bagging the lisinopril away from the other bottles and using a weekly pill box.
+      speaker: Nurse
+      turns: [53]
+      quote: "take that lisinopril bottle and put it in a bag, away from the others. Out of sight."
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised checking blood pressure sitting and standing twice a day and writing it down.
+      speaker: Nurse
+      turns: [57]
+      quote: "Check it twice a day, sitting and then again after he stands for a minute. Write both down."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised helping him up slowly and having him sit on the edge of the bed first.
+      speaker: Nurse
+      turns: [59]
+      quote: "help him up slowly. Have him sit on the edge of the bed for a minute before he stands."
+      explanation: Documents fall-prevention guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+    - text: Advised calling if the top number was under 90, he fainted, or he was very weak, and 911 for chest pain.
+      speaker: Nurse
+      turns: [61]
+      quote: "call me if the top number is under ninety. Or if he faints, or he's very weak and can't stand."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: medication_concern, turns: [34], quote: "And I gave it to him this morning. And I also gave the losartan."}

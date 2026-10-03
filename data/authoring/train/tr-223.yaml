@@ -1,0 +1,201 @@
+call_id: tr-223
+split: train
+blueprint: "Wife of a 62-year-old hospice patient spells the surname Khoury, gives his DOB and corrects herself (March ninth, no, eleventh). The nurse calls her Nadine instead of Nadia and she lets it go. Itchy rash on his arms for two days after starting amoxicillin; no facial swelling or breathing trouble. Nurse messages the provider today, plans a nurse visit tomorrow, and gives rash and emergency guidance."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_spelled, name_drift, dob_self_corrected, hedging, late_answers, split_turns]
+  clinical_domains: [skin, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Gail
+  call_timestamp_utc: "2026-10-12T17:20:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Elias Khoury
+  patient_name_spoken: Elias Khoury
+  patient_name_certainty: stated
+  patient_dob_true: "1963-03-11"
+  patient_dob_spoken: "1963-03-11"
+  patient_dob_certainty: stated
+  caller_name_true: Nadia Khoury
+  caller_name_spoken: Nadia Khoury
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Nadine]
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7185550126"
+  callback_phone_spoken: "7185550126"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported an itchy rash on her husband's arms after starting an antibiotic
+  reason_category: skin
+  relevant_context: Hospice patient recently started on an antibiotic
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: itchy rash on the arms
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: facial swelling or trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: rash after starting amoxicillin
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Use cool compresses, keep nails short, and avoid scratching and hot showers
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if his lips, face or tongue swell or he has trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Gail.
+  Caller -> Hello, Gail. This is Nadia Khoury. My husband is Elias Khoury, K H O U R Y. He has a rash. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Nadine. Thanks for spelling it. What's Elias's date of birth?
+  Caller -> March ninth, nineteen sixty three. No, I'm sorry. March eleventh. Eleventh. Nineteen sixty three. || patient_dob
+  Nurse -> Got it. March eleventh. And what number can I reach you at, Nadine?
+  Caller -> Seven one eight, five five five, zero one two six. || callback_phone
+  Nurse -> Okay. Tell me about the rash. Where is it?
+  Caller -> On both his arms. The inside of the elbows mostly and down toward the wrists. It's red and bumpy and he's scratching it. He's had it two days. || A1
+  Nurse -> Okay. Has he started any new medicine recently?
+  Caller -> Yes. The amoxicillin. The doctor started it on Friday for the chest. Five hundred milligrams, three times a day. He took one this morning. || A2
+  Nurse -> Okay. That timing is helpful. Any swelling in his face, his lips, his tongue? Any trouble breathing?
+  Caller -> No. No swelling. His face looks the same. He's breathing the same as always. It's just the arms and it itches. || A3
+  Nurse -> Okay. That's good to hear. I'm going to message the hospice provider today about the rash, since it started after the amoxicillin. || R1, A2
+  Caller -> Should I stop the amoxicillin? || A2
+  Nurse -> I'd like the provider to answer that, so please wait for them. I'll let you know what they say. I'm also going to send a nurse to see him tomorrow. || R2
+  Caller -> Okay. Tomorrow. That's fine. I'll be here.
+  Nurse -> For the itching, cool compresses help. Keep his nails short, try not to let him scratch, and no hot showers for now. || E1
+  Caller -> Cool cloths. Nails. No hot showers. He loves a hot shower. I'll tell him.
+  Nurse -> And this is important. If his lips, face or tongue start to swell, or he has any trouble breathing, call nine one one right away. || E2
+  Caller -> Swelling. Breathing. Nine one one. Okay. I will.
+  Nurse -> Anything else, Nadine?
+  Caller -> No, that's all. Thank you.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Nadia, heard_form: Nadine, fact_id: caller_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Elias Khoury, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1963-03-11", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Nadia Khoury, certainty: unclear, heard_as: [Nadine], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7185550126", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported an itchy rash on her husband's arms after starting an antibiotic.
+    speaker: Caller
+    turns: [2]
+    quote: "My husband is Elias Khoury, K H O U R Y. He has a rash."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: An itchy red rash was present on both arms for two days.
+      speaker: Caller
+      turns: [8]
+      quote: "It's red and bumpy and he's scratching it. He's had it two days."
+      explanation: Documents the rash.
+      facts:
+        - {type: symptom, name: itchy rash on the arms, present: true, onset: two days, certainty: stated}
+      covers: [A1]
+    - text: Amoxicillin 500 mg three times a day was started Friday, with a dose taken this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "Five hundred milligrams, three times a day. He took one this morning."
+      explanation: Documents the new antibiotic.
+      facts:
+        - {type: medication, name: amoxicillin, dose: "500", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No facial swelling or trouble breathing was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No swelling. His face looks the same."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: facial swelling or trouble breathing, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the hospice provider about the rash after starting amoxicillin.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to message the hospice provider today about the rash, since it started after the amoxicillin."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse to see him tomorrow.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm also going to send a nurse to see him tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised cool compresses, short nails, no scratching, and no hot showers.
+      speaker: Nurse
+      turns: [17]
+      quote: "cool compresses help. Keep his nails short, try not to let him scratch, and no hot showers for now."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if his lips, face or tongue swelled or he had trouble breathing.
+      speaker: Nurse
+      turns: [19]
+      quote: "If his lips, face or tongue start to swell, or he has any trouble breathing, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

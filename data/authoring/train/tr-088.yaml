@@ -1,0 +1,201 @@
+call_id: tr-088
+split: train
+blueprint: "Hospital discharge nurse calls to set up home health start of care for a 79-year-old woman going home tomorrow after a hip fracture repair: needs a first visit within 24 hours, walker and shower chair delivered, wound care and pain medicine questions. Nurse schedules the visit, plans equipment delivery, and takes the medication list by phone. Routine facility-staff call, messy segmentation."
+setup:
+  scenario_category: routine
+  subtype: care_transition
+  secondary_tags: [phone_from_file, split_turns, late_answers, multi_issue, name_spelled]
+  clinical_domains: [wound_skin, pain, equipment]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-17T17:35:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philippa Vandenberg
+  patient_name_spoken: Philippa Vandenberg
+  patient_name_certainty: stated
+  patient_dob_true: "1947-08-30"
+  patient_dob_spoken: "1947-08-30"
+  patient_dob_certainty: stated
+  caller_name_true: Shauna
+  caller_name_spoken: Shauna
+  caller_name_certainty: stated
+  relationship_to_patient: hospital discharge nurse
+  relationship_certainty: stated
+  callback_phone_true: "9125550172"
+  callback_phone_spoken: "9125550172"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested home health start of care for a patient going home tomorrow after hip surgery
+  reason_category: care_transition
+  relevant_context: Hip fracture repair 4 days ago
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: caller
+    onset_or_duration: 4 days
+    history_or_context_text: Hip fracture repair 4 days ago, discharge home tomorrow
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: prescribed
+    dose: "5"
+    unit: mg
+    frequency: every 6 hours
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip incision pain
+    symptom_present: true
+    severity: 4/10
+    body_location: hip incision
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: caller
+    supply_item: walker and shower chair
+    supply_remaining: none
+    supply_unit: items
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within 24 hours of arriving home
+    reason_or_trigger: start of care
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: walker and shower chair
+    timeframe: before she arrives home tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: callback_plan
+    speaker: nurse
+    instruction_content: Will call the daughter tonight to confirm the visit time
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Denise.
+  Caller -> Hi, Denise. This is Shauna, I'm a discharge nurse at St. Brendan's. I'm calling for a start of care referral. || caller_name, relationship, cc
+  Nurse -> Sure. Go ahead.
+  Nurse -> What's the patient's name?
+  Caller -> Philippa Vandenberg. P H I L I P P A. Vandenberg, V A N D E N B E R G. || patient_name
+  Nurse -> Date of birth?
+  Caller -> August thirtieth. Nineteen forty seven. || patient_dob
+  Nurse -> And a good callback number for you?
+  Caller -> Nine one two, five five five, zero one seven two. That's the unit desk. || callback_phone
+  Nurse -> Okay. Tell me about her.
+  Caller -> So she's seventy nine. She had a hip fracture repair four days ago. Going home tomorrow with her daughter. || A1
+  Nurse -> Mm-hm.
+  Caller -> Pain's about a four. She's on oxycodone, five milligrams, every six hours as needed. || A2, A3
+  Nurse -> Okay.
+  Caller -> Incision's closed. Staples. No drainage. They'll be out at the ortho visit.
+  Nurse -> Okay. What equipment does she have at home?
+  Caller -> Nothing. That's the thing. No walker, no shower chair. || A4
+  Nurse -> Okay. I'll get both of those ordered and delivered before she gets home tomorrow. || R2
+  Caller -> Oh, perfect. Thank you.
+  Nurse -> And we'll do a first visit within twenty four hours of her arriving. || R1
+  Caller -> That works. That's what the doctor wants.
+  Nurse -> I'll call the daughter tonight to confirm a time. Do you have her number? || E1
+  Caller -> It's in the referral. I faxed it.
+  Nurse -> Got it. I'll find it. || E1
+  Caller -> Okay. Anything else you need from me?
+  Nurse -> No, I think that's it. Thanks, Shauna.
+  Caller -> Thank you. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philippa Vandenberg, certainty: stated, heard_as: [], turns: [5]}
+    patient_dob: {value: "1947-08-30", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Shauna, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: hospital discharge nurse, certainty: stated, turns: [2]}
+    callback_phone: {value: "9125550172", certainty: stated, heard_as: [], turns: [9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested home health start of care for a patient going home tomorrow after hip surgery.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling for a start of care referral."
+    explanation: Documents the referral request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hip fracture repair was 4 days ago with discharge home planned for tomorrow.
+      speaker: Caller
+      turns: [11]
+      quote: "She had a hip fracture repair four days ago. Going home tomorrow with her daughter."
+      explanation: Documents the surgical context.
+      facts:
+        - {type: context, onset: 4 days, certainty: stated}
+      covers: [A1]
+    - text: Pain was about 4/10 and she was prescribed oxycodone 5 mg every 6 hours as needed.
+      speaker: Caller
+      turns: [13]
+      quote: "Pain's about a four. She's on oxycodone, five milligrams, every six hours as needed."
+      explanation: Documents the pain level and analgesic.
+      facts:
+        - {type: symptom, name: hip incision pain, present: true, severity: 4/10, location: hip incision, certainty: stated}
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 6 hours, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A2, A3]
+    - text: She had no walker or shower chair at home.
+      speaker: Caller
+      turns: [17]
+      quote: "Nothing. That's the thing. No walker, no shower chair."
+      explanation: Documents the missing equipment.
+      facts:
+        - {type: supply, item: walker and shower chair, supply: none, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order and deliver the walker and shower chair before she arrived home tomorrow.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'll get both of those ordered and delivered before she gets home tomorrow."
+      explanation: Documents the planned equipment delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: before she arrives home tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned a first visit within 24 hours of her arriving home.
+      speaker: Nurse
+      turns: [20]
+      quote: "we'll do a first visit within twenty four hours of her arriving."
+      explanation: Documents the planned start-of-care visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within 24 hours of arriving home, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Planned to call the daughter tonight to confirm the visit time.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll call the daughter tonight to confirm a time."
+      explanation: Documents the callback plan.
+      facts:
+        - {type: education, education_type: callback_plan, certainty: stated}
+      covers: [E1]
+  risk_flags: []

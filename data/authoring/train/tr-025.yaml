@@ -1,0 +1,203 @@
+call_id: tr-025
+split: train
+blueprint: "Father asks whether his 4-year-old's baclofen tablet can be crushed and given through the G-tube; nurse says yes for immediate-release, explains flushing, and documents; last name spelled; one answer arrives late."
+setup:
+  scenario_category: medication
+  subtype: route_crushing
+  secondary_tags: [name_spelled, late_answers, phone_from_file]
+  clinical_domains: [spasticity, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-09-10T22:40:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Noah Takahashi
+  patient_name_spoken: Noah Takahashi
+  patient_name_certainty: stated
+  patient_dob_true: "2022-04-15"
+  patient_dob_spoken: "2022-04-15"
+  patient_dob_certainty: stated
+  caller_name_true: Kenji
+  caller_name_spoken: Kenji
+  caller_name_certainty: stated
+  relationship_to_patient: father
+  relationship_certainty: stated
+  callback_phone_true: "2535550133"
+  callback_phone_spoken: "2535550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asks whether baclofen tablets can be crushed and given through the G-tube
+  reason_category: medication_route
+  relevant_context: 4-year-old with cerebral palsy and a G-tube
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    medication_status: taking
+    strength: 5 mg
+    frequency: three times a day
+    certainty: stated
+  - item_id: A2
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: He has been spitting out the tablet and wants to use the G-tube instead
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    history_or_context_text: Tolerating G-tube feeds and flushes
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    route: through the G-tube, crushed
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    recipient_or_target: chart note on the route change
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Crush the tablet to a fine powder, dissolve in 10 mL warm water, flush with 10 mL water before and after, never mix with formula
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for unusual sleepiness, floppiness, trouble breathing, or if the tube clogs; 911 for breathing trouble
+    trigger_condition: unusual sleepiness; floppy; trouble breathing; clogged tube
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Ana.
+  Caller -> Hi, Ana. It's Kenji. I'm calling about Noah. || caller_name, relationship, patient_name
+  Nurse -> Hi, Kenji. Noah's last name, can you spell it for me?
+  Caller -> T A K A H A S H I. || patient_name
+  Nurse -> Noah Takahashi. And his birthday? || patient_name
+  Caller -> April fifteenth, twenty twenty two. || patient_dob
+  Nurse -> And two five three, five five five, zero one three three is still your number? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's up?
+  Caller -> So, I've been giving him the baclofen, the five milligram tablet, three times a day. By mouth. || A1
+  Caller -> But he's started spitting it out. Every time. And it's bitter, I guess. || A2
+  Caller -> I was wondering if I could crush it and put it through his G-tube instead. || cc
+  Nurse -> Okay. That's a good question. Let me look at the order. Okay, so it's baclofen, five milligram tablets, immediate release. That one can be crushed. || R1
+  Caller -> Oh good. Okay.
+  Nurse -> So, here's how to do it. Crush the tablet into a really fine powder, mix it with about ten milliliters of warm water until it dissolves, and give it with a syringe. Flush the tube with ten milliliters of plain water before and after. || E1
+  Caller -> Ten and ten. Okay.
+  Nurse -> Right. And don't mix it into his formula, give it separately. || E1
+  Caller -> Okay. Not in the formula. Got it.
+  Nurse -> Has he been tolerating his feeds okay? Any vomiting?
+  Caller -> Yeah, he's fine with the feeds. And the flushes. No throwing up. || A3
+  Nurse -> Good. I'm going to put a note in his chart about switching the route, so everyone is on the same page. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> If he seems unusually sleepy, or floppy, or if his breathing gets hard, call us. If he's having trouble breathing, nine one one. And if the tube clogs, call us too. || E2
+  Caller -> Okay. I will.
+  Nurse -> Anything else, Kenji?
+  Caller -> No. That's it. Thanks, Ana.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single account", heard_form: "But he's started spitting it out", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Noah Takahashi, certainty: stated, heard_as: [], turns: [2, 4, 5]}
+    patient_dob: {value: "2022-04-15", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Kenji, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: father, certainty: stated, turns: [2]}
+    callback_phone: {value: "2535550133", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether his son's baclofen tablet could be crushed and given through the G-tube.
+    speaker: Caller
+    turns: [12]
+    quote: "I was wondering if I could crush it and put it through his G-tube instead."
+    explanation: Documents the medication-route question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Baclofen 5 mg tablets were being given three times a day by mouth.
+      speaker: Caller
+      turns: [10]
+      quote: "I've been giving him the baclofen, the five milligram tablet, three times a day. By mouth."
+      explanation: Documents the current baclofen regimen.
+      facts:
+        - {type: medication, name: baclofen, strength: 5 mg, frequency: three times a day, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: He had started spitting out the tablet each time.
+      speaker: Caller
+      turns: [11]
+      quote: "But he's started spitting it out. Every time."
+      explanation: Documents the problem with oral administration.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: No vomiting was reported, and he tolerated G-tube feeds and flushes.
+      speaker: Caller
+      turns: [20]
+      quote: "Yeah, he's fine with the feeds. And the flushes. No throwing up."
+      explanation: Documents a pertinent negative for feeding intolerance.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that the immediate-release baclofen tablet could be crushed and given through the G-tube.
+      speaker: Nurse
+      turns: [13]
+      quote: "it's baclofen, five milligram tablets, immediate release. That one can be crushed."
+      explanation: Documents the route instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: baclofen, certainty: stated}
+      covers: [R1]
+    - text: Documented the route change in the chart.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to put a note in his chart about switching the route, so everyone is on the same page."
+      explanation: Documents the chart note.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised crushing the tablet to a fine powder, dissolving it in about 10 mL of warm water, flushing the tube with 10 mL of water before and after, and not mixing it with formula.
+      speaker: Nurse
+      turns: [15]
+      quote: "Crush the tablet into a really fine powder, mix it with about ten milliliters of warm water until it dissolves, and give it with a syringe."
+      explanation: Documents G-tube medication administration steps.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for unusual sleepiness, floppiness, hard breathing, or a clogged tube, and calling 911 for trouble breathing.
+      speaker: Nurse
+      turns: [23]
+      quote: "If he seems unusually sleepy, or floppy, or if his breathing gets hard, call us."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

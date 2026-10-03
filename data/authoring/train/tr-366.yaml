@@ -1,0 +1,244 @@
+call_id: tr-366
+split: train
+blueprint: "A granddaughter calls home care about her 90-year-old grandmother: she says Grandma took her morning water pill, but Grandma, on the other end of the line, insists she has not had it yet today and says the pill she took was a different one. The nurse cannot resolve it from the phone; ankles are mildly puffy and breathing is fine. Nurse tells them not to repeat the dose, asks them to leave the pill box as it is, plans a nurse visit tomorrow and a message to the team. Ambiguous (contradiction), other family caller, age 90+, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, trap_phrasing, hedging, late_answers, split_turns, crosstalk]
+  clinical_domains: [medication, edema]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Hortense
+  call_timestamp_utc: "2026-10-25T14:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 90+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Bernadette Szymanski
+  patient_name_spoken: Bernadette Szymanski
+  patient_name_certainty: stated
+  patient_dob_true: "1936-05-09"
+  patient_dob_spoken: "1936-05-09"
+  patient_dob_certainty: stated
+  caller_name_true: Brittany Szymanski
+  caller_name_spoken: Brittany Szymanski
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "6155550194"
+  callback_phone_spoken: "6155550194"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether her grandmother took her morning water pill
+  reason_category: medication
+  relevant_context: Home care patient who lives with her granddaughter
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: every morning
+    last_dose: this morning
+    certainty: unclear
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild ankle swelling
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask whether she should get the water pill again
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give another water pill today, leave the pill box as it is, and write down each time a pill is given
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if the swelling increases, she gets short of breath, or she gets dizzy
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Hortense.
+  Caller -> Hi. Hi, Hortense. It's Brittany Szymanski. I'm Bernadette's granddaughter. Bernadette Szymanski. We live together. I need to ask about her pills. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi Brittany. Sure. What's the question?
+  Caller -> Okay. So. I give her the morning pills. I put them in her little cup. I gave them to her at eight. Including the water pill. || A1
+  Caller -> No you didn't, Brittany. I didn't get the water pill. || A1
+  Nurse -> Is that Bernadette in the background?
+  Caller -> Yes, that's Grandma. She's right next to me. She's saying she didn't get it.
+  Caller -> I got the pink one. I didn't get the water one. It's the white one.
+  Nurse -> Hi Bernadette. I can hear you. Let's figure this out.
+  Caller -> She's wrong. She took it. I watched her. I handed her the cup, she swallowed all of them with the juice.
+  Caller -> I took the pink one and a yellow one. There was no white one.
+  Nurse -> Okay. Brittany, let me ask. Which pills are in the cup, usually? What does the morning cup have?
+  Caller -> There are four. Her heart pill, her thyroid, her vitamin, and the water pill. The furosemide. A white round one. Forty milligrams. || A1
+  Nurse -> Okay. Furosemide forty milligrams, every morning. And you're sure you put it in the cup? || A1
+  Caller -> I think so. I always do. I fill the box on Sundays. I filled it Sunday. I'm pretty sure. I mean, I always put it in.
+  Caller -> I didn't see a white one, Brittany. I counted them. There were three.
+  Nurse -> Okay. Bernadette, you counted three pills?
+  Caller -> Three. I counted. I always count. I'm ninety. I count everything.
+  Nurse -> That's a good habit. Brittany, can you check the pill box for me? Look at Thursday's slot, or whatever day it is today. Is it empty?
+  Caller -> It's, hold on. It's Sunday today. The Sunday morning slot. It's empty. It's empty, but that doesn't tell us, because empty means she took what was in it. Either way it's empty.
+  Nurse -> Right. Is there a white pill on the floor, in the sink, anywhere?
+  Caller -> I'll look. Hold on. Grandma, don't move. I'll look under the table. Nothing. I don't see it. I can't tell.
+  Nurse -> Okay. Let me ask another way. Bernadette, do you feel like you took the water pill today? || A1
+  Caller -> No. I don't. I'd remember. It makes me go to the bathroom a lot. I haven't gone much this morning. I've gone once.
+  Nurse -> Okay. That's helpful. Brittany, has she gone to the bathroom a lot this morning?
+  Caller -> No. Once. Maybe twice. She went when she got up, and then I think once after breakfast. I wasn't counting.
+  Nurse -> Okay. So we really can't tell. And that's okay. Is she short of breath?
+  Caller -> No. She's fine. She's sitting here. She's breathing fine. She did the dishes. || A3
+  Nurse -> Okay. Any swelling in her legs or ankles?
+  Caller -> A little. Her ankles are a little puffy. Mild. They're about the same as yesterday. || A2
+  Nurse -> Okay. Thank you. Here's what I want you to do. Don't give her another water pill today. If she did take it, a second one could make her dizzy or dehydrated. And leave the pill box just as it is. Don't refill it. || E1
+  Caller -> Okay. Don't give another. Leave the box. Should I just wait until tomorrow, then?
+  Nurse -> I'm going to send a nurse out tomorrow to check her ankles, her pressure, and go over the pill box with you. || R1
+  Caller -> Tomorrow. Okay.
+  Nurse -> And I'll leave a message for the team, to ask whether she should get the water pill again today or just wait until tomorrow morning. || R2
+  Caller -> Good. Yes. I don't want to guess. I was afraid I'd either double it or miss it.
+  Nurse -> I understand. That's the right instinct.
+  Caller -> It's really hard sometimes. She says one thing and I remember another.
+  Nurse -> It happens a lot. For the future, it helps to write down the time every time a pill is given. A little chart by the pill box. A check mark and the time.
+  Caller -> A check mark. I can do that. We have a notepad. I'll tape it to the box.
+  Nurse -> Perfect. And call us if the swelling gets worse, if she gets short of breath, or if she gets dizzy. || E2
+  Caller -> Swelling. Short of breath. Dizzy. Okay. I'll watch. Grandma, you tell me if you feel dizzy.
+  Caller -> I will. Don't fuss.
+  Nurse -> Ha. She sounds feisty.
+  Caller -> She is. She's the boss. I work full time and she still tells me what to do.
+  Nurse -> How long has Bernadette lived with you?
+  Caller -> Three years. Since Grandpa passed. I moved in to help. Now I think she's helping me.
+  Nurse -> Ha. It goes both ways.
+  Nurse -> Where do you work?
+  Caller -> The hospital. In billing. I'm home on Sundays, thank goodness.
+  Caller -> Sundays we do the crossword and the soap opera reruns. It's our thing.
+  Nurse -> That sounds lovely.
+  Caller -> She likes the one with the evil twin. Every episode has an evil twin.
+  Caller -> Every one.
+  Nurse -> Good. Can I get a number for you? In case the team calls back today.
+  Caller -> Six one five, five five five, zero one nine four. || callback_phone
+  Nurse -> Six one five, five five five, zero one nine four. Is that right? || callback_phone
+  Caller -> Yes. And Grandma's birthday is May ninth, nineteen thirty six. In case you need it. || patient_dob
+  Nurse -> Thank you. That helps. Okay, Brittany. We'll get this sorted out.
+  Caller -> Thank you. Thank you so much. And thank you for not making me feel stupid.
+  Nurse -> You're not stupid. You're careful.
+  Caller -> Ha. I don't feel careful.
+  Nurse -> Honestly, calling to ask is the careful thing.
+  Caller -> Thank you. I needed that today.
+  Nurse -> Take care, you two.
+  Caller -> Bye, Hortense.
+  Caller -> Bye, dear.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bernadette Szymanski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1936-05-09", certainty: stated, heard_as: [], turns: [58]}
+    caller_name: {value: Brittany Szymanski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550194", certainty: stated, heard_as: [], turns: [56, 57]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether her grandmother took her morning water pill.
+    speaker: Caller
+    turns: [2]
+    quote: "I need to ask about her pills."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Furosemide 40 mg every morning may or may not have been taken today (unclear; the granddaughter said she handed it over and the patient said she did not get it).
+      speaker: Caller
+      turns: [13]
+      quote: "The furosemide. A white round one. Forty milligrams."
+      explanation: Documents the uncertain water pill.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: every morning, last_dose: this morning, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: Ankles were mildly puffy, about the same as yesterday.
+      speaker: Caller
+      turns: [30]
+      quote: "A little. Her ankles are a little puffy."
+      explanation: Documents the ankle swelling.
+      facts:
+        - {type: symptom, name: mild ankle swelling, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: She was not short of breath.
+      speaker: Caller
+      turns: [28]
+      quote: "She's breathing fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm going to send a nurse out tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team about whether she should get the water pill again.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'll leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not giving another water pill today, leaving the pill box as it was, and writing down the time of each pill.
+      speaker: Nurse
+      turns: [31]
+      quote: "Don't give her another water pill today."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if the swelling worsened, she became short of breath, or she became dizzy.
+      speaker: Nurse
+      turns: [41]
+      quote: "call us if the swelling gets worse"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

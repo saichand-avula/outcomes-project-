@@ -1,0 +1,285 @@
+call_id: tr-267
+split: train
+blueprint: "Son of a 71-year-old hospice patient reports that his father has not had a bowel movement for five days despite his laxatives and now has crampy belly pain and a swollen, firm belly; he vomited once an hour ago. He is passing a little gas. Nurse hears the patient's name as Everard instead of Everett and keeps using the wrong name (name drift on the patient name; the son never corrects). She pages on-call, plans a nurse visit within two hours, advises holding food and giving only sips, and calls back in thirty minutes. Name drift, constipation concern with vomiting, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [constipation, nausea_vomiting, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Gail
+  call_timestamp_utc: "2026-10-29T01:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: [senna, morphine]
+chief_complaint:
+  patient_name_true: Everett Strand
+  patient_name_spoken: Everett Strand
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Everard Strand]
+  patient_dob_true: "1955-11-21"
+  patient_dob_spoken: "1955-11-21"
+  patient_dob_certainty: stated
+  caller_name_true: Lars Strand
+  caller_name_spoken: Lars Strand
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "6125550175"
+  callback_phone_spoken: "6125550175"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his father has had no bowel movement for five days and now has belly pain and vomiting
+  reason_category: constipation
+  relevant_context: Hospice patient on opioid pain medicine
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: five days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: crampy belly pain with a swollen firm belly
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    severity: once
+    onset_or_duration: an hour ago
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: passing a little gas
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: five days without a bowel movement with belly pain, firm belly and vomiting
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Hold solid food, give only small sips of clear fluid, and keep his head raised
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any more laxatives or enemas tonight until the on-call clinician advises
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for repeated vomiting, severe belly pain, or a belly that becomes hard like a board
+    trigger_condition: repeated vomiting; severe belly pain; board-like belly
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Hospice, this is Gail.
+  Caller -> Hi, Gail. This is Lars Strand. My father is Everett Strand. He's got a problem with his bowels. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Lars. Let me pull your dad up. What's Everard's date of birth?
+  Caller -> November twenty first. Nineteen fifty five. || patient_dob
+  Nurse -> Got it. And I have six one two, five five five, zero one seven five for you. || callback_phone
+  Caller -> Yes. That's me. That's the cell.
+  Nurse -> Okay. Where are you right now?
+  Caller -> I'm at his place. I'm staying over. I'm on the couch. He's in the bedroom.
+  Nurse -> Okay. Is he awake?
+  Caller -> He's awake. He's moaning a little. Hold on. Dad? Dad, it's okay. I'm on with the nurse.
+  Nurse -> Okay. Take your time.
+  Nurse -> Okay. Tell me what's going on with Everard.
+  Caller -> Well, he hasn't gone to the bathroom in five days. Five days. || A1
+  Nurse -> Five days. Okay. And what has he been taking for it?
+  Caller -> The senna. And the other one, the powder you mix in water. I gave him both. Yesterday and today. And nothing.
+  Nurse -> Okay. When was the last dose of the powder?
+  Caller -> This morning. At nine. And the senna at nine and again at, around eight tonight.
+  Nurse -> Okay. And he drank the full cup of the powder?
+  Caller -> He drank most of it. He said it was awful. He left a little.
+  Nurse -> Okay.
+  Nurse -> Okay. And how is he feeling?
+  Caller -> Terrible. He's crampy. His belly hurts, it comes in waves. And it's big. It's swollen. It's hard to the touch. || A2
+  Nurse -> Okay. Hard like firm, or hard like a board?
+  Caller -> Firm. Not like a board. Like a, like a full balloon. Tight.
+  Nurse -> Does it hurt when you press on it, or when you let go?
+  Caller -> I haven't pressed. I don't want to hurt him. I touched it and he said ow.
+  Nurse -> Okay. Don't press on it. That's fine.
+  Nurse -> Okay. Any vomiting?
+  Caller -> Yes. Once. About an hour ago. He threw up some, uh, it was clear, a little bit yellow. Once. || A3
+  Nurse -> Any blood in it, or does it smell like stool?
+  Caller -> No. No blood. No smell. It was just kind of watery with some yellow.
+  Nurse -> Okay. Good.
+  Nurse -> Okay. And is he passing any gas?
+  Caller -> A little. He passes a little. Not a lot. He did one a few minutes ago. || A4
+  Nurse -> Okay. That's good that he's passing some. Does he have any pain medicine that he's been taking?
+  Caller -> The morphine. He's been on it a couple weeks. I'm sure that's it. That's what the nurse said last time.
+  Nurse -> Okay. When was his last bowel movement exactly, do you remember?
+  Caller -> Sunday morning. It's Thursday now, in the middle of the night. So Sunday. Four days. No wait, five, it's after midnight.
+  Nurse -> Okay. Five days. Thank you.
+  Caller -> I counted wrong before. I'm tired.
+  Nurse -> Okay. Lars, with five days without a bowel movement and now the belly pain, the firmness and the vomiting, I'd like the on-call clinician to look at this right away. I'm going to page them now. || R1
+  Caller -> Okay. Yes. Please. Is it serious?
+  Nurse -> It could be. I don't want to wait on it. I'm also going to send a nurse out within two hours. || R2
+  Caller -> Two hours. Okay. I'll be here. He's in bed.
+  Nurse -> Is the front door unlocked, or should the nurse call when she arrives?
+  Caller -> I'll unlock it. Or no, have her call, I'll go to the door. The dog barks.
+  Nurse -> Okay. She'll call first.
+  Nurse -> In the meantime, don't give him any more laxatives tonight, and no enemas, until the on-call clinician tells you. || E2
+  Caller -> No more laxatives. No enemas. Okay. I almost gave him another one. I'm glad you said.
+  Nurse -> Good. And hold off on solid food. Give him only small sips of clear fluid, and keep his head raised. || E1
+  Caller -> Sips only. Head up. Okay. I'll put another pillow.
+  Nurse -> And if he asks for water, just a few sips at a time. Not a whole glass.
+  Caller -> A few sips. He's thirsty. He keeps asking.
+  Nurse -> A sponge swab wet with water can help his mouth too.
+  Caller -> We have those. Pink sponges. Okay.
+  Nurse -> I'll call you back in thirty minutes. || R3
+  Caller -> Thirty minutes. Okay.
+  Nurse -> And Lars, call us right away if he vomits again, if the pain gets severe, or if his belly gets hard like a board. || E3
+  Caller -> Vomits again. Severe pain. Board. Okay. I've got it.
+  Nurse -> Anything else I should know?
+  Caller -> No. Just that I feel terrible. I should have called yesterday.
+  Nurse -> You called now. That's what matters.
+  Caller -> Okay. Thank you, Gail. I'll keep the phone right here on the arm of the couch.
+  Nurse -> Good. Try to stay calm. He'll feel it if you're calm.
+  Caller -> I'll try. Okay. Thank you.
+  Nurse -> Talk to you soon, Lars.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Everett, heard_form: Everard, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everett Strand, certainty: unclear, heard_as: [Everard Strand], turns: [2]}
+    patient_dob: {value: "1955-11-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Lars Strand, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "6125550175", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father had a problem with his bowels.
+    speaker: Caller
+    turns: [2]
+    quote: "He's got a problem with his bowels."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: There had been no bowel movement for five days despite laxatives.
+      speaker: Caller
+      turns: [13]
+      quote: "He hasn't gone to the bathroom in five days. Five days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: five days, certainty: stated}
+      covers: [A1]
+    - text: He had crampy belly pain in waves and a swollen, firm belly.
+      speaker: Caller
+      turns: [22]
+      quote: "He's crampy. His belly hurts, it comes in waves."
+      explanation: Documents the belly pain.
+      facts:
+        - {type: symptom, name: crampy belly pain with a swollen firm belly, present: true, certainty: stated}
+      covers: [A2]
+    - text: He vomited once about an hour ago.
+      speaker: Caller
+      turns: [29]
+      quote: "Yes. Once. About an hour ago."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: once, onset: an hour ago, certainty: stated}
+      covers: [A3]
+    - text: He was passing a little gas.
+      speaker: Caller
+      turns: [34]
+      quote: "A little. He passes a little. Not a lot."
+      explanation: Documents the passing of gas.
+      facts:
+        - {type: symptom, name: passing a little gas, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to page them now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out within two hours.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm also going to send a nurse out within two hours."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'll call you back in thirty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised holding solid food, giving only small sips of clear fluid, and keeping his head raised.
+      speaker: Nurse
+      turns: [50]
+      quote: "hold off on solid food. Give him only small sips of clear fluid, and keep his head raised."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised no more laxatives or enemas tonight until the on-call clinician advised.
+      speaker: Nurse
+      turns: [48]
+      quote: "don't give him any more laxatives tonight, and no enemas, until the on-call clinician tells you."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for repeated vomiting, severe pain, or a board-hard belly.
+      speaker: Nurse
+      turns: [58]
+      quote: "call us right away if he vomits again, if the pain gets severe, or if his belly gets hard like a board."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

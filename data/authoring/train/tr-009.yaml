@@ -1,0 +1,219 @@
+call_id: tr-009
+split: train
+blueprint: "Son is unsure whether his mother already got her 8 PM oxycodone from his sister; nurse advises not to give another dose until he confirms; documents (completed) and plans a callback."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [hedging, trap_phrasing, late_answers, phone_from_file, prn_and_scheduled]
+  clinical_domains: [pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-08-24T03:18:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosa Delgado
+  patient_name_spoken: Rosa Delgado
+  patient_name_certainty: stated
+  patient_dob_true: "1938-10-25"
+  patient_dob_spoken: "1938-10-25"
+  patient_dob_certainty: stated
+  caller_name_true: Victor
+  caller_name_spoken: Victor
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "3055550118"
+  callback_phone_spoken: "3055550118"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Unsure whether his mother already received her evening oxycodone dose
+  reason_category: medication_question
+  relevant_context: Son just arrived for the overnight; sister left earlier
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: about 5/10
+    certainty: unclear
+    unclear_detail: Caller estimated ("maybe a five")
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    route: by mouth
+    frequency: every 4 hours
+    prn: true
+    last_dose_time: possibly 8 PM, unconfirmed
+    certainty: unclear
+    unclear_detail: Caller unsure whether his sister gave the 8 PM dose
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    reason_or_trigger: do not give another dose until the sister confirms
+    certainty: stated
+  - item_id: R2
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    recipient_or_target: chart note
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 30 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Write down every dose with the time on a log sheet by the bed
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if pain is not settling or she becomes very sleepy or hard to wake
+    trigger_condition: pain not settling; very sleepy; hard to wake
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Carla.
+  Caller -> Hi, yeah, hi. This is Victor. I'm calling about my mom. Rosa Delgado. || caller_name, patient_name, relationship
+  Nurse -> Hi, Victor. And Rosa's date of birth?
+  Caller -> October twenty fifth, nineteen thirty eight. || patient_dob
+  Nurse -> Okay. And I've got three oh five, five five five, zero one one eight on file for you. || callback_phone
+  Caller -> That's me. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> So my sister just left. She was here all day. And I took over for the night. || cc
+  Caller -> And my mom's, she's kind of moaning, a little. Like she's hurting. || A1
+  Nurse -> Okay. How bad do you think the pain is?
+  Caller -> I'd say maybe a five? I don't know. A five. || A1
+  Nurse -> Okay. What's she taking for pain?
+  Caller -> The oxycodone. The five milligram pill. || A2
+  Nurse -> Okay. Let me pull up her orders. So the oxycodone five milligrams, by mouth, every four hours as needed. || A2
+  Caller -> Right. That's the one.
+  Nurse -> And when was her last dose?
+  Caller -> That's the thing. I'm not sure. || cc, A2
+  Caller -> My sister said she'd give her one at eight. But she left at like, quarter after eight, so, I don't know if she did it before she left or not. || A2
+  Nurse -> Okay. Is there a note, or anything written down?
+  Caller -> I looked. There's nothing on the, there's a pad here, but she didn't write anything.
+  Nurse -> Okay. Can you call your sister?
+  Caller -> I tried. It went to voicemail. She's probably driving.
+  Nurse -> Okay. So here's what I'd like you to do. Hold off on giving another dose of the oxycodone until you've reached her, so we know it's safe. It's not safe to guess. || R1
+  Caller -> Okay. But she's in pain.
+  Nurse -> I understand. It's just after three in the morning, so if your sister gave it at eight, she's overdue. But if she gave it later, that's different. I want to be sure first. Try her again in ten minutes, and keep trying. || R1
+  Caller -> Okay. Okay. I'll try her again.
+  Nurse -> I'm going to put a note in the chart about this. || R2
+  Caller -> Okay.
+  Nurse -> And I'll call you back in thirty minutes to see where things are. If you reach her sooner and she says no dose was given, go ahead and give the oxycodone and then call me. || R3
+  Caller -> Okay. Thirty minutes. Got it.
+  Nurse -> Also, from now on, write every dose and the time on a sheet, right by the bed, so whoever is there knows. || E1
+  Caller -> Yeah, that's a good idea. I'll start tonight.
+  Nurse -> And if she gets really sleepy, hard to wake, or the pain isn't settling at all, call me right away. || E2
+  Caller -> Okay. I will.
+  Nurse -> Alright, Victor. Talk to you soon.
+  Caller -> Thanks, Carla. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosa Delgado, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-10-25", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Victor, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "3055550118", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother appeared to be in pain and he was unsure whether she had already received her evening oxycodone dose.
+    speaker: Caller
+    turns: [17]
+    quote: "That's the thing. I'm not sure."
+    explanation: Documents the uncertainty about the last medication dose that prompted the call.
+    covers: [cc]
+  assessment:
+    - text: Pain with moaning was reported, estimated by the caller at about 5/10.
+      speaker: Caller
+      turns: [11]
+      quote: "I'd say maybe a five? I don't know. A five."
+      explanation: Documents the reported pain severity with the caller's uncertainty preserved.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: about 5/10, certainty: unclear}
+      covers: [A1]
+    - text: Oxycodone 5 mg by mouth every 4 hours as needed was ordered; the caller was unsure whether his sister gave an 8 PM dose before leaving.
+      speaker: Caller
+      turns: [18]
+      quote: "My sister said she'd give her one at eight. But she left at like, quarter after eight, so, I don't know if she did it before she left or not."
+      explanation: Documents the unconfirmed last-dose time.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, route: by mouth, frequency: every 4 hours, prn: true, last_dose: possibly 8 PM, med_status: taking, certainty: unclear}
+      covers: [A2]
+  response:
+    - text: Advised holding off on another oxycodone dose until the sister could be reached to confirm the last dose.
+      speaker: Nurse
+      turns: [23]
+      quote: "Hold off on giving another dose of the oxycodone until you've reached her, so we know it's safe."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: oxycodone, certainty: stated}
+      covers: [R1]
+    - text: Documented the situation in the chart.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'm going to put a note in the chart about this."
+      explanation: Documents the chart note.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 30 minutes to check on the situation.
+      speaker: Nurse
+      turns: [29]
+      quote: "And I'll call you back in thirty minutes to see where things are."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised writing every dose and its time on a log sheet by the bed.
+      speaker: Nurse
+      turns: [31]
+      quote: "from now on, write every dose and the time on a sheet, right by the bed, so whoever is there knows."
+      explanation: Documents a medication-tracking instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away if she became very sleepy or hard to wake, or if the pain did not settle.
+      speaker: Nurse
+      turns: [33]
+      quote: "if she gets really sleepy, hard to wake, or the pain isn't settling at all, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

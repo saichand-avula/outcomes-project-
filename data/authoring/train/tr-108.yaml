@@ -1,0 +1,220 @@
+call_id: tr-108
+split: train
+blueprint: "Day aide for an 88-year-old woman calls: 4 underpads left, no-rinse body wash gone, gloves fine; also a red itchy rash in the groin fold, no open skin. Nurse orders supplies for Thursday, messages the nurse practitioner about the rash, teaches keeping the area dry and using barrier cream already at the house."
+setup:
+  scenario_category: supply
+  subtype: incontinence_supplies
+  secondary_tags: [multi_issue, split_turns, late_answers, phone_from_file]
+  clinical_domains: [incontinence, skin, wound_skin]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-11-07T15:35:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mavis Pettigrew
+  patient_name_spoken: Mavis Pettigrew
+  patient_name_certainty: stated
+  patient_dob_true: "1938-10-10"
+  patient_dob_spoken: "1938-10-10"
+  patient_dob_certainty: stated
+  caller_name_true: Darnell
+  caller_name_spoken: Darnell
+  caller_name_certainty: stated
+  relationship_to_patient: day aide
+  relationship_certainty: stated
+  callback_phone_true: "6155550179"
+  callback_phone_spoken: "6155550179"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested incontinence supplies and reported a groin rash
+  reason_category: supply_request
+  relevant_context: Aide works weekdays with a bedbound hospice patient
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: underpads
+    supply_remaining: "4"
+    supply_unit: pads
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: no-rinse body wash
+    supply_remaining: none
+    supply_unit: bottles
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: red itchy rash
+    symptom_present: true
+    body_location: groin fold
+    onset_or_duration: past 2 days
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: open skin
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: underpads and body wash
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: nurse practitioner
+    reason_or_trigger: groin rash
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change her promptly when wet, pat the fold completely dry, and use a thin layer of the barrier cream from the house
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi, Gwen. This is Darnell. I'm the day aide for Miss Mavis. Mavis Pettigrew. || caller_name, relationship, patient_name
+  Nurse -> Hi, Darnell. Her birthday?
+  Caller -> October tenth. Nineteen thirty eight. || patient_dob
+  Nurse -> And I have six one five, five five five, zero one seven nine. || callback_phone
+  Caller -> That's my cell. Yes. || callback_phone
+  Nurse -> What do you need?
+  Caller -> Supplies. We're running low. Underpads, the chux. I have four left. || cc, A1
+  Nurse -> Okay.
+  Caller -> And the body wash. The no-rinse stuff. It's gone. We used the last bottle yesterday. || A2
+  Nurse -> Okay. Gloves, wipes?
+  Caller -> Those are good. We got plenty.
+  Nurse -> Okay. How's she been otherwise today? Eating, comfortable?
+  Caller -> She's good. She ate most of her oatmeal. She's been sleeping a lot but she's comfortable. No pain, no grimacing.
+  Nurse -> Good. Okay. Anything else going on with her?
+  Caller -> Yeah. There's a rash. In her, in the fold. In the groin. Red. It's itchy, she keeps trying to scratch. Two days. || A3
+  Nurse -> Mm-hm. Is the skin open? Any bleeding, weeping?
+  Caller -> No. It's not open. It's just red and kind of shiny. || A4
+  Nurse -> Okay. I'll order the underpads and the body wash. || R1
+  Caller -> Okay.
+  Nurse -> They'll come Thursday. || R2
+  Caller -> Thursday. Okay. I'll be here.
+  Nurse -> And I'm going to message the nurse practitioner about the rash. She might want to order something. || R3
+  Caller -> Okay. Good.
+  Nurse -> In the meantime, change her right away when she's wet. Pat the fold dry, really dry. And put a thin layer of the barrier cream on, the one you already have. || E1
+  Caller -> Pat dry. Thin layer. Okay.
+  Nurse -> Don't rub.
+  Caller -> No. I'm gentle with her.
+  Nurse -> I know you are. Anything else?
+  Caller -> No. Thanks, Gwen.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mavis Pettigrew, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-10-10", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Darnell, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: day aide, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550179", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested incontinence supplies and reported a groin rash.
+    speaker: Caller
+    turns: [8]
+    quote: "Supplies. We're running low."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Four underpads remained.
+      speaker: Caller
+      turns: [8]
+      quote: "Underpads, the chux. I have four left."
+      explanation: Documents the underpad supply.
+      facts:
+        - {type: supply, item: underpads, supply: 4 pads, certainty: stated}
+      covers: [A1]
+    - text: The no-rinse body wash was gone.
+      speaker: Caller
+      turns: [10]
+      quote: "The no-rinse stuff. It's gone."
+      explanation: Documents the body wash supply.
+      facts:
+        - {type: supply, item: no-rinse body wash, supply: none, certainty: stated}
+      covers: [A2]
+    - text: A red, itchy rash in the groin fold had been present for 2 days.
+      speaker: Caller
+      turns: [16]
+      quote: "There's a rash. In her, in the fold. In the groin. Red."
+      explanation: Documents the skin finding.
+      facts:
+        - {type: symptom, name: red itchy rash, present: true, location: groin fold, duration: past 2 days, certainty: stated}
+      covers: [A3]
+    - text: The skin was not open.
+      speaker: Caller
+      turns: [18]
+      quote: "No. It's not open. It's just red and kind of shiny."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: open skin, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order underpads and body wash.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll order the underpads and the body wash."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Thursday.
+      speaker: Nurse
+      turns: [21]
+      quote: "They'll come Thursday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the nurse practitioner about the rash.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to message the nurse practitioner about the rash."
+      explanation: Documents the planned clinician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised changing her promptly when wet, patting the fold dry, and applying a thin layer of the barrier cream already at the house.
+      speaker: Nurse
+      turns: [25]
+      quote: "change her right away when she's wet. Pat the fold dry, really dry."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+  risk_flags: []

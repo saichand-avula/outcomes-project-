@@ -1,0 +1,209 @@
+call_id: tr-044
+split: train
+blueprint: "Son says his father is not breathing and he thinks he passed; asks the nurse to come; the callback number is not given (the caller says to use the one on file); nurse advises not to call 911 (hospice, comfort care), plans an urgent nurse visit, and notifies the team. Flags: escalation request and other urgent."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [phone_not_given, negated_risk_phrase]
+  clinical_domains: [end_of_life_changes]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-24T04:21:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Harlan Quigley
+  patient_name_spoken: Harlan Quigley
+  patient_name_certainty: stated
+  patient_dob_true: "1938-06-16"
+  patient_dob_spoken: "1938-06-16"
+  patient_dob_certainty: stated
+  caller_name_true: Dennis
+  caller_name_spoken: Dennis
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "5185550147"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Father appears to have died; asking for a nurse to come
+  reason_category: death_at_home
+  relevant_context: Hospice patient on comfort care at home
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Found his father not breathing, with no pulse, and cold hands about 10 minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Family was with him earlier; he had been sleeping peacefully all night
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Caller is unsure whether he is gone but believes so
+    certainty: unclear
+    unclear_detail: Caller said "I think he passed"
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    reason_or_trigger: confirm the death and support the family
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice team, physician, and social worker
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Do not call 911; he is on comfort care; stay with him and wait for the nurse
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Take your time with family, do not move him or remove anything, keep the medications for the nurse to count
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Caller asks the nurse to come right now
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: other_urgent
+    trigger_description: Caller believes patient has died at home
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Tom, it's Dennis. It's my dad. Harlan Quigley. I think he passed. || caller_name, relationship, patient_name, cc, F2
+  Nurse -> Oh, Dennis. I'm so sorry. Take a breath. Tell me what you're seeing.
+  Caller -> He's not breathing. I've been watching for a couple of minutes, he's not breathing. And his hands are cold. || A1, A3
+  Nurse -> Okay. Is there a pulse, can you feel one?
+  Caller -> I tried. His wrist, his neck. I don't feel anything. || A1
+  Nurse -> Okay. When did you notice?
+  Caller -> About ten minutes ago. I was sitting with him. He'd been sleeping, peacefully, all night. And then I just noticed. It got quiet. || A2
+  Nurse -> Okay. Thank you for staying with him. What's his date of birth, Dennis?
+  Caller -> June sixteenth, nineteen thirty eight. || patient_dob
+  Nurse -> Okay. And I have the number on file for you. Is that the best way to reach you?
+  Caller -> Yes. Use the one you have. I'm not going to remember it right now.
+  Nurse -> That's okay. I have it.
+  Caller -> Can you come? Please. Can somebody come? I don't know what to do. || F1
+  Nurse -> Yes. Yes, I'm sending a nurse right now. She'll be there within the hour. || R1
+  Caller -> Okay. Okay.
+  Nurse -> Dennis, you do not need to call nine one one. He's on hospice, comfort care, and he has a do not resuscitate. Nobody needs to rush in to do anything. Just stay with him. || E1
+  Caller -> Okay. I wasn't going to. I just wasn't sure.
+  Nurse -> That's completely understandable. The nurse will come, confirm what you're seeing, and take care of everything from there. She'll help with the next steps, too. || R1
+  Caller -> Okay.
+  Nurse -> I'm also letting our team know right now, the doctor, and the social worker, so everyone is aware. || R2
+  Caller -> Thank you. Thank you, Tom.
+  Nurse -> In the meantime, there's no hurry. Take whatever time you need. You can sit with him, and call whoever you'd like to be with you. Please don't move him, or take anything off him. And keep his medicines where they are, the nurse will take care of them. || E2
+  Caller -> Okay. My sister is on her way. I'll call her again.
+  Nurse -> Good. I'm staying on the line if you want, until you feel steady.
+  Caller -> No, I'm okay. I'm okay. I'll sit with him.
+  Nurse -> Okay. You're not alone in this, Dennis. The nurse is coming.
+  Caller -> Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Harlan Quigley, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-06-16", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Dennis, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he thought his father had passed away and asked for a nurse to come.
+    speaker: Caller
+    turns: [2]
+    quote: "I think he passed."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was not breathing, had cold hands, and no pulse could be felt; the caller believed his father had died but expressed uncertainty.
+      speaker: Caller
+      turns: [4]
+      quote: "He's not breathing. I've been watching for a couple of minutes, he's not breathing. And his hands are cold."
+      explanation: Documents what the caller observed.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A3]
+    - text: No pulse was felt at the wrist or neck.
+      speaker: Caller
+      turns: [6]
+      quote: "I tried. His wrist, his neck. I don't feel anything."
+      explanation: Documents the caller's pulse check.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A1]
+    - text: He had been sleeping peacefully all night and was noticed to have stopped breathing about ten minutes earlier.
+      speaker: Caller
+      turns: [8]
+      quote: "About ten minutes ago. I was sitting with him. He'd been sleeping, peacefully, all night."
+      explanation: Documents the timeline.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Planned an urgent nurse visit within the hour to confirm the death and support the family.
+      speaker: Nurse
+      turns: [15]
+      quote: "Yes, I'm sending a nurse right now. She'll be there within the hour."
+      explanation: Documents the planned in-person visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R1]
+    - text: Planned to notify the physician, social worker, and team.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm also letting our team know right now, the doctor, and the social worker, so everyone is aware."
+      explanation: Documents the planned team notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised that calling 911 was not necessary because he was on comfort care, and to stay with him until the nurse arrived.
+      speaker: Nurse
+      turns: [17]
+      quote: "you do not need to call nine one one. He's on hospice, comfort care, and he has a do not resuscitate."
+      explanation: Documents emergency guidance for a hospice patient.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised taking whatever time was needed, not moving him or removing anything, and leaving his medications for the nurse.
+      speaker: Nurse
+      turns: [23]
+      quote: "Please don't move him, or take anything off him. And keep his medicines where they are, the nurse will take care of them."
+      explanation: Documents guidance until the nurse arrived.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: escalation_request, turns: [14], quote: "Can you come? Please."}
+    - {category: other_urgent, turns: [2], quote: "I think he passed."}

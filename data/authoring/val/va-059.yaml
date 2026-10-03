@@ -1,0 +1,292 @@
+call_id: va-059
+split: val
+blueprint: "A husband, Teodor Marchetti, calls because his wife Odette, 47, with type 1 diabetes accidentally gave herself twenty units of Lantus instead of ten when she grabbed the wrong pen. She is shaky and sweaty with a glucose of forty eight. Nurse has him give juice, recheck in fifteen minutes (ninety two), pages on-call, and plans a visit and a bedtime check. Wrong dose, hypoglycemia, adult under 65, spouse caller, medication concern plus urgent flag, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: insulin_overdose_hypoglycemia
+  secondary_tags: [spouse, extra_dose, hypoglycemia, split_turns, late_answers]
+  clinical_domains: [glucose, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cypress Home Health
+  agency_type: home_health
+  nurse_name: Lorenzo
+  call_timestamp_utc: "2026-11-29T21:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [orange juice]
+chief_complaint:
+  patient_name_true: Odette Marchetti
+  patient_name_spoken: Odette Marchetti
+  patient_name_certainty: stated
+  patient_dob_true: "1979-07-22"
+  patient_dob_spoken: "1979-07-22"
+  patient_dob_certainty: stated
+  caller_name_true: Teodor Marchetti
+  caller_name_spoken: Teodor Marchetti
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8165550188"
+  callback_phone_spoken: "8165550188"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his wife took twenty units of Lantus instead of ten and has a low sugar
+  reason_category: glucose
+  relevant_context: Home health patient with type 1 diabetes
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lantus
+    medication_name_spoken: Lantus
+    medication_status: extra_dose
+    dose: "20"
+    unit: units
+    frequency: once a day at bedtime
+    prn: false
+    last_dose: about forty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood glucose
+    vital_value: "48"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: shakiness and sweating
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood glucose recheck
+    vital_value: "92"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: passing out or seizure
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: double dose of Lantus with low glucose
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Give half a cup of juice now, recheck in fifteen minutes, repeat if still under seventy, and stay with her tonight with a glucose check every two hours
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she cannot swallow, will not wake, or has a seizure
+    trigger_condition: cannot swallow; will not wake; seizure
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Took twenty units of Lantus instead of ten
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: other_urgent
+    trigger_description: Low blood sugar of forty eight with shakiness and sweating after the extra insulin
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cypress Home Health, this is Lorenzo.
+  Caller -> Lorenzo, hi. This is Teodor Marchetti. My wife is Odette Marchetti. She took too much Lantus. Twenty units. It was supposed to be ten. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Teodor. Is she awake? Is she talking?
+  Caller -> She's awake. She's sitting on the kitchen chair. She's shaky. She's sweating. I checked her sugar. It's forty eight. || A3, A2, F2
+  Nurse -> Forty eight. Okay. Can she swallow?
+  Caller -> Yes. She's talking to me. She's mad at herself.
+  Nurse -> Do you have juice or something sweet in the house?
+  Caller -> Orange juice. In the fridge. Hang on. Let me get it.
+  Nurse -> Go ahead. I'll stay on the line.
+  Caller -> Okay. I have a glass. It's about, I don't know, a cup.
+  Nurse -> Give her half a cup. Let her sip it. Don't rush it.
+  Caller -> Odette, drink this. Drink. Okay. She's drinking. She says it's too sweet.
+  Nurse -> That's good. Teodor, how did this happen?
+  Caller -> Okay. Sorry about that. Go on.
+  Nurse -> Alright, thank you.
+  Caller -> She has two pens. The Lantus and the, the mealtime one. They look the same. She grabbed the wrong one first and then dialed twenty without looking. No. She grabbed the right one but she dialed twenty instead of ten. I'm not sure. She says she just dialed it wrong. || A1
+  Nurse -> And the Lantus is once a day at bedtime? || A1
+  Caller -> Yes. Once a day. At bedtime. Ten units. She took it about forty minutes ago.
+  Nurse -> Okay. Did she eat dinner?
+  Caller -> At six. A normal dinner. Chicken and rice.
+  Nurse -> Good. Now, how's she looking? Any confusion, slurred speech?
+  Caller -> No. She's a little pale. She's clear. She knows the date. She just told me the president's name. Ha.
+  Nurse -> Has she passed out or had a seizure?
+  Caller -> No. Nothing like that. She's just shaky. || A5
+  Nurse -> Okay. What's her date of birth, Teodor?
+  Caller -> Hang on, let me move to the other room. It's loud in here.
+  Nurse -> No problem, take your time.
+  Caller -> July twenty second, nineteen seventy nine. || patient_dob
+  Nurse -> And a phone number?
+  Caller -> Eight one six, five five five, zero one eight eight. || callback_phone
+  Nurse -> Got it. How long since she started the juice?
+  Caller -> Maybe ten minutes. No, five. It's been a few minutes.
+  Nurse -> Okay. Recheck her sugar at fifteen minutes. Let's wait until then.
+  Caller -> Sorry, I lost my train of thought.
+  Nurse -> That's okay. We were just getting started.
+  Caller -> Okay. I'll watch the clock. Odette, how do you feel?
+  Nurse -> What's she saying?
+  Caller -> Wait, say that again? I missed the first part.
+  Nurse -> Of course. Let me say it slower.
+  Caller -> She says better. A little. Less shaky.
+  Nurse -> Good. Tell me when it's fifteen minutes.
+  Caller -> I'm looking at the microwave clock. Hold on. Okay. It's been fifteen. I'm checking. Okay. It says ninety two. Ninety two. || A4
+  Nurse -> That's much better. But the Lantus is long acting. Twenty units is double what she needs, so her sugar can drop again in the next hours. I want her to eat something with protein and carbs now. A sandwich or crackers with peanut butter. || A1
+  Caller -> I have peanut butter crackers. She likes those.
+  Nurse -> Perfect. Then recheck again in an hour, and set an alarm to check every two hours tonight. Stay with her. Don't leave her alone. || E1
+  Caller -> Every two hours. Stay with her. I'm not sleeping anyway. I'll set my phone.
+  Nurse -> I'm going to page the on-call clinician now, and they'll call you about whether to adjust anything. || R1
+  Caller -> Okay. Thank you. Should I call an ambulance?
+  Nurse -> Not right now, since she's recovering. But if she can't swallow, if she won't wake up, or if she has a seizure, call nine one one right away. || E2
+  Caller -> Can't swallow. Won't wake. Seizure. Nine one one. Okay. I have my phone right here.
+  Nurse -> And I'll send a nurse out tomorrow morning to go over the pens with both of you. || R2
+  Caller -> That would help. We need a system. Something so she can't mix them up.
+  Nurse -> The nurse will help. Different pen colors, labels, and a place for each.
+  Caller -> I'm so angry at myself. I should have been paying attention.
+  Nurse -> It's not your fault, Teodor. Mix ups happen. You caught it fast. That's what matters.
+  Caller -> Okay. Thank you.
+  Nurse -> Check on her now. How's her color?
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> Better. She's pink. She's eating a cracker. She's saying, don't make a fuss. Ha.
+  Nurse -> Ha. That's a good sign.
+  Caller -> She's very stubborn.
+  Nurse -> Keep her sitting up and let her finish her snack.
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> Yes. I will.
+  Nurse -> The clinician will call within fifteen minutes. Keep your phone close.
+  Caller -> Let me grab my glasses, one second.
+  Nurse -> Sure, I'll wait.
+  Caller -> Yes. Thank you, Lorenzo.
+  Nurse -> Anytime. Call back if she gets worse.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odette Marchetti, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1979-07-22", certainty: stated, heard_as: [], turns: [28]}
+    caller_name: {value: Teodor Marchetti, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550188", certainty: stated, heard_as: [], turns: [30]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife took twenty units of Lantus instead of ten and has a low sugar.
+    speaker: Caller
+    turns: [2]
+    quote: "She took too much Lantus."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Lantus 20 units was taken instead of the usual ten at bedtime, about forty minutes earlier.
+      speaker: Caller
+      turns: [2]
+      quote: "Twenty units. It was supposed to be ten."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: Lantus, dose: "20", unit: units, frequency: once a day at bedtime, prn: false, last_dose: about forty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Blood glucose was 48.
+      speaker: Caller
+      turns: [4]
+      quote: "It's forty eight."
+      explanation: Documents the low glucose.
+      facts:
+        - {type: vital, name: blood glucose, value: "48", certainty: stated}
+      covers: [A2]
+    - text: She was shaky and sweating.
+      speaker: Caller
+      turns: [4]
+      quote: "She's shaky. She's sweating."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: shakiness and sweating, present: true, severity: moderate, certainty: stated}
+      covers: [A3]
+    - text: Glucose rechecked at 92 after fifteen minutes.
+      speaker: Caller
+      turns: [42]
+      quote: "It says ninety two."
+      explanation: Documents the recheck.
+      facts:
+        - {type: vital, name: blood glucose recheck, value: "92", certainty: stated}
+      covers: [A4]
+    - text: She had not passed out or had a seizure.
+      speaker: Caller
+      turns: [24]
+      quote: "No. Nothing like that."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: passing out or seizure, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to page the on-call clinician now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll send a nurse out tomorrow morning"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised juice now, a recheck in fifteen minutes, a snack, checks every two hours tonight, and staying with her.
+      speaker: Nurse
+      turns: [45]
+      quote: "set an alarm to check every two hours tonight."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if she cannot swallow, will not wake, or has a seizure.
+      speaker: Nurse
+      turns: [49]
+      quote: "call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "She took too much Lantus."}
+    - {category: other_urgent, turns: [4], quote: "It's forty eight."}

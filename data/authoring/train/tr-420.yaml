@@ -1,0 +1,261 @@
+call_id: tr-420
+split: train
+blueprint: "A wife calls home health about her 66-year-old husband's morning blood sugar; on a bad cell connection the number comes through garbled ('won ate too') and she repeats it clearly as one eighty two. She reads older log entries too (two ten yesterday, one sixty five last week). He is a bit thirstier, took his Lantus thirty units last night, no vomiting or confusion. Nurse plans to message the team about the trend, a callback Thursday, and gives monitoring and fluid advice. ASR number garble, chart-reading distractor, spouse caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [number_garble, chart_reading_distractor, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [glucose, medication, hydration]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Linden Park Home Health
+  agency_type: home_health
+  nurse_name: Mei
+  call_timestamp_utc: "2026-11-10T14:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Maurice Thibodeaux
+  patient_name_spoken: Maurice Thibodeaux
+  patient_name_certainty: stated
+  patient_dob_true: "1959-08-03"
+  patient_dob_spoken: "1959-08-03"
+  patient_dob_certainty: stated
+  caller_name_true: Genevieve Thibodeaux
+  caller_name_spoken: Genevieve Thibodeaux
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "5035550148"
+  callback_phone_spoken: "5035550148"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported her husband's morning blood sugar reading and asked if it is too high
+  reason_category: glucose
+  relevant_context: Home health patient with diabetes on nightly insulin
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "182"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased thirst
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lantus
+    medication_name_spoken: Lantus
+    medication_status: taking
+    dose: "30"
+    unit: units
+    frequency: nightly
+    prn: false
+    last_dose: last night
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team
+    reason_or_trigger: review the blood sugar trend and insulin dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Keep checking his sugar before breakfast and before supper and write each number and time in the log
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a sugar over three hundred or under seventy, vomiting, confusion, or very heavy thirst and urination
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Linden Park Home Health, this is Mei.
+  Caller -> Hi, Mei. Can you hear me? It's Genevieve Thibodeaux. I'm calling about my husband. Maurice Thibodeaux. T H I B O D E A U X. || caller_name, patient_name, relationship
+  Nurse -> Barely. Is there a better spot in the house?
+  Caller -> I'll try. I'm walking toward the kitchen. Still bad. I'll stay here.
+  Nurse -> I can hear you, but you're breaking up a bit. Hi, Genevieve. What's going on with Maurice?
+  Caller -> It's his sugar. I wanted to ask about his sugar. I'm in the garage. The reception is terrible. || cc
+  Nurse -> Okay. It's not urgent, is it? He's not unwell right now?
+  Caller -> No, no. He's fine. I just want to be sure.
+  Nurse -> Okay. Take your time. Let me get his chart. Can I have his date of birth?
+  Caller -> Okay. Thank you. I'm sorry to bother you on a Tuesday.
+  Caller -> August third. Nineteen fifty nine. || patient_dob
+  Nurse -> Thanks. And your number?
+  Caller -> It might drop again. If it does, I'll call back from the landline.
+  Caller -> Five oh three, five five five, zero one four eight. || callback_phone
+  Nurse -> Got it. So what's his sugar this morning?
+  Caller -> It was won ate too. This morning. Won ate too. || A1
+  Nurse -> I'm sorry, I didn't catch that. Can you say it again, slowly?
+  Caller -> Sorry. The phone cuts out. It was one. Eight. Two. One hundred eighty two. || A1
+  Caller -> There's a metal shelf in here, I think it blocks the signal. My husband says the garage is a Faraday cage.
+  Nurse -> Ha. He sounds like a handy guy.
+  Nurse -> One eighty two. Okay. Is that before breakfast?
+  Caller -> Yes. Fasting. He hadn't eaten. He checked it at six thirty.
+  Caller -> He uses the meter with the big screen. I can read it without my glasses.
+  Nurse -> And how does that compare to his usual?
+  Caller -> I have the log here. Let me read. Yesterday morning was two ten. The day before, a hundred ninety. Last week was a hundred sixty five. It goes up and down. || A1
+  Nurse -> So one eighty two this morning is within his recent range. Okay. How is he feeling?
+  Caller -> Fine. A little thirsty, maybe. He's drinking a lot of water. He keeps refilling his big jug. || A2
+  Caller -> He says it's the dry heat from the furnace. We keep it warm. He gets cold easily.
+  Nurse -> Is he urinating more than usual?
+  Caller -> A bit more. Maybe. He's up once at night. That's not new.
+  Caller -> I keep telling him to drink the water before dinner, not at bedtime. He doesn't listen.
+  Nurse -> Ha. A common story.
+  Nurse -> Okay. Any vomiting, or confusion, or feeling very tired?
+  Caller -> No. None of that. He's normal. He went for a walk this morning. He's out in the yard now, raking leaves. || A4
+  Nurse -> Good. What insulin does he take?
+  Nurse -> And can you tell me, does he ever skip a dose?
+  Caller -> Never. He's like clockwork. Nine o'clock, every night. He's got an alarm.
+  Caller -> The Lantus. Thirty units. At night. He took it last night at nine. As always. || A3
+  Nurse -> Okay. Lantus thirty units at night. Any changes in what he's eating? Any holiday food? || A3
+  Caller -> It's early for that. But yes, he had a slice of pie on Sunday. Pumpkin. And bread at dinner.
+  Caller -> I'm already planning the Thanksgiving menu. He wants the sweet potatoes with the marshmallows.
+  Nurse -> Ha. We'll talk about those too.
+  Nurse -> That may explain the higher numbers. I'm going to message our team about the trend and ask them to look at his insulin dose. || R1
+  Caller -> He said the pie was worth it. I said, tell that to your meter.
+  Nurse -> Ha. Good line.
+  Caller -> Please. I don't want to change anything myself.
+  Caller -> My sister says to cut the dose when it goes up. That doesn't sound right to me.
+  Nurse -> Right. Please don't change it on your own. We'll look at it together.
+  Nurse -> Good. Don't change anything. We'll decide together.
+  Caller -> I won't touch it. He wouldn't let me anyway.
+  Nurse -> Ha. In the meantime, keep checking before breakfast and before supper. And write down each number and the time. || E1
+  Caller -> Before breakfast and before supper. Write the time. Okay. I use the notebook with the green cover.
+  Caller -> He sometimes forgets to write. I write it for him when I see the meter.
+  Nurse -> That's perfect. Teamwork.
+  Nurse -> Perfect. And call us if his sugar goes above three hundred, or below seventy, if he vomits, gets confused, or has really heavy thirst and urination. || E2
+  Caller -> Three hundred. Seventy. Vomit. Confused. Very thirsty. Okay. I'll tell him.
+  Caller -> I'm writing that on a sticky note for the garage. It's cold and my hand is shaking.
+  Nurse -> I'll call you Thursday to go over the new numbers. || R2
+  Caller -> Thursday. Okay. I'm home on Thursday. He has a podiatry appointment in the morning.
+  Caller -> He's very proud of his feet. The podiatrist says they look better than mine.
+  Nurse -> Ha. That's a good report.
+  Nurse -> I'll try after lunch.
+  Caller -> That works. Thank you, Mei. Sorry about the bad line.
+  Caller -> You're always so patient with me. I appreciate that.
+  Nurse -> It's what I'm here for.
+  Nurse -> No problem at all. Go back inside where it's warmer.
+  Caller -> I will. Bye.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: "one eighty two", heard_form: "won ate too", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Maurice Thibodeaux, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1959-08-03", certainty: stated, heard_as: [], turns: [11]}
+    caller_name: {value: Genevieve Thibodeaux, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550148", certainty: stated, heard_as: [], turns: [14]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported her husband's morning blood sugar reading and asked if it was too high.
+    speaker: Caller
+    turns: [6]
+    quote: "It's his sugar. I wanted to ask about his sugar."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Fasting blood sugar this morning was 182.
+      speaker: Caller
+      turns: [18]
+      quote: "One hundred eighty two."
+      explanation: Documents the blood sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "182", certainty: stated}
+      covers: [A1]
+    - text: He was a little thirstier and drinking a lot of water.
+      speaker: Caller
+      turns: [27]
+      quote: "A little thirsty, maybe."
+      explanation: Documents the increased thirst.
+      facts:
+        - {type: symptom, name: increased thirst, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Lantus 30 units was taken nightly, last at nine last night.
+      speaker: Caller
+      turns: [38]
+      quote: "The Lantus. Thirty units. At night."
+      explanation: Documents the insulin.
+      facts:
+        - {type: medication, name: Lantus, dose: "30", unit: units, frequency: nightly, prn: false, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He had no vomiting or confusion.
+      speaker: Caller
+      turns: [34]
+      quote: "No. None of that. He's normal."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or confusion, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the team about the sugar trend and insulin dose.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to message our team about the trend"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back Thursday.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'll call you Thursday to go over the new numbers."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised checking sugar before breakfast and before supper and writing each number and time in the log.
+      speaker: Nurse
+      turns: [51]
+      quote: "keep checking before breakfast and before supper."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a sugar over three hundred or under seventy, vomiting, confusion or heavy thirst and urination.
+      speaker: Nurse
+      turns: [55]
+      quote: "call us if his sugar goes above three hundred"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

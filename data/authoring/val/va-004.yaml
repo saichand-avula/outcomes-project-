@@ -1,0 +1,201 @@
+call_id: va-004
+split: val
+blueprint: "Call-center agent transfers a daughter: her mother is up 2 pounds since yesterday with a heart-failure history, no shortness of breath; nurse advises low salt, weighing daily, and calling for a gain of 3 pounds in a day."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [call_center_transfer, negated_risk_phrase, pertinent_negatives]
+  clinical_domains: [edema, dyspnea]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-09-14T11:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lorena Quintero
+  patient_name_spoken: Lorena Quintero
+  patient_name_certainty: stated
+  patient_dob_true: "1951-09-30"
+  patient_dob_spoken: "1951-09-30"
+  patient_dob_certainty: stated
+  caller_name_true: Camila
+  caller_name_spoken: Camila
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7865550168"
+  callback_phone_spoken: "7865550168"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Mother is up 2 pounds since yesterday
+  reason_category: weight_gain
+  relevant_context: Heart failure patient who weighs herself daily
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: weight change
+    vital_value: up 2 pounds since yesterday
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling
+    symptom_present: true
+    severity: slight
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Ate soup and ham at a family dinner yesterday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Low-salt meals today, skip canned soup and deli meat, keep fluids as her doctor allows
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh every morning after using the bathroom, before eating, and write it down
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a gain of 3 pounds in a day or 5 in a week, more swelling, or shortness of breath; 911 for severe trouble breathing
+    trigger_condition: 3 pounds in a day; 5 in a week; swelling; shortness of breath
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Hi, this is Kyle from the call center. I have a daughter on the line for a patient. The patient is Lorena Quintero. Q U I N T E R O. || patient_name
+  Nurse -> Okay, Kyle. Go ahead and transfer.
+  Caller -> Okay. Here she comes.
+  Caller -> Hello? Hi. This is Camila. I'm her daughter. || caller_name, relationship
+  Nurse -> Hi, Camila. What's your mother's date of birth?
+  Caller -> September thirtieth, nineteen fifty one. || patient_dob
+  Nurse -> And your number, in case we get cut off?
+  Caller -> Seven eight six, five five five, zero one six eight. || callback_phone
+  Nurse -> Okay. What's going on?
+  Caller -> So my mom is up two pounds. Since yesterday. She weighs herself every morning, like the nurse told her. || cc, A1
+  Nurse -> Okay. Is she short of breath?
+  Caller -> No. No, she's breathing fine. She's sitting up in her chair, eating a banana. || A2
+  Nurse -> Okay. Any swelling?
+  Caller -> A little in her ankles. A little more than usual. || A3
+  Nurse -> Okay. What did she eat yesterday?
+  Caller -> We had a family dinner. She had soup, and ham. The ham was salty. I told her. || A4
+  Nurse -> That might be part of it. Okay. For today, low salt meals. No canned soup or deli meat. And she can have her fluids as her doctor allows. || E1
+  Caller -> Okay. No soup, no ham. I'll make her oatmeal and an egg.
+  Nurse -> And keep weighing every morning, after she uses the bathroom and before she eats. Write it down. || E2
+  Caller -> She does that already. I'll check the paper.
+  Nurse -> If she gains three pounds in a day, or five in a week, or the swelling gets worse, or she's short of breath, call us. And if she can't catch her breath, nine one one. || E3
+  Caller -> Three in a day, five in a week. Okay.
+  Nurse -> I'll call tomorrow morning to see her weight. || R1
+  Caller -> Oh good. Thank you, Beth.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lorena Quintero, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1951-09-30", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Camila, certainty: stated, heard_as: [], turns: [5]}
+    relationship: {value: daughter, certainty: stated, turns: [5]}
+    callback_phone: {value: "7865550168", certainty: stated, heard_as: [], turns: [9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother was up 2 pounds since yesterday.
+    speaker: Caller
+    turns: [11]
+    quote: "So my mom is up two pounds. Since yesterday."
+    explanation: Documents the weight change prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: She was breathing fine and not short of breath.
+      speaker: Caller
+      turns: [13]
+      quote: "No, she's breathing fine. She's sitting up in her chair, eating a banana."
+      explanation: Documents a pertinent negative for dyspnea.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A2]
+    - text: Slight ankle swelling was noted, a little more than usual.
+      speaker: Caller
+      turns: [15]
+      quote: "A little in her ankles. A little more than usual."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, severity: slight, certainty: stated}
+      covers: [A3]
+    - text: She ate soup and salty ham at a family dinner yesterday.
+      speaker: Caller
+      turns: [17]
+      quote: "We had a family dinner. She had soup, and ham. The ham was salty."
+      explanation: Documents a likely dietary contributor.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call tomorrow morning to check her weight.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'll call tomorrow morning to see her weight."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised low-salt meals, avoiding canned soup and deli meat, and fluids as her doctor allowed.
+      speaker: Nurse
+      turns: [18]
+      quote: "For today, low salt meals. No canned soup or deli meat."
+      explanation: Documents dietary guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised weighing every morning after using the bathroom and before eating, and recording the weight.
+      speaker: Nurse
+      turns: [20]
+      quote: "keep weighing every morning, after she uses the bathroom and before she eats. Write it down."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a gain of 3 pounds in a day or 5 in a week, worsening swelling, or shortness of breath, and calling 911 for severe trouble breathing.
+      speaker: Nurse
+      turns: [22]
+      quote: "If she gains three pounds in a day, or five in a week, or the swelling gets worse, or she's short of breath, call us."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

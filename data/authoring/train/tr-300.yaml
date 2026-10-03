@@ -1,0 +1,313 @@
+call_id: tr-300
+split: train
+blueprint: "A 63-year-old woman with bone metastases calls palliative care herself, in tears: her back pain is a nine, her oxycodone 10 mg at four o'clock barely touched it, and she says 'this pain is killing me' and 'I could scream'. She is explicit that she is not going to hurt herself, she just wants the pain to stop. Mild nausea, no new leg weakness or numbness. The nurse reads the figurative language correctly (no suicide flag), pages on-call, plans a visit within an hour, a callback in ten minutes, and gives positioning, heat and dose-log advice. Uncontrolled pain, figurative and negated risk phrases, self caller 18-64, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [figurative_risk_language, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [pain, medication, nausea_vomiting]
+  relationship_group: self
+  na_reason: null
+  agency_name: Cascade Palliative Care
+  agency_type: palliative
+  nurse_name: Imani
+  call_timestamp_utc: "2026-10-29T23:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philippa Santoro
+  patient_name_spoken: Philippa Santoro
+  patient_name_certainty: stated
+  patient_dob_true: "1963-02-20"
+  patient_dob_spoken: "1963-02-20"
+  patient_dob_certainty: stated
+  caller_name_true: Philippa Santoro
+  caller_name_spoken: Philippa Santoro
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "8165550173"
+  callback_phone_spoken: "8165550173"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported severe back pain that is not controlled by her medicine
+  reason_category: pain
+  relevant_context: Palliative care patient with bone metastases
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: back pain
+    symptom_present: true
+    severity: "9"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: four this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: gabapentin
+    medication_name_spoken: gabapentin
+    medication_status: taking
+    dose: "300"
+    unit: mg
+    frequency: three times a day
+    last_dose: eight tonight
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: nausea
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: new leg weakness or numbness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: back pain of nine not eased by oxycodone
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in ten minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Lie on her side with a pillow between her knees, use the heating pad on low on her back, and keep the room dark and quiet
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take any extra oxycodone until the clinician calls, and write down every dose and time
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she loses feeling or strength in her legs, cannot control her bladder, or has trouble breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Back pain of nine out of ten that is not relieved by oxycodone
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cascade Palliative Care, this is Imani.
+  Caller -> Imani. Hi. It's Philippa. Philippa Santoro. I'm having, my back, it's a nine. I took my pill at four and it did nothing. Nothing. This pain is killing me. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Philippa. I'm here. I'm so sorry you're hurting. Let's get you help. Can you tell me your date of birth?
+  Caller -> February twentieth. Nineteen sixty three. || patient_dob
+  Nurse -> Thanks. And what number are you on?
+  Caller -> It's my cell. Eight one six, five five five, zero one seven three. || callback_phone
+  Nurse -> Got it. Tell me about the pain. Where is it?
+  Caller -> My back. The middle of my back. Between the shoulder blades. And it goes around, like a belt. It's been getting worse since yesterday. And tonight, it's like someone's twisting a knife. I could scream. I've been crying for an hour.
+  Nurse -> I hear you. On a scale of zero to ten, where is it right now?
+  Caller -> A nine. It's a nine. It was an eight at dinner. It's a nine now. I thought a ten was the worst you could imagine. This is the worst I can imagine.
+  Nurse -> Okay. A nine. And what did you take?
+  Caller -> The oxycodone. The ten milligram. I took one at four. That's the usual. Every four hours if I need it. I took it at four. It's, what, almost midnight? No. It's eleven twenty. So it's been seven hours. I should have taken another at eight. But I didn't, because I felt okay at eight. Then it got bad at nine. And I was afraid to take more. || A2
+  Nurse -> Okay. Let me make sure I have it right. You took a ten milligram oxycodone at four this afternoon, and nothing since. Is that right? || A2
+  Caller -> Nothing since. I should have. I was being stubborn. I didn't want to use too much. My daughter said, take it, take it. But I didn't.
+  Nurse -> Okay. That's something we can work on. Are you taking anything else for the pain?
+  Caller -> The gabapentin. The three hundred. Three times a day. I took the last one at eight. That's it. Oh, and I used the heating pad. For ten minutes. It made it worse. Or it didn't make it better. || A3
+  Nurse -> Okay. Gabapentin three hundred, three times a day, last at eight. Thank you. Philippa, I want to ask you something, because I care about how you're doing. When you say the pain is killing you, are you having any thoughts of hurting yourself? || A3
+  Caller -> What? No. No, no. God, no. That's just a thing you say. I'm not going to hurt myself. I just want the pain to stop. I want it to stop. That's all.
+  Nurse -> Okay. Thank you for telling me. I believe you. I just needed to ask.
+  Caller -> I understand. I'm sorry. I sound crazy. I'm exhausted and I'm in pain.
+  Nurse -> You don't sound crazy. You sound like someone in a lot of pain. Okay. Is there any new weakness in your legs, or numbness? Any trouble walking?
+  Caller -> No. No numbness. My legs are fine. They feel normal. I walked to the bathroom ten minutes ago, and it was fine. It's just the back pain. || A5
+  Nurse -> Okay. And is your bladder or bowel working normally? Any trouble holding it, or trouble going?
+  Caller -> Normal. I went to the bathroom. It was normal.
+  Nurse -> Good. Have you had a bowel movement in the last couple of days?
+  Caller -> Yesterday. It was fine. I take the stool softener every night. So that's not it.
+  Nurse -> Okay. Good to know.
+  Nurse -> Good. Any nausea, vomiting?
+  Caller -> A little nausea. From the pain. I think. I feel queasy. I haven't thrown up. I had some crackers earlier. They stayed down. || A4
+  Nurse -> Okay. Philippa, here's what I'm going to do. I'm paging the on-call clinician right now, so they can decide on the next step for your pain medicine. || R1
+  Caller -> Okay. Please. Can I take another pill?
+  Nurse -> I want the clinician to tell us the right dose, since the pain is so high and the last one didn't hold. Please wait for the callback before taking more. I know it's hard. I'll call you in ten minutes. || R3
+  Caller -> Ten minutes. Okay. I can do ten minutes. I think.
+  Nurse -> I'm also sending a nurse to your home. I want her there within the hour. She can check you and bring medicine if the clinician orders it. || R2
+  Caller -> Within the hour. Okay. It's nearly midnight. Is that okay?
+  Nurse -> Absolutely. We have a night nurse for exactly this.
+  Caller -> Okay. Okay. Thank you.
+  Nurse -> While you wait, let's try to make you a little more comfortable. Can you lie on your side, with a pillow between your knees? And a small pillow behind your back. Heating pad on low, over a thin shirt, not on bare skin. Keep the room dark and quiet. || E1
+  Caller -> On my side. Pillow between my knees. Okay. I'm doing it. It's a little better. A little. Hold on. Okay. The heating pad. It's on low. Okay.
+  Nurse -> Good. Breathe slowly. In through your nose, out through your mouth. Slow.
+  Caller -> I'm trying. I'm trying. It's helping, a bit. It's hard to breathe slow when it hurts.
+  Nurse -> I know. Even a little helps. Do you have the TV on or any noise?
+  Caller -> The TV's on. A cooking show. It's on mute. I can't concentrate.
+  Nurse -> Maybe turn it off for now. Keep it dark and quiet.
+  Caller -> Okay. Off. Hold on. Okay.
+  Nurse -> I know. Just try.
+  Caller -> Okay. In. Out. In.
+  Nurse -> That's it. Is anyone with you tonight?
+  Caller -> My daughter. Gianna. She's asleep upstairs. I didn't want to wake her. She has an exam tomorrow.
+  Nurse -> Would you be okay with waking her, so she can be with you while we wait? She might want to know.
+  Caller -> She would be mad if I didn't. Okay. I'll go get her. Or I'll call up the stairs. I'll yell. Gianna! Gianna! Mom needs you! Okay. She's coming.
+  Nurse -> Good. Philippa, please don't take any extra oxycodone until the clinician calls. And write down every dose and time on your sheet. || E2
+  Caller -> Write it down. Okay. The sheet's on the table. I'll write that I took the four o'clock one. And the gabapentin at eight. || A3
+  Nurse -> Perfect.
+  Caller -> Gianna's here. She's wiping my face. She's a good girl.
+  Caller -> She brought me water. And a cold cloth. She's very calm. She gets that from her father.
+  Nurse -> Hi, Gianna. Your mom's doing a good job. The nurse is on her way and I'm calling the clinician.
+  Caller -> She says hi. She says what do you need.
+  Nurse -> Can you stay with her, and keep her on her side? And unlock the door for the nurse.
+  Caller -> She says yes. She's going to unlock it now.
+  Nurse -> Great. Philippa, I also need to tell you. If your legs start to feel weak or numb, if you can't control your bladder, or if you have trouble breathing, call nine one one right away. Don't wait for me. || E3
+  Caller -> Weak legs, bladder, breathing. Nine one one. Okay. I'll tell Gianna.
+  Nurse -> Good. I'm going to page now. I'll call you in ten minutes.
+  Caller -> Okay. Thank you, Imani. I'm sorry I was dramatic.
+  Nurse -> You were not dramatic. You were in pain. We take it seriously.
+  Caller -> Thank you. Bye.
+  Nurse -> Bye, Philippa.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philippa Santoro, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1963-02-20", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Philippa Santoro, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550173", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported severe back pain that was not controlled by her medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "my back, it's a nine. I took my pill at four and it did nothing."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Back pain was a nine out of ten, between the shoulder blades and around like a belt, worse since yesterday.
+      speaker: Caller
+      turns: [10]
+      quote: "A nine. It's a nine."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: back pain, present: true, severity: "9", certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 10 mg every four hours as needed was last taken at four that afternoon and did not help.
+      speaker: Caller
+      turns: [12]
+      quote: "The oxycodone. The ten milligram. I took one at four."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "10", unit: mg, frequency: every four hours as needed, prn: true, last_dose: four this afternoon, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Gabapentin 300 mg three times a day was taken, last at eight.
+      speaker: Caller
+      turns: [16]
+      quote: "The gabapentin. The three hundred. Three times a day."
+      explanation: Documents the nerve pain medication.
+      facts:
+        - {type: medication, name: gabapentin, dose: "300", unit: mg, frequency: three times a day, last_dose: eight tonight, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She had mild nausea without vomiting.
+      speaker: Caller
+      turns: [29]
+      quote: "A little nausea. From the pain."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: nausea, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: No new leg weakness or numbness was reported.
+      speaker: Caller
+      turns: [22]
+      quote: "No. No numbness. My legs are fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: new leg weakness or numbness, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [30]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm also sending a nurse to your home. I want her there within the hour."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in ten minutes.
+      speaker: Nurse
+      turns: [32]
+      quote: "I know it's hard. I'll call you in ten minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in ten minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised lying on her side with a pillow between her knees, a heating pad on low and a dark quiet room.
+      speaker: Nurse
+      turns: [38]
+      quote: "Can you lie on your side, with a pillow between your knees?"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised not taking extra oxycodone until the clinician called and writing down every dose and time.
+      speaker: Nurse
+      turns: [52]
+      quote: "please don't take any extra oxycodone until the clinician calls."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for leg weakness or numbness, loss of bladder control, or trouble breathing.
+      speaker: Nurse
+      turns: [61]
+      quote: "call nine one one right away. Don't wait for me."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "my back, it's a nine."}

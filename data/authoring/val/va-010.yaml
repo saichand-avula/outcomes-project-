@@ -1,0 +1,197 @@
+call_id: va-010
+split: val
+blueprint: "Daughter says her mother takes 'dilaudin' (a single confident garble of Dilaudid, kept as stated); pain 5/10; last dose 2 hours ago; nurse advises the next dose after 4 hours per the order."
+setup:
+  scenario_category: asr_error
+  subtype: confident_single_garble
+  secondary_tags: [garbled_drug, phone_not_given]
+  clinical_domains: [pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-09-18T23:05:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2, R1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ingrid Solberg
+  patient_name_spoken: Ingrid Solberg
+  patient_name_certainty: stated
+  patient_dob_true: "1933-07-12"
+  patient_dob_spoken: "1933-07-12"
+  patient_dob_certainty: stated
+  caller_name_true: Kari
+  caller_name_spoken: Kari
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4125550172"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Pain and a question about when she can give the next dose
+  reason_category: pain
+  relevant_context: Hospice patient at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 5/10
+    body_location: hips
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydromorphone
+    medication_name_spoken: dilaudin
+    medication_status: taking
+    dose: "2"
+    unit: mg
+    prn: true
+    last_dose_time: 2 hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: hydromorphone
+    medication_name_spoken: dilaudin
+    timeframe: next dose at least 4 hours after the last
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition with pillows, warm pack on the hips on low, and calm music
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if pain rises above 7, she is hard to wake, or her breathing slows
+    trigger_condition: pain above 7; hard to wake; slow breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Lena.
+  Caller -> Hi, Lena. It's Kari. I'm calling about my mother, Ingrid Solberg. || caller_name, relationship, patient_name
+  Nurse -> Hi, Kari. Your mother's date of birth?
+  Caller -> July twelfth, nineteen thirty three. || patient_dob
+  Nurse -> And a good number for you?
+  Caller -> You have it on file. I'm on my cell, and I can't see the screen right now. Please just use what you have.
+  Nurse -> That's fine. What's going on?
+  Caller -> She's hurting. Her hips. About a five. She's moaning a little. || cc, A1
+  Nurse -> Okay. What has she had?
+  Caller -> The dilaudin. Two milligrams. I gave her one about two hours ago. || A2
+  Nurse -> Okay. When can she have another dilaudin?
+  Caller -> That's what I'm asking. Because it's still not enough. || A2
+  Nurse -> Okay. Let me look at her orders. Okay. The dilaudin is every four hours as needed. So the next one would be at least four hours after the last. That's two more hours. || A2, R1
+  Caller -> Two more hours. Okay. But she's moaning.
+  Nurse -> I understand. I'm going to check back with you in an hour, to see how she is. And if she's still uncomfortable, I'll talk to the doctor about options. || R2
+  Caller -> Okay. That's good. Thank you.
+  Nurse -> Is she throwing up?
+  Caller -> No. No vomiting. || A3
+  Nurse -> Okay. In the meantime, can you put a pillow between her knees, and a warm pack on her hips, on low, wrapped in a towel? And maybe some calm music. || E1
+  Caller -> She loves her old hymns. I'll put those on.
+  Nurse -> Perfect. If her pain goes above a seven, or she gets hard to wake, or her breathing slows, call me right away. || E2
+  Caller -> Okay. Above a seven. Hard to wake. Breathing.
+  Nurse -> That's right. Talk to you in an hour.
+  Caller -> Thank you, Lena.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Dilaudid, heard_form: dilaudin, fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ingrid Solberg, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1933-07-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Kari, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother had hip pain of about 5/10 and asked when she could have another dose.
+    speaker: Caller
+    turns: [8]
+    quote: "She's hurting. Her hips. About a five. She's moaning a little."
+    explanation: Documents the pain concern prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: Dilaudin 2 mg as needed was last given about 2 hours ago.
+      speaker: Caller
+      turns: [10]
+      quote: "The dilaudin. Two milligrams. I gave her one about two hours ago."
+      explanation: Documents the as-needed medication and timing as heard.
+      facts:
+        - {type: medication, name: dilaudin, dose: "2", unit: mg, prn: true, last_dose: 2 hours ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [18]
+      quote: "No. No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that the next dilaudin dose could be given at least 4 hours after the last dose, per the order.
+      speaker: Nurse
+      turns: [13]
+      quote: "The dilaudin is every four hours as needed. So the next one would be at least four hours after the last."
+      explanation: Documents the dosing-interval instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: dilaudin, certainty: stated}
+      covers: [R1]
+    - text: Planned to check back in an hour and to talk to the doctor about options if she remained uncomfortable.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to check back with you in an hour, to see how she is."
+      explanation: Documents the planned follow-up.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a pillow between the knees, a low-setting warm pack on the hips, and calm music.
+      speaker: Nurse
+      turns: [19]
+      quote: "can you put a pillow between her knees, and a warm pack on her hips, on low, wrapped in a towel?"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away if pain rose above 7, she was hard to wake, or her breathing slowed.
+      speaker: Nurse
+      turns: [21]
+      quote: "If her pain goes above a seven, or she gets hard to wake, or her breathing slows, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

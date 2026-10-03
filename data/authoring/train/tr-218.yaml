@@ -1,0 +1,222 @@
+call_id: tr-218
+split: train
+blueprint: "47-year-old palliative patient calls herself: she took one Percocet and then, confused by her pill alarm, a second one twenty minutes later. She feels drowsy but is breathing fine and a friend is with her. Nurse pages the on-call clinician, advises no more doses, to stay awake with the friend, and to call 911 if she is hard to wake or her breathing slows. Flag: medication_concern (extra dose)."
+setup:
+  scenario_category: medication
+  subtype: medication_concern
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [medication, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-11T23:50:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Tanya Brightwater
+  patient_name_spoken: Tanya Brightwater
+  patient_name_certainty: stated
+  patient_dob_true: "1979-01-31"
+  patient_dob_spoken: "1979-01-31"
+  patient_dob_certainty: stated
+  caller_name_true: Tanya Brightwater
+  caller_name_spoken: Tanya Brightwater
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5035550122"
+  callback_phone_spoken: "5035550122"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that she took a second pain pill too soon after the first
+  reason_category: medication
+  relevant_context: Palliative patient on opioid pain medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: Percocet
+    medication_name_spoken: Percocet
+    medication_status: extra_dose
+    dose: "1"
+    unit: tablet
+    last_dose: twenty minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: drowsiness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: two Percocet tablets twenty minutes apart
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take no more Percocet or other sedating medicine tonight until the on-call clinician advises
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay awake and keep the friend with her, and do not take anything else that makes her sleepy
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she is hard to wake or her breathing becomes slow
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient took two Percocet tablets twenty minutes apart
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi, Denise. It's Tanya Brightwater. I think I took too much. I took a Percocet and then I took another one. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Tanya. I'm glad you called. First, how are you feeling right now?
+  Caller -> A little sleepy. Kind of heavy. But I'm okay. I'm talking to you. || A2
+  Nurse -> Okay. Is your breathing normal? Any trouble breathing, or slow breathing?
+  Caller -> No. My breathing's fine. I'm breathing normal, I think. My friend Lacey's here. She says I'm breathing fine. || A3
+  Nurse -> Good. Lacey being there is very good. Tanya, tell me exactly what you took and when.
+  Caller -> I took one Percocet around eleven. Then my phone alarm went off, and I was confused, and I thought it was the alarm for my next one. And I took another one. That was maybe twenty minutes ago. || A1
+  Nurse -> Okay. So two Percocet, about twenty minutes apart. Is that right?
+  Caller -> Yes. One, then one. I know. I know. I'm sorry.
+  Nurse -> It's okay. You did the right thing by calling. Let me get your birth date, and the number you're on.
+  Caller -> January thirty first. Nineteen seventy nine. || patient_dob
+  Nurse -> And five oh three, five five five, zero one two two? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. I'm going to page the on-call clinician right now so they can advise us. || R1
+  Caller -> Okay. Thank you. Am I in trouble?
+  Nurse -> No, not at all. We just want to make sure you're safe. Please don't take any more Percocet tonight, or anything else that makes you sleepy, until the on-call clinician says it's okay. || E1, A1
+  Caller -> No more Percocet. Nothing sleepy. Okay.
+  Nurse -> Stay awake, and keep Lacey right there with you. Don't go to sleep and leave her to wonder. Sit up if you can. || E2
+  Caller -> Sit up. Stay awake. Lacey, you're staying. Lacey says she's staying all night.
+  Nurse -> Good. I'll call you back in fifteen minutes to check on you. || R2
+  Caller -> Fifteen minutes. Okay.
+  Nurse -> And if it gets hard to wake you, Tanya, or your breathing slows down, Lacey needs to call nine one one right away. || E3
+  Caller -> Hard to wake. Slow breathing. Nine one one. Lacey, did you hear that? She heard.
+  Nurse -> Good. Tanya, can you turn off that alarm so it doesn't confuse you again?
+  Caller -> I'm turning it off. Okay. It's off. I'll ask Lacey to set my pills up next time.
+  Nurse -> That's a smart idea. We can talk about a pill organizer, too.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Tanya Brightwater, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1979-01-31", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Tanya Brightwater, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550122", certainty: stated, heard_as: [], turns: [13, 14]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that she took a second pain pill too soon after the first.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I took too much. I took a Percocet and then I took another one."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two Percocet tablets were taken about twenty minutes apart, the second by mistake.
+      speaker: Caller
+      turns: [8]
+      quote: "That was maybe twenty minutes ago."
+      explanation: Documents the extra dose.
+      facts:
+        - {type: medication, name: Percocet, dose: "1", unit: tablet, last_dose: twenty minutes ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Mild drowsiness was present.
+      speaker: Caller
+      turns: [4]
+      quote: "A little sleepy. Kind of heavy."
+      explanation: Documents the symptom.
+      facts:
+        - {type: symptom, name: drowsiness, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: No trouble breathing was reported.
+      speaker: Caller
+      turns: [6]
+      quote: "No. My breathing's fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to page the on-call clinician right now so they can advise us."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you back in fifteen minutes to check on you."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking no more Percocet or other sedating medicine tonight until the on-call clinician advised.
+      speaker: Nurse
+      turns: [17]
+      quote: "please don't take any more Percocet tonight, or anything else that makes you sleepy"
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised staying awake and sitting up with her friend beside her.
+      speaker: Nurse
+      turns: [19]
+      quote: "Stay awake, and keep Lacey right there with you."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if she became hard to wake or her breathing slowed.
+      speaker: Nurse
+      turns: [23]
+      quote: "if it gets hard to wake you, Tanya, or your breathing slows down, Lacey needs to call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I took a Percocet and then I took another one."}

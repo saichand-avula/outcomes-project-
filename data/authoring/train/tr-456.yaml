@@ -1,0 +1,273 @@
+call_id: tr-456
+split: train
+blueprint: "A son calls hospice about his father's oxygen supplies: nasal cannulas down to two, one spare tubing set with a crack near the connector, concentrator filter not cleaned in weeks; father comfortable, no shortness of breath, a dry nose. Nurse plans a supply order, delivery tomorrow, and a message to the equipment team; teaches filter cleaning and no open flame. Supply, hospice, son caller, v2 short."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harbor Bend Hospice
+  agency_type: hospice
+  nurse_name: Daniela
+  call_timestamp_utc: "2026-11-05T15:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leopold Brandvold
+  patient_name_spoken: Leopold Brandvold
+  patient_name_certainty: stated
+  patient_dob_true: "1946-09-27"
+  patient_dob_spoken: "1946-09-27"
+  patient_dob_certainty: stated
+  caller_name_true: Matthias Brandvold
+  caller_name_spoken: Matthias Brandvold
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "8085550197"
+  callback_phone_spoken: "8085550197"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported low oxygen supplies and a cracked tubing set
+  reason_category: equipment
+  relevant_context: Hospice patient on home oxygen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: nasal cannulas
+    supply_remaining: two left
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: oxygen tubing
+    supply_remaining: one spare set, cracked near the connector
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: dry nose
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment company
+    reason_or_trigger: nasal cannulas and oxygen tubing
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask the equipment team to check the concentrator
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Rinse the concentrator filter with warm water, dry it completely, and put it back; do not use the cracked tubing
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: No smoking, candles, or open flame near the oxygen
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Bend Hospice, this is Daniela.
+  Caller -> Hi. Hi, Daniela. This is Matthias Brandvold. I'm calling about my father, Leopold Brandvold. It's about his oxygen stuff. We're running low on a couple of things. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Matthias. Okay. Let's take a look. Is he comfortable right now?
+  Caller -> He is. He's napping in the recliner. The game's on and he's not even watching it.
+  Nurse -> Ha. That's a good nap.
+  Caller -> Yeah, it's the one thing he's good at lately. Sorry. That was a joke. He'd say it too.
+  Nurse -> It's okay. What's running low?
+  Caller -> The nasal cannulas. The little ones with the prongs. There's two left in the bag. And he changes one every week. So that's two weeks. Maybe. || A1
+  Nurse -> Okay. Two cannulas left. What about the tubing?
+  Caller -> Um, there's one spare set. One. But the one on the machine now, well, I looked at it today, and there's a crack. Near the connector. The part where it plugs in. It hisses a little. || A2
+  Nurse -> The spare set. Is the spare in good shape?
+  Caller -> I think so. It's still in the plastic. I haven't opened it. So one spare set, and the cracked one.
+  Nurse -> Okay. Thanks for checking that.
+  Caller -> I'm sorry, I should have called sooner. I noticed it Sunday.
+  Nurse -> No, you did the right thing calling now. Is the oxygen still getting to him? Is he comfortable?
+  Caller -> I think so. He's fine. No trouble breathing. His color is good. He was telling the same story about the boat at lunch. For the tenth time. || A4
+  Nurse -> Ha. That's a good sign.
+  Nurse -> Any other problems? How does his nose look?
+  Caller -> A little dry. He says it tickles. Like when you have a cold. It's not bleeding. Just dry. || A3
+  Nurse -> Okay. That's common with oxygen. We'll talk about it.
+  Caller -> Okay. Good.
+  Nurse -> Let me get his chart. What's his date of birth?
+  Caller -> September twenty seventh. Nineteen forty six. || patient_dob
+  Nurse -> Perfect. And your best number?
+  Caller -> Eight oh eight, five five five, oh one nine seven. || callback_phone
+  Nurse -> Eight oh eight, five five five, oh one nine seven. Right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Great. How old is the concentrator?
+  Caller -> I don't know. The company brought it in the spring. It's the white one. It makes a noise like a fish tank.
+  Nurse -> Ha. Okay. Do you know when you last cleaned the filter?
+  Caller -> Hm. Um. Honestly, I don't think we have. Is that bad? I know there's a filter. It's on the side. I just never thought about it.
+  Nurse -> It's very common. We'll go over it in a minute.
+  Caller -> Okay.
+  Nurse -> First, here's what I'll do. I'll put in an order with the equipment company for new nasal cannulas and a new oxygen tubing set. || R1
+  Caller -> Good. Thank you.
+  Nurse -> And I'll arrange delivery tomorrow. Will somebody be home?
+  Caller -> Yes. I'm here all day. I work from the kitchen table. || R2
+  Nurse -> Perfect. Is the address the same, on Alder Street?
+  Caller -> Same. The blue house. Dad calls it the blue whale.
+  Nurse -> Ha. Okay.
+  Nurse -> I'm also going to send a message to the equipment team and ask them to check the concentrator when they come. || R3
+  Caller -> That'd be great. Because of the noise. It's been a little louder, maybe. I don't know.
+  Nurse -> I'll include that in the note.
+  Caller -> Thank you.
+  Nurse -> Now, for the filter. It's in the back or on the side, a little gray foam piece. Take it out and rinse it with warm water. Let it dry completely, and then put it back. Until the new tubing arrives, don't use the cracked tubing. Switch to the spare. || E1
+  Caller -> Okay. Gray foam. Warm water. Dry it all the way. Put it back. Switch to the spare tubing. Got it. I'll do the spare right after we hang up.
+  Nurse -> Good. Do you need the number on the cylinder, or the setting?
+  Caller -> It's on two. Two liters. It's taped. Dad tapes everything.
+  Nurse -> Ha. Okay.
+  Nurse -> Also, keep the area clear. No smoking, no candles, no open flame near the oxygen. Even a gas stove.
+  Caller -> Nobody smokes here. But my aunt lights candles. For the mood. I'll tell her. || E2
+  Nurse -> Please do. Thanks.
+  Caller -> I'm putting a sticky note on the machine now. No flame.
+  Nurse -> Perfect.
+  Nurse -> And for the dry nose, a little water-based gel is fine. Not petroleum jelly.
+  Caller -> Okay. The water based kind. We have some. In the bathroom.
+  Nurse -> Good.
+  Caller -> My dad also asked if we can get a longer tube. So he can go to the porch.
+  Nurse -> I'll mention that to the equipment team. They can tell you what's available.
+  Caller -> Okay. He loves the porch. He waves at the neighbor's dog.
+  Nurse -> Ha. A porch wave.
+  Caller -> Every day. The dog doesn't wave back.
+  Nurse -> Anything else you need right now?
+  Caller -> No. I think that's it. Thank you, Daniela.
+  Nurse -> You're welcome. You can call any time.
+  Caller -> Oh, wait. Is the filter dry in an hour? Or should I wait longer?
+  Nurse -> Give it a good while, until it's dry to the touch. You can use the spare filter if you have one.
+  Caller -> We don't. I'll wait.
+  Nurse -> The delivery tomorrow should include one.
+  Caller -> Okay. Great. Thanks.
+  Nurse -> Take care.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leopold Brandvold, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-09-27", certainty: stated, heard_as: [], turns: [23]}
+    caller_name: {value: Matthias Brandvold, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550197", certainty: stated, heard_as: [], turns: [25, 26]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported low oxygen supplies and a cracked tubing set.
+    speaker: Caller
+    turns: [2]
+    quote: "We're running low on a couple of things."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Two nasal cannulas were left.
+      speaker: Caller
+      turns: [8]
+      quote: "There's two left in the bag."
+      explanation: Documents the cannula supply.
+      facts:
+        - {type: supply, item: nasal cannulas, supply: two left, certainty: stated}
+      covers: [A1]
+    - text: One spare tubing set remained and the set in use had a crack near the connector.
+      speaker: Caller
+      turns: [10]
+      quote: "there's one spare set. One."
+      explanation: Documents the tubing supply.
+      facts:
+        - {type: supply, item: oxygen tubing, supply: "one spare set, cracked near the connector", certainty: stated}
+      covers: [A2]
+    - text: His nose was a little dry and not bleeding.
+      speaker: Caller
+      turns: [19]
+      quote: "A little dry."
+      explanation: Documents the dry nose.
+      facts:
+        - {type: symptom, name: dry nose, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: He had no trouble breathing.
+      speaker: Caller
+      turns: [16]
+      quote: "No trouble breathing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order new nasal cannulas and an oxygen tubing set from the equipment company.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll put in an order with the equipment company for new nasal cannulas and a new oxygen tubing set."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to arrange delivery tomorrow.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll arrange delivery tomorrow."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the equipment team to check the concentrator.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm also going to send a message to the equipment team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised rinsing the concentrator filter with warm water, drying it completely, and using the spare tubing instead of the cracked set.
+      speaker: Nurse
+      turns: [45]
+      quote: "Take it out and rinse it with warm water."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised no smoking, candles, or open flame near the oxygen.
+      speaker: Nurse
+      turns: [50]
+      quote: "no smoking, no candles, no open flame near the oxygen."
+      explanation: Documents oxygen safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

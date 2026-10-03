@@ -1,0 +1,224 @@
+call_id: tr-192
+split: train
+blueprint: "Daughter realizes she put a new fentanyl patch on her mother this morning without taking off the old one, so she has two patches on; mother is very sleepy but wakes to her voice, breathing about 11 a minute. Nurse tells her to remove both patches now, pages on-call, plans a callback in 10 minutes, and gives 911 precautions. Flag: medication_concern (extra dose)."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [hedging, late_answers, split_turns, phone_from_file]
+  clinical_domains: [medication, sedation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Bridget
+  call_timestamp_utc: "2026-10-07T16:50:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Berenice Kowalczuk
+  patient_name_spoken: Berenice Kowalczuk
+  patient_name_certainty: stated
+  patient_dob_true: "1942-02-05"
+  patient_dob_spoken: "1942-02-05"
+  patient_dob_certainty: stated
+  caller_name_true: Zofia Kowalczuk
+  caller_name_spoken: Zofia Kowalczuk
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "9105550162"
+  callback_phone_spoken: "9105550162"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother has two fentanyl patches on by mistake
+  reason_category: medication
+  relevant_context: Hospice patient on a fentanyl patch
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl patch
+    medication_name_spoken: fentanyl patch
+    medication_status: extra_dose
+    dose: "25"
+    unit: mcg per hour
+    frequency: every 3 days
+    last_dose: new patch put on this morning over the old one
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: very sleepy but wakes to her voice
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "11"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: remove both fentanyl patches now
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: two fentanyl patches on at once
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 10 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay beside her, keep checking her breathing and whether she wakes to her voice, and do not apply another patch
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she cannot be woken, her breathing drops below 8 a minute, or her lips turn blue
+    trigger_condition: cannot be woken; breathing under 8; blue lips
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller put a new fentanyl patch on without removing the old one so two patches are on at once
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Evergreen Hospice, this is Bridget.
+  Caller -> Bridget, it's Zofia Kowalczuk. My mother is Berenice. Berenice Kowalczuk. I made a mistake with her patch. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Zofia, I'm here. Tell me what happened. First, her date of birth.
+  Caller -> February fifth. Nineteen forty two. || patient_dob
+  Nurse -> And is nine one oh, five five five, zero one six two the best number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What did you do with the patch?
+  Caller -> This morning I put on a new patch. The fentanyl patch. The twenty five micrograms an hour. We change it every three days and today is the day. And just now, I was giving her a bath, and I saw another patch on her back. The old one. I forgot to take it off. She has two on. || A1, F1
+  Nurse -> Okay. Thank you for telling me right away. When did you put the new one on?
+  Caller -> This morning. About eight. So nine hours. Maybe a bit less. || A1
+  Nurse -> Okay. How is she right now?
+  Caller -> Very sleepy. She's been sleepy all afternoon, I thought it was just her usual. But now I know. When I say her name she opens her eyes and looks at me. And she goes back. || A2
+  Nurse -> Okay. Can you count her breaths for a full minute?
+  Caller -> Hold on. One, two. Okay. I counted eleven. Eleven in a minute. It's slow but steady. || A3
+  Nurse -> Okay. Zofia, take both patches off right now. Peel them off, fold them in half with the sticky sides together, and put them in a bag. || R1
+  Caller -> Both off. Right now. Okay. Hold on, I'm doing it. Mom, I'm going to turn you. Okay. The old one is off. The new one is off. They're folded. In the bag. Done.
+  Nurse -> Good. I'm going to page our on-call nurse right now. || R2
+  Caller -> Okay. Thank you. Will she be okay?
+  Nurse -> We're going to watch her closely. I'll call you back in ten minutes. || R3
+  Caller -> Ten minutes. Okay.
+  Nurse -> Until then, stay beside her. Keep saying her name and see if she wakes up. Keep counting her breathing. And don't put another patch on. || E1
+  Caller -> Stay. Name. Breathing. No patch. Okay.
+  Nurse -> And Zofia, if you can't wake her, if her breathing drops below eight a minute, or her lips turn blue, call nine one one right away. || E2
+  Caller -> Can't wake. Below eight. Blue. Nine one one. Okay.
+  Nurse -> I'll call in ten.
+  Caller -> I'm so sorry. I'm so careful with these. I just. I changed it on autopilot.
+  Nurse -> It happens to the most careful people. You caught it, and you told us. That's what counts.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Berenice Kowalczuk, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-02-05", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Zofia Kowalczuk, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "9105550162", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother has two fentanyl patches on by mistake.
+    speaker: Caller
+    turns: [2]
+    quote: "I made a mistake with her patch."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A new 25 mcg per hour fentanyl patch was put on this morning at about eight without removing the old one, leaving two patches on.
+      speaker: Caller
+      turns: [8]
+      quote: "She has two on."
+      explanation: Documents the extra patch.
+      facts:
+        - {type: medication, name: fentanyl patch, dose: "25", unit: mcg per hour, frequency: every 3 days, last_dose: new patch put on this morning over the old one, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was very sleepy but opened her eyes when her name was said.
+      speaker: Caller
+      turns: [12]
+      quote: "When I say her name she opens her eyes and looks at me."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: very sleepy but wakes to her voice, present: true, certainty: stated}
+      covers: [A2]
+    - text: Her breathing rate was 11 a minute, slow but steady.
+      speaker: Caller
+      turns: [14]
+      quote: "I counted eleven. Eleven in a minute."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "11", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised removing both patches now.
+      speaker: Nurse
+      turns: [15]
+      quote: "take both patches off right now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 10 minutes.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back in ten minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 10 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying beside her, checking her breathing and whether she woke to her voice, and not applying another patch.
+      speaker: Nurse
+      turns: [21]
+      quote: "stay beside her. Keep saying her name and see if she wakes up."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if she could not be woken, her breathing dropped below 8 a minute, or her lips turned blue.
+      speaker: Nurse
+      turns: [23]
+      quote: "if you can't wake her, if her breathing drops below eight a minute, or her lips turn blue, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I made a mistake with her patch."}

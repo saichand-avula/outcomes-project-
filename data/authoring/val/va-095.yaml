@@ -1,0 +1,299 @@
+call_id: va-095
+split: val
+blueprint: "A 51-year-old woman, Delphine Aldridge, calls herself because she has felt jittery with a racing heart and poor sleep for a week, and tonight she noticed her new levothyroxine bottle says one hundred micrograms while her doctor's note says fifty. Her pulse is one oh eight. She has taken the one hundred each morning for six days. Nurse has her hold the next dose, pages on-call, contacts the pharmacy, and plans a visit tomorrow. Wrong strength dispensed, self caller, adult under 65, medication concern flag, v2 short."
+setup:
+  scenario_category: medication
+  subtype: wrong_strength_dispensed
+  secondary_tags: [self_caller, wrong_dose, pharmacy_error, split_turns, late_answers]
+  clinical_domains: [medication, cardiac, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Magnolia Home Health
+  agency_type: home_health
+  nurse_name: Teodora
+  call_timestamp_utc: "2026-12-18T01:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [Synthroid]
+chief_complaint:
+  patient_name_true: Delphine Aldridge
+  patient_name_spoken: Delphine Aldridge
+  patient_name_certainty: stated
+  patient_dob_true: "1975-10-05"
+  patient_dob_spoken: "1975-10-05"
+  patient_dob_certainty: stated
+  caller_name_true: Delphine Aldridge
+  caller_name_spoken: Delphine Aldridge
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "8165550152"
+  callback_phone_spoken: "8165550152"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Found that her thyroid pill bottle may be double the prescribed strength
+  reason_category: medication
+  relevant_context: Home health patient with an underactive thyroid
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: levothyroxine
+    medication_name_spoken: levothyroxine
+    medication_status: extra_dose
+    dose: "100"
+    unit: mcg
+    frequency: once a day in the morning
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: levothyroxine
+    medication_name_spoken: levothyroxine
+    medication_status: prescribed
+    dose: "50"
+    unit: mcg
+    frequency: once a day in the morning
+    prn: false
+    last_dose: none from the correct bottle
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: jittery with racing heart
+    symptom_present: true
+    severity: moderate
+    onset: for about a week
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: heart rate
+    vital_value: "108"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain or fainting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: dispensing pharmacy
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take tomorrow's dose from the bottle until the clinician calls, and keep the bottle and the doctor's note together
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, fainting, severe shortness of breath, or a very fast heartbeat that does not settle
+    trigger_condition: chest pain; fainting; severe shortness of breath; very fast heartbeat
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: New bottle is one hundred micrograms when the doctor prescribed fifty, taken for six days with a racing heart
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Magnolia Home Health, this is Teodora.
+  Caller -> Hi. I'm sorry it's so late. This is Delphine Aldridge. I'm a patient. I think the pharmacy gave me the wrong strength of my thyroid pill. I've been feeling awful. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi, Delphine. It's fine. Tell me what you've found.
+  Caller -> I couldn't sleep, again. So I got up and started going through my papers. I'm that kind of person at one in the morning.
+  Nurse -> Ha. Sometimes insomnia helps. Go ahead.
+  Caller -> I got a new bottle last week. Levothyroxine. And tonight I was reading the doctor's note, the one that came with my discharge from the clinic, and it says fifty micrograms. But the bottle says one hundred. One hundred micrograms. || A1, A2
+  Nurse -> Okay. Let me make sure I understand. The doctor ordered fifty, and the bottle you've been using says one hundred.
+  Caller -> Yes. Exactly. And I've been taking one every morning. For six days. A hundred. || A1
+  Nurse -> Do you remember the pharmacist saying anything about the change?
+  Caller -> No. They handed me a bag and said have a nice day. I never looked.
+  Nurse -> That's most of us.
+  Nurse -> Okay. When did you start the new bottle?
+  Caller -> Last Friday. I had a little left from the old one, and then I switched. The old bottle was fifty. I didn't look at the strength on the new one. They look similar. They're both white.
+  Nurse -> How many tablets are in the new bottle?
+  Caller -> It's a ninety day supply. I'd taken six, so there are still eighty four. Oh no, I counted wrong, eighty something.
+  Nurse -> It doesn't matter. Keep the bottle as it is.
+  Nurse -> And when did you start feeling off?
+  Caller -> About a week ago. I thought it was stress. I've been jittery. My heart's been racing. I can't sleep. I lie in bed and my heart is pounding. I've been so wired. || A3
+  Nurse -> Any weight loss, sweating, shakiness in your hands?
+  Caller -> My hands shake a little. I've been sweating at night. I assumed it was menopause.
+  Nurse -> Those can overlap. We'll tell the clinician all of it.
+  Nurse -> Okay. Do you have a way to check your pulse?
+  Caller -> I have a blood pressure cuff. It gives the pulse. Hold on. It says one oh eight. One hundred eight. That's high for me. I'm usually in the sixties. || A4
+  Nurse -> Take it again in a minute, after sitting still.
+  Caller -> Sitting still. Okay. Hold on. It says one oh six this time. A little better.
+  Nurse -> Thank you. That's useful.
+  Nurse -> Okay. Any chest pain? Shortness of breath? Fainting?
+  Caller -> No chest pain. No fainting. I'm a little short of breath when I climb the stairs. But not now. || A5
+  Nurse -> Okay. Delphine, what's your date of birth?
+  Caller -> October fifth, nineteen seventy five. || patient_dob
+  Nurse -> And your number?
+  Caller -> Eight one six, five five five, zero one five two. || callback_phone
+  Nurse -> Is that your cell?
+  Caller -> Yes. It's by the bed, on loud.
+  Nurse -> Got it. First, don't take tomorrow's dose from that bottle. Hold it until the clinician calls you. Keep the bottle and the doctor's note together so we can show the pharmacy. || E1
+  Caller -> Don't take it. Keep them together. Okay. I won't. I'll put them in a bag.
+  Caller -> I should tell you, the new bottle has a different name on it. The old one said Synthroid. The new one says the generic.
+  Nurse -> That's normal. The strength is what matters.
+  Nurse -> I'm going to page the on-call clinician right now about your racing heart and the strength mix up. || R1
+  Caller -> Okay. Thank you. I was so worried it was something worse.
+  Nurse -> And I'll call the pharmacy first thing to find out what happened. || R2
+  Caller -> Please. They open at eight. It's the one on Calvin Street.
+  Caller -> I'm so embarrassed. A grown woman who can't read a label.
+  Nurse -> It's not a reading problem. It's an easy mistake, and the pharmacy shares responsibility.
+  Nurse -> I'll take care of it. I'm also sending a nurse to see you tomorrow. || R3
+  Caller -> Tomorrow. Okay. Good.
+  Caller -> Is there anything I should bring to the pharmacy? Like my insurance card?
+  Nurse -> I'll handle the call. Just keep the bottle and the doctor's note ready for the nurse.
+  Nurse -> Will someone be home with you?
+  Caller -> My husband's asleep upstairs. I'll wake him after we hang up. He'll want to help.
+  Nurse -> If you get chest pain, if you faint, if you get very short of breath, or your heart keeps racing and won't settle, call nine one one. || E2
+  Caller -> Chest pain. Faint. Short of breath. Racing that won't stop. Nine one one. Okay.
+  Nurse -> Try to rest, sit quietly, and drink water. Avoid coffee.
+  Caller -> I had coffee all week. I thought it was making me tired. I've been having three cups.
+  Nurse -> Skip it tomorrow. Let your heart rest.
+  Caller -> No coffee. Okay. That's going to be hard.
+  Nurse -> Herbal tea is fine. Chamomile, peppermint.
+  Caller -> I have chamomile somewhere. In the back of the cupboard.
+  Nurse -> Ha. I know. The clinician will call within about fifteen minutes.
+  Caller -> I'll keep the phone next to me. Thank you, Teodora.
+  Caller -> Should I wake him now? So he's there when they call?
+  Nurse -> It's up to you. It might be a comfort to have him beside you.
+  Caller -> I'll wake him. He'll insist on making tea.
+  Nurse -> Anytime. Take care.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Delphine Aldridge, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1975-10-05", certainty: stated, heard_as: [], turns: [30]}
+    caller_name: {value: Delphine Aldridge, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550152", certainty: stated, heard_as: [], turns: [32]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Found that her thyroid pill bottle may be double the prescribed strength.
+    speaker: Caller
+    turns: [2]
+    quote: "I think the pharmacy gave me the wrong strength of my thyroid pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The bottle said levothyroxine 100 micrograms, which she had taken every morning for six days.
+      speaker: Caller
+      turns: [8]
+      quote: "I've been taking one every morning. For six days. A hundred."
+      explanation: Documents the dose taken.
+      facts:
+        - {type: medication, name: levothyroxine, dose: "100", unit: mcg, frequency: once a day in the morning, prn: false, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: The doctor's note said levothyroxine 50 micrograms.
+      speaker: Caller
+      turns: [6]
+      quote: "it says fifty micrograms."
+      explanation: Documents the prescribed dose.
+      facts:
+        - {type: medication, name: levothyroxine, dose: "50", unit: mcg, frequency: once a day in the morning, prn: false, last_dose: none from the correct bottle, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: She was jittery with a racing heart and poor sleep for about a week.
+      speaker: Caller
+      turns: [18]
+      quote: "I've been jittery. My heart's been racing."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: jittery with racing heart, present: true, severity: moderate, onset: for about a week, certainty: stated}
+      covers: [A3]
+    - text: Heart rate was 108, higher than her usual in the sixties.
+      speaker: Caller
+      turns: [23]
+      quote: "One hundred eight."
+      explanation: Documents the heart rate.
+      facts:
+        - {type: vital, name: heart rate, value: "108", certainty: stated}
+      covers: [A4]
+    - text: She had no chest pain or fainting.
+      speaker: Caller
+      turns: [28]
+      quote: "No chest pain. No fainting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or fainting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy in the morning.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call the pharmacy first thing"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm also sending a nurse to see you tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised holding tomorrow's dose from that bottle and keeping the bottle and note together.
+      speaker: Nurse
+      turns: [35]
+      quote: "don't take tomorrow's dose from that bottle."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for chest pain, fainting, severe shortness of breath, or a racing heart that will not settle.
+      speaker: Nurse
+      turns: [51]
+      quote: "call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think the pharmacy gave me the wrong strength of my thyroid pill."}

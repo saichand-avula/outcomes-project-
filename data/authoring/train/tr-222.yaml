@@ -1,0 +1,243 @@
+call_id: tr-222
+split: train
+blueprint: "54-year-old home health patient calls herself: appetite has been poor and she is tired since her chemo last week. The nurse screens for mood; she says she is sad about missing her granddaughter's recital but explicitly denies any thoughts of hurting herself (negated risk phrase, no flag). Nurse messages the provider, plans a social work referral and a callback in two days, and shares small-meal tips and 988."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [negated_risk_phrase, trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [intake_appetite, fatigue, mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-12T15:30:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rhonda Quillen
+  patient_name_spoken: Rhonda Quillen
+  patient_name_certainty: stated
+  patient_dob_true: "1972-10-06"
+  patient_dob_spoken: "1972-10-06"
+  patient_dob_certainty: stated
+  caller_name_true: Rhonda Quillen
+  caller_name_spoken: Rhonda Quillen
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6025550143"
+  callback_phone_spoken: "6025550143"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported poor appetite and tiredness since her chemotherapy last week
+  reason_category: nausea_vomiting
+  relevant_context: Home health patient receiving chemotherapy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: poor appetite
+    symptom_present: true
+    onset_or_duration: since chemotherapy last week
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: tiredness
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: sadness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: thoughts of hurting herself
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever or vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: poor appetite and low mood since chemotherapy
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in two days
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Eat small meals every two to three hours, try cold or bland foods, and keep sipping fluids
+    certainty: stated
+  - item_id: E2
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time if she begins to feel hopeless or unsafe, and call the agency any hour
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Rhonda Quillen. I'm a patient. I'm calling because I'm not eating, and I'm wiped out. || caller_name, relationship, patient_name, cc, A1, A2
+  Nurse -> Hi, Rhonda. Thanks for calling. Let me get your chart up. What's your date of birth?
+  Caller -> October sixth, nineteen seventy two. || patient_dob
+  Nurse -> And is six oh two, five five five, zero one four three still the best number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Tell me about the appetite. When did it start?
+  Caller -> Since the chemo. I had it last Tuesday. I eat a few bites and I'm done. Everything tastes like metal. || A1
+  Nurse -> That's very common. How about the tiredness?
+  Caller -> I sleep ten hours and I'm still dragging. I made it to the couch and back. That's about it. || A2
+  Nurse -> Okay. Any fever? Any vomiting?
+  Caller -> No. No fever. I haven't thrown up. Just no appetite. || A5
+  Nurse -> Okay. Rhonda, how are your spirits? Sometimes this part of the treatment gets heavy.
+  Caller -> I'm a little sad. I missed my granddaughter's recital on Saturday because I couldn't get off the couch. I cried about it. That's silly. || A3
+  Nurse -> It's not silly at all. Can I ask you a direct question? Any thoughts of hurting yourself, or that you'd be better off gone?
+  Caller -> Oh, no. No, no, nothing like that. I'm sad, I'm not, I'm not that. I want to see her next recital. I just wish I had felt better for this one. || A4
+  Nurse -> Okay. Thank you for telling me. I'm glad. I'm going to message your provider about the appetite and the low mood since the chemo. || R1, A1
+  Caller -> Okay. Do you think they'll change something?
+  Nurse -> They might have options for the appetite. I'm also going to ask our social worker to call you. A lot of people find it helps to have someone to talk to. || R2
+  Caller -> Yes. I think I'd like that. Thank you.
+  Nurse -> I'll call you back in two days to see how you're doing. || R3
+  Caller -> Two days. Okay.
+  Nurse -> In the meantime, try small meals every two to three hours instead of three big ones. Cold or bland foods sometimes go down easier. And keep sipping fluids. || E1
+  Caller -> Small meals. Cold food. Fluids. I can do cold. I could eat a popsicle. I've been eating those.
+  Nurse -> That's fine. And Rhonda, if you start to feel hopeless, or not safe, call or text nine eight eight any time, or call us any hour. || E2
+  Caller -> Nine eight eight. Call you. Okay. I won't, but I'll remember.
+  Nurse -> Good. That's all I ask. Anything else?
+  Caller -> No. Thank you, Marcus. It helps to talk to a real person.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rhonda Quillen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1972-10-06", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Rhonda Quillen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550143", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported poor appetite and tiredness since her chemotherapy last week.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm not eating, and I'm wiped out."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Appetite was poor since chemotherapy last Tuesday, with only a few bites at a time.
+      speaker: Caller
+      turns: [8]
+      quote: "Since the chemo. I had it last Tuesday. I eat a few bites and I'm done."
+      explanation: Documents the poor appetite.
+      facts:
+        - {type: symptom, name: poor appetite, present: true, onset: since chemotherapy last week, certainty: stated}
+      covers: [A1]
+    - text: She was tired despite sleeping ten hours.
+      speaker: Caller
+      turns: [10]
+      quote: "I sleep ten hours and I'm still dragging."
+      explanation: Documents the fatigue.
+      facts:
+        - {type: symptom, name: tiredness, present: true, certainty: stated}
+      covers: [A2]
+    - text: She felt a little sad after missing her granddaughter's recital.
+      speaker: Caller
+      turns: [14]
+      quote: "I'm a little sad."
+      explanation: Documents the mood symptom.
+      facts:
+        - {type: symptom, name: sadness, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She denied any thoughts of hurting herself.
+      speaker: Caller
+      turns: [16]
+      quote: "Oh, no. No, no, nothing like that."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: thoughts of hurting herself, certainty: stated}
+      covers: [A4]
+    - text: No fever or vomiting was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No fever. I haven't thrown up."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or vomiting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about the poor appetite and low mood.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to message your provider about the appetite and the low mood since the chemo."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the social worker to call her.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'm also going to ask our social worker to call you."
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in two days.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you back in two days to see how you're doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in two days, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised small meals every two to three hours, cold or bland foods, and continued fluids.
+      speaker: Nurse
+      turns: [23]
+      quote: "try small meals every two to three hours instead of three big ones."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling or texting 988 any time if she felt hopeless or unsafe, and calling the agency any hour.
+      speaker: Nurse
+      turns: [25]
+      quote: "if you start to feel hopeless, or not safe, call or text nine eight eight any time, or call us any hour."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E2]
+  risk_flags: []

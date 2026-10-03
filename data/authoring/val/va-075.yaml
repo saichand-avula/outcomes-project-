@@ -1,0 +1,412 @@
+call_id: va-075
+split: val
+blueprint: "A 62-year-old man calls home health himself one week after a toe amputation: the toe is draining with a slight smell, pain is a four, temperature ninety nine point six, he is on cephalexin five hundred milligrams four times a day (day five of ten), no chills or red streaks, and he is down to three rolls of gauze. The nurse hears his first name as Marvin instead of Mervin, his phone number is garbled once and corrected, and some words drop out of one sentence. Nurse messages the wound clinician, schedules a visit tomorrow, orders gauze, and reviews dressing care, finishing the antibiotic and when to call. ASR name drift, number garble and dropped words, self caller, adult under 65, long, v2."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift_number_garble_dropped_words
+  secondary_tags: [name_drift, number_garble, dropped_words, self_caller, multi_issue, late_answers, split_turns]
+  clinical_domains: [wound_skin, medication, equipment, fever]
+  relationship_group: self
+  na_reason: null
+  agency_name: Gladstone Home Health
+  agency_type: home_health
+  nurse_name: Cordelia
+  call_timestamp_utc: "2026-12-08T15:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 3
+  distractor_meds: [acetaminophen]
+chief_complaint:
+  patient_name_true: Mervin Calloway
+  patient_name_spoken: Mervin Calloway
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Marvin Calloway]
+  patient_dob_true: "1964-05-14"
+  patient_dob_spoken: "1964-05-14"
+  patient_dob_certainty: stated
+  caller_name_true: Mervin Calloway
+  caller_name_spoken: Mervin Calloway
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Marvin Calloway]
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7135550103"
+  callback_phone_spoken: "7135550103"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported drainage with a slight smell from his toe amputation site
+  reason_category: wound_skin
+  relevant_context: One week after a toe amputation, on an antibiotic
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: drainage with slight smell at the amputation site
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: cephalexin
+    medication_name_spoken: cephalexin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: four times a day
+    prn: false
+    last_dose: at noon today
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain at the surgical site
+    symptom_present: true
+    severity: four out of ten
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "99.6"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chills or red streaks up the foot
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: supply
+    reporter: caller
+    supply_item: gauze rolls
+    supply_remaining: "3"
+    supply_unit: rolls
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wound clinician
+    reason_or_trigger: drainage with odor at the amputation site
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: gauze rolls
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change the dressing once a day or when soaked, wash hands first, keep the foot raised, and keep the dressing dry
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Finish every dose of the antibiotic and take it evenly spaced with food
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fever of one hundred one or higher, chills, red streaks up the foot, heavy drainage, or more pain
+    trigger_condition: fever 101 or higher; chills; red streaks; heavy drainage; more pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Gladstone Home Health, this is Cordelia.
+  Caller -> Hi, Cordelia. It's Mervin Calloway. M E R V I N. I'm a patient. I had my toe taken off last week. And I think there's something going on with it. || caller_name, patient_name, relationship, cc, A1
+  Nurse -> Hi, Marvin. I'm sorry to hear that. Okay. Let me bring up your chart. Marvin Calloway?
+  Caller -> Mervin. With an E. But that's all right. Everyone gets it.
+  Nurse -> Okay, Marvin. Tell me what's going on with the toe.
+  Caller -> It's nothing, probably. I kept telling myself that. For two days.
+  Nurse -> You did the right thing calling.
+  Caller -> My neighbor made me. She said, Mervin, pick up the phone.
+  Caller -> Wait. Mervin. It's not a big deal. Go on. Please go on.
+  Nurse -> Alright. What's happening with the toe, Marvin?
+  Caller -> The toe is draining and it, it smells a little. || A1
+  Nurse -> It's draining and it smells.
+  Caller -> A little. Not a lot. It started yesterday. It was dry before. Today the dressing was wet through, yellowish.
+  Nurse -> Did anything happen to the dressing? Did it get wet, or did you bump the foot?
+  Caller -> I bumped it on the coffee table on Saturday. Not hard. I yelped. Biscuit ran out of the room.
+  Nurse -> Okay. That could have irritated it.
+  Nurse -> Okay. How much drainage? Is it soaked?
+  Caller -> The gauze was wet. About the size of a, a half dollar. Maybe bigger. I changed it this morning and by lunch it was wet again.
+  Nurse -> What color was the fluid? Clear, yellow, green, brown?
+  Caller -> Yellow. Pale yellow. Like weak tea.
+  Nurse -> Any thick or pus-like material?
+  Caller -> No. Thin. Runny.
+  Nurse -> Any bleeding?
+  Caller -> No. No bright blood. Just that thin, yellowish stuff.
+  Nurse -> Okay. Any pain?
+  Caller -> A four. A four out of ten. It aches. It's a throbbing ache. It was a two last week. It got worse yesterday. || A3
+  Nurse -> Does it keep you up at night?
+  Caller -> Some. I wake up around three, adjust the pillow, and go back to sleep. It's not terrible.
+  Caller -> It kind of pulses with my heartbeat when I'm sitting still. Like a little drum.
+  Nurse -> That's helpful to know. I'll pass it on.
+  Nurse -> Does anything make it better or worse?
+  Caller -> Raising the foot helps. When I put it down on the floor the throbbing starts.
+  Nurse -> That's useful. Elevation is good.
+  Nurse -> Do you have a fever?
+  Caller -> I took it an hour ago. Ninety nine point six. So a little warm. || A4
+  Caller -> I use the digital one. It beeps. It beeped twice, so I did it again to be sure.
+  Nurse -> And both were the same?
+  Caller -> Both the same. Ninety nine point six.
+  Nurse -> Okay. Any chills? Shaking, sweats?
+  Caller -> No chills. I felt kind of warm last night. No shaking.
+  Nurse -> Did you take anything for it, like acetaminophen?
+  Caller -> Nothing. I didn't want to hide a fever. The nurse said not to cover it up.
+  Nurse -> That's a smart instinct.
+  Nurse -> Any redness going up the foot or the leg? Any red streaks?
+  Caller -> I looked. I used the mirror. It's red around the edge of the dressing, but no streaks. Nothing climbing up. Just the, around the wound. || A5
+  Nurse -> Okay. Are you taking an antibiotic?
+  Caller -> Yes. The cephalexin. Five hundred milligrams. Four times a day. I'm on day five of ten. I took one at noon. || A2
+  Nurse -> Good. Have you missed any doses?
+  Caller -> No. I have an alarm. Seven, noon, five, and ten. I haven't missed one.
+  Nurse -> Excellent. What's your date of birth, Mervin?
+  Caller -> Wait, could you say that again? The line broke.
+  Nurse -> What is your date of birth, Mervin?
+  Caller -> Got it. May fourteenth. I'll say it slow.
+  Caller -> May fourteenth, nineteen sixty four. || patient_dob
+  Nurse -> May fourteenth, nineteen sixty four. Thank you. And a number?
+  Caller -> Seven one three, five five five, zero one zero three. || callback_phone
+  Nurse -> Seven one three, five five five, zero one eight three. Is that right? || callback_phone
+  Caller -> No, no. Zero one zero three. The number ends in zero one zero three. Not eight. Zero. || callback_phone
+  Nurse -> Zero one zero three. Got it. Sorry about that.
+  Caller -> No problem. It's a bad connection. I keep dropping out. Can you hear me okay?
+  Nurse -> Do you want to move indoors and call back?
+  Caller -> No, no. It's cold but the signal's better. I'll stay put.
+  Nurse -> Alright. Tell me if you drop out.
+  Nurse -> I can. A few words are cutting out, but I'm getting most of it.
+  Caller -> Okay. Good. I'm on the porch because it's the only place I get a signal.
+  Nurse -> I'll keep my questions short then.
+  Caller -> I appreciate it. It's windy, too. You might hear the chimes.
+  Caller -> Hang on. There they go.
+  Nurse -> Ha. I can hear them. Pretty.
+  Nurse -> Ha. A porch phone call. Are you warm enough?
+  Caller -> I used to sit out here every evening before the surgery. Watching the street. It's my spot.
+  Nurse -> It sounds like a nice spot.
+  Caller -> I'm bundled. I have a blanket and a coffee. It's fine.
+  Nurse -> Okay. Mervin, let's talk about the dressing. How are you changing it?
+  Caller -> Once a day. I wash my hands. I take the old one off, I look at it, I put a new one on. I use the gauze and the paper tape. And the, the nurse said to wrap it with the rolled gauze.
+  Nurse -> Do you use any ointment under the gauze?
+  Caller -> Just what they gave me at the hospital. It's the white stuff in the tube. A thin layer.
+  Nurse -> That's right. Only a thin layer.
+  Nurse -> How many rolls of gauze do you have?
+  Caller -> I have three. Three rolls. I'm using one a day, so that's three days. || A6
+  Caller -> I could stretch it by using the tape more. But I don't want to.
+  Nurse -> Don't stretch it. Use what you need.
+  Caller -> Okay.
+  Nurse -> Okay. I'll order more. I'll send plenty. || R3
+  Caller -> Thank you. I appreciate that.
+  Nurse -> Mervin, I'm going to send a message to the wound clinician about the drainage and the smell, so they can decide if they want to change anything. || R1
+  Caller -> Okay. That's good. I was hoping somebody would look at it.
+  Nurse -> And I'm scheduling a nurse visit for tomorrow, so she can look at it in person. || R2
+  Caller -> Tomorrow. Great. What time?
+  Nurse -> The scheduler will call you with a window. Probably in the morning.
+  Caller -> I'll be around. I'm not going anywhere. I can't, with the foot.
+  Nurse -> Ha. That's true. In the meantime, change the dressing once a day or any time it gets soaked. Wash your hands first. Keep your foot raised on a pillow when you're sitting. And keep the dressing dry. || E1
+  Caller -> Once a day, or when it's soaked. Wash hands. Foot up. Keep it dry. Okay. I'll cover it when I shower.
+  Nurse -> And after the shower, change the dressing right away, even if it stayed dry.
+  Caller -> Right after. Okay. I'll have the clean one ready on the towel.
+  Nurse -> Do you shower?
+  Caller -> I sit on a stool and I put a plastic bag over the foot. With tape.
+  Nurse -> That's good. Make sure the bag is sealed all the way around.
+  Caller -> It is. I've done it a few times.
+  Nurse -> Great. Also, finish every dose of the antibiotic. Even if the toe looks better. Take it evenly spaced and with food. || E2
+  Caller -> Every dose. Spaced out. With food. I take it with crackers or toast.
+  Nurse -> Perfect. Mervin, there are a few things to watch for. If your temperature goes to one hundred one or higher, if you get chills, if you see red streaks going up the foot, if the drainage gets heavy, or the pain gets worse, call us right away. || E3
+  Nurse -> Does that make sense so far?
+  Caller -> It does. You're easy to follow, Cordelia. The last nurse talked so fast I wrote nothing down.
+  Caller -> A hundred one. Chills. Red streaks. Heavy drainage. More pain. Okay. I wrote it on a sticky note. It's on the coffee table.
+  Nurse -> Good. If you can't reach us, go to the emergency room.
+  Caller -> I will. My neighbor said she'd drive me if I need it.
+  Nurse -> What's her name, in case we need to reach her?
+  Caller -> Loretta. Across the street. She has a green door.
+  Nurse -> We'll make a note of it.
+  Nurse -> That's great. It helps to have a ride.
+  Caller -> She's a good neighbor. She brought me soup.
+  Caller -> She also brought a casserole, but I haven't touched it. It has olives. I hate olives.
+  Nurse -> Ha. A hazard of casseroles.
+  Caller -> I'm politely hiding it in the freezer.
+  Nurse -> Ha. What kind?
+  Caller -> Chicken and rice. With too much pepper. But I ate it.
+  Caller -> I love pepper, though. I just can't taste much since the cold.
+  Nurse -> Ha. Then Loretta did the right thing.
+  Nurse -> Ha. That's what neighbors are for.
+  Caller -> Yes. And she's checking on my cat when I'm in bed. His name is Biscuit.
+  Nurse -> Is it hard being home alone?
+  Caller -> A little. I'm not used to sitting. I used to drive a delivery truck. Now I'm watching the same four shows.
+  Nurse -> That's a big change.
+  Caller -> It's driving me nuts. But I'll get through it. I just want to walk again.
+  Nurse -> Biscuit. I like that.
+  Caller -> He's got a bad attitude. But he's a good boy.
+  Nurse -> Ha. Cats and attitudes.
+  Caller -> He's an orange tabby. He sits on my foot. The good foot.
+  Nurse -> Ha. Keep it that way.
+  Caller -> I do. I don't want him near the bad one.
+  Caller -> He tried to sniff the dressing once and I about jumped through the roof.
+  Nurse -> Good reflexes. Keep the cat away from the wound for now, and wash your hands if he's been on the foot.
+  Nurse -> Good plan. Is there anything else I can help with?
+  Caller -> No, that's it. Oh, wait. Can I drive?
+  Nurse -> Not yet. Not until the surgeon says. Which foot?
+  Caller -> When do you think I could? Roughly.
+  Nurse -> That's for the surgeon to say. They'll know when the wound has healed.
+  Caller -> Okay. I'll ask at the follow up. It's the twentieth.
+  Caller -> The right. The driving foot. Ha.
+  Nurse -> Does your insurance cover a ride service to appointments?
+  Caller -> I think so. I'll ask. Loretta says she'll drive me but I hate to impose.
+  Nurse -> The scheduler can help check that. Ask at the visit tomorrow.
+  Nurse -> Then definitely not. Let the neighbor drive.
+  Caller -> Okay. I figured. I'll behave.
+  Caller -> Can I ask one more silly thing? Is it okay to elevate the foot above my heart?
+  Nurse -> Slightly above is fine while you're lying down. Not hanging it down is the main thing.
+  Caller -> Okay. Pillows then.
+  Nurse -> Take care of yourself, Mervin. We'll see you tomorrow.
+  Caller -> I will. And thank you for not rushing me. I know you've got other calls.
+  Nurse -> You're not rushing me. You're one of my calls today.
+  Caller -> Thank you, Cordelia. Bye.
+  Caller -> Oh, one more thing, sorry. Is it normal for it to itch around the edges?
+  Nurse -> Mild itching can be part of healing, but tell the nurse tomorrow. Don't scratch it.
+  Caller -> I'll keep my hands off.
+  Nurse -> Bye, Mervin.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Mervin, heard_form: Marvin, fact_id: patient_name}
+  - {turn: auto, type: number_garble, true_form: "zero one zero three", heard_form: "zero one eight three", fact_id: callback_phone}
+  - {turn: auto, type: dropped_words, true_form: "the toe is draining and it smells a little", heard_form: "toe is draining and it, it smells a little", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mervin Calloway, certainty: unclear, heard_as: [Marvin Calloway], turns: [2]}
+    patient_dob: {value: "1964-05-14", certainty: stated, heard_as: [], turns: [54]}
+    caller_name: {value: Mervin Calloway, certainty: unclear, heard_as: [Marvin Calloway], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550103", certainty: stated, heard_as: [], turns: [56, 57, 58]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported drainage with a slight smell from his toe amputation site.
+    speaker: Caller
+    turns: [2]
+    quote: "I think there's something going on with it."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The toe was draining a yellowish fluid with a slight smell since yesterday, wetting the dressing by lunch.
+      speaker: Caller
+      turns: [11]
+      quote: "The toe is draining and it, it smells a little."
+      explanation: Documents the drainage.
+      facts:
+        - {type: symptom, name: drainage with slight smell at the amputation site, present: true, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: Cephalexin 500 mg four times a day, day five of ten, last taken at noon.
+      speaker: Caller
+      turns: [47]
+      quote: "The cephalexin. Five hundred milligrams. Four times a day."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: cephalexin, dose: "500", unit: mg, frequency: four times a day, prn: false, last_dose: at noon today, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Pain at the site was a four out of ten, a throbbing ache worse since yesterday.
+      speaker: Caller
+      turns: [26]
+      quote: "A four. A four out of ten."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain at the surgical site, present: true, severity: four out of ten, certainty: stated}
+      covers: [A3]
+    - text: Temperature was 99.6.
+      speaker: Caller
+      turns: [35]
+      quote: "Ninety nine point six."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.6", certainty: stated}
+      covers: [A4]
+    - text: He had no chills or red streaks up the foot, only redness around the dressing edge.
+      speaker: Caller
+      turns: [40]
+      quote: "No chills."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chills or red streaks up the foot, certainty: stated}
+      covers: [A5]
+    - text: Three rolls of gauze remained, about three days' worth.
+      speaker: Caller
+      turns: [80]
+      quote: "I have three. Three rolls."
+      explanation: Documents the gauze supply.
+      facts:
+        - {type: supply, item: gauze rolls, supply: 3 rolls, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the wound clinician about the drainage and smell.
+      speaker: Nurse
+      turns: [86]
+      quote: "I'm going to send a message to the wound clinician about the drainage and the smell"
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [88]
+      quote: "I'm scheduling a nurse visit for tomorrow"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to order more gauze rolls.
+      speaker: Nurse
+      turns: [84]
+      quote: "I'll order more."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised changing the dressing daily or when soaked, washing hands, elevating the foot, and keeping it dry.
+      speaker: Nurse
+      turns: [92]
+      quote: "change the dressing once a day or any time it gets soaked."
+      explanation: Documents skin care teaching.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised finishing every dose of the antibiotic, evenly spaced with food.
+      speaker: Nurse
+      turns: [100]
+      quote: "finish every dose of the antibiotic."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a temperature of 101 or higher, chills, red streaks, heavy drainage, or worse pain.
+      speaker: Nurse
+      turns: [102]
+      quote: "call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

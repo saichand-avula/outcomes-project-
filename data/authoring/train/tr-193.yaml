@@ -1,0 +1,206 @@
+call_id: tr-193
+split: train
+blueprint: "Diabetic patient calls himself for supplies: 4 test strips, no lancets, 10 pen needles. Blood sugars this week 110 to 140, no lows. Nurse orders them for Friday. Short."
+setup:
+  scenario_category: supply
+  subtype: diabetic_supplies
+  secondary_tags: [phone_from_file, split_turns, late_answers]
+  clinical_domains: [glucose, equipment]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-07T13:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Nathaniel Okonjo
+  patient_name_spoken: Nathaniel Okonjo
+  patient_name_certainty: stated
+  patient_dob_true: "1958-09-14"
+  patient_dob_spoken: "1958-09-14"
+  patient_dob_certainty: stated
+  caller_name_true: Nathaniel Okonjo
+  caller_name_spoken: Nathaniel Okonjo
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "5595550138"
+  callback_phone_spoken: "5595550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested diabetes testing and injection supplies
+  reason_category: supply_request
+  relevant_context: Home health patient with diabetes who checks his sugar and uses an insulin pen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: test strips
+    supply_remaining: "4"
+    supply_unit: strips
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: lancets
+    supply_remaining: none
+    supply_unit: lancets
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: patient
+    supply_item: pen needles
+    supply_remaining: "10"
+    supply_unit: needles
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: blood sugar range this week
+    vital_value: 110 to 140
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: low blood sugars
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: test strips, lancets and pen needles
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Use a fresh lancet and pen needle each time and drop the used ones in a sharps container
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Marcus, hi. It's Nathaniel Okonjo. I'm a patient. I'm running low on my diabetes supplies. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Nathaniel. What's your date of birth?
+  Caller -> September fourteenth. Nineteen fifty eight. || patient_dob
+  Nurse -> And is five five nine, five five five, zero one three eight the best number? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. What do you need?
+  Caller -> The test strips. I have four. I test three times a day so that's one day and a bit. And the lancets, the little needles for my finger. I'm out. Totally out. I've been reusing the last one for two days. || A1, A2
+  Nurse -> Okay. Please don't reuse it anymore. We'll fix that. What about pen needles?
+  Caller -> I have ten. That's okay for about a week. || A3
+  Nurse -> Okay. How have your sugars been?
+  Caller -> Good. Really good this week. One ten to one forty. Mostly in the one twenties. || A4
+  Nurse -> Great. Any lows? Shaky, sweaty?
+  Caller -> No. No lows. Not for a month. || A5
+  Nurse -> Okay. I'll order the test strips, the lancets, and the pen needles. || R1
+  Caller -> Thank you. Can you get them here fast? I'm worried about the lancets.
+  Nurse -> They'll come Friday. || R2
+  Caller -> Friday. That's two days. Okay. I'll try to stretch the strips. Is there a store where I can pick up lancets today?
+  Nurse -> Yes, any pharmacy sells them over the counter. Get a pack today so you aren't without. Keep the receipt just in case.
+  Caller -> Okay. I'll walk down to the drugstore. It's only two blocks.
+  Nurse -> And remember, use a fresh lancet and a fresh pen needle every time, and put the used ones in a sharps container. || E1
+  Caller -> Fresh each time. Sharps container. I have the red one. It's about half full.
+  Nurse -> Good. Anything else?
+  Caller -> No. That's it. Thank you, Marcus. Honestly, you guys are so fast.
+  Nurse -> Take care, Nathaniel.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Nathaniel Okonjo, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1958-09-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Nathaniel Okonjo, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "5595550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested diabetes testing and injection supplies.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm running low on my diabetes supplies."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Four test strips remained and the lancets were gone, with the last lancet reused for two days.
+      speaker: Caller
+      turns: [8]
+      quote: "The test strips. I have four. I test three times a day so that's one day and a bit."
+      explanation: Documents the strip and lancet supplies.
+      facts:
+        - {type: supply, item: test strips, supply: 4 strips, certainty: stated}
+        - {type: supply, item: lancets, supply: none, certainty: stated}
+      covers: [A1, A2]
+    - text: Ten pen needles remained, about a week's worth.
+      speaker: Caller
+      turns: [10]
+      quote: "I have ten. That's okay for about a week."
+      explanation: Documents the pen needle supply.
+      facts:
+        - {type: supply, item: pen needles, supply: 10 needles, certainty: stated}
+      covers: [A3]
+    - text: Blood sugars this week ranged from 110 to 140.
+      speaker: Caller
+      turns: [12]
+      quote: "Good. Really good this week. One ten to one forty."
+      explanation: Documents blood sugar control.
+      facts:
+        - {type: vital, name: blood sugar range this week, value: 110 to 140, certainty: stated}
+      covers: [A4]
+    - text: No low blood sugars were reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No lows. Not for a month."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: low blood sugars, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to order test strips, lancets, and pen needles.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll order the test strips, the lancets, and the pen needles."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Friday.
+      speaker: Nurse
+      turns: [17]
+      quote: "They'll come Friday."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised using a fresh lancet and pen needle each time and disposing of used ones in a sharps container.
+      speaker: Nurse
+      turns: [21]
+      quote: "use a fresh lancet and a fresh pen needle every time, and put the used ones in a sharps container."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+  risk_flags: []

@@ -1,0 +1,396 @@
+call_id: tr-291
+split: train
+blueprint: "A son staying overnight with his 88-year-old father calls hospice about a hip pain he rates a six, no bowel movement in four days, and eating almost nothing. He contradicts himself about when the last dose of liquid morphine was given (six, then nine) and whether his father ate his dinner. Two lines come through with the speaker labels swapped. Nurse sorts out what he knows, plans a provider message, a visit tomorrow and a morning callback, tells him to write down every dose time, and gives constipation and fluid advice. Ambiguous with contradiction and speaker label errors, long v2, slow and circular."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, speaker_label_errors, hedging, late_answers, split_turns, multi_issue, prn_and_scheduled, liquid_concentration, offtopic_chatter]
+  clinical_domains: [pain, constipation, intake_appetite, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Pine Ridge Hospice
+  agency_type: hospice
+  nurse_name: Faye
+  call_timestamp_utc: "2026-10-31T03:20:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Anselm Rothgeb
+  patient_name_spoken: Anselm Rothgeb
+  patient_name_certainty: stated
+  patient_dob_true: "1937-11-21"
+  patient_dob_spoken: "1937-11-21"
+  patient_dob_certainty: stated
+  caller_name_true: Marcus Rothgeb
+  caller_name_spoken: Marcus Rothgeb
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9185550141"
+  callback_phone_spoken: "9185550141"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported hip pain, no bowel movement and poor eating in his father
+  reason_category: pain
+  relevant_context: Hospice patient cared for at home, son staying overnight
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip pain
+    symptom_present: true
+    severity: "6"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine liquid
+    medication_name_spoken: morphine liquid
+    medication_status: taking
+    strength: 20 mg per mL
+    dose: "0.5"
+    unit: mL
+    frequency: every four hours as needed
+    prn: true
+    last_dose: six or nine tonight
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating very little
+    symptom_present: true
+    certainty: unclear
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: four days
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "8.6"
+    unit: mg
+    frequency: at bedtime
+    last_dose: last night
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness at night
+    symptom_present: true
+    severity: mild
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: hip pain, four days without a bowel movement and poor intake
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine liquid
+    medication_name_spoken: morphine liquid
+    reason_or_trigger: give a morphine liquid dose now if the pain is still a six and write down the time
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Write the time of every dose on the medicine sheet right when it is given so nobody has to guess
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer prune juice or warm water in small sips and let him eat or drink only what he wants
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call back any hour tonight if the pain is not eased, he is vomiting, or he is very restless
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pine Ridge Hospice, this is Faye.
+  Caller -> Hi. Hi, Faye. It's Marcus. Marcus Rothgeb. I'm at my dad's. I'm calling about my dad. Anselm. Anselm Rothgeb. || caller_name, relationship, patient_name
+  Nurse -> Hi, Marcus. What's going on tonight?
+  Caller -> He's hurting. It's his hip. His left hip. And I don't know if I gave him the medicine or, I did give it. I'm just, I'm not sure what time. || cc
+  Nurse -> Okay. Let's slow down and we'll figure it out together. First, what's your dad's date of birth?
+  Caller -> November twenty first. Nineteen thirty seven. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> It's nine one eight, five five five, zero one four one. That's my cell. || callback_phone
+  Nurse -> Got it. Okay. How bad is the pain? If you were to ask him a zero to ten.
+  Caller -> I asked him. He said a six. Then he said, no, a seven. No, a six. He keeps going back and forth. I'd say six. Six is what he said first and last. || A1
+  Nurse -> Okay. A six. Is it the same hip as always, or somewhere new?
+  Caller -> It's the same one. Where the cancer is. It's always the left hip. It gets bad at night. And it's worse when he moves. When I turn him.
+  Nurse -> Okay. Now, you said you gave him medicine. What did you give?
+  Caller -> The morphine. The liquid one. The bottle with the little syringe. It's half a mL. It's the twenty milligrams per mL. He gets half a mL, every four hours, if he needs it. || A2
+  Nurse -> Okay. Half a mL of the morphine liquid, every four hours as needed. And when did you give the last one? || A2, R3
+  Caller -> I gave it at six. At six o'clock. Because we had dinner at five thirty and I gave it after. So six. || A2
+  Nurse -> Okay. Six o'clock. And what time is it now?
+  Caller -> It's, hold on. It's three twenty. In the morning. Three twenty.
+  Nurse -> Okay. So that's over nine hours since six. That's a long time.
+  Caller -> Is it? No. Wait. It wasn't six. I mean, I think it was nine. Because my sister called at nine, and I remember I was holding the syringe when she called. So I must've given it at nine. Not six. Nine. || A2
+  Nurse -> Okay. So maybe six, maybe nine. Is there a way to check? Do you write the doses down?
+  Caller -> There's a sheet. On the fridge. I haven't written it down. I always forget. My brother's the one who writes it. I was going to write the time and then the phone rang.
+  Nurse -> Okay. That's all right. So the last dose was either six or nine. If it was nine, it's been six and a half hours. If it was six, it's been over nine. Either way, it's been more than four hours.
+  Caller -> Yeah. Yes. So I can give him one.
+  Nurse -> Let me ask a few more things first, and then I'll tell you. How's he eating?
+  Caller -> He ate dinner. He ate everything. He had the chicken and the mashed potatoes. He cleaned his plate. || A3
+  Nurse -> Oh, good. That's great.
+  Caller -> Well, no. I mean he had a few bites. He pushed it around. My sister said he barely touched it. She was here. He ate like, three bites of potato. And then I made him a milkshake and he drank half. I don't know. I'd say he ate a little. Not a lot. He's not hungry. || A3
+  Nurse -> Okay. So he's eating very little. The milkshake is great, though.
+  Caller -> He loves the milkshakes. The vanilla ones. I make them with the ice cream and a banana. He doesn't know about the banana.
+  Nurse -> Ha. Sneaky. Is he drinking other things besides the milkshake? Water, juice?
+  Caller -> A little water. He takes sips when I hold the cup. Sometimes he says no and turns his head. He had a few sips of ginger ale around supper. I don't know, a quarter of a can.
+  Nurse -> Okay. Small sips are fine. Okay. Marcus, has he had a bowel movement lately?
+  Nurse -> Not since Tuesday. That's four days, I think. It's Saturday. Tuesday, Wednesday, Thursday, Friday. Four. And he's straining. He tried this afternoon and nothing. || A4, label_error
+  Nurse -> Does he take anything for constipation?
+  Caller -> The senna. The little pills. Eight point six milligrams. He takes it at bedtime. He took it last night. It hasn't done anything. || A5
+  Nurse -> Okay. Senna, eight point six, at bedtime, taken last night. Okay. Is he nauseated? Is he throwing up? || A5
+  Caller -> No. No nausea. He's not throwing up. He says his stomach's fine. It's just full. He says it feels like a rock. || A6
+  Nurse -> Okay. That sounds like the constipation. And how's he sleeping? Is he restless?
+  Caller -> He's kind of restless. He moves around. He can't get comfortable. I think it's the hip. And the, you know, the stomach. He wakes up every hour and mumbles. It's mild. He's not agitated. Just can't settle. || A7
+  Nurse -> Okay. That all makes sense together. Marcus, I'm going to message the hospice provider tonight about the hip pain, the four days without a bowel movement, and that he's eating very little. They'll look at his bowel regimen and his pain plan. || R1
+  Caller -> Will they call me?
+  Nurse -> Someone will call you in the morning, or I will. I'll make sure.
+  Caller -> Okay. Good.
+  Nurse -> I'm also going to have a nurse visit your dad tomorrow, to examine him and see what's needed for the constipation. || R2
+  Caller -> Tomorrow. That's Sunday.
+  Nurse -> It is. We have nurses on weekends.
+  Caller -> Oh good. I didn't know that.
+  Caller -> Marcus, here's what I would do about tonight's pain. If his pain is still at a six and it's been more than four hours since the last dose, whether it was six or nine, you can give a half mL of the morphine liquid now. Then write the time right away. || R3, label_error
+  Caller -> Okay. A half. Now. Write the time. And it's okay? Even if it was nine?
+  Nurse -> Yes. Six and a half hours is more than four. It's okay.
+  Caller -> Okay. I'm getting the syringe. I'm going to draw it up. The half is, it's the second line. Right? The first line is quarter.
+  Nurse -> The half mL is the line at the five tenths. Let me read what yours says. Is it marked?
+  Caller -> It says point five. There's a line at point five. And the tape. My brother put a piece of tape there.
+  Nurse -> Perfect. Draw it to the tape.
+  Caller -> Okay. I did. It's at the tape. Okay. Dad? Dad, I'm going to give you your medicine. For your hip. Okay. Open. There. Under your tongue. Good. He took it. He said thank you.
+  Nurse -> Good job. What time is it?
+  Caller -> Three thirty five. I'm writing it on the sheet. Three thirty five. Done.
+  Nurse -> Perfect. From now on, write the time right when you give it, every time, so nobody has to guess. Even at three in the morning. || E1
+  Caller -> Yeah. I should've. I know. I felt so dumb not knowing.
+  Caller -> The sheet has all these little boxes and my brother's handwriting is so small. I can't even read his writing half the time. He writes in pencil.
+  Nurse -> A pen is better. Maybe leave a pen on a string next to the sheet so it's always there.
+  Caller -> A pen on a string. Ha. My mother used to do that with the grocery list.
+  Nurse -> You're not dumb. It's the middle of the night, you're tired, you've been taking care of him. It happens to everybody.
+  Caller -> I've been here three nights. My sister did the first two. I'm not good at nights. I fall asleep in the chair.
+  Nurse -> It's a lot. How are you holding up?
+  Caller -> Okay. Tired. My wife keeps calling. She wants me to come home. But my sister's got the kids this weekend. So it's me.
+  Nurse -> You're doing a good job. Marcus, for the constipation, I'd like you to offer him some prune juice, or warm water, in small sips. Whatever he'll take. Let him eat or drink only what he wants. Don't push. || E2
+  Caller -> Prune juice. Do we have any? I think there's a bottle in the pantry. Dad hates it. He calls it purple medicine.
+  Nurse -> Ha. A few sips with a little water might go down easier.
+  Caller -> I'll try. Or the warm water with lemon. He likes that.
+  Caller -> He used to drink prune juice every morning when he was younger, my mom said. Then he decided he hated it. Same with oatmeal. He went on strike one day and never ate it again.
+  Nurse -> Ha. People are funny about food.
+  Nurse -> That's fine too.
+  Caller -> What if he doesn't go? By tomorrow?
+  Nurse -> That's what the nurse will look at tomorrow. There may be something stronger the provider orders, or a suppository. But we don't want you giving anything extra tonight without checking.
+  Caller -> Okay. I won't. I'll wait for the nurse.
+  Nurse -> Good. And I'll call you tomorrow morning, after I talk to the provider, to tell you the plan. || R4
+  Caller -> Morning. What time?
+  Nurse -> By nine, I'd think. Probably earlier.
+  Caller -> Okay. That's fine. I'll be up. I'm always up.
+  Nurse -> And if tonight the pain isn't eased in an hour, or he starts throwing up, or he's very restless, call me back, any hour. || E3
+  Caller -> An hour, throwing up, restless. Okay. I'll call.
+  Nurse -> Good. How is he now? Does he look more comfortable?
+  Caller -> He's, I don't know yet. It's only been a minute. He's got his eyes closed. He's breathing slow. Normal slow.
+  Nurse -> Okay. Give it twenty minutes or so. The medicine takes time.
+  Caller -> Twenty minutes. I'll sit here. I'll watch him.
+  Nurse -> Good. Marcus, do you have everything you need? Mouth swabs, lotion, pillows?
+  Caller -> We have the swabs. His lips get dry. And the lotion for his feet. My sister does his feet every night. He likes that.
+  Nurse -> That's a lovely thing.
+  Caller -> I think so. We have the pillows. The sheepskin thing under his hip. That helps a little.
+  Nurse -> The sheepskin is good. Keep him turned every couple of hours if you can.
+  Caller -> I was supposed to turn him at two. I fell asleep. Oh no.
+  Nurse -> It's okay. Can you turn him now? Gently, onto his right side, so he's off the left hip. With a pillow between his knees.
+  Caller -> Okay. Yes. I'll do it. Let me put you on speaker. I'll turn him slowly. Dad? Dad, I'm going to turn you. Okay. Here we go. He's grunting. He's saying ow. Sorry, Dad. Sorry. Okay. He's on his right side. I put the pillow between his knees.
+  Nurse -> Good. Is he more comfortable?
+  Caller -> I think so. He sighed. He's relaxing.
+  Nurse -> Good. That's what I want to hear.
+  Caller -> This is a hard thing. I never thought it'd be like this.
+  Nurse -> I know. It's a lot. You're doing it though. He's lucky to have you.
+  Caller -> I don't know about that. I wasn't around much when I was younger. We didn't get along. Then this happened and I just came.
+  Nurse -> That counts. He knows you're here.
+  Caller -> I hope so. He called me by name tonight. He said Marcus. That was the first time in days.
+  Nurse -> That's wonderful. Hold on to that.
+  Caller -> He also asked for the radio. The ballgame. At three in the morning. I told him it's not on. He said put on the replay. I said Dad there's no replay. He laughed. A little.
+  Caller -> I will. Okay. I'll call if I need you. Thank you, Faye. Sorry I was all over the place.
+  Nurse -> You were fine. Take care, Marcus.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "Not since Tuesday", fact_id: A4}
+  - {turn: auto, type: speaker_label, true_form: "Nurse instruction", heard_form: "Marcus, here's what I would do about tonight's pain", fact_id: R3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Anselm Rothgeb, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1937-11-21", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Marcus Rothgeb, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550141", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported hip pain, no bowel movement and poor eating in his father.
+    speaker: Caller
+    turns: [4]
+    quote: "He's hurting. It's his hip. His left hip."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Left hip pain was rated a six, worse at night and with movement.
+      speaker: Caller
+      turns: [10]
+      quote: "I'd say six."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: hip pain, present: true, severity: "6", certainty: stated}
+      covers: [A1]
+    - text: Morphine liquid 20 mg per mL, half a mL every four hours as needed, was last given at six or nine that night (unclear; the caller gave both times).
+      speaker: Caller
+      turns: [20]
+      quote: "I think it was nine."
+      explanation: Documents the pain medication and the uncertain last dose.
+      facts:
+        - {type: medication, name: morphine liquid, strength: 20 mg per mL, dose: "0.5", unit: mL, frequency: every four hours as needed, prn: true, last_dose: six or nine tonight, med_status: taking, certainty: unclear}
+      covers: [A2]
+    - text: He was eating very little (unclear; the caller first said he cleaned his plate, then that he ate a few bites and half a milkshake).
+      speaker: Caller
+      turns: [28]
+      quote: "I'd say he ate a little. Not a lot."
+      explanation: Documents the uncertain intake.
+      facts:
+        - {type: symptom, name: eating very little, present: true, certainty: unclear}
+      covers: [A3]
+    - text: He had no bowel movement for four days and was straining.
+      speaker: Caller
+      turns: [34]
+      quote: "Not since Tuesday."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, onset: four days, certainty: stated}
+      covers: [A4]
+    - text: Senna 8.6 mg at bedtime was taken last night without effect.
+      speaker: Caller
+      turns: [36]
+      quote: "The senna. The little pills. Eight point six milligrams."
+      explanation: Documents the bowel medication.
+      facts:
+        - {type: medication, name: senna, dose: "8.6", unit: mg, frequency: at bedtime, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: No nausea or vomiting was reported.
+      speaker: Caller
+      turns: [38]
+      quote: "No nausea. He's not throwing up."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vomiting, certainty: stated}
+      covers: [A6]
+    - text: He was mildly restless at night, waking every hour and unable to settle.
+      speaker: Caller
+      turns: [40]
+      quote: "He's kind of restless."
+      explanation: Documents the restlessness.
+      facts:
+        - {type: symptom, name: restlessness at night, present: true, severity: mild, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to message the hospice provider about the hip pain, constipation and poor intake.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to message the hospice provider tonight about the hip pain"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to examine him and address the constipation.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm also going to have a nurse visit your dad tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Advised giving a half mL of morphine liquid now if the pain was still a six and writing down the time.
+      speaker: Nurse
+      turns: [49]
+      quote: "you can give a half mL of the morphine liquid now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: morphine liquid, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back tomorrow morning after speaking with the provider.
+      speaker: Nurse
+      turns: [78]
+      quote: "I'll call you tomorrow morning, after I talk to the provider"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised writing the time of every dose on the medicine sheet as it was given.
+      speaker: Nurse
+      turns: [59]
+      quote: "write the time right when you give it, every time"
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised offering prune juice or warm water in small sips and letting him eat or drink only what he wanted.
+      speaker: Nurse
+      turns: [68]
+      quote: "offer him some prune juice, or warm water, in small sips."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Invited a call back any hour if the pain was not eased in an hour, he vomited, or he was very restless.
+      speaker: Nurse
+      turns: [82]
+      quote: "call me back, any hour."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags: []

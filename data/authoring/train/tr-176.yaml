@@ -1,0 +1,188 @@
+call_id: tr-176
+split: train
+blueprint: "Granddaughter says her grandmother has been confused and eating little for two days; she does not know the birthday or medicines. The nurse says she may send someone if things get worse and that the doctor might call, and plans only to message the provider and call back tomorrow. Gold must not record a visit. Ambiguous, trap phrasing, short."
+setup:
+  scenario_category: ambiguous
+  subtype: conditional_plans
+  secondary_tags: [trap_phrasing, hedging, identity_unresolved, late_answers, split_turns]
+  clinical_domains: [cognition, intake_appetite]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-10-05T20:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lian Zhao
+  patient_name_spoken: Lian Zhao
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Mei
+  caller_name_spoken: Mei
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "2065550162"
+  callback_phone_spoken: "2065550162"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her grandmother has been confused and eating little for two days
+  reason_category: cognition
+  relevant_context: Home care patient living with family
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: confusion
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating little
+    symptom_present: true
+    onset_or_duration: two days
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Does not know her grandmother's birthday or medicines
+    certainty: unclear
+    unclear_detail: Caller only knows her grandmother's name and that she takes several pills
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: confusion and poor eating
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call back or 911 if she is hard to wake, not drinking, falls, has a fever, or has trouble breathing
+    trigger_condition: hard to wake; not drinking; fall; fever; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Joanne.
+  Caller -> Hi. My name is Mei. I'm calling for my grandmother. Her name is Lian Zhao. She gets help from your aide. || caller_name, relationship, patient_name
+  Nurse -> Hi, Mei. Do you know her date of birth?
+  Caller -> No. I'm sorry. I should. It's my mom who knows all that, but she's at work. My grandmother is old. Like eighty something. || patient_dob
+  Nurse -> That's okay. And a number for you?
+  Caller -> Two oh six, five five five, zero one six two. || callback_phone
+  Nurse -> Two oh six, five five five, zero one six two. || callback_phone
+  Caller -> Yes.
+  Nurse -> What's going on with your grandmother?
+  Caller -> She's confused. She keeps asking where my grandfather is, and he passed years ago. And she's barely eating. Two days. I don't know. Maybe it's nothing. || cc, A1, A2
+  Nurse -> Okay. Do you know what medicines she takes?
+  Caller -> No. There are a lot of pills in the kitchen. I don't know what they are. I just know she has a lot. || A3
+  Nurse -> Okay. Is she drinking anything?
+  Caller -> Some tea. I think. I'm not sure. I'm at school most of the day.
+  Nurse -> Okay. Mei, here's what I'm going to do. I'll message her provider about the confusion and the poor eating. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> The doctor might call your mother, or me, to ask for more information. And if she gets worse, we may be able to send someone. But I can't promise that yet. || R1
+  Caller -> Okay. Might. I understand.
+  Nurse -> I'll call you tomorrow to see how she's doing. || R2
+  Caller -> Tomorrow. Okay. Should I tell my mom?
+  Nurse -> Yes, please. Have your mom call me tonight if she can, and she can give me the birthday and the medicine list.
+  Caller -> I'll text her right now. She'll call you.
+  Nurse -> Good. And call us back, or nine one one, if she's hard to wake, if she isn't drinking, if she falls, or if she has a fever or trouble breathing. || E1
+  Caller -> Hard to wake. Not drinking. Falls. Fever. Breathing. Okay. I'll tell my mom all of it.
+  Nurse -> Thank you. Anything else?
+  Caller -> No. Thank you, Joanne. I hope it's nothing.
+  Nurse -> We'll find out. Take care, Mei.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lian Zhao, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: [4]}
+    caller_name: {value: Mei, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550162", certainty: stated, heard_as: [], turns: [6, 7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her grandmother has been confused and eating little for two days.
+    speaker: Caller
+    turns: [10]
+    quote: "She's confused."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Confusion was reported, with the patient asking where her late husband was.
+      speaker: Caller
+      turns: [10]
+      quote: "She keeps asking where my grandfather is, and he passed years ago."
+      explanation: Documents the confusion.
+      facts:
+        - {type: symptom, name: confusion, present: true, duration: two days, certainty: stated}
+      covers: [A1]
+    - text: She was barely eating for two days.
+      speaker: Caller
+      turns: [10]
+      quote: "And she's barely eating. Two days."
+      explanation: Documents reduced intake.
+      facts:
+        - {type: symptom, name: eating little, present: true, duration: two days, certainty: stated}
+      covers: [A2]
+    - text: The caller did not know her grandmother's birthday or medicines (unclear; she knows only that she takes many pills).
+      speaker: Caller
+      turns: [12]
+      quote: "No. There are a lot of pills in the kitchen. I don't know what they are."
+      explanation: Documents the limited information.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Planned to message the provider about the confusion and poor eating.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll message her provider about the confusion and the poor eating."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you tomorrow to see how she's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling back, or 911, if she was hard to wake, not drinking, fell, or had a fever or trouble breathing.
+      speaker: Nurse
+      turns: [23]
+      quote: "call us back, or nine one one, if she's hard to wake, if she isn't drinking, if she falls, or if she has a fever or trouble breathing."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

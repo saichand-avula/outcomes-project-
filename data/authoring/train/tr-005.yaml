@@ -1,0 +1,206 @@
+call_id: tr-005
+split: train
+blueprint: "Mother of 6-year-old with G-tube: mild redness around site, no fever, no pus; nurse advises cleaning and plans a visit tomorrow."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [name_spelled, late_answers]
+  clinical_domains: [wound_skin]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-08-14T12:10:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mateo Alvarez
+  patient_name_spoken: Mateo Alvarez
+  patient_name_certainty: stated
+  patient_dob_true: "2020-02-11"
+  patient_dob_spoken: "2020-02-11"
+  patient_dob_certainty: stated
+  caller_name_true: Lucia Alvarez
+  caller_name_spoken: Lucia
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "7025550114"
+  callback_phone_spoken: "7025550114"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Redness around G-tube site
+  reason_category: wound_skin
+  relevant_context: 6-year-old with gastrostomy tube
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: redness around G-tube site
+    symptom_present: true
+    severity: about the size of a nickel
+    body_location: G-tube site
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "98.9"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pus
+    symptom_present: false
+    history_or_context_text: A little clear crusty discharge only
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Tolerating feeds normally
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    reason_or_trigger: assess G-tube site
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Clean around the site with soap and water twice a day, pat dry, keep split gauze dry
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of 100.4 or higher, spreading redness, pus, leaking feeds, or if the tube comes out
+    trigger_condition: fever 100.4+; spreading redness; pus; leaking; tube out
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Ana.
+  Caller -> Hi, Ana. I'm calling for my son. His name is Mateo Alvarez. || patient_name, relationship
+  Nurse -> Okay. Can you spell the last name for me?
+  Caller -> A L V A R E Z. || patient_name
+  Nurse -> Thank you. And his date of birth?
+  Caller -> Mateo, put that down, please. Put it down.
+  Nurse -> Take your time.
+  Caller -> Sorry. February eleventh, twenty twenty. || patient_dob
+  Nurse -> Thank you. And who am I talking to?
+  Caller -> I'm Lucia, his mom. || caller_name, relationship
+  Nurse -> Hi Lucia. What's the best number for you?
+  Caller -> Seven zero two, five five five, zero one one four. || callback_phone
+  Nurse -> Okay. What's going on with Mateo today?
+  Caller -> So, his G-tube, around the button, it's a little red. It started yesterday. || cc, A1
+  Nurse -> Okay. How big is the red area, would you say?
+  Caller -> Um, about the size of a nickel? Like right around it. || A1
+  Nurse -> Okay. Any pus, any thick yellow or green stuff coming out?
+  Caller -> No, no pus. There's like a little bit of clear crusty stuff, that's all. || A3
+  Nurse -> Okay. Has he had a fever?
+  Caller -> No. I checked this morning, it was ninety eight point nine. || A2
+  Nurse -> Good. And he's taking his feeds okay? No leaking around the tube?
+  Caller -> Yeah, feeds are fine. He's eating fine. No leaking. || A4
+  Nurse -> Okay, perfect. So for now, clean around the site with soap and water twice a day, pat it dry really well, and keep the split gauze under the button dry. || E1
+  Caller -> Twice a day. Okay.
+  Nurse -> And I'm going to come out tomorrow morning and take a look at it myself. || R1
+  Caller -> Oh, okay. Thank you.
+  Nurse -> If he gets a fever of one hundred point four or more, or the redness spreads, or you see pus, or it's leaking feeds, or the tube comes out, call us right away. || E2
+  Caller -> Okay. I'll call.
+  Nurse -> Alright. See you tomorrow, Lucia.
+  Caller -> Thank you. Bye.
+noise_events:
+  - {turn: 6, type: late_answer, true_form: "DOB answer", heard_form: "put that down", fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mateo Alvarez, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "2020-02-11", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Lucia, certainty: stated, heard_as: [], turns: [10]}
+    relationship: {value: mother, certainty: stated, turns: [2, 10]}
+    callback_phone: {value: "7025550114", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported redness around the G-tube site since yesterday.
+    speaker: Caller
+    turns: [14]
+    quote: "So, his G-tube, around the button, it's a little red. It started yesterday."
+    explanation: Documents the skin concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Redness about the size of a nickel was present around the G-tube button since yesterday.
+      speaker: Caller
+      turns: [16]
+      quote: "Um, about the size of a nickel? Like right around it."
+      explanation: Documents the size and onset of the redness.
+      facts:
+        - {type: symptom, name: redness around G-tube site, present: true, severity: about the size of a nickel, location: G-tube site, onset: since yesterday, certainty: stated}
+      covers: [A1]
+    - text: No pus was reported, only a small amount of clear crusty discharge.
+      speaker: Caller
+      turns: [18]
+      quote: "No, no pus. There's like a little bit of clear crusty stuff, that's all."
+      explanation: Documents a pertinent negative for purulent drainage.
+      facts:
+        - {type: pertinent_negative, name: pus, certainty: stated}
+      covers: [A3]
+    - text: Temperature this morning was 98.9.
+      speaker: Caller
+      turns: [20]
+      quote: "No. I checked this morning, it was ninety eight point nine."
+      explanation: Documents the reported temperature.
+      facts:
+        - {type: vital, name: temperature, value: "98.9", certainty: stated}
+      covers: [A2]
+    - text: Feeds were tolerated without leaking around the tube.
+      speaker: Caller
+      turns: [22]
+      quote: "Yeah, feeds are fine. He's eating fine. No leaking."
+      explanation: Documents feeding tolerance.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit tomorrow morning to assess the G-tube site.
+      speaker: Nurse
+      turns: [25]
+      quote: "And I'm going to come out tomorrow morning and take a look at it myself."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised cleaning around the site with soap and water twice a day, patting it dry, and keeping the split gauze dry.
+      speaker: Nurse
+      turns: [23]
+      quote: "So for now, clean around the site with soap and water twice a day, pat it dry really well, and keep the split gauze under the button dry."
+      explanation: Documents G-tube site care instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for fever of 100.4 or higher, spreading redness, pus, leaking feeds, or if the tube came out.
+      speaker: Nurse
+      turns: [27]
+      quote: "If he gets a fever of one hundred point four or more, or the redness spreads, or you see pus, or it's leaking feeds, or the tube comes out, call us right away."
+      explanation: Documents return precautions for site infection or tube problems.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

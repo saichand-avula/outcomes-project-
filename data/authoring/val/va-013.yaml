@@ -1,0 +1,364 @@
+call_id: va-013
+split: val
+blueprint: "Long call: granddaughter of a 94-year-old describes evening agitation, hip pain on turning, and poor intake; 'haloperidol' is first heard as 'hello peridol' and the nurse reads it from the chart (resolved); the anxiety medicine is heard as 'lorezapam' twice and 'lorazepam' once with no confirmation (unresolved, unclear); chart-reading distractors, crosstalk, chatter; nurse plans a visit tonight and a physician message."
+setup:
+  scenario_category: asr_error
+  subtype: multi_garble_long
+  secondary_tags: [garbled_drug, chart_reading_distractor, crosstalk, offtopic_chatter, split_turns, late_answers, multi_issue, hedging]
+  clinical_domains: [agitation_delirium, pain, intake_appetite]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-20T02:30:00Z"
+  length_bucket: long
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2, A3]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 3
+  distractor_meds: [metoprolol, levothyroxine]
+chief_complaint:
+  patient_name_true: Bernadette Oyelowo
+  patient_name_spoken: Bernadette Oyelowo
+  patient_name_certainty: stated
+  patient_dob_true: "1932-08-22"
+  patient_dob_spoken: "1932-08-22"
+  patient_dob_certainty: stated
+  caller_name_true: Tamar
+  caller_name_spoken: Tamar
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "7065550191"
+  callback_phone_spoken: "7065550191"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Grandmother is agitated, in some pain when turned, and not eating
+  reason_category: agitation_pain
+  relevant_context: Granddaughter is staying overnight while the patient's daughter sleeps
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: agitation
+    symptom_present: true
+    severity: pulling at the covers and talking to her late husband
+    onset_or_duration: since about 9 tonight
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: every 6 hours
+    prn: true
+    last_dose_time: last night around 11
+    certainty: stated
+    unclear_detail: First heard as hello peridol; nurse read haloperidol from the chart and the caller confirmed
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorezapam
+    medication_status: taking
+    last_dose_time: this morning
+    certainty: unclear
+    unclear_detail: Name heard as lorezapam twice and lorazepam once with no confirmation
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: about 5
+    body_location: hips
+    certainty: unclear
+    unclear_detail: Caller unsure ("maybe a five")
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased intake
+    symptom_present: true
+    severity: sips of water only
+    onset_or_duration: past two days
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    reason_or_trigger: give a dose now for agitation
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: on-call nurse
+    timeframe: tonight within 2 hours
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 30 minutes
+    certainty: stated
+  - item_id: R4
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice physician
+    reason_or_trigger: agitation and pain
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Dim the lights, speak softly, play familiar music, pillow between the knees, reposition gently
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep the bed low, stay with her, and do not argue about what she sees
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if she becomes combative, is hard to wake, or has trouble breathing
+    trigger_condition: combative; hard to wake; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Hi, Tom. Hi. It's Tamar. I'm calling about my grandmother. Bernadette Oyelowo. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tamar. Can you spell the last name for me?
+  Caller -> O Y E L O W O. || patient_name
+  Nurse -> Thank you. And Bernadette's date of birth?
+  Caller -> August twenty second, nineteen thirty two. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Seven oh six, five five five, zero one nine one. || callback_phone
+  Nurse -> Okay. Seven oh six, five five five, zero one nine one. || callback_phone
+  Caller -> Yes. That's me.
+  Nurse -> What's happening with Bernadette tonight?
+  Caller -> She's agitated. She started around nine. She's pulling at her covers and she keeps talking to my grandfather. He's been gone twelve years. || cc, A1
+  Nurse -> Okay. Is she saying anything?
+  Caller -> She keeps saying, Joseph, come here, Joseph. She thinks he's in the room. She's not upset about it, exactly. She's just restless. And it's been hours. || A1
+  Nurse -> Okay. Is she in pain, do you think?
+  Caller -> I think so. When we turn her, she grimaces. And she says ow. Her hips, I think. || A4
+  Nurse -> How bad would you say it is?
+  Caller -> Maybe a five? I don't know. It's hard to tell with her. || A4
+  Nurse -> Okay. What's she been given tonight?
+  Caller -> My mom gave her something around eleven last night. The hello peridol. For the agitation. || A2
+  Nurse -> The what?
+  Caller -> The, um, hello peridol. I can't say it. It starts with an H. || A2
+  Nurse -> Okay. Let me look at her chart, and I'll read what I see. I see haloperidol, point five milligram, by mouth, every six hours as needed for agitation. Is that the one? || A2
+  Caller -> Yes. Yes, that's it. Haloperidol. That's what's on the box. || A2
+  Caller -> I'm so sorry. I'm terrible with these names.
+  Nurse -> Don't be sorry. They're hard. Did she get any today?
+  Caller -> No. Just last night at eleven. Nothing since. Because she was calm until tonight. || A2
+  Nurse -> Okay. So it's been more than six hours. She can have another dose now. || R1
+  Caller -> Okay. Good. I'll get it.
+  Nurse -> Go ahead and give her the haloperidol, point five milligram. || R1
+  Caller -> Okay. Mom! Mom, can you wake up? Mom, I need to get Grandma's medicine. It's in the kitchen. Okay. She's asleep, I don't want to wake her.
+  Nurse -> That's fine. Let her sleep. Is it nearby?
+  Caller -> In the cabinet over the stove. Hold on.
+  Caller -> I have it. Okay. I'm going to give it to her now. It goes under the tongue?
+  Nurse -> Yes. A tablet that dissolves, under the tongue.
+  Caller -> Okay. Grandma, open up. Under your tongue. There. Good. She took it.
+  Nurse -> Perfect. Now, I see her other comfort medicine on the list too, for anxiety and restlessness. Has she had any of that?
+  Caller -> The lorezapam? Yes. This morning. My mom gave her one around eight. And she had one yesterday too. The lorezapam. || A3
+  Caller -> I think that's how you say it. Lorazepam? Lorezapam? Something like that. || A3
+  Nurse -> Okay. That was this morning, so you can check on that later with the nurse. For now, we'll focus on the other one.
+  Caller -> Okay. Is it okay that she had that in the morning too?
+  Nurse -> That's fine. Each one has its own schedule.
+  Caller -> Okay. Good.
+  Nurse -> I'm also looking at her other medications on the chart. Metoprolol and levothyroxine.
+  Caller -> We stopped those last week. The doctor said she didn't need them anymore, since she can barely swallow.
+  Nurse -> Okay. That makes sense. Tamar, how has she been eating and drinking?
+  Caller -> Barely. Just sips of water for the last two days. She won't open her mouth for food. || A5
+  Nurse -> Okay. Does she have a fever?
+  Caller -> No. I put the thermometer on her forehead, and it said ninety eight. || A6
+  Nurse -> Okay. Good. I'm going to send our on-call nurse to see her tonight, to check on the pain and the agitation. || R2
+  Caller -> Tonight? Oh, thank you. Thank God.
+  Nurse -> She should be there within two hours. I'll also message the hospice doctor about her pain. || R2, R4
+  Caller -> Okay. Thank you. That would be so good.
+  Nurse -> Has she had a bowel movement, or passed urine, tonight?
+  Caller -> She's in a brief. It was wet when we changed her at nine. No bowel movement today, I don't think. My mom keeps a log, I can ask her later.
+  Nurse -> That's fine. The nurse will check that when she comes. Is her mouth dry?
+  Caller -> A little. We've been using the swabs. And I put some of that lip balm on her.
+  Nurse -> Perfect. That's exactly right.
+  Caller -> My mom is the one who knows everything. I'm just helping. She does the nights, usually, but she's been up for two days straight, so I told her to rest.
+  Nurse -> That was kind of you. You're a good granddaughter.
+  Caller -> Grandma raised me, actually, for part of my childhood. When my mom was working two jobs. So this is the least I can do.
+  Nurse -> That's a special bond.
+  Caller -> It is. She used to sing in the church choir. She'd practice her solos in the kitchen while she cooked. I'd sit on the counter and listen.
+  Nurse -> What a lovely memory. Maybe the gospel music will remind her.
+  Caller -> That's what I'm hoping. Okay.
+  Nurse -> And I'll call you in thirty minutes, to see how Bernadette is doing after the haloperidol. || R3
+  Caller -> Thirty minutes. Okay.
+  Nurse -> In the meantime, dim the lights, talk softly, and play her favorite music, if you have it. And put a pillow between her knees, and turn her gently. || E1
+  Caller -> She loves gospel. I have it on my phone. I'll play it softly.
+  Nurse -> Perfect. And don't argue with her about what she sees. If she wants to talk to Joseph, let her. Just stay calm. || E2
+  Caller -> I won't argue. I just say, he's here, Grandma. I sit with her.
+  Nurse -> That's exactly right. Keep the bed low, and stay close.
+  Caller -> I'm right next to her.
+  Nurse -> And if she becomes combative, or hard to wake up, or has trouble breathing, call me right away. || E3
+  Caller -> Okay. I will.
+  Nurse -> How are you holding up, Tamar? It's late.
+  Caller -> I'm okay. I work from home, so it's easier for me to stay. I'm a graphic designer. I've been designing a logo for a bakery. At least when I'm sitting here I can sketch.
+  Nurse -> That sounds like a nice way to pass the hours.
+  Caller -> It is. Grandma used to bake the best sweet potato pie. The bakery owner asked if I could make her pie the logo.
+  Nurse -> Ha. What a tribute.
+  Caller -> I know. She'd love that. She's the one who taught me to draw, actually. She used to sketch flowers in the margins of her church bulletin.
+  Nurse -> That's such a lovely thing. Maybe you can show her the logo.
+  Caller -> I will. I'll show her tomorrow. Maybe she'll be more awake.
+  Nurse -> I hope so.
+  Caller -> Hang on, someone's at the door. It's my aunt. Oh, she heard the phone. Hi, Auntie. Yes, it's the nurse. They're sending someone. Okay. She's going to sit with Grandma while I finish the call.
+  Nurse -> That's good. Is your mother up now?
+  Caller -> Yes. She woke up when Auntie came in. She's checking on Grandma. She says thank you.
+  Nurse -> You're welcome. Tell her I'll call in thirty minutes.
+  Caller -> I will. Thank you again, Tom.
+  Caller -> One more question, if that's okay. Should we call the rest of the family? My uncles are in Atlanta and Houston.
+  Nurse -> It's up to you and your mother. If you feel the family would want to be here, it's a good time to let them know, so they can decide. I'm not saying it's tonight, but she is declining.
+  Caller -> I understand. I'll talk to my mom when she wakes up. I think she'll want to call them tomorrow.
+  Nurse -> That sounds right. And the nurse who comes tonight can talk with her about what to expect, too.
+  Caller -> Okay. That helps. Thank you for being honest.
+  Nurse -> Always. Take care. Talk soon.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: haloperidol, heard_form: hello peridol, fact_id: A2}
+  - {turn: auto, type: drug_garble, true_form: lorazepam, heard_form: lorezapam, fact_id: A3}
+  - {turn: auto, type: split_turn, true_form: "single account", heard_form: "She's not upset about it, exactly", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Bernadette Oyelowo, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1932-08-22", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Tamar, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7065550191", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her grandmother had been agitated since about 9 tonight, talking to her late husband.
+    speaker: Caller
+    turns: [12]
+    quote: "She's agitated. She started around nine. She's pulling at her covers and she keeps talking to my grandfather."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: Pain, estimated at about 5 with grimacing and saying ow when turned, was suspected in the hips; the caller was unsure.
+      speaker: Caller
+      turns: [18]
+      quote: "Maybe a five? I don't know. It's hard to tell with her."
+      explanation: Documents the suspected pain with uncertainty preserved.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: about 5, location: hips, certainty: unclear}
+      covers: [A4]
+    - text: Haloperidol 0.5 mg every 6 hours as needed was last given last night around 11; the name was first heard as hello peridol and confirmed after the nurse read it from the chart.
+      speaker: Caller
+      turns: [24]
+      quote: "Yes. Yes, that's it. Haloperidol. That's what's on the box."
+      explanation: Documents the agitation medication as confirmed against the chart.
+      facts:
+        - {type: medication, name: haloperidol, dose: "0.5", unit: mg, frequency: every 6 hours, prn: true, last_dose: last night around 11, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Lorezapam was reported as given this morning around 8 and yesterday (unclear; the name was also heard as lorazepam and was not confirmed).
+      speaker: Caller
+      turns: [38]
+      quote: "The lorezapam? Yes. This morning. My mom gave her one around eight."
+      explanation: Documents the anxiety medication while preserving the unresolved name conflict.
+      facts:
+        - {type: medication, name: lorezapam, last_dose: this morning, med_status: taking, certainty: unclear}
+      covers: [A3]
+    - text: Intake was limited to sips of water for two days.
+      speaker: Caller
+      turns: [47]
+      quote: "Barely. Just sips of water for the last two days. She won't open her mouth for food."
+      explanation: Documents decreased oral intake.
+      facts:
+        - {type: symptom, name: decreased intake, present: true, severity: sips of water only, onset: past two days, certainty: stated}
+      covers: [A5]
+    - text: No fever was reported; the forehead temperature was 98.
+      speaker: Caller
+      turns: [49]
+      quote: "No. I put the thermometer on her forehead, and it said ninety eight."
+      explanation: Documents a pertinent negative for fever.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised giving haloperidol 0.5 mg now for the agitation.
+      speaker: Nurse
+      turns: [30]
+      quote: "Go ahead and give her the haloperidol, point five milligram."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: haloperidol, certainty: stated}
+      covers: [R1]
+    - text: Planned an on-call nurse visit tonight, within about 2 hours.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'm going to send our on-call nurse to see her tonight, to check on the pain and the agitation."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tonight within 2 hours, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the hospice doctor about her pain.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'll also message the hospice doctor about her pain."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R4]
+    - text: Planned to call back in 30 minutes.
+      speaker: Nurse
+      turns: [66]
+      quote: "I'll call you in thirty minutes, to see how Bernadette is doing after the haloperidol."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised dimming the lights, speaking softly, playing familiar music, putting a pillow between her knees, and turning her gently.
+      speaker: Nurse
+      turns: [68]
+      quote: "dim the lights, talk softly, and play her favorite music, if you have it."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised not arguing about what she saw, keeping the bed low, and staying close.
+      speaker: Nurse
+      turns: [70]
+      quote: "don't argue with her about what she sees. If she wants to talk to Joseph, let her."
+      explanation: Documents safety and reassurance guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if she became combative, hard to wake, or had trouble breathing.
+      speaker: Nurse
+      turns: [74]
+      quote: "if she becomes combative, or hard to wake up, or has trouble breathing, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

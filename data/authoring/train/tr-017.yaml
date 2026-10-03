@@ -1,0 +1,234 @@
+call_id: tr-017
+split: train
+blueprint: "Granddaughter says 'Sarah quill' then 'Seroquil' for her grandmother's bedtime medicine, then spells S-E-R-O-Q-U-E-L and the nurse reads it back (resolved to Seroquel); evening restlessness; nurse advises consistent 8 PM timing and plans a message to the provider."
+setup:
+  scenario_category: asr_error
+  subtype: conflict_resolved_spelling
+  secondary_tags: [garbled_drug, name_spelled, tall_man_drug, late_answers]
+  clinical_domains: [sleep, agitation_delirium]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-01T23:50:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A3]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Henrietta Osei
+  patient_name_spoken: Henrietta Osei
+  patient_name_certainty: stated
+  patient_dob_true: "1941-05-05"
+  patient_dob_spoken: "1941-05-05"
+  patient_dob_certainty: stated
+  caller_name_true: Imani
+  caller_name_spoken: Imani
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "4045550127"
+  callback_phone_spoken: "4045550127"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Grandmother is restless and up at night despite her bedtime medicine
+  reason_category: sleep
+  relevant_context: Granddaughter stays overnight with patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: nighttime restlessness
+    symptom_present: true
+    severity: up and down out of bed several times a night
+    onset_or_duration: past week
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: evening confusion
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Seroquel
+    medication_name_spoken: Seroquel
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: at bedtime
+    response_to_medication: Not helping much
+    certainty: stated
+    unclear_detail: Initially garbled; resolved by letter-by-letter spelling and nurse read-back
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescribing provider
+    reason_or_trigger: ongoing nighttime restlessness
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: Seroquel
+    medication_name_spoken: Seroquel
+    timeframe: same time each evening, around 8
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Consistent bedtime routine, dim lights in the evening, limit naps and caffeine
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Night light, clear path to the bathroom, and stay nearby at night
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she becomes aggressive, sees things that are not there, or falls
+    trigger_condition: aggression; hallucinations; fall
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi. I'm calling for my grandma. Her name is Henrietta Osei. O S E I. || patient_name, relationship
+  Nurse -> Okay, Henrietta Osei. And her date of birth?
+  Caller -> May fifth, nineteen forty one. || patient_dob
+  Nurse -> Thank you. And who am I talking to?
+  Caller -> I'm Imani. I'm her granddaughter. || caller_name, relationship
+  Nurse -> Hi, Imani. A number for you?
+  Caller -> Four oh four, five five five, zero one two seven. || callback_phone
+  Nurse -> Got it. What's going on tonight?
+  Caller -> So, my grandma won't settle down. She keeps getting up and down. Out of bed, back in, out of bed. Like, all night, the last week. || cc, A1
+  Nurse -> Okay. Is she confused when she gets up?
+  Caller -> A little. In the evening, mostly. She'll ask where her husband is. || A2
+  Nurse -> Okay. And what does she take at night?
+  Caller -> She takes the Sarah quill. At bedtime. || A3
+  Nurse -> The what, sorry?
+  Caller -> The, the Seroquil. Hang on, I'm going to look at the bottle. It's, it's S E R O Q U E L. || A3
+  Nurse -> Seroquel. Okay, got it. Seroquel. And what's the dose? || A3
+  Caller -> Twenty five milligrams. One little pill. || A3
+  Nurse -> Okay. And does it seem to help?
+  Caller -> Not really. Not much. It's like she's sleepy, but she won't lie down. || A3
+  Nurse -> Okay. When do you give it?
+  Caller -> It's different. Sometimes seven, sometimes nine. Whenever I remember. Or whoever's here.
+  Nurse -> Okay. That could be part of it. I'd like her to get the Seroquel at the same time every night, around eight. Consistency matters for it to work. || R2
+  Caller -> Okay. Eight o'clock. Every night.
+  Nurse -> Right. And I'm going to send a message to her provider about the restlessness, since it's been a week. They may want to change something. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> In the evening, keep the lights dim, keep a calm routine, and try to limit naps in the afternoon, and any caffeine. || E1
+  Caller -> She does have coffee at like four.
+  Nurse -> Let's make that decaf, if she'll go for it.
+  Caller -> She won't know. Ha.
+  Nurse -> Also, put a night light on, keep the path to the bathroom clear, and stay close by at night so she doesn't fall. || E2
+  Caller -> Okay. I'm sleeping on the couch.
+  Nurse -> Perfect. If she gets aggressive, or she starts seeing things that aren't there, or she falls, call us right away. || E3
+  Caller -> Okay. I will.
+  Nurse -> Anything else, Imani?
+  Caller -> No. Thank you.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Seroquel, heard_form: Sarah quill, fact_id: A3}
+  - {turn: auto, type: drug_garble, true_form: Seroquel, heard_form: Seroquil, fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Henrietta Osei, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-05-05", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Imani, certainty: stated, heard_as: [], turns: [6]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2, 6]}
+    callback_phone: {value: "4045550127", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her grandmother was restless and getting up and down at night for the past week.
+    speaker: Caller
+    turns: [10]
+    quote: "So, my grandma won't settle down. She keeps getting up and down."
+    explanation: Documents the sleep concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nighttime restlessness with repeated getting out of bed was reported for the past week.
+      speaker: Caller
+      turns: [10]
+      quote: "Out of bed, back in, out of bed. Like, all night, the last week."
+      explanation: Documents the sleep disturbance and its duration.
+      facts:
+        - {type: symptom, name: nighttime restlessness, present: true, severity: up and down out of bed several times a night, onset: past week, certainty: stated}
+      covers: [A1]
+    - text: Mild confusion was noted in the evenings, including asking where her husband was.
+      speaker: Caller
+      turns: [12]
+      quote: "A little. In the evening, mostly. She'll ask where her husband is."
+      explanation: Documents the reported evening confusion.
+      facts:
+        - {type: symptom, name: evening confusion, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Seroquel 25 mg at bedtime was reported as not helping much; the name was initially garbled and then spelled out by the caller and read back by the nurse.
+      speaker: Caller
+      turns: [18]
+      quote: "Twenty five milligrams. One little pill."
+      explanation: Documents the bedtime medication and its limited effect.
+      facts:
+        - {type: medication, name: Seroquel, dose: "25", unit: mg, frequency: at bedtime, med_status: taking, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message her provider about the ongoing nighttime restlessness.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm going to send a message to her provider about the restlessness, since it's been a week."
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised giving Seroquel at the same time every evening, around 8.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'd like her to get the Seroquel at the same time every night, around eight."
+      explanation: Documents the medication timing instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: Seroquel, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a calm evening routine with dim lights and limiting afternoon naps and caffeine.
+      speaker: Nurse
+      turns: [27]
+      quote: "keep the lights dim, keep a calm routine, and try to limit naps in the afternoon, and any caffeine."
+      explanation: Documents sleep-promoting measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised a night light, a clear path to the bathroom, and staying close at night to prevent falls.
+      speaker: Nurse
+      turns: [31]
+      quote: "put a night light on, keep the path to the bathroom clear, and stay close by at night so she doesn't fall."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if she became aggressive, saw things that were not there, or fell.
+      speaker: Nurse
+      turns: [33]
+      quote: "If she gets aggressive, or she starts seeing things that aren't there, or she falls, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

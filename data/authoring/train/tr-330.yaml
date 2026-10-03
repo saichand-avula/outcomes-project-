@@ -1,0 +1,278 @@
+call_id: tr-330
+split: train
+blueprint: "A hospice volunteer coordinator calls the clinical line to relay that a volunteer who visited a patient this afternoon saw him trying to stand alone and nearly fall; the patient, a 76-year-old man named Alvin, told the volunteer he feels dizzy when he stands and that his legs 'turn to jelly'. The coordinator does not know his birth date and reads what the volunteer wrote down. The nurse takes the report secondhand, asks the coordinator to find the volunteer's note, plans a nurse visit tomorrow morning and a message to the provider, and gives secondhand safety advice for the daughter who lives with him. Ambiguous secondhand report, facility staff style caller (volunteer coordinator), v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: secondhand_report
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, identity_unresolved, offtopic_chatter]
+  clinical_domains: [dizziness, falls_safety]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Heartland Hospice
+  agency_type: hospice
+  nurse_name: Lorraine
+  call_timestamp_utc: "2026-10-26T22:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alvin Tuckerman
+  patient_name_spoken: Alvin Tuckerman
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Maxine Oduya
+  caller_name_spoken: Maxine Oduya
+  caller_name_certainty: stated
+  relationship_to_patient: volunteer coordinator
+  relationship_certainty: stated
+  callback_phone_true: "6465550111"
+  callback_phone_spoken: "6465550111"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Relayed a volunteer's report that a patient nearly fell and feels dizzy when standing
+  reason_category: dizziness
+  relevant_context: Hospice patient who lives with his daughter; report came secondhand from a volunteer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: other
+    symptom_name: dizziness on standing
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: other
+    symptom_name: legs giving way
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The volunteer saw him try to stand alone and catch himself on the table without falling
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: an actual fall or injury
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The coordinator is relaying a secondhand note and does not know his birth date or medicines
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: dizziness on standing and a near fall
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: daughter
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Ask his daughter to have him sit on the edge of the bed before standing, help him whenever he stands, and use his walker
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he falls, faints, has chest pain or his dizziness gets worse
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Heartland Hospice, this is Lorraine.
+  Caller -> Hi, Lorraine. This is Maxine Oduya. I'm the volunteer coordinator. I'm not calling about my own patient. I'm calling because one of my volunteers told me something about one of your patients, and I thought you should know. || caller_name, relationship, cc
+  Nurse -> Okay. I'm glad you called. Do you want to start from the beginning?
+  Caller -> Yes. Let me find the note. I have it on my desk. Hold on. It's under my coffee.
+  Nurse -> Take your time.
+  Nurse -> Okay, Maxine. Thanks. Which patient?
+  Caller -> His name is Alvin. Alvin Tuckerman. Tuckerman. I'm looking at the note. The volunteer is Dolores Ng. She sat with him this afternoon. She writes everything down. || patient_name
+  Caller -> She's been with us eight years. She does the Tuesday and Thursday afternoons at three homes. She's wonderful. Her notes are beautiful. She writes with a fountain pen.
+  Nurse -> Ha. A fountain pen.
+  Nurse -> Okay. Let me pull up Alvin Tuckerman. I see him. What did Dolores write?
+  Caller -> Okay. I'm going to read it. She wrote, and I quote, "Mr. Tuckerman tried to stand up by himself from the recliner. He got halfway up and said he was dizzy. He grabbed the table and held on. I helped him sit back. He said his legs turn to jelly when he stands. He said it's been happening a few days." Then she wrote, "Daughter was at the store." || A1
+  Nurse -> Okay. That's very helpful. So he was dizzy when he stood, grabbed the table, and didn't fall.
+  Caller -> That's what it says. He didn't fall. She caught his elbow. It says, "I held his arm. He sat down slowly. No fall." || A4
+  Nurse -> Did she say how long he was dizzy for? A few seconds or longer?
+  Caller -> It doesn't say. Hold on, let me read it again. Nope. It just says he said he was dizzy. And that he sat back down. And that he felt better after a few minutes. Oh, here it is, she wrote he felt better after sitting.
+  Nurse -> Okay. That helps.
+  Nurse -> Okay. And the legs turning to jelly?
+  Caller -> That's his words. She put it in quotes. It says he said it's been happening for a few days. A few days. Hmm. It doesn't say more. I don't want to guess. || A2
+  Nurse -> No, that's fine. It's helpful to have his exact words. Is Dolores still there? Can I talk to her?
+  Caller -> No. She left at four. She's gone home. I can give you her number. Or I can ask her to call you tomorrow.
+  Nurse -> That's okay. I'll work with what I have. Maxine, does Dolores say whether he was alone? Whether anyone else was in the house?
+  Caller -> Just the daughter. Who was out. At the store. It's the daughter who lives with him. Her name is, hold on, I think it says Gabrielle. Gabby.
+  Nurse -> Okay. Gabrielle. Got it. I have her in the chart as the contact.
+  Caller -> I met her once. Gabby. She's very nice. She brought us muffins at the volunteer luncheon.
+  Nurse -> That sounds like her.
+  Caller -> Good. So that's the whole note. I thought it was important. He almost fell. || A3
+  Nurse -> Did Dolores say whether she'd seen him do this before? Or if the daughter had mentioned it?
+  Caller -> No, nothing like that. She says in the note it was the first time she saw it. But he said it's been happening.
+  Nurse -> Okay.
+  Nurse -> It is important. You did the right thing. Do you happen to know his date of birth? Or what medicines he takes?
+  Caller -> No. I don't. I don't have access to that. I just have the volunteer notes. I don't know the clinical stuff. I'm sorry. || A5
+  Nurse -> That's fine. We have it in the chart. What's the best number for you, Maxine, if I need to follow up?
+  Caller -> My desk is six four six, five five five, zero one one one. || callback_phone
+  Nurse -> Got it. Okay. Here's what I'll do. I'll send a nurse to see Mr. Tuckerman tomorrow morning, to check his blood pressure, his medicines and his balance. || R1
+  Caller -> Tomorrow morning. Good. Should I tell Dolores?
+  Nurse -> You can if you like. It might make her feel good that it was acted on.
+  Caller -> She'll be pleased. She was worried. She almost called 911.
+  Caller -> She told me on the phone. She was so shaken. She said, Maxine, I almost dialed. She said he turned white for a second.
+  Nurse -> Turned white. Okay. Did he turn pale, or was he gray?
+  Caller -> She said pale. She didn't say gray. I don't want to put words in her mouth.
+  Nurse -> No, that's good. Pale for a second when he stood. I'll note it.
+  Nurse -> I'm glad she didn't need to. I'm also going to message the hospice provider this evening about the dizziness on standing and the near fall. || R2
+  Caller -> Perfect. Thank you.
+  Nurse -> And I'll call his daughter this evening, since she lives with him. I'll tell her what Dolores saw, and ask her to help him get up. || R3
+  Caller -> Oh good. That'd be great. She was out when this happened. She might not even know.
+  Nurse -> I'll fill her in. Tell me, Maxine, did Dolores say whether he had a walker nearby?
+  Caller -> She didn't write that. I'll ask her. I'll call her tonight and text you. I don't have your direct number. Just the office line.
+  Nurse -> The main line is fine. They can reach me.
+  Caller -> Okay. I'll do that.
+  Nurse -> For the daughter, I'll tell her to have him sit on the edge of the bed or chair for a minute before standing, to help him whenever he stands, and to use his walker. || E1
+  Caller -> Okay. I'll note that. Dolores can mention it to the daughter next time too.
+  Caller -> She's very good with the families. They love her.
+  Nurse -> I can tell.
+  Nurse -> Yes. And if he falls, faints, has chest pain, or the dizziness gets worse, she should call us right away. || E2
+  Caller -> Falls, faints, chest pain, worse dizziness. Call right away. Okay. I'll make sure Dolores knows.
+  Nurse -> Perfect. Is there anything else in Dolores's note I should know?
+  Caller -> Hmm. Let me read. She wrote that they played cards. Gin rummy. He won. She said he was sharp and funny. And that he had a small lunch. A sandwich, half. And a glass of juice.
+  Nurse -> Ha. Good. He's got some fight left.
+  Nurse -> What does he like to do? Cards?
+  Caller -> Gin rummy, cribbage. Dolores says he cheats. She calls him Fast Hands.
+  Nurse -> Ha. Perfect.
+  Caller -> That's what she said. She says he's a character.
+  Nurse -> It sounds like it. Thank you, Maxine. Thank your volunteer for me.
+  Caller -> I will. She'll love hearing it. Have a good night, Lorraine.
+  Nurse -> You too.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alvin Tuckerman, certainty: stated, heard_as: [], turns: [7]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Maxine Oduya, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: volunteer coordinator, certainty: stated, turns: [2]}
+    callback_phone: {value: "6465550111", certainty: stated, heard_as: [], turns: [33]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Relayed a volunteer's report that a patient nearly fell and felt dizzy when standing.
+    speaker: Caller
+    turns: [2]
+    quote: "one of my volunteers told me something about one of your patients, and I thought you should know."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: By the volunteer's note he became dizzy when standing from the recliner and held onto the table.
+      speaker: Caller
+      turns: [11]
+      quote: "He got halfway up and said he was dizzy."
+      explanation: Documents the dizziness on standing.
+      facts:
+        - {type: symptom, name: dizziness on standing, present: true, certainty: stated}
+      covers: [A1]
+    - text: By the volunteer's note he said his legs turned to jelly when he stood, for a few days.
+      speaker: Caller
+      turns: [18]
+      quote: "That's his words."
+      explanation: Documents the leg giving way.
+      facts:
+        - {type: symptom, name: legs giving way, present: true, certainty: stated}
+      covers: [A2]
+    - text: The volunteer saw him try to stand alone and caught his elbow as he sat back down.
+      speaker: Caller
+      turns: [26]
+      quote: "I thought it was important. He almost fell."
+      explanation: Documents the near fall.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: He did not actually fall.
+      speaker: Caller
+      turns: [13]
+      quote: "It says, \"I held his arm. He sat down slowly. No fall.\""
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: an actual fall or injury, certainty: stated}
+      covers: [A4]
+    - text: The coordinator was relaying a note and did not know his birth date or medicines.
+      speaker: Caller
+      turns: [31]
+      quote: "I don't know the clinical stuff."
+      explanation: Documents the limits of the report.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit tomorrow morning to check his blood pressure, medicines and balance.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll send a nurse to see Mr. Tuckerman tomorrow morning"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the dizziness on standing and the near fall.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm also going to message the hospice provider this evening"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call his daughter this evening to share the report.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'll call his daughter this evening, since she lives with him."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised having him sit on the edge of the bed or chair before standing, helping him whenever he stood and using his walker.
+      speaker: Nurse
+      turns: [50]
+      quote: "to have him sit on the edge of the bed or chair for a minute before standing"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away if he fell, fainted, had chest pain or the dizziness worsened.
+      speaker: Nurse
+      turns: [54]
+      quote: "if he falls, faints, has chest pain, or the dizziness gets worse"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

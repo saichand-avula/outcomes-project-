@@ -1,0 +1,314 @@
+call_id: tr-241
+split: train
+blueprint: "Saturday night paid caregiver: the 51-year-old hospice patient's morphine concentrate ran out three hours ago, her pain is a seven and she is crying, the family pharmacy is closed, and the caregiver has been calling around for an hour. The caregiver is flustered, over-explains, and loses the thread. Nurse pages the on-call clinician, calls the 24-hour pharmacy (completed), arranges delivery, and calls back in thirty minutes. Flags: medication_concern (ran out) and uncontrolled_symptom (pain seven). Long v2 call."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [hedging, late_answers, split_turns, trap_phrasing, liquid_concentration, multi_issue]
+  clinical_domains: [pain, medication]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Joel
+  call_timestamp_utc: "2026-10-17T03:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wanda Fairchild
+  patient_name_spoken: Wanda Fairchild
+  patient_name_certainty: stated
+  patient_dob_true: "1974-11-09"
+  patient_dob_spoken: "1974-11-09"
+  patient_dob_certainty: stated
+  caller_name_true: Tiffany Okoro
+  caller_name_spoken: Tiffany Okoro
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "6785550122"
+  callback_phone_spoken: "6785550122"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the patient's pain medicine ran out and she is in pain
+  reason_category: pain
+  relevant_context: Hospice patient in her fifties
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine concentrate
+    medication_name_spoken: morphine concentrate
+    medication_status: ran
+    last_dose: three hours ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: "7"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: crying and unable to get comfortable
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing or unresponsiveness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: pain at seven with no morphine concentrate left
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: 24-hour pharmacy
+    medication_name_true: morphine concentrate
+    medication_name_spoken: morphine concentrate
+    reason_or_trigger: morphine concentrate emergency supply
+    certainty: stated
+  - item_id: R3
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy driver
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Help her change position with pillows, keep the room dim and quiet, and hold her hand and talk calmly
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no other pain pills from the cabinet and wait for the on-call clinician before giving anything else
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she stops responding or her breathing becomes very slow
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: The patient's morphine concentrate ran out three hours ago
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Pain is a seven and she has no medicine left
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Joel.
+  Caller -> Oh, thank God. Thank God somebody answered. I called the, I called three places already. I called the pharmacy, I called, the other number, it just rang. I'm sorry. Hi.
+  Nurse -> It's okay. You've got me now. I'm Joel, I'm a nurse. Who am I talking to, and what's going on?
+  Caller -> My name's Tiffany, Tiffany Okoro. I'm the caregiver. I'm the overnight caregiver for Wanda Fairchild. And her medicine ran out. The pain medicine. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Tiffany. Take a breath. Which pain medicine ran out?
+  Caller -> The morphine. The liquid morphine. The concentrate. I gave her the last of it three hours ago, and there's nothing in the bottle. I shook it. I held it up. It's empty. || A1, F1
+  Nurse -> Okay. Is she in pain right now?
+  Caller -> Yes. Yes, she's in a lot of pain. She's crying. She keeps saying her whole back is on fire. She can't get comfortable. I've turned her, I've put pillows. || A3
+  Nurse -> Okay. Can you ask her to give me a number? Zero to ten. Is she able to answer?
+  Caller -> Wanda. Wanda, honey, what number is the pain? Zero to ten. She says seven. A seven. She's holding up, she held up seven fingers. || A2, F2
+  Nurse -> Okay. Seven. Thank you for asking her. Tiffany, what's Wanda's date of birth?
+  Caller -> Um. It's on the, hold on. I know this. It's November ninth. November ninth, nineteen seventy four. || patient_dob
+  Nurse -> Thank you. And what number are you calling from?
+  Caller -> My cell. It's six seven eight, five five five, zero one two two. || callback_phone
+  Nurse -> Got it. Okay. Tiffany, I need to ask a couple of safety questions. Is she breathing normally? Is she awake and talking to you?
+  Caller -> Yes. Yes, she's awake. She's talking. She's just, she's hurting. She's breathing normal. Fast, a little, because she's crying. But normal. || A4
+  Nurse -> Any fever, vomiting, anything else going on tonight?
+  Caller -> No fever. She threw up this afternoon, once, but not since.
+  Nurse -> Okay. Thanks.
+  Nurse -> Okay. That's helpful. Now, how did the family not know the bottle was low?
+  Caller -> I think they did. I think the family was going to pick it up, the daughter. But she works at the hospital and she had a double. And I don't know if anyone called the pharmacy. And the pharmacy by the house closes at eight on Fridays. And it's Saturday, I mean, technically. It's after midnight.
+  Nurse -> Okay. That makes sense. I'm not blaming anyone. I'm trying to get her what she needs. Is there any other pain medicine in the house? Pills, anything in the cabinet?
+  Caller -> There's pills, there's a bunch. There's a basket. I don't know what's what. I didn't want to give her the wrong thing. I've been told not to give anything that's not on the sheet.
+  Nurse -> That's the right call. Please don't give anything from the basket. Not until the on-call clinician tells you. || E2
+  Caller -> Okay. Okay. I won't. I won't touch the basket. I put it up on the shelf.
+  Nurse -> Good. Now, I'm going to do three things at the same time. First, I'm going to page the on-call clinician right now. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> Second, I'm going to call our twenty-four hour pharmacy and see if they have the morphine concentrate. And third, I'm going to see about getting it delivered. Stay on the line a second if you can, or I'll call you right back. || A1
+  Caller -> I'll stay. I'll stay. Wanda, it's okay. It's the nurse. They're getting your medicine. Okay, baby. It's okay.
+  Nurse -> Tiffany, just keep talking to her. I'm going to put you on a short hold, a minute or two.
+  Caller -> Okay.
+  Caller -> Wanda, the nurse is calling the pharmacy. Does it help if I rub your shoulder? There. Okay. Is that okay? Okay.
+  Nurse -> Tiffany, I'm back. I reached the pharmacy. They have the morphine concentrate and they're going to fill it right now. || R2, A1
+  Caller -> Oh. Oh, thank God. Thank you. How long?
+  Nurse -> I'm going to have their driver bring it to the house. They said it should be within the hour. I'll push for faster. || R3
+  Caller -> Within the hour. Okay. Within the hour. And what do I do until then?
+  Nurse -> For now, help her get as comfortable as you can. Use pillows to change her position. Keep the room dim and quiet. Hold her hand and keep your voice calm. || E1
+  Caller -> Pillows, dim, quiet. Hand. Okay. She likes it when I sing. Is that okay? I sing to her.
+  Nurse -> That's perfect. Sing. Anything she likes.
+  Caller -> Okay. She likes the old gospel. I do some of that. Okay.
+  Nurse -> What's her favorite song?
+  Caller -> "I'll Fly Away." She asks for it every night.
+  Nurse -> That's a good one. Sing that one.
+  Caller -> Okay. I'll start in a minute.
+  Nurse -> I'll call you back in thirty minutes, whether or not the driver has gotten there yet, and by then I'll probably have heard from the on-call clinician too. || R4
+  Caller -> Thirty minutes. Okay. I'll keep the phone right here.
+  Nurse -> And Tiffany, if she stops responding, or if her breathing becomes very slow, call nine one one. || E3
+  Caller -> Stops responding. Slow breathing. Nine one one. Okay. She's not like that. She's awake. But okay. I'll remember.
+  Nurse -> Good. Is there someone else in the house? Anyone with you?
+  Caller -> Just her husband, he's asleep in the other room. He's been up for two days. I didn't want to wake him. Should I?
+  Nurse -> Let him sleep for now. If it goes past the hour, wake him up. It might help to have a second person.
+  Nurse -> Does Wanda have any allergies I should know about, or anything new she started this week?
+  Caller -> No allergies. Nothing new that I know of. The sheet says none.
+  Nurse -> Okay. Good.
+  Caller -> Okay. Okay. That's good. I don't want to, he's so tired.
+  Nurse -> I understand. You're doing great, Tiffany. You did everything right.
+  Caller -> I feel like I should have called earlier. When it got to half a bottle. I should have said something.
+  Nurse -> It's easy to look back and think that. Right now, you're doing exactly what she needs.
+  Caller -> Okay. Thank you. I'm sorry I was so, I was crying earlier. I mean, I was upset.
+  Nurse -> No need to apologize. Anything else on your mind before I go?
+  Caller -> Just, will she be okay? Until it comes?
+  Nurse -> She's awake, she's talking, and you're with her. The medicine is on the way, and I'm going to keep checking.
+  Caller -> Okay. Okay. I believe you.
+  Nurse -> One more thing. Write down the time we spoke and the time the driver arrives.
+  Caller -> I'll write both on the sheet.
+  Nurse -> Keep the phone close. I'll talk to you in thirty minutes.
+  Caller -> Okay. Bye. Thank you. Thank you, Joel.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "I called three places already", heard_form: "I called the, I called three places already", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wanda Fairchild, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1974-11-09", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Tiffany Okoro, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [4]}
+    callback_phone: {value: "6785550122", certainty: stated, heard_as: [], turns: [14]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the patient's pain medicine ran out and she was in pain.
+    speaker: Caller
+    turns: [4]
+    quote: "And her medicine ran out. The pain medicine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine concentrate had run out after the last dose three hours earlier.
+      speaker: Caller
+      turns: [6]
+      quote: "I gave her the last of it three hours ago, and there's nothing in the bottle."
+      explanation: Documents the medication that ran out.
+      facts:
+        - {type: medication, name: morphine concentrate, last_dose: three hours ago, med_status: ran, certainty: stated}
+      covers: [A1]
+    - text: Pain was rated a seven.
+      speaker: Caller
+      turns: [10]
+      quote: "She says seven. A seven."
+      explanation: Documents the pain severity.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: "7", certainty: stated}
+      covers: [A2]
+    - text: She was crying and unable to get comfortable.
+      speaker: Caller
+      turns: [8]
+      quote: "She's crying. She keeps saying her whole back is on fire. She can't get comfortable."
+      explanation: Documents the distress.
+      facts:
+        - {type: symptom, name: crying and unable to get comfortable, present: true, certainty: stated}
+      covers: [A3]
+    - text: She was awake and breathing normally.
+      speaker: Caller
+      turns: [16]
+      quote: "Yes, she's awake. She's talking."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing or unresponsiveness, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Reached the pharmacy, which would fill the morphine concentrate right away.
+      speaker: Nurse
+      turns: [33]
+      quote: "I reached the pharmacy. They have the morphine concentrate and they're going to fill it right now."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, medication: morphine concentrate, certainty: stated}
+      covers: [R2]
+    - text: Planned to have the pharmacy driver bring it to the house within the hour.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm going to have their driver bring it to the house."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'll call you back in thirty minutes, whether or not the driver has gotten there yet"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised helping her change position with pillows, keeping the room dim and quiet, and holding her hand and talking calmly.
+      speaker: Nurse
+      turns: [37]
+      quote: "Use pillows to change her position. Keep the room dim and quiet."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised giving no other pain pills and waiting for the on-call clinician.
+      speaker: Nurse
+      turns: [24]
+      quote: "Please don't give anything from the basket."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if she stopped responding or her breathing became very slow.
+      speaker: Nurse
+      turns: [47]
+      quote: "if she stops responding, or if her breathing becomes very slow, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [6], quote: "I gave her the last of it three hours ago, and there's nothing in the bottle."}
+    - {category: uncontrolled_symptom, turns: [10], quote: "She says seven. A seven."}

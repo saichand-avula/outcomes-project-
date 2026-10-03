@@ -1,0 +1,280 @@
+call_id: tr-168
+split: train
+blueprint: "Daughter of an 86-year-old hospice patient reports her mother has said three times this week that she wishes she would not wake up tomorrow and is tired of being a burden. No plan, no extra pills, pain controlled, tearful. Nurse messages the provider, plans a social worker visit and nurse visit tomorrow and a callback tonight, gives crisis resources and medication safety. Flag: suicidal_statement (passive ideation). Medium."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [passive_ideation, hedging, late_answers, split_turns]
+  clinical_domains: [mood, end_of_life_changes]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-04T20:30:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mirabel Oseguera
+  patient_name_spoken: Mirabel Oseguera
+  patient_name_certainty: stated
+  patient_dob_true: "1937-11-11"
+  patient_dob_spoken: "1937-11-11"
+  patient_dob_certainty: stated
+  caller_name_true: Alicia Oseguera
+  caller_name_spoken: Alicia Oseguera
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "9095550131"
+  callback_phone_spoken: "9095550131"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother has said she wishes she would not wake up
+  reason_category: mood
+  relevant_context: Hospice patient living with her daughter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: statements wishing not to wake up
+    symptom_present: true
+    onset_or_duration: three times this week
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: feeling like a burden and tearful
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: plan or extra pills
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: uncontrolled pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Afraid to leave her mother alone and unsure what to do
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: statements about not wanting to wake up
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: social worker
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time, call 911 if she has a plan or tries to hurt herself, and call the agency at any hour
+    trigger_condition: plan; attempt
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep all of her medicines, including the comfort kit, in the daughter's control and not leave her alone for long periods tonight
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient has said three times this week that she wishes she would not wake up
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Gwen.
+  Caller -> Hi, Gwen. It's Alicia Oseguera. I'm calling about my mother, Mirabel Oseguera. I'm worried about her. She's been saying some things. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Alicia. I'm glad you called. Let me get her date of birth.
+  Caller -> November eleventh. Nineteen thirty seven. || patient_dob
+  Nurse -> And is nine oh nine, five five five, zero one three one your number? || callback_phone
+  Caller -> Yes. The cell. || callback_phone
+  Nurse -> Okay. Tell me what she's been saying.
+  Caller -> Three times this week. Once on Tuesday, once on Thursday, and again tonight. She says, I wish I just wouldn't wake up tomorrow. Tonight she said it while I was putting her to bed. She said, I'm tired of being a burden. I wish I wouldn't wake up. || A1, F1
+  Nurse -> Okay. Thank you for telling me. That must have been hard to hear.
+  Caller -> It was. I didn't know what to say. I told her she's not a burden. She just looked at me. And then she cried.
+  Nurse -> How is she right now? Is she with you?
+  Caller -> She's asleep, I think. She's in the bed. I just checked. She's breathing normally. But I'm worried to leave the room.
+  Nurse -> Okay. I'm going to ask you some direct questions, Alicia. It's what we do. Has she said anything about hurting herself, a plan, or taking extra pills?
+  Caller -> No. No plan. Nothing like that. She only says she wishes she wouldn't wake up. She's never said she'd do anything. And I count her pills. I do all of them myself. She doesn't touch them. || A3
+  Nurse -> Okay. Good. That helps. How is her pain?
+  Caller -> Fine. Her pain is fine. It's controlled. She says it's a one or a two. That's not it. She's just tired. And sad. She cries a lot. She says she's a burden to me. She isn't. || A4, A2
+  Nurse -> Okay. Alicia, tell me a little about her. What was she like before she got sick?
+  Caller -> Oh. She was the strong one. She raised us by herself. She cleaned houses for thirty years. She never missed a day. She was proud that she never asked anyone for anything. And now she has to ask me for everything, even to turn over in bed. I think that's what is killing her pride.
+  Nurse -> That makes sense. For someone like that, needing help can feel harder than the illness.
+  Caller -> Yes. Exactly. That's exactly it.
+  Nurse -> Okay. Is she eating, sleeping?
+  Caller -> She sleeps most of the day. She eats a few bites. She's been like that for a few weeks. This is the first time she said the other thing.
+  Nurse -> Okay. Alicia, what's worrying you most right now?
+  Caller -> That I'll miss something. That I'll go to the bathroom and come back and something has happened. That I'm not doing enough. I don't want to leave her alone. But I have to sleep eventually. || A5
+  Nurse -> That makes complete sense. Here's what I'm going to do. I'm going to message her provider about what she's been saying. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> I'm also going to have our social worker come out tomorrow. She's very good with these conversations, and she'll talk with your mom and with you. || R2
+  Caller -> Oh, that would be good. I think Mom might actually talk to her.
+  Nurse -> And a nurse will come out tomorrow too. || R3
+  Caller -> Tomorrow. Okay. Both of them?
+  Nurse -> Yes. And I'll call you back tonight to see how she's doing. || R4
+  Caller -> Tonight. Okay. Thank you. What time?
+  Nurse -> Before ten. If you don't hear from me by then, call me.
+  Caller -> Okay. Before ten. I will.
+  Nurse -> Alicia, if she ever says she has a plan, or if she tries to hurt herself, call nine one one. You can also call or text nine eight eight any time, for you or for her. And you can call us at any hour. || E1
+  Caller -> Nine one one for a plan. Nine eight eight any time. And you. Okay. I'm writing it on my hand.
+  Nurse -> Good. And one more thing. Please keep all of her medicines, including the comfort kit in the fridge, in your control. And tonight, try not to leave her alone for long stretches. || E2
+  Caller -> I do keep them. I'll put the comfort kit in my room tonight. And I'll sleep in her room, on the couch. Is that okay?
+  Nurse -> That's a very good plan. Alicia, you're doing an amazing job.
+  Caller -> I don't feel like it. I feel like I'm falling apart.
+  Nurse -> That's what it feels like when you love someone this much. But you called, and that's what a good daughter does.
+  Caller -> Thank you. Thank you, Gwen. I needed to hear that.
+  Nurse -> Take a breath. Before ten, I'll call you.
+  Caller -> Okay. Bye. Oh, wait. Should I tell her I called you?
+  Nurse -> It's up to you. If she asks, be honest, and tell her we care about her. She may be glad someone is listening.
+  Caller -> Okay. I'll tell her. Thank you again.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mirabel Oseguera, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1937-11-11", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Alicia Oseguera, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "9095550131", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother has said she wishes she would not wake up.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm worried about her. She's been saying some things."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She had said three times this week that she wished she would not wake up tomorrow.
+      speaker: Caller
+      turns: [8]
+      quote: "Three times this week."
+      explanation: Documents the statements.
+      facts:
+        - {type: symptom, name: statements wishing not to wake up, present: true, duration: three times this week, certainty: stated}
+      covers: [A1]
+    - text: She felt like a burden and was tearful.
+      speaker: Caller
+      turns: [16]
+      quote: "She's just tired. And sad. She cries a lot."
+      explanation: Documents the low mood.
+      facts:
+        - {type: symptom, name: feeling like a burden and tearful, present: true, certainty: stated}
+      covers: [A2]
+    - text: No plan or extra pills were reported, and the caller managed all of her pills.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No plan. Nothing like that."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: plan or extra pills, certainty: stated}
+      covers: [A3]
+    - text: Pain was reported as controlled.
+      speaker: Caller
+      turns: [16]
+      quote: "Her pain is fine. It's controlled."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: uncontrolled pain, certainty: stated}
+      covers: [A4]
+    - text: She was afraid to leave her mother alone and unsure what to do.
+      speaker: Caller
+      turns: [24]
+      quote: "I don't want to leave her alone."
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the provider about what she had been saying.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm going to message her provider about what she's been saying."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A social worker visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'm also going to have our social worker come out tomorrow."
+      explanation: Documents the planned social work visit.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [29]
+      quote: "a nurse will come out tomorrow too."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back tonight.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'll call you back tonight to see how she's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 any time, calling 911 if she had a plan or tried to hurt herself, and calling the agency at any hour.
+      speaker: Nurse
+      turns: [35]
+      quote: "if she ever says she has a plan, or if she tries to hurt herself, call nine one one."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping all of her medicines, including the comfort kit, in the daughter's control and not leaving her alone for long stretches tonight.
+      speaker: Nurse
+      turns: [37]
+      quote: "Please keep all of her medicines, including the comfort kit in the fridge, in your control."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: suicidal_statement, turns: [8], quote: "She says, I wish I just wouldn't wake up tomorrow."}

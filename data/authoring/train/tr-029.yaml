@@ -1,0 +1,249 @@
+call_id: tr-029
+split: train
+blueprint: "Patient asks for something for sleep; says he is not feeling down or hopeless and denies thoughts of hurting himself (negated risk phrases, no flag); melatonin tried; nurse plans a message to the provider and gives sleep-hygiene education."
+setup:
+  scenario_category: medication
+  subtype: new_med_request
+  secondary_tags: [hedging, negated_risk_phrase, phone_from_file]
+  clinical_domains: [sleep, mood]
+  relationship_group: self
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-09-14T04:30:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Colin Fraser
+  patient_name_spoken: Colin Fraser
+  patient_name_certainty: stated
+  patient_dob_true: "1981-08-12"
+  patient_dob_spoken: "1981-08-12"
+  patient_dob_certainty: stated
+  caller_name_true: Colin Fraser
+  caller_name_spoken: Colin Fraser
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6025550136"
+  callback_phone_spoken: "6025550136"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Trouble sleeping and asking for something to help
+  reason_category: sleep
+  relevant_context: Recovering at home after surgery
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: difficulty falling asleep
+    symptom_present: true
+    severity: awake until 3 or 4 AM most nights
+    onset_or_duration: about 3 weeks
+    certainty: unclear
+    unclear_detail: Patient unsure of duration ("maybe three weeks")
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: melatonin
+    medication_name_spoken: melatonin
+    medication_status: taking
+    dose: "3"
+    unit: mg
+    response_to_medication: Did not help
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: low mood or hopelessness
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: thoughts of self-harm
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: pain keeping him awake
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: request for a sleep medication
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: later today
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Same bedtime and wake time, no screens for an hour before bed, no caffeine after noon, cool dark room
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not take over-the-counter sleep aids such as diphenhydramine until the provider replies
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if he feels hopeless, has thoughts of harming himself, or has days without sleep; 988 or 911 in a crisis
+    trigger_condition: hopelessness; self-harm thoughts; days without sleep
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Hi, Beth. It's Colin Fraser. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Colin. Your date of birth?
+  Caller -> August twelfth, nineteen eighty one. || patient_dob
+  Nurse -> Okay. And I've got six oh two, five five five, zero one three six for you. || callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> It's pretty early. What's going on?
+  Caller -> I can't sleep. I haven't been able to sleep, I don't know, maybe three weeks? Something like that. || cc, A1
+  Caller -> I'm up until like three or four in the morning. Every night. || A1
+  Nurse -> Okay. Are you in pain, is that what's keeping you up?
+  Caller -> No, no, the pain's fine. It's not that. || A5
+  Nurse -> Okay. Have you tried anything?
+  Caller -> I took the melatonin. Three milligrams. It didn't do anything. || A2
+  Caller -> So I was wondering if the doctor could give me something. Like a real sleeping pill. || cc
+  Nurse -> Okay. I can ask. Can I ask you a couple of questions first? Just so I give them the full picture.
+  Caller -> Sure.
+  Nurse -> How's your mood been? Have you been feeling down, or hopeless?
+  Caller -> No. No, not at all. I'm not depressed or anything. I'm just tired. || A3
+  Nurse -> Okay. And do you have any thoughts of hurting yourself?
+  Caller -> No. Absolutely not. || A4
+  Nurse -> Okay. Thank you for answering. I ask everyone.
+  Caller -> No, that's fine. I get it.
+  Nurse -> So, I'll send a message to your provider about the sleeping medication. I can't promise what they'll say, but I'll ask. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And I'll call you back later today once I hear. || R2
+  Caller -> Great.
+  Nurse -> Until then, don't take any over the counter sleep aids, like Benadryl, or anything with diphenhydramine in it, until the provider replies. They can interact. || E2
+  Caller -> Okay. I wasn't going to. Okay.
+  Nurse -> And a few things that help. Same bedtime, same wake time, even on weekends. No screens for an hour before bed. No caffeine after noon. And keep the room cool and dark. || E1
+  Caller -> I do look at my phone a lot. In bed.
+  Nurse -> That's probably part of it.
+  Caller -> Yeah. Okay. I'll try the no phone thing.
+  Nurse -> If you start feeling hopeless, or you have any thoughts of hurting yourself, or you go a few days with no sleep at all, call us. And in a crisis, you can call or text nine eight eight, or call nine one one. || E3
+  Caller -> Okay. I will.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Beth.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Colin Fraser, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1981-08-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Colin Fraser, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550136", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported trouble sleeping and asked whether the doctor could prescribe a sleeping medication.
+    speaker: Caller
+    turns: [8]
+    quote: "I can't sleep. I haven't been able to sleep, I don't know, maybe three weeks? Something like that."
+    explanation: Documents the sleep concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Difficulty sleeping, with being awake until 3 or 4 in the morning every night, was reported for what the patient thought was about three weeks.
+      speaker: Caller
+      turns: [9]
+      quote: "I'm up until like three or four in the morning. Every night."
+      explanation: Documents the sleep pattern with the patient's uncertainty about duration preserved.
+      facts:
+        - {type: symptom, name: difficulty falling asleep, present: true, severity: awake until 3 or 4 AM most nights, certainty: unclear}
+      covers: [A1]
+    - text: Melatonin 3 mg had been tried without benefit.
+      speaker: Caller
+      turns: [13]
+      quote: "I took the melatonin. Three milligrams. It didn't do anything."
+      explanation: Documents the sleep aid tried and its lack of effect.
+      facts:
+        - {type: medication, name: melatonin, dose: "3", unit: mg, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Pain was not keeping him awake.
+      speaker: Caller
+      turns: [11]
+      quote: "No, no, the pain's fine. It's not that."
+      explanation: Documents a pertinent negative for pain-related insomnia.
+      facts:
+        - {type: pertinent_negative, name: pain keeping him awake, certainty: stated}
+      covers: [A5]
+    - text: He denied feeling down or hopeless and denied thoughts of hurting himself.
+      speaker: Caller
+      turns: [18]
+      quote: "No. No, not at all. I'm not depressed or anything. I'm just tired."
+      explanation: Documents pertinent negative mood and safety screening.
+      facts:
+        - {type: pertinent_negative, name: low mood or hopelessness, certainty: stated}
+        - {type: pertinent_negative, name: thoughts of self-harm, certainty: stated}
+      covers: [A3, A4]
+  response:
+    - text: Planned to message the provider about the request for a sleeping medication.
+      speaker: Nurse
+      turns: [23]
+      quote: "So, I'll send a message to your provider about the sleeping medication."
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back later today once a response was received.
+      speaker: Nurse
+      turns: [25]
+      quote: "And I'll call you back later today once I hear."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: later today, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised a consistent sleep schedule, no screens for an hour before bed, no caffeine after noon, and a cool dark room.
+      speaker: Nurse
+      turns: [29]
+      quote: "Same bedtime, same wake time, even on weekends. No screens for an hour before bed."
+      explanation: Documents sleep-hygiene guidance.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised avoiding over-the-counter sleep aids such as those containing diphenhydramine until the provider replied.
+      speaker: Nurse
+      turns: [27]
+      quote: "don't take any over the counter sleep aids, like Benadryl, or anything with diphenhydramine in it, until the provider replies."
+      explanation: Documents medication-safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for hopelessness, thoughts of self-harm, or several days without sleep, and using 988 or 911 in a crisis.
+      speaker: Nurse
+      turns: [33]
+      quote: "If you start feeling hopeless, or you have any thoughts of hurting yourself, or you go a few days with no sleep at all, call us."
+      explanation: Documents return precautions and crisis resources.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

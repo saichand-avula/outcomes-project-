@@ -1,0 +1,270 @@
+call_id: tr-250
+split: train
+blueprint: "Daughter Tamsin calls about her 88-year-old mother's sore mouth: white patches on her tongue and cheeks for four days, painful to chew, and she is spitting out her pills because they hurt to swallow. The nurse keeps calling her Tammy and she never corrects it. Mother is drinking a little, no fever. Nurse messages the provider, plans a nurse visit tomorrow, and gives mouth care and soft-food guidance. Name drift on the caller, v2 short, lots of small talk and backtracking."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [oral_care, swallowing, intake_appetite]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Joel
+  call_timestamp_utc: "2026-10-20T18:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelia Mbeki
+  patient_name_spoken: Cornelia Mbeki
+  patient_name_certainty: stated
+  patient_dob_true: "1938-09-23"
+  patient_dob_spoken: "1938-09-23"
+  patient_dob_certainty: stated
+  caller_name_true: Tamsin
+  caller_name_spoken: Tamsin
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Tammy]
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3125550121"
+  callback_phone_spoken: "3125550121"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported a painful mouth with white patches and refusal of pills
+  reason_category: swallowing
+  relevant_context: Hospice patient in her late eighties
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: white patches in the mouth
+    symptom_present: true
+    onset_or_duration: four days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: painful chewing and swallowing
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: spitting out her pills
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: painful mouth patches and refusal of pills
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Rinse her mouth with plain water or a swab after meals, offer cool soft foods, and avoid acidic or spicy foods
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips often with a straw or spoon, and offer popsicles or ice chips
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fever, bleeding in the mouth, drooling, or if she cannot swallow fluids
+    trigger_condition: fever; mouth bleeding; drooling; cannot swallow fluids
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Joel.
+  Caller -> Hi, Joel. It's Tamsin. I'm calling about my mom, Cornelia Mbeki. || caller_name, relationship, patient_name
+  Nurse -> Hi, Tammy. Thanks for calling. Let me pull up your mom's chart. What's her birth date?
+  Caller -> September twenty third. Nineteen thirty eight. || patient_dob
+  Nurse -> Got it. And is three one two, five five five, zero one two one the best number for you? || callback_phone
+  Caller -> Yes. That's my cell. I'm at her house.
+  Nurse -> Great. What's going on with your mom?
+  Caller -> Her mouth. Her mouth is sore. She's got white stuff on her tongue. And inside her cheeks. It's been four days. || cc, A1
+  Nurse -> White patches. Can you wipe them off with a cloth, or do they stay?
+  Caller -> I tried yesterday. With a washcloth. They didn't really come off. Some of it did, and it was red underneath. She flinched. || A1
+  Nurse -> Okay. That sounds uncomfortable for her.
+  Caller -> It is. She keeps touching her mouth. She says it burns.
+  Nurse -> Does she seem otherwise like herself? Alert, talking?
+  Caller -> She's herself. Sharp. She told me my sweater was ugly this morning.
+  Nurse -> Ha. Well, that's a good sign.
+  Caller -> It is. She's always honest.
+  Nurse -> Okay. Is she able to eat?
+  Caller -> Barely. She says it hurts to chew. I made her some oatmeal and she took, I don't know, two spoonfuls. And she pushed it away. || A2
+  Nurse -> And what about swallowing? Does it hurt to swallow?
+  Caller -> Yes. She says it's like swallowing glass. Well, she didn't say glass. She said, "It's sharp." || A2
+  Nurse -> Okay. And her pills? How is she managing those?
+  Caller -> She's not. She's spitting them out. I put them in her mouth and she makes a face and then I find them in the napkin. || A3
+  Nurse -> Okay. Which pills is she taking in the morning?
+  Caller -> The, oh, I don't have the list. I'd have to look. It's her heart one and the water pill and the stool softener. I think three. Or four.
+  Nurse -> That's okay. I can see her list. Don't worry about naming them.
+  Caller -> Okay. Good. Because I'm bad with the names.
+  Nurse -> Has she had any fever?
+  Caller -> No. I took it this morning. It was ninety eight. Ninety eight point two. She's not hot. She feels normal. || A4
+  Nurse -> Okay. Good. How is she drinking?
+  Caller -> A little. Small sips. She likes the ginger ale. With a straw. She drinks that.
+  Nurse -> That's fine. Ginger ale's a little acidic, though. Maybe try water or apple juice that's been watered down.
+  Caller -> Oh. I didn't know that. I'll switch. She'll complain. She loves her ginger ale.
+  Nurse -> I know. Ha. It's a small thing, but it might sting a little.
+  Caller -> Okay. Okay.
+  Nurse -> Tammy, I'd like to send a message to the hospice provider about the mouth. This sounds like it could be thrush, which is a yeast infection, and they can treat it. || R1
+  Caller -> Oh. Thrush. My mother had that once before. A long time ago. She was on antibiotics. She got it then.
+  Nurse -> That's very common. I don't want to diagnose over the phone, but the provider will want to know. I'll send it now.
+  Caller -> Okay. Thank you. Will they send something to the pharmacy?
+  Nurse -> They might. I'll let you know once I hear. I'm also going to send a nurse out tomorrow to look inside her mouth. || R2
+  Caller -> Tomorrow. Good. Is that in the morning?
+  Nurse -> The scheduler will call you with a time. What works best for you?
+  Caller -> Mornings are better. She's more awake. After ten, if possible. She has her bath at nine.
+  Nurse -> I'll pass that on.
+  Caller -> Thank you. Oh, I forgot. My brother's coming this weekend. He's flying in from Seattle. Should I tell the nurse about that?
+  Nurse -> It might be good for the nurse to know, so she can plan a longer visit. It's good to have family there.
+  Caller -> He's very excited. And nervous. He hasn't seen her in six months.
+  Nurse -> It'll mean a lot to her.
+  Caller -> I hope so. She asks about him every day. She calls him by the dog's name sometimes. Ha.
+  Nurse -> That happens. It's the love that counts.
+  Nurse -> That's a big visit. Okay. In the meantime, for her mouth, rinse it gently with plain water after meals, or use a soft swab. Cool, soft foods are best. Stay away from anything acidic or spicy. || E1
+  Caller -> Plain water after meals. Soft swab. Cool, soft. No acid, no spice. Okay. I have the little sponge sticks from the hospital.
+  Nurse -> Those are perfect. And offer small sips often. A straw or a spoon. Popsicles and ice chips can feel good on a sore mouth too. || E2
+  Caller -> Popsicles. She'll like that. I'll get the orange ones. Those are her favorite.
+  Nurse -> Orange is acidic. Maybe a banana one, or a vanilla one.
+  Caller -> Oh. Right. Okay. Banana. I'll find one.
+  Nurse -> And call us if she gets a fever, if her mouth bleeds, if she's drooling, or if she can't swallow even liquids. || E3
+  Caller -> Fever, bleeding, drooling, can't swallow liquids. Okay. I'm writing it down. On the back of this receipt.
+  Nurse -> Perfect. What about the pills? What should she do about those?
+  Caller -> I was going to ask you. Should I keep trying?
+  Nurse -> Don't force them. I'll ask the provider about which ones are essential right now and which can wait. Hold off on forcing any of them.
+  Caller -> Okay. I won't force. I'll just offer. If she says no, I'll put them back.
+  Nurse -> Exactly. And write down which ones she took and which she didn't, so the nurse can see.
+  Caller -> I'll write it on the sheet by the pill box. Taken. Not taken.
+  Nurse -> That's right. Pressure won't help. We'll sort it out tomorrow.
+  Caller -> Okay. Thank you. You're so helpful.
+  Nurse -> Anytime. Take care, Tammy.
+  Caller -> You too. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Tamsin, heard_form: Tammy, fact_id: caller_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelia Mbeki, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-09-23", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tamsin, certainty: unclear, heard_as: [Tammy], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550121", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported a painful mouth with white patches and refusal of pills.
+    speaker: Caller
+    turns: [8]
+    quote: "Her mouth is sore. She's got white stuff on her tongue."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: White patches on the tongue and inside the cheeks had been present for four days.
+      speaker: Caller
+      turns: [8]
+      quote: "It's been four days."
+      explanation: Documents the oral findings.
+      facts:
+        - {type: symptom, name: white patches in the mouth, present: true, onset: four days, certainty: stated}
+      covers: [A1]
+    - text: Chewing and swallowing were painful, and she took only two spoonfuls of oatmeal.
+      speaker: Caller
+      turns: [18]
+      quote: "She says it hurts to chew."
+      explanation: Documents the pain with eating.
+      facts:
+        - {type: symptom, name: painful chewing and swallowing, present: true, certainty: stated}
+      covers: [A2]
+    - text: She was spitting out her pills.
+      speaker: Caller
+      turns: [22]
+      quote: "She's spitting them out."
+      explanation: Documents the refusal of pills.
+      facts:
+        - {type: symptom, name: spitting out her pills, present: true, certainty: stated}
+      covers: [A3]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [28]
+      quote: "No. I took it this morning. It was ninety eight."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the hospice provider about the mouth patches.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'd like to send a message to the hospice provider about the mouth."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out tomorrow to look inside her mouth.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm also going to send a nurse out tomorrow to look inside her mouth."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised rinsing gently with plain water or a soft swab after meals, offering cool soft foods, and avoiding acidic or spicy foods.
+      speaker: Nurse
+      turns: [50]
+      quote: "rinse it gently with plain water after meals, or use a soft swab. Cool, soft foods are best."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised small frequent sips with a straw or spoon and offering popsicles or ice chips.
+      speaker: Nurse
+      turns: [52]
+      quote: "offer small sips often. A straw or a spoon."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a fever, mouth bleeding, drooling, or inability to swallow liquids.
+      speaker: Nurse
+      turns: [56]
+      quote: "call us if she gets a fever, if her mouth bleeds, if she's drooling, or if she can't swallow even liquids."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

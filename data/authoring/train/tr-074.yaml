@@ -1,0 +1,238 @@
+call_id: tr-074
+split: train
+blueprint: "Mother of an 8-year-old with asthma: night cough for three nights, using albuterol 2 puffs with a spacer twice a night; no fever, speaking full sentences. Nurse reviews technique, tells her albuterol every 4 hours as needed per order, messages the pediatrician, calls back tomorrow, and gives return precautions."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [late_answers, split_turns, offtopic_chatter, phone_from_file]
+  clinical_domains: [cough_uri, dyspnea]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-04T23:05:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Malik Dunmore
+  patient_name_spoken: Malik Dunmore
+  patient_name_certainty: stated
+  patient_dob_true: "2018-05-17"
+  patient_dob_spoken: "2018-05-17"
+  patient_dob_certainty: stated
+  caller_name_true: Keisha Dunmore
+  caller_name_spoken: Keisha Dunmore
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "3135550151"
+  callback_phone_spoken: "3135550151"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a nighttime cough in her son with asthma
+  reason_category: cough_uri
+  relevant_context: Child has asthma and uses a spacer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: nighttime cough
+    symptom_present: true
+    onset_or_duration: 3 nights
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    dose: "2"
+    unit: puffs
+    frequency: twice a night
+    route: inhaler with spacer
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble speaking in full sentences
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pediatrician
+    reason_or_trigger: ongoing night cough despite albuterol
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: albuterol 2 puffs with the spacer every 4 hours as needed
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Shake the inhaler, use the spacer, one puff at a time, wait a minute between puffs, and rinse his mouth
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if he cannot speak in full sentences, his ribs pull in with each breath, or his lips turn blue; call us if he needs albuterol more often than every 4 hours
+    trigger_condition: cannot speak full sentences; ribs pulling in; blue lips; albuterol needed more often than every 4 hours
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi, Priya. It's Keisha Dunmore. I'm calling about my son. Malik. || caller_name, relationship, patient_name
+  Nurse -> Hi, Keisha. What's his birthday?
+  Caller -> May seventeenth, twenty eighteen. || patient_dob
+  Nurse -> And I've got three one three, five five five, zero one five one. || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> What's going on?
+  Caller -> He's coughing at night. Like, for three nights now. He wakes up coughing. || cc, A1
+  Nurse -> Okay. Is he wheezing? Does it sound tight?
+  Caller -> A little. Sometimes. I give him the albuterol, the two puffs, with the spacer. Twice a night. It helps for a bit. || A2
+  Nurse -> Okay. Any fever?
+  Caller -> No. No fever. He's been running around all day. Tell her, Malik. I'm okay, Mom! He says he's okay. || A3
+  Nurse -> Ha. Okay. Is he talking in full sentences? Can he finish what he's saying?
+  Caller -> Oh yeah. He doesn't stop. He's been telling me about his dinosaurs for an hour. || A4
+  Nurse -> Good. Okay. Can you walk me through how you give the albuterol? || A2
+  Caller -> I shake it. Put it in the spacer. He breathes in. Two puffs.
+  Nurse -> Both puffs at once, or one at a time?
+  Caller -> Um. Both. I do both. Is that wrong?
+  Nurse -> Not wrong, but it's better one puff at a time. Shake it, one puff in the spacer, he breathes in and out slowly a few times, wait a minute, then the next puff. And rinse his mouth after. || E1
+  Caller -> Okay. One at a time. I didn't know that.
+  Nurse -> Per his orders, he can have two puffs every four hours as needed. So you can use it for the cough. || R3
+  Caller -> Okay.
+  Nurse -> I'm going to message his pediatrician about the night cough, since it's been three nights. || R1
+  Caller -> Okay. Good.
+  Nurse -> And I'll call you tomorrow to see how he did tonight. || R2
+  Caller -> Okay. Tomorrow.
+  Nurse -> If he can't talk in full sentences, if you see his ribs pulling in when he breathes, or his lips look blue, call 911. And call us if he's needing the albuterol more often than every four hours. || E2
+  Caller -> Ribs, lips, sentences. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Priya. He says thank you too. Say thank you, Malik.
+  Nurse -> You're welcome. Good night, Malik.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Malik Dunmore, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2018-05-17", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Keisha Dunmore, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "3135550151", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a nighttime cough in her son with asthma.
+    speaker: Caller
+    turns: [8]
+    quote: "He's coughing at night. Like, for three nights now."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nighttime cough with waking for 3 nights.
+      speaker: Caller
+      turns: [8]
+      quote: "He's coughing at night. Like, for three nights now. He wakes up coughing."
+      explanation: Documents the cough pattern.
+      facts:
+        - {type: symptom, name: nighttime cough, present: true, duration: 3 nights, certainty: stated}
+      covers: [A1]
+    - text: Albuterol 2 puffs with a spacer was given twice a night and helped for a while.
+      speaker: Caller
+      turns: [10]
+      quote: "I give him the albuterol, the two puffs, with the spacer. Twice a night. It helps for a bit."
+      explanation: Documents the rescue medication use.
+      facts:
+        - {type: medication, name: albuterol, dose: "2", unit: puffs, frequency: twice a night, route: inhaler with spacer, prn: true, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+    - text: He could speak in full sentences.
+      speaker: Caller
+      turns: [14]
+      quote: "Oh yeah. He doesn't stop. He's been telling me about his dinosaurs for an hour."
+      explanation: Documents the absence of respiratory distress.
+      facts:
+        - {type: pertinent_negative, name: trouble speaking in full sentences, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised that albuterol 2 puffs with the spacer every 4 hours as needed could be used for the cough.
+      speaker: Nurse
+      turns: [21]
+      quote: "Per his orders, he can have two puffs every four hours as needed."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+    - text: Planned to message the pediatrician about the 3 nights of coughing.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to message his pediatrician about the night cough, since it's been three nights."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call tomorrow to see how he did tonight.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you tomorrow to see how he did tonight."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving one puff at a time through the spacer, waiting a minute between puffs, and rinsing his mouth afterward.
+      speaker: Nurse
+      turns: [19]
+      quote: "Shake it, one puff in the spacer, he breathes in and out slowly a few times, wait a minute, then the next puff. And rinse his mouth after."
+      explanation: Documents inhaler technique teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if he could not speak in full sentences, his ribs pulled in, or his lips turned blue, and calling the agency if he needed albuterol more often than every 4 hours.
+      speaker: Nurse
+      turns: [27]
+      quote: "If he can't talk in full sentences, if you see his ribs pulling in when he breathes, or his lips look blue, call 911."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

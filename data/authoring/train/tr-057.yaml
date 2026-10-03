@@ -1,0 +1,254 @@
+call_id: tr-057
+split: train
+blueprint: "Exhausted son says his 84-year-old hospice father has refused his amlodipine for three days (BP 168/94 on the home cuff, no chest pain). Son uses figurative frustration ('I could strangle him', 'he's killing me') that must not raise a flag; the real flag is the stopped medication. Nurse plans prescriber message, visit tomorrow morning and a social work referral."
+setup:
+  scenario_category: ambiguous
+  subtype: figurative_language
+  secondary_tags: [figurative_risk_language, trap_phrasing, hedging, split_turns, multi_issue]
+  clinical_domains: [blood_pressure, medication, caregiver_stress]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-09-16T19:48:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Anselm Rudkin
+  patient_name_spoken: Anselm Rudkin
+  patient_name_certainty: stated
+  patient_dob_true: "1942-02-19"
+  patient_dob_spoken: "1942-02-19"
+  patient_dob_certainty: stated
+  caller_name_true: Mitch Rudkin
+  caller_name_spoken: Mitch Rudkin
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9015550133"
+  callback_phone_spoken: "9015550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his father has refused his blood pressure pill for three days
+  reason_category: medication
+  relevant_context: Hospice patient, son is the main caregiver
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: stopped
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 168/94
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Worn out from fighting with his father over pills every day and not sure what to do
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: whether to continue the blood pressure pill
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: caregiver stress
+    certainty: stated
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not force the amlodipine or hide it in food until the physician decides
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away for severe headache, chest pain, confusion, or weakness on one side
+    trigger_condition: severe headache; chest pain; confusion; one-sided weakness
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call anytime for support; the social worker will also reach out
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient has refused his blood pressure medication for three days
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi, Gwen. It's Mitch. Mitch Rudkin. I'm calling about my dad, Anselm. Anselm Rudkin. || caller_name, relationship, patient_name
+  Nurse -> Hi, Mitch. Can I get his date of birth?
+  Caller -> February nineteenth, forty two. Nineteen forty two. || patient_dob
+  Nurse -> Thanks. And I have nine oh one, five five five, zero one three three for you. || callback_phone
+  Caller -> Yep. That's my cell. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> So he won't take his pill. The blood pressure one. The, the amlodipine. He's been spitting it out. It's been, what, three days now. || cc, A1, F1
+  Nurse -> Okay. What dose is that?
+  Caller -> Five milligrams. Once a day. In the morning. || A1
+  Caller -> And I checked him a little while ago and it was one sixty eight over ninety four. || A2
+  Nurse -> Okay. Any chest pain? Headache? Anything like that?
+  Caller -> No. No chest pain. He says he feels fine. He says he feels fine and I'm, I'm a nag. || A3
+  Nurse -> Mm-hm. Has he told you why he won't take it?
+  Caller -> He says it's junk. He says he's not taking any more of that junk. I mean, I, honestly, Gwen, I could strangle him sometimes. I swear. He's killing me with this. || A4
+  Nurse -> It sounds like you're really worn out.
+  Caller -> I am. I'm up at five every day, I do everything, and then it's a fight over a pill. I don't know what to do. I don't know what I'm supposed to do. || A4
+  Nurse -> I hear you. First, please don't force it, and don't crush it up and hide it in his food. Not until the doctor tells us what he wants to do. || R4
+  Caller -> Okay. Okay. I wasn't going to hide it. I just, yeah.
+  Nurse -> I'm going to send a message to his doctor tonight about whether we should keep this pill at all, given his goals. || R1
+  Caller -> Okay. Okay, that, that makes sense.
+  Nurse -> And I'll have a nurse come out tomorrow morning to see him and check his pressure. || R2
+  Caller -> Tomorrow morning. Okay.
+  Nurse -> I'd also like our social worker to call you. She helps caregivers. You're doing a lot. || R3
+  Caller -> Yeah. Yeah, I think that would help. Honestly.
+  Nurse -> If he gets a really bad headache, chest pain, he seems confused, or one side of his body looks weak, call us right away. || E1
+  Caller -> Headache, chest pain, confused, weak. Okay.
+  Nurse -> And you can call us anytime, Mitch. Anytime. The social worker will reach out too. || E2
+  Caller -> Thank you, Gwen. I appreciate it.
+  Nurse -> Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Anselm Rudkin, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-02-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Mitch Rudkin, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550133", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father has refused his blood pressure pill for three days.
+    speaker: Caller
+    turns: [8]
+    quote: "So he won't take his pill. The blood pressure one."
+    explanation: Documents the medication problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Amlodipine 5 mg once a day was refused and spat out for the past three days.
+      speaker: Caller
+      turns: [8]
+      quote: "He's been spitting it out. It's been, what, three days now."
+      explanation: Documents the stopped blood pressure medication.
+      facts:
+        - {type: medication, name: amlodipine, dose: "5", unit: mg, frequency: once a day, last_dose: three days ago, med_status: stopped, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure at home was reported as 168/94.
+      speaker: Caller
+      turns: [11]
+      quote: "it was one sixty eight over ninety four."
+      explanation: Documents the home blood pressure reading.
+      facts:
+        - {type: vital, name: blood pressure, value: 168/94, certainty: stated}
+      covers: [A2]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [13]
+      quote: "No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A3]
+    - text: The caller said he was worn out by daily conflict over pills and did not know what to do.
+      speaker: Caller
+      turns: [17]
+      quote: "I'm up at five every day, I do everything, and then it's a fight over a pill."
+      explanation: Documents the caregiver's stress.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised not to force the pill or hide it in food until the doctor decides.
+      speaker: Nurse
+      turns: [18]
+      quote: "First, please don't force it, and don't crush it up and hide it in his food."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R4]
+    - text: Planned to message the doctor tonight about whether to continue the blood pressure pill.
+      speaker: Nurse
+      turns: [20]
+      quote: "I'm going to send a message to his doctor tonight about whether we should keep this pill at all"
+      explanation: Documents the planned prescriber review.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow morning to see him and check his pressure.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll have a nurse come out tomorrow morning to see him and check his pressure."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned a social worker call for caregiver support.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'd also like our social worker to call you."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling right away for a severe headache, chest pain, confusion, or weakness on one side.
+      speaker: Nurse
+      turns: [26]
+      quote: "If he gets a really bad headache, chest pain, he seems confused, or one side of his body looks weak, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+    - text: Invited the caller to call anytime and said the social worker would also reach out.
+      speaker: Nurse
+      turns: [28]
+      quote: "you can call us anytime, Mitch. Anytime."
+      explanation: Documents the open invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "He's been spitting it out. It's been, what, three days now."}

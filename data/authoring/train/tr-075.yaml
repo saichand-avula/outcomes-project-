@@ -1,0 +1,207 @@
+call_id: tr-075
+split: train
+blueprint: "Husband first says his wife took her heart pill this morning, then says he is not sure and goes to check the pill box; he comes back with 'the Tuesday slot is empty, but I might have taken it out myself'. Whether she took it stays unresolved. Nurse tells him not to give a double dose and plans a nurse call to review the box. No flag."
+setup:
+  scenario_category: ambiguous
+  subtype: contradiction
+  secondary_tags: [contradiction, hedging, late_answers, split_turns]
+  clinical_domains: [medication, cardiac]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-05T17:12:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Maureen Vandersteen
+  patient_name_spoken: Maureen Vandersteen
+  patient_name_certainty: stated
+  patient_dob_true: "1946-04-03"
+  patient_dob_spoken: "1946-04-03"
+  patient_dob_certainty: stated
+  caller_name_true: Frank Vandersteen
+  caller_name_spoken: Frank Vandersteen
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "5865550134"
+  callback_phone_spoken: "5865550134"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether his wife took her heart medicine this morning
+  reason_category: medication_question
+  relevant_context: Weekly pill box filled by the husband
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: digoxin
+    medication_name_spoken: digoxin
+    medication_status: discussed
+    dose: "0.125"
+    unit: mg
+    frequency: once a day in the morning
+    certainty: unclear
+    unclear_detail: Caller said she took it, then was not sure; the pill box slot is empty but he may have removed the pill himself
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: dizziness
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Worried that she either missed the heart pill or might take a second one by mistake
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not give another pill today to make up for a possible miss
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: review the pill box with them
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Mark each dose on a calendar when it is taken, and check the box slot together before she takes it
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a very slow or racing heartbeat, nausea, vision changes, or fainting
+    trigger_condition: very slow or racing heartbeat; nausea; vision changes; fainting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. It's Frank Vandersteen. I'm calling about my wife. Maureen. || caller_name, relationship, patient_name
+  Nurse -> Hi, Frank. Her date of birth?
+  Caller -> April third, nineteen forty six. || patient_dob
+  Nurse -> And is five eight six, five five five, zero one three four your number? || callback_phone
+  Caller -> Yeah, that's the house. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> I have a, kind of a dumb question. I want to know if she took her heart pill. The digoxin. This morning. || cc, A1
+  Nurse -> Okay. What makes you unsure?
+  Caller -> Well, she took it. She took it, I watched her. She took her pills at breakfast. Yeah. She took it. || A1
+  Nurse -> Okay.
+  Caller -> No. Wait. I don't know. I'm not sure now. She might've said she'd take it after her shower. And then. Let me go look. Hold on. I'll look at the box.
+  Nurse -> Take your time.
+  Caller -> Okay. I'm back. Okay, so the Tuesday slot is empty. It's empty. But I think I might've taken it out myself, when I was filling the, when I was doing next week. I don't know. || A1
+  Nurse -> Okay. So the slot's empty, but you're not sure if she took it or you removed it.
+  Caller -> Right. Right. I don't know. I feel stupid.
+  Nurse -> You're not stupid, Frank. This happens a lot. Is she having any dizziness, or a slow heartbeat, anything unusual?
+  Caller -> No. She's fine. She's sitting here doing her crossword. She says she feels fine. || A2
+  Nurse -> Okay. What's her dose?
+  Caller -> It's the point one two five. Once a day, in the morning. || A1
+  Nurse -> Alright. Here's what I want you to do. Don't give her another pill today to make up for it. With a heart medicine, giving an extra one can be worse than missing one. || R1
+  Caller -> Okay. I was worried about that. I was worried I'd double her up. Or that she missed it. I don't know which one's worse. || A3
+  Nurse -> Don't double it. That's the safe rule. I'll have a nurse come out tomorrow and go through the pill box with you both. || R2
+  Caller -> Okay. That would help. Thank you.
+  Nurse -> And going forward, have her mark a calendar every time she takes it. And before she takes any pill, you both look in the slot together. || E1
+  Caller -> Yes. The calendar. We have one on the fridge.
+  Nurse -> Perfect. And call us if her heartbeat feels very slow or racing, if she's nauseous, her vision looks off, or she faints. || E2
+  Caller -> Slow, racing, sick, vision, faint. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks for not making me feel dumb.
+  Nurse -> Anytime.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Maureen Vandersteen, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-04-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Frank Vandersteen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "5865550134", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether his wife took her heart medicine this morning.
+    speaker: Caller
+    turns: [8]
+    quote: "I want to know if she took her heart pill. The digoxin. This morning."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Digoxin 0.125 mg once a day in the morning was discussed, but it was unclear whether she took it today (he first said yes, then was unsure; the pill box slot was empty but he may have removed the pill himself).
+      speaker: Caller
+      turns: [14]
+      quote: "the Tuesday slot is empty. It's empty. But I think I might've taken it out myself"
+      explanation: Documents the unresolved dose status.
+      facts:
+        - {type: medication, name: digoxin, dose: "0.125", unit: mg, frequency: once a day in the morning, med_status: discussed, certainty: unclear}
+      covers: [A1]
+    - text: She was not dizzy and felt fine.
+      speaker: Caller
+      turns: [18]
+      quote: "She's fine. She's sitting here doing her crossword."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: dizziness, certainty: stated}
+      covers: [A2]
+    - text: The caller worried she either missed the pill or might be doubled up by mistake.
+      speaker: Caller
+      turns: [22]
+      quote: "I was worried I'd double her up. Or that she missed it."
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised not giving another pill today to make up for a possible miss.
+      speaker: Nurse
+      turns: [21]
+      quote: "Don't give her another pill today to make up for it."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to go through the pill box with them.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll have a nurse come out tomorrow and go through the pill box with you both."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised marking a calendar each time she takes it and checking the pill box slot together beforehand.
+      speaker: Nurse
+      turns: [25]
+      quote: "have her mark a calendar every time she takes it. And before she takes any pill, you both look in the slot together."
+      explanation: Documents medication tracking guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a very slow or racing heartbeat, nausea, vision changes, or fainting.
+      speaker: Nurse
+      turns: [27]
+      quote: "call us if her heartbeat feels very slow or racing, if she's nauseous, her vision looks off, or she faints."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

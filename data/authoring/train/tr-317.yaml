@@ -1,0 +1,293 @@
+call_id: tr-317
+split: train
+blueprint: "A newly hired CNA at a memory care facility calls hospice about a resident in room six whose full name she does not know ('Mr. Ray, something with a W') after he scraped his right forearm on a bed rail: a two-inch skin tear that bled for about five minutes and stopped with pressure. No fall, no head injury, no pain behavior. She does not have his birth date and the facility nurse is on break. The hospice nurse works out the name from the room and facility (Raymond Wozniak, not fully confirmed), plans a nurse visit today, messages the team, and coaches dressing and rail padding. Identity unresolved, facility staff caller, medium v2."
+setup:
+  scenario_category: ambiguous
+  subtype: partial_identity
+  secondary_tags: [identity_unresolved, name_drift, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [skin, bleeding, falls_safety]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Meadowlight Hospice
+  agency_type: hospice
+  nurse_name: Bridget
+  call_timestamp_utc: "2026-10-28T20:05:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Raymond Wozniak
+  patient_name_spoken: Raymond Wozniak
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Ray W]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Priyanka Sethi
+  caller_name_spoken: Priyanka Sethi
+  caller_name_certainty: stated
+  relationship_to_patient: aide at the facility
+  relationship_certainty: stated
+  callback_phone_true: "3125550130"
+  callback_phone_spoken: "3125550130"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a skin tear on a resident's forearm from a bed rail
+  reason_category: skin
+  relevant_context: Hospice patient living in a memory care facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: skin tear on the right forearm
+    symptom_present: true
+    severity: about two inches
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bleeding from the skin tear
+    symptom_present: true
+    onset_or_duration: stopped after about five minutes of pressure
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: He scraped his arm on the bed rail while turning in bed
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: a fall or head injury
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: signs of pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice team and facility nurse
+    reason_or_trigger: skin tear from the bed rail
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Leave the skin flap in place, cover it with a non-stick pad and a loose wrap, no tape on the skin, and do not remove the dressing until the nurse comes
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Pad the bed rail with a folded blanket or rail pad and check him every two hours
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowlight Hospice, this is Bridget.
+  Caller -> Hi. Hi, Bridget. This is Priyanka Sethi. I'm an aide at Cedar Grove Memory Care. I'm kind of new. This is my second week. || caller_name, relationship
+  Nurse -> Hi, Priyanka. Welcome. What can I do for you?
+  Caller -> Is this okay to call at this time? It's evening. I wasn't sure about the hours.
+  Nurse -> Absolutely. We're here all night. You can call any time.
+  Caller -> Oh good. They didn't tell us that at orientation. They gave us a binder but it's like three hundred pages.
+  Nurse -> Ha. Nobody reads the binder.
+  Caller -> I'm calling about one of our residents. He's one of yours. A hospice patient. He's got a skin tear. On his arm. From the bed rail. || cc
+  Nurse -> Okay. Let's find him. What's the resident's name?
+  Caller -> That's the thing. I'm so embarrassed. I only know him as Mr. Ray. Ray. Raymond, maybe. His last name starts with a W. Something Polish. Wizniak? I don't have it. It's in the chart and the nurse took the chart with her to the other hall. || patient_name
+  Nurse -> That's okay. Which room is he in?
+  Caller -> Room six. By the nurses' desk. The one with the Packers blanket.
+  Nurse -> A Packers blanket. Okay. That helps.
+  Caller -> He loves the Packers. He yells at the TV on Sundays. Mostly Cheesehead stuff. His daughter brought him the blanket.
+  Nurse -> Okay. Let me look at our patients at Cedar Grove. Room six. I see a Raymond Wozniak. W O Z N I A K. Is that him?
+  Caller -> Wozniak. Yes. Wozniak. That sounds right. I think that's him. Raymond Wozniak. I think so. I'm like ninety percent. || patient_name
+  Caller -> I'm so sorry. I should know his name. I just can't pronounce half the names here. Everyone is Mr. or Mrs. something.
+  Nurse -> Don't worry. It takes time. You'll learn.
+  Nurse -> Okay. Is he around eighty eight, small man, white hair?
+  Caller -> Yes. White hair. He's tiny. And he has a hearing aid. The left ear.
+  Nurse -> That matches. Okay.
+  Nurse -> Okay. That sounds like the right gentleman. Do you happen to have his birth date?
+  Caller -> No. I don't. I'm sorry. It's not on the board. It's in the chart. And the chart is with the nurse. She's on break. She'll be back in twenty minutes.
+  Caller -> She's the one who knows everything. Her name is Gloria. She's been here twenty years. She's amazing. But she goes on break at seven and I don't want to interrupt.
+  Nurse -> It's fine. Just have her call us when she's back.
+  Nurse -> No problem. We can pull that from our end. Priyanka, what's a good number for us to reach you at?
+  Caller -> The second floor desk. Three one two, five five five, zero one three zero. || callback_phone
+  Nurse -> Got it. Tell me about the skin tear.
+  Caller -> So I was turning him. We turn him every two hours. And he moved. He's confused. He tried to roll himself. And his arm caught on the rail. The metal part. And it scraped. And it tore. A piece of skin came up. Like a flap. || A3
+  Nurse -> What color is the area around it? Is it red, or just the tear?
+  Caller -> It's red right around the edge. A little. And there's a little bruise coming. Purple around it. Like a half inch.
+  Nurse -> Okay. That's normal with a skin tear.
+  Nurse -> Okay. Where on the arm?
+  Caller -> The right forearm. About here. Between the wrist and the elbow. On the outside. It's about two inches long. I measured with my finger. Two finger widths, no. Two inches. A long one. || A1
+  Nurse -> Okay. Two inches. Is the flap still attached?
+  Caller -> It's attached. On one side. I put it back down. Like a flap of paper. Is that okay? I wasn't sure.
+  Nurse -> That's exactly right. You did it right. Did it bleed?
+  Caller -> It bled. A lot at first. It was dripping. I pressed it with a gauze. For like five minutes. And it stopped. It's not bleeding now. || A2
+  Nurse -> Okay. Good. Is the flap pink or dark?
+  Caller -> Pink. It's pink. I think. Maybe a little pale. I'm not sure. It's pink-white.
+  Caller -> Should I take a picture? We have the facility tablet. We take pictures for the chart.
+  Nurse -> If your facility allows it, that's fine. The nurse will see it in person too.
+  Caller -> I'll ask Gloria. I don't want to do it wrong.
+  Nurse -> That's okay. The nurse will look. Now, did he fall? Did he hit his head?
+  Caller -> No. No fall. He was in bed. He didn't fall out. He didn't hit his head. It was just the arm. || A4
+  Nurse -> Good. Does he seem to be in pain? Grimacing, moaning?
+  Caller -> No. He doesn't seem to be. He's calm. He's watching the TV. He didn't make a sound when it happened. I felt bad. I think he didn't feel it. He's face is relaxed. || A5
+  Nurse -> Is he talking? Does he know where he is?
+  Caller -> He's talking. He told me his wife is picking him up at five. She passed a long time ago. I said okay. I said she called and she's running late.
+  Nurse -> That's a kind way to handle it.
+  Caller -> They taught us that. Go with it. Don't argue.
+  Nurse -> Okay. That's good. Is he on any blood thinners? Do you know?
+  Caller -> I don't know. That would be in the chart. I'm sorry. I can find out when the nurse gets back.
+  Nurse -> That's fine. Have her call us. Okay, Priyanka. Here's what I'm going to do. I'll send a nurse out to see Mr. Wozniak today. || R1
+  Caller -> Today. Okay. Thank you. When?
+  Nurse -> I'd say within a couple of hours. I'll call the facility desk to let them know she's coming.
+  Caller -> The desk is staffed. Marcus is at the desk tonight. He's the security guy. He'll let her in.
+  Nurse -> Perfect. I'll ask her to check in with Marcus.
+  Caller -> Okay. I'll tell the nurse when she's back.
+  Nurse -> I'm also going to message our team and the facility nurse about the skin tear, so everyone knows what happened. || R2
+  Caller -> Okay. Good. Thank you.
+  Nurse -> Until the nurse gets there, here's what I'd like you to do. Leave the skin flap where it is. Cover it with a non-stick pad, the kind that doesn't have a sticky side on the part that touches the wound. Then wrap it loosely with gauze. Don't put tape on his skin. Use paper tape on the gauze, or the wrap. And leave it alone until the nurse comes. || E1
+  Caller -> Wait, the paper tape is that the white one that looks like a bandage? Or the cloth?
+  Nurse -> The paper one. It's usually white or tan. It peels easily.
+  Caller -> I think I know the one. It's in the drawer under the medication cart.
+  Caller -> Non-stick pad. Loose gauze. No tape on the skin. Don't touch it. Okay. We have the non-stick pads. The pink ones? In the supply room.
+  Nurse -> Those are probably the ones. They're Telfa. Okay.
+  Caller -> Now I remember. The nurse showed me. She said never use the regular band-aids on the old skin.
+  Nurse -> Exactly. Regular adhesive can tear the skin more.
+  Caller -> Telfa. Yes. I'll get them. And the gauze. And the paper tape.
+  Nurse -> Great. Also, can you pad the rail? Fold a blanket and tie or tuck it around the metal part. Or use a rail pad if you have one.
+  Caller -> We have rail pads. Somewhere. I'll find them. In the linen closet maybe.
+  Caller -> I'm going to go get it now. Can I put the phone down?
+  Nurse -> Sure. Take your time. I'll hold.
+  Caller -> Okay. Hold on. I'm going to the supply room. Hello? Okay. I'm in. I found the pads. And the gauze. And the tape. Wait, there are three kinds of tape.
+  Nurse -> The paper one. The one that looks like a plain roll.
+  Caller -> Got it. And the rail pad is here too. It's under the pillows. Oh good.
+  Nurse -> Perfect.
+  Nurse -> And check on him every two hours, like you do. Look at the dressing for bleeding. And call us if it bleeds through. || E2
+  Caller -> Every two hours. Look for blood. Call if it bleeds through. Okay. I will.
+  Nurse -> Thank you, Priyanka. You did a good job. You called right away and you took care of him.
+  Caller -> Thank you. I was so nervous. I thought I'd done something wrong.
+  Nurse -> You didn't do anything wrong. Skin tears happen. Older skin is thin.
+  Caller -> Does it hurt them? I mean, does it hurt him?
+  Nurse -> It can. But sometimes people with dementia don't show it. We watch their faces and their body. That's what you're doing.
+  Caller -> I'll keep watching.
+  Caller -> That's what the other aide said. She said skin tears are the worst. They look worse than they are.
+  Nurse -> They do. Okay. Have the nurse call me when she's back, and we'll confirm his info.
+  Caller -> I will. Thank you, Bridget.
+  Nurse -> Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Wozniak, heard_form: Wizniak, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Raymond Wozniak, certainty: unclear, heard_as: [Ray W], turns: [10, 16]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Priyanka Sethi, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at the facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550130", certainty: stated, heard_as: [], turns: [27]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a skin tear on a resident's forearm from a bed rail.
+    speaker: Caller
+    turns: [8]
+    quote: "He's got a skin tear. On his arm. From the bed rail."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A skin tear about two inches long was on the right forearm with the flap still attached.
+      speaker: Caller
+      turns: [34]
+      quote: "The right forearm. About here."
+      explanation: Documents the skin tear.
+      facts:
+        - {type: symptom, name: skin tear on the right forearm, present: true, severity: about two inches, certainty: stated}
+      covers: [A1]
+    - text: It bled at first and stopped after about five minutes of pressure.
+      speaker: Caller
+      turns: [38]
+      quote: "It bled. A lot at first."
+      explanation: Documents the bleeding.
+      facts:
+        - {type: symptom, name: bleeding from the skin tear, present: true, onset: stopped after about five minutes of pressure, certainty: stated}
+      covers: [A2]
+    - text: His arm caught on the metal bed rail while he rolled during turning.
+      speaker: Caller
+      turns: [29]
+      quote: "And his arm caught on the rail."
+      explanation: Documents how the injury happened.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: He had no fall and no head injury.
+      speaker: Caller
+      turns: [45]
+      quote: "No. No fall. He was in bed."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: a fall or head injury, certainty: stated}
+      covers: [A4]
+    - text: He showed no signs of pain and was calm.
+      speaker: Caller
+      turns: [47]
+      quote: "No. He doesn't seem to be. He's calm."
+      explanation: Documents the absence of pain behavior.
+      facts:
+        - {type: symptom, name: signs of pain, present: false, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit today.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll send a nurse out to see Mr. Wozniak today."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice team and the facility nurse about the skin tear.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'm also going to message our team and the facility nurse about the skin tear"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised leaving the flap in place, covering it with a non-stick pad and loose wrap with no tape on the skin, and leaving it alone until the nurse came.
+      speaker: Nurse
+      turns: [62]
+      quote: "Leave the skin flap where it is."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised padding the rail and checking him every two hours, calling if the dressing bled through.
+      speaker: Nurse
+      turns: [71]
+      quote: "can you pad the rail?"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

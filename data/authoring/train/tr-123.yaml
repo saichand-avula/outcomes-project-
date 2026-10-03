@@ -1,0 +1,181 @@
+call_id: tr-123
+split: train
+blueprint: "Hospice patient (41) calls himself late in the day: cannot go on, has his pills out on the table and keeps thinking of taking them all; has not taken any. Nurse gets him to hand the pills to his brother, stays on the line, plans an on-call page, gives 988 and 911 guidance. Flag: suicidal_statement."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [hedging, split_turns, late_answers]
+  clinical_domains: [mood, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Evergreen Hospice
+  agency_type: hospice
+  nurse_name: Bridget
+  call_timestamp_utc: "2026-09-30T02:40:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gideon Marsh
+  patient_name_spoken: Gideon Marsh
+  patient_name_certainty: stated
+  patient_dob_true: "1983-02-09"
+  patient_dob_spoken: "1983-02-09"
+  patient_dob_certainty: stated
+  caller_name_true: Gideon Marsh
+  caller_name_spoken: Gideon Marsh
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "8035550131"
+  callback_phone_spoken: "8035550131"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Said he could not go on and was thinking of taking all of his pills
+  reason_category: mood
+  relevant_context: Hospice patient living with his brother
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: thoughts of taking all of his pills
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: All of his pills were laid out on the table
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: any pills taken yet
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call provider
+    reason_or_trigger: talk with him tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time; call 911 if he has a plan or tries to hurt himself
+    trigger_condition: thoughts worsen; plan; attempt
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Give the pills to his brother and keep them out of reach
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient says he keeps thinking he should take all of his pills, which are laid out on the table
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Evergreen Hospice, this is Bridget.
+  Caller -> Hi. It's Gideon. Gideon Marsh. I'm on your service. || caller_name, relationship, patient_name
+  Nurse -> Hi, Gideon. I'm here. Can you give me your date of birth?
+  Caller -> February ninth. Nineteen eighty three. || patient_dob
+  Nurse -> And the best number for you, is it eight oh three, five five five, zero one three one? || callback_phone
+  Caller -> Yeah. That's my cell. || callback_phone
+  Nurse -> Okay. What's going on tonight, Gideon?
+  Caller -> I can't do this anymore. I just. I can't. || cc
+  Nurse -> Can't do what? Tell me.
+  Caller -> Any of it. The pain, the, the waiting. I've been sitting here with all my pills out on the table. And I keep thinking I should just take them all. || A1, A2, F1
+  Nurse -> Okay. Thank you for telling me that. Have you taken any of them?
+  Caller -> No. Not yet. Not yet. || A3
+  Nurse -> Okay. That's good, Gideon. I want you to do something for me. Is there someone in the house?
+  Caller -> My brother. He's in the garage.
+  Nurse -> Okay. Go get your brother and give him the pills. I'll stay right here on the phone. || E2
+  Caller -> Okay. Okay. Hang on.
+  Nurse -> I'm here.
+  Caller -> He took them. He's got them. He's coming in.
+  Nurse -> Good. Thank you. Gideon, I'm going to page our on-call provider right now so someone can talk with you tonight. || R1
+  Caller -> Okay.
+  Nurse -> And if the thoughts get worse, call or text nine eight eight any time. If you have a plan or you try to hurt yourself, call nine one one. || E1
+  Caller -> Nine eight eight. Okay.
+  Nurse -> I'll stay on with you until they call.
+  Caller -> Thank you. I'm sorry.
+  Nurse -> Don't be sorry. I'm glad you called.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gideon Marsh, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1983-02-09", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gideon Marsh, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "8035550131", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Said he could not go on and was thinking of taking all of his pills.
+    speaker: Caller
+    turns: [8]
+    quote: "I can't do this anymore."
+    explanation: Documents the statement prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He kept thinking he should take all of his pills, which were laid out on the table.
+      speaker: Caller
+      turns: [10]
+      quote: "I've been sitting here with all my pills out on the table. And I keep thinking I should just take them all."
+      explanation: Documents the thoughts and the pills within reach.
+      facts:
+        - {type: symptom, name: thoughts of taking all of his pills, present: true, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A2]
+    - text: No pills had been taken yet.
+      speaker: Caller
+      turns: [12]
+      quote: "No. Not yet. Not yet."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: any pills taken yet, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call provider so someone could talk with him tonight.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'm going to page our on-call provider right now so someone can talk with you tonight."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised calling or texting 988 any time and calling 911 if he had a plan or tried to hurt himself.
+      speaker: Nurse
+      turns: [21]
+      quote: "If you have a plan or you try to hurt yourself, call nine one one."
+      explanation: Documents crisis resources and emergency instructions.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised giving the pills to his brother.
+      speaker: Nurse
+      turns: [15]
+      quote: "Go get your brother and give him the pills."
+      explanation: Documents the safety instruction.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: suicidal_statement, turns: [10], quote: "I keep thinking I should just take them all."}

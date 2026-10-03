@@ -1,0 +1,305 @@
+call_id: tr-306
+split: train
+blueprint: "A daughter calls hospice with a routine update on her 79-year-old father: appetite is better this week, he is sleeping through the night, knee aches managed with Tylenol, no falls. She wants a shower chair because he is unsteady getting into the tub. The nurse keeps calling her Shivon and she never corrects it, though she spelled Siobhan once. Nurse orders the shower chair (completed), plans delivery Friday, a nurse visit Thursday, and gives bathing safety tips. Routine, name drift on the caller, adult child, v2 short."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [name_drift, name_spelled, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [intake_appetite, sleep, pain, equipment]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Evergreen Valley Hospice
+  agency_type: hospice
+  nurse_name: Hannah
+  call_timestamp_utc: "2026-10-30T19:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Desmond Kearney
+  patient_name_spoken: Desmond Kearney
+  patient_name_certainty: stated
+  patient_dob_true: "1947-01-31"
+  patient_dob_spoken: "1947-01-31"
+  patient_dob_certainty: stated
+  caller_name_true: Siobhan Kearney
+  caller_name_spoken: Siobhan Kearney
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Shivon Kearney]
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8085550171"
+  callback_phone_spoken: "8085550171"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on her father and asked for a shower chair
+  reason_category: general_update
+  relevant_context: Hospice patient living at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: appetite better
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping through the night
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: knee aches
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: twice a day as needed
+    prn: true
+    last_dose: last night
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: supply
+    reporter: caller
+    supply_item: shower chair
+    supply_remaining: none
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: equipment company
+    reason_or_trigger: shower chair
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Until the chair comes, give sponge baths, put a non-slip mat in the tub, and stay with him whenever he stands up
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any time if he has a fall, new pain, or stops eating
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Evergreen Valley Hospice, this is Hannah.
+  Caller -> Hi, Hannah. It's Siobhan Kearney. S I O B H A N. I'm calling about my dad. Desmond. || caller_name, relationship, patient_name
+  Nurse -> Hi, Shivon. Good to hear from you. Is everything okay?
+  Caller -> Oh yes. Yes. It's an update, mostly. And a question. It's nothing urgent. || cc
+  Nurse -> Good. Sorry, I'm just finishing a note. Give me one second. Okay. I'm with you.
+  Caller -> No rush. I'm in the car, in the driveway. I didn't want him to hear.
+  Nurse -> Good. Let me pull up your dad's chart. What's his date of birth?
+  Caller -> January thirty first. Nineteen forty seven. || patient_dob
+  Nurse -> Perfect. And your number, Shivon?
+  Caller -> Eight oh eight, five five five, zero one seven one. || callback_phone
+  Nurse -> Great. So tell me how he's been.
+  Caller -> He's been better. This week especially. He's eating. Last week he was barely eating, remember I called? And now he's asking for seconds. He had a whole bowl of the soup yesterday, and half a sandwich. And pudding. || A1
+  Nurse -> What kind of soup?
+  Caller -> Chicken and rice. My neighbor brought it. Then I made vegetable. He prefers the neighbor's.
+  Nurse -> Ha. Of course he does.
+  Nurse -> That's wonderful. Do you have any idea why?
+  Caller -> I think it's the weather. It got cooler. He likes soup season. Ha. Or it's the new spoon. I got him a bigger spoon with a fat handle. It's easier to hold.
+  Nurse -> Ha. A fat handle. That's a good tip. And how's he sleeping?
+  Caller -> Much better. He's sleeping through. Four nights in a row. He used to be up at two, three, wandering to the kitchen. Now he sleeps till six. I think the walks are helping. We do a little walk after dinner, around the yard. || A2
+  Nurse -> How far does he walk?
+  Caller -> Around the garden. Maybe a hundred steps. He stops by the tomato plants and tells them they did a bad job this year.
+  Nurse -> Ha. A critic.
+  Caller -> Always.
+  Nurse -> That's great. And pain?
+  Caller -> Just the knees. The usual. He says they ache when it rains. It's a mild one. I'd say a two. A two or a three. He takes a Tylenol if it's bad. Five hundred milligrams. Maybe twice a day at the most. He took one last night. || A3, A4
+  Nurse -> Okay. Tylenol five hundred, twice a day if needed, and last night he took one. Good. Any falls? || A4
+  Caller -> No falls. Not since the summer. He's careful. I hover. He doesn't love it. But no falls. || A5
+  Nurse -> Hovering is good. He'll forgive you.
+  Caller -> He says I'm like a mother hen. I say I am his hen.
+  Nurse -> That's what I like to hear. So what's the question, Shivon?
+  Caller -> It's about the bath. He's having trouble getting in and out of the tub. He's unsteady. He holds on to the towel bar. And I'm afraid the towel bar is going to come off the wall. I don't have a shower chair. I'd like one. Can you get us one? || A6
+  Nurse -> Absolutely. A shower chair is a good idea. Do you want a regular one, or one with a back?
+  Caller -> With a back. And arms if they have them. He likes to push up with his arms.
+  Nurse -> Okay. A chair with a back and arms. Let me put in the order. One second. Okay. I'm entering it. It's a shower chair with back and arms.
+  Caller -> Thank you. Is it free? I mean, covered?
+  Nurse -> Yes, it's covered under hospice. No cost to you.
+  Caller -> Oh good. I was going to buy one at the drugstore. They're sixty dollars.
+  Nurse -> No need. Okay. It's in. I just placed the order with the equipment company for a shower chair with back and arms. || R1
+  Caller -> Oh that's quick. When will it come?
+  Nurse -> I'll ask them to deliver it Friday. Is somebody home Friday?
+  Caller -> Yes. I work from home on Fridays. I'll be here. Friday works. || R2
+  Nurse -> Perfect. I'll also have a nurse come see him Thursday. That's his regular visit, I think. I'll make sure it's on the schedule.
+  Caller -> Thursday. That's tomorrow. Yes. Marjorie comes Thursdays. She's the nurse with the red glasses. || R3
+  Nurse -> Yes, that's Marjorie. She'll see him. Okay. Until the chair comes, Shivon, I'd suggest sponge baths. And if he does get into the tub, put a non-slip mat in the bottom. And stay with him whenever he stands up. Don't leave him alone in the bathroom. || E1
+  Caller -> Sponge baths. Non-slip mat. Stay with him. Okay. I have a mat in the closet. It's old. I'll put it in. He won't like it. He hates sponge baths. He says I'm treating him like a baby.
+  Nurse -> Ha. Tell him it's temporary. Just till the chair comes.
+  Caller -> I will. I'll bribe him with pie.
+  Nurse -> What kind of pie?
+  Caller -> Apple. From the bakery on Pine. He says it's the only thing worth leaving the house for.
+  Nurse -> Ha. Good motivator.
+  Nurse -> Pie always works.
+  Caller -> It does. Is there anything else I should be doing? He's doing well. I feel like I should be doing more.
+  Nurse -> You're doing a lot. The walks, the spoon, the mat, the call. That's a lot.
+  Caller -> Thanks. I'm a worrier. I read too many websites.
+  Nurse -> Ha. Don't read the websites. Call me instead.
+  Caller -> I will. I do.
+  Nurse -> And please call any time if he has a fall, new pain, or stops eating. Even in the middle of the night. || E2
+  Caller -> Fall, new pain, stops eating. Any time. Okay. I have the number on the fridge.
+  Nurse -> Good. Anything else, Shivon?
+  Caller -> Oh, one more tiny thing. Is it okay if he has a little glass of wine? With dinner? He asked. He used to have a glass of red every night.
+  Nurse -> A small glass is fine, if he wants it and it doesn't make him sleepy or dizzy. At this point, enjoy what you enjoy.
+  Caller -> Okay. I'll give him a small one. With dinner. He'll be so happy.
+  Nurse -> Make sure he's sitting when he drinks it.
+  Caller -> Of course. Thank you so much, Hannah.
+  Caller -> Oh wait. I forgot, my brother says hi. He's flying in on Saturday. He wants to see Dad.
+  Nurse -> That's wonderful. Tell him we said hello.
+  Nurse -> You're welcome, Shivon. Have a good evening.
+  Caller -> You too. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Siobhan, heard_form: Shivon, fact_id: caller_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Desmond Kearney, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-01-31", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Siobhan Kearney, certainty: unclear, heard_as: [Shivon Kearney], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550171", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on her father and asked for a shower chair.
+    speaker: Caller
+    turns: [4]
+    quote: "It's an update, mostly. And a question."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: His appetite had improved, with a bowl of soup, half a sandwich and pudding the day before.
+      speaker: Caller
+      turns: [12]
+      quote: "He's eating."
+      explanation: Documents the improved appetite.
+      facts:
+        - {type: symptom, name: appetite better, present: true, certainty: stated}
+      covers: [A1]
+    - text: He was sleeping through the night for four nights in a row.
+      speaker: Caller
+      turns: [19]
+      quote: "He's sleeping through. Four nights in a row."
+      explanation: Documents the improved sleep.
+      facts:
+        - {type: symptom, name: sleeping through the night, present: true, certainty: stated}
+      covers: [A2]
+    - text: Knee aches were mild, about a two or three.
+      speaker: Caller
+      turns: [25]
+      quote: "Just the knees. The usual."
+      explanation: Documents the knee aches.
+      facts:
+        - {type: symptom, name: knee aches, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Tylenol 500 mg up to twice a day as needed, with one taken last night.
+      speaker: Caller
+      turns: [25]
+      quote: "He takes a Tylenol if it's bad. Five hundred milligrams."
+      explanation: Documents the as-needed pain medicine.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, frequency: twice a day as needed, prn: true, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: No falls since the summer.
+      speaker: Caller
+      turns: [27]
+      quote: "No falls. Not since the summer."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls, certainty: stated}
+      covers: [A5]
+    - text: He had no shower chair and was unsteady getting in and out of the tub.
+      speaker: Caller
+      turns: [31]
+      quote: "I don't have a shower chair. I'd like one."
+      explanation: Documents the equipment need.
+      facts:
+        - {type: supply, item: shower chair, supply: none, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Placed an order with the equipment company for a shower chair with back and arms.
+      speaker: Nurse
+      turns: [38]
+      quote: "I just placed the order with the equipment company for a shower chair with back and arms."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery on Friday.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'll ask them to deliver it Friday."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit on Thursday.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'll also have a nurse come see him Thursday."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised sponge baths until the chair came, a non-slip mat in the tub, and staying with him whenever he stood.
+      speaker: Nurse
+      turns: [44]
+      quote: "Until the chair comes, Shivon, I'd suggest sponge baths."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Invited a call any time for a fall, new pain, or if he stopped eating.
+      speaker: Nurse
+      turns: [57]
+      quote: "please call any time if he has a fall, new pain, or stops eating."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

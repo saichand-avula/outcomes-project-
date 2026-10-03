@@ -1,0 +1,215 @@
+call_id: tr-160
+split: train
+blueprint: "Daughter says the pharmacy will not release her mother's fentanyl patches because insurance needs prior authorization; the patch on now is due to change tomorrow morning and there is no spare. Nurse says she already called the pharmacy, plans to message the provider about the authorization, and will call back within two hours. Short."
+setup:
+  scenario_category: medication
+  subtype: prior_authorization
+  secondary_tags: [trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [medication, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-03T20:20:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ysabel Montoya
+  patient_name_spoken: Ysabel Montoya
+  patient_name_certainty: stated
+  patient_dob_true: "1953-12-01"
+  patient_dob_spoken: "1953-12-01"
+  patient_dob_certainty: stated
+  caller_name_true: Carmen Montoya
+  caller_name_spoken: Carmen Montoya
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7605550136"
+  callback_phone_spoken: "7605550136"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the pharmacy would not release her mother's pain patches
+  reason_category: medication
+  relevant_context: Hospice patient on a fentanyl patch
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl patch
+    medication_name_spoken: fentanyl patch
+    medication_status: taking
+    dose: "25"
+    unit: mcg per hour
+    frequency: every 3 days
+    last_dose: put on Thursday morning
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: spare fentanyl patches
+    supply_remaining: none
+    supply_unit: patches
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Pharmacy said insurance needs prior authorization before releasing the patches
+    certainty: stated
+  - item_id: A4
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Afraid her mother's pain will come back if the patch cannot be changed tomorrow morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: patch authorization
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: prior authorization for the fentanyl patches
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any hour if her pain gets worse before the new patches arrive
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Ana.
+  Caller -> Ana, hi. It's Carmen Montoya. My mother is Ysabel Montoya. The pharmacy won't give me her pain patches. || caller_name, relationship, patient_name, cc
+  Nurse -> Oh no. Okay, Carmen. What's her date of birth?
+  Caller -> December first. Nineteen fifty three. || patient_dob
+  Nurse -> And is seven six oh, five five five, zero one three six your number? || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> Okay. What did the pharmacy say?
+  Caller -> They said the insurance wants a, a prior authorization. Before they can release the fentanyl patches. They said it's not a hospice problem, it's the insurance. They said somebody has to call the insurance. || A3
+  Nurse -> Okay. What does your mom have on now?
+  Caller -> The patch. The fentanyl patch. Twenty five. It's the twenty five micrograms. I put it on Thursday morning. We change it every three days, so it's due to change tomorrow morning. || A1
+  Nurse -> Okay. And do you have a spare?
+  Caller -> No. That was the last one. I have none. Zero. That's why I went. || A2
+  Nurse -> Okay. Carmen, what are you worried about?
+  Caller -> That her pain is going to come back. She was really bad before the patch. I can't watch her like that again. If I can't change it tomorrow morning, I don't know what I'll do. || A4
+  Nurse -> I understand. I already called the pharmacy while you were talking to me, and they confirmed the authorization is the holdup. || R1
+  Caller -> Oh. Okay. So you're doing something.
+  Nurse -> Yes. I'm going to message her provider's office to get the prior authorization done tonight. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> I'll call you back within two hours to tell you where it stands. || R3
+  Caller -> Two hours. Okay. I'll be here. I'm not going anywhere.
+  Nurse -> Carmen, if her pain gets worse before the new patches come, call me. Any hour. We have other medicines we can use. || E1
+  Caller -> Any hour. Okay. Thank you, Ana. I was panicking in the parking lot.
+  Nurse -> You did the right thing by calling. We'll get this fixed.
+  Caller -> Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ysabel Montoya, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1953-12-01", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Carmen Montoya, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7605550136", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the pharmacy would not release her mother's pain patches.
+    speaker: Caller
+    turns: [2]
+    quote: "The pharmacy won't give me her pain patches."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The pharmacy said insurance needed a prior authorization before releasing the patches.
+      speaker: Caller
+      turns: [8]
+      quote: "They said the insurance wants a, a prior authorization."
+      explanation: Documents the barrier.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: A fentanyl patch of 25 mcg per hour was in place, put on Thursday morning and due to change tomorrow morning.
+      speaker: Caller
+      turns: [10]
+      quote: "The fentanyl patch. Twenty five."
+      explanation: Documents the current patch.
+      facts:
+        - {type: medication, name: fentanyl patch, dose: "25", unit: mcg per hour, frequency: every 3 days, last_dose: put on Thursday morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: No spare patches remained.
+      speaker: Caller
+      turns: [12]
+      quote: "That was the last one."
+      explanation: Documents the supply.
+      facts:
+        - {type: supply, item: spare fentanyl patches, supply: none, certainty: stated}
+      covers: [A2]
+    - text: She was afraid her mother's pain would come back if the patch could not be changed tomorrow morning.
+      speaker: Caller
+      turns: [14]
+      quote: "That her pain is going to come back."
+      explanation: Documents the caller's concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Already called the pharmacy, which confirmed the authorization was the holdup.
+      speaker: Nurse
+      turns: [15]
+      quote: "I already called the pharmacy while you were talking to me"
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider's office to get the prior authorization done tonight.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to message her provider's office to get the prior authorization done tonight."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back within two hours.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back within two hours to tell you where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling at any hour if her pain got worse before the new patches arrived.
+      speaker: Nurse
+      turns: [21]
+      quote: "if her pain gets worse before the new patches come, call me. Any hour."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E1]
+  risk_flags: []

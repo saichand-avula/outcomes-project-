@@ -1,0 +1,285 @@
+call_id: va-096
+split: val
+blueprint: "A wife, Pearlie Dunwoody, calls because her husband Orrin, who takes warfarin, had two black tarry stools this morning and feels lightheaded and weak, with a pulse of one hundred and a pale face. No vomiting of blood and no chest pain. Nurse advises calling 911 now because of possible internal bleeding, tells her to keep him lying down and not to give the evening warfarin, and pages on-call. Possible GI bleed on a blood thinner, spouse caller, escalation plus urgent flag, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: possible_gi_bleed_anticoagulant
+  secondary_tags: [spouse, escalation_911, bleeding, anticoagulant, split_turns, late_answers]
+  clinical_domains: [bleeding, medication, dizziness]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Evergreen Home Health
+  agency_type: home_health
+  nurse_name: Magdalena
+  call_timestamp_utc: "2026-12-18T15:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Orrin Dunwoody
+  patient_name_spoken: Orrin Dunwoody
+  patient_name_certainty: stated
+  patient_dob_true: "1942-09-14"
+  patient_dob_spoken: "1942-09-14"
+  patient_dob_certainty: stated
+  caller_name_true: Pearlie Dunwoody
+  caller_name_spoken: Pearlie Dunwoody
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9195550155"
+  callback_phone_spoken: "9195550155"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported black tarry stools with lightheadedness in a husband on a blood thinner
+  reason_category: bleeding
+  relevant_context: Home health patient on warfarin
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: black tarry stools
+    symptom_present: true
+    severity: severe
+    onset: two this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: lightheadedness and weakness
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "100"
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: once a day in the evening
+    prn: false
+    last_dose: last night
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting blood or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    recipient_or_target: 911
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep him lying down with his legs raised, give nothing by mouth, and save the medicine list and a sample of the stool for the paramedics
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give the evening warfarin and tell the paramedics he takes it
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 for black stools and lightheadedness on a blood thinner
+    trigger_speaker: nurse
+    flag_required: true
+  - flag_id: F2
+    risk_category: other_urgent
+    trigger_description: Two black tarry stools with lightheadedness, weakness and a fast pulse in a patient on warfarin
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Evergreen Home Health, this is Magdalena.
+  Caller -> Hi. Magdalena. It's Pearlie Dunwoody. My husband is Orrin Dunwoody. He's on warfarin. He had black stools this morning. Two of them. Black and sticky. And he's weak and dizzy. I'm scared. || caller_name, relationship, patient_name, cc, A1, F2
+  Nurse -> Okay, Pearlie. I'm glad you called. Is Orrin awake?
+  Caller -> Sorry, I'm shaking. I keep dropping things. Hold on, I picked the phone up off the floor.
+  Nurse -> Take a breath, Pearlie. I'm right here.
+  Caller -> He's awake. He's on the couch. He's pale. He looks gray. He's talking but slow.
+  Nurse -> Is he sweating? Cold or clammy?
+  Caller -> Cold hands. A little sweaty on his forehead.
+  Nurse -> Okay. Tell me about the stools. What time?
+  Caller -> The first at six. The second around nine. Black. Not dark brown, black. Like tar. And a terrible smell. I looked. I know what I saw. || A1
+  Nurse -> Has he taken iron pills or Pepto-Bismol? Those can darken stools.
+  Caller -> No. Nothing. I checked the pill box. I know what that looks like.
+  Nurse -> Any red blood in the stool? Vomiting? Blood in the vomit?
+  Caller -> No red. No vomiting. He says his stomach feels a little burned. But no vomiting. No blood. || A5
+  Nurse -> Any belly pain, cramping, swelling?
+  Caller -> Not really. It's more a burning. Higher up.
+  Nurse -> Okay. Tell the paramedics that.
+  Nurse -> How about his dizziness? When does it happen?
+  Caller -> When he stands. He stood to go to the bathroom and he had to grab the wall. The room spun. And he's weak. He can barely lift his arms. He can't open a jar. || A2
+  Nurse -> Has he passed out or nearly passed out?
+  Caller -> No. He grabbed the wall. I caught his arm.
+  Nurse -> Good. Keep him down from now.
+  Nurse -> Do you have a way to check his pulse?
+  Caller -> The cuff has it. Let me. Hold on. It says one hundred. A hundred. That's fast for him. He's usually seventy. || A3
+  Nurse -> Pearlie, I want you to call nine one one now. Black stools with weakness and a fast pulse, on a blood thinner, could mean bleeding inside his stomach or bowel. He needs to be seen in the emergency room. || R1, F1
+  Caller -> Oh my God. Okay. Okay. Should I hang up? Should I call? My phone's in the kitchen.
+  Nurse -> Put me on speaker if you can and call from your cell. Or have someone else call. I'll stay on the line.
+  Caller -> My son's here. He's in the garage. Daniel! Daniel! Come quick! Call nine one one! Dad's bleeding inside!
+  Nurse -> Good. Is Daniel calling?
+  Caller -> He's on it. He's dialing. Okay. Yes.
+  Nurse -> Perfect. Help Orrin lie down on the couch. Raise his legs on a pillow. Don't let him stand or walk. Give him nothing by mouth. No food, no water. || E1
+  Caller -> Lie down. Legs up. Nothing by mouth. Okay. Orrin, honey, lie back. I've got you. There. His legs are on the pillow.
+  Nurse -> Good. Now, has he taken his warfarin today? || A4
+  Caller -> He takes it in the evening. Four milligrams. He took it last night at seven. || A4
+  Nurse -> Okay. Do not give the evening warfarin tonight. And tell the paramedics he takes warfarin. They'll want to know. || E2
+  Caller -> No warfarin. Tell the paramedics. Okay. I will. Daniel! Tell them he's on warfarin! || A4
+  Nurse -> Does Daniel know your address?
+  Caller -> He lives here. Thank goodness.
+  Nurse -> Pearlie, I need his date of birth, for the paramedics.
+  Caller -> September fourteenth, nineteen forty two. || patient_dob
+  Nurse -> And your cell number?
+  Caller -> Nine one nine, five five five, zero one five five. || callback_phone
+  Nurse -> Got it. I'm going to page the on-call clinician now so they can notify the emergency room. || R2
+  Caller -> Thank you. They said six minutes. Daniel says six minutes.
+  Nurse -> Perfect. Is his color changing? Is he getting sleepier?
+  Caller -> I'm holding his hand. It's cold. Orrin, squeeze my hand. He squeezed.
+  Nurse -> That's good. Keep checking that he responds.
+  Caller -> He's pale. He's still talking. He's saying, I'm okay, I'm okay. He doesn't want to go.
+  Nurse -> It's important that he goes. Tell him the nurse said so.
+  Caller -> Orrin, the nurse says you have to go. He's nodding. He knows.
+  Nurse -> Good. Do you have his medicine list handy? Anything else the paramedics should see?
+  Caller -> On the fridge. Daniel has it. And I'll grab his hospital bag. I keep it packed. It's by the door.
+  Nurse -> That's very smart.
+  Caller -> After the last time. We've done this before. Two years ago. A bleeding ulcer.
+  Nurse -> Which hospital was it, do you remember?
+  Caller -> Mercy. On the east side. They know him there.
+  Nurse -> Tell the paramedics. They may choose it.
+  Nurse -> Then they'll want to know that too. Tell them about the ulcer.
+  Caller -> I will. Ulcer, warfarin, black stools, six and nine. || A4
+  Nurse -> Perfect. You're doing everything right.
+  Caller -> I hear the siren. It's close. Daniel is at the door.
+  Nurse -> Good. Let them in. Go with him to the hospital if you can.
+  Caller -> I will. Thank you, Magdalena.
+  Nurse -> We'll call the hospital. Take care of each other.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Orrin Dunwoody, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-09-14", certainty: stated, heard_as: [], turns: [40]}
+    caller_name: {value: Pearlie Dunwoody, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550155", certainty: stated, heard_as: [], turns: [42]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported black tarry stools with lightheadedness in a husband on a blood thinner.
+    speaker: Caller
+    turns: [2]
+    quote: "He had black stools this morning."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He had two black tarry, foul-smelling stools this morning, at six and nine.
+      speaker: Caller
+      turns: [10]
+      quote: "Black. Not dark brown, black. Like tar."
+      explanation: Documents the black stools.
+      facts:
+        - {type: symptom, name: black tarry stools, present: true, severity: severe, onset: two this morning, certainty: stated}
+      covers: [A1]
+    - text: He was dizzy on standing and weak, unable to open a jar, and looked pale.
+      speaker: Caller
+      turns: [19]
+      quote: "When he stands."
+      explanation: Documents the lightheadedness.
+      facts:
+        - {type: symptom, name: lightheadedness and weakness, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Pulse was 100, usually about 70.
+      speaker: Caller
+      turns: [24]
+      quote: "It says one hundred."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "100", certainty: stated}
+      covers: [A3]
+    - text: Warfarin 4 mg every evening, last taken last night at seven.
+      speaker: Caller
+      turns: [34]
+      quote: "Four milligrams."
+      explanation: Documents the warfarin.
+      facts:
+        - {type: medication, name: warfarin, dose: "4", unit: mg, frequency: once a day in the evening, prn: false, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: He had no vomiting, blood in vomit, or chest pain.
+      speaker: Caller
+      turns: [14]
+      quote: "No red. No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting blood or chest pain, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [25]
+      quote: "I want you to call nine one one now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to page the on-call clinician now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised lying him down with legs raised, giving nothing by mouth, and keeping the medicine list for the paramedics.
+      speaker: Nurse
+      turns: [31]
+      quote: "Help Orrin lie down on the couch."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised not giving the evening warfarin and telling the paramedics he takes it.
+      speaker: Nurse
+      turns: [35]
+      quote: "Do not give the evening warfarin tonight."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: escalation_request, turns: [25], quote: "I want you to call nine one one now."}
+    - {category: other_urgent, turns: [2], quote: "He had black stools this morning."}

@@ -1,0 +1,249 @@
+call_id: va-052
+split: val
+blueprint: "A granddaughter, Briony Castellanos, calls about her grandfather Anselm, who is on a steroid she pronounces 'predisone' (prednisone 10 milligrams every morning). He forgot this morning's dose and it is now two in the afternoon. She also says he is wired and not sleeping. Nurse says to give it now with food, not to double tomorrow, and explains the sleep effect. ASR drug garble, other-family caller, missed dose, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: drug_garble
+  secondary_tags: [drug_garble, other_family, missed_dose, hedging, split_turns]
+  clinical_domains: [medication, sleep]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Larkspur Home Health
+  agency_type: home_health
+  nurse_name: Wendell
+  call_timestamp_utc: "2026-11-26T19:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Anselm Castellanos
+  patient_name_spoken: Anselm Castellanos
+  patient_name_certainty: stated
+  patient_dob_true: "1939-02-02"
+  patient_dob_spoken: "1939-02-02"
+  patient_dob_certainty: stated
+  caller_name_true: Briony Castellanos
+  caller_name_spoken: Briony Castellanos
+  caller_name_certainty: stated
+  relationship_to_patient: granddaughter
+  relationship_certainty: stated
+  callback_phone_true: "2125550156"
+  callback_phone_spoken: "2125550156"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked what to do about her grandfather's missed morning steroid dose
+  reason_category: medication_question
+  relevant_context: Home health patient on a steroid
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: prednisone
+    medication_name_spoken: predisone
+    medication_status: missed
+    dose: "10"
+    unit: mg
+    frequency: every morning
+    prn: false
+    last_dose: yesterday morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness and poor sleep
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased appetite
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: stomach pain or black stools
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the missed dose now with food, take tomorrow's dose in the morning as usual, and never double up or stop it suddenly
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Steroids can cause restlessness and a big appetite; give it in the morning and watch for stomach pain or black stools
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Larkspur Home Health, this is Wendell.
+  Caller -> Hi, Wendell. This is Briony Castellanos. I'm calling about my grandfather. Anselm Castellanos. || caller_name, relationship, patient_name
+  Nurse -> Hi, Briony. How can I help?
+  Caller -> Sorry, I'm on my lunch break, so I'm eating a salad and calling.
+  Nurse -> No problem. Chew first.
+  Caller -> Ha. Okay.
+  Caller -> He forgot to take his pill this morning. The predisone. And it's two in the afternoon. I don't know if he should take it now. || cc, A1
+  Nurse -> Okay. Let me make sure I have the right one. Predisone, is that what it says on the bottle? || A1
+  Caller -> That's how I say it. It's the steroid one. It's a little white pill. I'll read you the label. Hang on.
+  Nurse -> Take your time.
+  Caller -> It says, um, predisone. Ten milligrams. Take one tablet by mouth every morning with food. || A1
+  Nurse -> Got it. That sounds like his prednisone. || A1
+  Nurse -> Is there a pharmacy name on the label?
+  Caller -> Yes. The one on Fifth. They're always so nice.
+  Caller -> Yes. That one.
+  Nurse -> When was his last dose?
+  Caller -> Yesterday morning. He took it with his oatmeal. Today he got up late, and he went straight to the garden. And I was at work. I'm here now on my break.
+  Nurse -> Okay. So he missed this morning.
+  Caller -> Yes. I came over at lunch, and I saw the pill still in the organizer.
+  Nurse -> Did you see him at lunch?
+  Caller -> I did. He's fine. He had a sandwich. He's been out in the yard moving rocks. At eighty five.
+  Nurse -> Ha. That's a lot of rocks.
+  Caller -> He's a lot of man.
+  Nurse -> Does he wear his hat out there, and drink water?
+  Caller -> The big straw hat. And I make him carry a bottle.
+  Nurse -> What's his date of birth, Briony?
+  Caller -> February second, nineteen thirty nine. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Two one two, five five five, zero one five six. || callback_phone
+  Nurse -> Perfect. How has he been feeling otherwise?
+  Caller -> Honestly? Kind of wired. He's been up at three in the morning the past few nights. Wandering the kitchen. Making toast. He's not tired but he's, like, buzzing. || A2
+  Nurse -> That can be from the steroid. Is his appetite okay?
+  Caller -> Oh my gosh. He's eating everything. He ate a whole pie on Sunday. Not a slice. A pie. || A3
+  Nurse -> Ha. Also a steroid effect.
+  Caller -> I figured. Is that normal?
+  Caller -> The pie, I thought we'd have to call you.
+  Nurse -> Ha. No emergency for a pie.
+  Nurse -> It's common. Any stomach pain, or heartburn? Black or dark stools?
+  Caller -> No. No stomach complaints. He'd tell me. And no, nothing dark. I help him in the bathroom sometimes. || A4
+  Nurse -> Good. Okay, here's what to do. Give him the ten milligram tablet now, with some food. A sandwich or yogurt, something in his stomach. Then tomorrow morning give his regular dose as usual. Don't double up. And don't ever stop it suddenly. || E1
+  Caller -> Give it now with food. Tomorrow regular. Don't double. Okay. He'll be annoyed. He thinks he doesn't need it.
+  Caller -> I'm writing it on a napkin. Napkin from the salad.
+  Nurse -> Perfect.
+  Nurse -> Ha. A lot of people feel that way. But the body gets used to it, so stopping fast can make him sick.
+  Caller -> Okay. I'll tell him. I'll say the nurse said.
+  Nurse -> Say the nurse said. It works every time.
+  Caller -> Ha. Yes.
+  Nurse -> Give the pill in the morning, always. It's best early in the day, because later doses can keep him awake. The restlessness and the big appetite should ease when his dose goes down. Keep an eye on his stomach, and let us know if you see any pain or black stools. || E2
+  Caller -> Morning. Watch his stomach. Black stools. Okay.
+  Nurse -> Could you set an alarm or put a sticky note on the organizer?
+  Caller -> I'll put a note on the coffee pot. He never misses the coffee.
+  Nurse -> That's a smart place.
+  Caller -> I'm full of ideas.
+  Nurse -> Does he live alone?
+  Caller -> With my grandmother. She's the one who takes his blood pressure every night. She's strict.
+  Nurse -> I'll call you tomorrow morning to see how the night went and how he's feeling. || R1
+  Caller -> That's great. I'll be at my desk. Call my cell. I'll pick up.
+  Caller -> Is nine okay? I have a meeting at ten.
+  Nurse -> Nine is fine. I'll call at nine.
+  Nurse -> Will do. Anything else?
+  Caller -> No. Oh, can he have coffee in the afternoon? He wants a cup.
+  Nurse -> Maybe decaf. Too much caffeine on top of the steroid won't help his sleep.
+  Caller -> Decaf. He'll complain. Okay.
+  Nurse -> Ha. Let him complain.
+  Caller -> I should go, my break's almost over.
+  Nurse -> Go ahead. One last thing, did he take anything else today?
+  Caller -> Just his water pill and the vitamin. I checked the organizer.
+  Caller -> Thank you, Wendell. I feel better.
+  Nurse -> Anytime. Bye, Briony.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: prednisone, heard_form: predisone, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Anselm Castellanos, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-02-02", certainty: stated, heard_as: [], turns: [27]}
+    caller_name: {value: Briony Castellanos, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: granddaughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2125550156", certainty: stated, heard_as: [], turns: [29]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked what to do about her grandfather's missed morning steroid dose.
+    speaker: Caller
+    turns: [7]
+    quote: "He forgot to take his pill this morning."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Predisone 10 mg every morning was missed today, last taken yesterday morning.
+      speaker: Caller
+      turns: [11]
+      quote: "Ten milligrams. Take one tablet by mouth every morning with food."
+      explanation: Documents the missed dose.
+      facts:
+        - {type: medication, name: predisone, dose: "10", unit: mg, frequency: every morning, prn: false, last_dose: yesterday morning, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: He was wired and awake at three in the morning for the past few nights.
+      speaker: Caller
+      turns: [31]
+      quote: "Kind of wired."
+      explanation: Documents the restlessness.
+      facts:
+        - {type: symptom, name: restlessness and poor sleep, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: His appetite was increased.
+      speaker: Caller
+      turns: [33]
+      quote: "He's eating everything."
+      explanation: Documents the appetite.
+      facts:
+        - {type: symptom, name: increased appetite, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no stomach pain or black stools.
+      speaker: Caller
+      turns: [39]
+      quote: "No stomach complaints."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: stomach pain or black stools, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a callback tomorrow morning.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'll call you tomorrow morning"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised giving the missed dose now with food, the regular dose tomorrow, and not doubling up or stopping suddenly.
+      speaker: Nurse
+      turns: [40]
+      quote: "Give him the ten milligram tablet now, with some food."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Explained the steroid can cause restlessness and appetite, to give it in the morning, and to watch for stomach pain or black stools.
+      speaker: Nurse
+      turns: [48]
+      quote: "It's best early in the day"
+      explanation: Documents symptom monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,193 @@
+call_id: tr-071
+split: train
+blueprint: "Daughter refuses to give her mother's name over the phone ('privacy'), gives only her callback number. Mother (hospice, on opioids) has had no bowel movement for five days, bloated, belly pain 4/10. Nurse cannot confirm the chart so gives only general comfort advice, will look up the number and call back in 15 minutes. Identity stays unresolved (no names, no DOB)."
+setup:
+  scenario_category: ambiguous
+  subtype: unidentified_patient
+  secondary_tags: [identity_unresolved, hedging, late_answers, trap_phrasing]
+  clinical_domains: [constipation, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-01T18:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: null
+  patient_name_spoken: null
+  patient_name_certainty: not_stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: null
+  caller_name_spoken: null
+  caller_name_certainty: not_stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4075550192"
+  callback_phone_spoken: "4075550192"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother has not had a bowel movement in five days and is bloated
+  reason_category: constipation
+  relevant_context: Mother is a hospice patient; caller declined to give names
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: 5 days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bloated belly
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: belly pain
+    symptom_present: true
+    severity: 4/10
+    body_location: belly
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    reason_or_trigger: after looking up the chart by phone number
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer fluids as she is able and let her sit upright; no new medicines until the chart is confirmed
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right back for vomiting, severe belly pain, or a hard swollen belly
+    trigger_condition: vomiting; severe belly pain; hard swollen belly
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi. I'm calling about my mother. She's one of your patients. She's on your hospice. I'm her daughter.  || relationship
+  Nurse -> Okay. Can I get her name and date of birth?
+  Caller -> Um. I'd rather not say her name over the phone. It's a privacy thing, I just, I don't like saying it.
+  Nurse -> I understand. It's just that I need it to pull up her chart and see her medications.
+  Caller -> Can you look her up by my number? It should be on file.
+  Nurse -> Maybe. What's the number?
+  Caller -> Four oh seven, five five five, zero one nine two. || callback_phone
+  Nurse -> Four oh seven, five five five, zero one nine two. Okay. Let me write that down. What's going on with her? || callback_phone
+  Caller -> She hasn't had a bowel movement in five days. Five days. And her belly is, it's all bloated. || cc, A1, A2
+  Nurse -> Okay. Is she having any pain?
+  Caller -> A little. She says like a four. In her stomach. || A3
+  Nurse -> Is she vomiting?
+  Caller -> No. No, she's not throwing up. || A4
+  Nurse -> Okay. Is she taking anything for constipation?
+  Caller -> I don't, I think she has something. I don't know the names. My brother does her medicine.
+  Nurse -> Okay. Here's the thing. Without confirming her chart, I can't tell you to give or change any medicine. I'm going to look up that phone number and see if I can find her. I'll call you back in fifteen minutes. || R1
+  Caller -> Okay. Fifteen minutes. Okay.
+  Nurse -> In the meantime, if she's awake, offer her fluids, whatever she's able to drink, and keep her sitting up. But no new medicines until I call you. || E1
+  Caller -> Okay. Fluids. Sitting up. No new medicines.
+  Nurse -> And if she starts vomiting, if the pain gets bad, or her belly gets hard and swollen, call us right back. || E2
+  Caller -> Hard and swollen. Okay.
+  Nurse -> Anything else for now?
+  Caller -> No. Thank you.
+  Nurse -> Okay. Talk to you in fifteen.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "4075550192", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother has not had a bowel movement in five days and is bloated.
+    speaker: Caller
+    turns: [10]
+    quote: "She hasn't had a bowel movement in five days."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: No bowel movement for 5 days, with a bloated belly.
+      speaker: Caller
+      turns: [10]
+      quote: "She hasn't had a bowel movement in five days. Five days. And her belly is, it's all bloated."
+      explanation: Documents the constipation and distention.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: 5 days, certainty: stated}
+        - {type: symptom, name: bloated belly, present: true, certainty: stated}
+      covers: [A1, A2]
+    - text: Stomach pain was rated 4/10.
+      speaker: Caller
+      turns: [12]
+      quote: "She says like a four. In her stomach."
+      explanation: Documents the pain severity.
+      facts:
+        - {type: symptom, name: belly pain, present: true, severity: 4/10, location: belly, certainty: stated}
+      covers: [A3]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No, she's not throwing up."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to look up the chart by phone number and call back in 15 minutes.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to look up that phone number and see if I can find her. I'll call you back in fifteen minutes."
+      explanation: Documents the planned chart verification and callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised offering fluids and keeping her sitting up, with no new medicines until the chart was confirmed.
+      speaker: Nurse
+      turns: [19]
+      quote: "offer her fluids, whatever she's able to drink, and keep her sitting up. But no new medicines until I call you."
+      explanation: Documents interim guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right back for vomiting, severe pain, or a hard swollen belly.
+      speaker: Nurse
+      turns: [21]
+      quote: "if she starts vomiting, if the pain gets bad, or her belly gets hard and swollen, call us right back."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,284 @@
+call_id: tr-266
+split: train
+blueprint: "Home health aide (paid caregiver) with a 62-year-old stroke patient: oxygen concentrator alarm has been beeping 'low flow' since the afternoon and the portable tank gauge reads about a quarter; saturation 93 on the machine setting of three liters. The concentrator was moved to a different outlet this morning. Patient is comfortable, no extra shortness of breath. The aide reads the alarm text off the screen slowly and has to be walked through checking tubing, filter, and power. Nurse orders a replacement tank (completed), coordinates delivery for this evening, plans an equipment tech call, and gives backup instructions. Equipment/supply with oxygen, v2 short."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [phone_from_file, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Kim
+  call_timestamp_utc: "2026-10-28T21:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Terrence Kowalski
+  patient_name_spoken: Terrence Kowalski
+  patient_name_certainty: stated
+  patient_dob_true: "1964-12-09"
+  patient_dob_spoken: "1964-12-09"
+  patient_dob_certainty: stated
+  caller_name_true: Shanice Boateng
+  caller_name_spoken: Shanice Boateng
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "3175550168"
+  callback_phone_spoken: "3175550168"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that the oxygen concentrator is alarming for low flow and the backup tank is low
+  reason_category: equipment
+  relevant_context: Home care patient on home oxygen after a stroke
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: oxygen concentrator low-flow alarm
+    symptom_present: true
+    onset_or_duration: since the afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: portable oxygen tank
+    supply_remaining: a quarter of a tank
+    supply_unit: tank
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "93"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: extra shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: portable oxygen tank
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: oxygen supplier
+    timeframe: this evening
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment technician
+    reason_or_trigger: concentrator low-flow alarm
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Check that the tubing is not kinked, the filter is clean, and the machine is plugged into a wall outlet, and switch to the portable tank if the alarm keeps sounding
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep flames and smoking away from oxygen and keep the tank upright and secured
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if his lips turn blue, he struggles to breathe, or his reading stays below 88
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Kim.
+  Caller -> Hi, Kim. This is Shanice Boateng, I'm the aide for Terrence Kowalski. His oxygen machine is beeping. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Shanice. Let me pull him up. What's Mr. Kowalski's date of birth?
+  Caller -> December ninth. Nineteen sixty four. || patient_dob
+  Nurse -> Thanks. And I have three one seven, five five five, zero one six eight for you. || callback_phone
+  Caller -> That's my cell. Yes.
+  Nurse -> Great. And are you at his house right now?
+  Caller -> Yes. I'm in the living room with him. I do twelve to ten, usually.
+  Nurse -> Okay. Good.
+  Nurse -> Okay. How long has the machine been beeping?
+  Caller -> Since about two. Two or three. It's a steady beep. Every few seconds. And there's a red light.
+  Nurse -> Okay. Is there a message on the screen?
+  Caller -> Hold on, I'll read it. It says, "Low, flow." L-O-W. Flow. And then, "Check, tubing."
+  Nurse -> Okay. That's helpful. Is he having any trouble? How's he doing?
+  Caller -> He's fine. He's sitting in his chair watching TV. He's not struggling. He says he's comfortable. I asked him three times. || A4
+  Nurse -> Okay. Do you have his oxygen level? Does he have a finger meter?
+  Caller -> Yes. I put it on. It says ninety three. It was ninety four a minute ago. Ninety three. || A3
+  Nurse -> Okay. That's fine for him. Is it going up and down much?
+  Caller -> Ninety two. Ninety three. Ninety four. It goes around a little. But it's in the nineties.
+  Nurse -> That's what I'd expect. Is his color okay?
+  Caller -> His color is good. Pink. His lips are pink. His nails are pink.
+  Nurse -> Perfect.
+  Nurse -> Good. What is the flow set to?
+  Caller -> It's, let me look. It says three. Three liters. That's the number on the dial.
+  Nurse -> Okay. Shanice, did anything change today? Was the machine moved?
+  Caller -> Yes. This morning. The cleaning lady moved it. To vacuum. She moved it to the other wall. The other outlet. I don't know why I didn't think of that.
+  Nurse -> Okay. That might be it. Is the machine plugged straight into the wall, or into a power strip?
+  Caller -> Hold on. Let me look. There's a, it's plugged into one of those multi-plug things. A strip. On the floor.
+  Nurse -> Okay. That can cause the low-flow alarm. Can you plug it directly into the wall?
+  Caller -> Directly into the wall. Okay. Hold on. I have to move the chair. Mr. Kowalski, I'm just moving the machine, hold on.
+  Nurse -> Take your time.
+  Caller -> Okay. It's plugged into the wall. It's making a different sound. Hold on. Hold on. It's still beeping.
+  Nurse -> Okay. Check the tubing next. Follow the tubing from the machine to his nose. Is anything kinked, pinched, or caught under the chair leg?
+  Caller -> Let me follow it. Okay. It goes under the chair. Under the leg of the recliner. It's squished. It's flat there. Oh my goodness.
+  Nurse -> Okay. Move the chair off the tubing and straighten it out.
+  Caller -> Moving it. Okay. I lifted the chair. The tube is straight now. Hold on. The beeping stopped. It stopped. It's quiet.
+  Nurse -> Great. That was it. The tubing was pinched and the strip was making it unhappy.
+  Caller -> I'm so sorry. I feel silly. I should have checked that first.
+  Nurse -> It's easy to miss. You did the right thing to call when you weren't sure.
+  Caller -> Thank you. He's looking at me. He says, "Is the dragon quiet?" He calls it the dragon.
+  Nurse -> Ha. Tell him the dragon's asleep.
+  Caller -> Ha. I did. He's laughing.
+  Nurse -> Now, you mentioned the portable tank is low?
+  Caller -> Yes. That's the other thing. The little tank, the backup. The gauge is at a quarter. I used it this morning when we went to the doctor. || A2
+  Nurse -> Okay. A quarter tank. Do you have a spare?
+  Caller -> No. That's the only one. The last delivery brought one. I think we're supposed to have two.
+  Nurse -> Okay. I'll order a tank now. It's done. I've put in the order for the portable tank. || R1
+  Caller -> Oh, good. Thank you. When will it come?
+  Nurse -> I'm going to coordinate the delivery for this evening. Will you be there until eight?
+  Caller -> I'm here till ten. Then the night aide comes. || R2
+  Nurse -> Perfect. I'll try for before eight. And I'm also going to message the equipment technician about the low-flow alarm, so they can check the machine on their next visit. || R3
+  Caller -> Okay. Good. Because I'm not sure if the machine is okay. It's been a bit loud.
+  Nurse -> They'll look at it. In the meantime, check that the tubing isn't kinked, the filter is clean, and the machine is plugged directly into a wall outlet. If it alarms again, switch to the portable tank. || E1
+  Caller -> Tubing, filter, wall outlet. If it beeps again, the tank. Okay. I have a note.
+  Nurse -> When did you last clean the filter, do you know?
+  Caller -> I don't know. The nurse does it, I think. I've never done it. Where is it?
+  Nurse -> It's a small foam piece on the side or back of the machine. The nurse can show you tomorrow. Don't worry about it tonight.
+  Caller -> Okay. I'll ask her to show me.
+  Nurse -> And keep the tank upright and secured, and no flames or smoking near the oxygen. || E2
+  Caller -> Upright. Secured. No smoking. He doesn't smoke. I don't either. The cleaning lady lit a candle once. I told her.
+  Nurse -> Good. No candles either.
+  Caller -> No candles. Right.
+  Nurse -> And Shanice, if his lips turn blue, if he's struggling to breathe, or if his reading stays below eighty eight, call nine one one. || E3
+  Caller -> Blue lips, struggling, below eighty eight. Nine one one. Okay. I wrote it on the fridge. I mean on the notepad.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. I think we're good. Thanks, Kim.
+  Nurse -> Anytime. I'll call you if the delivery driver is delayed.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Terrence Kowalski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-12-09", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Shanice Boateng, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "3175550168", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the oxygen concentrator was alarming for low flow and the backup tank was low.
+    speaker: Caller
+    turns: [2]
+    quote: "His oxygen machine is beeping."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The concentrator alarmed for low flow since about two, until the pinched tubing was straightened.
+      speaker: Caller
+      turns: [11]
+      quote: "Since about two. Two or three. It's a steady beep."
+      explanation: Documents the alarm.
+      facts:
+        - {type: symptom, name: oxygen concentrator low-flow alarm, present: true, onset: since the afternoon, certainty: stated}
+      covers: [A1]
+    - text: The portable oxygen tank was at about a quarter and it was the only one.
+      speaker: Caller
+      turns: [44]
+      quote: "The gauge is at a quarter."
+      explanation: Documents the tank supply.
+      facts:
+        - {type: supply, item: portable oxygen tank, supply: a quarter of a tank, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was 93.
+      speaker: Caller
+      turns: [17]
+      quote: "It says ninety three."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "93", certainty: stated}
+      covers: [A3]
+    - text: He was comfortable with no extra shortness of breath.
+      speaker: Caller
+      turns: [15]
+      quote: "He's fine. He's sitting in his chair watching TV. He's not struggling."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: extra shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Placed the order for a portable oxygen tank.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll order a tank now. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to coordinate delivery of the tank for this evening.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'm going to coordinate the delivery for this evening."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the equipment technician about the low-flow alarm.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm also going to message the equipment technician about the low-flow alarm"
+      explanation: Documents the planned technician message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking the tubing, the filter, and a direct wall outlet, and switching to the portable tank if the alarm sounded again.
+      speaker: Nurse
+      turns: [53]
+      quote: "check that the tubing isn't kinked, the filter is clean, and the machine is plugged directly into a wall outlet."
+      explanation: Documents equipment use guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the tank upright and secured and keeping flames and smoking away from the oxygen.
+      speaker: Nurse
+      turns: [59]
+      quote: "keep the tank upright and secured, and no flames or smoking near the oxygen."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if his lips turned blue, he struggled to breathe, or his reading stayed below 88.
+      speaker: Nurse
+      turns: [63]
+      quote: "if his lips turn blue, if he's struggling to breathe, or if his reading stays below eighty eight, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

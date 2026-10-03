@@ -1,0 +1,348 @@
+call_id: tr-400
+split: train
+blueprint: "A wife who has trouble getting pills down her husband calls home health at midday: she crushed his OxyContin 20 mg this morning at eight and put it in applesauce, like she does his other pills, and now he is very sleepy and slow to answer, breathing about twelve, though he wakes to his name. Nurse explains extended-release tablets must not be crushed, tells her not to give any more pain pills until the clinician calls, pages on-call, plans a nurse visit within the hour and a callback in fifteen minutes, and has her watch his breathing and wakefulness. High risk (crushed extended-release opioid, tall-man OxyContin and oxycodone), spouse caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [tall_man_drug, prn_and_scheduled, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, sedation, swallowing]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Frances
+  call_timestamp_utc: "2026-11-04T17:30:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [metformin]
+chief_complaint:
+  patient_name_true: Boyd Fitzgerald
+  patient_name_spoken: Boyd Fitzgerald
+  patient_name_certainty: stated
+  patient_dob_true: "1947-10-14"
+  patient_dob_spoken: "1947-10-14"
+  patient_dob_certainty: stated
+  caller_name_true: Maeve Fitzgerald
+  caller_name_spoken: Maeve Fitzgerald
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9195550152"
+  callback_phone_spoken: "9195550152"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that she crushed her husband's extended-release pain pill and he is very sleepy
+  reason_category: medication
+  relevant_context: Home health patient with trouble swallowing pills
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: OxyContin
+    medication_name_spoken: OxyContin
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: every twelve hours
+    last_dose: crushed this morning at eight
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: yesterday evening
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: very sleepy and slow to answer
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: breathing rate
+    vital_value: "12"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blue lips or unable to wake
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not give any more pain pills until the clinician calls
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: crushed extended-release OxyContin with increased sleepiness
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Never crush, chew or break OxyContin, swallow it whole, and ask the team for a liquid or smaller form if swallowing pills is hard
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his breathing and whether he wakes to his name every ten minutes and keep him sitting up with his head raised
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he is hard to wake, his breathing slows below ten or becomes shallow, or his lips turn blue
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Extended-release OxyContin was crushed and given, with increased sleepiness
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Frances.
+  Caller -> Frances, hello. It's Maeve Fitzgerald. M A E V E. I'm calling about my husband, Boyd Fitzgerald. I think I did something wrong with his pain pill. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi Maeve. Okay. Tell me what happened. Take your time.
+  Caller -> I'm sorry, I'm talking fast. I can't catch my breath.
+  Nurse -> Take a slow breath with me. In, and out. Better?
+  Caller -> A little. Okay.
+  Caller -> He has trouble swallowing pills. They get stuck. So I crush them. I put them in applesauce. I do it with all his pills. And this morning I did it with the OxyContin. And he's very sleepy now. Very slow. || A1
+  Caller -> The nurse who came last month showed me the pill crusher. The little plastic one. She said it's fine for his heart pills. I assumed it was fine for all of them.
+  Nurse -> It's fine for some. Not for all.
+  Nurse -> Okay. Thank you for telling me. I'm going to ask a few questions, and then I'll tell you what to do. Which pill did you crush?
+  Caller -> The OxyContin. O X Y C O N T I N. Twenty milligrams. Every twelve hours. I gave it at eight this morning. I crushed it between two spoons. And I mixed it in applesauce. || A1
+  Nurse -> Okay. And he ate all of it?
+  Caller -> All of it. He ate the whole cup. He said it tasted bitter. I said it's the medicine.
+  Caller -> I gave him a spoonful of pudding after. To get the taste out. He liked the pudding.
+  Nurse -> Okay. Good.
+  Nurse -> Okay. Maeve, I need to tell you something important. OxyContin is a long acting tablet. It's meant to release slowly over twelve hours. When it's crushed, the whole dose goes into the body at once. That's why he's so sleepy. || E1
+  Caller -> Oh no. Oh no. Oh God. I didn't know. Nobody told me. The label doesn't say.
+  Caller -> My mother always crushed pills for my father. I just copied her.
+  Nurse -> It's a very natural thing to do. Plenty of people do it.
+  Nurse -> It may say swallow whole, in small print. It's very common to miss. Please don't blame yourself. We're going to take care of him.
+  Caller -> What do I do? Is he going to die?
+  Nurse -> Let's check on him together. First, is he awake?
+  Caller -> He's in his chair. He's awake. His eyes are half open. He answers when I say Boyd. But he's slow. He says what? And then he answers. || A3
+  Caller -> It's the recliner by the window. He likes to watch the birds. The feeder's right there. He's been watching the cardinals.
+  Nurse -> A lovely spot.
+  Nurse -> Okay. That's good that he wakes up. Can you count his breaths for me for a full minute? Watch his chest.
+  Caller -> Yes. I'll use the clock on the stove. Hold on. One, two, three. I'm counting. I'm up to, it's about twelve. Twelve breaths in the minute. || A4
+  Nurse -> Twelve is on the low side but acceptable. Is his breathing even and regular?
+  Caller -> Yes. Slow but even. No gasping. He sounds like he's sleeping. A little snore.
+  Nurse -> Okay. Look at his lips and his fingers. What color?
+  Caller -> Pink. A little pale. No blue. I looked. And he wakes up. I can wake him. He just keeps drifting. || A5
+  Caller -> His hands are warm. His fingernails are pink. I pressed on one and it went white and then pink again. Like the nurse showed me.
+  Nurse -> Good. That means good blood flow.
+  Nurse -> Good. How is he otherwise? Is he in pain?
+  Caller -> No pain. He's comfortable. He's too comfortable. That's what scared me. He's never this sleepy.
+  Nurse -> Okay. Does he take any other pain medicine?
+  Caller -> The oxycodone. The little one. Five milligrams. Every four hours if he needs it. He had one yesterday evening. Not today. He hasn't needed it. || A2
+  Nurse -> Okay. Good. Don't give him any more pain pills. None. Not the oxycodone, not another OxyContin. Not until the clinician calls you. || R1
+  Caller -> No more pills. None. Okay. The next OxyContin is due at eight tonight. Do I skip it? || A1
+  Nurse -> Don't give it. Wait for the clinician's instructions. They'll tell you what to do.
+  Caller -> Okay. I won't give anything. I'll write a note. Do not give. On the pill box.
+  Caller -> He has a lot of medicines. Metformin. His heart pills. His water pill. Should I hold those too?
+  Nurse -> Just the pain pills for now. Give the rest as usual. The clinician will tell you if they want anything else changed.
+  Caller -> Okay. Just the pain pills.
+  Nurse -> Good. I'm paging the on-call clinician right now. And I'm sending a nurse to your house within the hour to check on him. || R2, R3
+  Caller -> Within the hour. Thank you. Thank you so much.
+  Nurse -> Maeve, I want you to keep him sitting up with his head raised. And every ten minutes, check his breathing and say his name to see if he wakes. || E2
+  Caller -> Every ten minutes. Breathing. Say his name. Sitting up. I'll set a timer on my phone. Ten minutes. There. It's set.
+  Nurse -> Perfect. And I'll call you back in fifteen minutes. || R4
+  Caller -> Fifteen. Okay. I'll be right here. I'm not leaving his side.
+  Nurse -> If he becomes hard to wake, if his breathing slows to less than ten or gets shallow, or if his lips turn blue, call 911 right away. Don't wait for me to call. || E3
+  Caller -> Hard to wake. Under ten breaths. Shallow. Blue lips. 911. Okay. I understand. I have the phone right here.
+  Nurse -> Good. Maeve, what's Boyd's date of birth?
+  Caller -> October fourteenth. Nineteen forty seven. || patient_dob
+  Nurse -> And your number?
+  Caller -> Nine one nine, five five five, zero one five two. || callback_phone
+  Nurse -> Nine one nine, five five five, zero one five two. Is that right? || callback_phone
+  Caller -> Yes. That's the house line.
+  Nurse -> Is there anyone else at home? A neighbor, a relative?
+  Caller -> My son, Brett, is coming at three. He works nights. He sleeps in the morning. I don't want to wake him.
+  Nurse -> Wake him if you need help. It's okay.
+  Caller -> He's a heavy sleeper. I'd have to shake him.
+  Nurse -> Ha. Then shake him.
+  Nurse -> Okay. Going forward, don't crush OxyContin, ever. We'll ask the team about a liquid or another form that's safe for him to swallow. || A1
+  Caller -> A liquid. That would be wonderful. His throat is getting worse. The pills get stuck. I just didn't know what to do. I'm so sorry.
+  Nurse -> It's not your fault. You were trying to help him.
+  Caller -> I was. I always crush his metformin. It's fine?
+  Nurse -> Some pills are okay to crush and some aren't. Ask before crushing anything. I'll have the pharmacist review the list.
+  Caller -> I'll ask. I'll never crush another thing without asking.
+  Nurse -> That's the right plan. How is he now?
+  Caller -> The same. He's looking at me. He said, Maeve, I'm fine. He's slurring a little.
+  Nurse -> Okay. Keep checking him. I'm going to stay on until you've done your first check.
+  Caller -> Okay. The timer isn't up yet. Seven minutes.
+  Nurse -> Talk to him. Keep him engaged. Ask him something simple.
+  Caller -> Boyd, what's your favorite fish to catch? He says, walleye. Walleye. Okay. He's with it.
+  Nurse -> That's a good answer. He's awake enough to know his fish.
+  Caller -> He's very serious about walleye.
+  Caller -> He has a boat in the garage that hasn't been in the water in three years. He still polishes it on Saturdays.
+  Nurse -> That's love.
+  Nurse -> Ha. I believe it.
+  Caller -> Frances, thank you for not yelling at me.
+  Nurse -> I'd never yell. You called. That's what matters.
+  Caller -> Thank you. I'll call you if anything changes.
+  Caller -> Should I tell my son when he comes? Brett?
+  Nurse -> Yes, tell him what happened and what to watch for. The nurse will go over it again too.
+  Caller -> Okay. He'll tell me I should have asked first. He's right.
+  Nurse -> Next time, call first. Even for small questions.
+  Caller -> I will. I promise.
+  Nurse -> And I'll call you in fifteen minutes.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Boyd Fitzgerald, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-10-14", certainty: stated, heard_as: [], turns: [54]}
+    caller_name: {value: Maeve Fitzgerald, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9195550152", certainty: stated, heard_as: [], turns: [56, 57]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that she crushed her husband's extended-release pain pill and he was very sleepy.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I did something wrong with his pain pill."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: OxyContin 20 mg every twelve hours was crushed in applesauce and given this morning at eight.
+      speaker: Caller
+      turns: [11]
+      quote: "Twenty milligrams. Every twelve hours."
+      explanation: Documents the crushed extended-release pill.
+      facts:
+        - {type: medication, name: OxyContin, dose: "20", unit: mg, frequency: every twelve hours, last_dose: crushed this morning at eight, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone 5 mg every four hours as needed, last taken yesterday evening.
+      speaker: Caller
+      turns: [37]
+      quote: "The oxycodone. The little one. Five milligrams."
+      explanation: Documents the as-needed pain pill.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: yesterday evening, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was very sleepy and slow to answer but woke to his name.
+      speaker: Caller
+      turns: [23]
+      quote: "He answers when I say Boyd. But he's slow."
+      explanation: Documents the sleepiness.
+      facts:
+        - {type: symptom, name: very sleepy and slow to answer, present: true, certainty: stated}
+      covers: [A3]
+    - text: Breathing rate was about twelve a minute, slow but even.
+      speaker: Caller
+      turns: [27]
+      quote: "Twelve breaths in the minute."
+      explanation: Documents the breathing rate.
+      facts:
+        - {type: vital, name: breathing rate, value: "12", certainty: stated}
+      covers: [A4]
+    - text: His lips were pink and he could be woken.
+      speaker: Caller
+      turns: [31]
+      quote: "Pink. A little pale. No blue."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blue lips or unable to wake, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised giving no more pain pills until the clinician called.
+      speaker: Nurse
+      turns: [38]
+      quote: "Don't give him any more pain pills. None."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm paging the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm sending a nurse to your house within the hour"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll call you back in fifteen minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Explained that OxyContin must not be crushed because the whole dose is released at once, and to ask about a liquid form.
+      speaker: Nurse
+      turns: [16]
+      quote: "When it's crushed, the whole dose goes into the body at once."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping him sitting up and checking his breathing and whether he woke to his name every ten minutes.
+      speaker: Nurse
+      turns: [47]
+      quote: "keep him sitting up with his head raised."
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if he was hard to wake, his breathing slowed below ten or became shallow, or his lips turned blue.
+      speaker: Nurse
+      turns: [51]
+      quote: "call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I did something wrong with his pain pill."}

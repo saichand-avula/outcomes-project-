@@ -1,0 +1,230 @@
+call_id: tr-016
+split: train
+blueprint: "Husband says his wife takes 'gabapenton' (twice); a family member in the background says 'gabapentin' once; the conflict is never resolved so the name is marked unclear; he asks to double the dose; nurse says not to change it and plans a pharmacist/prescriber review."
+setup:
+  scenario_category: asr_error
+  subtype: conflict_unresolved
+  secondary_tags: [garbled_drug, hedging, split_turns, contradiction]
+  clinical_domains: [pain, neuropathy]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-08-31T13:33:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marisol Baptiste
+  patient_name_spoken: Marisol Baptiste
+  patient_name_certainty: stated
+  patient_dob_true: "1974-01-16"
+  patient_dob_spoken: "1974-01-16"
+  patient_dob_certainty: stated
+  caller_name_true: Leon
+  caller_name_spoken: Leon
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "5045550124"
+  callback_phone_spoken: "5045550124"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Burning foot pain from neuropathy; asks about doubling her nerve pain medication
+  reason_category: pain
+  relevant_context: Nerve pain after chemotherapy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: burning foot pain
+    symptom_present: true
+    severity: 6/10
+    body_location: both feet
+    onset_or_duration: worse at night
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: gabapentin
+    medication_name_spoken: gabapenton
+    medication_status: taking
+    strength: 300 mg
+    dose: "1"
+    unit: capsule
+    frequency: three times a day
+    certainty: unclear
+    unclear_detail: Name heard as gabapenton (twice) and gabapentin (once) with no confirmation
+  - item_id: A3
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Wants to double the dose because the pain keeps her awake
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not change the dose until the prescriber reviews
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacist and prescriber
+    reason_or_trigger: dose increase request
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not take extra doses; this medicine can cause drowsiness and dizziness, so fall precautions at night
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for extreme sleepiness, confusion, or a fall
+    trigger_condition: extreme sleepiness; confusion; fall
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. This is Leon Baptiste. I'm calling for my wife. Marisol. || caller_name, relationship, patient_name
+  Nurse -> Hi, Leon. Marisol what?
+  Caller -> Baptiste. B A P T I S T E. || patient_name
+  Nurse -> Thank you. And her date of birth?
+  Caller -> January sixteenth, nineteen seventy four. || patient_dob
+  Nurse -> Okay. And a number for you? Is it five oh four, five five five, zero one two four? || callback_phone
+  Caller -> Yeah. That's mine. || callback_phone
+  Nurse -> What can I help with?
+  Caller -> It's her feet. The burning. The nerve pain, from the chemo. It's been really bad at night. || cc, A1
+  Nurse -> Okay. How bad, on a scale of one to ten?
+  Caller -> She says a six. Six or seven at night. A six. || A1
+  Nurse -> Is it both feet?
+  Caller -> Both. Yeah, both feet.
+  Nurse -> And what is she taking for it?
+  Caller -> The gabapenton. The three hundred milligram. One capsule, three times a day. || A2
+  Caller -> She takes the gabapenton with the meals. || A2
+  Caller -> It's gabapentin, Dad. With an i. You're saying it wrong. || A2
+  Nurse -> Sorry, who's that?
+  Caller -> That's our daughter. She's over here. Anyway.
+  Caller -> So, I was thinking. Can we double it? Like two capsules instead of one? Because the pain's keeping her up all night. || A3
+  Nurse -> I understand. I know how hard that is, when she can't sleep. Here's the thing, though. I don't want you to change the dose on your own. It can make her very drowsy or dizzy, and with the burning feet she's up walking around in the night. || R1, E1
+  Caller -> Yeah, she gets up. She wanders around.
+  Nurse -> Right. So I'm going to send a message to our pharmacist and to her prescriber about increasing it. They can decide the safest way to do that. || R2
+  Caller -> Okay. How long will that take?
+  Nurse -> I'll call you back tomorrow with an answer. || R3
+  Caller -> Tomorrow. Okay.
+  Nurse -> Until then, please stick with one capsule, three times a day. No extras. || R1, E1
+  Caller -> Okay. Okay. I won't.
+  Nurse -> And if she gets extremely sleepy, or confused, or she falls, call us right away. || E2
+  Caller -> Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Marcus.
+  Nurse -> You're welcome.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: gabapentin, heard_form: gabapenton, fact_id: A2}
+  - {turn: auto, type: speaker_label, true_form: "daughter speaking", heard_form: "It's gabapentin, Dad", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marisol Baptiste, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1974-01-16", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Leon, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "5045550124", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported burning nerve pain in both feet and asked about doubling her nerve pain medication.
+    speaker: Caller
+    turns: [10]
+    quote: "It's her feet. The burning. The nerve pain, from the chemo. It's been really bad at night."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Burning pain in both feet was rated 6/10, worse at night.
+      speaker: Caller
+      turns: [12]
+      quote: "She says a six. Six or seven at night. A six."
+      explanation: Documents the reported pain severity.
+      facts:
+        - {type: symptom, name: burning foot pain, present: true, severity: 6/10, location: both feet, certainty: stated}
+      covers: [A1]
+    - text: Gabapenton 300 mg, 1 capsule three times a day with meals, was reported as the current medication (unclear; the name was also heard as gabapentin and was not confirmed).
+      speaker: Caller
+      turns: [16]
+      quote: "The gabapenton. The three hundred milligram. One capsule, three times a day."
+      explanation: Documents the current nerve pain medication while preserving the unresolved name conflict.
+      facts:
+        - {type: medication, name: gabapenton, strength: 300 mg, dose: "1", unit: capsule, frequency: three times a day, med_status: taking, certainty: unclear}
+      covers: [A2]
+    - text: The caller wanted to double the dose because the pain kept her awake at night.
+      speaker: Caller
+      turns: [21]
+      quote: "Can we double it? Like two capsules instead of one? Because the pain's keeping her up all night."
+      explanation: Documents the caller's request.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised not to change the dose and to continue one capsule three times a day with no extra doses.
+      speaker: Nurse
+      turns: [22]
+      quote: "I don't want you to change the dose on your own."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the pharmacist and prescriber about the dose increase request.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'm going to send a message to our pharmacist and to her prescriber about increasing it."
+      explanation: Documents the planned clinical review.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tomorrow with an answer.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'll call you back tomorrow with an answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised against extra doses because the medicine can cause drowsiness and dizziness, particularly with her walking at night.
+      speaker: Nurse
+      turns: [22]
+      quote: "It can make her very drowsy or dizzy, and with the burning feet she's up walking around in the night."
+      explanation: Documents medication safety education.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for extreme sleepiness, confusion, or a fall.
+      speaker: Nurse
+      turns: [30]
+      quote: "if she gets extremely sleepy, or confused, or she falls, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

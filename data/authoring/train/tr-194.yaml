@@ -1,0 +1,188 @@
+call_id: tr-194
+split: train
+blueprint: "78-year-old patient says she had chest tightness this morning, then says it is probably just heartburn, then that it comes and goes, and finally that it is gone now; she gives conflicting accounts of when it started and whether it spread to her arm. Nurse messages the provider, plans a visit today, and says to call 911 if it returns. Ambiguous, contradiction; no flag."
+setup:
+  scenario_category: ambiguous
+  subtype: shifting_account
+  secondary_tags: [contradiction, hedging, late_answers, split_turns]
+  clinical_domains: [cardiac, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-07T16:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Genevieve Duplessis
+  patient_name_spoken: Genevieve Duplessis
+  patient_name_certainty: stated
+  patient_dob_true: "1948-07-08"
+  patient_dob_spoken: "1948-07-08"
+  patient_dob_certainty: stated
+  caller_name_true: Genevieve Duplessis
+  caller_name_spoken: Genevieve Duplessis
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3375550124"
+  callback_phone_spoken: "3375550124"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported chest tightness this morning that may have been heartburn
+  reason_category: cardiac
+  relevant_context: Home health patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: chest tightness
+    symptom_present: true
+    onset_or_duration: this morning
+    body_location: chest
+    certainty: unclear
+    unclear_detail: She said it was tightness, then heartburn, and gave different times for when it started
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: pain spreading to the left arm
+    symptom_present: true
+    certainty: unclear
+    unclear_detail: She said yes, then said maybe, then said she was not sure
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: chest tightness right now
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: chest tightness this morning
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 right away if the tightness returns, spreads to the arm or jaw, or comes with sweating, nausea or trouble breathing
+    trigger_condition: tightness returns; arm or jaw pain; sweating; nausea; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Denise.
+  Caller -> Denise, hi, it's Genevieve Duplessis. I'm a patient. I had a little thing this morning. It's probably nothing. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Genevieve. Let me get your date of birth.
+  Caller -> July eighth. Nineteen forty eight. || patient_dob
+  Nurse -> And is three three seven, five five five, zero one two four your number? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What happened this morning?
+  Caller -> Tightness. In my chest. Around seven. Or maybe it was eight, after breakfast. I had eggs. I think it was heartburn, honestly. I get heartburn. || A1
+  Nurse -> Okay. Did the tightness spread anywhere? Your arm, your jaw?
+  Caller -> My arm. A little. The left one. No. Not really. Maybe a little ache. I don't know. It might have been from sleeping on it. || A2
+  Nurse -> Okay. Genevieve, did you feel sweaty, nauseous, or short of breath?
+  Caller -> A little sweaty. No, I was just warm because I was cooking. I wasn't short of breath. I don't think so.
+  Nurse -> Okay. How long did it last?
+  Caller -> Twenty minutes. Or maybe an hour. It came and went. Honestly I'm not sure. I took a Tums and it got better.
+  Nurse -> Okay. And how do you feel right now?
+  Caller -> Fine. Right now I feel fine. It's gone. No tightness at all. I feel silly calling. || A3
+  Nurse -> You shouldn't feel silly. Chest symptoms are always worth a call. I'm going to message your provider about the tightness this morning. || R1
+  Caller -> Okay. Thank you. Do you think it's my heart?
+  Nurse -> I can't tell from the phone, and that's why I want your provider and a nurse to look at you. A nurse will come see you today. || R2
+  Caller -> Today. Okay. I'll be home.
+  Nurse -> Genevieve, if the tightness comes back, if it spreads to your arm or jaw, or if you get sweaty, nauseated, or short of breath, call nine one one right away. Don't wait, and don't drive yourself. || E1
+  Caller -> Tightness back, arm, jaw, sweaty, sick, breath. Nine one one. Don't drive. Okay. I understand.
+  Nurse -> Good. Anything else?
+  Caller -> No. Thank you, Denise. I'll sit down and not do the dishes.
+  Nurse -> That's a good plan. Rest until the nurse comes.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Genevieve Duplessis, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-07-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Genevieve Duplessis, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3375550124", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported chest tightness this morning that may have been heartburn.
+    speaker: Caller
+    turns: [2]
+    quote: "I had a little thing this morning. It's probably nothing."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Chest tightness occurred this morning, around seven or eight, and may have been heartburn (unclear; she gave different times and descriptions).
+      speaker: Caller
+      turns: [8]
+      quote: "Tightness. In my chest. Around seven. Or maybe it was eight, after breakfast."
+      explanation: Documents the uncertain chest symptom.
+      facts:
+        - {type: symptom, name: chest tightness, present: true, duration: this morning, location: chest, certainty: unclear}
+      covers: [A1]
+    - text: A possible ache in the left arm was reported (unclear; she said yes, then not really, then maybe from sleeping on it).
+      speaker: Caller
+      turns: [10]
+      quote: "My arm. A little. The left one. No. Not really. Maybe a little ache."
+      explanation: Documents the uncertain arm symptom.
+      facts:
+        - {type: symptom, name: pain spreading to the left arm, present: true, certainty: unclear}
+      covers: [A2]
+    - text: No chest tightness was present at the time of the call.
+      speaker: Caller
+      turns: [16]
+      quote: "Fine. Right now I feel fine. It's gone. No tightness at all."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest tightness right now, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the provider about the chest tightness this morning.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to message your provider about the tightness this morning."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for today.
+      speaker: Nurse
+      turns: [19]
+      quote: "A nurse will come see you today."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: today, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911 right away if the tightness returned, spread to the arm or jaw, or came with sweating, nausea, or trouble breathing, and not driving herself.
+      speaker: Nurse
+      turns: [21]
+      quote: "if the tightness comes back, if it spreads to your arm or jaw, or if you get sweaty, nauseated, or short of breath, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

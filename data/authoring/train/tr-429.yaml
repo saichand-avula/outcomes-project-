@@ -1,0 +1,256 @@
+call_id: tr-429
+split: train
+blueprint: "A 41-year-old woman with multiple sclerosis calls home health herself because she has four days of baclofen left and her refill request has not gone through. Her spasms are better on the current dose, no new weakness, no falls. Nurse requests the refill from the prescriber and pharmacy, plans a callback tomorrow, and reminds her not to stop baclofen suddenly. Routine refill request, self caller, patient 18-64, name spelled, v2 short."
+setup:
+  scenario_category: routine
+  subtype: refill_request
+  secondary_tags: [name_spelled, hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [medication, spasticity]
+  relationship_group: self
+  na_reason: null
+  agency_name: Orchard Lane Home Health
+  agency_type: home_health
+  nurse_name: Samir
+  call_timestamp_utc: "2026-11-16T16:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ingrid Valdivia
+  patient_name_spoken: Ingrid Valdivia
+  patient_name_certainty: stated
+  patient_dob_true: "1985-04-30"
+  patient_dob_spoken: "1985-04-30"
+  patient_dob_certainty: stated
+  caller_name_true: Ingrid Valdivia
+  caller_name_spoken: Ingrid Valdivia
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6105550188"
+  callback_phone_spoken: "6105550188"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked for a baclofen refill because she has four days of tablets left
+  reason_category: medication
+  relevant_context: Home health patient with multiple sclerosis and muscle spasms
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: baclofen
+    medication_name_spoken: baclofen
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: three times a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: Four days of tablets left and the refill request has not gone through
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: muscle spasms improved
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: new weakness or falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber and pharmacy
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not stop baclofen suddenly, and take it at the usual times until the refill arrives
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call again if the refill has not come by Thursday or she is down to one day of tablets
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Orchard Lane Home Health, this is Samir.
+  Caller -> Hi. Is this a bad time? I can call back.
+  Nurse -> Not at all. You have my full attention.
+  Caller -> Hi, Samir. It's Ingrid Valdivia. I-N-G-R-I-D. Valdivia, V A L D I V I A. I'm a patient. I need a refill. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Ingrid. Sure. Let me pull up your chart. What's your date of birth?
+  Caller -> Thank you. I hate to bug you for this. It feels like such a small thing.
+  Nurse -> It's not small. Running out of a medicine is a real problem.
+  Caller -> April thirtieth. Nineteen eighty five. || patient_dob
+  Nurse -> Thanks. And the best number to reach you?
+  Caller -> It's my cell. The landline is disconnected. I only keep it for my alarm system.
+  Caller -> Six one oh, five five five, zero one eight eight. || callback_phone
+  Nurse -> Got it. Which medicine is it?
+  Caller -> The muscle relaxer. The baclofen. I'll tell you the dose. I'm just going to read it off the bottle so I don't mess it up. || A1
+  Caller -> The baclofen. Ten milligrams. Three times a day. I have, let me count, I have twelve tablets. That's four days. || A1, A2
+  Nurse -> Okay. Four days left. When did you ask for the refill?
+  Caller -> I'm very careful about my counts. I keep a spreadsheet. Of course I do. I work in billing.
+  Nurse -> Ha. Of course.
+  Caller -> Last Monday. I called the pharmacy and they said they sent a request to the doctor. But nothing has come back. And I called again yesterday and they said still waiting.
+  Nurse -> Okay. That happens. Let me see if I can push it through from here. How have the spasms been?
+  Caller -> The pharmacist said the doctor's office has a new portal. Nobody knows how to use it.
+  Nurse -> I've heard that about a few offices. We'll try a call instead.
+  Caller -> Better. Honestly, better. On this dose I've been doing well. The legs used to lock up at night. Now they just twitch. It's been a month since I had a bad one. || A3
+  Caller -> The new physical therapist showed me stretches. I do them after my morning shower. They help.
+  Nurse -> That's a great combination with the medicine.
+  Nurse -> Good. That's what we want. Any new weakness, or falls?
+  Caller -> No falls. No new weakness. Same as always. I use the cane when I go out. I haven't needed the chair. || A4
+  Nurse -> Great. When did you last take a dose?
+  Caller -> I'm careful about the times too. I take it with food. Otherwise I get a stomachache.
+  Caller -> This morning at eight. And I'll take one at two and one at eight tonight.
+  Nurse -> Okay. I'll send a refill request to your prescriber and your pharmacy right now. Is it still the same pharmacy on Capitol? || R1
+  Nurse -> It might take a day for the prescriber to approve. I'll mark it urgent.
+  Caller -> Urgent is good. I like urgent.
+  Caller -> Yes. The same one. Capitol Drugs. They're nice. They know me.
+  Caller -> The pharmacist there, Mr. Nakamura, always asks about my cat. He's a good man.
+  Nurse -> Perfect. Ingrid, it's important that you don't stop the baclofen suddenly. If you run out, it can cause withdrawal, with seizures and bad spasms. Keep taking it at your usual times until the refill is in your hand. || E1
+  Caller -> I know. I would never. I'd rather take half than run out. Is that okay? To stretch it?
+  Caller -> I read the leaflet front to back. It says very specifically not to stop. I take it seriously.
+  Nurse -> Please don't cut the dose on your own. Let me get the refill moving. If it's not here soon, we'll find another way.
+  Caller -> You're right. I read that you can get rebound spasms. I don't want that.
+  Caller -> Okay. Not half. I won't. I just panicked a little.
+  Caller -> Thank you for not making me feel silly.
+  Nurse -> You're not silly at all. Asking early is smart.
+  Nurse -> I understand. It's a scary thought. I'll call you tomorrow to let you know where it stands. || R2
+  Caller -> Tomorrow. I'm home. I work from home. I do medical billing.
+  Nurse -> Ha. Then you know how these things get stuck.
+  Caller -> I once spent three weeks tracking a single claim. It had a typo in the zip code.
+  Nurse -> Ha. A small thing, big trouble.
+  Caller -> I know exactly. Somewhere there's a fax machine that is jammed.
+  Nurse -> Ha. A fax machine in twenty twenty six. Unbelievable.
+  Caller -> I had an insurer that still mailed paper. I get a letter every Tuesday.
+  Nurse -> And if the refill hasn't come by Thursday, or if you get down to one day of tablets, call us again. || E2
+  Caller -> Thursday, or one day left. Okay. I'll mark it on my calendar.
+  Caller -> I'll also put a note on my phone. It reminds me at nine in the morning. I never miss a reminder.
+  Nurse -> Perfect.
+  Caller -> I have a cat who sits on my calendar. So it's mostly cat hair, but I'll find it.
+  Nurse -> Ha. What's the cat's name?
+  Caller -> She's seven. She came from a shelter. She was a stray in the parking lot of a grocery store.
+  Caller -> Mochi. She's a tuxedo cat. She thinks she's a supervisor.
+  Nurse -> Ha. A good coworker.
+  Caller -> She's the best. She doesn't answer emails.
+  Nurse -> Ha. Even better.
+  Caller -> She sits on my keyboard during meetings. My coworkers love her more than they love me.
+  Caller -> Okay. Thank you, Samir. I feel much better.
+  Nurse -> Anytime. Take care, Ingrid.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ingrid Valdivia, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1985-04-30", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Ingrid Valdivia, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "6105550188", certainty: stated, heard_as: [], turns: [11]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked for a baclofen refill because she had four days of tablets left.
+    speaker: Caller
+    turns: [4]
+    quote: "I'm a patient. I need a refill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Baclofen 10 mg three times a day, last taken this morning at eight.
+      speaker: Caller
+      turns: [14]
+      quote: "The baclofen. Ten milligrams. Three times a day."
+      explanation: Documents the scheduled medicine.
+      facts:
+        - {type: medication, name: baclofen, dose: "10", unit: mg, frequency: three times a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Twelve tablets, about four days, were left and the refill request had not gone through.
+      speaker: Caller
+      turns: [14]
+      quote: "I have twelve tablets. That's four days."
+      explanation: Documents the low supply.
+      facts:
+        - {type: context, text: Four days of tablets left and the refill request has not gone through, certainty: stated}
+      covers: [A2]
+    - text: Muscle spasms were better on the current dose, with twitching but no locking up at night.
+      speaker: Caller
+      turns: [22]
+      quote: "Better. Honestly, better."
+      explanation: Documents the improved spasms.
+      facts:
+        - {type: symptom, name: muscle spasms improved, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She had no falls or new weakness.
+      speaker: Caller
+      turns: [26]
+      quote: "No falls. No new weakness."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: new weakness or falls, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send a refill request to the prescriber and pharmacy.
+      speaker: Nurse
+      turns: [30]
+      quote: "I'll send a refill request to your prescriber and your pharmacy right now."
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'll call you tomorrow"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not stopping baclofen suddenly and taking it at the usual times until the refill arrived.
+      speaker: Nurse
+      turns: [35]
+      quote: "don't stop the baclofen suddenly."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling again if the refill had not come by Thursday or she was down to one day of tablets.
+      speaker: Nurse
+      turns: [51]
+      quote: "if the refill hasn't come by Thursday"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

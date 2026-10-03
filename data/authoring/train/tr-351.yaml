@@ -1,0 +1,425 @@
+call_id: tr-351
+split: train
+blueprint: "Three days after hospital discharge a wife calls home health because her husband is dizzy and washed out: pulse 52, blood pressure 98 over 60. Reading every bottle aloud with the nurse, they discover she has been giving both the new metoprolol tartrate 25 mg twice a day from the discharge list and the old metoprolol succinate 50 mg once a day, and also the lisinopril 10 mg the discharge sheet says to stop, plus furosemide 40 mg (two 20 mg tablets). No fainting, no chest pain. The nurse pages on-call, tells her to hold the metoprolol, lisinopril and furosemide until the clinician calls, sends a nurse within two hours, calls back in thirty minutes, and gives fall precautions and a plan to remove the old bottles. Duplicate medicines found while chart reading, medication concern flag, spouse caller, long v2."
+setup:
+  scenario_category: medication
+  subtype: duplicate_therapy
+  secondary_tags: [chart_reading_distractor, tall_man_drug, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, blood_pressure, dizziness, cardiac]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Silver Lake Home Health
+  agency_type: home_health
+  nurse_name: Zane
+  call_timestamp_utc: "2026-10-22T19:30:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [metoprolol, aspirin]
+chief_complaint:
+  patient_name_true: Ambrose Kettleman
+  patient_name_spoken: Ambrose Kettleman
+  patient_name_certainty: stated
+  patient_dob_true: "1954-02-12"
+  patient_dob_spoken: "1954-02-12"
+  patient_dob_certainty: stated
+  caller_name_true: Beatrice Kettleman
+  caller_name_spoken: Beatrice Kettleman
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "6025550163"
+  callback_phone_spoken: "6025550163"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is dizzy after discharge with a slow pulse and low blood pressure
+  reason_category: dizziness
+  relevant_context: Home health patient three days after a hospital discharge for heart failure
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol tartrate
+    medication_name_spoken: metoprolol tartrate
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol succinate
+    medication_name_spoken: metoprolol succinate
+    medication_status: extra_dose
+    dose: "50"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "52"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "98/60"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizzy on standing and tired
+    symptom_present: true
+    onset_or_duration: since discharge
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A7
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A8
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: duplicate metoprolol, pulse of 52 and blood pressure of 98/60
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold the metoprolol, lisinopril and furosemide until the clinician calls
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have him sit on the edge of the bed before standing, stand slowly, and have her next to him whenever he walks
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Put the old metoprolol succinate and lisinopril bottles in a bag away from the current pills and give the nurse every bottle at the visit
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for fainting, chest pain, trouble breathing or a pulse under forty
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Duplicate metoprolol and a medicine that should have been stopped given since discharge with a slow pulse and low pressure
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Silver Lake Home Health, this is Zane.
+  Caller -> Zane, hi. It's Beatrice Kettleman. It's my husband Ambrose. He's been home from the hospital three days and he's not right. He's dizzy and he's gray. || caller_name, relationship, patient_name, cc, A5
+  Nurse -> Gray how? His face, his lips?
+  Caller -> His face. Kind of ashy. His lips are pink. He looks like he's lost his color.
+  Nurse -> Okay. Thank you.
+  Nurse -> Okay, Beatrice. Thanks for calling. Let me bring up Ambrose's chart. What's his date of birth?
+  Caller -> February twelfth. Nineteen fifty four. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six oh two, five five five, zero one six three. || callback_phone
+  Nurse -> Got it. Tell me how he's been feeling since he got home.
+  Caller -> Tired. Washed out. He can barely get out of the chair. And when he stands, he's dizzy. Really dizzy. He grabs the wall. It's been since we got home. Getting worse today. || A5
+  Nurse -> Okay. Do you have a blood pressure cuff and pulse?
+  Caller -> Yes. I just did it. His pulse is fifty two. Fifty two. And his pressure is ninety eight over sixty. That's low, right? || A3, A4
+  Nurse -> It's lower than I'd like, especially with the dizziness. Has he fainted or had chest pain?
+  Caller -> No. No fainting. No chest pain. He just feels like he's going to pass out when he stands. But he hasn't. I make him sit. || A8
+  Nurse -> Is he sitting or lying down right now?
+  Caller -> He's in the recliner. With his feet up. He's watching the news with the sound off.
+  Nurse -> Good. Keep him there.
+  Nurse -> Okay. Good. Beatrice, I want to go over his medicines with you. Do you have all the bottles and the discharge paper in front of you?
+  Caller -> They're all on the kitchen table. I put them out. There's like ten bottles. And the discharge sheet from the hospital.
+  Nurse -> Is the discharge sheet a printed list, with sections?
+  Caller -> Yes. There's a part that says continue, a part that says new, and a part that says stop. I didn't look at the stop part carefully.
+  Nurse -> That's okay. We'll go through it together.
+  Nurse -> Perfect. Let's go through them one at a time. I'll ask you to read the name and the directions on the bottle, and tell me whether he's taking it. Start with the first one.
+  Caller -> Okay. The first one. It says furosemide. Twenty milligrams. Take two tablets once a day. || A6
+  Nurse -> Okay. Furosemide, twenty milligram tablets, two tablets a day, that's forty milligrams. Is that what the discharge sheet says? || A6
+  Caller -> Forty milligrams, once a day. Yes. It matches. And he took it this morning. Two tablets. At eight.
+  Nurse -> Does the bottle say what it's for?
+  Caller -> For the swelling. The water pill. For his heart.
+  Nurse -> Right. Good.
+  Nurse -> Good. Next bottle.
+  Caller -> The next one. Metoprolol tartrate. T A R T R A T E. Twenty five milligrams. Take one tablet twice a day. || A1
+  Nurse -> Okay. Metoprolol tartrate, twenty five, twice a day. Is it on the discharge sheet? || A1
+  Caller -> Yes. It's new. They changed it. The sheet says metoprolol tartrate twenty five twice a day. Start. And it says stop the old one. But I couldn't find the old one. I mean, I found it, but I wasn't sure. || A1
+  Nurse -> Okay. Let's slow down. What's the old one?
+  Caller -> The old one is, here it is. Metoprolol succinate. S U C C I N A T E. Fifty milligrams. Once a day. It's in the other bottle. A bigger bottle. From before. || A2
+  Nurse -> Is the label from the same pharmacy?
+  Caller -> The old pharmacy. The one near the old house. The new ones are from the hospital pharmacy. I should have thrown the old ones out.
+  Nurse -> It's common to keep them. We'll sort it.
+  Caller -> I keep everything. My mother was like that. Every pill bottle since nineteen ninety, in a shoebox. I get it from her.
+  Nurse -> Ha. A lot of us do.
+  Caller -> The shoebox is still in the hall closet. I should deal with that someday, but not today.
+  Nurse -> Today we just need the kitchen table.
+  Caller -> Right. The kitchen table. Okay. I'm focusing.
+  Caller -> Sorry, the dog is barking. Hold on. Biscuit, quiet. Okay. He wants his walk and I can't take him with Ambrose like this.
+  Nurse -> The dog will survive. Is someone else around who could walk him later?
+  Caller -> My neighbor Phil usually does. I'll text him after this call. He's a good guy. Retired, bored, loves the dog more than we do.
+  Nurse -> Ha. That works out for everyone.
+  Caller -> It does. Okay. Sorry. Where were we? The bottles. Right. The next one.
+  Nurse -> Take your time. Whenever you're ready.
+  Nurse -> You're doing fine. Take your time with each label.
+  Nurse -> Okay. That's the extended release metoprolol he used to take. The discharge sheet says to stop that one. Beatrice, has he been taking the succinate too?
+  Caller -> Oh no. Oh no. Yes. I've been giving him both. I thought the new one was an extra. I gave him the old one in the morning like always. And the new one morning and night. So he gets the succinate in the morning with the tartrate. Both. || A2, F1
+  Nurse -> Okay. So he's been getting both forms of metoprolol. When was the last of each?
+  Caller -> This morning. At eight. Both. The tartrate and the succinate. Together. And the tartrate again last night. I think last night just the tartrate.
+  Nurse -> Okay. Thank you for telling me. That helps explain the slow pulse and low pressure. Let's keep going. What's the next bottle?
+  Caller -> I'm so sorry. I'm so sorry. I didn't know. I should have read it.
+  Nurse -> It's okay. This happens all the time after a hospital stay. The lists change and the old bottles are still in the cabinet. You're doing the right thing by going through them now. Next bottle.
+  Caller -> Okay. Lisinopril. L I S I N O P R I L. Ten milligrams. Once a day. || A7
+  Nurse -> Okay. Is lisinopril on the discharge sheet? || A7
+  Caller -> Hmm. Let me look. It says, under stop taking, lisinopril. Hmm. Yes. It's on the stop list. Oh. Oh no. I gave him that too. This morning. At eight. || A7
+  Nurse -> Okay. So he took the lisinopril this morning too, and it was supposed to be stopped. Beatrice, that's another blood pressure medicine, and it can lower his pressure further. || A7
+  Caller -> Oh my God. I've been giving him that for three days. I gave him that every morning. I thought it was the same as before.
+  Nurse -> It's easy to think so. The hospital changes lists all the time.
+  Caller -> I'm just so tired. Three nights in a row I've barely slept.
+  Nurse -> I understand. Let's get this sorted so you can rest.
+  Nurse -> It's not your fault. The list is confusing. Let's finish the bottles. What else?
+  Caller -> Okay. There's an aspirin, eighty one. And a potassium pill. And a stool softener. And his cholesterol pill. And the water pill. I did the water pill.
+  Nurse -> And the potassium, is that in a pill form?
+  Caller -> A big pill. He hates it. I cut it in half. Is that okay?
+  Nurse -> We'll look at that with the nurse. Don't cut any more pills until she's here.
+  Nurse -> Okay. I'll go over those with the nurse tomorrow. Right now I'm most concerned about the metoprolol, the lisinopril and the water pill, because they all lower his blood pressure and heart rate. Beatrice, I'm going to page the on-call clinician right now. || R1
+  Caller -> Okay. Please. Do I need to call an ambulance? Is he in danger?
+  Nurse -> He's awake, talking, no chest pain, and no fainting, so I don't think we need an ambulance right now. But I want a clinician to look at this today. I'm also sending a nurse to your home. I want her there within two hours. || R3
+  Caller -> Within two hours. Okay. Thank you. Thank you.
+  Nurse -> Until the clinician calls back, please don't give him the metoprolol, either kind, or the lisinopril or the water pill. Hold all three. || R2
+  Caller -> Hold all three. Metoprolol, both. The lisinopril. The furosemide. Okay. I won't give them. What about the others? || A6, A7
+  Nurse -> The aspirin, the potassium, the cholesterol pill and the stool softener, those can wait too until the clinician calls. Just hold everything for now except water and food.
+  Caller -> Hold everything. Okay. Water and food. I have it.
+  Caller -> Can he have his coffee? He gets a headache without it.
+  Nurse -> A small cup is fine. Not too strong.
+  Caller -> Half a cup. Okay.
+  Nurse -> I'll call you back in thirty minutes. || R4
+  Caller -> Thirty minutes. Okay. What do I do until then?
+  Nurse -> Have Ambrose sit on the edge of the bed or chair for a minute before he stands. Stand slowly. And have you next to him whenever he walks. Don't let him walk alone. || E1
+  Caller -> Sit first. Stand slow. Me next to him. Okay. He wants to go to the bathroom. I'll walk him.
+  Nurse -> Good. Also, please take the old metoprolol and the lisinopril bottles and put them in a bag, away from his current pills. And have every bottle ready for the nurse to review when she comes. || E2
+  Caller -> A bag for the old ones. All the bottles on the table. Okay. I'll do that now. I'll get a grocery bag.
+  Nurse -> And call nine one one if he faints, has chest pain, trouble breathing, or his pulse drops under forty. || E3
+  Caller -> Faints, chest pain, breathing, pulse under forty. Nine one one. Okay. I'll check his pulse every fifteen minutes.
+  Nurse -> That's a good idea. Write down the numbers.
+  Caller -> I will. Zane, I feel awful. I almost hurt my husband.
+  Caller -> If something happens, I'd never forgive myself.
+  Nurse -> Nothing is going to happen that we can't handle. We're on it.
+  Nurse -> You didn't hurt him. You caught it. Many people never notice. And he's awake and talking. We'll fix it.
+  Caller -> Okay. Thank you for not scolding me.
+  Nurse -> No scolding. You're doing what you can. Is anyone with you tonight?
+  Caller -> He keeps asking me if he's going to be okay. I don't know what to tell him.
+  Nurse -> Tell him the nurse is on it and the doctor will call soon. Tell him to rest.
+  Caller -> Ambrose, the nurse says rest. He says he's resting. He's grumpy.
+  Nurse -> Grumpy is fine.
+  Caller -> He's grumpy because I took away his coffee. I gave him half a cup.
+  Nurse -> A half cup is plenty.
+  Caller -> My son comes at six. He's on his way.
+  Nurse -> Good. Let him help with the walking.
+  Caller -> He's a big man. Six two. When he leans on me I feel it.
+  Caller -> His pants are baggy now. He's lost twenty pounds since the summer. The doctor said it's the fluid, then it's not the fluid.
+  Nurse -> The team will go over that. It's a lot to follow.
+  Caller -> It is. I wrote it all in a notebook. Fourteen pages.
+  Nurse -> Bring the notebook to the visit.
+  Nurse -> Let your son take the heavy part.
+  Caller -> I will. He used to be a linebacker.
+  Caller -> I will. Thank you, Zane. I'll wait for your call.
+  Nurse -> Talk to you in thirty minutes.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ambrose Kettleman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1954-02-12", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Beatrice Kettleman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550163", certainty: stated, heard_as: [], turns: [9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was dizzy after discharge with a slow pulse and low blood pressure.
+    speaker: Caller
+    turns: [2]
+    quote: "He's been home from the hospital three days and he's not right."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol tartrate 25 mg twice a day, new from the hospital, was taken this morning.
+      speaker: Caller
+      turns: [32]
+      quote: "Metoprolol tartrate. T A R T R A T E. Twenty five milligrams."
+      explanation: Documents the new heart medicine.
+      facts:
+        - {type: medication, name: metoprolol tartrate, dose: "25", unit: mg, frequency: twice a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: The old metoprolol succinate 50 mg once a day, which the discharge sheet said to stop, was also given this morning.
+      speaker: Caller
+      turns: [36]
+      quote: "Metoprolol succinate. S U C C I N A T E. Fifty milligrams."
+      explanation: Documents the duplicate heart medicine.
+      facts:
+        - {type: medication, name: metoprolol succinate, dose: "50", unit: mg, frequency: once a day, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A2]
+    - text: Pulse was 52.
+      speaker: Caller
+      turns: [13]
+      quote: "His pulse is fifty two."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "52", certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 98/60.
+      speaker: Caller
+      turns: [13]
+      quote: "ninety eight over sixty."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "98/60", certainty: stated}
+      covers: [A4]
+    - text: He was tired and very dizzy on standing since getting home, worse today.
+      speaker: Caller
+      turns: [11]
+      quote: "Tired. Washed out."
+      explanation: Documents the dizziness and fatigue.
+      facts:
+        - {type: symptom, name: dizzy on standing and tired, present: true, onset: since discharge, certainty: stated}
+      covers: [A5]
+    - text: Furosemide 40 mg once a day, as two 20 mg tablets, was taken this morning.
+      speaker: Caller
+      turns: [25]
+      quote: "furosemide. Twenty milligrams. Take two tablets once a day."
+      explanation: Documents the water pill.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: once a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A6]
+    - text: Lisinopril 10 mg once a day, which was on the discharge stop list, was given every morning including today.
+      speaker: Caller
+      turns: [59]
+      quote: "Lisinopril. L I S I N O P R I L. Ten milligrams. Once a day."
+      explanation: Documents the medicine that should have been stopped.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: once a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A7]
+    - text: He had not fainted and had no chest pain.
+      speaker: Caller
+      turns: [15]
+      quote: "No. No fainting. No chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fainting or chest pain, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned to page the on-call clinician about the duplicate medicine, slow pulse and low pressure.
+      speaker: Nurse
+      turns: [72]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised holding the metoprolol, lisinopril and furosemide until the clinician called.
+      speaker: Nurse
+      turns: [76]
+      quote: "please don't give him the metoprolol, either kind, or the lisinopril or the water pill."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'm also sending a nurse to your home. I want her there within two hours."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [83]
+      quote: "I'll call you back in thirty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised sitting on the edge of the bed before standing, standing slowly and having her beside him when he walks.
+      speaker: Nurse
+      turns: [85]
+      quote: "Have Ambrose sit on the edge of the bed or chair for a minute before he stands."
+      explanation: Documents fall safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised bagging the old metoprolol and lisinopril bottles away from the current pills and having every bottle ready for the nurse.
+      speaker: Nurse
+      turns: [87]
+      quote: "please take the old metoprolol and the lisinopril bottles and put them in a bag"
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for fainting, chest pain, trouble breathing or a pulse under forty.
+      speaker: Nurse
+      turns: [89]
+      quote: "call nine one one if he faints, has chest pain, trouble breathing, or his pulse drops under forty."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [53], quote: "I've been giving him both."}

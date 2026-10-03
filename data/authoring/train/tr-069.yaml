@@ -1,0 +1,245 @@
+call_id: tr-069
+split: train
+blueprint: "92-year-old woman realizes she took her itching pill (hydroxyzine 25 mg) instead of her blood pressure pill (hydralazine 25 mg); she is sleepy but talking, BP 150/82. Nurse reads the label names to resolve them, plans pharmacist and prescriber review, tells her to sit and not drive or walk alone. Flag: medication_concern (wrong medication)."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [tall_man_drug, hedging, garbled_drug, late_answers]
+  clinical_domains: [medication, blood_pressure, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-09-29T15:36:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Winnie Abernathy
+  patient_name_spoken: Winnie Abernathy
+  patient_name_certainty: stated
+  patient_dob_true: "1934-02-11"
+  patient_dob_spoken: "1934-02-11"
+  patient_dob_certainty: stated
+  caller_name_true: Winnie Abernathy
+  caller_name_spoken: Winnie Abernathy
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9545550143"
+  callback_phone_spoken: "9545550143"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported taking the wrong pill this morning
+  reason_category: medication
+  relevant_context: Takes separate pills for blood pressure and itching
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: extra_dose
+    strength: 25 mg
+    dose: "1"
+    unit: tablet
+    last_dose: this morning, taken instead of the blood pressure pill
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    medication_status: missed
+    strength: 25 mg
+    frequency: three times a day
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: sleepiness
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: blood pressure
+    vital_value: 150/82
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacist and prescriber
+    reason_or_trigger: wrong pill taken and missed blood pressure dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not take the next hydralazine until the pharmacist or prescriber calls back
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay seated or in bed, do not walk alone, and keep a phone within reach
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep the two bottles in separate places and ask the pharmacy for a pill organizer
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient took the wrong pill in place of her blood pressure medicine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hello? Hello, is this the nurse?
+  Nurse -> Yes, this is Denise. Who am I speaking with?
+  Caller -> This is Winnie. Winnie Abernathy. I think I did something silly with my pills. || patient_name, caller_name, relationship
+  Nurse -> Okay, Winnie. Let me pull up your chart. What's your date of birth?
+  Caller -> February eleventh. Nineteen thirty four. || patient_dob
+  Nurse -> Thanks. And is nine five four, five five five, zero one four three your number? || callback_phone
+  Caller -> Yes, that's the one, dear. || callback_phone
+  Nurse -> Okay. Tell me what happened.
+  Caller -> Well. This morning I took my pill, my blood pressure pill, I thought. The hydroxy-something. And I looked at the bottle just now and it says hydroxyzine. That's the one for my itching. || cc, A1, F1
+  Nurse -> Okay. Let me look at your list. I see hydralazine, twenty five milligrams, three times a day, for your blood pressure. And hydroxyzine, twenty five milligrams, for the itching. Those two names sound so alike. || A1, A2
+  Caller -> They do! They sound the same. Oh. So I took the itching one. The hydroxyzine. One tablet. || A1
+  Nurse -> One tablet of the hydroxyzine, twenty five. Okay. And did you take your hydralazine this morning? || A1, A2
+  Caller -> No. No, I didn't. I thought I did. That's what I thought I took. || A2
+  Nurse -> Okay. How are you feeling right now?
+  Caller -> Sleepy. A little. A little sleepy. I'm sitting in my chair. I'm talking to you. || A3
+  Nurse -> Okay. Is your blood pressure cuff nearby?
+  Caller -> Yes. Hold on. Let me, hold on. It says one fifty over eighty two. || A4
+  Nurse -> Okay. That's okay, thank you. Winnie, I want you to stay in your chair. Don't take the next hydralazine until the pharmacist or the doctor calls you back. || R3
+  Caller -> Okay. Don't take it. Okay.
+  Nurse -> I'm going to message the pharmacist and your prescriber right now about the mix-up and the missed blood pressure pill. || R1
+  Caller -> All right. Thank you, dear.
+  Nurse -> And I'll call you back within the hour. || R2
+  Caller -> Within the hour. Okay.
+  Nurse -> Please stay seated or in bed. Don't walk around by yourself, since the hydroxyzine can make you sleepy and unsteady. And keep the phone right next to you. || E1
+  Caller -> I have the phone right here. In my lap.
+  Nurse -> Good. And when this is sorted out, keep those two bottles in different places, and ask the pharmacy about a pill organizer. || E2
+  Caller -> Oh, that's a good idea. My daughter said that too.
+  Nurse -> Okay. Anything else?
+  Caller -> No, dear. Thank you. I feel so silly.
+  Nurse -> It happens a lot, with those names. You did the right thing. Okay.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winnie Abernathy, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1934-02-11", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Winnie Abernathy, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "9545550143", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported taking the wrong pill this morning.
+    speaker: Caller
+    turns: [4]
+    quote: "I think I did something silly with my pills."
+    explanation: Documents the medication error prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hydroxyzine 25 mg, 1 tablet, was taken this morning in place of her blood pressure pill.
+      speaker: Caller
+      turns: [12]
+      quote: "So I took the itching one. The hydroxyzine. One tablet."
+      explanation: Documents the wrong medication taken.
+      facts:
+        - {type: medication, name: hydroxyzine, strength: 25 mg, dose: "1", unit: tablet, last_dose: this morning, taken instead of the blood pressure pill, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Hydralazine 25 mg three times a day was missed this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No, I didn't. I thought I did."
+      explanation: Documents the missed blood pressure medication.
+      facts:
+        - {type: medication, name: hydralazine, strength: 25 mg, frequency: three times a day, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: She felt a little sleepy.
+      speaker: Caller
+      turns: [16]
+      quote: "Sleepy. A little. A little sleepy."
+      explanation: Documents the sedation symptom.
+      facts:
+        - {type: symptom, name: sleepiness, present: true, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 150/82.
+      speaker: Caller
+      turns: [18]
+      quote: "It says one fifty over eighty two."
+      explanation: Documents the blood pressure reading.
+      facts:
+        - {type: vital, name: blood pressure, value: 150/82, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised not taking the next hydralazine until the pharmacist or prescriber called back.
+      speaker: Nurse
+      turns: [19]
+      quote: "Don't take the next hydralazine until the pharmacist or the doctor calls you back."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+    - text: Planned to message the pharmacist and prescriber about the mix-up and the missed blood pressure pill.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to message the pharmacist and your prescriber right now about the mix-up and the missed blood pressure pill."
+      explanation: Documents the planned clinical review.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back within the hour.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll call you back within the hour."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised staying seated or in bed, not walking alone, and keeping the phone within reach.
+      speaker: Nurse
+      turns: [25]
+      quote: "Don't walk around by yourself, since the hydroxyzine can make you sleepy and unsteady."
+      explanation: Documents safety guidance after sedation risk.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the two bottles in separate places and asking the pharmacy about a pill organizer.
+      speaker: Nurse
+      turns: [27]
+      quote: "keep those two bottles in different places, and ask the pharmacy about a pill organizer."
+      explanation: Documents medication safety guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [12], quote: "So I took the itching one. The hydroxyzine. One tablet."}

@@ -1,0 +1,205 @@
+call_id: tr-052
+split: train
+blueprint: "Mother of a 4-year-old with a fever of 101.2 is confused after switching from infant drops to a children's liquid acetaminophen bottle; nurse reads the order (7.5 mL of 160 mg per 5 mL), tells her to use the oral syringe, and plans a recheck call in two hours. Nurse also reads a nightly chewable the mother does not discuss."
+setup:
+  scenario_category: medication
+  subtype: dosing_clarification
+  secondary_tags: [liquid_concentration, chart_reading_distractor, hedging, late_answers]
+  clinical_domains: [fever, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-09-10T22:46:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [montelukast]
+chief_complaint:
+  patient_name_true: Eli Whitcombe
+  patient_name_spoken: Eli Whitcombe
+  patient_name_certainty: stated
+  patient_dob_true: "2022-03-14"
+  patient_dob_spoken: "2022-03-14"
+  patient_dob_certainty: stated
+  caller_name_true: Dana Whitcombe
+  caller_name_spoken: Dana Whitcombe
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "7195550162"
+  callback_phone_spoken: "7195550162"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked how much liquid acetaminophen to give for a fever
+  reason_category: medication_question
+  relevant_context: Recently switched from infant drops to a children's liquid bottle
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "101.2"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: given_previously
+    last_dose: about 4 hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Unsure of the amount because the new bottle is a different concentration than the infant drops
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: acetaminophen 7.5 mL measured with the oral syringe, not before 6 hours since the last dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 2 hours
+    reason_or_trigger: recheck temperature
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Check the label for 160 mg per 5 mL; use the oral syringe, not a kitchen spoon or the old dropper
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever lasting more than 3 days, trouble breathing, hard to wake, or not drinking
+    trigger_condition: fever over 3 days; trouble breathing; hard to wake; not drinking
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi, Priya. Hi. It's, um, Dana Whitcombe. I'm Eli's mom. Eli Whitcombe. || caller_name, relationship, patient_name
+  Nurse -> Hi, Dana. Hold on, let me pull him up. What's his date of birth?
+  Caller -> March fourteenth, twenty twenty two. || patient_dob
+  Nurse -> Okay, got him. And is seven one nine, five five five, zero one six two still the best number? || callback_phone
+  Caller -> Yeah, that's my phone. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> So he has a fever. And I want to give him the Tylenol, the, um, the acetaminophen, but I don't know how much. || cc, A2
+  Nurse -> Okay. What's his temperature?
+  Caller -> A hundred and one point two. I just took it. || A1
+  Nurse -> Okay. Have you given him anything yet today?
+  Caller -> I gave him some, uh, like four hours ago. I think four. Around dinner. || A2
+  Caller -> But that was the old bottle, the drops. || A3
+  Nurse -> And what do you have now?
+  Caller -> The pharmacy gave me a new one. It's the purple one. Children's. And it's, it's not the same. It says something different on the back. || A3
+  Nurse -> Okay. Read me what it says on the label, where it says how strong it is.
+  Caller -> One sixty milligrams. Per, uh, five milliliters. || E1
+  Nurse -> Good. That's what I'm looking at in his orders. So for Eli, his order is seven and a half milliliters of that, for the acetaminophen. || R1
+  Caller -> Seven and a half. Okay. Not one? The old one was, was one.
+  Nurse -> Right, that's because the drops are much stronger per milliliter. The children's liquid is more diluted. So seven and a half is correct for the new bottle. Use the syringe that came with it, not a kitchen spoon, and not the old dropper. || R1, E1
+  Caller -> The syringe. Okay. I have that.
+  Nurse -> And since you gave the last dose around four hours ago, wait until it's been six hours before you give this one. || R1
+  Caller -> Six hours. Okay. So like, ten.
+  Nurse -> Around ten, yeah. I'm going to call you in two hours to see what his temperature is. || R2
+  Caller -> Okay, that works.
+  Nurse -> And call us if the fever goes longer than three days, or he's having trouble breathing, or he's really hard to wake up, or he won't drink. || E2
+  Caller -> Okay. Trouble breathing, hard to wake up, not drinking.
+  Nurse -> Also, nothing else changes tonight, his nightly chewable montelukast stays the same, four milligrams.
+  Caller -> Okay. Yeah, he already had that.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. Thank you so much, Priya.
+  Nurse -> Of course. Talk to you in two hours.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eli Whitcombe, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2022-03-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Dana Whitcombe, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "7195550162", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked how much liquid acetaminophen to give for a fever.
+    speaker: Caller
+    turns: [8]
+    quote: "So he has a fever. And I want to give him the Tylenol, the, um, the acetaminophen, but I don't know how much."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was reported as 101.2.
+      speaker: Caller
+      turns: [10]
+      quote: "A hundred and one point two. I just took it."
+      explanation: Documents the reported temperature.
+      facts:
+        - {type: vital, name: temperature, value: "101.2", certainty: stated}
+      covers: [A1]
+    - text: Acetaminophen was previously given about 4 hours earlier, using the old infant drops.
+      speaker: Caller
+      turns: [12]
+      quote: "I gave him some, uh, like four hours ago. I think four."
+      explanation: Documents the timing of the last dose.
+      facts:
+        - {type: medication, name: acetaminophen, med_status: given_previously, last_dose: about 4 hours ago, certainty: stated}
+      covers: [A2]
+    - text: The caller was unsure of the amount because the new bottle differed from the infant drops.
+      speaker: Caller
+      turns: [15]
+      quote: "The pharmacy gave me a new one. It's the purple one. Children's."
+      explanation: Documents the source of the caller's confusion.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised giving 7.5 mL of the children's acetaminophen per the order, measured with the oral syringe, and waiting 6 hours from the last dose.
+      speaker: Nurse
+      turns: [18]
+      quote: "So for Eli, his order is seven and a half milliliters of that, for the acetaminophen."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in 2 hours to check the temperature.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'm going to call you in two hours to see what his temperature is."
+      explanation: Documents the planned recheck.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 2 hours, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised checking that the label reads 160 mg per 5 mL and using the oral syringe, not a kitchen spoon or the old dropper.
+      speaker: Nurse
+      turns: [20]
+      quote: "Use the syringe that came with it, not a kitchen spoon, and not the old dropper."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fever lasting more than 3 days, trouble breathing, being hard to wake, or refusing to drink.
+      speaker: Nurse
+      turns: [26]
+      quote: "call us if the fever goes longer than three days, or he's having trouble breathing, or he's really hard to wake up, or he won't drink."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

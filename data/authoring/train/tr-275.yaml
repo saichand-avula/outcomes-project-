@@ -1,0 +1,341 @@
+call_id: tr-275
+split: train
+blueprint: "Two adult children, a daughter and a son, share one speakerphone and talk over each other about their 82-year-old father's decline: less appetite, sleeping more, back pain at a four. The son wants to take him to the hospital 'to get fluids'; the daughter reminds him that their father said he wants to stay home. The nurse addresses both, confirms the patient's stated wishes, and plans a visit tomorrow, a message to the provider, chaplain and social work outreach, and a family call. Medium v2 call with crosstalk, speaker confusion, and a family disagreement handled calmly."
+setup:
+  scenario_category: routine
+  subtype: multi_issue_update
+  secondary_tags: [crosstalk, multi_issue, contradiction, hedging, late_answers, split_turns, speaker_label_errors, offtopic_chatter]
+  clinical_domains: [end_of_life_changes, intake_appetite, pain, caregiver_stress]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Alan
+  call_timestamp_utc: "2026-10-31T19:40:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: [Tylenol]
+chief_complaint:
+  patient_name_true: Thaddeus Ormsby
+  patient_name_spoken: Thaddeus Ormsby
+  patient_name_certainty: stated
+  patient_dob_true: "1944-03-17"
+  patient_dob_spoken: "1944-03-17"
+  patient_dob_certainty: stated
+  caller_name_true: Winnie Ormsby
+  caller_name_spoken: Winnie Ormsby
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2125550159"
+  callback_phone_spoken: "2125550159"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that their father is eating less and sleeping more and asked whether to take him to the hospital
+  reason_category: end_of_life_changes
+  relevant_context: Hospice patient cared for at home by two adult children
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating much less
+    symptom_present: true
+    onset_or_duration: about a week
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping more
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: back pain
+    symptom_present: true
+    severity: "4"
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: Their father has said he wants to stay home but the son wants to take him to the hospital for fluids
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath or falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: decreased intake, more sleep and back pain
+    certainty: stated
+  - item_id: R3
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: chaplain and social worker
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow after the visit
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer sips and favorite foods without pressure and do not force fluids or meals
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Use pillows to support his back, change his position every few hours, and keep the room quiet and calm
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any hour if he seems uncomfortable, if breathing changes, or if the family wants to talk
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Alan.
+  Caller -> Hello? Hi, can you hear us? We're on the speaker.
+  Nurse -> I can hear you. This is Alan, I'm a nurse. Who's calling?
+  Caller -> It's Winnie. Winnie Ormsby. And my brother Percy's here. We're calling about our dad. Thaddeus Ormsby. || caller_name, relationship, patient_name
+  Caller -> Hi. Hi, Alan. This is Percy. I wanted to ask something. I think we need to take him to the hospital. || cc
+  Nurse -> Okay, Percy. Let's slow down a little. First, so I have the right chart. What's your dad's date of birth?
+  Caller -> March seventeenth. Nineteen forty four. || patient_dob
+  Nurse -> Thanks. And what's the best number for you two?
+  Caller -> Mine. Two one two, five five five, zero one five nine. That's my cell. || callback_phone
+  Nurse -> Got it. Okay. Tell me what's going on with your dad.
+  Caller -> He's not eating. He's hardly eating anything. For about a week now. A few bites of toast, that's all. || A1
+  Caller -> And he's sleeping all the time. He sleeps twenty hours, practically. || A2
+  Nurse -> Okay. Is he waking up when you talk to him?
+  Nurse -> Yes. He wakes up. He's with it. He knows us. He's just really tired. || A2, label_error
+  Nurse -> Does he talk with you when he's awake?
+  Caller -> A little. Short sentences. He asked about the dog yesterday. He asked if we fed the dog.
+  Nurse -> That sounds like him.
+  Caller -> It does. He's still in there.
+  Caller -> He said he's hurting. His back. He said it's a four. A four out of ten. || A3
+  Nurse -> Okay. A four. Is he taking anything for it?
+  Caller -> The Tylenol. And the little pills from the nurse. I'd have to check the names.
+  Nurse -> No worries. Is he able to swallow them okay?
+  Caller -> Mostly. Sometimes he holds one in his mouth for a while. We give them with a spoonful of applesauce.
+  Nurse -> That's a good trick. Keep doing that.
+  Nurse -> That's okay. I'll look at the list. What I'd like to know is, is the pain controlled or is it getting worse?
+  Caller -> About the same. It's a four. It was a four yesterday. He says it's bearable.
+  Nurse -> Okay. Good. And any trouble breathing?
+  Caller -> No. No trouble breathing. He's fine with his breathing. He's pretty quiet. || A5
+  Nurse -> And falls? Has he fallen at all?
+  Caller -> No. He's mostly in bed. He gets up with us to go to the bathroom. No falls. || A5
+  Caller -> Alan, can I say something? I think he's dehydrated. I think he needs an IV. I think we should take him to the ER. They can give him fluids.
+  Caller -> Percy, we talked about this.
+  Caller -> I know, but he's not drinking. He's going to dry up.
+  Caller -> Percy. He said he doesn't want to go to the hospital. He told us. He told the nurse. It's in the papers.
+  Nurse -> Can I jump in for a second? I hear that you're both worried. And you both love your dad. That's clear.
+  Caller -> Yes. I'm sorry.
+  Nurse -> Don't be sorry. This is a really hard time. Winnie, what has your dad said about where he wants to be?
+  Caller -> He wants to stay home. He's said it a hundred times. He said, "Don't let them take me back to the hospital." That's what he said. || A4
+  Caller -> I know he said it. But I can't just watch him not eat.
+  Nurse -> Percy, I understand. It feels like doing nothing. But when a person is at this stage, not eating and drinking much is part of how the body slows down. IV fluids at the hospital often don't make a person feel better, and the trip can be hard on him.
+  Caller -> Even the fluids? They don't help?
+  Nurse -> They may not. And sometimes they cause discomfort, like swelling or more fluid in the lungs. That's why we usually focus on comfort. But I hear you, and I'd like the team to talk with you about it.
+  Caller -> Okay. I guess I didn't know that.
+  Nurse -> It's not something people think about until they're in it. Nobody expects to have to learn this.
+  Caller -> No. We didn't. We thought he'd get better for a while. He did get better for a while.
+  Nurse -> He did. And now he's changing again. That's the nature of it.
+  Caller -> I told you, Percy. The nurse told us before. You weren't there.
+  Nurse -> It's a lot of information. It's easy to miss. Let me ask, has your dad talked about this himself, in the last few days? Is he able to tell you what he wants?
+  Caller -> Yesterday he was awake for a while. He said he's tired but he's okay. He said, "I'm where I want to be." Right here. In the den.
+  Caller -> He said that? I didn't hear that.
+  Caller -> You were at the store.
+  Nurse -> That's what I'd go by, then. He's told you he wants to stay home and he's comfortable. Our job is to keep him comfortable there.
+  Caller -> Okay. Okay. That's what I want too. I just don't want him to suffer.
+  Nurse -> Of course. And he doesn't have to. Let me tell you what I'm going to do. I'm going to send a nurse out tomorrow to see him, and to talk with both of you. || R1
+  Caller -> Tomorrow. Good. What time?
+  Nurse -> The scheduler will call in the morning. I'll ask for after ten.
+  Caller -> After ten works. We'll both be here.
+  Nurse -> Good. I'm also going to message the hospice provider about the eating, the sleeping, and the back pain. || R2
+  Caller -> Okay. Will they change his pain medicine?
+  Nurse -> They might. They'll look at the pain and at what would keep him most comfortable.
+  Caller -> Thank you.
+  Nurse -> And I'd like our chaplain and social worker to reach out to you both. This is a hard time for the family. || R3
+  Caller -> I'd like that. Percy, would you like that?
+  Caller -> Yeah. Yeah, I think so. I think I need it.
+  Nurse -> Good. I'll put in the request. I'll also call you back tomorrow after the nurse has been out, to see how things went. || R4
+  Caller -> Tomorrow after the visit. Okay.
+  Nurse -> In the meantime, don't push food or fluids. Offer sips and his favorite foods, but only what he wants. Don't force. || E1
+  Caller -> Don't force. Okay. He likes ice cream. He had a spoonful this morning.
+  Nurse -> Perfect. Ice cream is great. Anything he enjoys.
+  Caller -> Okay. We'll give him ice cream.
+  Nurse -> What flavor does he like?
+  Caller -> Butter pecan. It's the only kind he eats. The only kind he's ever eaten.
+  Nurse -> Then butter pecan it is.
+  Nurse -> For his back, use pillows to support him, change his position every few hours, and keep the room quiet and calm. || E2
+  Caller -> Pillows. Change position. Quiet. Okay. We've been doing the pillows.
+  Caller -> I'll turn off the TV in the den. Dad likes the game on, but it's loud.
+  Nurse -> Maybe keep it low. If he likes the sound, it can be comforting.
+  Caller -> Low. Okay.
+  Nurse -> Do you have everything you need in the house? Mouth swabs, lip balm, the comfort kit?
+  Caller -> We have the swabs. The lip balm we're almost out of. And I think the comfort kit is in the fridge, in the door.
+  Nurse -> Good. I'll make sure the nurse brings more lip balm.
+  Caller -> That'd be great. His lips are dry.
+  Caller -> Um, and the, the aide who comes on Thursdays, does she know about all this? Because she keeps trying to get him to sit up for lunch.
+  Nurse -> Good question. I'll note it so the team lets her know to follow his lead and not push him to sit up.
+  Caller -> Okay, thank you. She means well. She just, she likes him to eat.
+  Nurse -> And call us any hour. If he seems uncomfortable, if his breathing changes, or if you two want to talk. Day or night. || E3
+  Caller -> Any hour. Okay. Thank you, Alan. I'm sorry we were arguing.
+  Nurse -> Please don't apologize. You're both trying to do right by him.
+  Caller -> We are. Thank you.
+  Caller -> Thank you, Alan. I'm sorry, Winnie. You're right.
+  Caller -> It's okay. I'm scared too.
+  Nurse -> It's okay to be scared. Is there anything else you want to ask me?
+  Caller -> I don't think so. Percy, you?
+  Caller -> No. I feel better. I think I just needed someone to say it.
+  Nurse -> I'm glad. Take care of each other tonight.
+  Caller -> We will. Bye, Alan. Thank you.
+  Nurse -> Goodnight.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "Yes. He wakes up", fact_id: A2}
+  - {turn: auto, type: late_answer, true_form: "reply to Percy", heard_form: "I know, but he's not drinking", fact_id: A4}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Thaddeus Ormsby, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1944-03-17", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Winnie Ormsby, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: daughter, certainty: stated, turns: [4]}
+    callback_phone: {value: "2125550159", certainty: stated, heard_as: [], turns: [9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that their father was eating less and sleeping more and asked whether to take him to the hospital.
+    speaker: Caller
+    turns: [5]
+    quote: "I think we need to take him to the hospital."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He had been eating very little for about a week, with only a few bites of toast.
+      speaker: Caller
+      turns: [11]
+      quote: "He's hardly eating anything. For about a week now."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: eating much less, present: true, onset: about a week, certainty: stated}
+      covers: [A1]
+    - text: He was sleeping about twenty hours a day.
+      speaker: Caller
+      turns: [12]
+      quote: "he's sleeping all the time. He sleeps twenty hours, practically."
+      explanation: Documents the increased sleep.
+      facts:
+        - {type: symptom, name: sleeping more, present: true, certainty: stated}
+      covers: [A2]
+    - text: His back pain was rated a four out of ten.
+      speaker: Caller
+      turns: [19]
+      quote: "His back. He said it's a four. A four out of ten."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: back pain, present: true, severity: "4", certainty: stated}
+      covers: [A3]
+    - text: He had said he wanted to stay home, while the son wanted to take him to the hospital for fluids.
+      speaker: Caller
+      turns: [38]
+      quote: "He said, \"Don't let them take me back to the hospital.\""
+      explanation: Documents the patient's stated wishes.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: No trouble breathing or falls were reported.
+      speaker: Caller
+      turns: [28]
+      quote: "No. No trouble breathing."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath or falls, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to send a nurse out tomorrow to see him and talk with both children.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'm going to send a nurse out tomorrow to see him, and to talk with both of you."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the eating, sleeping and back pain.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'm also going to message the hospice provider about the eating, the sleeping, and the back pain."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to request that the chaplain and social worker reach out.
+      speaker: Nurse
+      turns: [62]
+      quote: "I'd like our chaplain and social worker to reach out to you both."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back tomorrow after the nurse visit.
+      speaker: Nurse
+      turns: [65]
+      quote: "I'll also call you back tomorrow after the nurse has been out, to see how things went."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow after the visit, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised offering sips and favorite foods only as he wanted and not forcing food or fluids.
+      speaker: Nurse
+      turns: [67]
+      quote: "don't push food or fluids. Offer sips and his favorite foods, but only what he wants. Don't force."
+      explanation: Documents hydration and nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised using pillows to support his back, changing his position every few hours, and keeping the room quiet and calm.
+      speaker: Nurse
+      turns: [74]
+      quote: "use pillows to support him, change his position every few hours, and keep the room quiet and calm."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Invited them to call any hour if he seemed uncomfortable, if breathing changed, or if they wanted to talk.
+      speaker: Nurse
+      turns: [86]
+      quote: "call us any hour. If he seems uncomfortable, if his breathing changes, or if you two want to talk."
+      explanation: Documents the invitation to call.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,284 @@
+call_id: tr-183
+split: train
+blueprint: "Patient with a long-term urinary catheter needs supplies: 1 leg bag, 2 drainage bags, no securement devices, no adhesive wipes. Urine is clear, no leaking, no pain. Her monthly catheter change is Friday. Nurse orders supplies for Thursday, confirms Friday, and reviews bag care and fluids. Medium."
+setup:
+  scenario_category: supply
+  subtype: catheter_supplies
+  secondary_tags: [multi_issue, phone_from_file, late_answers, split_turns, name_spelled]
+  clinical_domains: [urinary_catheter, equipment, hydration]
+  relationship_group: self
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-07T14:15:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelia Whitby
+  patient_name_spoken: Cornelia Whitby
+  patient_name_certainty: stated
+  patient_dob_true: "1949-11-27"
+  patient_dob_spoken: "1949-11-27"
+  patient_dob_certainty: stated
+  caller_name_true: Cornelia Whitby
+  caller_name_spoken: Cornelia Whitby
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7075550156"
+  callback_phone_spoken: "7075550156"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested urinary catheter supplies
+  reason_category: supply_request
+  relevant_context: Home care patient with a long-term urinary catheter
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: leg bags
+    supply_remaining: "1"
+    supply_unit: bags
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: drainage bags
+    supply_remaining: "2"
+    supply_unit: bags
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: patient
+    supply_item: securement devices
+    supply_remaining: none
+    supply_unit: devices
+    certainty: stated
+  - item_id: A4
+    item_type: supply
+    reporter: patient
+    supply_item: adhesive wipes
+    supply_remaining: none
+    supply_unit: wipes
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: leaking
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Monthly catheter change is due Friday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: leg bags, drainage bags, securement devices and adhesive wipes
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    reason_or_trigger: monthly catheter change
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Empty the bag when it is half full, keep it below the level of her bladder, and keep the tubing free of kinks
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink six to eight cups of fluid a day unless told otherwise
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for no urine in the bag for 4 hours, cloudy or bloody urine, leaking, fever, or lower belly pain
+    trigger_condition: no urine for 4 hours; cloudy or bloody urine; leaking; fever; belly pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Cornelia Whitby. That's C O R N E L I A, Whitby, W H I T B Y. I'm calling about my catheter supplies. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Cornelia. Thanks for the spelling. What's your date of birth?
+  Caller -> November twenty seventh. Nineteen forty nine. || patient_dob
+  Nurse -> And is seven oh seven, five five five, zero one five six still your number? || callback_phone
+  Caller -> Yes. Same one for years. || callback_phone
+  Nurse -> Okay. What are you running low on?
+  Caller -> Let me look at my shelf. I keep everything on the shelf in the bathroom. The leg bags. I have one. Just one. And the big drainage bags for night, I have two. || A1, A2
+  Nurse -> Okay. And the securement devices, the strap that holds the tubing to your leg?
+  Caller -> Gone. I've been using tape and it's not working. I'm out. None. || A3
+  Nurse -> Okay. And the adhesive wipes?
+  Caller -> Out too. I used the last one on Sunday. || A4
+  Nurse -> Okay. And do you have help at home with the bags and the cleaning?
+  Caller -> My daughter comes on weekends. During the week it's me. I'm pretty good at it by now. It's been two years. I used to be embarrassed, but now it's just part of the routine, like brushing my teeth.
+  Nurse -> That's a great attitude. How have things been with the catheter? Any leaking, pain, anything odd about the urine?
+  Caller -> No. It's good. No leaking at all. No pain. The urine is clear, pale yellow. I drink a lot of water, my daughter nags me about it. || A5
+  Nurse -> Good. When was your last catheter change?
+  Caller -> A month ago Friday. The nurse comes every four weeks. The next one is this Friday. || A6
+  Nurse -> Okay. I'll order the leg bags, the drainage bags, the securement devices, and the adhesive wipes. || R1
+  Caller -> Thank you. How many leg bags will you send? I like to have a few so I can switch.
+  Nurse -> I'll ask for a box of leg bags so you have plenty.
+  Caller -> That would be wonderful.
+  Nurse -> They'll deliver Thursday, so you'll have everything before your change. || R2
+  Caller -> Thursday. Okay. I'll be home. And the nurse is still coming Friday? || A6
+  Nurse -> Yes. A nurse will come Friday for the monthly catheter change. || R3
+  Caller -> Friday. Good. I'll write it on the calendar. I have a calendar on the fridge with all my appointments.
+  Caller -> Thank you. Is there anything I should do with the old bags? I have a pile in the closet that I've washed.
+  Nurse -> Please don't reuse the single-use drainage bags. The leg bags can be cleaned and reused for a short time, but the nurse can show you how on Friday. For now, throw away any bag that smells or looks cloudy inside.
+  Caller -> Okay. I'll throw the old ones away. I felt wasteful, but I understand.
+  Nurse -> Perfect. While I have you, a few reminders. Empty the bag when it's half full, keep it below the level of your bladder, and keep the tubing free of kinks, especially when you're sitting or lying down. || E1
+  Caller -> Half full. Below the bladder. No kinks. I do. I check the tubing every time I sit down. I learned that the hard way.
+  Nurse -> It's a good habit. And keep drinking, six to eight cups of fluid a day, unless the provider told you otherwise. || E2
+  Caller -> Six to eight. I'm doing about that. Water and some tea. Not much coffee, my daughter says it irritates the bladder.
+  Nurse -> She's right. And call us if you have no urine in the bag for four hours, if the urine turns cloudy or bloody, if it starts leaking, or you get a fever or lower belly pain. || E3
+  Caller -> No urine four hours. Cloudy. Bloody. Leaking. Fever. Belly pain. Okay. I have the list on the bathroom door.
+  Nurse -> That's smart. Anything else I can do?
+  Caller -> No. Just thank you. You girls are always so organized. The last agency I had, I called three times for the same box.
+  Nurse -> I'm sorry that happened. We try to get it right the first time.
+  Caller -> You do. You really do. I tell everyone at church.
+  Nurse -> Ha. Thank you, Cornelia. That means a lot.
+  Caller -> I mean it. How is the weather by you? It's finally cooling off here. I opened the window this morning for the first time since May.
+  Nurse -> It's getting cooler here too. It's nice, isn't it? Fall is my favorite. The leaves are starting to turn on my street.
+  Caller -> Mine too. I'm going to bake apple bread this weekend. My neighbor brings me apples. She has a tree in her yard that is so heavy it bends. I'll make two loaves, one for her and one for me.
+  Nurse -> That sounds lovely. Enjoy it, Cornelia. We'll see you Friday.
+  Caller -> See you Friday. I'll have the kettle on. Do you like peppermint tea?
+  Nurse -> I do, thank you. See you then, Cornelia.
+  Caller -> Goodbye, dear.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelia Whitby, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-11-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Cornelia Whitby, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "7075550156", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested urinary catheter supplies.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling about my catheter supplies."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: One leg bag and two drainage bags remained.
+      speaker: Caller
+      turns: [8]
+      quote: "The leg bags. I have one. Just one. And the big drainage bags for night, I have two."
+      explanation: Documents the bag supplies.
+      facts:
+        - {type: supply, item: leg bags, supply: 1 bags, certainty: stated}
+        - {type: supply, item: drainage bags, supply: 2 bags, certainty: stated}
+      covers: [A1, A2]
+    - text: Securement devices were gone.
+      speaker: Caller
+      turns: [10]
+      quote: "Gone. I've been using tape and it's not working. I'm out. None."
+      explanation: Documents the securement device supply.
+      facts:
+        - {type: supply, item: securement devices, supply: none, certainty: stated}
+      covers: [A3]
+    - text: Adhesive wipes were gone.
+      speaker: Caller
+      turns: [12]
+      quote: "Out too. I used the last one on Sunday."
+      explanation: Documents the wipe supply.
+      facts:
+        - {type: supply, item: adhesive wipes, supply: none, certainty: stated}
+      covers: [A4]
+    - text: No leaking was reported, with no pain or cloudy urine and pale yellow urine.
+      speaker: Caller
+      turns: [16]
+      quote: "No. It's good. No leaking at all. No pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: leaking, pain or cloudy urine, certainty: stated}
+      covers: [A5]
+    - text: The monthly catheter change was due this Friday.
+      speaker: Caller
+      turns: [18]
+      quote: "The nurse comes every four weeks. The next one is this Friday."
+      explanation: Documents the catheter change schedule.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to order leg bags, drainage bags, securement devices, and adhesive wipes.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll order the leg bags, the drainage bags, the securement devices, and the adhesive wipes."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for Thursday.
+      speaker: Nurse
+      turns: [23]
+      quote: "They'll deliver Thursday, so you'll have everything before your change."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+    - text: A nurse visit was planned for Friday for the monthly catheter change.
+      speaker: Nurse
+      turns: [25]
+      quote: "A nurse will come Friday for the monthly catheter change."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised emptying the bag when half full, keeping it below the bladder, and keeping the tubing free of kinks.
+      speaker: Nurse
+      turns: [30]
+      quote: "Empty the bag when it's half full, keep it below the level of your bladder, and keep the tubing free of kinks"
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised drinking six to eight cups of fluid a day.
+      speaker: Nurse
+      turns: [32]
+      quote: "keep drinking, six to eight cups of fluid a day, unless the provider told you otherwise."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for no urine in the bag for 4 hours, cloudy or bloody urine, leaking, fever, or lower belly pain.
+      speaker: Nurse
+      turns: [34]
+      quote: "call us if you have no urine in the bag for four hours, if the urine turns cloudy or bloody, if it starts leaking, or you get a fever or lower belly pain."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,324 @@
+call_id: tr-037
+split: train
+blueprint: "Mother of a 3-year-old: vomited 6 times since morning, cannot keep fluids down, only one wet diaper in 12 hours, sleepier than usual, low-grade fever; nurse directs the family to the ED now and plans to call ahead. Flags: uncontrolled symptom and escalation (ED)."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [name_spelled, multi_issue, split_turns, late_answers]
+  clinical_domains: [nausea_vomiting, hydration, fever]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-02T00:18:00Z"
+  length_bucket: medium
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mei Lin Chen
+  patient_name_spoken: Mei Lin Chen
+  patient_name_certainty: stated
+  patient_dob_true: "2023-05-19"
+  patient_dob_spoken: "2023-05-19"
+  patient_dob_certainty: stated
+  caller_name_true: Wen
+  caller_name_spoken: Wen
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6505550148"
+  callback_phone_spoken: "6505550148"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Daughter vomiting repeatedly and not keeping fluids down
+  reason_category: vomiting_dehydration
+  relevant_context: 3-year-old with a feeding tube history, home care patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    severity: 6 times since morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: unable to keep fluids down
+    symptom_present: true
+    severity: vomits sips of water within minutes
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: decreased urination
+    symptom_present: true
+    severity: one wet diaper in 12 hours
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepier than usual
+    symptom_present: true
+    severity: wakes up when called
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.2"
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blood in vomit
+    symptom_present: false
+    history_or_context_text: Also no diarrhea
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: dehydration risk in a young child
+    timeframe: now
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: emergency department
+    reason_or_trigger: call ahead about the child
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer 1 teaspoon of fluid every few minutes on the way; do not force
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 instead if she is hard to wake, limp, has a seizure, or turns blue or gray
+    trigger_condition: hard to wake; limp; seizure; blue or gray color
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Bring her medicine list, a diaper, and a sample of what she vomited if possible; keep her on her side in the car seat if sleepy
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Child vomiting repeatedly, cannot keep fluids down, and has decreased urine output
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse directs the family to the emergency department now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Ana.
+  Caller -> Ana, hi. It's Wen. I'm calling about my daughter. Mei Lin. || caller_name, relationship, patient_name
+  Nurse -> Hi, Wen. Can you spell the name for me?
+  Caller -> M E I, space, L I N. Chen, C H E N. || patient_name
+  Nurse -> Mei Lin Chen. And her date of birth?
+  Caller -> May nineteenth, twenty twenty three. || patient_dob
+  Nurse -> Okay. And your number, Wen? Is it six five oh, five five five, zero one four eight? || callback_phone
+  Caller -> Yes. Yes. || callback_phone
+  Nurse -> Okay. Tell me what's going on.
+  Caller -> She's been throwing up. Since this morning, since like six. Six times. Maybe seven. || cc, A1, F1
+  Caller -> And she can't, she can't keep anything down. Even water. || A2, F1
+  Nurse -> Okay. Even sips of water?
+  Caller -> I gave her a few sips about an hour ago and she threw it up in like ten minutes. || A2
+  Nurse -> Okay. How many wet diapers has she had today?
+  Caller -> One. Just one. Since last night. That's twelve hours. || A3, F1
+  Nurse -> Okay. Is she awake? How is she acting?
+  Caller -> She's, she's sleepy. More than normal. She wakes up when I call her, but she just wants to lie down. || A4
+  Nurse -> Okay. Does she have a fever?
+  Caller -> A little. I just took it. A hundred point two. || A5
+  Nurse -> Okay. Has she vomited any blood, or anything green?
+  Caller -> No. No blood. No green. It's just whatever she drinks. And she has no diarrhea. || A6
+  Nurse -> Okay. Thank you, Wen. I'm glad you called. Let me tell you what I think.
+  Caller -> Okay.
+  Nurse -> A three year old who's vomited six or seven times, can't keep fluids down, and has had one wet diaper in twelve hours is at risk of getting dehydrated. And she's sleepier than usual. I'd like you to take her to the emergency room now. || R1, F2
+  Caller -> Now? Like, tonight?
+  Nurse -> Yes. Tonight. Now. She needs to be checked and probably have some fluids.
+  Caller -> Okay. Okay. I was afraid you'd say that. I just didn't want to overreact.
+  Nurse -> You're not overreacting. It's the right call. Do you have a car and someone who can drive, so you can sit with her in the back?
+  Caller -> My husband is home. He can drive.
+  Nurse -> Good. In the car seat, if she's sleepy, keep an eye on her. If she vomits, turn her head to the side. || E3
+  Caller -> Okay.
+  Nurse -> On the way, you can offer her one teaspoon of fluid every few minutes. Pedialyte, or water. Just a teaspoon. Don't force it. || E1
+  Caller -> A teaspoon. Okay.
+  Nurse -> And bring her medicine list, a diaper if she has one, and if you can, a little of what she's vomited, in a bag. They sometimes want to see it. || E3
+  Caller -> Okay. I'll bring the medicine list.
+  Nurse -> Before you go, I need a few things for the ER. Does she have any allergies?
+  Caller -> No allergies. Just the stuff with her swallowing, which they know about.
+  Nurse -> Okay. And what medicines does she take?
+  Caller -> A daily vitamin and a reflux medicine. I gave the vitamin this morning. She threw up the reflux one right away, so I don't think she got it.
+  Nurse -> Okay. When was the last time she ate anything?
+  Caller -> Dinner last night. Some rice and chicken. She wouldn't eat breakfast.
+  Nurse -> Okay. Has anyone else at home been sick?
+  Caller -> My son had a stomach bug last week. He's six. He was throwing up for a day and then he was fine.
+  Nurse -> That could be the same bug. Has she been around anyone else?
+  Caller -> Daycare, Monday and Tuesday. Maybe somebody there was sick.
+  Nurse -> Okay. I'll let the ER know about the exposure, too.
+  Caller -> I'm really nervous. She's never been to the ER.
+  Nurse -> It's okay to be nervous. They'll see her quickly because she's so little and sleepy. Tell the front desk right away that she's vomiting, dehydrated, and sleepier than usual.
+  Caller -> Vomiting, dehydrated, sleepy. Okay. I'll say it.
+  Nurse -> And bring her favorite blanket or toy. It helps a lot when they're scared.
+  Caller -> She has a stuffed rabbit. She won't go anywhere without it. I'll grab it.
+  Nurse -> Perfect. And a phone charger for you, because ER waits can be long.
+  Caller -> Good point. My husband will bring the charger.
+  Nurse -> Does she have a car seat ready?
+  Caller -> Yes. It's already in the car. We came back from daycare in it.
+  Nurse -> Perfect. Which hospital will you go to?
+  Caller -> The children's one. Mercy Children's.
+  Nurse -> Okay. I'm going to call the emergency room ahead of you, so they know she's coming. || R2
+  Caller -> Oh, thank you. That helps.
+  Nurse -> If she gets hard to wake up, or limp, or has a seizure, or turns blue or gray, don't drive. Call nine one one. || E2
+  Caller -> Okay. Okay. Hard to wake, limp. Okay.
+  Nurse -> And I'll call you tomorrow morning to see how she's doing. || R3
+  Caller -> Thank you so much, Ana.
+  Nurse -> Go. Get her to the ER. Take care.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "and she can't, she can't keep anything down", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mei Lin Chen, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "2023-05-19", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Wen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "6505550148", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her daughter had been vomiting repeatedly since this morning and could not keep fluids down.
+    speaker: Caller
+    turns: [10]
+    quote: "She's been throwing up. Since this morning, since like six. Six times. Maybe seven."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Vomiting occurred 6 times since morning, possibly 7.
+      speaker: Caller
+      turns: [10]
+      quote: "Since this morning, since like six. Six times. Maybe seven."
+      explanation: Documents the number of vomiting episodes.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: 6 times since morning, certainty: stated}
+      covers: [A1]
+    - text: She could not keep fluids down; sips of water given an hour ago were vomited within about ten minutes.
+      speaker: Caller
+      turns: [13]
+      quote: "I gave her a few sips about an hour ago and she threw it up in like ten minutes."
+      explanation: Documents fluid intolerance.
+      facts:
+        - {type: symptom, name: unable to keep fluids down, present: true, severity: vomits sips of water within minutes, certainty: stated}
+      covers: [A2]
+    - text: Only one wet diaper had occurred in the last 12 hours.
+      speaker: Caller
+      turns: [15]
+      quote: "One. Just one. Since last night. That's twelve hours."
+      explanation: Documents decreased urine output.
+      facts:
+        - {type: symptom, name: decreased urination, present: true, severity: one wet diaper in 12 hours, certainty: stated}
+      covers: [A3]
+    - text: She was sleepier than usual but woke when called.
+      speaker: Caller
+      turns: [17]
+      quote: "She wakes up when I call her, but she just wants to lie down."
+      explanation: Documents decreased alertness.
+      facts:
+        - {type: symptom, name: sleepier than usual, present: true, severity: wakes up when called, certainty: stated}
+      covers: [A4]
+    - text: Temperature was 100.2.
+      speaker: Caller
+      turns: [19]
+      quote: "I just took it. A hundred point two."
+      explanation: Documents the reported fever.
+      facts:
+        - {type: vital, name: temperature, value: "100.2", certainty: stated}
+      covers: [A5]
+    - text: No blood or green material in the vomit and no diarrhea were reported.
+      speaker: Caller
+      turns: [21]
+      quote: "No. No blood. No green. It's just whatever she drinks. And she has no diarrhea."
+      explanation: Documents pertinent negatives for vomiting.
+      facts:
+        - {type: pertinent_negative, name: blood in vomit, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised taking her to the emergency department now because of dehydration risk.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'd like you to take her to the emergency room now."
+      explanation: Documents the escalation to emergency care.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, timeframe: now, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the emergency department ahead of arrival.
+      speaker: Nurse
+      turns: [58]
+      quote: "I'm going to call the emergency room ahead of you, so they know she's coming."
+      explanation: Documents the planned handoff.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call tomorrow morning to check on her.
+      speaker: Nurse
+      turns: [62]
+      quote: "And I'll call you tomorrow morning to see how she's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering one teaspoon of fluid every few minutes on the way without forcing it.
+      speaker: Nurse
+      turns: [32]
+      quote: "you can offer her one teaspoon of fluid every few minutes. Pedialyte, or water. Just a teaspoon. Don't force it."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 instead of driving if she became hard to wake, limp, had a seizure, or turned blue or gray.
+      speaker: Nurse
+      turns: [60]
+      quote: "If she gets hard to wake up, or limp, or has a seizure, or turns blue or gray, don't drive. Call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+    - text: Advised bringing her medicine list, a diaper, and a sample of the vomit if possible, and keeping her head turned to the side if she vomited.
+      speaker: Nurse
+      turns: [34]
+      quote: "bring her medicine list, a diaper if she has one, and if you can, a little of what she's vomited, in a bag."
+      explanation: Documents preparation and safety instructions for transport.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [11], quote: "she can't keep anything down. Even water."}
+    - {category: escalation_request, turns: [24], quote: "I'd like you to take her to the emergency room now."}

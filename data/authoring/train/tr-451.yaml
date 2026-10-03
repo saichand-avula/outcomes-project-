@@ -1,0 +1,269 @@
+call_id: tr-451
+split: train
+blueprint: "A staff member at a group home calls home health after giving a resident Zyprexa ten milligrams from the morning cup instead of his Zyrtec ten milligrams; the bottles sit side by side and the names are close. The resident, 45, is drowsy but answers and walks, with no breathing trouble. His regular Zyprexa is a bedtime dose. Nurse pages on-call, plans a nurse visit this afternoon, and tells her to keep him awake enough to drink fluids and not to give tonight's dose until the clinician decides. Wrong medication given (medication concern), tall-man pair, facility staff caller, patient 18-64, v2 short."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication_given
+  secondary_tags: [tall_man_drug, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, sedation]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Cottonwood Home Health
+  agency_type: home_health
+  nurse_name: Ruth
+  call_timestamp_utc: "2026-12-04T15:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Thurgood Beauchamp
+  patient_name_spoken: Thurgood Beauchamp
+  patient_name_certainty: stated
+  patient_dob_true: "1980-03-26"
+  patient_dob_spoken: "1980-03-26"
+  patient_dob_certainty: stated
+  caller_name_true: Rhonda Eastman
+  caller_name_spoken: Rhonda Eastman
+  caller_name_certainty: stated
+  relationship_to_patient: staff member at the group home
+  relationship_certainty: stated
+  callback_phone_true: "4045550130"
+  callback_phone_spoken: "4045550130"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported giving a resident the wrong pill from the morning medicine cup
+  reason_category: medication
+  relevant_context: Home health patient living in a group home
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zyprexa
+    medication_name_spoken: Zyprexa
+    medication_status: extra_dose
+    dose: "10"
+    unit: mg
+    frequency: given by mistake this morning
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zyrtec
+    medication_name_spoken: Zyrtec
+    medication_status: missed
+    dose: "10"
+    unit: mg
+    frequency: once a day as needed for allergies
+    prn: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: drowsy but answers and walks
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing or fainting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong medicine given this morning and a bedtime dose due
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give the bedtime Zyprexa until the clinician decides, set the two bottles in separate places, and have a second staff member check each cup
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him seated or lying down with someone nearby, offer fluids, check every fifteen minutes that he wakes easily and breathes normally
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Gave Zyprexa by mistake instead of Zyrtec
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cottonwood Home Health, this is Ruth.
+  Caller -> Hi. I'm sorry to call. I hope this is the right line for this. I wasn't sure who to ask.
+  Nurse -> You've reached the right place. Go ahead.
+  Caller -> Ruth, hi. This is Rhonda Eastman. R H O N D A. I'm a staff member at Maple Court Residence. One of our residents got the wrong pill this morning. His name is Thurgood Beauchamp. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Okay, Rhonda. Tell me what happened.
+  Caller -> It was a busy morning. We had four residents needing meds at once and one of the aides called out sick.
+  Caller -> I gave him Zyprexa instead of Zyrtec. Ten milligrams of Zyprexa. The Zyrtec is for his allergies, ten milligrams. I picked up the wrong bottle. They were next to each other. || A1, A2
+  Nurse -> Okay. When did you give it?
+  Caller -> About an hour ago. Eight thirty. I realized when I put the bottles back and saw the label.
+  Caller -> I noticed because the pharmacy label has a different color border. Green for the allergy one and blue for the other. I just looked at the wrong color.
+  Nurse -> Okay. Is he awake?
+  Caller -> He's awake. He's a little sleepy. He's in the day room, in the armchair. I asked him how he feels and he said tired. He answered me. He walked from the table to the chair without trouble. || A3
+  Caller -> He told me he'd like to nap. He never says that in the morning. He's usually up and in the kitchen helping with the dishes.
+  Nurse -> Is he breathing normally? Any trouble waking him?
+  Caller -> He's breathing normally. He wakes up when I say his name. He's not unconscious. I checked. He hasn't fainted, nothing like that. || A4
+  Caller -> His color looks good. His lips are pink. I looked at his chest while I talked to him.
+  Nurse -> Good. What's his date of birth?
+  Caller -> I have his chart open. It's right here in front of me. I'm looking at his picture on the cover. He's smiling.
+  Caller -> March twenty sixth. Nineteen eighty. || patient_dob
+  Nurse -> And your number?
+  Caller -> Four oh four, five five five, zero one three oh. || callback_phone
+  Nurse -> Thanks. Does he take Zyprexa regularly? || A1
+  Caller -> The doctor prescribed it a few years ago. It helps him sleep and keeps his mood steady. He's done really well on it.
+  Caller -> Yes. At bedtime. Ten milligrams. Every night. So he took his morning dose of a medicine he usually takes at night. He's used to it. But in the morning it hits him differently.
+  Nurse -> Okay. He's also on the Zyrtec as needed for allergies? || A2
+  Caller -> As needed. Once a day. Ten milligrams. His allergies are bad this week. That's why I was giving it to him. || A2
+  Caller -> It's been a rough pollen season. He sneezes a lot. His eyes water. He walks around with a tissue box.
+  Nurse -> Rhonda, I'll page the on-call clinician right now and let them know what happened. || R1
+  Caller -> Thank you. Should I call his family? His sister is his contact.
+  Caller -> His sister is very involved. She calls every Sunday. I don't want her to hear it from someone else first.
+  Nurse -> Follow your facility's policy. I'd tell her after the clinician weighs in.
+  Caller -> Okay. I've already told my supervisor. She's coming in.
+  Caller -> She was calm about it. She said we'd file an incident report and review our process. I think we need a second check on the cart.
+  Nurse -> Good. I'd also like a nurse to see him this afternoon. || R2
+  Caller -> This afternoon. Perfect. I'll be here until four.
+  Caller -> The front door sticks, so the nurse should push it hard. And there's a ramp around the side.
+  Nurse -> In the meantime, keep him seated or lying down, with someone nearby. Offer him fluids. And check him every fifteen minutes, to be sure he wakes easily and is breathing normally. || E2
+  Caller -> Every fifteen minutes. Wake easily. Breathing normal. I'll set a timer and I'll check.
+  Caller -> I've never had to do this before. Do I write down what I see?
+  Nurse -> Yes. Note the time and how he looks each time you check.
+  Nurse -> And don't give tonight's Zyprexa until the clinician decides. Also, put the two bottles in separate places, and have a second staff person double check every cup. || E1
+  Caller -> Not tonight until you call. Separate bottles. Second person. Yes. We've already moved them. The Zyrtec is on the top shelf now and the Zyprexa is in the locked cabinet. || A1, A2
+  Caller -> We do have a second pair of eyes at night, but I think we should have it in the morning too.
+  Nurse -> Great. That will help.
+  Caller -> I'll make a big sign and tape it to the cabinet. Check the name, check the name, check the name.
+  Caller -> I feel terrible. I've been doing this job for six years. I've never made a mistake.
+  Caller -> I tell all the new staff to check the label three times. And then I go and do this.
+  Nurse -> It happens to everyone. The names are very close. You called right away. That's what matters.
+  Caller -> That makes me feel a little better. It doesn't make it right, but it helps.
+  Caller -> Thank you. I just want him to be okay.
+  Caller -> He's a favorite of everybody in the house. He brings the mail to the staff every day like a little postman.
+  Nurse -> He seems stable. We'll keep a close eye. Is there anything else going on with him?
+  Caller -> No. He's usually cheerful. He loves to watch the cooking channel. He's going to love this, I'll tell him he gets to nap in the chair.
+  Nurse -> Ha. A free nap.
+  Caller -> I'll lower the blinds in the day room and dim the lights. It's quiet in there at this time of day.
+  Caller -> He'll wake up and ask what's for lunch.
+  Nurse -> Ha. Probably. Keep him hydrated, and make sure lunch is light.
+  Caller -> He always says the cooking show chefs are cheating, that nobody can chop that fast. He's a hard judge.
+  Caller -> Light lunch. Soup and crackers. Okay.
+  Caller -> He likes the tomato soup from the can. With the little oyster crackers on top. I'll warm it slowly.
+  Nurse -> Thank you for calling it in right away.
+  Caller -> Thank you, Ruth. I appreciate it.
+  Nurse -> Anytime, Rhonda. Bye.
+  Caller -> Take care, Ruth. I'll call if anything changes before the nurse gets here.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Thurgood Beauchamp, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1980-03-26", certainty: stated, heard_as: [], turns: [19]}
+    caller_name: {value: Rhonda Eastman, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: staff member at the group home, certainty: stated, turns: [4]}
+    callback_phone: {value: "4045550130", certainty: stated, heard_as: [], turns: [21]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported giving a resident the wrong pill from the morning medicine cup.
+    speaker: Caller
+    turns: [4]
+    quote: "One of our residents got the wrong pill this morning."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Zyprexa 10 mg was given by mistake this morning at eight thirty.
+      speaker: Caller
+      turns: [7]
+      quote: "I gave him Zyprexa instead of Zyrtec. Ten milligrams of Zyprexa."
+      explanation: Documents the wrong medicine.
+      facts:
+        - {type: medication, name: Zyprexa, dose: "10", unit: mg, frequency: given by mistake this morning, prn: false, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Zyrtec 10 mg once a day as needed for allergies was not given.
+      speaker: Caller
+      turns: [7]
+      quote: "The Zyrtec is for his allergies, ten milligrams."
+      explanation: Documents the intended medicine.
+      facts:
+        - {type: medication, name: Zyrtec, dose: "10", unit: mg, frequency: once a day as needed for allergies, prn: true, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: He was sleepy but answered questions and walked without trouble.
+      speaker: Caller
+      turns: [12]
+      quote: "He's a little sleepy."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: drowsy but answers and walks, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: He was breathing normally and had not fainted.
+      speaker: Caller
+      turns: [15]
+      quote: "He's breathing normally."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing or fainting, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [28]
+      quote: "I'll page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'd also like a nurse to see him this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not giving the bedtime Zyprexa until the clinician decided, keeping the bottles apart and having a second staff member check each cup.
+      speaker: Nurse
+      turns: [41]
+      quote: "don't give tonight's Zyprexa until the clinician decides."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping him seated or lying down with someone nearby, offering fluids and checking every fifteen minutes.
+      speaker: Nurse
+      turns: [37]
+      quote: "keep him seated or lying down, with someone nearby."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [4], quote: "One of our residents got the wrong pill this morning."}

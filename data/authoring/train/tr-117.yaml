@@ -1,0 +1,207 @@
+call_id: tr-117
+split: train
+blueprint: "Daughter calling from work says her mother is very sleepy today after her aide gave 'one of those Z pills, the Xanax or the Zantac' last night; the daughter cannot read the bottle. Name conflict is never resolved (first mentioned form kept, unclear). Mother wakes to her name, eats a little, breathing normal. Nurse will call the aide to read the bottle and plans a visit this afternoon."
+setup:
+  scenario_category: asr_error
+  subtype: garbled_drug_unresolved
+  secondary_tags: [garbled_drug, hedging, contradiction, late_answers, split_turns]
+  clinical_domains: [medication, sedation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-11-16T15:40:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Winifred Gallagher
+  patient_name_spoken: Winifred Gallagher
+  patient_name_certainty: stated
+  patient_dob_true: "1940-09-12"
+  patient_dob_spoken: "1940-09-12"
+  patient_dob_certainty: stated
+  caller_name_true: Bridget Gallagher
+  caller_name_spoken: Bridget Gallagher
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7735550181"
+  callback_phone_spoken: "7735550181"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother is very sleepy after an unclear bedtime pill
+  reason_category: sedation
+  relevant_context: Aide gave the pill; daughter is at work
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: alprazolam
+    medication_name_spoken: Xanax
+    medication_status: given_previously
+    last_dose: last night, given by the aide
+    certainty: unclear
+    unclear_detail: Caller said one of those Z pills, Xanax or Zantac, and cannot read the bottle
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: very sleepy
+    symptom_present: true
+    onset_or_duration: today
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: the aide
+    reason_or_trigger: read the bottle label aloud and report the dose given
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Ask the aide to check that she wakes to her name, keeps drinking sips, and breathes normally
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if she cannot be woken or her breathing slows
+    trigger_condition: cannot be woken; slow breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi, Gwen. It's Bridget Gallagher. I'm calling about my mom. Winifred. Winifred Gallagher. || caller_name, relationship, patient_name
+  Nurse -> Hi, Bridget. Her birthday?
+  Caller -> September twelfth. Nineteen forty. || patient_dob
+  Nurse -> And is seven seven three, five five five, zero one eight one your number? || callback_phone
+  Caller -> Yes. I'm at work. I'm on my break. || callback_phone
+  Nurse -> What's going on?
+  Caller -> My mom is really sleepy today. The aide called me. She says she's been sleeping since morning, and she's hard to get going. || cc, A2
+  Nurse -> Okay. Did she have anything new last night?
+  Caller -> The aide gave her a pill. At bedtime. For her nerves. One of those Z pills. The Xanax. Or the Zantac. Something with a Z. || A1
+  Nurse -> Okay. Do you know what it says on the bottle?
+  Caller -> No, I can't see it. I'm at work. The aide has it. I don't know the name. I just remember a Z. || A1
+  Nurse -> Okay.
+  Caller -> Honestly, I think it was the Xanax. But I don't know. || A1
+  Nurse -> Okay. Is she waking up when someone says her name?
+  Caller -> The aide says yes. She opens her eyes and then falls back asleep. || A2
+  Nurse -> Is she eating or drinking anything?
+  Caller -> A few sips of water. Half of a banana. That's it.
+  Nurse -> Okay. And her breathing?
+  Caller -> Normal, the aide says. She said it's regular. Not slow or anything. || A3
+  Nurse -> Alright. I'm going to call the aide right now and have her read me the bottle. And how much she gave. || R1
+  Caller -> Oh, good. Okay. I should have asked her.
+  Nurse -> It's okay. And I'll send a nurse to see your mom this afternoon. || R2
+  Caller -> This afternoon. Okay. Thank you.
+  Nurse -> Until then, the aide should keep checking that she wakes to her name, that she takes sips, and that her breathing stays regular. || E1
+  Caller -> Okay. I'll tell her.
+  Nurse -> And if she can't be woken up, or her breathing gets slow, call us right away. || E2
+  Caller -> Okay. Can't wake. Slow breathing. I will.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Gwen.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Xanax, heard_form: "The Xanax. Or the Zantac.", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winifred Gallagher, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-09-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Bridget Gallagher, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7735550181", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother is very sleepy after an unclear bedtime pill.
+    speaker: Caller
+    turns: [8]
+    quote: "My mom is really sleepy today."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She was very sleepy since morning, opening her eyes to her name and falling back asleep.
+      speaker: Caller
+      turns: [16]
+      quote: "The aide says yes. She opens her eyes and then falls back asleep."
+      explanation: Documents the sedation.
+      facts:
+        - {type: symptom, name: very sleepy, present: true, duration: today, certainty: stated}
+      covers: [A2]
+    - text: A bedtime pill for her nerves was given by the aide, reported as Xanax (unclear; the caller also said Zantac and could not read the bottle).
+      speaker: Caller
+      turns: [14]
+      quote: "Honestly, I think it was the Xanax. But I don't know."
+      explanation: Documents the unclear medication.
+      facts:
+        - {type: medication, name: Xanax, last_dose: last night, given by the aide, med_status: given_previously, certainty: unclear}
+      covers: [A1]
+    - text: Her breathing was reported as regular.
+      speaker: Caller
+      turns: [20]
+      quote: "Normal, the aide says. She said it's regular. Not slow or anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to call the aide to have her read the bottle and report the dose given.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to call the aide right now and have her read me the bottle."
+      explanation: Documents the planned verification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll send a nurse to see your mom this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised the aide to keep checking that she wakes to her name, takes sips, and breathes regularly.
+      speaker: Nurse
+      turns: [25]
+      quote: "the aide should keep checking that she wakes to her name, that she takes sips, and that her breathing stays regular."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away if she could not be woken or her breathing slowed.
+      speaker: Nurse
+      turns: [27]
+      quote: "if she can't be woken up, or her breathing gets slow, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

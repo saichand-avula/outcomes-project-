@@ -1,0 +1,408 @@
+call_id: tr-477
+split: train
+blueprint: "A hospice patient's daughter and her brother both think they gave their father his lorazepam under the tongue around eight tonight and nothing was written on the log, so a double dose of point five milligrams is possible; he gets lorazepam every four hours as needed for restlessness and had morphine five milligrams at six, which both agree on. He was restless earlier and is now sleepy but wakes to his name, breathing about twelve breaths a minute without gurgling. Nurse reconstructs the evening, pages on-call, plans a nurse visit tonight, advises no more lorazepam until the clinician calls, and reviews logging and when to call. Unresolved who-gave-what, planned versus completed doses (possible double dose, medication concern), adult child caller, patient 65+, v2 long."
+setup:
+  scenario_category: ambiguous
+  subtype: possible_double_dose
+  secondary_tags: [contradiction, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, crosstalk]
+  clinical_domains: [medication, agitation_delirium, respiratory]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Heron Point Hospice
+  agency_type: hospice
+  nurse_name: Leocadia
+  call_timestamp_utc: "2026-11-17T04:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Augustin Delacroix
+  patient_name_spoken: Augustin Delacroix
+  patient_name_certainty: stated
+  patient_dob_true: "1940-12-17"
+  patient_dob_spoken: "1940-12-17"
+  patient_dob_certainty: stated
+  caller_name_true: Odette Delacroix
+  caller_name_spoken: Odette Delacroix
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "6155550188"
+  callback_phone_spoken: "6155550188"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Unsure whether her father got a double dose of lorazepam tonight
+  reason_category: medication
+  relevant_context: Hospice patient at home with two family caregivers
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: unclear whether one or two doses around eight tonight
+    certainty: unclear
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: six this evening
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepy but wakes to his name after earlier restlessness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: respiratory rate
+    vital_value: "12"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: gurgling or labored breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: She and her brother both think they gave the lorazepam and nothing was written on the log
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: possible double dose of lorazepam and sleepiness
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more lorazepam tonight until the clinician calls, and write the drug, dose, and time on the log the moment it is given
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the lights low, turn him gently every couple of hours, and moisten his lips with a swab
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he is hard to wake, breathes fewer than ten times a minute, or starts gurgling or struggling to breathe
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Possible double dose of lorazepam with no log entry and increased sleepiness
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Heron Point Hospice, this is Leocadia.
+  Caller -> Hi. It's Odette Delacroix. My father is Augustin Delacroix. I think we might have given him too much lorazepam tonight. Me and my brother both. I'm not sure. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> Hi, Odette. You sound shaken. Take a breath.
+  Caller -> I'm trying. I'm trying. It's four in the morning and my brain is not working.
+  Nurse -> That's okay. I'm here.
+  Nurse -> Hi, Odette. Okay. Let's go through it together. First, how is he right now?
+  Caller -> I should have called an hour ago. I kept going back and forth on whether it was worth waking someone up.
+  Nurse -> It's always worth it. This is what the night line is for.
+  Caller -> He's asleep. He's really sleepy. But he wakes up. If I say his name, he opens his eyes and says, what? Then he goes back. He was restless before. Moaning, picking at the sheet. Now he's quiet. || A3
+  Nurse -> Okay. Is anyone else in the room with him?
+  Caller -> Just me and Rene. My husband went home with the kids.
+  Caller -> I turned the light off. There's a little lamp in the corner. Is that okay?
+  Nurse -> That's fine. Keep it dim.
+  Nurse -> Okay. Is he breathing comfortably?
+  Caller -> Hold on. Rene, come here. Come stand by him. Okay, Rene's here now.
+  Caller -> I think so. I'm counting. Hold on. I've got the watch. Twelve. Twelve breaths in a minute. It's slow, but it's even. No noise. || A4
+  Nurse -> Okay. That's helpful. Keep counting a little later too.
+  Caller -> I will.
+  Caller -> Wait, let me start the timer. Okay. Counting. One. Two.
+  Nurse -> Take your time.
+  Caller -> I'm walking. The kitchen is dark. Where is the light. Okay.
+  Nurse -> Twelve a minute. Any gurgling, rattling, pauses?
+  Caller -> No. No rattle. No gurgling. He's not struggling. His face is relaxed. His color is okay. || A5
+  Nurse -> Good.
+  Caller -> His hands are warm. His feet are warm.
+  Nurse -> Okay. Thank you.
+  Nurse -> That's helpful. Now, tell me about the lorazepam. What's the dose, and how often can he have it? || A1
+  Caller -> Point five milligrams. Under the tongue. Every four hours if he's restless. That's the comfort kit one. The little tablet.
+  Nurse -> Okay.
+  Caller -> It's the one the nurse showed us how to use. It melts. It's tiny.
+  Nurse -> Okay. And when did he get it tonight?
+  Caller -> I'm going to tell you exactly what I remember. Okay? Don't interrupt me.
+  Nurse -> I won't.
+  Caller -> That's the problem. I gave it around eight. I think. I put it under his tongue and he was fussing and I waited. And then my brother says he gave it around eight too. Rene! Did you give it? Rene says he gave it at eight fifteen.
+  Caller -> Rene, say it again. Say it so she can hear. He says eight fifteen. He's holding up his phone. He texted our aunt at eight twenty.
+  Nurse -> Okay.
+  Caller -> He keeps shaking his head. He says he's sure. I'm sure too. We're both sure.
+  Nurse -> Take it slowly.
+  Caller -> I'm sorry. I'm jumbling it.
+  Nurse -> You're doing fine.
+  Nurse -> Okay. So you gave one at about eight, and your brother gave one at eight fifteen?
+  Caller -> I think so. Maybe. He says he gave it when I was in the bathroom. I didn't see him. And I said I gave it before the bathroom. So we could have both given it. Or only one of us. We don't know. || A1
+  Nurse -> Okay. Did either of you write it on the log?
+  Caller -> No. That's the thing. Nothing on the log. We both forgot. Or we were going to write it later. I was going to. Rene says he was going to. The page is blank since six. || A6
+  Nurse -> Okay.
+  Caller -> I feel so stupid. The nurse told us. She said write everything. And we didn't.
+  Nurse -> It's very easy to forget in the moment.
+  Nurse -> Okay. Is there a pill count? Can you count how many tablets are in the kit?
+  Caller -> Hold on. I'll get the kit. It's in the kitchen. Rene, bring the kit. The little bag. Okay, he's bringing it.
+  Nurse -> Take your time.
+  Caller -> Okay, it's here. It's a little bottle. The label says ten tablets. Let me count. One, two, three, four, five, six, seven. Seven. Wait. Rene, is it seven? He says seven.
+  Nurse -> Seven tablets. And how many were in the bottle when you started?
+  Nurse -> Okay.
+  Caller -> I don't know exactly. The nurse said ten. And we gave one yesterday morning, I think. And one in the night. So that would be eight. Then seven would mean one tonight.
+  Nurse -> Or it could be that you started with nine, and two tonight. I can't tell from that.
+  Caller -> I wish I'd counted when they delivered it.
+  Nurse -> We'll make sure the nurse counts tonight.
+  Caller -> Right. Right. I can't either. That's what I'm afraid of.
+  Caller -> Rene says he's sure he gave one. I'm sure I gave one. So that's two. But maybe I gave it earlier. Maybe at seven forty five. Rene, what time was it?
+  Caller -> He doesn't know. He says the clock on the stove was blinking.
+  Nurse -> That's okay.
+  Nurse -> Okay. Let's keep going. What else has he gotten tonight? Any morphine? || A2
+  Caller -> Okay.
+  Caller -> Yes. The morphine. Five milligrams. A quarter of the little syringe. I gave it at six. Rene watched me. We both agree on that one. It's written. I wrote that one. || A2
+  Nurse -> Okay. Thank you for being so clear about that one.
+  Nurse -> Good. Morphine at six, and that's on the log. Odette, what's his date of birth? || A2
+  Caller -> Sorry, the nurse will want that too. Isn't it on the chart?
+  Nurse -> It is. I just need to confirm.
+  Caller -> Yes. I'm very careful with that one. It scares me.
+  Nurse -> That's understandable.
+  Caller -> December seventeenth. Nineteen forty. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six one five, five five five, oh one eight eight. || callback_phone
+  Nurse -> Six one five, five five five, oh one eight eight. Right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Great.
+  Caller -> It's on and the volume is all the way up.
+  Nurse -> Okay. Thank you. Here's what I'm going to do. I'm going to page the on-call clinician right now, about the possible double dose and how sleepy he is. || R1
+  Caller -> Please. I need a plan.
+  Caller -> Okay. Thank you. Am I going to get in trouble?
+  Nurse -> Take a moment if you need it.
+  Caller -> I keep thinking I did something terrible.
+  Nurse -> No. Not at all. This is a very common situation when two people are helping. You did the right thing, calling.
+  Caller -> I'm so relieved. I thought you'd be angry.
+  Nurse -> Not at all.
+  Caller -> I feel awful.
+  Nurse -> I know. But you're doing the right thing right now.
+  Caller -> Rene feels awful too. He's crying in the hallway.
+  Nurse -> I know. It's okay. I'd also like a nurse to come out tonight to see him. || R2
+  Caller -> Tonight? Oh, thank God. When?
+  Caller -> I don't think I can do this alone. I keep thinking I'll make another mistake.
+  Nurse -> You're not alone. The nurse will be there soon.
+  Nurse -> As soon as someone is available.
+  Nurse -> I'll ask for as soon as possible. They'll call you before they come.
+  Caller -> Should I get anything ready? Towels? Water?
+  Nurse -> Just the log, the medicine bags, and the kit. Put them on the table.
+  Caller -> Okay.
+  Caller -> Okay. Okay. Thank you.
+  Caller -> I'll go sit by him now.
+  Caller -> Should I wake the nurse next door? She's a nurse, she's retired, she lives next door.
+  Nurse -> There's no need. We'll have our nurse there.
+  Caller -> Okay. I'll let her sleep.
+  Nurse -> That's kind of you.
+  Caller -> She had a long day too. Her knee has been bothering her.
+  Nurse -> In the meantime, please don't give any more lorazepam tonight, until the clinician calls you. And from now on, write the medicine, the dose, and the time on the log the moment you give it. Not later. || E1
+  Caller -> No more tonight. Write it right away. Okay. Rene, did you hear that? He heard. He's nodding. We're going to put a pen on a string.
+  Nurse -> Perfect.
+  Nurse -> Ha. That's a great idea.
+  Caller -> Rene is going to find string. He just ran off.
+  Nurse -> Ha.
+  Caller -> My mother used to do that with the grocery list.
+  Nurse -> It works.
+  Caller -> She also wrote the day on everything. Everything had a date on it. It drove my father crazy.
+  Nurse -> Ha.
+  Caller -> What if he gets restless again? What do I do?
+  Nurse -> That's a good question.
+  Nurse -> Try comfort first. Keep the lights low. Speak softly. Gently turn him every couple of hours. And moisten his lips with a swab. If he gets restless, call me back, and we'll talk to the clinician about it. || E2
+  Caller -> Lights low. Soft voice. Turn him. Swab. Call you. Okay. I have the swabs. The pink ones.
+  Caller -> They're in a cup on the dresser. I've been using them every hour.
+  Nurse -> Perfect.
+  Caller -> Turn him how? Which side?
+  Nurse -> Either side. Use a pillow behind his back. Gently.
+  Caller -> Okay.
+  Nurse -> Good. And Odette, call us right away if he's hard to wake, if he's breathing fewer than ten times a minute, or if he starts gurgling or struggling to breathe. || E3
+  Caller -> Okay. Say the second one again, I want to make sure I write it right.
+  Nurse -> Fewer than ten breaths in a minute.
+  Caller -> Fewer than ten. Okay.
+  Caller -> Hard to wake. Fewer than ten. Gurgling. Struggling. Okay. I have the watch. I'll count again in ten minutes.
+  Caller -> What if he's just deeply asleep? How do I tell the difference?
+  Nurse -> If he won't open his eyes to your voice or a gentle touch, call us.
+  Caller -> Okay. Got it.
+  Nurse -> Good. Count for a full minute.
+  Caller -> Okay. A full minute.
+  Caller -> A full minute. Okay.
+  Nurse -> Take your time.
+  Caller -> It's hard to count and talk. Sorry.
+  Nurse -> You don't have to talk. I'll wait.
+  Nurse -> And keep the phone near you.
+  Caller -> It's in my pocket.
+  Nurse -> Good.
+  Nurse -> Perfect. I'll page now.
+  Caller -> Okay. Thank you for staying so calm. It helps.
+  Nurse -> Of course.
+  Caller -> Thank you. Leocadia?
+  Nurse -> I'm here.
+  Nurse -> Yes?
+  Caller -> Is he dying? Tonight? Is that what this is?
+  Nurse -> I don't think this is that. He's resting, and he's breathing comfortably. But we do want to watch him closely. The nurse can talk with you about what to expect.
+  Caller -> He's been so tired for weeks. I just keep wondering.
+  Nurse -> I know. The nurse will go over everything.
+  Caller -> Okay. Okay. I just. I wanted to ask.
+  Caller -> We've been taking care of him for eight months. It's gone so fast. And so slow.
+  Nurse -> I know.
+  Nurse -> I'm glad you did. You can ask me anything.
+  Caller -> I'll write down my questions for the nurse. I have a lot of them.
+  Nurse -> Please do.
+  Caller -> Thank you. We'll wait for the call.
+  Nurse -> Sit with him. You're doing a good job.
+  Caller -> Rene is back with the string. He's tying a pen to the clipboard. Ha. It's very long.
+  Nurse -> Perfect.
+  Nurse -> I'll page now. Talk soon.
+  Caller -> Bye.
+  Nurse -> Bye, Odette.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Augustin Delacroix, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1940-12-17", certainty: stated, heard_as: [], turns: [71]}
+    caller_name: {value: Odette Delacroix, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550188", certainty: stated, heard_as: [], turns: [73, 74]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Unsure whether her father got a double dose of lorazepam tonight.
+    speaker: Caller
+    turns: [2]
+    quote: "I think we might have given him too much lorazepam tonight."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: (unclear; she and her brother may each have given one) Lorazepam 0.5 mg under the tongue every four hours as needed, given around eight tonight.
+      speaker: Caller
+      turns: [28]
+      quote: "Point five milligrams. Under the tongue. Every four hours if he's restless."
+      explanation: Documents the lorazepam order. The drug is named in the tagged call turn.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: unclear whether one or two doses around eight tonight, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: Morphine 5 mg was given at six this evening and logged.
+      speaker: Caller
+      turns: [64]
+      quote: "Yes. The morphine. Five milligrams."
+      explanation: Documents the morphine dose.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: six this evening, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was restless earlier and was now sleepy but opened his eyes to his name.
+      speaker: Caller
+      turns: [9]
+      quote: "He's really sleepy. But he wakes up."
+      explanation: Documents the current state.
+      facts:
+        - {type: symptom, name: sleepy but wakes to his name after earlier restlessness, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Breathing rate was 12 per minute and even.
+      speaker: Caller
+      turns: [16]
+      quote: "Twelve breaths in a minute."
+      explanation: Documents the respiratory rate.
+      facts:
+        - {type: vital, name: respiratory rate, value: "12", certainty: stated}
+      covers: [A4]
+    - text: He had no gurgling or struggling to breathe.
+      speaker: Caller
+      turns: [23]
+      quote: "No rattle. No gurgling."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: gurgling or labored breathing, certainty: stated}
+      covers: [A5]
+    - text: (unclear) She and her brother both thought they gave the lorazepam and nothing was written on the log.
+      speaker: Caller
+      turns: [44]
+      quote: "Nothing on the log."
+      explanation: Documents the unresolved dosing history.
+      facts:
+        - {type: context, text: She and her brother both think they gave the lorazepam and nothing was written on the log, certainty: unclear}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician about the possible double dose and sleepiness.
+      speaker: Nurse
+      turns: [78]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tonight.
+      speaker: Nurse
+      turns: [89]
+      quote: "I'd also like a nurse to come out tonight to see him."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving no more lorazepam tonight until the clinician calls and logging each dose immediately.
+      speaker: Nurse
+      turns: [105]
+      quote: "please don't give any more lorazepam tonight"
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the lights low, turning him gently, and moistening his lips with a swab.
+      speaker: Nurse
+      turns: [117]
+      quote: "Keep the lights low."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if he was hard to wake, breathed fewer than ten times a minute, or started gurgling or struggling.
+      speaker: Nurse
+      turns: [124]
+      quote: "call us right away if he's hard to wake"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think we might have given him too much lorazepam tonight."}

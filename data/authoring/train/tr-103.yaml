@@ -1,0 +1,327 @@
+call_id: tr-103
+split: train
+blueprint: "MEDIUM pediatric call: mother of a 14-month-old on day 5 of RSV: temperature 100.2, wet cough and congestion, drinking about 4 bottles, 4 wet diapers in 24 hours, no fast breathing or belly sucking in, home oximeter 96. Acetaminophen order read by nurse. Nurse messages the pediatrician, plans a visit and callback tomorrow, teaches suction, humidifier, fluids and return precautions. No flags."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [liquid_concentration, negated_risk_phrase, late_answers, split_turns, offtopic_chatter, multi_issue, phone_from_file]
+  clinical_domains: [cough_uri, fever, intake_appetite, dyspnea]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-11-02T17:50:00Z"
+  length_bucket: medium
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Theo Bauman
+  patient_name_spoken: Theo Bauman
+  patient_name_certainty: stated
+  patient_dob_true: "2025-08-19"
+  patient_dob_spoken: "2025-08-19"
+  patient_dob_certainty: stated
+  caller_name_true: Hannah Bauman
+  caller_name_spoken: Hannah Bauman
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "7205550126"
+  callback_phone_spoken: "7205550126"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave an update on her son's RSV and asked what to watch for
+  reason_category: cough_uri
+  relevant_context: Day 5 of RSV
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.2"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: wet cough and congestion
+    symptom_present: true
+    onset_or_duration: 5 days
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Drank about 4 bottles today and had 4 wet diapers in 24 hours
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fast breathing or belly sucking in
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "96"
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: Tylenol
+    medication_status: given_previously
+    strength: 160 mg per 5 mL
+    dose: "3.75"
+    unit: mL
+    last_dose: about 5 hours ago
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pediatrician
+    reason_or_trigger: day 5 of RSV with ongoing fever and cough
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: may repeat Tylenol 3.75 mL no sooner than 6 hours after the last dose
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Use saline drops and the bulb suction before feeds and sleep, run a cool-mist humidifier, and keep his head raised
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small frequent feeds and count wet diapers
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for blue lips, fast or labored breathing, or if hard to wake; call us for fewer than 3 wet diapers in 24 hours or a fever of 102 or higher
+    trigger_condition: blue lips; fast or labored breathing; hard to wake; fewer than 3 wet diapers in 24 hours; fever of 102 or higher
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi, Priya. It's Hannah Bauman. Theo's mom. Theo Bauman. || caller_name, relationship, patient_name
+  Nurse -> Hi, Hannah. His birthday?
+  Caller -> August nineteenth. Twenty twenty five. || patient_dob
+  Nurse -> And I have seven two oh, five five five, zero one two six. || callback_phone
+  Caller -> That's me. || callback_phone
+  Nurse -> How's he doing?
+  Caller -> Okay. I think. I don't know. It's day five of the RSV and I just, I want to check that this is normal. || cc, A2
+  Nurse -> Of course. Tell me what you're seeing.
+  Caller -> He's still got the cough. It's wet. It's really, you can hear it in his chest, and his nose is so stuffy. || A2
+  Nurse -> Mm-hm. Fever?
+  Caller -> A little. I just took it. A hundred point two. || A1
+  Nurse -> Okay. Has he had anything for it?
+  Caller -> I gave him Tylenol. About five hours ago. The infant one. The three point seven five. || A6
+  Nurse -> Let me check that against his order. I'm looking at it. Acetaminophen, one sixty per five, three point seven five milliliters. That's right. || A6
+  Caller -> Okay, good. I wasn't sure about the dose.
+  Nurse -> It matches. Okay. And how's he drinking?
+  Caller -> He's drinking. He's had, let me think, four bottles today. Small ones. Four. Not a lot but he's taking them. || A3
+  Nurse -> Okay. And wet diapers?
+  Caller -> Four. In the last twenty four hours. I counted. I've been counting because the other nurse told me to. || A3
+  Nurse -> Good, that's exactly right. That's a good number. Four is fine.
+  Caller -> Okay.
+  Nurse -> Now, how's his breathing? Is he breathing fast? Do you see his belly or his ribs pulling in with each breath?
+  Caller -> No. No, I don't think so. I watched him. His breathing is noisy, from the stuffy nose, but it isn't fast. His belly isn't sucking in. || A4
+  Nurse -> Okay. Any blue color around his lips?
+  Caller -> No. His lips are pink.
+  Nurse -> Good. Do you have the oximeter on him?
+  Caller -> Yes, I put it on his foot. It says ninety six. || A5
+  Nurse -> Okay. Ninety six is good.
+  Caller -> Okay. I was worried about that number.
+  Nurse -> It's a good number. Okay.
+  Caller -> Yeah.
+  Nurse -> And how's he acting? Is he playing, smiling?
+  Caller -> Kind of. He's cranky. He wants to be held all the time. But he smiled at his dad this morning. His dad was making that dinosaur noise.
+  Nurse -> Ha. That's good.
+  Caller -> Yeah. His dad does the dinosaur thing. It always works.
+  Nurse -> And how is he sleeping? Is he sleeping in stretches, or waking up a lot?
+  Caller -> He wakes up a lot. Every hour or two, coughing, and then he can't breathe through his nose so he cries. I'm up with him. We're taking turns.
+  Nurse -> That's rough. Is his dad able to help at night?
+  Caller -> Yeah, he does the first half. I do the second. We're tired, but we're managing.
+  Nurse -> Good. That sounds like a plan that works.
+  Caller -> Yeah. And my mom's coming Thursday to help, so that'll be nice. She's driving up from Pueblo.
+  Nurse -> That will help a lot. Is Theo eating any solid food right now, or mostly just the bottles?
+  Caller -> Mostly bottles. He'll take a few puffs, the little melt things, but not really. He's not interested.
+  Nurse -> That's very normal with a stuffy nose. Bottles are what matter right now.
+  Nurse -> That's a great sign. Okay. Here's what I'm going to do. I'll message his pediatrician about day five and the fever. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And I'm going to come see him tomorrow myself, to listen to his lungs. || R2
+  Caller -> Oh good. Tomorrow. Okay.
+  Nurse -> And I'll call you tomorrow morning before that, to see how the night went. || R3
+  Caller -> Okay.
+  Nurse -> You can give the Tylenol again, the same three point seven five, as long as it's been six hours since the last one. || R4
+  Caller -> Okay. Six hours. So like, in an hour.
+  Nurse -> Right. For the stuffy nose, use the saline drops and then the bulb suction before feeds and before he goes to sleep. And run the cool mist humidifier in his room. || E1
+  Caller -> We have the humidifier. It's going. The saline, yes.
+  Nurse -> And keep his head raised a little when he's sleeping. Not with a pillow, but you can put a rolled towel under the mattress at the head end. || E1
+  Caller -> Under the mattress. Okay.
+  Nurse -> Small feeds, often. And keep counting the wet diapers. || E2
+  Caller -> I will.
+  Nurse -> Now call us if he has fewer than three wet diapers in a day, or if his fever goes to a hundred and two or higher. || E3
+  Caller -> Three diapers. A hundred and two. Okay.
+  Nurse -> And call nine one one right away for blue lips, fast or hard breathing, or if he's hard to wake up. || E3
+  Caller -> Blue lips. Hard breathing. Hard to wake. Okay.
+  Nurse -> Anything else you want to ask me?
+  Caller -> No. I feel a lot better. Thank you, Priya. You always calm me down.
+  Nurse -> Anytime, Hannah. Talk tomorrow.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Theo Bauman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2025-08-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Hannah Bauman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "7205550126", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave an update on her son's RSV and asked what to watch for.
+    speaker: Caller
+    turns: [8]
+    quote: "It's day five of the RSV and I just, I want to check that this is normal."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He still had a wet cough and congestion on day 5 of RSV.
+      speaker: Caller
+      turns: [10]
+      quote: "He's still got the cough. It's wet."
+      explanation: Documents the ongoing respiratory symptoms.
+      facts:
+        - {type: symptom, name: wet cough and congestion, present: true, duration: 5 days, certainty: stated}
+      covers: [A2]
+    - text: Temperature was 100.2.
+      speaker: Caller
+      turns: [12]
+      quote: "A hundred point two."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "100.2", certainty: stated}
+      covers: [A1]
+    - text: Tylenol 160 mg per 5 mL, 3.75 mL, was last given about 5 hours earlier.
+      speaker: Caller
+      turns: [14]
+      quote: "I gave him Tylenol. About five hours ago. The infant one. The three point seven five."
+      explanation: Documents the last antipyretic dose.
+      facts:
+        - {type: medication, name: Tylenol, strength: 160 mg per 5 mL, dose: "3.75", unit: mL, last_dose: about 5 hours ago, med_status: given_previously, certainty: stated}
+      covers: [A6]
+    - text: He drank about 4 bottles today and had 4 wet diapers in the past 24 hours.
+      speaker: Caller
+      turns: [20]
+      quote: "Four. In the last twenty four hours. I counted."
+      explanation: Documents hydration status.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: He was not breathing fast and his belly was not sucking in.
+      speaker: Caller
+      turns: [24]
+      quote: "His breathing is noisy, from the stuffy nose, but it isn't fast. His belly isn't sucking in."
+      explanation: Documents pertinent negatives for respiratory distress.
+      facts:
+        - {type: pertinent_negative, name: fast breathing or belly sucking in, certainty: stated}
+      covers: [A4]
+    - text: Oxygen saturation was 96.
+      speaker: Caller
+      turns: [28]
+      quote: "It says ninety six."
+      explanation: Documents the oximeter reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "96", certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the pediatrician about day 5 of illness and the fever.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'll message his pediatrician about day five and the fever."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to listen to his lungs.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'm going to come see him tomorrow myself, to listen to his lungs."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call tomorrow morning to hear how the night went.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll call you tomorrow morning before that, to see how the night went."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+    - text: Advised that Tylenol 3.75 mL could be repeated once 6 hours had passed since the last dose.
+      speaker: Nurse
+      turns: [52]
+      quote: "You can give the Tylenol again, the same three point seven five, as long as it's been six hours since the last one."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised saline drops and bulb suction before feeds and sleep, a cool-mist humidifier, and keeping his head raised.
+      speaker: Nurse
+      turns: [54]
+      quote: "use the saline drops and then the bulb suction before feeds and before he goes to sleep. And run the cool mist humidifier in his room."
+      explanation: Documents congestion care.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised small frequent feeds and counting wet diapers.
+      speaker: Nurse
+      turns: [58]
+      quote: "Small feeds, often. And keep counting the wet diapers."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling the agency for fewer than 3 wet diapers a day or a fever of 102 or higher, and 911 for blue lips, fast or hard breathing, or being hard to wake.
+      speaker: Nurse
+      turns: [62]
+      quote: "call nine one one right away for blue lips, fast or hard breathing, or if he's hard to wake up."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

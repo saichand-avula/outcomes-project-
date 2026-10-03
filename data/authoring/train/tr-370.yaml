@@ -1,0 +1,284 @@
+call_id: tr-370
+split: train
+blueprint: "A private-duty aide calls home health about her client's dizziness when he stands and a mild headache; blood pressure comes through garbled on a bad connection ('won fifty too over ate tea') and is confirmed as 152 over 80. She corrects the client's birth year mid-sentence. He took amlodipine this morning. Nurse plans a visit tomorrow, a message to the team, and gives rise-slowly and fluid advice. ASR number garble and DOB self-correction, paid caregiver caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [dob_self_corrected, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [dizziness, blood_pressure]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Oak Hollow Home Health
+  agency_type: home_health
+  nurse_name: Bernard
+  call_timestamp_utc: "2026-10-26T15:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clifford Lindqvist
+  patient_name_spoken: Clifford Lindqvist
+  patient_name_certainty: stated
+  patient_dob_true: "1938-02-14"
+  patient_dob_spoken: "1938-02-14"
+  patient_dob_certainty: stated
+  caller_name_true: Rosario Delgado
+  caller_name_spoken: Rosario Delgado
+  caller_name_certainty: stated
+  relationship_to_patient: private duty aide
+  relationship_certainty: stated
+  callback_phone_true: "6025550122"
+  callback_phone_spoken: "6025550122"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her client is dizzy when he stands
+  reason_category: dizziness
+  relevant_context: Home health patient with a private duty aide during the day
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizzy when standing
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "152/80"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild headache
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or fainting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: report the dizziness and blood pressure
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have him sit on the edge of the bed for a minute before standing, stand slowly, and stay beside him when he walks
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water through the day and a small snack with his morning pills
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, fainting, chest pain, a bad headache, or blurred vision, and call 911 for chest pain or fainting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oak Hollow Home Health, this is Bernard.
+  Caller -> Hello? Hello? Can you hear me? I'm in the, the kitchen, the signal is bad. This is Rosario. Rosario Delgado. I'm the aide for Mr. Lindqvist. Clifford Lindqvist. || caller_name, relationship, patient_name
+  Nurse -> Rosario? You cut out. Can you move closer to a window?
+  Caller -> I'm trying. I'm walking. Is that better? I'm by the back door.
+  Caller -> Hello? Are you there?
+  Nurse -> I'm here. Say it once more. Slowly.
+  Nurse -> A little. Keep going.
+  Nurse -> I can hear you, Rosario. A little choppy. Let me know if I cut out. What's going on with Mr. Lindqvist?
+  Caller -> He's dizzy. When he stands up. He says the room goes round. It's, it's been since this morning. || cc, A1
+  Nurse -> Does the spinning last long?
+  Caller -> A few seconds. Then it settles. If he stays standing it comes back a little.
+  Nurse -> Okay. Dizzy when he stands. Is he dizzy sitting down, or only when he stands?
+  Caller -> Only when he stands. When he's sitting he's okay. I checked his pressure. I have the machine.
+  Caller -> It's the arm one. From the drugstore. The cuff is old but it's okay. I tried it on myself last week and it matched mine.
+  Nurse -> Good check.
+  Nurse -> Good. What did it say?
+  Caller -> It said won fifty too over ate tea. Won fifty too. || A2
+  Nurse -> I'm sorry, Rosario, it broke up. Can you say that again?
+  Caller -> One fifty two over eighty. One fifty two. Eighty. Is that better?
+  Nurse -> Much better. One fifty two over eighty. Okay. Is that higher than his usual?
+  Caller -> A little, I think. His chart on the fridge says one thirty something.
+  Nurse -> Okay. Any headache, blurry vision, chest pain?
+  Caller -> A mild headache. He says it's behind the eyes. A little one. No chest pain. No blurry vision. He read the paper this morning with no glasses trouble. || A3
+  Nurse -> Okay. Has he fallen, or almost fallen, or passed out?
+  Caller -> No. No fall. I was with him every time. I hold his arm. He hasn't passed out. || A5
+  Nurse -> Good. Did he take his morning pills?
+  Caller -> Yes. At eight. I give them. The amlodipine. Five milligrams. Once a day. He took it with his oatmeal. || A4
+  Nurse -> Okay. Amlodipine five, this morning. Rosario, I need his date of birth to pull up the chart. Do you have it? || A4
+  Caller -> It's, hold on. His birthday is February fourteenth. Nineteen thirty nine. No, no. Thirty eight. Nineteen thirty eight. He's eighty eight. Not eighty seven. Thirty eight. || patient_dob
+  Nurse -> February fourteenth, nineteen thirty eight. Got it. Valentine's Day.
+  Caller -> He says his wife was never impressed.
+  Nurse -> Ha. And a number for you?
+  Caller -> Six oh two, five five five, zero one two two. || callback_phone
+  Nurse -> Six oh two, five five five, zero one two two. Is that correct? || callback_phone
+  Caller -> Yes.
+  Nurse -> Thanks. Okay. Here's what I'd like to do. I'm going to send a nurse out tomorrow to check his pressure sitting and standing and to look at his medicines. || R1
+  Caller -> Tomorrow. Okay. I'm here until five. Tomorrow too.
+  Nurse -> Does he have family nearby?
+  Caller -> A daughter in Tempe. She calls every night at seven. She likes to hear the blood pressure numbers.
+  Nurse -> Okay. Please let her know about today.
+  Nurse -> And I'll leave a message for the team now, about the dizziness and the pressure numbers. They may have something to say before tomorrow. || R2
+  Caller -> Okay. Good. Because I'm worried. He's a big man and if he goes down I can't catch him.
+  Nurse -> That's what I want to talk about. Until we hear back, have him sit on the edge of the bed for a minute before he stands. Then stand slowly. And stay right beside him when he walks. || E1
+  Caller -> Sit a minute. Stand slow. Stay beside him. Okay. I do that mostly. I'll do it every time.
+  Nurse -> And offer him water through the day. And a small snack with the morning pills, so they sit better. || E2
+  Caller -> Water. A snack with the pills. He likes toast. I'll do toast.
+  Nurse -> Perfect. Call us for a fall, fainting, chest pain, a bad headache, or blurred vision. Call 911 for chest pain or fainting. || E3
+  Caller -> Fall. Faint. Chest pain. Headache. Blurry. And 911 for the chest and the faint. Okay.
+  Nurse -> Good. Is he with you now?
+  Caller -> He's in his recliner. Watching the cooking show. He's saying the chef is doing it wrong.
+  Nurse -> Ha. Then he's feeling like himself.
+  Caller -> Oh, yes. He's a critic.
+  Caller -> Right now he's saying the chef used too much butter.
+  Nurse -> Ha. A strong opinion.
+  Caller -> He doesn't even cook. He microwaves soup.
+  Nurse -> Ha.
+  Nurse -> Keep him in the recliner for now. Stay near.
+  Caller -> Hold on. He's calling me. Mr. Lindqvist, I'm on the phone. I'll be right there. Sorry. He wants the remote.
+  Nurse -> Go ahead and give him the remote.
+  Caller -> Okay. Done. He's happy.
+  Caller -> I will. I'll make the toast and bring it to him.
+  Nurse -> Perfect. Anything else, Rosario?
+  Caller -> No. Just that. The connection was terrible, sorry.
+  Nurse -> It's no problem. We got there.
+  Caller -> Thank you, Bernard. Bye.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: "one fifty two over eighty", heard_form: "won fifty too over ate tea", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clifford Lindqvist, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-02-14", certainty: stated, heard_as: [], turns: [29]}
+    caller_name: {value: Rosario Delgado, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: private duty aide, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550122", certainty: stated, heard_as: [], turns: [33, 34]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her client was dizzy when he stood.
+    speaker: Caller
+    turns: [9]
+    quote: "He's dizzy. When he stands up."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Dizzy when standing since this morning, with the room spinning.
+      speaker: Caller
+      turns: [13]
+      quote: "Only when he stands."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizzy when standing, present: true, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure was 152/80.
+      speaker: Caller
+      turns: [19]
+      quote: "One fifty two over eighty. One fifty two. Eighty."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "152/80", certainty: stated}
+      covers: [A2]
+    - text: He had a mild headache behind the eyes.
+      speaker: Caller
+      turns: [23]
+      quote: "A mild headache."
+      explanation: Documents the headache.
+      facts:
+        - {type: symptom, name: mild headache, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Amlodipine 5 mg once a day was given this morning at eight.
+      speaker: Caller
+      turns: [27]
+      quote: "The amlodipine. Five milligrams. Once a day."
+      explanation: Documents the medicine.
+      facts:
+        - {type: medication, name: amlodipine, dose: "5", unit: mg, frequency: once a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: He had no fall or fainting.
+      speaker: Caller
+      turns: [25]
+      quote: "No. No fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or fainting, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to send a nurse out tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team about the dizziness and blood pressure.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll leave a message for the team now"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised sitting on the edge of the bed before standing, standing slowly and staying beside him when he walks.
+      speaker: Nurse
+      turns: [43]
+      quote: "have him sit on the edge of the bed for a minute before he stands."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised offering water through the day and a small snack with the morning pills.
+      speaker: Nurse
+      turns: [45]
+      quote: "offer him water through the day."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a fall, fainting, chest pain, a bad headache or blurred vision, and 911 for chest pain or fainting.
+      speaker: Nurse
+      turns: [47]
+      quote: "Call us for a fall, fainting, chest pain"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

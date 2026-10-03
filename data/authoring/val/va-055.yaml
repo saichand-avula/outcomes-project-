@@ -1,0 +1,254 @@
+call_id: va-055
+split: val
+blueprint: "An assisted living aide, Priya Venkataraman, calls the home health line about resident Rosendo Alcantar, who started coughing and gurgling during lunch. His lips look slightly blue and his finger monitor reads 86 percent. He is awake but struggling to speak. Nurse tells her to call 911 now, sit him upright, and not give food or drink, and pages the on-call clinician. Facility staff caller, breathing concern plus escalation, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: choking_aspiration_facility
+  secondary_tags: [facility_staff, breathing_concern, escalation_911, split_turns, crosstalk]
+  clinical_domains: [respiratory, swallowing]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Meridian Home Health
+  agency_type: home_health
+  nurse_name: Roxanne
+  call_timestamp_utc: "2026-11-27T17:35:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rosendo Alcantar
+  patient_name_spoken: Rosendo Alcantar
+  patient_name_certainty: stated
+  patient_dob_true: "1932-04-17"
+  patient_dob_spoken: "1932-04-17"
+  patient_dob_certainty: stated
+  caller_name_true: Priya Venkataraman
+  caller_name_spoken: Priya Venkataraman
+  caller_name_certainty: stated
+  relationship_to_patient: facility staff
+  relationship_certainty: stated
+  callback_phone_true: "5055550153"
+  callback_phone_spoken: "5055550153"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that a resident started coughing and gurgling during lunch and looks blue around the lips
+  reason_category: dyspnea
+  relevant_context: Home health patient living in an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: coughing and gurgling during lunch
+    symptom_present: true
+    severity: severe
+    onset: started during lunch
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bluish lips
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "86%"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: struggling to speak
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    recipient_or_target: 911
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep him sitting upright, give nothing by mouth, and stay with him until help arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Coughing and gurgling during a meal with bluish lips and oxygen saturation of 86 percent
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 for the breathing emergency
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Meridian Home Health, this is Roxanne.
+  Caller -> Roxanne, hi, it's Priya Venkataraman, I'm an aide at Briarwood Assisted Living. I need help. Rosendo Alcantar is choking, kind of. He's coughing and gurgling. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Priya. Is he awake? Can he breathe?
+  Caller -> Yes, yes, he's breathing, I think. I'm sorry, I'm shaking.
+  Nurse -> It's okay. Answer what you can.
+  Caller -> He's awake. He's breathing but it's wet. It's gurgly. He started during lunch, a few minutes ago. He was eating the, the pureed chicken. || A1
+  Nurse -> Is he able to speak?
+  Caller -> He's trying. It's just a whisper. He can't get a whole sentence out. || A4
+  Nurse -> Does he seem to be pointing at his throat or his chest?
+  Caller -> His throat. He keeps touching his neck.
+  Nurse -> Okay. Look at his lips. What color are they?
+  Caller -> They're, I think a little blue. Like a purple. Around the mouth. || A2
+  Nurse -> Do you have a finger oxygen monitor?
+  Caller -> I do. It's on him. It says, hold on, eighty six. Eighty six percent. || A3
+  Caller -> Is that bad? That's bad, right?
+  Nurse -> It's lower than we want. That's why we're calling for help.
+  Nurse -> Priya, I want you to call nine one one right now. Hang up with me and call. Or have someone else call while you stay with him. || R1, F2
+  Caller -> Okay, okay, I'll yell for Marcus. Marcus! Call nine one one! Rosendo's choking! Sorry. He's going.
+  Nurse -> Priya, are you there?
+  Caller -> Yes. Sorry. I yelled. He's calling.
+  Nurse -> Good. Is Marcus calling?
+  Caller -> Yes. He's on the desk phone. Okay.
+  Nurse -> Sit Rosendo straight up. Lean him a little forward. Don't lay him back.
+  Caller -> He's upright. I'm holding him. He's still coughing. He's coughing hard.
+  Caller -> Is it okay to rub his back?
+  Nurse -> Not yet. Just hold him steady.
+  Nurse -> That's good. Coughing means air is moving. Let him cough. Don't pat his back unless he stops coughing and can't breathe.
+  Caller -> Okay. He's coughing. It's getting a little clearer. A little.
+  Nurse -> Do not give him anything by mouth. No water, no food. Nothing. || E1
+  Caller -> Not even a sip? His mouth is dry.
+  Nurse -> Not even a sip. The paramedics will decide.
+  Caller -> Nothing. Right. No water.
+  Nurse -> I'm going to page the on-call clinician right now and let them know. || R2
+  Caller -> Okay. Please.
+  Nurse -> What's his date of birth, Priya? For the paramedics.
+  Caller -> Um. April seventeenth, nineteen thirty two. || patient_dob
+  Nurse -> April seventeenth, nineteen thirty two. Does he have any allergies, any DNR?
+  Caller -> Not that I know. Penicillin maybe. I'll check.
+  Caller -> I don't, hold on. He has a full code. I think. It's in the front of the chart. Marcus will have it. Marcus, grab Rosendo's chart!
+  Nurse -> Good. Keep him upright. Stay with him.
+  Caller -> I'm here. I'm right here. His color's a little better. It's pink. It was blue.
+  Nurse -> Check the monitor again.
+  Caller -> Hold on, it's jumping around because he's moving. It's, ninety one. Ninety one.
+  Nurse -> Okay. Keep the finger still if you can.
+  Caller -> Ninety one. It's coming up. Ninety one.
+  Nurse -> Okay. That's improving. But he still needs to go to the hospital. The paramedics will check him.
+  Caller -> Yes. They're coming. Marcus says five minutes.
+  Nurse -> Perfect. What number are you calling from?
+  Caller -> It's the nurses' station. Five oh five, five five five, zero one five three. || callback_phone
+  Nurse -> Got it. Is there a family member to call?
+  Caller -> His son lives across town. He visits Sundays. Rosendo has a whole picture wall of grandchildren.
+  Caller -> His son. Marcus has the number. We'll call him once the ambulance is here.
+  Nurse -> Good. Priya, you're doing great.
+  Caller -> I'm so scared. He's like my grandpa. He tells me jokes every morning.
+  Nurse -> Stay calm. Talk to him. Tell him help is on the way.
+  Caller -> He likes when I sing. I'll hum something. Sorry, this is silly.
+  Nurse -> It's not silly. Anything that keeps him calm.
+  Caller -> Rosendo, help's coming. You're okay. He's nodding. He squeezed my hand.
+  Nurse -> That's good. Keep him calm and upright.
+  Caller -> They're asking me questions. What do I say?
+  Nurse -> Tell them what you told me. Coughing at lunch, pureed chicken, blue lips, eighty six percent, now ninety one.
+  Caller -> Okay. Coughing, chicken, blue, eighty six, ninety one.
+  Caller -> I hear the siren. They're here! They're here. Marcus is letting them in.
+  Caller -> Marcus is getting his medication list too. The one with the heart pills.
+  Nurse -> Good. Tell the paramedics what happened, and give them his chart. They'll take it from here.
+  Caller -> Okay. Thank you. I have to go. Thank you!
+  Nurse -> Go ahead. I'll update the clinician.
+  Caller -> Bye!
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rosendo Alcantar, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1932-04-17", certainty: stated, heard_as: [], turns: [36]}
+    caller_name: {value: Priya Venkataraman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: facility staff, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550153", certainty: stated, heard_as: [], turns: [49]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that a resident started coughing and gurgling during lunch and looks blue around the lips.
+    speaker: Caller
+    turns: [2]
+    quote: "He's coughing and gurgling."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He began coughing and gurgling during lunch while eating pureed chicken.
+      speaker: Caller
+      turns: [6]
+      quote: "He started during lunch, a few minutes ago."
+      explanation: Documents the symptom onset.
+      facts:
+        - {type: symptom, name: coughing and gurgling during lunch, present: true, severity: severe, onset: started during lunch, certainty: stated}
+      covers: [A1]
+    - text: His lips looked bluish.
+      speaker: Caller
+      turns: [12]
+      quote: "They're, I think a little blue."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: bluish lips, present: true, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was 86 percent.
+      speaker: Caller
+      turns: [14]
+      quote: "It says, hold on, eighty six."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "86%", certainty: stated}
+      covers: [A3]
+    - text: He was struggling to speak above a whisper.
+      speaker: Caller
+      turns: [8]
+      quote: "It's just a whisper."
+      explanation: Documents the speech difficulty.
+      facts:
+        - {type: symptom, name: struggling to speak, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [17]
+      quote: "I want you to call nine one one right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping him upright, giving nothing by mouth, and staying with him until help arrived.
+      speaker: Nurse
+      turns: [29]
+      quote: "Do not give him anything by mouth."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He's coughing and gurgling."}
+    - {category: escalation_request, turns: [17], quote: "I want you to call nine one one right now."}

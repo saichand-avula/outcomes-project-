@@ -1,0 +1,261 @@
+call_id: tr-384
+split: train
+blueprint: "A wife calls hospice at two in the morning because her husband is restless and picking at the sheets, awake since midnight. His last Ativan (point five milligrams as needed every four hours) was at nine. In the transcript one of her lines is wrongly labeled as the nurse speaking. No pain or fever. Nurse tells her she can give another dose now, plans a nurse visit in the morning and a callback in thirty minutes, and coaches calming measures. ASR speaker-label error, spouse caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: speaker_label
+  secondary_tags: [speaker_label_errors, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [agitation_delirium, sleep, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Heartland Hospice
+  agency_type: hospice
+  nurse_name: Priya
+  call_timestamp_utc: "2026-10-30T07:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Aurelio Benedetti
+  patient_name_spoken: Aurelio Benedetti
+  patient_name_certainty: stated
+  patient_dob_true: "1943-07-26"
+  patient_dob_spoken: "1943-07-26"
+  patient_dob_certainty: stated
+  caller_name_true: Lucia Benedetti
+  caller_name_spoken: Lucia Benedetti
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3145550191"
+  callback_phone_spoken: "3145550191"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is restless and awake in the middle of the night
+  reason_category: agitation_delirium
+  relevant_context: Hospice patient living at home
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: Ativan
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: nine o'clock last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: restless and picking at the sheets
+    symptom_present: true
+    onset_or_duration: since midnight
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain or fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: lorazepam
+    medication_name_spoken: Ativan
+    reason_or_trigger: give another dose of Ativan now since more than four hours have passed
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this morning
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the room dim and quiet, speak softly, keep the bed rails padded, sit with him with a hand on his arm, and add a light blanket if he feels cool
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if he is not settling thirty minutes after the dose, tries to climb out of bed, or has new pain or fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Heartland Hospice, this is Priya.
+  Caller -> Hello. Hello? It's two in the morning, I'm sorry. This is Lucia Benedetti. It's my husband. Aurelio Benedetti. He is up. He is not sleeping. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi Lucia. No apology. I'm here. What's he doing?
+  Caller -> He is restless. Since midnight. He pulls the sheet. He picks. Like this, I'm showing you, but you can't see. He picks and picks at the blanket. And he mumbles. || A2
+  Nurse -> Okay. Picking at the sheets since midnight. Is he awake with his eyes open?
+  Caller -> Open. Yes. He looks at me but he's not, he's not here. I say Aurelio and he says what, what. And then picks again.
+  Nurse -> Okay. Does he seem to be in pain? Is he grimacing, groaning, holding anywhere?
+  Caller -> No pain. I don't think. No face. No groans. His face is calm. Only the hands. Only the hands are busy.
+  Nurse -> Does he know where he is, usually? At night?
+  Caller -> Sometimes he thinks it's the old house. The one on Garfield. He asks for his mother.
+  Nurse -> That can happen. It's okay.
+  Nurse -> Okay. Any fever? Does he feel hot?
+  Caller -> No. He is cool. I touched his head. Not hot. I don't have the thermometer here. Downstairs. He is not hot. || A3
+  Nurse -> Okay. Has he had anything for the restlessness?
+  Nurse -> He had the Ativan at nine last night. The little one. And nothing since. || A1, label_error
+  Caller -> Yes. Right. The Ativan. At nine. Point five. That's what the label says. One small tablet. Point five milligrams. || A1, R1
+  Nurse -> Okay. Ativan, point five milligrams, every four hours as needed. Is that what the bottle says? || A1
+  Caller -> Yes. Every four hours if needed. As needed. I gave it at nine.
+  Nurse -> Okay. Lucia, it's been about five hours since nine. So he's due. You can give him another one now. || R1
+  Caller -> Now? I can give it now? I was afraid it was too soon.
+  Nurse -> It's not too soon. It's been more than four hours.
+  Caller -> Okay. Okay. I will get it. Hold on, I go to the cabinet. I am walking. The bottle is in the kitchen. I have it. Point five. I give him one. Under the tongue? Or swallow?
+  Nurse -> Whichever the label says. Either way, with a little water or under the tongue.
+  Caller -> It says under the tongue. Okay. Aurelio, open. Open, please. Under the tongue. Good. He took it. It melts.
+  Nurse -> Perfect. What time is it now?
+  Caller -> Two ten. Two ten.
+  Nurse -> Okay. Write down the time on the sheet. Two ten.
+  Caller -> I write. Two ten. Done.
+  Nurse -> Now let's help him settle. Keep the room dim and quiet. Speak softly. Sit with him and put your hand on his arm. If you have pillows or blankets padding the bed rails, that helps him not bump. || E1
+  Caller -> The room is dim. I have the little lamp. I sit. I put my hand. He is looking at my hand. He is quiet. A little.
+  Nurse -> That's good. Keep talking to him in a low voice. Tell him you're here.
+  Caller -> Aurelio, I'm here. Lucia. I'm here. It's okay. It's okay. He is touching my hand now. He is not picking.
+  Nurse -> Good. That's the calming. Lucia, what's his date of birth for the chart?
+  Caller -> July twenty sixth. Nineteen forty three. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Three one four, five five five, zero one nine one. || callback_phone
+  Nurse -> Three one four, five five five, zero one nine one. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. I'll call you back in thirty minutes to see how he's doing. || R3
+  Caller -> Thirty minutes. Okay.
+  Nurse -> And I'm sending a nurse out this morning to see him. || R2
+  Caller -> This morning. Yes. Thank you. What time, do you know?
+  Nurse -> The scheduler will call you at seven with a window.
+  Caller -> Okay. I am awake. I will be awake.
+  Caller -> Priya, one more thing. Is it normal, this? The picking?
+  Nurse -> Yes. It's common at this stage. It looks distressing but often it isn't painful for them.
+  Caller -> That helps. I thought maybe he was cold.
+  Nurse -> You can add a light blanket if he feels cool.
+  Nurse -> Call us back if he's not settling thirty minutes after the dose, if he tries to climb out of bed, or if he has any new pain or a fever. || E2
+  Caller -> Not settling. Climb out. Pain. Fever. Okay. I understand.
+  Nurse -> Do you have someone with you? A family member, a neighbor?
+  Caller -> My son is asleep upstairs. I don't want to wake him. He works at the, at the plant. The early shift.
+  Nurse -> That's okay. But if you need him, wake him.
+  Caller -> I will. If it's worse. Not now.
+  Nurse -> Is the front door locked?
+  Caller -> Yes. And the porch light is on. I always leave it on for the nurse.
+  Nurse -> Okay. How are you doing? Are you tired?
+  Caller -> I am always tired now. But it's okay. He did everything for me for fifty years. Now it is my turn.
+  Nurse -> That's beautiful, Lucia.
+  Caller -> He is looking at me. Now he is looking like himself. A little.
+  Nurse -> The medicine's starting to work, maybe.
+  Caller -> I think. Yes. His hands are still. He is closing his eyes.
+  Nurse -> Good. Stay with him. I'll call you in thirty minutes.
+  Caller -> Thank you, Priya. Thank you.
+  Nurse -> Goodnight, Lucia.
+  Caller -> Goodnight.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "Caller reply", heard_form: "He had the Ativan at nine last night", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Aurelio Benedetti, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-07-26", certainty: stated, heard_as: [], turns: [34]}
+    caller_name: {value: Lucia Benedetti, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550191", certainty: stated, heard_as: [], turns: [36, 37]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was restless and awake in the middle of the night.
+    speaker: Caller
+    turns: [2]
+    quote: "He is up. He is not sleeping."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ativan 0.5 mg every four hours as needed, last given at nine last night.
+      speaker: Caller
+      turns: [15]
+      quote: "He had the Ativan at nine last night."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: Ativan, dose: "0.5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: nine o'clock last night, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: He was restless and picking at the sheets since midnight.
+      speaker: Caller
+      turns: [4]
+      quote: "He pulls the sheet. He picks."
+      explanation: Documents the restlessness.
+      facts:
+        - {type: symptom, name: restless and picking at the sheets, present: true, duration: since midnight, certainty: stated}
+      covers: [A2]
+    - text: He had no pain or fever.
+      speaker: Caller
+      turns: [13]
+      quote: "Not hot."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: pain or fever, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised giving another dose of Ativan now since more than four hours had passed.
+      speaker: Nurse
+      turns: [19]
+      quote: "You can give him another one now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Ativan, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit this morning.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm sending a nurse out this morning to see him."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this morning, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'll call you back in thirty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised a dim quiet room, speaking softly, padding the bed rails and sitting with a hand on his arm, adding a light blanket if he felt cool.
+      speaker: Nurse
+      turns: [29]
+      quote: "Keep the room dim and quiet."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if he was not settling thirty minutes after the dose, tried to climb out of bed, or had new pain or fever.
+      speaker: Nurse
+      turns: [49]
+      quote: "Call us back if he's not settling thirty minutes after the dose"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

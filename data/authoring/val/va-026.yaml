@@ -1,0 +1,236 @@
+call_id: va-026
+split: val
+blueprint: "Mother of a 5-year-old: breathing fast with ribs pulling in and fever 102; nurse directs 911 or ED now and plans to call ahead. Flags: breathing concern and escalation."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [late_answers]
+  clinical_domains: [dyspnea, fever]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-02T03:05:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Noor Haddad
+  patient_name_spoken: Noor Haddad
+  patient_name_certainty: stated
+  patient_dob_true: "2021-02-14"
+  patient_dob_spoken: "2021-02-14"
+  patient_dob_certainty: stated
+  caller_name_true: Salma
+  caller_name_spoken: Salma
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "2145550183"
+  callback_phone_spoken: "2145550183"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Daughter is breathing fast with her ribs pulling in
+  reason_category: breathing
+  relevant_context: 5-year-old with a cold for three days
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fast breathing
+    symptom_present: true
+    severity: breathing very fast
+    onset_or_duration: worse over the last hour
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: chest retractions
+    symptom_present: true
+    severity: ribs pulling in with each breath
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "102"
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: given_during_call
+    last_dose_time: 9 tonight
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepiness
+    symptom_present: true
+    severity: very sleepy but wakes when called
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: fast breathing with retractions and fever
+    timeframe: now
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: emergency department
+    reason_or_trigger: call ahead
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep her sitting upright, no food or drink, unlock the door
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with her and keep her calm; do not drive her yourself if she gets worse or turns blue
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Child breathing fast with ribs pulling in and fever
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse directs the family to call 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Ana.
+  Caller -> Ana, it's Salma Haddad. It's my daughter, Noor. She's breathing so fast. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Salma. I'm here. Noor's date of birth?
+  Caller -> February fourteenth, twenty twenty one. || patient_dob
+  Nurse -> And your number is two one four, five five five, zero one eight three? || callback_phone
+  Caller -> Yes. Yes. || callback_phone
+  Nurse -> Tell me what you're seeing.
+  Caller -> She's breathing very fast, and her ribs are pulling in. With every breath. It started getting worse about an hour ago. She had a cold for three days. || A1, A2, F1
+  Nurse -> Okay. Does she have a fever?
+  Caller -> Yes. A hundred and two. || A3
+  Nurse -> Okay. Has she had anything to drink in the last few hours, or any medicine?
+  Caller -> A little water at dinner. And children's acetaminophen at nine. She's been coughing a lot, too, since last night. || A5
+  Nurse -> Okay. Thank you. Is she awake?
+  Caller -> She's very sleepy. But she wakes up when I call her. || A4
+  Nurse -> Okay. Salma, this is an emergency. I need you to call nine one one right now. She needs to be seen in the emergency room. || R1, F2
+  Caller -> Okay. Okay. I'm calling.
+  Nurse -> Go ahead. Keep her sitting upright, don't give her anything to eat or drink. Unlock the front door. || E1
+  Caller -> Okay. The door's unlocked. She's in my lap.
+  Nurse -> Good. Stay with her and keep her calm. If she turns blue, or goes limp, tell the dispatcher right away. || E2
+  Caller -> Okay. I'm calling now.
+  Nurse -> I'm going to call the emergency room, so they know she's coming. || R2
+  Caller -> Thank you.
+  Nurse -> When the paramedics come, tell them about the fever and the cough, and the acetaminophen at nine. || A5
+  Caller -> Okay. I will. Fever, cough, medicine at nine. || A5
+  Nurse -> Go ahead and call. I'll hang up now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Noor Haddad, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2021-02-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Salma, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "2145550183", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her daughter was breathing very fast.
+    speaker: Caller
+    turns: [2]
+    quote: "It's my daughter, Noor. She's breathing so fast."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Breathing was very fast, with the ribs pulling in with every breath, worsening over the last hour after a 3-day cold.
+      speaker: Caller
+      turns: [8]
+      quote: "She's breathing very fast, and her ribs are pulling in. With every breath."
+      explanation: Documents respiratory distress.
+      facts:
+        - {type: symptom, name: fast breathing, present: true, severity: breathing very fast, onset: worse over the last hour, certainty: stated}
+        - {type: symptom, name: chest retractions, present: true, severity: ribs pulling in with each breath, certainty: stated}
+      covers: [A1, A2]
+    - text: Temperature was 102.
+      speaker: Caller
+      turns: [10]
+      quote: "Yes. A hundred and two."
+      explanation: Documents the fever.
+      facts:
+        - {type: vital, name: temperature, value: "102", certainty: stated}
+      covers: [A3]
+    - text: Children's acetaminophen was given at 9, and she had been coughing a lot since last night.
+      speaker: Caller
+      turns: [12]
+      quote: "A little water at dinner. And children's acetaminophen at nine."
+      explanation: Documents the recent medication.
+      facts:
+        - {type: medication, name: acetaminophen, last_dose: 9 tonight, med_status: given_during_call, certainty: stated}
+      covers: [A5]
+    - text: She was very sleepy but woke when called.
+      speaker: Caller
+      turns: [14]
+      quote: "She's very sleepy. But she wakes up when I call her."
+      explanation: Documents her alertness.
+      facts:
+        - {type: symptom, name: sleepiness, present: true, severity: very sleepy but wakes when called, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 immediately for emergency evaluation.
+      speaker: Nurse
+      turns: [15]
+      quote: "this is an emergency. I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, timeframe: now, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the emergency room so they knew she was coming.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to call the emergency room, so they know she's coming."
+      explanation: Documents the planned handoff.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping her sitting upright, giving nothing to eat or drink, and unlocking the front door.
+      speaker: Nurse
+      turns: [17]
+      quote: "Keep her sitting upright, don't give her anything to eat or drink. Unlock the front door."
+      explanation: Documents emergency preparation.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised staying with her and keeping her calm, and telling the dispatcher right away if she turned blue or went limp.
+      speaker: Nurse
+      turns: [19]
+      quote: "Stay with her and keep her calm. If she turns blue, or goes limp, tell the dispatcher right away."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [8], quote: "She's breathing very fast, and her ribs are pulling in."}
+    - {category: escalation_request, turns: [15], quote: "I need you to call nine one one right now."}

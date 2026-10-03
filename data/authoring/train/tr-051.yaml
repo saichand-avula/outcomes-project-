@@ -1,0 +1,224 @@
+call_id: tr-051
+split: train
+blueprint: "Home health aide at a patient's house reports 95-year-old hospice patient coughing on thin liquids since yesterday; no fever, breathing normal for him, eating about half; he eats leaned back in a recliner. Nurse gives positioning advice, will message speech therapist and call back this afternoon."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [late_answers, name_spelled, split_turns, phone_not_given]
+  clinical_domains: [swallowing, intake_appetite]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-09-08T17:21:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clifton Dellarosa
+  patient_name_spoken: Clifton Dellarosa
+  patient_name_certainty: stated
+  patient_dob_true: "1931-04-22"
+  patient_dob_spoken: "1931-04-22"
+  patient_dob_certainty: stated
+  caller_name_true: Yolanda
+  caller_name_spoken: Yolanda
+  caller_name_certainty: stated
+  relationship_to_patient: home health aide
+  relationship_certainty: stated
+  callback_phone_true: "6155550138"
+  callback_phone_spoken: "6155550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that he coughs whenever he drinks
+  reason_category: swallowing
+  relevant_context: Hospice patient cared for by a home health aide
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: coughing with drinks
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: breathing trouble
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: reduced meal intake
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Eats meals in a recliner leaned back
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: speech therapist
+    reason_or_trigger: swallowing evaluation
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Sit him fully upright for meals and keep him upright for 30 minutes afterward; small bites and sips, slowly
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, frequent coughing even when not drinking, wet or gurgly breathing, or choking
+    trigger_condition: fever; coughing when not drinking; wet gurgly breathing; choking
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> Hi, Gwen. Um, this is Yolanda. I'm the aide, I go to, uh, Mr. Dellarosa's house. Clifton Dellarosa. || caller_name, relationship, patient_name
+  Nurse -> Hi, Yolanda. How do you spell his last name for me?
+  Caller -> D E L L A R O S A. || patient_name
+  Nurse -> Got it. And his date of birth?
+  Caller -> Hang on, I got it on the, uh. April twenty second, nineteen thirty one. || patient_dob
+  Nurse -> Okay. And what's the best number to reach you?
+  Caller -> Six one five, five five five, zero one three eight. That's my cell. || callback_phone
+  Nurse -> Thank you. What's going on today?
+  Caller -> So he's coughing. When he drinks. Like at lunch today he, he was coughing every time he took a sip of the, the water. || cc, A1
+  Caller -> And yesterday too. It started yesterday I think. || A1
+  Nurse -> Okay. Is it only the thin liquids, or the food too?
+  Caller -> Mostly the water. And the coffee. The, um, the pudding was okay. || A1
+  Nurse -> Has he had any fever? Any trouble breathing?
+  Caller -> No fever, I checked it this morning. Breathing's normal. Normal for him. || A2, A3
+  Nurse -> And how much is he eating?
+  Caller -> Like half. Maybe half of the plate. || A4
+  Caller -> He's tired today. || A4
+  Nurse -> Okay. Where is he sitting when he eats?
+  Caller -> He's in the recliner, so, kind of. Kind of leaned back. || A5
+  Nurse -> Alright. Here's what I want you to do. Sit him all the way up for meals, as upright as you can get him, and keep him up for thirty minutes after. Small bites, small sips, nice and slow. || E1
+  Caller -> Okay. Upright, small sips. Thirty minutes.
+  Nurse -> And I'm going to send a message to our speech therapist today, asking her to look at his swallowing. || R1
+  Caller -> Okay, good, because it's, it's kind of scary, you know.
+  Nurse -> I know. I'll call you back this afternoon to let you know what she says. || R2
+  Caller -> Okay. This afternoon.
+  Nurse -> If he gets a fever, or he's coughing a lot even when he isn't drinking, or his breathing sounds wet or gurgly, or he looks like he's choking, call us right away. || E2
+  Caller -> Wet, gurgly, choking, fever. Okay.
+  Nurse -> Anything else?
+  Caller -> No, that's it. Thank you, Gwen.
+  Nurse -> Thanks, Yolanda.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clifton Dellarosa, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1931-04-22", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Yolanda, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: home health aide, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550138", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he coughs whenever he drinks.
+    speaker: Caller
+    turns: [10]
+    quote: "So he's coughing. When he drinks."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Coughing was reported with water and coffee since yesterday, while pudding was tolerated.
+      speaker: Caller
+      turns: [13]
+      quote: "Mostly the water. And the coffee."
+      explanation: Documents the swallowing symptom and which items triggered it.
+      facts:
+        - {type: symptom, name: coughing with drinks, present: true, duration: since yesterday, certainty: stated}
+      covers: [A1]
+    - text: No fever or breathing trouble was reported.
+      speaker: Caller
+      turns: [15]
+      quote: "No fever, I checked it this morning. Breathing's normal."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+        - {type: pertinent_negative, name: breathing trouble, certainty: stated}
+      covers: [A2, A3]
+    - text: He was eating about half of his plate.
+      speaker: Caller
+      turns: [17]
+      quote: "Like half. Maybe half of the plate."
+      explanation: Documents reduced meal intake.
+      facts:
+        - {type: symptom, name: reduced meal intake, present: true, certainty: stated}
+      covers: [A4]
+    - text: He ate meals in a recliner, leaned back.
+      speaker: Caller
+      turns: [20]
+      quote: "He's in the recliner, so, kind of. Kind of leaned back."
+      explanation: Documents the mealtime positioning.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the speech therapist to evaluate his swallowing.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to send a message to our speech therapist today, asking her to look at his swallowing."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this afternoon with the therapist's response.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you back this afternoon to let you know what she says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised sitting him fully upright for meals and for 30 minutes afterward, with small bites and sips taken slowly.
+      speaker: Nurse
+      turns: [21]
+      quote: "Sit him all the way up for meals, as upright as you can get him, and keep him up for thirty minutes after."
+      explanation: Documents aspiration-prevention positioning guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for fever, frequent coughing when not drinking, wet or gurgly breathing, or choking.
+      speaker: Nurse
+      turns: [27]
+      quote: "If he gets a fever, or he's coughing a lot even when he isn't drinking, or his breathing sounds wet or gurgly, or he looks like he's choking, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,324 @@
+call_id: tr-388
+split: train
+blueprint: "A son calls home health because his mother's new arthritis prescription looks wrong: the doctor's list says Celebrex 200 mg once a day but the bottle from the mail-order pharmacy says Celexa 20 mg. She has taken it three mornings in a row and is nauseated, jittery and not sleeping, with her knee pain a six. He reads the label twice and spells both names. Nurse tells him to stop it, pages on-call, plans a pharmacy call, a visit tomorrow morning and a callback in forty minutes. High risk (look-alike wrong medication, tall-man), adult child, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [tall_man_drug, trap_phrasing, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, nausea_vomiting, sleep, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oak Hollow Home Health
+  agency_type: home_health
+  nurse_name: Bernard
+  call_timestamp_utc: "2026-10-31T13:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Verna Raskin
+  patient_name_spoken: Verna Raskin
+  patient_name_certainty: stated
+  patient_dob_true: "1947-08-19"
+  patient_dob_spoken: "1947-08-19"
+  patient_dob_certainty: stated
+  caller_name_true: Teodor Raskin
+  caller_name_spoken: Teodor Raskin
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "2065550137"
+  callback_phone_spoken: "2065550137"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his mother's new arthritis medicine bottle has a different name than her list
+  reason_category: medication
+  relevant_context: Home health patient with knee arthritis
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Celexa
+    medication_name_spoken: Celexa
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Celebrex
+    medication_name_spoken: Celebrex
+    medication_status: prescribed
+    dose: "200"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: nausea and jitteriness
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: trouble sleeping
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: knee pain
+    symptom_present: true
+    severity: "6"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: Celexa
+    medication_name_spoken: Celexa
+    reason_or_trigger: stop giving the Celexa and keep the bottle
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong medicine for three days with nausea and jitteriness
+    certainty: stated
+  - item_id: R3
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R5
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in forty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with her, keep her sitting when she is jittery, offer sips of water or ginger ale, and do not give anything else for pain until the clinician calls
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting that will not stop, a fast heartbeat, shaking that gets worse, confusion, or a fainting spell, and call 911 for chest pain or trouble breathing
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Wrong medicine dispensed and taken for three mornings, with nausea and jitteriness
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Oak Hollow Home Health, this is Bernard.
+  Caller -> Hi. Bernard? Yes. Hi. It's Teodor Raskin. T E O D O R. Raskin. R A S K I N. I'm calling about my mother. Verna Raskin. I think she's been given the wrong medicine. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Sorry, Teodor, I want to get the name right. Is it Verna with a V?
+  Caller -> V E R N A. Verna. After my grandmother.
+  Nurse -> Beautiful name. Okay.
+  Nurse -> Okay Teodor. Let's look at it. What makes you think so?
+  Caller -> Her pill bottle. It came in the mail. From the mail order pharmacy. It says Celexa. C E L E X A. Twenty milligrams. But her list says Celebrex. C E L E B R E X. Two hundred milligrams. For her knee. || A1, A2
+  Nurse -> Okay. Celexa twenty on the bottle, and Celebrex two hundred on the list. Is that right? || A1, A2
+  Caller -> Yes. Those are very close. They look the same when you glance. I almost didn't see it. I only caught it because I was putting the bottle in the pill box and the name looked different from the old bottle.
+  Nurse -> Do you set up her pill box every week?
+  Caller -> Sundays. After church. Nine years now. I was doing it in the kitchen and I just looked at the label and went, hm.
+  Nurse -> Good instincts.
+  Nurse -> That's a good catch. Has she taken any from this bottle?
+  Caller -> Yes. Three mornings. Monday, Tuesday, Wednesday, and today. No. Four. Monday, Tuesday, Wednesday, Thursday. This morning too. At eight. With her oatmeal. || A1
+  Nurse -> Okay. About four mornings. Teodor, how is your mother feeling?
+  Caller -> Not great. She's nauseated. She's jittery. Her hands shake a little. She says she feels wired. And she isn't sleeping. She was up all night Tuesday and Wednesday. I thought it was her knee. || A3, A4
+  Nurse -> Okay. Nausea, jittery, and not sleeping. Has she been vomiting?
+  Caller -> No vomiting. She feels like she's going to. She had crackers.
+  Nurse -> Okay. And her knee? The Celebrex was for her knee. How's the pain? || A2
+  Caller -> Bad. A six. A six out of ten. It's worse without the right medicine, I guess. She's limping again. || A5
+  Nurse -> Okay. Does she have chest pain, a racing heart, trouble breathing, confusion?
+  Caller -> No. No chest pain. Her heart's okay, I think. I checked her pulse. Eighty something. She's clear in the head. She's complaining about me, so she's clear.
+  Nurse -> What's her pulse like, if you can tell?
+  Caller -> I counted for a minute. Eighty something. Regular.
+  Caller -> She told me I'm hovering. She said, Teodor, go find something to do. That's how I know she's herself.
+  Nurse -> Ha. Hovering is what we're here for.
+  Nurse -> Ha. Good. Teodor, here's what I want you to do. Don't give her any more of the Celexa. None tonight, none tomorrow. And keep the bottle, because the pharmacy will need to see it. || R1
+  Caller -> Stop the Celexa. Keep the bottle. Okay. What do I give her for the knee? || A1, R1
+  Nurse -> Don't give anything else for pain until a clinician calls you. I'm paging the on-call clinician now. They'll tell you what's safe. || R2
+  Caller -> Okay. Thank you. Her knee is really bothering her. I hate to just let her hurt.
+  Nurse -> I know. It's going to be quick. They'll call you back soon. And I'm going to call the mail order pharmacy to find out how this happened and get the right medicine out fast. || R3
+  Caller -> Please. They've been awful. I called last month about a late delivery and the guy hung up on me.
+  Caller -> They have a recording that says your call is important. It's not.
+  Nurse -> Ha. I'll make it important.
+  Nurse -> I'll take it from here.
+  Caller -> Thank you.
+  Nurse -> What's your mom's date of birth?
+  Caller -> August nineteenth. Nineteen forty seven. || patient_dob
+  Nurse -> And your number?
+  Caller -> Two oh six, five five five, zero one three seven. || callback_phone
+  Nurse -> Two oh six, five five five, zero one three seven. Is that right? || callback_phone
+  Caller -> Yes.
+  Nurse -> I'd also like a nurse to see her tomorrow morning, to check her over and look at all her bottles with you. || R4
+  Caller -> Tomorrow morning. Good. I'll be here.
+  Nurse -> And I'll call you back in forty minutes, with what the clinician says. || R5
+  Caller -> Forty minutes. Okay. I'll keep the phone on me.
+  Caller -> Do you want me to take a picture of the bottle and the list?
+  Nurse -> That would help the nurse tomorrow. Keep both together.
+  Caller -> I'll put them in a bag. Zip bag. And write a note on it. Do not use.
+  Nurse -> Perfect.
+  Nurse -> In the meantime, stay with her. Keep her sitting if she's jittery. Offer sips of water or ginger ale for the nausea. || E1
+  Caller -> Sitting. Water. Ginger ale. We have ginger ale. She loves it. Okay.
+  Nurse -> And call us if she starts vomiting and can't stop, if her heart starts racing, if the shaking gets worse, if she gets confused or faints. Call 911 for chest pain or trouble breathing. || E2
+  Caller -> Vomiting. Racing heart. Worse shaking. Confused. Faint. 911 for chest or breathing. Okay.
+  Nurse -> Good. Anything else?
+  Caller -> Only that she wants to know if she can still watch her game show.
+  Nurse -> Of course. Rest and fluids and her show.
+  Caller -> No. Thank you. I feel awful I didn't catch it sooner.
+  Nurse -> You caught it. That's what counts.
+  Caller -> Thanks, Bernard.
+  Caller -> Is it okay if I stay a minute? I'm still shaking.
+  Nurse -> Take a breath. I'm not rushing you.
+  Caller -> Okay. Okay. Better. Thank you.
+  Nurse -> Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Verna Raskin, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-08-19", certainty: stated, heard_as: [], turns: [38]}
+    caller_name: {value: Teodor Raskin, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550137", certainty: stated, heard_as: [], turns: [40, 41]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother's new arthritis medicine bottle had a different name than her list.
+    speaker: Caller
+    turns: [2]
+    quote: "I think she's been given the wrong medicine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Celexa 20 mg once a day was on the new bottle and was given for about four mornings, last this morning at eight.
+      speaker: Caller
+      turns: [7]
+      quote: "It says Celexa. C E L E X A. Twenty milligrams."
+      explanation: Documents the medicine on the label.
+      facts:
+        - {type: medication, name: Celexa, dose: "20", unit: mg, frequency: once a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Celebrex 200 mg once a day was the medicine on her list.
+      speaker: Caller
+      turns: [7]
+      quote: "But her list says Celebrex. C E L E B R E X. Two hundred milligrams."
+      explanation: Documents the prescribed medicine.
+      facts:
+        - {type: medication, name: Celebrex, dose: "200", unit: mg, frequency: once a day, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: She was nauseated and jittery with shaky hands.
+      speaker: Caller
+      turns: [16]
+      quote: "She's nauseated. She's jittery."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: nausea and jitteriness, present: true, certainty: stated}
+      covers: [A3]
+    - text: She was not sleeping, up all night Tuesday and Wednesday.
+      speaker: Caller
+      turns: [16]
+      quote: "And she isn't sleeping."
+      explanation: Documents the sleep trouble.
+      facts:
+        - {type: symptom, name: trouble sleeping, present: true, certainty: stated}
+      covers: [A4]
+    - text: Knee pain was a six.
+      speaker: Caller
+      turns: [20]
+      quote: "Bad. A six. A six out of ten."
+      explanation: Documents the knee pain.
+      facts:
+        - {type: symptom, name: knee pain, present: true, severity: "6", certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised stopping the Celexa and keeping the bottle.
+      speaker: Nurse
+      turns: [27]
+      quote: "Don't give her any more of the Celexa."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Celexa, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm paging the on-call clinician now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call the mail order pharmacy.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm going to call the mail order pharmacy"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit tomorrow morning.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'd also like a nurse to see her tomorrow morning"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+    - text: Planned to call back in forty minutes.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'll call you back in forty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in forty minutes, certainty: stated}
+      covers: [R5]
+  education:
+    - text: Advised staying with her, keeping her sitting, offering sips of water or ginger ale and giving nothing else for pain until the clinician called.
+      speaker: Nurse
+      turns: [51]
+      quote: "stay with her. Keep her sitting if she's jittery."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for vomiting that would not stop, a racing heart, worse shaking, confusion or fainting, and 911 for chest pain or trouble breathing.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if she starts vomiting and can't stop"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think she's been given the wrong medicine."}

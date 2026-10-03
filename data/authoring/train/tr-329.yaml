@@ -1,0 +1,384 @@
+call_id: tr-329
+split: train
+blueprint: "Evening call from a daughter at the bedside of her 84-year-old father, a hospice patient with dementia and cancer who has declined over a week. Since afternoon he has been thrashing, pulling at the sheets, moaning and grimacing; lorazepam 0.5 mg at two and again at six has not settled him; no urine since the morning and his breathing has long pauses. She is frightened and holds the phone while talking to him. The nurse pages on-call, sends a nurse within the hour, has her give the haloperidol from the comfort kit (a quarter mL of the 2 mg per mL), coaches repositioning and calm, explains what may be happening gently, and calls back in thirty minutes. Uncontrolled symptom flag, adult child caller, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [liquid_concentration, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [agitation_delirium, end_of_life_changes, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Silverleaf Hospice
+  agency_type: hospice
+  nurse_name: Eliza
+  call_timestamp_utc: "2026-10-26T23:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Barnabas Tillman
+  patient_name_spoken: Barnabas Tillman
+  patient_name_certainty: stated
+  patient_dob_true: "1942-03-15"
+  patient_dob_spoken: "1942-03-15"
+  patient_dob_certainty: stated
+  caller_name_true: Rowena Tillman
+  caller_name_spoken: Rowena Tillman
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3145550104"
+  callback_phone_spoken: "3145550104"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father is thrashing and moaning and not settling with his medicine
+  reason_category: agitation_delirium
+  relevant_context: Hospice patient with dementia and cancer, declining over the past week
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: thrashing and pulling at the sheets
+    symptom_present: true
+    onset_or_duration: since the afternoon
+    severity: severe
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: six this evening
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: moaning and grimacing
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: no urine since this morning
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: breathing with long pauses
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: a fall or injury
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: severe agitation not settling after two doses of lorazepam
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    reason_or_trigger: give a quarter mL of haloperidol from the comfort kit
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Turn him gently onto his side with a pillow behind his back, keep the room dim and quiet, put a cool damp cloth on his forehead, and speak softly or play quiet music
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw up a quarter mL of the haloperidol to the line on the oral syringe, give it in the cheek pocket slowly, and write down the time
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call any hour tonight if he gets more restless, if you have questions, or if you want someone on the phone with you
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Severe agitation with moaning that persists despite two doses of lorazepam
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Silverleaf Hospice, this is Eliza.
+  Caller -> Eliza, hi. It's Rowena. Rowena Tillman. It's my dad. Barnabas Tillman. He's not settling. He's thrashing and moaning. I gave him the lorazepam twice and it's not working. I don't know what to do. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Rowena. I'm here. I'm glad you called. You're not alone. Are you with your dad right now?
+  Caller -> I'm in the room. I'm sitting next to the bed. I have the phone on the bed. I'm holding his hand. He keeps pulling it away.
+  Nurse -> That's fine. Don't worry if he pulls away. Just stay close.
+  Caller -> I will. I'm not going anywhere.
+  Nurse -> Okay. That's fine. Let me get his chart up. Can you tell me his date of birth?
+  Caller -> March fifteenth. Nineteen forty two. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> Three one four, five five five, zero one zero four. It's my cell. I'm here with it. || callback_phone
+  Nurse -> Got it. Tell me what you're seeing.
+  Caller -> He's moving all over. His arms, his legs. He's pulling at the sheet. He's pulling at his gown. He's trying to get up. He can't. He's too weak. But he's trying. And he's making a sound. A moaning sound. Over and over. Like a groan. || A1
+  Nurse -> Okay. When did this start?
+  Caller -> This afternoon. Around one. He was sleeping and then he woke up and he was like this. And it's getting worse. It's been, what, ten hours? It's eleven now. Ten hours.
+  Nurse -> And before the afternoon, how had he been? Was he sleeping, eating?
+  Caller -> Sleeping mostly. He's been sleeping more all week. He stopped eating Friday. He took sips until yesterday. He hasn't opened his eyes much.
+  Nurse -> Okay. That helps me understand.
+  Nurse -> Okay. I'm so sorry. That's a long time to watch. What have you given him?
+  Caller -> The lorazepam. The point five. The little tablet under the tongue. Or the liquid. I used the liquid. I gave him one at two. And another at six. It's every four hours if needed. I gave the six one at six. It's not working. He's still like this. || A2
+  Nurse -> Okay. Lorazepam half a milligram at two and again at six. Nothing since six? || A2
+  Caller -> Nothing since. It's five hours. It's past the four. Can I give another? I wanted to ask first. I didn't want to give too much.
+  Nurse -> It's always okay to ask. You did exactly the right thing.
+  Caller -> I was so afraid of hurting him. That's why I called.
+  Nurse -> That was the right thing to ask. I'm going to get the on-call clinician right now. But first, tell me a bit more. Does he seem to be in pain?
+  Caller -> I don't know. He's grimacing. His face is all scrunched. His forehead. And he's moaning. I can't tell if it's pain or he's scared. Or confused. He doesn't know me. Not really. He looked at me at six and said who are you. And that's the first time. || A3
+  Nurse -> Okay. That's very hard. Thank you for staying with him. Has he had anything to drink? Any urine today?
+  Caller -> He hasn't had anything to drink since yesterday. I tried a swab. He turns his head. And he hasn't peed. Not since this morning. The diaper is dry. I checked at ten. It was dry. || A4
+  Nurse -> Okay. Thank you for checking. And his breathing? Can you describe it?
+  Caller -> It's weird. It goes fast. Then it stops. Like a long pause. Ten seconds. Maybe more. Then he takes a big breath. And then fast again. It's scary. I keep thinking he's stopped. || A5
+  Nurse -> Okay. That's a pattern we see sometimes near the end of life. It can look frightening but it doesn't hurt him. Rowena, I want you to know I'm going to help you through this. First I'm going to page the on-call clinician right now. || R1
+  Caller -> Okay. Please. Thank you.
+  Nurse -> And I'm sending a nurse to your house. I want her there within the hour. She'll sit with you and your dad. || R2
+  Caller -> Within the hour. Okay. It's eleven at night.
+  Nurse -> I know. We have a night nurse. She's on her way as soon as we hang up.
+  Caller -> Okay. Thank you. Thank you.
+  Nurse -> In the meantime, I want you to give him something from the comfort kit. Do you know where it is?
+  Caller -> It's in the fridge. In the door. The white box. I haven't opened it. The nurse said not to unless we call.
+  Nurse -> Right. This is a good time. Can you get it? Take the phone with you.
+  Caller -> Okay. Dad, I'm going to the kitchen. I'll be right back. Mama's coming. No, I'm Rowena. I'm Ro. Okay. I'm in the kitchen. The fridge. I have it. It's cold. I'm opening it. There's three bottles.
+  Nurse -> Perfect. Read me the labels.
+  Caller -> One says lorazepam. One says morphine. One says haloperidol. H A L O P E R I D O L. Two milligrams per mL. There's a syringe in a bag. || R3
+  Nurse -> Okay. The haloperidol is the one we want. Two milligrams per mL. I want you to give a quarter mL. That's point two five mL. That's half a milligram. The syringe has lines. Do you see the line that says point two five? || R3
+  Caller -> Let me look. The syringe is in a bag. It's a little one. Oh. It's an oral syringe. It has numbers. Point two five. Yes. I see it. The first long line.
+  Nurse -> That's the one. Draw up to that line. Take the cap off the bottle, push the syringe in, pull the plunger back slowly to the point two five line. Tell me when it's there.
+  Caller -> Okay. Hold on. I'm doing it. I'm pulling. Slowly. Okay. Oh. It's too much. I went past. It's at the point five. Let me push it back. Okay. Back. Point two five. Okay. It's at the line.
+  Nurse -> Good. Now let the air bubbles go. Tap the syringe and push the plunger just until the first drop. Then pull back to point two five again.
+  Caller -> Tapping. A little drop came out. Back to point two five. There. Right at the line.
+  Nurse -> Great. Check again. The top of the black plunger tip should be exactly on point two five.
+  Caller -> It is. The top of the black. It's at the line. Point two five.
+  Nurse -> Perfect. Now go back to your dad. Carry it carefully. Give it slowly into his cheek, in the pocket between the cheek and the gum. Not straight down his throat. Squeeze very slowly, a little at a time. || E2
+  Caller -> In the cheek pocket. Slowly. Okay. I'm walking. Dad, I'm back. I have the medicine. Open your mouth a little. Daddy, open. Come on. There. I'm putting it in the cheek. Slowly. He's moving his head. I'm sorry. I'm sorry. Okay. It's almost all in. Okay. Done. All of it.
+  Nurse -> You did that perfectly. What time is it right now?
+  Caller -> It's eleven fifteen. Eleven sixteen.
+  Nurse -> Write that down. Eleven sixteen. Haloperidol, point two five mL. || R3
+  Caller -> I'm writing. On my hand. Eleven sixteen. I'll write it on the sheet too.
+  Nurse -> Good. It can take twenty or thirty minutes to work. It won't be instant. In the meantime, let's make him a little more comfortable. Can you turn him gently onto his side? Put a pillow behind his back, and one between his knees. Keep the room dim and quiet. Put a cool damp cloth on his forehead. And talk to him softly. Or put on quiet music. || E1
+  Caller -> Okay. On his side. Pillow. Okay. I'm turning him. He's so thin. Okay. He's on his right side. I put the pillow. I'll get the cloth. I have a washcloth. Cool water. Okay. On his forehead. I'm turning off the big light. The lamp is on. It's low.
+  Nurse -> Perfect. Is there music he likes?
+  Caller -> Frank Sinatra. He loved Sinatra. I have it on my phone. Hold on. I'll find it. Okay. I'm playing it. Soft. "Fly Me to the Moon."
+  Nurse -> That's wonderful. Hearing is the last sense to go. He can hear you.
+  Caller -> Really? I didn't know that. Oh. Daddy. I love you. I love you, Daddy.
+  Nurse -> He knows.
+  Nurse -> Beautiful. Hold his hand. Let him hear your voice. Tell him you're here.
+  Caller -> Daddy, I'm here. It's Ro. I'm right here. You're okay. You're safe. We love you. Oh. He's quieter. He's still moving a little. But he's quieter. His arm isn't thrashing so much.
+  Nurse -> That's good. That's what we want. Keep talking to him.
+  Caller -> Okay. I'll keep talking. He used to sing this. He used to sing it in the car. Badly. Ha.
+  Nurse -> That's a lovely memory. Keep telling him.
+  Caller -> Daddy, you used to sing this in the car. You sang it so loud. Mama used to say, Barney, stop. And you'd sing louder.
+  Caller -> Oh. He's squeezing my hand. He's squeezing. Eliza, he squeezed.
+  Nurse -> That's beautiful. He's with you.
+  Nurse -> Rowena, has he had a fall or hurt himself today? Anything like that?
+  Caller -> No. No falls. He's been in bed. He hasn't moved off the bed. He can't. He's not hurt. No bruises. Nothing. He's just agitated. || A6
+  Nurse -> Okay. Good. Rowena, is anyone else with you tonight?
+  Caller -> My brother. Danny. He's at the airport. He's flying in. He gets in at midnight. I'm alone right now. My husband is home with the kids.
+  Nurse -> Okay. Would you like me to call your husband? Or a friend?
+  Caller -> No. I'm okay. I'll call my husband after. He's sleeping.
+  Nurse -> Alright. I'm here with you for as long as you need. You're not alone.
+  Caller -> Thank you. That helps. I've been alone with this all day. The aide left at five.
+  Nurse -> Did the aide say anything about how he was this afternoon?
+  Caller -> She said he'd been restless since lunch. She wanted to stay but her shift ended. She hugged me when she left. She's so sweet.
+  Nurse -> That's kind.
+  Nurse -> That's a lot. You've been doing something very hard and very loving.
+  Caller -> I don't know if I'm doing it right.
+  Nurse -> You're doing it right. You called, you gave the medicine, you're holding him, playing his music. That's exactly right.
+  Caller -> Is he dying? Is that what this is?
+  Nurse -> I think his body is getting very tired. The pauses in the breathing, the not drinking, the little urine, they're signs that he is near the end of his life. I can't tell you exactly when. It could be hours, or a day or two. The nurse who comes tonight will know more.
+  Caller -> Should I call the rest of the family? My sisters? They're in Ohio and Texas.
+  Nurse -> If you'd like them to say goodbye, you can call them. Phone calls count. You can hold the phone to his ear.
+  Caller -> I'll call them after. After you call me. Maybe now. I'll text them to call me.
+  Nurse -> That's a good idea.
+  Caller -> Okay. Okay. I thought so. I just needed someone to say it.
+  Nurse -> I'm sorry. I know that's hard to hear. Do you want to tell me about him?
+  Caller -> He was a mailman. For thirty five years. He knew everyone on his route. He used to carry dog biscuits in his pocket. The dogs loved him. He'd come home with a bite on his ankle at least once a year.
+  Nurse -> Ha. A dog biscuit man. That sounds like a good man.
+  Caller -> He was the best. He taught me how to ride a bike on the street in front of the house. He ran behind me. I thought he was holding on. He wasn't.
+  Nurse -> What did he say when you got it?
+  Caller -> He said, there she goes. He said it like I was a rocket. I still hear it.
+  Nurse -> That's a wonderful memory.
+  Nurse -> That's a beautiful story.
+  Caller -> He's calmer. I think the medicine is working. He's not moaning. His face is relaxing.
+  Nurse -> Good. That's what we want to see. How's his breathing now?
+  Caller -> Still the pauses. But he's not fighting. He's breathing with it. Like he's resting.
+  Nurse -> Good. Stay close. Keep the music on. I'll call you back in thirty minutes to check, and the nurse will be there before that. || R4
+  Caller -> Thirty minutes. Okay. And you'll call my cell.
+  Nurse -> Yes. Three one four, five five five, zero one zero four. || callback_phone
+  Caller -> That's right.
+  Nurse -> And Rowena, call any hour tonight. If he gets more restless, if you have a question, or if you just want someone on the phone with you. Day or night. I'm here. || E3
+  Caller -> Any hour. Okay. I won't hesitate. I might call just to hear a voice.
+  Nurse -> Please do.
+  Caller -> I'll let you go so you can page the doctor. Thank you, Eliza. I don't know how to thank you.
+  Nurse -> You just did. Stay with your dad. I'll talk to you soon.
+  Caller -> Okay. Bye.
+  Nurse -> Bye, Rowena.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Barnabas Tillman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-03-15", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Rowena Tillman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550104", certainty: stated, heard_as: [], turns: [10, 105]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father was thrashing and moaning and not settling with his medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "He's not settling. He's thrashing and moaning."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was thrashing, pulling at the sheets and trying to get up since about one that afternoon, and was getting worse.
+      speaker: Caller
+      turns: [12]
+      quote: "He's pulling at the sheet. He's pulling at his gown."
+      explanation: Documents the agitation.
+      facts:
+        - {type: symptom, name: thrashing and pulling at the sheets, present: true, onset: since the afternoon, severity: severe, certainty: stated}
+      covers: [A1]
+    - text: Lorazepam 0.5 mg was given at two and six and did not settle him.
+      speaker: Caller
+      turns: [19]
+      quote: "The lorazepam. The point five."
+      explanation: Documents the anti-anxiety medication.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: six this evening, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was grimacing and moaning, and she could not tell whether it was pain or fear.
+      speaker: Caller
+      turns: [25]
+      quote: "He's grimacing. His face is all scrunched."
+      explanation: Documents the moaning and grimacing.
+      facts:
+        - {type: symptom, name: moaning and grimacing, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had not passed urine since the morning and had not had anything to drink.
+      speaker: Caller
+      turns: [27]
+      quote: "he hasn't peed. Not since this morning."
+      explanation: Documents the lack of urine.
+      facts:
+        - {type: symptom, name: no urine since this morning, present: true, certainty: stated}
+      covers: [A4]
+    - text: His breathing alternated fast breaths with pauses of ten seconds or more.
+      speaker: Caller
+      turns: [29]
+      quote: "It goes fast. Then it stops."
+      explanation: Documents the irregular breathing.
+      facts:
+        - {type: symptom, name: breathing with long pauses, present: true, certainty: stated}
+      covers: [A5]
+    - text: He had not fallen and had no injuries.
+      speaker: Caller
+      turns: [72]
+      quote: "No falls. He's been in bed."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: a fall or injury, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [30]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [32]
+      quote: "I'm sending a nurse to your house. I want her there within the hour."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Advised giving a quarter mL of haloperidol from the comfort kit.
+      speaker: Nurse
+      turns: [42]
+      quote: "I want you to give a quarter mL."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: haloperidol, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [103]
+      quote: "I'll call you back in thirty minutes to check"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised turning him onto his side with pillows, keeping the room dim and quiet, a cool cloth on his forehead and soft talk or music.
+      speaker: Nurse
+      turns: [56]
+      quote: "Can you turn him gently onto his side?"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised drawing up a quarter mL to the line, giving it slowly in the cheek pocket and writing down the time.
+      speaker: Nurse
+      turns: [50]
+      quote: "Give it slowly into his cheek, in the pocket between the cheek and the gum."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Invited calls any hour tonight if he became more restless or she had questions or wanted someone on the phone.
+      speaker: Nurse
+      turns: [107]
+      quote: "call any hour tonight."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "He's not settling. He's thrashing and moaning."}

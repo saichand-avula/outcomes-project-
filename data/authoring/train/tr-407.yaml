@@ -1,0 +1,249 @@
+call_id: tr-407
+split: train
+blueprint: "A daughter calls hospice about her father's pain medicine timing: his fentanyl patch is due to be changed Wednesday and he has breakthrough pain of six, and she wants to know if she can give another dose of liquid oxycodone, five milligrams per five milliliters, only two hours after the last one. Nurse says wait until four hours have passed, offers comfort measures, plans a nurse visit this afternoon and a callback in an hour. She corrects her father's birth year mid-answer, never gives a callback number (nurse uses the number on file), and her brother talks over her in the background. Medication question, adult child, prn plus scheduled, liquid concentration, crosstalk, v2 short."
+setup:
+  scenario_category: medication
+  subtype: prn_timing_question
+  secondary_tags: [prn_and_scheduled, liquid_concentration, dob_self_corrected, phone_not_given, crosstalk, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, pain]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Larkspur Hospice
+  agency_type: hospice
+  nurse_name: Tobias
+  call_timestamp_utc: "2026-11-04T19:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelius Strand
+  patient_name_spoken: Cornelius Strand
+  patient_name_certainty: stated
+  patient_dob_true: "1949-07-08"
+  patient_dob_spoken: "1949-07-08"
+  patient_dob_certainty: stated
+  caller_name_true: Imogen Strand
+  caller_name_spoken: Imogen Strand
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Asked whether she can give another dose of liquid oxycodone two hours after the last for breakthrough pain
+  reason_category: medication
+  relevant_context: Hospice patient on a fentanyl patch with as-needed liquid oxycodone
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: fentanyl patch
+    medication_name_spoken: fentanyl patch
+    medication_status: taking
+    dose: "50"
+    unit: mcg per hour
+    frequency: every three days
+    prn: false
+    last_dose: Sunday
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone liquid
+    medication_name_spoken: oxycodone liquid
+    medication_status: taking
+    dose: "5"
+    unit: mL
+    frequency: every four hours as needed
+    prn: true
+    last_dose: two hours ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: breakthrough pain
+    symptom_present: true
+    severity: "6"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in an hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Wait until four hours after the last oxycodone dose before giving another, measure the liquid with the oral syringe, and do not touch or change the patch early
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition him, use a warm blanket and quiet music while waiting
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Larkspur Hospice, this is Tobias.
+  Caller -> Hi. Hello. This is Imogen Strand. It's about my father. Cornelius Strand. He's a patient with you. || caller_name, patient_name, relationship
+  Nurse -> Of course. Mr. Strand. I know the name.
+  Caller -> Thank you. Sorry. I'm a bit frazzled. We've had a long day.
+  Nurse -> Hi, Imogen. How can I help tonight?
+  Caller -> He's hurting. A little. More than a little. And I wanted to ask about his medicine. I think I can give him more but I don't want to give too much. || cc
+  Nurse -> Good that you called first. Let me get his chart open. What's his date of birth?
+  Caller -> July eighth, nineteen forty eight. No. Forty nine. Nineteen forty nine. He's seventy seven. He'd correct me. || patient_dob
+  Nurse -> Forty nine. Got it. Tell me about the pain. Where is it, and how bad on a scale of zero to ten?
+  Caller -> His hip. And his back. He says six. A six. He's grimacing when I move the pillow.
+  Caller -> Dad, you said a six, right? He nods. A six. || A3
+  Nurse -> Thank you for asking him directly.
+  Caller -> I always ask him. Even when he doesn't answer. He gets annoyed if I don't.
+  Nurse -> Okay. And what is he taking for pain?
+  Caller -> There's a patch. A fentanyl patch. Fifty micrograms per hour. It's on his shoulder. It's changed every three days. We put it on Sunday. || A1
+  Nurse -> So the next change is Wednesday?
+  Caller -> Wednesday morning. And then there's the liquid. The oxycodone liquid. It's the bottle with the syringe. Five milligrams in five milliliters. The label says give five milliliters every four hours as needed. || A2
+  Nurse -> Okay. Five milliliters is five milligrams. When did he last get a dose?
+  Caller -> Two hours ago. About. At six. I gave him five mils at six. And it's now eight. And he's still hurting. So can I give another one now?
+  Caller -> My brother says give him more. My brother says give him the whole bottle. I said no. I said call the nurse.
+  Nurse -> You did the right thing. Is your brother there with you?
+  Caller -> He's in the kitchen. He's yelling from the kitchen. He says it's just a little liquid.
+  Caller -> He's also making grilled cheese. At eight at night. I don't know why.
+  Nurse -> Ha. Comfort food.
+  Nurse -> Imogen, I'll explain it to both of you. Please don't give a second dose yet. The oxycodone is every four hours. That means waiting until ten o'clock. || E1
+  Caller -> Ten. Two more hours. That's a long time when he's hurting.
+  Caller -> Dennis, the nurse says ten. Ten o'clock. Stop banging the pan. Sorry, the pans.
+  Nurse -> Ha. I can hear it.
+  Caller -> What? Yes, Dennis, I'm on the phone. Dennis, he says wait. He says wait until ten.
+  Nurse -> The medicine is still working. It can take thirty to sixty minutes to reach its full effect, and the patch is also working all the time in the background.
+  Caller -> Okay. But what if he's still at a six at ten?
+  Nurse -> Then you can give the next dose at ten, five milliliters, using the oral syringe. Measure at the number five. If it's still bad, call me.
+  Caller -> Five milliliters. At ten. The syringe. Okay.
+  Caller -> Should I write it down? I have a chart on the fridge. It has the times.
+  Nurse -> Yes, write the time you gave each dose. That helps us a lot.
+  Caller -> Okay. I'm writing. Six o'clock. Five mils. Next ten o'clock. I'm using the green marker.
+  Nurse -> And please don't change the patch early, or cut it, or add a second patch. The next one is Wednesday.
+  Caller -> I wasn't going to. Dennis wanted to. I said no.
+  Caller -> He read online that you can put two on. He reads everything online.
+  Nurse -> The internet is not always right about that. Two patches can be dangerous.
+  Caller -> That's what I told him. He didn't believe me.
+  Nurse -> Good. Let's try some other things in the meantime. Can you help him shift position? Maybe a pillow under his hip, or between his knees?
+  Caller -> He's on his back. Hold on. Dad, can you roll a little? Okay. He's on his left side now with a pillow. He says that's easier. A five, he says.
+  Nurse -> A warm blanket over his back, and some quiet music, can help too. || E2
+  Caller -> He loves the blues. B. B. King. Dennis, find the blues station. It's on the speaker. Okay. It's on.
+  Nurse -> Good. How's he breathing? Is he sleepy, or hard to wake?
+  Caller -> He's awake. He's tapping his foot to the music. He's totally himself.
+  Caller -> He just told Dennis to turn it down. So he's definitely awake.
+  Nurse -> Ha. Good sign.
+  Nurse -> That's good. I'd like to send a nurse out this afternoon to look at the pain plan with you, and maybe adjust the doses. || R1
+  Caller -> This afternoon? I thought you only came on Mondays. Oh, that would be wonderful.
+  Nurse -> It's no problem. I'll also call you back in an hour to see how the pain is. || R2
+  Caller -> In an hour. Okay. At the number you have.
+  Nurse -> I'll use the number on file. Is it still the same one?
+  Caller -> It is. It's the same. It's my cell. I'm not giving it again, I'm tired, I just said it twenty times to the pharmacy.
+  Nurse -> Ha. No problem. I have it.
+  Caller -> Dennis wants to know if he can sit with Dad. I said fine.
+  Caller -> By the way, we had a nurse named Gloria last week. Is she coming again?
+  Nurse -> I'll ask who is covering. I'll make sure you know who to expect.
+  Nurse -> That's great. He can hold his hand and talk to him. That's good medicine too.
+  Caller -> He's actually crying a little, Dennis. He doesn't cry. I think he just needed to be asked.
+  Nurse -> It's a hard night for everyone. Thank you for calling.
+  Caller -> Thank you, Tobias. I really appreciate you picking up.
+  Nurse -> Anytime. We're here. Bye for now.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelius Strand, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-07-08", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Imogen Strand, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether she could give another dose of liquid oxycodone two hours after the last for breakthrough pain.
+    speaker: Caller
+    turns: [6]
+    quote: "He's hurting. A little. More than a little."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Fentanyl patch 50 mcg per hour was changed every three days, last on Sunday.
+      speaker: Caller
+      turns: [15]
+      quote: "There's a patch. A fentanyl patch. Fifty micrograms per hour."
+      explanation: Documents the scheduled pain medicine.
+      facts:
+        - {type: medication, name: fentanyl patch, dose: "50", unit: mcg per hour, frequency: every three days, prn: false, last_dose: Sunday, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Oxycodone liquid 5 mL every four hours as needed, with the last dose two hours ago.
+      speaker: Caller
+      turns: [17]
+      quote: "The label says give five milliliters every four hours as needed."
+      explanation: Documents the as-needed medicine.
+      facts:
+        - {type: medication, name: oxycodone liquid, dose: "5", unit: mL, frequency: every four hours as needed, prn: true, last_dose: two hours ago, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Breakthrough pain was a six.
+      speaker: Caller
+      turns: [11]
+      quote: "Dad, you said a six, right? He nods. A six."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: breakthrough pain, present: true, severity: "6", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'd like to send a nurse out this afternoon"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'll also call you back in an hour"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in an hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised waiting until four hours after the last oxycodone dose, measuring with the oral syringe, and not changing the patch early.
+      speaker: Nurse
+      turns: [25]
+      quote: "Please don't give a second dose yet."
+      explanation: Documents medication administration teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised repositioning, a warm blanket and quiet music.
+      speaker: Nurse
+      turns: [44]
+      quote: "A warm blanket over his back, and some quiet music, can help too."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags: []

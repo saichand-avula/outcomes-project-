@@ -1,0 +1,359 @@
+call_id: tr-498
+split: train
+blueprint: "A daughter tells home health she did not stop her mother's blood pressure pill; she stopped the water pill (hydrochlorothiazide twenty five milligrams) three days ago on her own because her mother was dizzy, and is still giving amlodipine five milligrams once a day. Dizziness is milder now, blood pressure one forty two over eighty four this morning, no fainting or falls. Nurse is concerned about stopping a medicine without checking, messages the team, plans a callback tomorrow, and reviews not changing medicines alone and checking pressure twice a day. Negation-heavy phrasing, a self-stopped medicine (medication concern), adult child caller, patient 65+, v2 medium."
+setup:
+  scenario_category: medication
+  subtype: caregiver_stopped_medicine
+  secondary_tags: [trap_phrasing, negated_risk_phrase, prn_and_scheduled, hedging, late_answers, split_turns]
+  clinical_domains: [medication, dizziness, blood_pressure]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Row Home Health
+  agency_type: home_health
+  nurse_name: Gideon
+  call_timestamp_utc: "2026-12-01T17:30:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philippa Strathmore
+  patient_name_spoken: Philippa Strathmore
+  patient_name_certainty: stated
+  patient_dob_true: "1949-10-27"
+  patient_dob_spoken: "1949-10-27"
+  patient_dob_certainty: stated
+  caller_name_true: Anneke Strathmore
+  caller_name_spoken: Anneke Strathmore
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4045550173"
+  callback_phone_spoken: "4045550173"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported stopping her mother's water pill on her own because of dizziness
+  reason_category: medication
+  relevant_context: Home health patient on two blood pressure medicines
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: amlodipine
+    medication_name_spoken: amlodipine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydrochlorothiazide
+    medication_name_spoken: hydrochlorothiazide
+    medication_status: stopped
+    dose: "25"
+    unit: mg
+    frequency: once a day
+    prn: false
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness that is milder now
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "142/84"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting or falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask the clinician whether to restart the water pill
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not stop or restart any medicine without checking with the clinician and keep giving the amlodipine every morning
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check her blood pressure morning and evening while sitting, write the numbers down, and have her rise slowly
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fainting, a fall, a pressure over one hundred eighty, a severe headache, or swelling in her legs
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caregiver stopped a blood pressure medicine on her own without checking
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Row Home Health, this is Gideon.
+  Caller -> Hello? Is this the nurse? I hope this is the right number. I've been rehearsing what to say.
+  Nurse -> It's the right number. Go ahead.
+  Caller -> Hi, Gideon. It's Anneke Strathmore. I'm Philippa Strathmore's daughter. I need to tell you something, and I want to say first that I didn't stop her blood pressure pill. I stopped the other one. The water pill. I probably shouldn't have. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi, Anneke. How are you?
+  Caller -> Nervous. I'll get to the point. It's about her pills.
+  Nurse -> Hi, Anneke. Thank you for telling me. Let's go through it. What is she taking?
+  Caller -> Thank you for answering. I wasn't sure about calling this late in the day.
+  Nurse -> It's fine. We take calls until nine.
+  Caller -> I made a list. It's on an index card. I'll read it from there.
+  Caller -> I feel nervous. I don't want to get in trouble.
+  Nurse -> You're not in trouble. Let's talk.
+  Caller -> She's on two. The amlodipine, five milligrams, once a day. That's the blood pressure one. I did not stop that one. I give it every morning. I gave it today. || A1
+  Nurse -> Okay.
+  Caller -> I keep them in a pillbox, one of the big ones with the days. I fill it on Sundays.
+  Nurse -> That's great.
+  Nurse -> Amlodipine, five milligrams, every morning, and she had it today. And the other one? || A1
+  Caller -> I'm very careful with that one. I check it twice. I don't want to mix anything up.
+  Nurse -> That's good.
+  Caller -> The hydrochlorothiazide. Twenty five milligrams. Once a day. The water pill. I haven't given it for three days. I stopped it Saturday. || A2
+  Nurse -> Okay. And you took it out of the pillbox?
+  Caller -> Yes. Saturday. I took it out of all the days.
+  Nurse -> Okay.
+  Nurse -> Okay. Why did you stop it?
+  Caller -> I should have called you. I'm sorry. I was panicking.
+  Nurse -> It's okay.
+  Caller -> She was dizzy. Really dizzy on Friday. She stood up from the couch and grabbed the wall. I got scared. I read online that water pills can make you dizzy. So I stopped it. I didn't call anyone. I didn't want to bother you on a weekend.
+  Caller -> She was making tea. I heard the cup rattle. She had to sit on the kitchen floor.
+  Nurse -> That sounds scary.
+  Caller -> It was. For both of us.
+  Nurse -> I'm sorry. That must have been frightening.
+  Caller -> It was. She went pale. I thought she'd faint.
+  Nurse -> Okay.
+  Nurse -> Okay. I understand why you did that. It came from a good place. How is she now?
+  Caller -> Thank you for understanding.
+  Caller -> Better. The dizziness isn't gone, but it's less. It's not every time she stands. Maybe once a day. She says it's like a little wave. It passes. || A3
+  Caller -> When she stands she pauses. Counts to five. Then she goes. I taught her that trick.
+  Nurse -> That's a good one.
+  Nurse -> Mm hm.
+  Nurse -> Okay. Has she fainted, or fallen?
+  Caller -> No. She hasn't fainted. She hasn't fallen. Not once. I'm always next to her. || A5
+  Nurse -> Good. That's reassuring.
+  Caller -> I'm learning. Slowly. Thank you for being patient.
+  Nurse -> Good. Have you checked her blood pressure?
+  Caller -> This morning, before her pill. One forty two over eighty four. That's higher than it was in the hospital. But she hasn't had the water pill for three days. || A4
+  Nurse -> Okay.
+  Caller -> I used the cuff the nurse showed me. It beeps when it's done. I did it twice. Same both times.
+  Nurse -> Good.
+  Nurse -> Okay. One forty two over eighty four. Thank you. I'm glad you checked. Anneke, what's your mom's date of birth?
+  Caller -> Her usual is one thirty something. So it's a bit up.
+  Nurse -> Okay. Good to know.
+  Caller -> I wrote it down right away. The number. And the time.
+  Nurse -> That's useful.
+  Caller -> Is that really high? I wasn't sure.
+  Nurse -> It's a little higher than we'd like, but not dangerous.
+  Caller -> Okay.
+  Caller -> October twenty seventh. Nineteen forty nine. || patient_dob
+  Nurse -> And your number?
+  Caller -> Four oh four, five five five, oh one seven three. || callback_phone
+  Nurse -> Four oh four, five five five, oh one seven three. Right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Great. Thanks.
+  Caller -> I'll keep it with me all day. Even in the garden.
+  Nurse -> Perfect.
+  Caller -> Mom just asked who I'm talking to. I said the nurse. She said, tell him hello.
+  Nurse -> Hello, Mrs. Strathmore.
+  Caller -> She waved at the phone. She does that.
+  Nurse -> Ha. A friendly wave.
+  Caller -> Is there anything else I might be doing wrong that I don't know about?
+  Nurse -> Not from what you've described. You're being careful. Just keep checking with us.
+  Nurse -> Thanks.
+  Nurse -> Okay. Here's the honest answer. I'm glad you called, and I'm not upset. But you shouldn't stop a medicine without checking with us first. Stopping the water pill can raise her pressure, and the dizziness could have another cause. || E1
+  Caller -> I'm bracing myself.
+  Nurse -> No need.
+  Caller -> Please. Be honest.
+  Nurse -> I will.
+  Caller -> I know. I know. I feel terrible. I didn't mean to do anything wrong.
+  Nurse -> It's okay. Let's focus on the next step.
+  Nurse -> You didn't do anything wrong on purpose. You were trying to help. What matters now is that the clinician knows. I'm going to send a message to the team right away, and ask whether to restart the water pill. || R1
+  Caller -> Thank you. That means a lot.
+  Caller -> Okay. Please. Should I give it tonight? Or wait?
+  Nurse -> Please wait for the clinician. Don't restart it on your own either. Keep giving the amlodipine every morning. || A1
+  Caller -> I put the bottle in a drawer. Away from the pillbox. Just so I don't do it by habit.
+  Nurse -> That's a smart move.
+  Caller -> I will. I promise. I won't do anything.
+  Nurse -> Thank you.
+  Caller -> Wait. Don't restart. Keep the amlodipine. Okay. I will. || A1
+  Nurse -> Right.
+  Nurse -> I'll call you back tomorrow to let you know what they say. || R2
+  Caller -> Is it all right if I call you first if I hear back from anyone else?
+  Nurse -> Of course.
+  Caller -> Tomorrow. Okay. What time?
+  Caller -> I'll be here. I took the week off.
+  Nurse -> That helps.
+  Nurse -> Late morning.
+  Caller -> Eleven's perfect.
+  Caller -> Okay. That works. We have breakfast at eight and she naps at ten.
+  Nurse -> Then I'll call at eleven.
+  Caller -> Good. I'll be home with her.
+  Nurse -> In the meantime, check her blood pressure in the morning and the evening, sitting down. Write the numbers down. And have her stand up slowly. || E2
+  Caller -> Sitting. Same arm. I remember that part.
+  Nurse -> Good.
+  Caller -> Morning and evening. Sitting. Write it down. Stand up slowly. Okay. I have the cuff. And a notebook.
+  Nurse -> Good.
+  Caller -> I'll make a chart on graph paper. A friendly one.
+  Nurse -> Ha.
+  Nurse -> Perfect.
+  Nurse -> Call us if she faints, or falls, if her pressure goes over one hundred eighty, if she has a bad headache, or her legs swell up. || E3
+  Caller -> Faints. Falls. Over one eighty. Bad headache. Swelling. Okay. I'll write that on the first page.
+  Nurse -> Right. Those are the ones to remember.
+  Caller -> I'll tape this to the fridge. Right at eye level.
+  Nurse -> Good.
+  Nurse -> Right.
+  Nurse -> Good.
+  Caller -> Thank you for not yelling at me.
+  Nurse -> Never. Mistakes like this are common.
+  Nurse -> Of course.
+  Caller -> My brother would have. He yells.
+  Nurse -> Ha.
+  Nurse -> I'd never. You did something very human. You reached out, which is what counts.
+  Caller -> I just love her. And I got scared.
+  Nurse -> That's what this is. Love and fear. It's normal.
+  Caller -> Thank you, Gideon.
+  Nurse -> You're doing right by her.
+  Caller -> I hope so. I try.
+  Nurse -> You're welcome. Talk tomorrow.
+  Caller -> Thank you again. I'm going to go sit with Mom.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philippa Strathmore, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1949-10-27", certainty: stated, heard_as: [], turns: [57]}
+    caller_name: {value: Anneke Strathmore, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: daughter, certainty: stated, turns: [4]}
+    callback_phone: {value: "4045550173", certainty: stated, heard_as: [], turns: [59, 60]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported stopping her mother's water pill on her own because of dizziness.
+    speaker: Caller
+    turns: [4]
+    quote: "I stopped the other one. The water pill."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Amlodipine 5 mg was given every morning, including today, and was not stopped.
+      speaker: Caller
+      turns: [13]
+      quote: "The amlodipine, five milligrams, once a day."
+      explanation: Documents the continued medication.
+      facts:
+        - {type: medication, name: amlodipine, dose: "5", unit: mg, frequency: once a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Hydrochlorothiazide 25 mg once a day was stopped by the daughter three days ago.
+      speaker: Caller
+      turns: [20]
+      quote: "The hydrochlorothiazide. Twenty five milligrams."
+      explanation: Documents the stopped medication.
+      facts:
+        - {type: medication, name: hydrochlorothiazide, dose: "25", unit: mg, frequency: once a day, prn: false, last_dose: three days ago, med_status: stopped, certainty: stated}
+      covers: [A2]
+    - text: Dizziness was milder, about once a day on standing.
+      speaker: Caller
+      turns: [36]
+      quote: "Better. The dizziness isn't gone, but it's less."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness that is milder now, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure this morning was 142/84.
+      speaker: Caller
+      turns: [45]
+      quote: "One forty two over eighty four."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "142/84", certainty: stated}
+      covers: [A4]
+    - text: She had not fainted or fallen.
+      speaker: Caller
+      turns: [41]
+      quote: "She hasn't fainted. She hasn't fallen."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fainting or falls, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the team to ask whether to restart the water pill.
+      speaker: Nurse
+      turns: [79]
+      quote: "I'm going to send a message to the team right away"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback tomorrow.
+      speaker: Nurse
+      turns: [89]
+      quote: "I'll call you back tomorrow to let you know what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not stopping or restarting any medicine without checking and continuing the amlodipine each morning.
+      speaker: Nurse
+      turns: [72]
+      quote: "you shouldn't stop a medicine without checking with us first."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised checking blood pressure morning and evening while sitting, writing it down, and standing slowly.
+      speaker: Nurse
+      turns: [100]
+      quote: "check her blood pressure in the morning and the evening, sitting down."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for fainting, a fall, pressure over one hundred eighty, a bad headache, or leg swelling.
+      speaker: Nurse
+      turns: [108]
+      quote: "Call us if she faints, or falls"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [4], quote: "I stopped the other one. The water pill. I probably shouldn't have."}

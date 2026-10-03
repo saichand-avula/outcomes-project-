@@ -1,0 +1,271 @@
+call_id: va-076
+split: val
+blueprint: "A son, Evander Prescott, calls because his mother Hildegard ran out of her seizure medicine, levetiracetam, two days ago and the pharmacy says the refill needs new authorization. She has not had a seizure but had a brief spell of staring this morning. Nurse treats it as urgent: contacts the pharmacy and the neurologist's office, pages on-call for a bridge supply, and reviews seizure precautions and when to call 911. Ran out of medication, adult child caller, medication concern flag, v2 short."
+setup:
+  scenario_category: medication
+  subtype: ran_out_seizure_medication
+  secondary_tags: [adult_child, ran_out, refill_request, seizure_risk, split_turns, late_answers]
+  clinical_domains: [neurologic, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Gladstone Home Health
+  agency_type: home_health
+  nurse_name: Cordelia
+  call_timestamp_utc: "2026-12-08T22:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hildegard Prescott
+  patient_name_spoken: Hildegard Prescott
+  patient_name_certainty: stated
+  patient_dob_true: "1949-02-08"
+  patient_dob_spoken: "1949-02-08"
+  patient_dob_certainty: stated
+  caller_name_true: Evander Prescott
+  caller_name_spoken: Evander Prescott
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7135550128"
+  callback_phone_spoken: "7135550128"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his mother ran out of her seizure medicine two days ago
+  reason_category: refill_request
+  relevant_context: Home health patient with a seizure disorder
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: levetiracetam
+    medication_name_spoken: levetiracetam
+    medication_status: ran out
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: two nights ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: brief staring spell
+    symptom_present: true
+    severity: mild
+    onset: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: seizure or fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: dispensing pharmacy
+    certainty: stated
+  - item_id: R2
+    action_type: physician_notification
+    action_status: planned
+    actor: nurse
+    recipient_or_target: neurologist's office
+    reason_or_trigger: refill authorization and missed doses
+    certainty: stated
+  - item_id: R3
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: no seizure medicine for two days with a staring spell
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with her, keep her away from stairs, the stove and the bath, and if a seizure happens lay her on her side and time it
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for a seizure longer than five minutes, repeated seizures, trouble breathing afterward, or injury
+    trigger_condition: seizure over five minutes; repeated seizures; trouble breathing; injury
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Ran out of seizure medicine two days ago and had a staring spell this morning
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Gladstone Home Health, this is Cordelia.
+  Caller -> Hi, Cordelia. It's Evander Prescott. My mother is Hildegard Prescott. She's out of her seizure medicine. She's been out for two days. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Evander. Thank you for calling. Which medicine is it?
+  Caller -> I should have called Monday. I kept thinking the pharmacy would figure it out.
+  Nurse -> You called today. That counts.
+  Caller -> Levetiracetam. Five hundred milligrams. Twice a day. Morning and night. The last one was Sunday night. || A1
+  Nurse -> And today is Tuesday. So she's missed Monday morning, Monday night, and this morning.
+  Caller -> Three doses. Yes. Three doses. And tonight's is due now.
+  Nurse -> How long has she been on it?
+  Caller -> Six years. Since her stroke. She has never missed it. Not once, until now.
+  Nurse -> That makes me want to fix this quickly.
+  Nurse -> What happened with the refill?
+  Caller -> The pharmacy says it's out of refills and needs a new authorization from the doctor. They said they sent a request Friday. Nobody answered. I called the doctor's office today and I got voicemail.
+  Caller -> I left two messages. The recording said the office closes at five and reopens at eight. It's after nine.
+  Nurse -> Right. That's why I'll use the after hours line.
+  Nurse -> Okay. I'm going to take over on that. First, how is your mother right now?
+  Caller -> She's okay. She's in her chair. She seems okay. This morning she had a moment though. She stared at the wall for maybe ten seconds. Didn't answer me. Then she was fine. || A2
+  Nurse -> Has she been sleepier than usual today?
+  Caller -> A little. She napped after lunch for two hours. That's long for her.
+  Nurse -> Okay. I'll pass that on too.
+  Nurse -> Is she talking normally? Following conversation?
+  Caller -> Yes. She asked me what's for dinner. She's irritated I forgot the salt.
+  Nurse -> Ha. A good sign.
+  Nurse -> A staring spell. Did her eyes move, her mouth, her hands?
+  Caller -> Her lips were doing a little smacking thing. Just for a second. Then she blinked and said what? She didn't remember it.
+  Nurse -> Okay. Has she had a full seizure? Shaking, falling, losing consciousness?
+  Caller -> No. No convulsions. She hasn't fallen. She's been sitting most of the day. || A3
+  Nurse -> Does she use a walker or a cane?
+  Caller -> A walker. It's next to her chair. I put it within reach.
+  Nurse -> Good.
+  Nurse -> Good. What's her date of birth, Evander?
+  Caller -> February eighth, nineteen forty nine. || patient_dob
+  Nurse -> And a number?
+  Caller -> Seven one three, five five five, zero one two eight. || callback_phone
+  Nurse -> Is that your cell?
+  Caller -> Yes. I'll keep it on the table next to me and on loud.
+  Nurse -> Got it. Missing seizure medicine can be risky, so I want to act quickly. I'm going to call the pharmacy right now and ask if they can release a few doses while we get authorization. || R1
+  Caller -> Oh, thank God. Please. I'd drive there but I don't have a car tonight. Mine's in the shop.
+  Caller -> What if the pharmacy refuses? Because they said no authorization, no pills.
+  Nurse -> Pharmacists can sometimes give an emergency supply for a medicine like this. I'll ask.
+  Caller -> Okay. I didn't know that.
+  Nurse -> We'll work something out. I'm also going to contact the neurologist's office. They should have an after hours line. || R2
+  Caller -> I tried. It just rings.
+  Nurse -> I have a different number. And I'll page our on-call clinician so we have someone who can authorize a short supply tonight. || R3
+  Caller -> Okay. Thank you. I was so scared to call. I thought you'd tell me to go to the ER.
+  Caller -> Is it dangerous that she's missed three doses?
+  Nurse -> It raises the risk of a seizure, which is why I'm taking this seriously. It doesn't mean one will happen.
+  Caller -> Okay. That's honest. Thank you.
+  Nurse -> It's possible, if we can't get the medicine tonight. Let's see what we can do first. Evander, in the meantime, stay with her. Don't leave her alone, and keep her away from stairs, the stove, and the bathtub. If she has a seizure, lay her on her side, put something soft under her head, and time it. || E1
+  Caller -> Stay with her. Away from stairs and the stove. If she seizes, on her side, time it. Okay. I have the clock on the wall.
+  Nurse -> Don't put anything in her mouth.
+  Caller -> No. Nothing in her mouth. I remember that from the video.
+  Nurse -> Good. And call nine one one if a seizure lasts more than five minutes, if she has more than one in a row, if she has trouble breathing afterward, or if she's hurt. || E2
+  Caller -> Over five minutes. More than one. Trouble breathing. Hurt. Nine one one. Okay.
+  Nurse -> Say it back to your wife too, so you both know.
+  Caller -> I will. I'll write it on the fridge. She'll add her own notes.
+  Nurse -> Is anyone else with you?
+  Nurse -> How many kids do you have?
+  Caller -> Two. Six and nine. They love their grandma. The nine year old reads to her at night.
+  Nurse -> That's sweet.
+  Caller -> My wife is here. She's putting the kids to bed. She's watching mom for a minute.
+  Nurse -> Good. Keep your phone close. I'll call you back within thirty minutes.
+  Caller -> Thirty minutes. Okay. Thank you, Cordelia. Thank you so much.
+  Nurse -> You did the right thing by calling.
+  Caller -> She's the one who raised me and now I'm the one on the phone. It's strange.
+  Nurse -> It is. And you're doing a good job.
+  Caller -> I almost waited till morning. My wife made me call.
+  Nurse -> Tell your wife she's right.
+  Caller -> I will. Ha. Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hildegard Prescott, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-02-08", certainty: stated, heard_as: [], turns: [32]}
+    caller_name: {value: Evander Prescott, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550128", certainty: stated, heard_as: [], turns: [34]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his mother ran out of her seizure medicine two days ago.
+    speaker: Caller
+    turns: [2]
+    quote: "She's out of her seizure medicine."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Levetiracetam 500 mg twice a day ran out, with the last dose on Sunday night and three doses missed.
+      speaker: Caller
+      turns: [6]
+      quote: "Levetiracetam. Five hundred milligrams. Twice a day."
+      explanation: Documents the missed medication.
+      facts:
+        - {type: medication, name: levetiracetam, dose: "500", unit: mg, frequency: twice a day, prn: false, last_dose: two nights ago, med_status: ran out, certainty: stated}
+      covers: [A1]
+    - text: She stared at the wall for about ten seconds this morning with lip smacking and did not remember it.
+      speaker: Caller
+      turns: [17]
+      quote: "She stared at the wall for maybe ten seconds."
+      explanation: Documents the staring spell.
+      facts:
+        - {type: symptom, name: brief staring spell, present: true, severity: mild, onset: this morning, certainty: stated}
+      covers: [A2]
+    - text: She had no convulsions or falls.
+      speaker: Caller
+      turns: [27]
+      quote: "No convulsions."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: seizure or fall, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to call the pharmacy about releasing a few doses.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to call the pharmacy right now"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact the neurologist's office.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'm also going to contact the neurologist's office."
+      explanation: Documents the planned physician contact.
+      facts:
+        - {type: action, action_type: physician_notification, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to page the on-call clinician for a short supply.
+      speaker: Nurse
+      turns: [44]
+      quote: "I'll page our on-call clinician"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying with her, keeping her away from stairs, the stove and the bathtub, and laying her on her side and timing any seizure.
+      speaker: Nurse
+      turns: [49]
+      quote: "Stay with her."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for a seizure over five minutes, repeated seizures, trouble breathing, or injury.
+      speaker: Nurse
+      turns: [53]
+      quote: "call nine one one if a seizure lasts more than five minutes"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "She's out of her seizure medicine."}

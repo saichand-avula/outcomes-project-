@@ -1,0 +1,255 @@
+call_id: va-058
+split: val
+blueprint: "A 58-year-old woman with a colostomy calls home health herself because she is down to three skin barrier wafers and has run out of stoma paste. She also has mild redness on the skin around the stoma where the bag keeps leaking. Output is normal. Nurse orders wafers, paste and a powder, schedules a nurse to check the skin and fitting, and reviews changing the pouch and signs of infection. Self caller, adult under 65, ostomy supplies, v2 short."
+setup:
+  scenario_category: supply
+  subtype: ostomy_supplies
+  secondary_tags: [self_caller, multi_issue, split_turns, late_answers, offtopic_chatter]
+  clinical_domains: [equipment, wound_skin, gi]
+  relationship_group: self
+  na_reason: null
+  agency_name: Cypress Home Health
+  agency_type: home_health
+  nurse_name: Lorenzo
+  call_timestamp_utc: "2026-11-29T15:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lorraine Dufresne
+  patient_name_spoken: Lorraine Dufresne
+  patient_name_certainty: stated
+  patient_dob_true: "1968-01-13"
+  patient_dob_spoken: "1968-01-13"
+  patient_dob_certainty: stated
+  caller_name_true: Lorraine Dufresne
+  caller_name_spoken: Lorraine Dufresne
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3035550110"
+  callback_phone_spoken: "3035550110"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested colostomy supplies and reported skin redness around the stoma
+  reason_category: supply_request
+  relevant_context: Home health patient with a colostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: skin barrier wafers
+    supply_remaining: "3"
+    supply_unit: wafers
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: stoma paste
+    supply_remaining: none
+    supply_unit: tubes
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: redness around the stoma
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or pus at the stoma
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wafers, stoma paste and barrier powder
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Tuesday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change the pouch when it leaks, clean the skin with warm water only, dry it fully, and dust a little barrier powder before the wafer
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, pus, a stoma that turns dark or purple, no output for a day with belly swelling or vomiting
+    trigger_condition: fever; pus; dark stoma; no output with swelling
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cypress Home Health, this is Lorenzo.
+  Caller -> Hi, Lorenzo. It's Lorraine Dufresne. I'm a patient of yours. I have the colostomy. I'm running low on stuff and I've got a skin problem too. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Lorraine. Okay. Let's start with the supplies. What are you running low on?
+  Caller -> The wafers. The skin barriers. I have three left. And I'm out of the paste. The little tube. I used the last of it Wednesday. || A1, A2
+  Nurse -> Three wafers. And no paste.
+  Caller -> Right. And I'm going through them faster because the bag keeps leaking. I'm changing it every day, and it's supposed to be every three or four.
+  Nurse -> Okay. That's the skin issue you mentioned?
+  Caller -> Yes. The skin around the stoma is red. It's kind of irritated. It's like a ring. It burns when I change the bag. It's about this big, around the whole thing. || A3
+  Nurse -> Is it open? Any weeping, or blisters, or pus?
+  Caller -> I appreciate you being patient with me.
+  Nurse -> Not a problem at all.
+  Caller -> No. It's just red. No pus. No yellow. It's not open. It's like a sunburn. || A4
+  Nurse -> And any fever?
+  Caller -> Can I ask you to hold for a moment? The kettle is going.
+  Nurse -> Of course.
+  Caller -> No. I feel fine. I take my temperature every morning because I'm paranoid. It's been normal.
+  Nurse -> Ha. A little paranoia is good. What's your output like?
+  Caller -> Normal. Regular. Soft. Twice a day. No change.
+  Nurse -> Good. Date of birth, Lorraine?
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> January thirteenth, nineteen sixty eight. || patient_dob
+  Nurse -> And your number?
+  Caller -> Um. Let me think. I'm trying to remember.
+  Nurse -> Take your time, there's no rush.
+  Caller -> Three oh three, five five five, zero one one zero. || callback_phone
+  Nurse -> Perfect. So here's what I'm going to do. I'll order the wafers, a couple of tubes of paste, and a barrier powder to help the skin. || R1
+  Caller -> Oh, the powder. Yes. My last nurse used it. I don't have any.
+  Nurse -> That's what the redness needs. I'll also send a nurse to see how the pouch is fitting and look at the skin. She'll come Tuesday. || R2
+  Caller -> Tuesday. Okay. Is there anything I can do until then?
+  Nurse -> Yes. When the pouch leaks, change it right away. Don't leave it on. Clean the skin with plain warm water, no soap, no wipes with alcohol. Pat it all the way dry. If you have any powder or a cream from before, use just a little before the new wafer. || E1
+  Caller -> Plain water. Dry it all the way. Powder. I don't have any powder. I'll just do water and dry it.
+  Nurse -> That's fine. Make sure the wafer opening is cut right. Not too big. Just a little bigger than the stoma.
+  Caller -> I trace it. I use the little template.
+  Nurse -> Perfect. And with only three wafers, change only when it leaks, not on a schedule.
+  Caller -> Sorry, I'm writing this down as we go.
+  Nurse -> Good idea. I'll pause.
+  Caller -> Okay. I'll stretch them.
+  Nurse -> If you run out before Tuesday, call me. I'll find a way to get one to you.
+  Caller -> Okay. Thank you.
+  Nurse -> Lorraine, there are a few warning signs. If you get a fever, if you see pus, if the stoma turns dark or purple, or if you have no output for a day and your belly swells or you vomit, call us right away. || E2
+  Caller -> Fever. Pus. Dark stoma. No output with swelling. Okay. I know that list. My surgeon gave it to me.
+  Nurse -> Good. You're well prepared.
+  Caller -> I try. It's been eight months and I'm still getting used to it. It's a lot.
+  Nurse -> It is. How are you doing with it emotionally?
+  Caller -> Better. I was embarrassed at first. Now I've got a sense of humor. I named it Gerald.
+  Nurse -> Ha. Gerald.
+  Caller -> Okay. I'm back. What was the question?
+  Nurse -> I'll repeat it, no trouble.
+  Caller -> He's very dramatic. He makes noises at the worst times. Meetings. Church.
+  Nurse -> Ha. We all know a Gerald.
+  Caller -> I do. He's my coworker too.
+  Nurse -> Ha. Well, I'm glad you have a sense of humor.
+  Caller -> It saved me.
+  Nurse -> Do you need anything else? Bags? Wipes?
+  Caller -> Okay. I've got a notebook now. Go ahead.
+  Nurse -> Alright.
+  Caller -> I have plenty of bags. I'm all set on those. Just the wafers and the paste.
+  Nurse -> Alright. The supplies should come in the next two or three days.
+  Caller -> I think the line cut out for a second. Are you still there?
+  Nurse -> Yes, I'm here.
+  Caller -> Okay. I'll watch for the truck.
+  Nurse -> Anything else I can help with?
+  Caller -> No. That's it. Thank you, Lorenzo.
+  Nurse -> You're welcome. Take care.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lorraine Dufresne, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1968-01-13", certainty: stated, heard_as: [], turns: [22]}
+    caller_name: {value: Lorraine Dufresne, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550110", certainty: stated, heard_as: [], turns: [26]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested colostomy supplies and reported skin redness around the stoma.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm running low on stuff and I've got a skin problem too."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Three skin barrier wafers remained.
+      speaker: Caller
+      turns: [4]
+      quote: "I have three left."
+      explanation: Documents the wafer supply.
+      facts:
+        - {type: supply, item: skin barrier wafers, supply: 3 wafers, certainty: stated}
+      covers: [A1]
+    - text: Stoma paste had run out.
+      speaker: Caller
+      turns: [4]
+      quote: "I'm out of the paste."
+      explanation: Documents the paste supply.
+      facts:
+        - {type: supply, item: stoma paste, supply: none, certainty: stated}
+      covers: [A2]
+    - text: The skin around the stoma was red and burned during changes.
+      speaker: Caller
+      turns: [8]
+      quote: "The skin around the stoma is red."
+      explanation: Documents the skin irritation.
+      facts:
+        - {type: symptom, name: redness around the stoma, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She had no fever or pus at the stoma.
+      speaker: Caller
+      turns: [12]
+      quote: "No pus. No yellow."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or pus at the stoma, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order wafers, stoma paste, and barrier powder.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'll order the wafers, a couple of tubes of paste, and a barrier powder"
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit on Tuesday.
+      speaker: Nurse
+      turns: [29]
+      quote: "She'll come Tuesday."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Tuesday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised changing a leaking pouch promptly, cleaning with warm water, drying fully, and using a little barrier powder before the wafer.
+      speaker: Nurse
+      turns: [31]
+      quote: "Clean the skin with plain warm water, no soap"
+      explanation: Documents skin care teaching.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, pus, a dark or purple stoma, or no output with swelling or vomiting.
+      speaker: Nurse
+      turns: [41]
+      quote: "call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,229 @@
+call_id: tr-102
+split: train
+blueprint: "Daughter of a 81-year-old with dementia: father has been agitated and shouting since the evening, trying to leave the house, she demands 'somebody needs to come now, I can't handle this'. Nurse pages on-call, promises a call in 10 minutes and a visit within 90 minutes, and gives de-escalation steps. Flag: escalation_request."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [crosstalk, split_turns, late_answers, hedging]
+  clinical_domains: [agitation_delirium, cognition, falls_safety]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-11-01T01:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Maurice Delacroix
+  patient_name_spoken: Maurice Delacroix
+  patient_name_certainty: stated
+  patient_dob_true: "1945-05-04"
+  patient_dob_spoken: "1945-05-04"
+  patient_dob_certainty: stated
+  caller_name_true: Simone
+  caller_name_spoken: Simone
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5045550138"
+  callback_phone_spoken: "5045550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported severe agitation in her father with dementia and asked for someone to come now
+  reason_category: agitation
+  relevant_context: Hospice patient with dementia
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: agitation with shouting
+    symptom_present: true
+    onset_or_duration: since about 9 pm
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: trying to leave the house
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: She cannot handle him alone and fears he will fall or get outside
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain complaints or injury
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: severe agitation
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: on-call nurse
+    timeframe: in 10 minutes
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: on-call nurse
+    timeframe: within 90 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Speak calmly and slowly, lower the lights and noise, do not argue, and walk with him instead of blocking him
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Lock the outside doors and put away anything he could trip on or hurt himself with
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Caller says somebody needs to come now because she cannot handle him
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Gwen.
+  Caller -> I need somebody to come now. Please. It's my dad. Maurice Delacroix. I'm Simone. I can't handle him. || caller_name, relationship, patient_name, F1
+  Nurse -> Okay, Simone, I'm here. Take a breath. What's his date of birth?
+  Caller -> May fourth. Nineteen forty five. || patient_dob
+  Nurse -> And is five oh four, five five five, zero one three eight your number? || callback_phone
+  Caller -> Yes. Yes. That's me. || callback_phone
+  Nurse -> What's happening?
+  Caller -> He's been shouting since like nine. He's agitated. He's yelling at people who aren't there. And he keeps trying to leave. He's trying to open the front door. || cc, A1, A2
+  Nurse -> Okay.
+  Caller -> I can't. He's so strong when he's like this. I can't hold him. I can't be here by myself. || A3
+  Nurse -> Is anybody else in the house?
+  Caller -> No. It's just us. My husband's at work, he works nights. || A3
+  Nurse -> Okay. Is he in pain? Did he fall? Is he hurt?
+  Caller -> No. No, he didn't fall. He's not saying anything hurts. He's just, he's just scared, I think. He's not himself. || A4
+  Nurse -> Okay. Simone, I'm going to page our on-call nurse right now. || R1
+  Caller -> Okay. Please.
+  Nurse -> She'll call you back in about ten minutes. || R2
+  Caller -> Ten minutes. Okay.
+  Nurse -> And she'll come out to the house. She'll be there within ninety minutes. || R3
+  Caller -> Ninety. Okay. That's, okay. Okay.
+  Nurse -> Until then, talk to him calmly and slowly. Turn the lights down. Turn off the TV. Don't argue with him about what he's seeing. || E1
+  Caller -> Okay. Calm. Lights.
+  Nurse -> If he's walking, walk with him. Don't stand in front of the door and block him. That can make it worse. || E1
+  Caller -> Walk with him. Okay.
+  Nurse -> And lock the outside doors, the deadbolt, so he can't get out. And move anything he could trip on. || E2
+  Caller -> Okay. Deadbolt. I'll do it right now.
+  Nurse -> I'll stay on until you've done that. || E2
+  Caller -> Okay. Okay. Done. It's locked.
+  Nurse -> Good job. The on-call nurse will call you very soon.
+  Caller -> Thank you. Thank you so much, Gwen.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "Please come now", heard_form: "I need somebody to come now. Please.", fact_id: F1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Maurice Delacroix, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1945-05-04", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Simone, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "5045550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported severe agitation in her father with dementia and asked for someone to come now.
+    speaker: Caller
+    turns: [2]
+    quote: "I need somebody to come now. Please."
+    explanation: Documents the urgent request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He had been shouting and agitated since about 9 pm and trying to leave through the front door.
+      speaker: Caller
+      turns: [8]
+      quote: "He's been shouting since like nine. He's agitated."
+      explanation: Documents the agitation and exit-seeking.
+      facts:
+        - {type: symptom, name: agitation with shouting, present: true, duration: since about 9 pm, certainty: stated}
+        - {type: symptom, name: trying to leave the house, present: true, certainty: stated}
+      covers: [A1, A2]
+    - text: The caller could not manage him alone, as she was the only person in the house.
+      speaker: Caller
+      turns: [10]
+      quote: "I can't hold him. I can't be here by myself."
+      explanation: Documents the caregiver's inability to cope.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: He did not fall and did not report pain.
+      speaker: Caller
+      turns: [14]
+      quote: "No, he didn't fall. He's not saying anything hurts."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: pain complaints or injury, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to page our on-call nurse right now."
+      explanation: Documents the planned escalation.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: The on-call nurse would call back in about 10 minutes.
+      speaker: Nurse
+      turns: [17]
+      quote: "She'll call you back in about ten minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 10 minutes, certainty: stated}
+      covers: [R2]
+    - text: The on-call nurse would come to the house within 90 minutes.
+      speaker: Nurse
+      turns: [19]
+      quote: "She'll be there within ninety minutes."
+      explanation: Documents the planned urgent visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within 90 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised speaking calmly, dimming the lights and TV, not arguing, and walking with him rather than blocking the door.
+      speaker: Nurse
+      turns: [21]
+      quote: "talk to him calmly and slowly. Turn the lights down. Turn off the TV."
+      explanation: Documents de-escalation guidance.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised locking the outside doors and removing trip hazards.
+      speaker: Nurse
+      turns: [25]
+      quote: "lock the outside doors, the deadbolt, so he can't get out. And move anything he could trip on."
+      explanation: Documents safety measures.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: escalation_request, turns: [2], quote: "I need somebody to come now. Please."}

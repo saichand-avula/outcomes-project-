@@ -1,0 +1,342 @@
+call_id: tr-356
+split: train
+blueprint: "A paid home care aide calls hospice from her client's bedroom: Mrs. Whitcombe, 87, is moaning and rating her back pain an eight, grabbing the rail; the morphine concentrate (20 mg per mL, point two five mL every four hours as needed) was given at twelve thirty and did not seem to help. The daughter is at work and not answering. The aide has trouble with names and the phone number. Nurse pages on-call, tells her it has been over four hours so she can give the next dose now, sends a nurse within the hour, coaches repositioning, and plans a callback in twenty minutes. High risk, uncontrolled pain, paid caregiver caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [liquid_concentration, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [pain, medication]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Raymond
+  call_timestamp_utc: "2026-10-23T21:10:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [lorazepam]
+chief_complaint:
+  patient_name_true: Lorraine Whitcombe
+  patient_name_spoken: Lorraine Whitcombe
+  patient_name_certainty: stated
+  patient_dob_true: "1939-03-26"
+  patient_dob_spoken: "1939-03-26"
+  patient_dob_certainty: stated
+  caller_name_true: Odalys Reyes
+  caller_name_spoken: Odalys Reyes
+  caller_name_certainty: stated
+  relationship_to_patient: home care aide
+  relationship_certainty: stated
+  callback_phone_true: "7045550104"
+  callback_phone_spoken: "7045550104"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that her client is in severe back pain that the pain medicine has not relieved
+  reason_category: pain
+  relevant_context: Hospice patient at home with a paid aide present during the day
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: back pain
+    symptom_present: true
+    severity: "8"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine concentrate
+    medication_name_spoken: morphine
+    medication_status: taking
+    strength: 20 mg per mL
+    dose: "0.25"
+    unit: mL
+    frequency: every four hours as needed
+    prn: true
+    last_dose: twelve thirty
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: moaning and grabbing the bed rail
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or trouble breathing
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The daughter is at work and not answering her phone
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: pain of eight not controlled by the breakthrough dose
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine concentrate
+    medication_name_spoken: morphine
+    reason_or_trigger: give the next breakthrough dose now since more than four hours have passed
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Ease her onto her side with a pillow behind her back and between her knees, keep the room quiet, and hold her hand
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw point two five of an mL in the oral syringe, give it slowly in the cheek, and write the time on the sheet
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if she becomes very sleepy, hard to wake, or her breathing slows or becomes noisy
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Back pain of eight out of ten not relieved by the breakthrough morphine dose
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Raymond.
+  Caller -> Hello, hello. I'm, uh, I'm Odalys. I work with a client. She's your patient. She is in pain. A lot of pain. I need help. || cc, F1
+  Nurse -> Okay. I'm here. Take a breath. Tell me your name again, and the patient's name.
+  Caller -> Odalys. O D A L Y S. Reyes. And she is Mrs. Whitcombe. Lorraine Whitcombe. || caller_name, patient_name
+  Nurse -> Okay Odalys. Are you with Lorraine right now?
+  Caller -> Yes. I am in the room. I'm with her. She is on the bed. I am the, the home aide. The agency sends me, five days a week. || relationship
+  Nurse -> Okay. Good. Let me get a few things quick. Do you know her date of birth?
+  Caller -> It's on the sheet. Hold on. It's on the paper on the refrigerator. No, I'm in the room. Um. I have my phone, I have the photo of the sheet. March twenty sixth, nineteen thirty nine. || patient_dob
+  Nurse -> Thank you. And what's a number I can call you back on?
+  Caller -> My cell. Seven oh four, five five five, zero one zero four. || callback_phone
+  Nurse -> Seven oh four, five five five, zero one zero four. Is that correct? || callback_phone
+  Caller -> Yes, yes.
+  Nurse -> Okay. Now. Tell me about the pain. Where is it?
+  Caller -> Her back. The lower. She holds it. She says, oh, oh. And she moans. She was fine this morning, she ate her oatmeal. Now since two o'clock, she is moaning. || A1
+  Nurse -> Can she tell you a number? Zero is no pain, ten is the worst.
+  Caller -> I asked her. She said eight. She said it in Spanish first, ocho, and then in English. Eight. || A1
+  Nurse -> An eight. Okay. Is she awake and talking to you?
+  Caller -> Awake. Yes. She talks. She is grabbing the rail. The bed rail. She holds it very hard. Her knuckles are white. || A3
+  Nurse -> Okay. Is she on any pain medicine? Anything for breakthrough pain?
+  Caller -> Yes. The bottle. The morphine. It says morphine concentrate. Twenty milligrams per mL. And it says, point two five mL, every four hours if needed. || A2
+  Nurse -> Okay. Morphine concentrate, twenty milligrams per mL, point two five mL, every four hours as needed. Is that right? || A2
+  Caller -> Yes. That is what the label says. The family wrote on the sheet when she takes it. I look at the sheet.
+  Nurse -> When was the last dose?
+  Caller -> On the sheet it says twelve thirty. The daughter gave it before she left for work. Twelve thirty. || A2
+  Nurse -> Okay. Twelve thirty. And did it help at all?
+  Caller -> A little. For maybe one hour. Then it comes back. And now it is worse. Much worse than before.
+  Nurse -> Okay. And it's about ten after five now. So it's been more than four hours. Is that right?
+  Caller -> Yes. More than four. Almost five hours. I did not want to give it myself, because I did not know if I can.
+  Nurse -> Good question. I'll tell you what to do in a minute. First, is the daughter there?
+  Caller -> No. She is at work. She is a nurse at the hospital. She works until seven. I called her three times. She does not answer. It goes to voicemail. || A5
+  Nurse -> Okay. That's all right. I can help from here. Has Lorraine fallen, or hit anything, today?
+  Caller -> No. No fall. She did not fall. She did not hit. She was in bed and the chair. Only that. || A4
+  Nurse -> Okay. Any trouble breathing? Is she breathing normally?
+  Caller -> Normal. Not fast. Just the moaning.
+  Nurse -> Alright. Here's what we're going to do. Because it's been more than four hours, she's due for the next dose of the morphine. You can give it right now. I'll walk you through it. || R2
+  Caller -> I can give it? Me? Because the agency told me I cannot touch the medicines.
+  Nurse -> This is an emergency situation, and I'm a hospice nurse telling you to do it, on the phone. I'm giving you permission. I'll stay on the line while you do it.
+  Caller -> Okay. Okay. Okay. Thank you. Thank you. Tell me.
+  Nurse -> Find the little syringe that came with the bottle. The one with the marks.
+  Caller -> I have it. It is in the bag. The plastic bag with the bottle.
+  Nurse -> Draw up point two five of an mL. That's a quarter of an mL. It's the very small line. Tell me what you see on the syringe. || E2
+  Caller -> I see lines. It says point two. Point four. Point six. There is a line between. A small line. Is that the point two five?
+  Nurse -> Yes. Halfway between point two and point three, or the line between the two marks. Put the tip in the bottle, pull back slowly until the top of the black part lines up with that.
+  Caller -> I'm doing. Slowly. Okay. It is there. At the line.
+  Nurse -> Check again. Is the black part exactly at the little line?
+  Caller -> Yes. I checked. I'm sure. I'm very careful.
+  Nurse -> Good. Now give it slowly into her cheek, between her gum and her cheek, a little at a time. Let her swallow in between.
+  Caller -> Mrs. Whitcombe. Lorraine. Open, please. A little. Okay. I'm doing. Slowly. It goes. She swallows. Okay.
+  Nurse -> Perfect. Has she taken it all?
+  Caller -> All. All is in. She made a face. It tastes bad, she says.
+  Nurse -> Yes, it does. You did well. Write the time on the sheet. What time is it?
+  Caller -> Five fifteen. I write it. Five fifteen. Done.
+  Nurse -> Perfect. Now, I'm also going to page the on-call clinician right now, because this pain is an eight and the first dose didn't hold her. They may adjust the medicine. || R1
+  Caller -> Okay. Thank you. Please. She is suffering.
+  Nurse -> I know. And I'm sending a nurse out to see her. Within the hour. || R3
+  Caller -> Within the hour. Okay. I will be here. I do not leave until the daughter comes.
+  Nurse -> Good. Now let's make her more comfortable. Can you ease her onto her side? With a pillow behind her back, and one between her knees. || E1
+  Caller -> Onto her side. Okay. She does not want to move. It hurts when I move her.
+  Nurse -> I understand. Go slowly, and let her help. You say, one, two, three, and roll together. Support her hip and shoulder.
+  Caller -> Okay. I will. Mrs. Lorraine, we turn a little. One, two, three. She says ow. Ow, ow. Okay. She is on the side. The pillow is behind. And one between the knees. I put it.
+  Nurse -> Good. Is she more comfortable like that?
+  Caller -> A little. She stopped holding the rail. She holds my hand now.
+  Nurse -> Then hold her hand. Keep the room quiet, and keep the lights low. Talk to her softly.
+  Caller -> I'm doing. I sing a little. She likes the old songs. Boleros.
+  Nurse -> That's lovely. Sing.
+  Caller -> I am singing. Quiet. Okay.
+  Nurse -> I'll call you back in twenty minutes to see how she's doing. Keep your phone near you. || R4
+  Caller -> Twenty minutes. Okay. I keep the phone. It is in my pocket. I do not move.
+  Nurse -> And Odalys, watch her closely. If she gets very sleepy, hard to wake up, or her breathing slows down or gets noisy, call me right away. || E3
+  Caller -> Very sleepy. Hard to wake. Breathing slow or noisy. Call right away. Okay.
+  Nurse -> It's the same number you called. Don't hang up on me until I say.
+  Caller -> I stay. I am here.
+  Nurse -> Is she saying anything?
+  Caller -> She says, the pain is a little less. She says, six. She said six. Is that good?
+  Nurse -> That's a start. The medicine takes time to work. Keep holding her hand. You're doing everything right.
+  Caller -> Thank you. I was so scared. I never had a client in so much pain.
+  Nurse -> You did the right thing calling. How long have you been with her?
+  Caller -> Seven months. She is like my abuela. She calls me mija.
+  Nurse -> That's a beautiful thing. She's lucky to have you.
+  Caller -> I am lucky to have her. She tells me stories about her husband. He was a pilot.
+  Nurse -> I'd love to hear those sometime.
+  Caller -> I will tell you. Next time.
+  Nurse -> Alright. I'm going to page now. Stay right there with her, and I'll call you in twenty.
+  Caller -> Okay. Okay. Thank you so much, Raymond.
+  Nurse -> You're welcome. Talk soon.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lorraine Whitcombe, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1939-03-26", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Odalys Reyes, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: home care aide, certainty: stated, turns: [6]}
+    callback_phone: {value: "7045550104", certainty: stated, heard_as: [], turns: [10, 11]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her client was in severe back pain that the pain medicine had not relieved.
+    speaker: Caller
+    turns: [2]
+    quote: "She is in pain. A lot of pain. I need help."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lower back pain was an eight, since about two o'clock.
+      speaker: Caller
+      turns: [14]
+      quote: "Her back. The lower."
+      explanation: Documents the back pain.
+      facts:
+        - {type: symptom, name: back pain, present: true, severity: "8", certainty: stated}
+      covers: [A1]
+    - text: Morphine concentrate 20 mg per mL, point two five mL every four hours as needed, was last given at twelve thirty and helped for about an hour.
+      speaker: Caller
+      turns: [20]
+      quote: "Twenty milligrams per mL."
+      explanation: Documents the breakthrough medicine.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg per mL, dose: "0.25", unit: mL, frequency: every four hours as needed, prn: true, last_dose: twelve thirty, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She was moaning and gripping the bed rail.
+      speaker: Caller
+      turns: [18]
+      quote: "She is grabbing the rail."
+      explanation: Documents the distress.
+      facts:
+        - {type: symptom, name: moaning and grabbing the bed rail, present: true, certainty: stated}
+      covers: [A3]
+    - text: She had no fall and normal breathing.
+      speaker: Caller
+      turns: [32]
+      quote: "No fall. She did not fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or trouble breathing, certainty: stated}
+      covers: [A4]
+    - text: The daughter was at work and did not answer her phone.
+      speaker: Caller
+      turns: [30]
+      quote: "She is at work."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: The daughter is at work and not answering her phone, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'm also going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised giving the next dose of morphine now since more than four hours had passed.
+      speaker: Nurse
+      turns: [35]
+      quote: "You can give it right now."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: morphine, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [55]
+      quote: "I'm sending a nurse out to see her. Within the hour."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [67]
+      quote: "I'll call you back in twenty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised easing her onto her side with a pillow behind her back and between her knees, a quiet room and holding her hand.
+      speaker: Nurse
+      turns: [57]
+      quote: "Can you ease her onto her side?"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised drawing point two five of an mL, giving it slowly in the cheek and writing the time on the sheet.
+      speaker: Nurse
+      turns: [41]
+      quote: "Draw up point two five of an mL."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if she became very sleepy, hard to wake, or her breathing slowed or became noisy.
+      speaker: Nurse
+      turns: [69]
+      quote: "If she gets very sleepy, hard to wake up"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "She is in pain. A lot of pain. I need help."}

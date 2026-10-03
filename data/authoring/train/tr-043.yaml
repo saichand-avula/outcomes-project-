@@ -1,0 +1,397 @@
+call_id: tr-043
+split: train
+blueprint: "Long call: wife of a COPD patient reports severe shortness of breath, bluish lips, saturation 84, and little relief from albuterol nebulizer treatments; her name is misheard (Nozzy) and then spelled; one reply is mislabeled; the husband resists going to the hospital; nurse tells her to call 911 now, stays on the line, and calls the hospital. Flags: breathing concern and escalation."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [name_drift, name_spelled, crosstalk, split_turns, late_answers, multi_issue, prn_and_scheduled, speaker_label_errors]
+  clinical_domains: [dyspnea, cough_uri]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-08-17T03:50:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Raymond Okonkwo
+  patient_name_spoken: Raymond Okonkwo
+  patient_name_certainty: stated
+  patient_dob_true: "1948-02-24"
+  patient_dob_spoken: "1948-02-24"
+  patient_dob_certainty: stated
+  caller_name_true: Ngozi
+  caller_name_spoken: Ngozi
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3025550156"
+  callback_phone_spoken: "3025550156"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Husband with COPD is struggling to breathe and his lips look blue
+  reason_category: breathing
+  relevant_context: COPD on home oxygen at 2 liters
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: true
+    severity: severe
+    onset_or_duration: worse since last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bluish lips
+    symptom_present: true
+    onset_or_duration: noticed in the last hour
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    strength: 2.5 mg
+    route: nebulizer
+    frequency: every 2 hours
+    prn: true
+    last_dose_time: 30 minutes ago
+    response_to_medication: Little relief
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "84"
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: unable to speak full sentences
+    symptom_present: true
+    severity: speaks only a few words at a time
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased cough and sputum
+    symptom_present: true
+    severity: more yellow phlegm
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A8
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: He refuses to go to the hospital and says he hates it
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: severe breathing difficulty and low oxygen saturation
+    timeframe: now
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: emergency department
+    reason_or_trigger: give report ahead of arrival
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: later this morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, unlock the front door, turn on the porch light, and gather his medication list and oxygen
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep him sitting upright leaning forward, breathe slowly in through the nose and out through pursed lips, and keep his oxygen on
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not drive him yourself and do not leave him alone
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Caller reports patient can hardly breathe with blue lips and saturation 84
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse directs the caller to call 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Rhonda, please help me. It's my husband. He can't breathe. This is Ngozi Okonkwo. || caller_name, relationship, cc, F1
+  Nurse -> Okay, Nozzy. I'm here. Tell me what's happening.
+  Caller -> It's Ngozi. N G O Z I. Please. It's my husband, Raymond Okonkwo. He can hardly breathe. || caller_name, patient_name
+  Nurse -> Okay, Ngozi. Sorry about that. Stay with me. What's Raymond's date of birth?
+  Caller -> February twenty fourth, nineteen forty eight. || patient_dob
+  Nurse -> Okay. And your phone number, in case we get cut off?
+  Caller -> Three oh two, five five five, zero one five six. || callback_phone
+  Nurse -> Got it. Three oh two, five five five, zero one five six. || callback_phone
+  Caller -> Yes. Yes.
+  Nurse -> Alright. Tell me about his breathing. When did this start?
+  Caller -> It's been getting worse since last night. But the last hour is so much worse. He's working so hard. His shoulders are going up and down. || A1, F1
+  Nurse -> Okay. Is he able to talk to you?
+  Caller -> Only a few words. He can't finish a sentence. He says a word, and then he has to stop. || A5
+  Nurse -> Okay. What color are his lips?
+  Caller -> They look blue. A little blue. Maybe purple. I noticed in the last hour. || A2, F1
+  Nurse -> Okay. Does he have an oxygen meter?
+  Caller -> Yes. The little one on his finger. It says eighty four. || A4, F1
+  Nurse -> Okay. Eighty four. Is he wearing his oxygen?
+  Caller -> Yes. The nose tube. At two liters. It's on. And he still is eighty four. || A4
+  Nurse -> Okay. Has he used his nebulizer?
+  Caller -> Yes. The albuterol. I gave him a treatment thirty minutes ago. || A3
+  Nurse -> Okay. How much?
+  Caller -> The two point five. In the machine. He's had one every two hours since last night. Like the doctor said, if he needs it. || A3
+  Nurse -> And did it help?
+  Caller -> A little. Just a little. It doesn't last. || A3
+  Nurse -> Okay. Does he have chest pain?
+  Caller -> No. He says no chest pain. It's just his breathing. || A6
+  Nurse -> Okay. Is he coughing?
+  Caller -> A lot. And more phlegm than usual. Yellow. Since yesterday. || A7
+  Nurse -> Okay.
+  Nurse -> He says he can't talk. He doesn't want to go to the hospital. || A8, label_error
+  Caller -> Raymond, please. Shh. Don't try to talk. Rhonda, he says he hates the hospital. He says he's not going. || A8
+  Nurse -> Okay. Ngozi, listen to me carefully. I understand that. But Raymond's oxygen is at eighty four, even with his oxygen on, his lips are blue, and he can't speak a full sentence. This is an emergency. I need you to call nine one one right now. || R1, F2
+  Caller -> But he said no. He's so stubborn.
+  Nurse -> I know. And this is your decision to make, along with him. But I would be doing you a disservice if I didn't tell you plainly: he needs to go. Now. Please call nine one one. || R1, F2
+  Caller -> Okay. Okay. I'll call. I'll call them. Raymond, honey, I'm calling the ambulance. I know, I know.
+  Nurse -> Ngozi, can you put me on speaker, and call nine one one on another phone? Or do you have a cell phone nearby?
+  Caller -> I have my cell. Hang on. I'll put you down.
+  Caller -> Okay. I'm calling. Hello? Yes, I need an ambulance. My husband can't breathe. Three twelve Maple Court. Yes. Yes. He has COPD. Okay.
+  Caller -> They're sending someone. They said about eight minutes.
+  Nurse -> Okay. Good. That's good. Now, while you wait. Is he sitting up?
+  Caller -> He's in his chair. The recliner. But he's leaning back.
+  Nurse -> Okay. I want him sitting upright, leaning forward a little, with his elbows on his knees or on a pillow on a table. That helps the breathing. || E2
+  Caller -> Okay. Raymond, sit up. Lean forward. Here, put your arms on the pillow. There.
+  Nurse -> Good. And coach him to breathe in slowly through his nose, and out slowly through pursed lips, like he's blowing out a candle. || E2
+  Caller -> In through the nose. Out like a candle. Raymond, like this. Like this. Good.
+  Nurse -> Keep his oxygen on. Don't take it off.
+  Caller -> It's on. It's on.
+  Nurse -> Okay. Is the front door unlocked? And can you turn on the porch light?
+  Caller -> No, I'll do that. Wait. Okay. Unlocked. The light is on. || E1
+  Nurse -> Good. Now, can you get his medication list, or the pill bottles, and put them in a bag for the paramedics? || E1
+  Caller -> Yes. They're on the kitchen counter. I'll grab them. I have the list on the fridge.
+  Nurse -> Perfect. And his inhaler and the nebulizer medicine, bring those too.
+  Caller -> Okay. I'm getting a bag.
+  Nurse -> I'll stay on the line. Take your time.
+  Caller -> Okay. Okay. I have it. It's all in the bag.
+  Nurse -> Is anyone else with you in the house?
+  Caller -> No, it's just us. Our son lives in Houston. I'll call him once we're in the ambulance.
+  Nurse -> That sounds like a good plan.
+  Caller -> He's going to be upset that I didn't call him sooner. He always says, Mom, call me first.
+  Nurse -> You called for help, and that's what matters.
+  Caller -> I know. I keep thinking, did I wait too long? Last night I thought it would pass.
+  Nurse -> You didn't wait too long. You're calling now, and help is on the way.
+  Caller -> He had pneumonia last winter. Two weeks in the hospital. He hated every minute.
+  Nurse -> That's probably why he's reluctant. It's understandable.
+  Caller -> He said, never again. But this is different. I can see it's different.
+  Nurse -> It is different. You're right to push.
+  Caller -> He's trying to say something. He says, tell her I'm sorry for being difficult.
+  Nurse -> Tell him there's nothing to be sorry for. We just want him to breathe easier.
+  Caller -> I told him. He nodded.
+  Nurse -> Ngozi, while we wait, can you tell me how long you two have been married?
+  Caller -> Fifty one years in June. We met in Lagos, in nineteen seventy four. He was a young engineer, and I was a student nurse.
+  Nurse -> A student nurse! So you know your way around this.
+  Caller -> A little. But not when it's my own husband. Then I just panic.
+  Nurse -> That's completely normal. Everybody does. You're doing great.
+  Caller -> Thank you. He's gripping my hand. He's squeezing really hard.
+  Nurse -> That's okay. Let him. It helps him feel safe.
+  Caller -> I know. I'm not going anywhere. Is it okay if I hum to him? He likes it when I hum.
+  Nurse -> Of course. Whatever calms him down.
+  Caller -> It's an old song from home. He used to sing it to our babies.
+  Nurse -> That sounds lovely. Go ahead.
+  Nurse -> Good. Don't drive him yourself. Let the paramedics take him. And don't leave him alone. || E3
+  Caller -> I won't. I'll go with him in the ambulance.
+  Nurse -> That's good. They'll let you ride along. I'm going to call the hospital's emergency room now, and tell them he's coming, and what's going on. || R2
+  Caller -> Oh, thank you. Thank you so much.
+  Nurse -> Which hospital do they usually take you to?
+  Caller -> St. Mary's. That's the closest.
+  Nurse -> Okay. I'll call St. Mary's.
+  Caller -> Raymond, how are you doing? He's a little pinker. Maybe. I think. Maybe it's the sitting up.
+  Nurse -> That can help. But he still needs to be seen. Keep him calm. Keep talking to him.
+  Caller -> I'm talking. I'm talking. I'm telling him it's okay. That we're going to the hospital just to get his breathing straight.
+  Nurse -> That's good. That's exactly right. Ngozi, how are you holding up?
+  Caller -> I'm shaking. I'm so scared. This is the third time this year.
+  Nurse -> I know. It's scary. You're doing everything right. You called, you got the ambulance, you're keeping him calm.
+  Caller -> Thank you. I'm so glad I called you.
+  Nurse -> Me too. I'll call you tomorrow, later in the morning, to see how he's doing. || R3
+  Caller -> Okay. Thank you. Oh, I hear the siren. I hear it.
+  Nurse -> Good. That's them. Open the door, and let them in. Go ahead. I'll let you go.
+  Caller -> Okay. Thank you, Rhonda. Thank you. Bye.
+  Nurse -> Bye, Ngozi. Take care of yourself.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Ngozi, heard_form: Nozzy, fact_id: caller_name}
+  - {turn: auto, type: speaker_label, true_form: "caller reply", heard_form: "He says he can't talk", fact_id: A8}
+  - {turn: auto, type: late_answer, true_form: "reply with phone number", heard_form: "Yes. Yes", fact_id: callback_phone}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Raymond Okonkwo, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1948-02-24", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Ngozi, certainty: stated, heard_as: [], turns: [2, 4]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3025550156", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband could hardly breathe.
+    speaker: Caller
+    turns: [2]
+    quote: "Rhonda, please help me. It's my husband. He can't breathe."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Shortness of breath had worsened since last night and was much worse in the last hour, with visible effort of the shoulders.
+      speaker: Caller
+      turns: [12]
+      quote: "It's been getting worse since last night. But the last hour is so much worse."
+      explanation: Documents the course and severity of dyspnea.
+      facts:
+        - {type: symptom, name: shortness of breath, present: true, severity: severe, onset: worse since last night, certainty: stated}
+      covers: [A1]
+    - text: He could speak only a few words at a time and could not finish a sentence.
+      speaker: Caller
+      turns: [14]
+      quote: "Only a few words. He can't finish a sentence."
+      explanation: Documents impaired speech from breathing difficulty.
+      facts:
+        - {type: symptom, name: unable to speak full sentences, present: true, severity: speaks only a few words at a time, certainty: stated}
+      covers: [A5]
+    - text: His lips appeared blue or purple, noticed in the last hour.
+      speaker: Caller
+      turns: [16]
+      quote: "They look blue. A little blue. Maybe purple. I noticed in the last hour."
+      explanation: Documents possible cyanosis.
+      facts:
+        - {type: symptom, name: bluish lips, present: true, onset: noticed in the last hour, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was 84 on a finger meter despite oxygen at 2 liters.
+      speaker: Caller
+      turns: [18]
+      quote: "Yes. The little one on his finger. It says eighty four."
+      explanation: Documents the reported saturation.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "84", certainty: stated}
+      covers: [A4]
+    - text: An albuterol nebulizer treatment, 2.5 mg every 2 hours as needed, was last given 30 minutes ago with only a little, short-lived relief.
+      speaker: Caller
+      turns: [22]
+      quote: "The albuterol. I gave him a treatment thirty minutes ago."
+      explanation: Documents recent bronchodilator use and limited response.
+      facts:
+        - {type: medication, name: albuterol, strength: 2.5 mg, route: nebulizer, frequency: every 2 hours, prn: true, last_dose: 30 minutes ago, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [28]
+      quote: "No. He says no chest pain. It's just his breathing."
+      explanation: Documents a pertinent negative for chest pain.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A6]
+    - text: Cough was increased, with more yellow phlegm since yesterday.
+      speaker: Caller
+      turns: [30]
+      quote: "A lot. And more phlegm than usual. Yellow. Since yesterday."
+      explanation: Documents increased cough and sputum.
+      facts:
+        - {type: symptom, name: increased cough and sputum, present: true, severity: more yellow phlegm, onset: since yesterday, certainty: stated}
+      covers: [A7]
+    - text: He did not want to go to the hospital and had said he hated it.
+      speaker: Caller
+      turns: [33]
+      quote: "Rhonda, he says he hates the hospital. He says he's not going."
+      explanation: Documents the patient's refusal.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Advised calling 911 immediately because of severe breathing difficulty and low oxygen saturation.
+      speaker: Nurse
+      turns: [34]
+      quote: "This is an emergency. I need you to call nine one one right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, timeframe: now, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the emergency department to give a report ahead of his arrival.
+      speaker: Nurse
+      turns: [85]
+      quote: "I'm going to call the hospital's emergency room now, and tell them he's coming, and what's going on."
+      explanation: Documents the planned handoff.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back later this morning to check on him.
+      speaker: Nurse
+      turns: [97]
+      quote: "I'll call you tomorrow, later in the morning, to see how he's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: later this morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised unlocking the front door, turning on the porch light, and gathering his medication list and medicines for the paramedics.
+      speaker: Nurse
+      turns: [52]
+      quote: "can you get his medication list, or the pill bottles, and put them in a bag for the paramedics?"
+      explanation: Documents emergency preparation instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping him sitting upright and leaning forward, breathing in through the nose and out through pursed lips, and keeping his oxygen on.
+      speaker: Nurse
+      turns: [44]
+      quote: "I want him sitting upright, leaning forward a little, with his elbows on his knees or on a pillow on a table. That helps the breathing."
+      explanation: Documents breathing-comfort positioning.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised not driving him herself and not leaving him alone.
+      speaker: Nurse
+      turns: [83]
+      quote: "Don't drive him yourself. Let the paramedics take him. And don't leave him alone."
+      explanation: Documents safety instructions during transport.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe."}
+    - {category: escalation_request, turns: [34], quote: "I need you to call nine one one right now."}

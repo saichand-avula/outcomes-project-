@@ -1,0 +1,282 @@
+call_id: tr-180
+split: train
+blueprint: "73-year-old patient started gabapentin 300 mg three times a day four days ago for nerve pain in her feet, which dropped from 8/10 to 4/10, but she is dizzy, sleepy in the daytime, and stumbled in the kitchen yesterday without falling or injury. Nurse messages the provider, calls back tomorrow, advises using her walker, rising slowly, and not driving, and not stopping the medicine on her own. Medium."
+setup:
+  scenario_category: medication
+  subtype: side_effects
+  secondary_tags: [multi_issue, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [medication, dizziness, neuropathy, sedation]
+  relationship_group: self
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Samantha
+  call_timestamp_utc: "2026-10-06T14:00:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Pearl Gutierrez
+  patient_name_spoken: Pearl Gutierrez
+  patient_name_certainty: stated
+  patient_dob_true: "1953-08-08"
+  patient_dob_spoken: "1953-08-08"
+  patient_dob_certainty: stated
+  caller_name_true: Pearl Gutierrez
+  caller_name_spoken: Pearl Gutierrez
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9725550141"
+  callback_phone_spoken: "9725550141"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported dizziness and sleepiness since starting a new nerve pain medicine
+  reason_category: medication
+  relevant_context: Home care patient with nerve pain in her feet
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: gabapentin
+    medication_name_spoken: gabapentin
+    medication_status: taking
+    dose: "300"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: dizziness
+    symptom_present: true
+    onset_or_duration: since starting the medicine four days ago
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: daytime sleepiness
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: nerve pain in the feet
+    symptom_present: true
+    severity: 4/10
+    body_location: feet
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: stumbled in the kitchen without falling
+    symptom_present: true
+    onset_or_duration: yesterday
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: injury or head strike
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: dizziness and sleepiness on gabapentin
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use her walker, stand up slowly, sit at the edge of the bed first, and do not drive
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not stop the gabapentin on her own and do not take extra doses
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, fainting, confusion, or being too sleepy to stay awake; 911 for a fall with a head strike
+    trigger_condition: fall; fainting; confusion; too sleepy; head strike
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Samantha.
+  Caller -> Hi, Samantha. This is Pearl Gutierrez. I'm one of your patients. I started a new pill and I think it's making me dizzy. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Pearl. Let me get your date of birth.
+  Caller -> August eighth. Nineteen fifty three. || patient_dob
+  Nurse -> And is nine seven two, five five five, zero one four one your number? || callback_phone
+  Caller -> Yes. The cell. || callback_phone
+  Nurse -> Okay. What's the pill?
+  Caller -> Gabapentin. Three hundred milligrams. Three times a day. For the burning in my feet. I started it Friday, so four days. || A1
+  Nurse -> Okay. When did you last take it?
+  Caller -> This morning. About nine. I'm due for the noon one but I haven't taken it yet. I wanted to call first. || A1
+  Nurse -> That's a good instinct. Tell me about the dizziness.
+  Caller -> It's like the room tilts a little when I stand up. Or sometimes just sitting. It started the day after I started the pill. Not terrible. But it's every day. || A2
+  Nurse -> Okay. Are you eating and drinking normally?
+  Caller -> Yes. I eat well. I might be drinking a bit less, I forget, because I'm so sleepy. I'll make an effort.
+  Nurse -> Good idea. Water helps with the dizziness too. And are you sleepy?
+  Caller -> Very. I fell asleep in my chair at ten in the morning. I never do that. And I fell asleep in the middle of my show last night, and I was awake all night after. || A3
+  Nurse -> Okay. How about the foot pain? Is the gabapentin helping? || A1
+  Caller -> It is. That's the thing. It was an eight, and now it's about a four. The burning isn't as bad. I'd hate to lose that. But I'm scared with the dizziness. || A4
+  Nurse -> That makes sense. Have you fallen?
+  Caller -> No. But yesterday I stumbled in the kitchen. I grabbed the counter. I didn't fall. I didn't hit anything. Nothing hurts. || A5, A6
+  Nurse -> Okay. Thank you for telling me. I'm glad you didn't get hurt. Is there a rug or anything in the kitchen that you might have caught your foot on?
+  Caller -> A throw rug by the sink. It slides. My daughter said to take it up. I keep forgetting. I'll pull it up right now, after I hang up.
+  Nurse -> That's a great idea. Pearl, I'm going to message your provider about the dizziness and sleepiness on the gabapentin. || R1
+  Caller -> Okay. Thank you. Will they take me off it?
+  Nurse -> I can't say. It might be that the dose needs to change, or the timing. They'll decide. I'll call you back tomorrow to tell you what they say. || R2
+  Caller -> Tomorrow. Okay. What should I do about the noon pill?
+  Nurse -> Don't stop the gabapentin on your own, and don't take extra. Stopping suddenly can cause problems. Take the noon dose as prescribed, with a little snack, and sit down for a while afterward. || E2, A1
+  Caller -> Take it with a snack. Sit down after. Okay. So I shouldn't skip the noon one. I was going to skip it.
+  Nurse -> Please don't skip it. If you're so dizzy you can't stand, call me instead of deciding on your own. || A1
+  Caller -> Okay. I'll call you. I have a cracker and some peanut butter. That's a snack.
+  Nurse -> In the meantime, use your walker for everything, even short trips. Stand up slowly, sit on the edge of the bed or chair for a moment first, and please don't drive. || E1
+  Caller -> I don't drive anymore. My daughter takes me. But yes, walker, slow, sit first. I've been using the cane, I'll switch to the walker. It's steadier.
+  Nurse -> That's a good idea. And call us if you fall, faint, get confused, or are too sleepy to stay awake. If you fall and hit your head, call nine one one. || E3
+  Caller -> Fall, faint, confused, too sleepy. Head, nine one one. Okay.
+  Nurse -> Does anything else bother you with the pill, like an upset stomach, or swelling in your ankles?
+  Caller -> No. Nothing like that. My ankles are the same. Just the dizzy and the sleepy. And maybe my mouth is a little dry.
+  Nurse -> A dry mouth can go with it. Sips of water or sugar free candy help. Anything else?
+  Caller -> My daughter wants to know if this is normal. Is it?
+  Nurse -> Dizziness and sleepiness are common with gabapentin, especially in the first week. It isn't unusual. It just needs to be managed. || A1
+  Caller -> That's good to hear. I told her. She worries.
+  Nurse -> That's what daughters do. Does she live nearby?
+  Caller -> Ten minutes away. She comes every day after work. She brings me soup. She's a good girl. She's fifty one.
+  Nurse -> Ha. Still a girl. Please let her know I said hello, and that she's welcome to call me too.
+  Caller -> I will. She likes you. She says you have a nice voice. She says the other agency never called back and you always do.
+  Nurse -> Thank you. That's kind. I'll talk to you by two.
+  Caller -> Thank you, Samantha.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Pearl Gutierrez, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1953-08-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Pearl Gutierrez, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "9725550141", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported dizziness and sleepiness since starting a new nerve pain medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "I started a new pill and I think it's making me dizzy."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Gabapentin 300 mg three times a day was started four days ago and last taken this morning at nine.
+      speaker: Caller
+      turns: [8]
+      quote: "Gabapentin. Three hundred milligrams. Three times a day."
+      explanation: Documents the new medication.
+      facts:
+        - {type: medication, name: gabapentin, dose: "300", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Dizziness began the day after starting the medicine and occurred every day.
+      speaker: Caller
+      turns: [12]
+      quote: "It's like the room tilts a little when I stand up."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: dizziness, present: true, duration: since starting the medicine four days ago, certainty: stated}
+      covers: [A2]
+    - text: She was very sleepy during the day and fell asleep in her chair at ten in the morning.
+      speaker: Caller
+      turns: [16]
+      quote: "I fell asleep in my chair at ten in the morning."
+      explanation: Documents the daytime sleepiness.
+      facts:
+        - {type: symptom, name: daytime sleepiness, present: true, certainty: stated}
+      covers: [A3]
+    - text: Nerve pain in her feet had improved from 8/10 to about 4/10.
+      speaker: Caller
+      turns: [18]
+      quote: "It was an eight, and now it's about a four."
+      explanation: Documents the pain response.
+      facts:
+        - {type: symptom, name: nerve pain in the feet, present: true, severity: 4/10, location: feet, certainty: stated}
+      covers: [A4]
+    - text: She stumbled in the kitchen yesterday and grabbed the counter without falling or being hurt.
+      speaker: Caller
+      turns: [20]
+      quote: "yesterday I stumbled in the kitchen. I grabbed the counter."
+      explanation: Documents the near fall.
+      facts:
+        - {type: symptom, name: stumbled in the kitchen without falling, present: true, duration: yesterday, certainty: stated}
+      covers: [A5]
+    - text: No injury or head strike was reported.
+      speaker: Caller
+      turns: [20]
+      quote: "I didn't fall. I didn't hit anything. Nothing hurts."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: injury or head strike, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to message the provider about the dizziness and sleepiness on gabapentin.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm going to message your provider about the dizziness and sleepiness on the gabapentin."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back tomorrow with the provider's answer.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you back tomorrow to tell you what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised using her walker, standing up slowly, sitting at the edge of the bed first, and not driving.
+      speaker: Nurse
+      turns: [31]
+      quote: "use your walker for everything, even short trips."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised not stopping the gabapentin on her own and not taking extra doses.
+      speaker: Nurse
+      turns: [27]
+      quote: "Don't stop the gabapentin on your own, and don't take extra."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a fall, fainting, confusion, or being too sleepy to stay awake, and calling 911 for a fall with a head strike.
+      speaker: Nurse
+      turns: [33]
+      quote: "call us if you fall, faint, get confused, or are too sleepy to stay awake."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

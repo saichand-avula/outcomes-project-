@@ -1,0 +1,183 @@
+call_id: tr-205
+split: train
+blueprint: "Neighbor calls about the man next door: he seems more confused than usual and has barely eaten since yesterday. She does not know his date of birth or his medicines. She gives his name and her number. Nurse plans a nurse visit this afternoon and a callback this evening. Friend/neighbor caller; patient DOB not stated."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [phone_from_file, hedging, dob_not_stated, late_answers, split_turns]
+  clinical_domains: [cognition, nutrition]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-08T17:25:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Leonard Pruitt
+  patient_name_spoken: Leonard Pruitt
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Marlene Odom
+  caller_name_spoken: Marlene Odom
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "6155550184"
+  callback_phone_spoken: "6155550184"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her neighbor seems more confused than usual and has barely eaten
+  reason_category: cognition
+  relevant_context: Home health patient who lives alone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: more confused than usual
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: barely eating
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or injury seen
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if he cannot be woken, falls, or has trouble breathing before the nurse arrives
+    trigger_condition: cannot be woken; fall; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom. My name is Marlene Odom. I'm not family. I'm the neighbor. I'm calling about Leonard Pruitt next door. I think he's one of yours. || caller_name, relationship, patient_name, cc
+  Nurse -> He is on our list, Marlene. Thank you for calling. What's going on with Leonard?
+  Caller -> Well, I don't know exactly. I took him some soup yesterday and he didn't know who I was for a minute. And today I took the soup back and he hasn't touched it. He seems, I don't know, confused. More than usual. || A1, A2
+  Nurse -> Okay. When did you first notice that?
+  Caller -> Yesterday. I think it was yesterday afternoon. He's usually sharp as a tack. He does the crossword. || A1
+  Nurse -> And you said he hasn't eaten?
+  Caller -> Barely. Since yesterday he's picked at a cracker. That's all I've seen. || A2
+  Nurse -> Okay. Did you see him fall? Any bruises, any injury?
+  Caller -> No. No, nothing like that. I looked around. No blood. He was in his chair. || A3
+  Nurse -> Okay. Do you happen to know his date of birth?
+  Caller -> Oh, no, honey. I don't know that. I know his birthday's in the spring, but not the year. I'm sorry.
+  Nurse -> That's all right. I have him in the system. And a number for you, in case I need to reach you?
+  Caller -> Six one five, five five five, zero one eight four. That's my kitchen phone. || callback_phone
+  Nurse -> Okay. Do you know what medicines he takes?
+  Caller -> No. I wouldn't know that. I'm sorry. I just know he has a lot of bottles on the table.
+  Nurse -> That's all right. I'm going to send a nurse out to see him this afternoon. || R1
+  Caller -> Oh, thank goodness. Should I stay with him until then?
+  Nurse -> If you can sit with him for a bit, that would help. If he can't be woken up, if he falls, or if he has any trouble breathing before the nurse gets there, call nine one one. || E1
+  Caller -> Not wake up, falls, breathing. Nine one one. Okay. I'll go over now.
+  Nurse -> And I'll call you this evening to let you know what the nurse found. || R2
+  Caller -> This evening. Okay. Thank you, Tom. He doesn't have anyone else, you know. His son is in Oregon.
+  Nurse -> I know. It's good he has you, Marlene.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Leonard Pruitt, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Marlene Odom, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550184", certainty: stated, heard_as: [], turns: [14]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her neighbor seemed more confused than usual and had barely eaten.
+    speaker: Caller
+    turns: [4]
+    quote: "He seems, I don't know, confused. More than usual."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He was more confused than usual since yesterday afternoon.
+      speaker: Caller
+      turns: [6]
+      quote: "Yesterday. I think it was yesterday afternoon."
+      explanation: Documents the onset of the confusion.
+      facts:
+        - {type: symptom, name: more confused than usual, present: true, onset: since yesterday, certainty: stated}
+      covers: [A1]
+    - text: He had barely eaten since yesterday.
+      speaker: Caller
+      turns: [8]
+      quote: "Barely. Since yesterday he's picked at a cracker."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: barely eating, present: true, onset: since yesterday, certainty: stated}
+      covers: [A2]
+    - text: No fall or injury was seen.
+      speaker: Caller
+      turns: [10]
+      quote: "No. No, nothing like that. I looked around."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or injury seen, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to send a nurse out to see him this afternoon.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to send a nurse out to see him this afternoon."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this evening with the nurse's findings.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'll call you this evening to let you know what the nurse found."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911 if he could not be woken, fell, or had trouble breathing before the nurse arrived.
+      speaker: Nurse
+      turns: [19]
+      quote: "If he can't be woken up, if he falls, or if he has any trouble breathing before the nurse gets there, call nine one one."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

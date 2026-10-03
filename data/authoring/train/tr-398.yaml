@@ -1,0 +1,279 @@
+call_id: tr-398
+split: train
+blueprint: "A 45-year-old woman on chemotherapy calls home health about nausea and three episodes of vomiting today; she takes Zofran as needed every eight hours and dexamethasone twice a day. The nurse hears her first name as 'Zeomara' instead of Xiomara and uses it. She stumbles on her birth year and corrects it. No fever, no blood in the vomit, keeping sips down. Nurse leaves a message for the team about stronger anti-nausea medicine, plans a visit tomorrow, and reviews fluids and warning signs including a temperature of one hundred point four. ASR name drift on the patient, patient 18-64, self caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, name_spelled, dob_self_corrected, prn_and_scheduled, hedging, late_answers, split_turns]
+  clinical_domains: [nausea_vomiting, medication, hydration]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-11-03T16:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Xiomara Villasenor
+  patient_name_spoken: Xiomara Villasenor
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Zeomara Villasenor]
+  patient_dob_true: "1981-12-06"
+  patient_dob_spoken: "1981-12-06"
+  patient_dob_certainty: stated
+  caller_name_true: Xiomara Villasenor
+  caller_name_spoken: Xiomara Villasenor
+  caller_name_certainty: unclear
+  caller_name_heard_as: [Zeomara Villasenor]
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6105550182"
+  callback_phone_spoken: "6105550182"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported nausea and vomiting three times today
+  reason_category: nausea_vomiting
+  relevant_context: Home health patient receiving chemotherapy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: nausea and vomiting
+    symptom_present: true
+    onset_or_duration: three times today
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: ondansetron
+    medication_name_spoken: Zofran
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every eight hours as needed
+    prn: true
+    last_dose: ten this morning
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: dexamethasone
+    medication_name_spoken: dexamethasone
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever or blood in the vomit
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: keeping sips of fluid down
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask about stronger anti-nausea medicine
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Take small sips of clear fluids every fifteen minutes, try crackers or toast, avoid greasy or strong smelling food, and rest sitting up after eating
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature of one hundred point four or higher, vomiting that will not stop, blood in the vomit, not keeping fluids down for eight hours, or dizziness when standing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Priscilla.
+  Caller -> Hi, Priscilla. It's Xiomara. X I O M A R A. Villasenor, V I L L A S E N O R. I'm on the chemo. I've been sick all day. || caller_name, patient_name, relationship
+  Nurse -> Villasenor, V I L L A S E N O R. Okay. Thank you for spelling it.
+  Nurse -> Sorry you're having such a hard time. Let's get a few details so I can help.
+  Caller -> Okay. Go ahead. I'm lying on the couch with a bucket.
+  Nurse -> Hi Zeomara. Okay. Zeomara Villasenor. I'm sorry you're feeling bad. What's going on?
+  Caller -> Xiomara. It's like See-oh-mara. Like the, never mind. I've been throwing up. Three times today. And I'm nauseated all the time. || cc, A1
+  Nurse -> Okay. I'm sorry, Zeomara. Three times today. When did it start?
+  Caller -> This morning. Around nine. After my breakfast. I had toast. It came right back up. And then again at noon. And again at two. Just now. Before I called.
+  Nurse -> Was there any pain in your belly with it, or cramping?
+  Caller -> Just a little cramping when it comes. Not constant. It goes away after.
+  Nurse -> Okay. Did you take your anti-nausea medicine?
+  Caller -> The Zofran. Yes. At ten. Four milligrams. It's every eight hours if I need it. It helped for an hour and then it came back. And I can't take another until six. || A2
+  Nurse -> Okay. Zofran four, every eight hours as needed, last at ten. And your other medicine? The steroid? || A2
+  Caller -> Dexamethasone. Four milligrams. Twice a day. I took the morning one with the toast, before I threw up. I don't know if it stayed down. || A3
+  Nurse -> Do you take it with food?
+  Caller -> With breakfast and with lunch. It keeps me awake if I take it late.
+  Nurse -> Good. That's the right way.
+  Nurse -> Okay. That's a good detail. Is there any blood in the vomit?
+  Caller -> No. No blood. It's just food and then clear. Yellowish. No blood. And no fever. I took my temperature at one. Ninety eight point four. || A4
+  Nurse -> Do you have the thermometer you use for chemo days?
+  Caller -> The digital one. It beeps. I use it under the tongue. Morning and evening and when I feel off.
+  Nurse -> Good habit.
+  Caller -> My oncologist said never skip a check. Even if I feel fine.
+  Nurse -> She's right.
+  Nurse -> Good. That's reassuring. Are you able to keep any fluids down?
+  Caller -> Little sips. Water. If I sip slowly I can keep it. If I gulp, it comes back. I've been sipping since the last time. Half an hour. It's staying. || A5
+  Nurse -> Sip slowly. Not gulping.
+  Caller -> Yes. I learned that the hard way last cycle.
+  Nurse -> Okay. That's a good sign. Zeomara, can I get your date of birth?
+  Caller -> December sixth. Nineteen eighty. No. Eighty one. Nineteen eighty one. I'm forty five. I always do that. I think I'm a year younger. || patient_dob
+  Nurse -> December sixth, nineteen eighty one. And your number?
+  Caller -> Six one oh, five five five, zero one eight two. || callback_phone
+  Nurse -> Six one oh, five five five, zero one eight two. Is that right, Zeomara? || callback_phone
+  Caller -> Yes. That's it. My cell.
+  Nurse -> Okay. I'm going to leave a message for the team, to ask about a stronger anti-nausea medicine. Sometimes they can add another one that works differently. || R1
+  Caller -> Oh, please. I'd love that. The Zofran isn't enough. I had a different one last cycle, a patch, I think. It worked better. || A2
+  Caller -> Or a pill that dissolves on the tongue. I don't remember the name. I wrote it in my journal. I keep a chemo journal.
+  Nurse -> That's helpful for the team. Read it to them tomorrow.
+  Nurse -> I'll mention that. They'll see your chart too.
+  Caller -> Thank you.
+  Nurse -> I'd also like a nurse to see you tomorrow, to check your fluids and your weight and see how you are. || R2
+  Caller -> Tomorrow. Okay. I'll be home. I'm on the couch. I'm not going anywhere.
+  Caller -> My sister's coming at five with soup. I don't want soup. But I can't tell her.
+  Nurse -> Ha. Take a spoonful for her sake, only if it sits well.
+  Nurse -> In the meantime, take small sips of clear fluids, a sip every fifteen minutes. Try crackers or dry toast when you feel up to it. Avoid greasy or strong smelling food. And stay sitting up after you eat. || E1
+  Caller -> Sips every fifteen. Crackers. No grease. Sit up after. Okay. I have ginger ale and saltines. My sister stocked me up.
+  Nurse -> Is she staying with you?
+  Caller -> On the weekends. During the week she comes after work. She brings groceries and teases me about my hair.
+  Nurse -> Ha. How's the hair?
+  Caller -> Gone. She says I'm very aerodynamic.
+  Nurse -> That's perfect. And call us if your temperature goes to one hundred point four or higher, if the vomiting won't stop, if you see blood, if you can't keep fluids down for eight hours, or if you're dizzy when you stand. || E2
+  Caller -> One hundred point four. Won't stop. Blood. Eight hours. Dizzy. Okay. I know the fever one. They drilled it into me.
+  Nurse -> Good. Anything else?
+  Caller -> No. Just, thank you. I hate this part.
+  Caller -> Two more cycles. Then scans. I keep counting down.
+  Nurse -> One cycle at a time. You're doing it.
+  Caller -> Thank you. That helps.
+  Nurse -> I know. It's hard. Hang in there, Zeomara.
+  Caller -> It's Xiomara. But thank you. It's fine.
+  Caller -> Honestly with chemo brain I can't remember my own name half the time. Zeomara is fine. It sounds exotic.
+  Nurse -> Ha. I'm sorry. Xiomara.
+  Caller -> Ha. Yes. Close.
+  Nurse -> I'm sorry. Xiomara. I'll get it.
+  Caller -> No worries. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Xiomara, heard_form: Zeomara, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Xiomara Villasenor, certainty: unclear, heard_as: [Zeomara Villasenor], turns: [2]}
+    patient_dob: {value: "1981-12-06", certainty: stated, heard_as: [], turns: [31]}
+    caller_name: {value: Xiomara Villasenor, certainty: unclear, heard_as: [Zeomara Villasenor], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550182", certainty: stated, heard_as: [], turns: [33, 34]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported nausea and vomiting three times today.
+    speaker: Caller
+    turns: [7]
+    quote: "I've been throwing up. Three times today."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Nausea and vomiting three times today, starting around nine this morning.
+      speaker: Caller
+      turns: [7]
+      quote: "Three times today. And I'm nauseated all the time."
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: nausea and vomiting, present: true, duration: three times today, certainty: stated}
+      covers: [A1]
+    - text: Zofran 4 mg every eight hours as needed, last taken at ten this morning.
+      speaker: Caller
+      turns: [13]
+      quote: "The Zofran. Yes. At ten. Four milligrams."
+      explanation: Documents the anti-nausea medicine.
+      facts:
+        - {type: medication, name: Zofran, dose: "4", unit: mg, frequency: every eight hours as needed, prn: true, last_dose: ten this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Dexamethasone 4 mg twice a day, the morning dose taken with toast before vomiting.
+      speaker: Caller
+      turns: [15]
+      quote: "Dexamethasone. Four milligrams. Twice a day."
+      explanation: Documents the steroid.
+      facts:
+        - {type: medication, name: dexamethasone, dose: "4", unit: mg, frequency: twice a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: She had no blood in the vomit and no fever.
+      speaker: Caller
+      turns: [20]
+      quote: "No. No blood. It's just food and then clear."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or blood in the vomit, certainty: stated}
+      covers: [A4]
+    - text: She was keeping slow sips of water down for half an hour.
+      speaker: Caller
+      turns: [27]
+      quote: "Little sips. Water."
+      explanation: Documents the fluid tolerance.
+      facts:
+        - {type: symptom, name: keeping sips of fluid down, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to leave a message for the team about a stronger anti-nausea medicine.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'd also like a nurse to see you tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised small sips of clear fluids every fifteen minutes, crackers or dry toast, avoiding greasy food and sitting up after eating.
+      speaker: Nurse
+      turns: [46]
+      quote: "take small sips of clear fluids, a sip every fifteen minutes."
+      explanation: Documents hydration and nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a temperature of 100.4 or higher, vomiting that would not stop, blood, no fluids kept down for eight hours, or dizziness when standing.
+      speaker: Nurse
+      turns: [52]
+      quote: "call us if your temperature goes to one hundred point four or higher"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

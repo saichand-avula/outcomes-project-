@@ -1,0 +1,400 @@
+call_id: tr-499
+split: train
+blueprint: "A husband who is himself a home health patient calls about his wife, also a patient, but keeps drifting between 'she' and 'I' and his own symptoms; the nurse has to work out which of them the problem is about. The wife, 81, has had burning on urination and frequency for two days, a temperature of one hundred point one, and seemed a bit mixed up last night; she took one Tylenol five hundred milligrams this morning. He also lists his own pills (metformin and donepezil) and a stiff knee, which are not the issue. Nurse pages on-call, plans a visit tomorrow and a callback within two hours, and teaches fluids and when to call. Two patients in one home, ambiguous which is symptomatic, spouse caller, patient 65+, v2 long."
+setup:
+  scenario_category: ambiguous
+  subtype: two_patients_one_household
+  secondary_tags: [identity_unresolved, chart_reading_distractor, contradiction, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [urinary, fever, confusion]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Foxhollow Home Health
+  agency_type: home_health
+  nurse_name: Matilda
+  call_timestamp_utc: "2026-12-02T14:50:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [metformin, donepezil]
+chief_complaint:
+  patient_name_true: Winifred Pruett
+  patient_name_spoken: Winifred Pruett
+  patient_name_certainty: stated
+  patient_dob_true: "1945-04-02"
+  patient_dob_spoken: "1945-04-02"
+  patient_dob_certainty: stated
+  caller_name_true: Ignatius Pruett
+  caller_name_spoken: Ignatius Pruett
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "6465550152"
+  callback_phone_spoken: "6465550152"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported his wife's burning urination and low fever
+  reason_category: urinary
+  relevant_context: Both spouses are home health patients in the same household
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: burning and frequent urination
+    symptom_present: true
+    severity: moderate
+    onset: two days
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.1"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: seemed mixed up last night
+    symptom_present: true
+    severity: mild
+    certainty: unclear
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: once
+    prn: true
+    last_dose: this morning
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: back pain or vomiting or blood in the urine
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: Both he and his wife are home health patients and the symptoms are hers
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: burning urination, low fever and new nighttime confusion in his wife
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer a glass of water or other fluid every hour while she is awake and avoid coffee and sugary drinks
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for shaking chills, a temperature over one hundred two, severe confusion, vomiting, or pain in her back or side
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Foxhollow Home Health, this is Matilda.
+  Caller -> Hello? Matilda? Is it Matilda? I think I know that voice. We've met.
+  Nurse -> We have, Mr. Pruett. Hi.
+  Caller -> Hi. Matilda. This is Ignatius Pruett. I'm calling because I'm, we're, she's not feeling right. It's burning. When she goes. || caller_name, relationship, cc
+  Nurse -> Hi, Mr. Pruett. How can I help?
+  Caller -> I'll get to it. Give me a second to find my words.
+  Nurse -> Take your time.
+  Nurse -> Hi, Ignatius. Okay. I want to make sure I understand. Who is not feeling right? You or your wife?
+  Caller -> Yes, I'm sorry. I'm a rambler. My wife says I start in the middle.
+  Nurse -> That's okay. We'll go step by step.
+  Caller -> My wife. Winifred. She's the one. I mean, I'm a patient too. But it's her today. Winifred Pruett. W I N I F R E D. Pruett. P R U E T T. || patient_name, A6
+  Nurse -> Okay.
+  Caller -> I keep wanting to say my own symptoms. My knee is stiff. But that's a different call.
+  Nurse -> We can talk about your knee another time.
+  Nurse -> Okay. Winifred Pruett. And you're Ignatius Pruett. Both of you are on our service.
+  Caller -> Both of us at the same address. The nurses sometimes get the charts crossed. Not you, I mean.
+  Nurse -> I'll make sure we don't.
+  Caller -> Iggy. Everyone calls me Iggy.
+  Nurse -> I'll use Ignatius for the chart.
+  Caller -> Yes. Both of us. You come on Tuesdays for me and Thursdays for her. Or the other way around. I get confused.
+  Nurse -> Okay. I see you both here in the system now.
+  Caller -> Good. Sometimes the agency mixes us up. We have the same last name.
+  Caller -> I'll fill her glass now. Right after we hang up.
+  Nurse -> I'll be careful.
+  Caller -> We've both been patients for about a year. Mine is my memory and my sugar. Hers is her heart.
+  Nurse -> Okay.
+  Nurse -> It's a Tuesday, actually.
+  Caller -> Is it? Then you'd be here for me. I'm sorry. I'm sorry.
+  Nurse -> It's quite all right.
+  Nurse -> That's okay. Today it's about Winifred. Tell me what's going on with her.
+  Caller -> Yes. Yes. Winifred. I'll stay on Winifred.
+  Caller -> She has burning. When she urinates. It started Sunday. And she's going every, I'd say every hour. Sometimes less. Little bits. She says it feels like fire. Or I think she said fire. She said something like that. || A1
+  Nurse -> I'm sorry to hear that.
+  Caller -> She won't complain. She says it's nothing. But I can hear her in the bathroom. She groans.
+  Nurse -> Okay.
+  Nurse -> Burning and going often, since Sunday. Two days. Is there any blood in the urine?
+  Caller -> I forgot to say, she's been up at night with it. Three or four times.
+  Nurse -> Okay. That helps me.
+  Caller -> Two days. Yes. Sunday night. It was Sunday night because we had the pot roast.
+  Nurse -> Okay.
+  Caller -> I don't know. I don't think so. I didn't look. She goes by herself. She said it looks cloudy. Not red. I think. I'm not sure what I'm reporting versus what she's said.
+  Nurse -> That's fine. Just tell me what you know.
+  Nurse -> That's fine. Is she having pain in her back or sides?
+  Caller -> No. She said no. Her back is fine. She didn't complain. No vomiting. She ate her oatmeal. || A5
+  Nurse -> Good.
+  Caller -> I wrote the number of your office on the whiteboard too.
+  Nurse -> Perfect.
+  Caller -> She had a back pain in the winter, that was something else. I'm remembering the wrong time, I think.
+  Nurse -> That's all right.
+  Nurse -> Okay. Does she have a fever?
+  Caller -> I felt her forehead first. It was warm. Then I used the thermometer.
+  Nurse -> Good order.
+  Caller -> I took her temperature this morning. One hundred point one. That's up. She's usually ninety eight. I don't have the exact, wait. It's one hundred point one. I wrote it down. Here it is. One hundred point one. || A2
+  Nurse -> What time?
+  Caller -> About seven thirty. Right before her pill.
+  Nurse -> Okay.
+  Caller -> I used the new one. The one with the colored light. Red means fever. It was a little red.
+  Nurse -> Okay.
+  Nurse -> Okay. One hundred point one. Has she taken anything for it?
+  Caller -> She doesn't like pills. She says they taste like dust.
+  Nurse -> Ha.
+  Caller -> One Tylenol. Five hundred milligrams. This morning around eight. I gave it. Oh, wait. Did I take it? No. I gave it to her. I took my own pills at eight too. They're all in the same drawer. || A4
+  Nurse -> Okay. So she took one Tylenol, five hundred, at eight. And you took yours. || A4
+  Caller -> Yes. My metformin, five hundred, and my donepezil, ten. For my memory. Ha. I forgot what I was saying. That's why I'm on it.
+  Nurse -> Good. Those are yours. Let's keep them separate from hers.
+  Caller -> Yes. They're in two cups. Mine's the blue cup. Hers is the white one.
+  Nurse -> That's smart.
+  Nurse -> Ha. That's okay. Let's stay with Winifred. How is she acting?
+  Caller -> Yes. Winifred. Winifred. I'll say it three times so I don't forget.
+  Nurse -> Ha.
+  Caller -> Last night she was, I'd say, mixed up. Around ten. She asked me who the woman was in the kitchen. There wasn't anybody. It was the curtains. She said it was a woman in a hat. Then she was fine. I think. Or maybe that was me. I had a strange dream about a hat. || A3
+  Nurse -> Okay. Thank you.
+  Caller -> It was only for a few minutes. Then she was herself again. Sharp as a tack.
+  Nurse -> Mm hm.
+  Nurse -> Okay.
+  Nurse -> Okay.
+  Nurse -> Okay. So possibly Winifred was confused last night. Or you're not sure if it was you.
+  Caller -> I wish I could be more certain. It's frustrating.
+  Nurse -> You're being very helpful.
+  Caller -> Thank you. I like to be useful.
+  Caller -> I think it was her. I'm fairly sure. It was her voice. She said, who's that woman. I said, it's the curtains, dear. I'm quite sure that was her.
+  Nurse -> Okay. We'll treat it as hers.
+  Caller -> Thank you. I wouldn't want to confuse things.
+  Nurse -> Okay. Thank you for being honest about what you're sure of. How is she right now?
+  Nurse -> It really does help.
+  Caller -> I try. It's hard sometimes.
+  Caller -> She's resting. In the recliner. She's a bit flushed. She's drinking tea. She said, Iggy, I'm fine, stop calling the nurse. That's what she said.
+  Caller -> She's been dozing off and on. I peeked in a minute ago.
+  Nurse -> That's fine.
+  Nurse -> Okay.
+  Caller -> She keeps the blanket up to her chin. Even though it's warm. Is that the fever?
+  Nurse -> It could be. The clinician will weigh it.
+  Nurse -> Ha. Okay. I'm glad you called. Ignatius, what's Winifred's date of birth?
+  Caller -> I almost didn't. I'm worried about bothering you for my own mixups.
+  Nurse -> You're never bothering us.
+  Caller -> April second. Nineteen forty five. || patient_dob
+  Nurse -> Thank you.
+  Caller -> She's eighty one. I'm eighty four. We've been married fifty eight years. I should know that.
+  Nurse -> Ha. That's a long time.
+  Nurse -> April second, nineteen forty five. Thank you. And a number for you?
+  Caller -> Six four six, five five five, oh one five two. || callback_phone
+  Nurse -> Six four six, five five five, oh one five two. Right? || callback_phone
+  Caller -> Yes. That's both of us. One number. We share a house phone.
+  Caller -> It's an old number. Our daughter keeps trying to get us to change.
+  Nurse -> It's fine as it is.
+  Nurse -> Okay. Good.
+  Nurse -> Okay. Here's what I'd like to do. I'm going to page the on-call clinician right now, about Winifred's burning, the fever, and the mixed up spell. It could be a urinary infection, and the clinician will decide. || R1
+  Caller -> Good. I like a plan.
+  Caller -> A urinary infection. Yes. She had one in the spring. It made her loopy then, too.
+  Nurse -> Mm hm.
+  Nurse -> That's helpful. I'll pass that on.
+  Caller -> Good.
+  Nurse -> I'd also like a nurse to come see her tomorrow. || R2
+  Caller -> She'll like that. She likes the nurses. She says they have kind hands.
+  Nurse -> That's lovely.
+  Caller -> Tomorrow. Okay. Is it the same as my day? Or hers?
+  Caller -> Because mine is a bath day. Mine is a bath nurse. Hers might be the other.
+  Nurse -> I'll sort that out.
+  Nurse -> I'll make sure of it.
+  Nurse -> It'll be a special visit for her. We'll call you with the time.
+  Caller -> Special visit. Okay. That's nice.
+  Nurse -> We'll sort out the details.
+  Caller -> Will they bring a little cup? For the test?
+  Nurse -> They'll bring everything they need.
+  Nurse -> And I'll call you back within two hours, after I've heard from the clinician. || R3
+  Caller -> Two hours. That's, it's two now. So four. I'll write it. Four o'clock. I'm writing it on the whiteboard.
+  Nurse -> Right. So about four.
+  Caller -> Four. Yes. I'll be here. I'm always here.
+  Nurse -> Perfect. In the meantime, offer her a glass of water or another fluid every hour while she's awake. Try to avoid coffee and sugary drinks. || E1
+  Caller -> I'll set a timer on the microwave. So I don't forget.
+  Caller -> A glass every hour. Water. No coffee. No sugar. Okay. She loves her coffee. She'll complain.
+  Caller -> She likes the little glasses with flowers on them. I'll use those.
+  Nurse -> Perfect.
+  Nurse -> Ha. A little complaining is fine. And Ignatius, call nine one one if she has shaking chills, a temperature over one hundred two, severe confusion, vomiting, or pain in her back or side. || E2
+  Caller -> Shaking chills. Over one oh two. Severe confusion. Vomiting. Back pain. Okay. Call 911. I'm writing that, too.
+  Nurse -> That's right.
+  Nurse -> Good.
+  Caller -> Matilda, is it okay that I'm the one calling? I'm a patient. I'm not sure I'm a reliable reporter.
+  Nurse -> Absolutely.
+  Nurse -> You're doing just fine. You told me what you were sure of and what you weren't. That's the best kind of report. Is someone else there to help?
+  Caller -> Our daughter lives close. Forty minutes. She comes on the weekends. I could call her.
+  Nurse -> That's good to know.
+  Nurse -> I think that would be a good idea. Ask her to check in today.
+  Caller -> I will. I'll call her. Her name's Barbara. She'll fuss.
+  Caller -> I'll put the phone on speaker so Winifred can say hello too.
+  Nurse -> That would be nice.
+  Nurse -> Tell her what's going on, in your own words.
+  Caller -> I will. Slowly.
+  Nurse -> A little fussing helps.
+  Caller -> She's very good at it. Barbara calls every evening at seven.
+  Nurse -> That's a lovely routine.
+  Caller -> It keeps us honest. She asks the questions I forget.
+  Caller -> She's very good at it. She gets it from her mother.
+  Nurse -> Ha.
+  Caller -> Ha. Yes. Thank you. You're very kind.
+  Caller -> I mean it. This job must be hard.
+  Nurse -> It has its good days. This is one of them.
+  Nurse -> Talk at four.
+  Caller -> I'll answer on the first ring. Unless I'm in the bathroom.
+  Nurse -> Ha. Take your time.
+  Caller -> Four o'clock. On the whiteboard. Bye.
+  Nurse -> Take care, Ignatius.
+  Caller -> You too. Say hello to the team.
+  Nurse -> I will.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winifred Pruett, certainty: stated, heard_as: [], turns: [11]}
+    patient_dob: {value: "1945-04-02", certainty: stated, heard_as: [], turns: [96]}
+    caller_name: {value: Ignatius Pruett, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: husband, certainty: stated, turns: [4]}
+    callback_phone: {value: "6465550152", certainty: stated, heard_as: [], turns: [101, 102]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported his wife's burning urination and low fever.
+    speaker: Caller
+    turns: [4]
+    quote: "It's burning. When she goes."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She had burning with urination since Sunday and went about every hour in small amounts.
+      speaker: Caller
+      turns: [32]
+      quote: "She has burning. When she urinates. It started Sunday."
+      explanation: Documents the urinary symptoms.
+      facts:
+        - {type: symptom, name: burning and frequent urination, present: true, severity: moderate, onset: two days, certainty: stated}
+      covers: [A1]
+    - text: Temperature this morning was 100.1.
+      speaker: Caller
+      turns: [53]
+      quote: "One hundred point one. That's up."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "100.1", certainty: stated}
+      covers: [A2]
+    - text: (unclear) She may have been mixed up last night, asking about a woman in a hat who was the curtains.
+      speaker: Caller
+      turns: [71]
+      quote: "Last night she was, I'd say, mixed up."
+      explanation: Documents the possible confusion.
+      facts:
+        - {type: symptom, name: seemed mixed up last night, present: true, severity: mild, certainty: unclear}
+      covers: [A3]
+    - text: Tylenol 500 mg was given once this morning around eight.
+      speaker: Caller
+      turns: [62]
+      quote: "One Tylenol. Five hundred milligrams. This morning around eight."
+      explanation: Documents the medication.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, frequency: once, prn: true, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: She had no back pain, vomiting or visible blood in the urine.
+      speaker: Caller
+      turns: [44]
+      quote: "No. She said no. Her back is fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: back pain or vomiting or blood in the urine, certainty: stated}
+      covers: [A5]
+    - text: Both spouses were home health patients and the symptoms were the wife's.
+      speaker: Caller
+      turns: [11]
+      quote: "My wife. Winifred. She's the one."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: Both he and his wife are home health patients and the symptoms are hers, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician about the burning, fever and mixed up spell.
+      speaker: Nurse
+      turns: [107]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [113]
+      quote: "I'd also like a nurse to come see her tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback within two hours.
+      speaker: Nurse
+      turns: [125]
+      quote: "I'll call you back within two hours"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised a glass of water or other fluid every hour while awake and avoiding coffee and sugary drinks.
+      speaker: Nurse
+      turns: [129]
+      quote: "offer her a glass of water or another fluid every hour while she's awake."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for shaking chills, a temperature over one hundred two, severe confusion, vomiting, or back or side pain.
+      speaker: Nurse
+      turns: [134]
+      quote: "call nine one one if she has shaking chills"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

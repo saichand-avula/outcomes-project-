@@ -1,0 +1,265 @@
+call_id: tr-425
+split: train
+blueprint: "A wife calls home infusion nursing: her 58-year-old husband, three weeks into IV antibiotics through a PICC line, has a temperature of one oh two point eight, shaking chills that started after the noon flush, a racing heart and is talking a little oddly. The arm with the line looks red. Nurse advises 911 now for a possible line infection and sepsis, tells her not to use the line, to tell the paramedics about the PICC, and pages on-call. Possible sepsis (other urgent and escalation request), spouse caller, patient 18-64, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: sepsis_picc
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [fever, neurologic, infection_risk]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Orchard Lane Home Health
+  agency_type: home_health
+  nurse_name: Samir
+  call_timestamp_utc: "2026-11-13T20:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Desmond Okonjo
+  patient_name_spoken: Desmond Okonjo
+  patient_name_certainty: stated
+  patient_dob_true: "1967-10-11"
+  patient_dob_spoken: "1967-10-11"
+  patient_dob_certainty: stated
+  caller_name_true: Adaeze Okonjo
+  caller_name_spoken: Adaeze Okonjo
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6025550133"
+  callback_phone_spoken: "6025550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a high fever with shaking chills in her husband who has a PICC line
+  reason_category: fever
+  relevant_context: Home infusion patient with a PICC line for IV antibiotics
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "102.8"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: shaking chills
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: talking oddly and racing heart
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: Chills started after the noon line flush and the skin around the PICC is red
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: high fever with chills and confusion with a PICC line
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: tell them a possible line infection is going to the hospital
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hang up and call 911 now, do not use or flush the line, and tell the paramedics he has a PICC line and has been on antibiotics
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him lying down with a blanket, do not give him anything to eat or drink, and unlock the front door
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: High fever with shaking chills and confusion in a patient with a PICC line
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Orchard Lane Home Health, this is Samir.
+  Caller -> Samir, it's Adaeze Okonjo. My husband is Desmond Okonjo. He has the PICC line. He has a high fever and he's shaking. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Adaeze, I'm glad you called. Tell me what's going on.
+  Nurse -> Adaeze, I'm here. How high is the fever?
+  Caller -> I don't know what to do. He was fine this morning. He ate eggs. He watched his show.
+  Nurse -> I know. Let's take it step by step.
+  Caller -> One hundred two point eight. I just took it under his tongue. It was a hundred and one an hour ago. It's going up. || A1
+  Nurse -> Okay. Tell me about the shaking.
+  Caller -> I put the heating pad on him. It didn't help. He says he's cold in his bones.
+  Caller -> He's shaking all over. Like he's freezing. He has three blankets on and his teeth are chattering. It started right after the noon flush. I flushed the line like the nurse showed me. || A2, A4
+  Nurse -> Okay. Does the area around the line look red or swollen?
+  Caller -> Yes. It's red. All around where it goes in. About the size of a half dollar. Maybe bigger. And it's warm. || A4
+  Caller -> It wasn't red this morning. I look at it every day when I change the dressing.
+  Nurse -> Okay. That's important information.
+  Nurse -> Is he awake and talking to you?
+  Nurse -> And is he able to answer in full sentences?
+  Caller -> He's awake. He's talking, but, he's a little off. He just asked me what day it is. He knows what day it is. He's never confused. And his heart is going fast. I can feel it when I hold his wrist. || A3
+  Nurse -> Adaeze, this sounds like a serious infection, possibly in the bloodstream, from the line. This is an emergency. I need you to hang up and call 911 right now. || R1, E1, F2
+  Caller -> Nine one one? Now? Not the clinic?
+  Caller -> It's Friday night. The clinic is closed. I thought maybe in the morning.
+  Nurse -> No. Not in the morning. Now.
+  Nurse -> Yes. Right now. Put me on speaker and dial from your cell, or hang up and dial. He needs to be in the hospital within the hour.
+  Caller -> Okay. Okay. I'm dialing. Oh my God. Desmond, stay with me. I'm calling the ambulance.
+  Caller -> My hands won't work. I keep hitting the wrong number. Okay. Got it.
+  Nurse -> Good. Tell them he has a PICC line, a fever of one oh two point eight, shaking chills, and confusion.
+  Caller -> It's ringing. Why is it ringing? Come on.
+  Caller -> Hello? Yes. My husband has a fever, a hundred and two point eight, and he's shaking. He has a PICC line. He's confused. Yes. They're coming, Samir.
+  Nurse -> Perfect. Don't use the line. Don't flush it. And unlock the front door. Is he lying down?
+  Caller -> I haven't touched the line since the flush. I have the cap on it. The little blue cap.
+  Nurse -> Good. Leave it exactly as it is.
+  Caller -> He's on the couch, on his side. With the blankets. I'm unlocking the door. Hold on. It's open. I'm back.
+  Caller -> The cat is on him. She won't leave. I'm moving her. Shoo.
+  Nurse -> Good. Keep him lying down with a blanket. Don't give him anything to eat or drink. Not even water. || E2
+  Caller -> His forehead is so hot. I can feel it from here. He's sweating now through the shirt.
+  Caller -> Nothing to drink. Okay. He wants water. He says he's thirsty.
+  Nurse -> Wet his lips with a damp cloth. Nothing to swallow, in case they need to put him to sleep for treatment.
+  Caller -> A cloth. Okay. I'm doing it. Honey, here. Just your lips.
+  Caller -> He's trying to say something. He says, I'm sorry. He says, I'm sorry, Adaeze.
+  Nurse -> He doesn't need to be sorry. Tell him that.
+  Caller -> Desmond, you don't need to be sorry. I love you. It's okay.
+  Nurse -> Adaeze, I'm going to page the on-call clinician now, so they know. And I'll tell the hospital he's coming. || R2
+  Caller -> Thank you. Thank you. I'm so scared.
+  Caller -> He's my best friend. We've been together twenty six years.
+  Nurse -> I understand. I'm right here with you.
+  Nurse -> I know. You're doing everything right. What's his date of birth?
+  Caller -> The clock says eight twenty. I should write the time. For the paramedics. Do they ask?
+  Nurse -> They'll ask when the chills started. Yes, write it down.
+  Caller -> October eleventh. Nineteen sixty seven. || patient_dob
+  Nurse -> And your cell is the one ending in oh one three three?
+  Caller -> Yes. Six oh two, five five five, zero one three three. || callback_phone
+  Nurse -> Good. Do you have the list of his medicines and antibiotics?
+  Caller -> On the fridge. The yellow sheet. I'll grab it. And the box with the line supplies. Should I bring that?
+  Nurse -> Yes. Bring the sheet and the box. And your phone charger.
+  Caller -> Okay. Getting it. Hold on. I have the sheet. I'm putting it in my bag. Sorry. I'm shaking too.
+  Caller -> Where did I put my keys? They were on the hook. I'm looking. I found them in my pocket. I'm sorry.
+  Nurse -> That's okay. Take a breath. They're on their way.
+  Caller -> I hear the siren. I think that's them. The porch light is on. Let me go to the door.
+  Caller -> The dog is barking. I'll shut her in the bedroom. Sorry.
+  Nurse -> Go. Leave the phone on the table. I'll stay on until they're with him.
+  Caller -> The porch light, I turned it on. Their lights are blue in the window.
+  Caller -> They're here. Come in. In here! He's on the couch! He has a PICC line, fever, a hundred and two point eight, chills! He's confused! They're taking his temperature again.
+  Nurse -> Tell them the antibiotics and the time of the last dose.
+  Caller -> The antibiotic is vancomycin, I think. Last dose was at eight this morning. It's on the yellow sheet. They have the sheet.
+  Nurse -> Good. Adaeze, they have what they need. Go with him. We'll follow up tomorrow.
+  Caller -> I'm going. Thank you, Samir. Thank you for staying on.
+  Nurse -> Go. Take care of him. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Desmond Okonjo, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1967-10-11", certainty: stated, heard_as: [], turns: [48]}
+    caller_name: {value: Adaeze Okonjo, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550133", certainty: stated, heard_as: [], turns: [50]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a high fever with shaking chills in her husband who has a PICC line.
+    speaker: Caller
+    turns: [2]
+    quote: "He has a high fever and he's shaking."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was 102.8 and rising from 101 an hour earlier.
+      speaker: Caller
+      turns: [7]
+      quote: "One hundred two point eight."
+      explanation: Documents the fever.
+      facts:
+        - {type: vital, name: temperature, value: "102.8", certainty: stated}
+      covers: [A1]
+    - text: He had shaking chills with teeth chattering, starting right after the noon flush.
+      speaker: Caller
+      turns: [10]
+      quote: "He's shaking all over. Like he's freezing."
+      explanation: Documents the chills.
+      facts:
+        - {type: symptom, name: shaking chills, present: true, severity: severe, certainty: stated}
+      covers: [A2]
+    - text: He was talking a little oddly and his heart was racing.
+      speaker: Caller
+      turns: [17]
+      quote: "He's a little off."
+      explanation: Documents the confusion and fast heart rate.
+      facts:
+        - {type: symptom, name: talking oddly and racing heart, present: true, severity: moderate, certainty: stated}
+      covers: [A3]
+    - text: The skin around the PICC was red and warm after the noon flush.
+      speaker: Caller
+      turns: [12]
+      quote: "Yes. It's red. All around where it goes in."
+      explanation: Documents the line site.
+      facts:
+        - {type: context, text: Chills started after the noon line flush and the skin around the PICC is red, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 now for a possible line infection.
+      speaker: Nurse
+      turns: [18]
+      quote: "I need you to hang up and call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician and alert the hospital.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to page the on-call clinician now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling 911, not using or flushing the line and telling the paramedics about the PICC and antibiotics.
+      speaker: Nurse
+      turns: [28]
+      quote: "Don't use the line. Don't flush it."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping him lying down with a blanket, nothing by mouth and unlocking the door.
+      speaker: Nurse
+      turns: [33]
+      quote: "Keep him lying down with a blanket."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "He has a high fever and he's shaking."}
+    - {category: escalation_request, turns: [18], quote: "I need you to hang up and call 911 right now."}

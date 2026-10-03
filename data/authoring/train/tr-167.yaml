@@ -1,0 +1,176 @@
+call_id: tr-167
+split: train
+blueprint: "Neighbor has not seen an elderly woman for two days: newspapers piled up, lights on, no answer at the door, but he did hear a TV. He does not know her birthday or any health details. Nurse tries to call her, plans a nurse visit this afternoon, and asks him to knock again and call 911 if he hears calls for help. Ambiguous; no flag."
+setup:
+  scenario_category: ambiguous
+  subtype: welfare_concern
+  secondary_tags: [hedging, identity_unresolved, late_answers, split_turns]
+  clinical_domains: [falls_safety]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-10-04T13:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hester Quill
+  patient_name_spoken: Hester Quill
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Lenny Abramowitz
+  caller_name_spoken: Lenny Abramowitz
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "7575550184"
+  callback_phone_spoken: "7575550184"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Said he has not seen his neighbor in two days and is worried about her
+  reason_category: safety
+  relevant_context: Elderly neighbor who lives alone and gets home care aide visits
+assessment:
+  - item_id: A1
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Has not seen her in two days, newspapers are piled up, lights are on, and she did not answer the door
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: He heard a TV on inside the house
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Does not know her birthday, health conditions, or whether she has family nearby
+    certainty: unclear
+    unclear_detail: Caller knows very little about her health
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: after the visit
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Knock again and call 911 if he hears calls for help, sees her on the floor, or smells gas
+    trigger_condition: calls for help; seeing her on the floor; gas smell
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Joanne.
+  Caller -> Hello. My name is Lenny Abramowitz. I'm a neighbor. I'm worried about the lady next door. Hester Quill. I think she's one of yours, I've seen your aide's car. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Lenny. Thank you for calling. What's worrying you?
+  Caller -> I haven't seen her in two days. She's always out on the porch in the morning with her coffee. Her newspapers are piled up. The porch light is on in the daytime. I knocked this morning and nobody answered. || A1
+  Nurse -> Okay. Could she be out? Does she drive?
+  Caller -> No. She doesn't drive. Her aide takes her places. But I did hear the TV on inside. It's on right now. I can hear it from my yard. || A2
+  Nurse -> Okay. Do you know her date of birth, or any health conditions?
+  Caller -> No. No, I don't. I'm sorry. I don't know her that well. She's eighty something. She has a walker. That's all I know. I don't know about family. I think a niece, in another state. || A3
+  Nurse -> That's okay. Is there a number I can reach you?
+  Caller -> Seven five seven, five five five, zero one eight four. || callback_phone
+  Nurse -> Seven five seven, five five five, zero one eight four. || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay, Lenny. I'm going to send a nurse to check on her this afternoon. || R1
+  Caller -> Oh, thank you. That's such a relief. I didn't know if I was being silly.
+  Nurse -> You're not being silly at all. I'll call you back after the visit. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> In the meantime, knock again, and listen at the door. If you hear her calling for help, or you can see her on the floor through a window, or you smell gas, call nine one one right away. || E1
+  Caller -> Nine one one. Calls for help. On the floor. Gas. Okay. I'll go knock again right now.
+  Nurse -> Thank you. Anything else?
+  Caller -> No. Just that. I'll go knock. Thank you, ma'am.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hester Quill, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Lenny Abramowitz, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "7575550184", certainty: stated, heard_as: [], turns: [10, 11]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Said he has not seen his neighbor in two days and is worried about her.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm worried about the lady next door."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He had not seen her in two days, her newspapers were piled up, her porch light was on in the daytime, and nobody answered when he knocked.
+      speaker: Caller
+      turns: [4]
+      quote: "I haven't seen her in two days."
+      explanation: Documents the concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A1]
+    - text: He could hear a TV on inside the house.
+      speaker: Caller
+      turns: [6]
+      quote: "I did hear the TV on inside."
+      explanation: Documents what he observed.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: He did not know her birthday, health conditions, or whether she had family nearby (unclear; he knows her only slightly).
+      speaker: Caller
+      turns: [8]
+      quote: "No. No, I don't. I'm sorry. I don't know her that well."
+      explanation: Documents the limited information.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Planned to send a nurse to check on her this afternoon.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to send a nurse to check on her this afternoon."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back after the visit.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll call you back after the visit."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: after the visit, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised knocking again and calling 911 if he heard calls for help, saw her on the floor, or smelled gas.
+      speaker: Nurse
+      turns: [17]
+      quote: "If you hear her calling for help, or you can see her on the floor through a window, or you smell gas, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

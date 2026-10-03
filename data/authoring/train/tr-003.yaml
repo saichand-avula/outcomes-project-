@@ -1,0 +1,202 @@
+call_id: tr-003
+split: train
+blueprint: "Wife asks to move husband's nurse visit; mentions mild ankle swelling, not short of breath; nurse has already moved the visit to Thursday (completed); elevate legs; will tell Thursday nurse (planned)."
+setup:
+  scenario_category: routine
+  subtype: clinical_visit_scheduling
+  secondary_tags: [trap_phrasing, negated_risk_phrase, split_turns, multi_issue]
+  clinical_domains: [edema]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-08-10T16:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Harold Okafor
+  patient_name_spoken: Harold Okafor
+  patient_name_certainty: stated
+  patient_dob_true: "1948-07-30"
+  patient_dob_spoken: "1948-07-30"
+  patient_dob_certainty: stated
+  caller_name_true: Grace
+  caller_name_spoken: Grace
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "5035550112"
+  callback_phone_spoken: "5035550112"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Requested to reschedule nurse visit; also reported mild ankle swelling
+  reason_category: scheduling_with_symptom
+  relevant_context: Eye doctor appointment conflicts with Wednesday visit
+assessment:
+  - item_id: A1
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Wednesday nurse visit conflicts with eye doctor appointment
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling
+    symptom_present: true
+    severity: mild
+    body_location: both ankles
+    onset_or_duration: couple of days
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: appointment_scheduling
+    action_status: completed
+    actor: nurse
+    timeframe: Thursday at 1
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: Thursday visiting nurse
+    reason_or_trigger: check ankle swelling
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Elevate legs on pillows when sitting; cut back on salt
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if swelling goes up past the knees or he becomes short of breath; call 911 for chest pain or trouble breathing
+    trigger_condition: swelling past knees; shortness of breath; chest pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne. How can I help you?
+  Caller -> Hi Joanne, this is Grace. I'm calling about my husband, Harold Okafor. || caller_name, patient_name, relationship
+  Nurse -> Hi Grace. Can I get Harold's date of birth?
+  Caller -> July thirtieth, nineteen forty eight. || patient_dob
+  Nurse -> Thank you. And a good number to reach you?
+  Caller -> Five oh three, five five five, oh one one two. || callback_phone
+  Nurse -> Okay. What can I do for you?
+  Caller -> So he has the nurse coming Wednesday, but he's got the eye doctor that same morning, and I. || cc, A1
+  Caller -> I can't move the eye doctor, it took three months to get in. || A1
+  Nurse -> Oh, I believe it. Let me look at the schedule.
+  Caller -> Thank you.
+  Nurse -> Okay. Okay, I've moved him to Thursday at one o'clock. It's done, you'll see the same nurse. || R1
+  Caller -> Oh perfect. Thursday at one.
+  Nurse -> Anything else going on with him?
+  Caller -> Well, his ankles have been a little puffy. Both of them. The last couple of days. || A2
+  Nurse -> Okay. Is he short of breath at all? Any trouble breathing when he lies down?
+  Caller -> No, he's not short of breath. He's breathing fine. || A3
+  Nurse -> Any chest pain?
+  Caller -> No. No chest pain. || A4
+  Nurse -> Okay, good. When he's sitting, have him put his legs up on a couple of pillows. And try to cut back on the salt, the canned soups and things. || E1
+  Caller -> He does love his soup. Okay.
+  Nurse -> I'll let Thursday's nurse know so she takes a look at the swelling. || R2
+  Caller -> Okay, good.
+  Nurse -> If the swelling goes up past his knees, or he gets short of breath, call us. And if he has chest pain or trouble breathing, you call nine one one. || E2
+  Caller -> Okay. I will.
+  Nurse -> Alright, Grace. Anything else?
+  Caller -> No, that's it. Thank you so much.
+  Nurse -> You're welcome. Bye now.
+noise_events:
+  - {turn: 8, type: split_turn, true_form: "single sentence across turns 8-9", heard_form: "and I", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Harold Okafor, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-07-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Grace, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "5035550112", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Requested to reschedule the Wednesday nurse visit because of an eye doctor appointment, and reported mild ankle swelling.
+    speaker: Caller
+    turns: [8]
+    quote: "So he has the nurse coming Wednesday, but he's got the eye doctor that same morning"
+    explanation: Documents the scheduling request prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: Mild swelling of both ankles was reported over the last couple of days.
+      speaker: Caller
+      turns: [15]
+      quote: "Well, his ankles have been a little puffy. Both of them. The last couple of days."
+      explanation: Documents the new symptom reported during the call.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, severity: mild, location: both ankles, onset: couple of days, certainty: stated}
+      covers: [A2]
+    - text: No shortness of breath or chest pain was reported.
+      speaker: Caller
+      turns: [17]
+      quote: "No, he's not short of breath. He's breathing fine."
+      explanation: Documents pertinent negative cardiopulmonary findings.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A3, A4]
+  response:
+    - text: Rescheduled the nurse visit to Thursday at 1:00 during the call.
+      speaker: Nurse
+      turns: [12]
+      quote: "Okay, I've moved him to Thursday at one o'clock. It's done, you'll see the same nurse."
+      explanation: Documents the completed scheduling change.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: completed, timeframe: Thursday at 1, certainty: stated}
+      covers: [R1]
+    - text: Planned to notify the Thursday visiting nurse to assess the ankle swelling.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'll let Thursday's nurse know so she takes a look at the swelling."
+      explanation: Documents the planned handoff for follow-up assessment.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised elevating his legs on pillows when sitting and reducing salt intake.
+      speaker: Nurse
+      turns: [20]
+      quote: "When he's sitting, have him put his legs up on a couple of pillows. And try to cut back on the salt"
+      explanation: Documents comfort measures for ankle swelling.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if swelling extended past the knees or shortness of breath developed, and calling 911 for chest pain or trouble breathing.
+      speaker: Nurse
+      turns: [24]
+      quote: "If the swelling goes up past his knees, or he gets short of breath, call us. And if he has chest pain or trouble breathing, you call nine one one."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

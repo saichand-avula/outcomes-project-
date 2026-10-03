@@ -1,0 +1,238 @@
+call_id: tr-162
+split: train
+blueprint: "Patient took hydroxyzine 10 mg this morning thinking it was his blood pressure pill (hydralazine); mixes up the two names. Nurse reads the chart to sort out which is which, he feels a little drowsy but is awake and talking, BP 150/90. Nurse tells him to take the hydralazine now, skip the hydroxyzine tonight, messages the provider, and calls back this afternoon. Flag: medication_concern (wrong medicine)."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [tall_man_drug, chart_reading_distractor, hedging, contradiction, late_answers, split_turns]
+  clinical_domains: [medication, sedation, blood_pressure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Hector
+  call_timestamp_utc: "2026-10-04T16:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Octavio Benavides
+  patient_name_spoken: Octavio Benavides
+  patient_name_certainty: stated
+  patient_dob_true: "1951-10-19"
+  patient_dob_spoken: "1951-10-19"
+  patient_dob_certainty: stated
+  caller_name_true: Octavio Benavides
+  caller_name_spoken: Octavio Benavides
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2105550144"
+  callback_phone_spoken: "2105550144"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that he took the wrong pill this morning
+  reason_category: medication
+  relevant_context: Home health patient on a blood pressure medicine and a medicine for itching
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: extra_dose
+    dose: "10"
+    unit: mg
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: nurse
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    medication_status: missed
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: a little drowsy
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: patient
+    vital_name: blood pressure
+    vital_value: 150/90
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: take the hydralazine now and skip tonight's hydroxyzine
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: wrong pill taken this morning
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not drive or use the stove while drowsy, sit down before standing, and keep the two bottles in separate places
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if he gets very sleepy, confused, or his heart pounds; 911 if he cannot be woken
+    trigger_condition: very sleepy; confused; pounding heart; cannot be woken
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Patient took hydroxyzine instead of his blood pressure pill hydralazine this morning
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Hector.
+  Caller -> Hector, it's Octavio Benavides. I'm a patient. I think I took the wrong pill this morning. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Octavio. Let's sort it out. Date of birth first?
+  Caller -> October nineteenth. Nineteen fifty one. || patient_dob
+  Nurse -> And two one oh, five five five, zero one four four? || callback_phone
+  Caller -> Yeah. That's the house. || callback_phone
+  Nurse -> What happened with the pill?
+  Caller -> I have two bottles that sound the same. Hydro-something. One is for my blood pressure and one is for itching. I took the one for itching. I think. Hydroxyzine. Yes. I took the hydroxyzine. Instead of the blood pressure one. || A1, F1
+  Nurse -> Okay. Let me look at your chart. I see hydralazine, twenty five milligrams, three times a day, for blood pressure. And hydroxyzine, ten milligrams, at night, for itching. Is that right? || A1, A2
+  Caller -> Yes. That's right. The hydralazine is for the pressure. And the hydroxyzine is at night. But this morning I grabbed the wrong bottle. I took the hydroxyzine. Ten milligrams. || A1, A2
+  Nurse -> Okay. How are you feeling right now?
+  Caller -> A little drowsy. But I'm awake. I'm talking to you. I'm okay. || A3
+  Nurse -> Okay. Do you have your blood pressure?
+  Caller -> I took it. One fifty over ninety. || A4
+  Nurse -> Okay. Octavio, take your hydralazine now, the twenty five. Skip the hydroxyzine tonight. || A1, A2, R1
+  Caller -> Hydralazine now. Skip the hydroxyzine tonight. Okay. Let me get the right bottle. Hold on. This one. It says hydralazine. Okay. I'm taking it. || A1, A2
+  Nurse -> Good. I'll message your provider about the mix-up. || R2
+  Caller -> Okay. Thank you. Will I be okay?
+  Nurse -> I think so. It's a small dose. I'll call you back this afternoon to check on you. || R3
+  Caller -> This afternoon. Okay.
+  Nurse -> Until then, don't drive or use the stove while you're drowsy. Sit down before you stand up. And keep those two bottles in different places, so they don't get mixed up again. || E1, A1, A2
+  Caller -> Different places. Okay. I'll put the hydroxyzine in the bedroom. The hydralazine stays in the kitchen. || A1, A2
+  Nurse -> Perfect. And call us if you get very sleepy, confused, or your heart is pounding. If you can't stay awake, call nine one one. || E2
+  Caller -> Okay. I understand. Thank you, Hector.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Octavio Benavides, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1951-10-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Octavio Benavides, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2105550144", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he took the wrong pill this morning.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I took the wrong pill this morning."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hydroxyzine 10 mg was taken this morning by mistake instead of the blood pressure pill.
+      speaker: Caller
+      turns: [10]
+      quote: "I took the hydroxyzine. Ten milligrams."
+      explanation: Documents the wrong medication taken.
+      facts:
+        - {type: medication, name: hydroxyzine, dose: "10", unit: mg, last_dose: this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Hydralazine 25 mg three times a day for blood pressure was missed this morning.
+      speaker: Nurse
+      turns: [9]
+      quote: "I see hydralazine, twenty five milligrams, three times a day, for blood pressure."
+      explanation: Documents the missed blood pressure medicine.
+      facts:
+        - {type: medication, name: hydralazine, dose: "25", unit: mg, frequency: three times a day, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: He was a little drowsy but awake and talking.
+      speaker: Caller
+      turns: [12]
+      quote: "A little drowsy. But I'm awake."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: a little drowsy, present: true, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 150/90.
+      speaker: Caller
+      turns: [14]
+      quote: "One fifty over ninety."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 150/90, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised taking the hydralazine now and skipping tonight's hydroxyzine.
+      speaker: Nurse
+      turns: [15]
+      quote: "take your hydralazine now, the twenty five. Skip the hydroxyzine tonight."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the mix-up.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll message your provider about the mix-up."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back this afternoon to check on you."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not driving or using the stove while drowsy, sitting before standing, and keeping the two bottles in different places.
+      speaker: Nurse
+      turns: [21]
+      quote: "don't drive or use the stove while you're drowsy. Sit down before you stand up."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if he became very sleepy, confused, or had a pounding heart, and calling 911 if he could not stay awake.
+      speaker: Nurse
+      turns: [23]
+      quote: "call us if you get very sleepy, confused, or your heart is pounding."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I think I took the wrong pill this morning."}

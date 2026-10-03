@@ -1,0 +1,363 @@
+call_id: tr-035
+split: train
+blueprint: "Long call: neighbor helping an older man; the hospital bed delivery was missed yesterday and he still needs a bedside commode; he slid off the couch last week without injury and is sleeping in a recliner; the neighbor does not give a callback number (use the one on file); nurse orders the commode now (completed), plans to call the equipment company, and plans a callback within the hour; lots of chatter."
+setup:
+  scenario_category: supply
+  subtype: delivery_timing
+  secondary_tags: [offtopic_chatter, crosstalk, split_turns, late_answers, trap_phrasing, multi_issue, phone_not_given]
+  clinical_domains: [equipment, falls_safety, pain]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-08-09T16:20:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clarence Whitmore
+  patient_name_spoken: Clarence Whitmore
+  patient_name_certainty: stated
+  patient_dob_true: "1941-10-30"
+  patient_dob_spoken: "1941-10-30"
+  patient_dob_certainty: stated
+  caller_name_true: Patsy
+  caller_name_spoken: Patsy
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "5865550153"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Hospital bed delivery was missed and a bedside commode is still needed
+  reason_category: equipment_delivery
+  relevant_context: Neighbor is helping while his family is out of town
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: hospital bed
+    certainty: stated
+    history_or_context_text: Delivery window was 1 to 5 yesterday and nobody came
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: bedside commode
+    certainty: stated
+    history_or_context_text: Not delivered yet; he is using a bucket in the bathroom
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Sleeping in his recliner for the last three nights because his own bed is too low and hurts his hip getting up
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Slid off the couch onto the floor last week and was not hurt; he got back up with her help
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Meals on Wheels brings lunch at noon and neighbors or church members bring dinner
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip pain
+    symptom_present: true
+    severity: about 4/10
+    body_location: right hip
+    certainty: unclear
+    unclear_detail: Caller estimated ("maybe a four")
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: injury from the fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: bedside commode
+    timeframe: delivery tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment company
+    reason_or_trigger: reschedule the hospital bed delivery
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient's number on file
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physical therapist
+    reason_or_trigger: fall risk and home safety
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use the walker every time he stands, keep the floor clear, and have someone nearby when he gets up
+    certainty: stated
+  - item_id: E2
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Place the commode next to the chair with the brakes locked, and raise the seat for easier standing
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a fall, new hip pain, trouble standing, or confusion; 911 if he hits his head or cannot get up
+    trigger_condition: fall; new hip pain; trouble standing; confusion; head strike
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, hello? Is this the home health? || cc
+  Nurse -> It is. This is Rhonda. How can I help you?
+  Caller -> Oh, thank goodness. I've been on hold, I think. Or I got transferred. I've been trying to reach somebody all afternoon.
+  Nurse -> I'm sorry about that. I'm here now. Who am I speaking with?
+  Caller -> My name's Patsy. Patsy Dunleavy. I'm his neighbor. I live next door to Clarence. || caller_name, relationship
+  Nurse -> Okay, Patsy. What's Clarence's last name?
+  Caller -> Whitmore. Clarence Whitmore. || patient_name
+  Nurse -> Okay. And do you know his date of birth?
+  Caller -> I do, actually. I wrote it down. Hang on. October thirtieth, nineteen forty one. || patient_dob
+  Nurse -> Thank you. And can I get a number for you, Patsy?
+  Caller -> Oh, I'm at his house. I'm on his landline. You'll have that number, it's right on his chart. I don't want to give you mine, I'm hopeless with my cell, it never has a signal in his kitchen.
+  Nurse -> That's fine. I'll use the number on file.
+  Caller -> Okay. Good.
+  Nurse -> So what's going on?
+  Caller -> Well, the bed never came. The hospital bed. They told us yesterday between one and five. And I sat here all day. Nobody came. Nobody called. || A1
+  Caller -> And he still needs the commode. The one next to the bed. We haven't gotten that either. || A2
+  Nurse -> Okay. So the bed and the commode.
+  Caller -> Right. And he's been sleeping in his chair. In the recliner. For three nights. || A3
+  Nurse -> Okay. Why is he in the recliner, not his own bed?
+  Caller -> His bed is too low. And it hurts his hip to get up. He just can't do it. So he just sleeps in the chair. || A3
+  Nurse -> Okay. Which hip?
+  Caller -> The right one, I think. Right. || A5
+  Nurse -> And how bad is the pain?
+  Caller -> He says it's, I don't know, maybe a four? When he gets up. Otherwise he says it's okay. || A5
+  Nurse -> Okay. Has he fallen?
+  Caller -> Well. Last week. He slid off the couch. Onto the floor. || A4
+  Nurse -> Okay. Was he hurt?
+  Caller -> No. No, he wasn't hurt. He said he was fine. I got him up. I called my husband to come help, and between us, we got him up. || A4, A6
+  Nurse -> Okay. That's good that he wasn't hurt. And you didn't call us at the time?
+  Caller -> No. I didn't think to. I didn't want to bother anybody.
+  Nurse -> Please don't ever hesitate to call about a fall, Patsy. Even if no one's hurt.
+  Caller -> Okay. I will. I'm sorry.
+  Nurse -> No, no apology needed. I'm glad you're calling now.
+  Caller -> Thank you. It's just, I'm trying to help, but I'm not family. His daughter's in Arizona and his son's in Germany. They're doing what they can on the phone.
+  Nurse -> It sounds like you're doing a lot.
+  Caller -> I'm trying. He's a sweetheart. He fixed my fence last spring. Wouldn't take a dime.
+  Nurse -> Aw. That's how neighbors should be.
+  Caller -> My husband says the same. He's always talking about how Clarence taught him how to prune the roses.
+  Nurse -> Ha. A good neighbor and a gardener.
+  Caller -> Oh yes. His roses are the best on the street. Prize winners, I'd say. He won a ribbon at the county fair three years in a row.
+  Nurse -> Three years in a row! That's impressive.
+  Caller -> He had a rose named after his late wife. A pink one. Every June it blooms and he just sits and looks at it.
+  Nurse -> That's so sweet.
+  Nurse -> That's lovely. Okay. Let me look at the equipment orders. Hold on a moment.
+  Caller -> Sure. Take your time.
+  Caller -> Oh, hello! Sorry, my husband's at the door. He's got a casserole for Clarence. Yes, honey, in the kitchen. Sorry.
+  Nurse -> Ha. No problem. Okay, I'm seeing the hospital bed order. It shows it was scheduled for yesterday, and it was marked as "not delivered, customer unavailable."
+  Caller -> Unavailable! I was here all day. I never left the house. I even skipped my bridge game.
+  Nurse -> I'm sorry. That's frustrating. That must be a mistake by the company.
+  Caller -> I'd say so.
+  Nurse -> Okay. I'm going to call the equipment company myself, and see about rescheduling the bed. I'll try for tomorrow. || R2
+  Caller -> Oh, that would be wonderful. Thank you.
+  Nurse -> And the commode, I'm seeing it wasn't ordered. It looks like it was never put in. || R1
+  Caller -> Oh no. That's why.
+  Nurse -> Let me fix that now. I'm placing the order for the commode right now. Okay. I've just submitted it. They'll deliver it tomorrow, too. || R1
+  Caller -> Oh, thank you. Thank you so much. I thought maybe I was losing my mind.
+  Nurse -> No, no. It was just a missed step on our end. I'm sorry.
+  Caller -> That's okay. It happens.
+  Nurse -> In the meantime, what is he using at night, for the bathroom?
+  Caller -> He gets up and goes to the bathroom. With the walker. It's about twelve steps. And, well. Sometimes he uses a bucket. A bucket we put next to the chair. || A2
+  Nurse -> Okay. I understand. For now, make sure he always uses the walker when he stands, even for a few steps. And have the floor clear, no rugs, no cords. || E1
+  Caller -> I took the rug out last week. After the fall.
+  Nurse -> Good. And if you can, have someone nearby when he gets up at night.
+  Caller -> My husband is going to sleep on the couch tonight. We discussed it.
+  Nurse -> That's wonderful. Thank you both.
+  Caller -> It's no trouble. Honestly.
+  Nurse -> Patsy, who's helping him with meals?
+  Caller -> Meals on Wheels brings his lunch at noon, and I bring dinner. Or the church ladies do. We have a schedule on the fridge. || A7
+  Nurse -> That's a good system. And is he eating okay?
+  Caller -> Pretty well. He cleans his plate, mostly. He's lost a bit of weight, but he says that's from the hip.
+  Nurse -> Okay. I'll mention that to the nurse who sees him.
+  Caller -> His daughter calls every evening, around six her time. That's nine here. She asks me to put the phone on speaker so he can't hang up on her.
+  Nurse -> Ha. That sounds like a daughter.
+  Caller -> And his son calls on Sundays. The time difference is hard. He's in Munich, so it's the middle of the night for one of them.
+  Nurse -> That's tough. At least they're checking in.
+  Caller -> They are. They're good kids. They'd come if they could. They've both asked about flying in.
+  Nurse -> When the commode comes, put it right next to his chair, with the brakes locked, and raise the seat so it's easier to stand. || E2
+  Caller -> Raise the seat. Okay. Brakes on. Got it.
+  Nurse -> And I'd like our physical therapist to take a look at his home. The bed height, the chair, the walker. She can help prevent another fall. I'll send her a message today. || R4
+  Caller -> That would be so helpful.
+  Nurse -> I'll also call Clarence directly at his number on file, within the hour, to give you both an update about the bed and the commode. || R3
+  Caller -> Oh, perfect. I'll stay here until you call. I'll make some coffee.
+  Nurse -> Ha. Don't stay if you have other things to do. I'll leave a message if he doesn't pick up.
+  Caller -> No, no. I'll be here. Clarence is in his chair. He'll be glad to hear from you.
+  Nurse -> If he has another fall, or the hip pain gets worse, or he has trouble standing, or he seems confused, call us right away. And if he ever hits his head or can't get up, call nine one one. || E3
+  Caller -> Nine one one if he hits his head. Okay. I'll tell my husband too.
+  Nurse -> Perfect. Is there anything else, Patsy?
+  Caller -> No, I think that's it. You've been very kind.
+  Nurse -> You're welcome. Thank you for looking out for him.
+  Caller -> He'd do the same for me. Thank you, Rhonda.
+  Nurse -> One last thing. When the delivery people come, they'll need to bring the bed into the bedroom and take the old one apart. Is there a clear path through the hall?
+  Caller -> I think so. There's a little table I can move. And the dog bed. Clarence doesn't have a dog, it's mine. I was bringing her over to keep him company.
+  Nurse -> Ha. That's sweet. Just move the table and the dog bed, and it should be fine.
+  Caller -> I will. Her name's Biscuit. She's a terrible watchdog.
+  Nurse -> Take care, Patsy. Talk soon.
+  Caller -> Bye now.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "I've been on hold, I think. Or I got transferred", fact_id: cc}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clarence Whitmore, certainty: stated, heard_as: [], turns: [8]}
+    patient_dob: {value: "1941-10-30", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Patsy, certainty: stated, heard_as: [], turns: [6]}
+    relationship: {value: neighbor, certainty: stated, turns: [6]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the hospital bed delivery was missed and that a bedside commode had still not arrived for her neighbor.
+    speaker: Caller
+    turns: [16]
+    quote: "Well, the bed never came. The hospital bed."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The hospital bed delivery was missed yesterday during a window of 1 to 5.
+      speaker: Caller
+      turns: [16]
+      quote: "They told us yesterday between one and five. And I sat here all day. Nobody came."
+      explanation: Documents the missed delivery.
+      facts:
+        - {type: supply, item: hospital bed, certainty: stated}
+      covers: [A1]
+    - text: A bedside commode had not been delivered, and he was sometimes using a bucket by the chair.
+      speaker: Caller
+      turns: [61]
+      quote: "Sometimes he uses a bucket. A bucket we put next to the chair."
+      explanation: Documents the interim toileting arrangement.
+      facts:
+        - {type: supply, item: bedside commode, certainty: stated}
+      covers: [A2]
+    - text: He had been sleeping in his recliner for three nights because his bed was too low and hurt his hip to get out of.
+      speaker: Caller
+      turns: [21]
+      quote: "His bed is too low. And it hurts his hip to get up."
+      explanation: Documents the sleeping arrangement and reason.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+    - text: Meals on Wheels brought his lunch at noon, and neighbors or church members brought dinner.
+      speaker: Caller
+      turns: [69]
+      quote: "Meals on Wheels brings his lunch at noon, and I bring dinner."
+      explanation: Documents his meal support.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: Right hip pain was estimated at about 4/10 when getting up; the caller was unsure.
+      speaker: Caller
+      turns: [25]
+      quote: "He says it's, I don't know, maybe a four? When he gets up."
+      explanation: Documents the hip pain with the caller's uncertainty preserved.
+      facts:
+        - {type: symptom, name: hip pain, present: true, severity: about 4/10, location: right hip, certainty: unclear}
+      covers: [A5]
+    - text: He slid off the couch onto the floor last week and was not hurt; the caller and her husband helped him up.
+      speaker: Caller
+      turns: [29]
+      quote: "No, he wasn't hurt. He said he was fine. I got him up."
+      explanation: Documents a recent fall without injury.
+      facts:
+        - {type: context, certainty: stated}
+        - {type: pertinent_negative, name: injury from the fall, certainty: stated}
+      covers: [A4, A6]
+  response:
+    - text: Placed the order for the bedside commode during the call, for delivery tomorrow.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'm placing the order for the commode right now. Okay. I've just submitted it. They'll deliver it tomorrow, too."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, timeframe: delivery tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the equipment company to reschedule the hospital bed delivery, aiming for tomorrow.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm going to call the equipment company myself, and see about rescheduling the bed."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to message the physical therapist about a home safety evaluation.
+      speaker: Nurse
+      turns: [80]
+      quote: "I'd like our physical therapist to take a look at his home."
+      explanation: Documents the planned therapy referral.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R4]
+    - text: Planned to call the patient's number on file within the hour with an update.
+      speaker: Nurse
+      turns: [82]
+      quote: "I'll also call Clarence directly at his number on file, within the hour, to give you both an update"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised using the walker every time he stood, keeping the floor clear, and having someone nearby when he got up at night.
+      speaker: Nurse
+      turns: [62]
+      quote: "make sure he always uses the walker when he stands, even for a few steps."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised placing the commode next to his chair with the brakes locked and raising the seat for easier standing.
+      speaker: Nurse
+      turns: [78]
+      quote: "put it right next to his chair, with the brakes locked, and raise the seat so it's easier to stand."
+      explanation: Documents equipment-use instructions.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for another fall, worsening hip pain, trouble standing, or confusion, and calling 911 if he hit his head or could not get up.
+      speaker: Nurse
+      turns: [86]
+      quote: "If he has another fall, or the hip pain gets worse, or he has trouble standing, or he seems confused, call us right away."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

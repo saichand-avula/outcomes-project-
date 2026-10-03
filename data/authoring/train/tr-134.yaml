@@ -1,0 +1,180 @@
+call_id: tr-134
+split: train
+blueprint: "Assisted-living aide calls for oxygen supplies for a hospice resident on 2 liters: one spare nasal cannula, no humidifier bottles. Nurse orders them for tomorrow afternoon and reviews tubing changes and distilled water. Short."
+setup:
+  scenario_category: supply
+  subtype: oxygen_supplies
+  secondary_tags: [phone_from_file, split_turns, late_answers]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Ana
+  call_timestamp_utc: "2026-10-01T14:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Fernanda Alcaraz
+  patient_name_spoken: Fernanda Alcaraz
+  patient_name_certainty: stated
+  patient_dob_true: "1935-07-08"
+  patient_dob_spoken: "1935-07-08"
+  patient_dob_certainty: stated
+  caller_name_true: Kelsey
+  caller_name_spoken: Kelsey
+  caller_name_certainty: stated
+  relationship_to_patient: aide at her assisted living facility
+  relationship_certainty: stated
+  callback_phone_true: "7705550153"
+  callback_phone_spoken: "7705550153"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested oxygen supplies for a resident
+  reason_category: supply_request
+  relevant_context: Hospice patient living in assisted living on continuous oxygen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: nasal cannulas
+    supply_remaining: "1"
+    supply_unit: cannulas
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: humidifier bottles
+    supply_remaining: none
+    supply_unit: bottles
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: On continuous oxygen at 2 liters
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: nasal cannulas and humidifier bottles
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Change the cannula every week or when soiled and fill the humidifier bottle with distilled water only
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Ana.
+  Caller -> Hi, Ana. This is Kelsey. I'm an aide at Hollis Court, the assisted living on Mercer. I'm calling for one of your patients, Fernanda Alcaraz. || caller_name, relationship, patient_name
+  Nurse -> Hi, Kelsey. Do you have her date of birth?
+  Caller -> I have it on the sheet. July eighth. Nineteen thirty five. || patient_dob
+  Nurse -> And is seven seven oh, five five five, zero one five three the best number for you? || callback_phone
+  Caller -> That's the front desk. Yes, that's the one. || callback_phone
+  Nurse -> What do you need?
+  Caller -> Oxygen stuff. For her. The supplies. We're running low. || cc
+  Nurse -> Okay. What have you got left?
+  Caller -> Nasal cannulas, the tubing with the prongs. We have one spare. Just one. || A1
+  Nurse -> Okay.
+  Caller -> And the humidifier bottles. We're out. There's one on the machine right now but it's almost empty. || A2
+  Nurse -> Okay. And she's on how many liters?
+  Caller -> Two. Two liters, all the time. Continuous. || A3
+  Nurse -> Okay. I'll order the cannulas and the humidifier bottles. || R1
+  Caller -> Thank you.
+  Nurse -> They'll come tomorrow afternoon. || R2
+  Caller -> Tomorrow afternoon. Okay. I'll tell the day shift. They'll sign for it at the front.
+  Nurse -> Perfect. Kelsey, you can change her cannula every week, or sooner if it gets dirty. And when you fill the humidifier bottle, use distilled water only. Not tap. || E1
+  Caller -> Distilled only. Okay. I'll tell the others. We've had people use tap before. I'll tell them.
+  Nurse -> Thanks. Anything else?
+  Caller -> No. That's all. Thank you so much, Ana. You're always so quick with these.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Fernanda Alcaraz, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1935-07-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Kelsey, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: aide at her assisted living facility, certainty: stated, turns: [2]}
+    callback_phone: {value: "7705550153", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested oxygen supplies for a resident.
+    speaker: Caller
+    turns: [8]
+    quote: "Oxygen stuff. For her. The supplies. We're running low."
+    explanation: Documents the supply request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: One spare nasal cannula remained.
+      speaker: Caller
+      turns: [10]
+      quote: "We have one spare. Just one."
+      explanation: Documents the cannula supply.
+      facts:
+        - {type: supply, item: nasal cannulas, supply: 1 cannulas, certainty: stated}
+      covers: [A1]
+    - text: Humidifier bottles were gone, with the one on the machine almost empty.
+      speaker: Caller
+      turns: [12]
+      quote: "We're out."
+      explanation: Documents the bottle supply.
+      facts:
+        - {type: supply, item: humidifier bottles, supply: none, certainty: stated}
+      covers: [A2]
+    - text: She was on continuous oxygen at 2 liters.
+      speaker: Caller
+      turns: [14]
+      quote: "Two liters, all the time. Continuous."
+      explanation: Documents her oxygen setting.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to order nasal cannulas and humidifier bottles.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll order the cannulas and the humidifier bottles."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Delivery was planned for tomorrow afternoon.
+      speaker: Nurse
+      turns: [17]
+      quote: "They'll come tomorrow afternoon."
+      explanation: Documents delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised changing the cannula weekly or when dirty and filling the humidifier with distilled water only.
+      speaker: Nurse
+      turns: [19]
+      quote: "you can change her cannula every week, or sooner if it gets dirty."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+  risk_flags: []

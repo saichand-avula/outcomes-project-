@@ -1,0 +1,210 @@
+call_id: tr-031
+split: train
+blueprint: "Husband says the oxygen concentrator is alarming and beeping, 2 backup tanks left; wife is breathing fine (sat 94); nurse already ordered tanks (completed) and plans to have the DME company call about the concentrator (planned)."
+setup:
+  scenario_category: supply
+  subtype: dme_oxygen
+  secondary_tags: [negated_risk_phrase, trap_phrasing, late_answers]
+  clinical_domains: [equipment, dyspnea]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-16T08:42:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Opal Fitzgerald
+  patient_name_spoken: Opal Fitzgerald
+  patient_name_certainty: stated
+  patient_dob_true: "1947-04-03"
+  patient_dob_spoken: "1947-04-03"
+  patient_dob_certainty: stated
+  caller_name_true: Gerald
+  caller_name_spoken: Gerald
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "9015550138"
+  callback_phone_spoken: "9015550138"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Oxygen concentrator alarm beeping
+  reason_category: equipment_oxygen
+  relevant_context: Patient on continuous oxygen at 2 liters
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Oxygen concentrator started alarming and beeping about an hour ago
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: backup oxygen tanks
+    supply_remaining: "2"
+    supply_unit: tanks
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: breathing difficulty
+    symptom_present: false
+    history_or_context_text: Breathing comfortably on a tank
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "94"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: portable oxygen tanks
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: DME company
+    reason_or_trigger: concentrator alarm
+    timeframe: call within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Switch her to a backup tank at 2 liters, check the tubing for kinks, keep the concentrator unplugged, no smoking or open flames
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if saturation drops below 88 or she works to breathe; 911 for severe trouble breathing
+    trigger_condition: saturation below 88; breathing difficulty
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Tom, it's Gerald. Gerald Fitzgerald. My wife is Opal. || caller_name, patient_name, relationship
+  Nurse -> Hi, Gerald. Opal's date of birth?
+  Caller -> April third, nineteen forty seven. || patient_dob
+  Nurse -> And a number for you is nine oh one, five five five, zero one three eight? || callback_phone
+  Caller -> Yep, that's me. || callback_phone
+  Nurse -> What's going on this morning?
+  Caller -> The oxygen machine. The concentrator. It's beeping. It's been going about an hour. || cc, A1
+  Caller -> I turned it off and on, it just keeps going.
+  Nurse -> Okay. Is Opal okay? Is she breathing alright?
+  Caller -> She's fine. She's breathing fine. I put her on one of the tanks. || A3
+  Nurse -> Okay. Good. Do you have a finger oxygen meter?
+  Caller -> Yeah. Hang on. She's, it says ninety four. || A4
+  Nurse -> Okay. Ninety four. That's good. How many backup tanks do you have?
+  Caller -> I have, one, two. Two. The little ones. || A2
+  Nurse -> Okay. And what flow is she on?
+  Caller -> Two liters.
+  Nurse -> Okay. So here's what I'll do. I'm placing an order for more tanks right now. I've got the form open. || R1
+  Caller -> Okay.
+  Nurse -> Done. I've ordered the tanks. They'll deliver them this morning. || R1
+  Caller -> Oh good. That was fast.
+  Nurse -> And I'm going to call the equipment company about the concentrator. I'll ask them to come look at it, or swap it out. I'll call them within the hour. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> Leave the concentrator unplugged for now. Keep her on the tank at two liters, and check the tubing for kinks. And no smoking, no candles, nothing with a flame near the oxygen. || E1
+  Caller -> No, we don't smoke. Okay. Unplugged, tank at two. I got it.
+  Nurse -> One tank lasts a few hours, so don't wait. If the saturation goes under eighty eight, or she's working hard to breathe, call me right away. If she's struggling, nine one one. || E2
+  Caller -> Under eighty eight. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you so much, Tom.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "one sentence", heard_form: "I turned it off and on", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Opal Fitzgerald, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1947-04-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Gerald, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the oxygen concentrator was beeping continuously.
+    speaker: Caller
+    turns: [8]
+    quote: "The oxygen machine. The concentrator. It's beeping. It's been going about an hour."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: She was breathing comfortably on a backup tank.
+      speaker: Caller
+      turns: [11]
+      quote: "She's fine. She's breathing fine. I put her on one of the tanks."
+      explanation: Documents a pertinent negative for breathing difficulty and the current oxygen source.
+      facts:
+        - {type: pertinent_negative, name: breathing difficulty, certainty: stated}
+      covers: [A3]
+    - text: Oxygen saturation was 94.
+      speaker: Caller
+      turns: [13]
+      quote: "She's, it says ninety four."
+      explanation: Documents the reported saturation.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "94", certainty: stated}
+      covers: [A4]
+    - text: Two backup oxygen tanks remained.
+      speaker: Caller
+      turns: [15]
+      quote: "I have, one, two. Two. The little ones."
+      explanation: Documents the remaining backup oxygen supply.
+      facts:
+        - {type: supply, item: backup oxygen tanks, supply: 2 tanks, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Ordered additional portable oxygen tanks during the call, for delivery this morning.
+      speaker: Nurse
+      turns: [20]
+      quote: "Done. I've ordered the tanks. They'll deliver them this morning."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the equipment company within the hour about repairing or replacing the concentrator.
+      speaker: Nurse
+      turns: [22]
+      quote: "I'm going to call the equipment company about the concentrator."
+      explanation: Documents the planned equipment follow-up.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: call within the hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping the concentrator unplugged, keeping her on a tank at 2 liters, checking the tubing for kinks, and keeping flames away from the oxygen.
+      speaker: Nurse
+      turns: [24]
+      quote: "Leave the concentrator unplugged for now. Keep her on the tank at two liters, and check the tubing for kinks."
+      explanation: Documents equipment-use and safety instructions.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if saturation fell below 88 or she worked hard to breathe, and calling 911 if she struggled.
+      speaker: Nurse
+      turns: [26]
+      quote: "If the saturation goes under eighty eight, or she's working hard to breathe, call me right away."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

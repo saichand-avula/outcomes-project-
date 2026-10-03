@@ -1,0 +1,216 @@
+call_id: va-008
+split: val
+blueprint: "Patient thinks the doctor said half a tablet of furosemide but is not sure; the nurse's chart system is down so the dose cannot be verified; nurse advises holding today's dose until the physician confirms and plans to call back within 30 minutes."
+setup:
+  scenario_category: ambiguous
+  subtype: caller_unsure
+  secondary_tags: [hedging, trap_phrasing, phone_from_file]
+  clinical_domains: [medication, edema]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-16T15:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mortimer Gallagher
+  patient_name_spoken: Mortimer Gallagher
+  patient_name_certainty: stated
+  patient_dob_true: "1942-04-01"
+  patient_dob_spoken: "1942-04-01"
+  patient_dob_certainty: stated
+  caller_name_true: Mortimer Gallagher
+  caller_name_spoken: Mortimer Gallagher
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3175550170"
+  callback_phone_spoken: "3175550170"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Unsure whether his furosemide dose is half a tablet or a whole tablet
+  reason_category: medication_dose_question
+  relevant_context: Doctor changed the dose at the last visit
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    strength: 20 mg
+    dose: half a tablet
+    frequency: once a day
+    certainty: unclear
+    unclear_detail: Patient unsure whether the doctor said half a tablet or one tablet
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: ankle swelling
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: verify the furosemide dose
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within 30 minutes
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    reason_or_trigger: hold today's dose until the physician confirms
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh every morning and write it down, and elevate his legs when sitting
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for shortness of breath, rapid weight gain, or more swelling; 911 for severe trouble breathing
+    trigger_condition: shortness of breath; weight gain; swelling
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi, Joanne. Mortimer Gallagher. Mortimer with an M. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Mortimer. Your date of birth?
+  Caller -> April first, nineteen forty two. And no, I'm not joking. || patient_dob
+  Nurse -> Ha. Okay. And I have three one seven, five five five, zero one seven oh for you? || callback_phone
+  Caller -> That's right. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> I'm confused about my water pill. The furosemide. The doctor changed it at my last visit. || cc, A1
+  Caller -> I think he said half a tablet. But I'm not sure. It could have been a whole one. I wrote it down but I can't find the paper. || A1
+  Nurse -> Okay. What strength is the tablet?
+  Caller -> Twenty milligrams. Once a day, in the morning. || A1
+  Nurse -> Okay. Let me pull up your orders. Hold on. Hmm. I'm sorry, Mortimer, our system is down right now. I can't see it.
+  Caller -> Oh. Oh no.
+  Nurse -> It's okay. I'm going to message the doctor to verify exactly what he ordered, and I'll call you back within thirty minutes. || R1, R2
+  Caller -> Thirty minutes. Okay.
+  Nurse -> Have you taken today's dose yet?
+  Caller -> Not yet. I was going to, then I thought, let me call.
+  Nurse -> Good. Please hold off on the furosemide until I call you back. We'll make sure it's right. || R3
+  Caller -> Okay. I'll wait. Is that safe?
+  Nurse -> It's safe to wait half an hour. How are you feeling? Any swelling?
+  Caller -> My ankles are a little puffy. Mild. || A2
+  Nurse -> Any shortness of breath?
+  Caller -> No. My breathing is fine. || A3
+  Nurse -> Good. While you wait, put your feet up. And weigh yourself every morning and write it down. || E1
+  Caller -> I do the weighing. I'll put my feet up.
+  Nurse -> If you get short of breath, or your weight jumps, or the swelling gets worse, call us. And if you can't catch your breath, nine one one. || E2
+  Caller -> Okay. I will.
+  Nurse -> I'll call you soon.
+  Caller -> Thank you, Joanne.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mortimer Gallagher, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-04-01", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Mortimer Gallagher, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3175550170", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported being confused about his furosemide dose after the doctor changed it.
+    speaker: Caller
+    turns: [8]
+    quote: "I'm confused about my water pill. The furosemide. The doctor changed it at my last visit."
+    explanation: Documents the medication question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Furosemide 20 mg once a day in the morning was taken; the patient thought the doctor said half a tablet but was unsure and could not find his notes.
+      speaker: Caller
+      turns: [9]
+      quote: "I think he said half a tablet. But I'm not sure. It could have been a whole one."
+      explanation: Documents the uncertain dose with uncertainty preserved.
+      facts:
+        - {type: medication, name: furosemide, strength: 20 mg, dose: half a tablet, frequency: once a day, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: Mild ankle swelling was reported.
+      speaker: Caller
+      turns: [21]
+      quote: "My ankles are a little puffy. Mild."
+      explanation: Documents the symptom.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: No shortness of breath was reported.
+      speaker: Caller
+      turns: [23]
+      quote: "No. My breathing is fine."
+      explanation: Documents a pertinent negative for dyspnea.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised holding today's furosemide until the physician confirmed the dose.
+      speaker: Nurse
+      turns: [18]
+      quote: "Please hold off on the furosemide until I call you back."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: furosemide, certainty: stated}
+      covers: [R3]
+    - text: Planned to message the doctor to verify the dose and to call back within 30 minutes, because the chart system was down.
+      speaker: Nurse
+      turns: [14]
+      quote: "I'm going to message the doctor to verify exactly what he ordered, and I'll call you back within thirty minutes."
+      explanation: Documents the planned verification and callback.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+        - {type: action, action_type: callback, status: planned, timeframe: within 30 minutes, certainty: stated}
+      covers: [R1, R2]
+  education:
+    - text: Advised weighing every morning and recording it, and elevating his legs.
+      speaker: Nurse
+      turns: [24]
+      quote: "While you wait, put your feet up. And weigh yourself every morning and write it down."
+      explanation: Documents monitoring and comfort instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for shortness of breath, weight jump, or worsening swelling, and calling 911 if he could not catch his breath.
+      speaker: Nurse
+      turns: [26]
+      quote: "If you get short of breath, or your weight jumps, or the swelling gets worse, call us."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

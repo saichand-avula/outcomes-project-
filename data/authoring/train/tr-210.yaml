@@ -1,0 +1,232 @@
+call_id: tr-210
+split: train
+blueprint: "Daughter of a hospice patient reports her father has not had a bowel movement in four days and has a bloated, uncomfortable belly (pain a 4 out of 10). He is on oxycodone and a stool softener he has been skipping. Nurse plans a nurse visit tomorrow morning, a message to the provider, and a callback tonight; gives constipation guidance."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [constipation, pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Sofia
+  call_timestamp_utc: "2026-10-09T19:30:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mortimer Eckhart
+  patient_name_spoken: Mortimer Eckhart
+  patient_name_certainty: stated
+  patient_dob_true: "1944-03-08"
+  patient_dob_spoken: "1944-03-08"
+  patient_dob_certainty: stated
+  caller_name_true: Judith Eckhart-Moyer
+  caller_name_spoken: Judith Moyer
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "8475550133"
+  callback_phone_spoken: "8475550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father has not had a bowel movement in four days
+  reason_category: constipation
+  relevant_context: Hospice patient on opioid pain medicine
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: four days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bloated belly
+    symptom_present: true
+    severity: "4"
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    frequency: as needed
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: stool softener
+    medication_name_spoken: stool softener
+    medication_status: missed
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: four days without a bowel movement
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Restart the stool softener tonight, offer fluids and prune juice, and keep a note of any bowel movement
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting, severe belly pain, or a very hard swollen belly
+    trigger_condition: vomiting; severe belly pain; hard swollen belly
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Sofia.
+  Caller -> Hi, Sofia. It's Judith Moyer. I'm calling for my father, Mortimer Eckhart. He hasn't gone to the bathroom in four days. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Okay, Judith. Thanks for calling. What's his date of birth?
+  Caller -> March eighth, nineteen forty four. || patient_dob
+  Nurse -> And I have eight four seven, five five five, zero one three three. || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> Okay. When you say he hasn't gone, no bowel movement at all for four days?
+  Caller -> None. Not a thing. Since Sunday. And his belly's all puffed up. He keeps pushing on it. || A1, A2
+  Nurse -> Okay. Is he in pain? How would he rate it, zero to ten?
+  Caller -> He said a four. He said it's more uncomfortable than painful. A four, he said. || A2
+  Nurse -> Okay. What's he taking for pain?
+  Caller -> The oxycodone. When he needs it. He's been using it more this week. || A3
+  Nurse -> Okay. And does he have a stool softener he's supposed to be taking?
+  Caller -> He does. But he's been skipping it. He says it makes him gassy. I wasn't pushing it. || A4
+  Nurse -> Okay. That would explain some of this. Is he vomiting, or is his belly hard?
+  Caller -> No vomiting. It's puffy, but it's not hard like a rock. Soft, kind of. Just puffy.
+  Nurse -> Okay. I'm going to send a nurse out tomorrow morning to check him. || R1
+  Caller -> Tomorrow morning. Okay. That's good.
+  Nurse -> And I'm going to message the hospice provider about it, since it's been four days. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> Tonight, please restart the stool softener, and have him drink fluids. Prune juice is good. And jot down if he has any bowel movement. || E1, A4
+  Caller -> Restart the softener. Prune juice. I'll write it down. Okay. We have prune juice.
+  Nurse -> If he starts vomiting, has bad belly pain, or the belly gets very hard and swollen, call us right away. || E2
+  Caller -> Vomiting, bad pain, hard belly. Okay.
+  Nurse -> I'll call you back tonight to see how he's doing. || R3
+  Caller -> Tonight. Okay. Thank you, Sofia. He hates talking about this, so I'm the one calling.
+  Nurse -> That's what I'm here for. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mortimer Eckhart, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-03-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Judith Moyer, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "8475550133", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father had not had a bowel movement in four days.
+    speaker: Caller
+    turns: [2]
+    quote: "He hasn't gone to the bathroom in four days."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: No bowel movement had occurred for four days, since Sunday.
+      speaker: Caller
+      turns: [8]
+      quote: "None. Not a thing. Since Sunday."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: four days, certainty: stated}
+      covers: [A1]
+    - text: His belly was bloated, with discomfort rated 4.
+      speaker: Caller
+      turns: [10]
+      quote: "He said a four."
+      explanation: Documents the belly discomfort.
+      facts:
+        - {type: symptom, name: bloated belly, present: true, severity: "4", certainty: stated}
+      covers: [A2]
+    - text: Oxycodone was being taken as needed, more often this week.
+      speaker: Caller
+      turns: [12]
+      quote: "The oxycodone. When he needs it. He's been using it more this week."
+      explanation: Documents the opioid use.
+      facts:
+        - {type: medication, name: oxycodone, frequency: as needed, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: The stool softener had been skipped because it made him gassy.
+      speaker: Caller
+      turns: [14]
+      quote: "But he's been skipping it. He says it makes him gassy."
+      explanation: Documents the missed stool softener.
+      facts:
+        - {type: medication, name: stool softener, med_status: missed, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send a nurse out tomorrow morning to check him.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm going to send a nurse out tomorrow morning to check him."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the four days without a bowel movement.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'm going to message the hospice provider about it, since it's been four days."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tonight.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you back tonight to see how he's doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised restarting the stool softener tonight, giving fluids and prune juice, and noting any bowel movement.
+      speaker: Nurse
+      turns: [21]
+      quote: "Tonight, please restart the stool softener, and have him drink fluids."
+      explanation: Documents symptom management guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for vomiting, bad belly pain, or a very hard, swollen belly.
+      speaker: Nurse
+      turns: [23]
+      quote: "If he starts vomiting, has bad belly pain, or the belly gets very hard and swollen, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

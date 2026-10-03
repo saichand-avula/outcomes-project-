@@ -1,0 +1,267 @@
+call_id: tr-463
+split: train
+blueprint: "A wife calls hospice on a Saturday night: her husband ran out of liquid morphine yesterday afternoon because the refill was not delivered, and his pain has climbed to a nine out of ten with moaning and restlessness. Nurse pages on-call, contacts the pharmacy for an emergency supply, plans a nurse visit tonight, and gives comfort tips. Ran-out medication with uncontrolled pain (medication concern and uncontrolled symptom), spouse caller, patient 65+, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: ran_out_pain_crisis
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [pain, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Valentina
+  call_timestamp_utc: "2026-11-10T03:15:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Wendell Achterberg
+  patient_name_spoken: Wendell Achterberg
+  patient_name_certainty: stated
+  patient_dob_true: "1948-02-09"
+  patient_dob_spoken: "1948-02-09"
+  patient_dob_certainty: stated
+  caller_name_true: Loretta Achterberg
+  caller_name_spoken: Loretta Achterberg
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3145550137"
+  callback_phone_spoken: "3145550137"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband ran out of liquid morphine and his pain is severe
+  reason_category: pain
+  relevant_context: Hospice patient on liquid morphine for pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: ran out
+    dose: "10"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: yesterday afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe pain with moaning and restlessness
+    symptom_present: true
+    severity: severe
+    onset: since last night
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: The refill was not delivered
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: out of morphine with severe pain
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: emergency supply tonight
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the room dim and quiet, reposition him gently with pillows, and use the warm blanket until the medicine arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Ran out of liquid morphine because the refill was not delivered
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Severe pain rated nine out of ten with moaning and restlessness
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Valentina.
+  Caller -> Hi, Valentina. It's Loretta Achterberg. My husband is Wendell Achterberg. We ran out of the morphine yesterday afternoon and he's in terrible pain. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> Loretta, I'm so sorry. Let's fix this. First, is he awake, is he breathing okay?
+  Caller -> Thank you. Thank you for picking up.
+  Nurse -> I'm right here.
+  Caller -> He's awake. Breathing's okay. But he's moaning. He keeps trying to get up and he can't. I don't know what to do. I've been calling since six. Nobody called back.
+  Nurse -> I'm sorry about that.
+  Nurse -> I'm sorry you had to wait. I'm here now. How bad is the pain? Zero is none, ten is the worst.
+  Caller -> He said nine. I asked him a minute ago. He said nine. He can hardly talk. He's grimacing. || A2, F2
+  Nurse -> I understand.
+  Caller -> He keeps squeezing my hand.
+  Nurse -> Where is the pain?
+  Caller -> All over. His back, mostly. And his hip. It started last night, when the last dose wore off. Then it kept going up.
+  Nurse -> Okay. I'm writing it all down.
+  Nurse -> Okay. Tell me about the morphine. How much did he take, and when was the last dose? || A1
+  Caller -> The ten milligrams. Every four hours when he needs it. The last one was yesterday afternoon, about three. Then the bottle was empty. I scraped what I could. || A1
+  Nurse -> That's okay. You did what you could.
+  Caller -> I felt so helpless.
+  Nurse -> Okay. Did you call the pharmacy about a refill?
+  Caller -> Tuesday. I called Tuesday. They said it would come Thursday. It didn't come Thursday. I called Friday and got the machine. And then it was too late. The office closed.
+  Nurse -> Okay.
+  Nurse -> That should not have happened. I'm so sorry. We'll make it right tonight.
+  Caller -> I just want him to stop hurting. || A3
+  Nurse -> I know. That is exactly what we are going to work on.
+  Caller -> I know you will.
+  Nurse -> I know. I'm going to page the on-call clinician right now. I'll tell them he's out of morphine and in severe pain. || R1
+  Caller -> Please. Please hurry.
+  Nurse -> I will.
+  Nurse -> I will. I'll also call the pharmacy tonight, and get an emergency supply sent to your house. || R2
+  Caller -> Tonight? Can they do that?
+  Nurse -> Yes. We have an after hours line. I'll stay on it until it's arranged.
+  Caller -> I didn't know that. Nobody told us.
+  Nurse -> It's on the refrigerator magnet we left. Do you see it?
+  Caller -> Oh. Yes. It's right in front of me. I never looked.
+  Caller -> Thank you. Thank you so much.
+  Nurse -> And I'd like a nurse to come out tonight to see him and bring a dose with them if the clinician approves it. || R3
+  Caller -> Tonight. Oh, thank God.
+  Caller -> What do I do when the nurse arrives? Do I unlock the door?
+  Nurse -> Yes. Leave the porch light on.
+  Caller -> I will. I'll leave it on.
+  Nurse -> What time do you think he last slept?
+  Caller -> He hasn't. Not really. He dozes a few minutes and wakes up moaning. It's been almost a whole day.
+  Nurse -> Okay. Loretta, let me get a few details so I can get things moving. What's his date of birth?
+  Caller -> Okay.
+  Caller -> February ninth. Nineteen forty eight. || patient_dob
+  Nurse -> And your number?
+  Caller -> Three one four, five five five, oh one three seven. || callback_phone
+  Nurse -> Three one four, five five five, oh one three seven. Right? || callback_phone
+  Caller -> Yes. That's my cell. It's in my hand.
+  Nurse -> Good.
+  Nurse -> Perfect. Keep it near you. Is there anything that seems to help even a little?
+  Caller -> When I hold his hand he calms down a little. But then it comes back.
+  Nurse -> That helps more than you know.
+  Nurse -> Okay. Until the medicine comes, keep the room dim and quiet. Gently move him with pillows, one under his knees and one at his back. And a warm blanket can help. || E1
+  Caller -> Dim. Quiet. Pillows. Warm blanket. Okay. I have a heated one. Is that okay?
+  Nurse -> Warm is good. Not hot. Check it on your own arm first.
+  Caller -> The dog keeps pacing too. She knows something is wrong.
+  Nurse -> Dogs notice.
+  Caller -> Okay. I'll do that.
+  Caller -> I'll go put it on him now.
+  Nurse -> Good.
+  Nurse -> Keep your phone near you.
+  Caller -> Please. I'll be right here.
+  Caller -> Okay. I'll keep my phone right here. Valentina?
+  Nurse -> Yes?
+  Caller -> I'm sorry I'm crying.
+  Caller -> Thirty eight years. I don't want him to hurt.
+  Nurse -> Don't be sorry. You're doing everything right. You called.
+  Caller -> I've been so scared since last night. I thought he would have to go to the hospital. He doesn't want to.
+  Nurse -> We're going to do our best to keep him at home.
+  Caller -> That's all he wants. To be in his own bed.
+  Caller -> Thank you.
+  Nurse -> I'm paging now. Stay by your phone.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Wendell Achterberg, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1948-02-09", certainty: stated, heard_as: [], turns: [45]}
+    caller_name: {value: Loretta Achterberg, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550137", certainty: stated, heard_as: [], turns: [47, 48]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband ran out of liquid morphine and his pain is severe.
+    speaker: Caller
+    turns: [2]
+    quote: "We ran out of the morphine yesterday afternoon and he's in terrible pain."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine 10 mg was taken every four hours as needed, last given yesterday afternoon, and the bottle then ran out.
+      speaker: Caller
+      turns: [16]
+      quote: "The ten milligrams. Every four hours when he needs it."
+      explanation: Documents the medication and dose. The morphine is named in the tagged call turn.
+      facts:
+        - {type: medication, name: morphine, dose: "10", unit: mg, frequency: every four hours as needed, prn: true, last_dose: yesterday afternoon, med_status: ran out, certainty: stated}
+      covers: [A1]
+    - text: Pain was nine out of ten with moaning and grimacing since last night.
+      speaker: Caller
+      turns: [9]
+      quote: "He said nine."
+      explanation: Documents the severe pain.
+      facts:
+        - {type: symptom, name: severe pain with moaning and restlessness, present: true, severity: severe, onset: since last night, certainty: stated}
+      covers: [A2]
+    - text: The refill was not delivered.
+      speaker: Caller
+      turns: [20]
+      quote: "It didn't come Thursday."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: The refill was not delivered, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician about the missing morphine and severe pain.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call the pharmacy for an emergency supply tonight.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'll also call the pharmacy tonight, and get an emergency supply sent to your house."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tonight.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'd like a nurse to come out tonight to see him"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping the room dim and quiet, repositioning with pillows, and using a warm blanket.
+      speaker: Nurse
+      turns: [54]
+      quote: "keep the room dim and quiet."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "We ran out of the morphine yesterday afternoon and he's in terrible pain."}
+    - {category: uncontrolled_symptom, turns: [9], quote: "He said nine."}

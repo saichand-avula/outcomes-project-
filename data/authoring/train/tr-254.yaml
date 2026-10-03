@@ -1,0 +1,284 @@
+call_id: tr-254
+split: train
+blueprint: "Paid caregiver for a 44-year-old palliative patient with a draining surgical wound on her abdomen: gauze pads, abdominal pads, and saline are running low (eight gauze, two abdominal pads, one bottle of saline), and the dressing was soaked through twice today. Drainage is yellowish, no odor, no redness spreading. Caregiver is cautious and keeps checking facts with the patient in the next room. Nurse places the order (completed), arranges same-day courier delivery, plans a nurse visit tomorrow morning, and gives dressing guidance. Wound supplies, v2 short."
+setup:
+  scenario_category: supply
+  subtype: wound_supplies
+  secondary_tags: [phone_from_file, hedging, split_turns, late_answers, multi_issue]
+  clinical_domains: [equipment, wound_skin]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-22T16:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marguerite Sutherland
+  patient_name_spoken: Marguerite Sutherland
+  patient_name_certainty: stated
+  patient_dob_true: "1982-03-07"
+  patient_dob_spoken: "1982-03-07"
+  patient_dob_certainty: stated
+  caller_name_true: Esperanza Pruitt
+  caller_name_spoken: Esperanza Pruitt
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "8325550113"
+  callback_phone_spoken: "8325550113"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that wound dressing supplies are running low and the dressing soaked through
+  reason_category: supply_wound
+  relevant_context: Palliative patient with a draining abdominal wound
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: gauze pads
+    supply_remaining: "8"
+    supply_unit: pads
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: abdominal pads
+    supply_remaining: "2"
+    supply_unit: pads
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: saline
+    supply_remaining: "1"
+    supply_unit: bottle
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: dressing soaked through
+    symptom_present: true
+    severity: twice today
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: odor or spreading redness at the wound
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: gauze, abdominal pads and saline
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    recipient_or_target: courier
+    timeframe: tonight
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Change the dressing when it is soaked through, clean with saline from the center outward, keep the skin around it dry, and use one abdominal pad on top
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for foul odor, spreading redness, fever, green or bloody drainage, or drainage that suddenly increases
+    trigger_condition: foul odor; spreading redness; fever; green or bloody drainage; sudden increase
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Carla.
+  Caller -> Hi, Carla. Esperanza Pruitt. I'm one of the caregivers for Marguerite Sutherland. || caller_name, relationship, patient_name
+  Nurse -> Hi, Esperanza. How can I help?
+  Caller -> I need to order supplies for her wound. We're running low. And it's Thursday, and I don't want to wait until Monday. || cc
+  Nurse -> Okay. Let me pull her up. Do you have her date of birth?
+  Caller -> March seventh. Nineteen eighty two. || patient_dob
+  Nurse -> Thanks. And I have eight three two, five five five, zero one one three. || callback_phone
+  Caller -> That's the house. I'm on the house phone. It's in the kitchen.
+  Nurse -> Are you the only one there with her right now?
+  Caller -> Yes. Her husband is at work. He's back at six. She's in the living room on the couch.
+  Nurse -> Okay. Good.
+  Nurse -> Okay. Tell me what you have left.
+  Caller -> Okay. Hold on. Let me go to the supply closet. Don't hang up.
+  Nurse -> I won't.
+  Caller -> Marguerite? Marguerite, honey, I'm just counting supplies. Go back to your show. Okay.
+  Nurse -> No rush.
+  Caller -> Okay. I'm in the closet. Gauze pads. The four by fours. One, two. There's eight. Eight left. || A1
+  Nurse -> Eight gauze pads. And the abdominal pads, the thicker ones?
+  Caller -> The big ones. The ABD pads. There's two. Two left. || A2
+  Nurse -> Okay. And saline?
+  Caller -> The wound wash? The bottle? One. There's one bottle, and it's about half. Half full. Maybe less. || A3
+  Nurse -> One bottle, half full. Okay. Esperanza, how often are you changing the dressing?
+  Caller -> It's supposed to be once a day. But today I did it twice. It soaked through. This morning at nine and again at two.
+  Nurse -> Soaked through. Okay. Tell me about the drainage.
+  Caller -> It's more than yesterday. A lot more than yesterday. The pad was wet all the way through. It was heavy. And the color is yellowish. Kind of a light yellow. Not bloody. || A4
+  Nurse -> Okay. Any smell?
+  Caller -> No. No smell. I checked. I'd know. I've worked with wounds before. It smells like nothing. Just a little like the saline. || A5
+  Nurse -> Okay. And the skin around it? Is the redness spreading, any heat?
+  Caller -> No. It's the same red ring it's had. It's not bigger. I took a picture on Monday and I compared. It's the same. And it's not hot. || A5
+  Nurse -> That's very good that you tracked it. Is she in pain? Any fever?
+  Caller -> She says it's sore. Not worse than before. A three, she said. And no fever. I took it at lunch. Ninety eight six.
+  Nurse -> Okay. Is she eating and drinking normally?
+  Caller -> She ate half a sandwich at lunch. She's drinking her tea. Her appetite is okay.
+  Nurse -> Good.
+  Caller -> She's tired, though. But she's always tired after the dressing change. It takes it out of her.
+  Nurse -> That's understandable.
+  Nurse -> Okay. Thank you. That's helpful.
+  Caller -> Is the heavy drainage normal? Should I be worried?
+  Nurse -> It's something I want the nurse to look at. It's not an emergency with no odor and no fever. But the increase is worth looking at. I'm going to send a nurse tomorrow morning. || R3
+  Caller -> Tomorrow morning. Okay. That's good. I'll tell Marguerite.
+  Nurse -> Now, supplies. I've put in the order for gauze, abdominal pads, and saline just now. It's done. || R1
+  Caller -> Oh good. Thank you. When will they come?
+  Nurse -> The regular delivery is Monday. That's too long. I'm going to try for a courier tonight. || R2
+  Caller -> Tonight? Oh, that'd be amazing. Because eight pads at twice a day is four days if I use one at a time. But I use more than one per change.
+  Nurse -> Right. That's why I don't want to wait. I'll call you back as soon as I know the courier time.
+  Caller -> Okay. I'll be here until ten. And then the night person comes. Her name is Wanda. I'll tell her.
+  Nurse -> Good. Please leave her a note.
+  Caller -> I will. In the notebook.
+  Nurse -> Esperanza, for the dressing in the meantime. When it soaks through, change it. Don't wait. Clean it with saline from the center outward, keep the skin around it dry, and use one abdominal pad on top. || E1
+  Caller -> Change when soaked. Saline, center out. Skin dry. One ABD on top. Okay. That's what I've been doing.
+  Nurse -> Good. If you start to run out before the courier comes, call me. Don't stretch the supplies.
+  Caller -> Okay. I won't stretch them. I've heard that's bad.
+  Nurse -> It is. A wet dressing sits on the skin and breaks it down.
+  Caller -> Right. Right. Okay.
+  Nurse -> And wash your hands before and after, and use clean gloves each time.
+  Caller -> Gloves. We have plenty of gloves. Those didn't run out.
+  Nurse -> Perfect.
+  Nurse -> And call us if you notice a bad smell, if the redness spreads, if she runs a fever, if the drainage turns green or bloody, or if it suddenly gets much heavier. || E2
+  Caller -> Smell. Redness spreading. Fever. Green or bloody. Heavier. Okay. I'll write that in the notebook for Wanda too.
+  Nurse -> Perfect. Anything else I can help with?
+  Caller -> No. I think that's it. Thank you, Carla. I was a little nervous about asking for more.
+  Nurse -> Never be nervous. You did the right thing.
+  Caller -> Thank you. Have a good evening.
+  Nurse -> You too. I'll call you back about the courier.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marguerite Sutherland, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1982-03-07", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Esperanza Pruitt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "8325550113", certainty: stated, heard_as: [], turns: [7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that wound dressing supplies were running low and the dressing had soaked through.
+    speaker: Caller
+    turns: [4]
+    quote: "I need to order supplies for her wound. We're running low."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Eight gauze pads remained.
+      speaker: Caller
+      turns: [17]
+      quote: "One, two. There's eight. Eight left."
+      explanation: Documents the gauze supply.
+      facts:
+        - {type: supply, item: gauze pads, supply: 8 pads, certainty: stated}
+      covers: [A1]
+    - text: Two abdominal pads remained.
+      speaker: Caller
+      turns: [19]
+      quote: "The big ones. The ABD pads. There's two. Two left."
+      explanation: Documents the abdominal pad supply.
+      facts:
+        - {type: supply, item: abdominal pads, supply: 2 pads, certainty: stated}
+      covers: [A2]
+    - text: One half-full bottle of saline remained.
+      speaker: Caller
+      turns: [21]
+      quote: "One. There's one bottle, and it's about half."
+      explanation: Documents the saline supply.
+      facts:
+        - {type: supply, item: saline, supply: 1 bottle, certainty: stated}
+      covers: [A3]
+    - text: The dressing soaked through twice today with more yellowish drainage than yesterday.
+      speaker: Caller
+      turns: [23]
+      quote: "It soaked through. This morning at nine and again at two."
+      explanation: Documents the increased drainage.
+      facts:
+        - {type: symptom, name: dressing soaked through, present: true, severity: twice today, certainty: stated}
+      covers: [A4]
+    - text: There was no odor and the redness around the wound had not spread.
+      speaker: Caller
+      turns: [27]
+      quote: "No. No smell. I checked."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: odor or spreading redness at the wound, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Placed the order for gauze, abdominal pads, and saline.
+      speaker: Nurse
+      turns: [41]
+      quote: "I've put in the order for gauze, abdominal pads, and saline just now. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to try for a courier delivery tonight.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'm going to try for a courier tonight."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+    - text: Planned to send a nurse tomorrow morning to look at the increased drainage.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm going to send a nurse tomorrow morning."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised changing the dressing when soaked, cleaning with saline from the center outward, keeping the surrounding skin dry, and using one abdominal pad on top.
+      speaker: Nurse
+      turns: [49]
+      quote: "When it soaks through, change it. Don't wait."
+      explanation: Documents dressing guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a bad smell, spreading redness, fever, green or bloody drainage, or a sudden increase in drainage.
+      speaker: Nurse
+      turns: [58]
+      quote: "call us if you notice a bad smell, if the redness spreads, if she runs a fever, if the drainage turns green or bloody, or if it suddenly gets much heavier."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

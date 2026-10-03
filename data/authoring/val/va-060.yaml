@@ -1,0 +1,256 @@
+call_id: va-060
+split: val
+blueprint: "A mother, Genoveva Wolcott, gives a routine check-in on her six-year-old son Pascal's asthma: his controller inhaler is twice a day with a spacer, he needed his rescue inhaler twice this week, woke coughing once at night, and has no wheezing now. She asks about gym class. Nurse reviews spacer technique and rinsing his mouth, sets an asthma action plan reminder, and plans a callback in a week. Pediatric parent caller, routine, v2 short."
+setup:
+  scenario_category: routine
+  subtype: pediatric_asthma_check
+  secondary_tags: [parent, pediatric, prn_and_scheduled, equipment_use, late_answers, offtopic_chatter]
+  clinical_domains: [respiratory, medication, equipment]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Ginevra
+  call_timestamp_utc: "2026-11-30T22:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Pascal Wolcott
+  patient_name_spoken: Pascal Wolcott
+  patient_name_certainty: stated
+  patient_dob_true: "2020-04-09"
+  patient_dob_spoken: "2020-04-09"
+  patient_dob_certainty: stated
+  caller_name_true: Genoveva Wolcott
+  caller_name_spoken: Genoveva Wolcott
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "8085550119"
+  callback_phone_spoken: "8085550119"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine asthma update on her son and asked about gym class
+  reason_category: general_update
+  relevant_context: Pediatric home care patient with asthma on a controller and a rescue inhaler
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: fluticasone
+    medication_name_spoken: fluticasone
+    medication_status: taking
+    dose: "44"
+    unit: mcg
+    frequency: two puffs twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    dose: "2"
+    unit: puffs
+    frequency: as needed
+    prn: true
+    last_dose: Wednesday evening
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: night cough
+    symptom_present: true
+    severity: mild
+    onset: once this week
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: wheezing or fast breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: next week
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Use the spacer with each puff, have him breathe slowly in and hold for ten seconds, and rinse his mouth after the controller
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Use the rescue inhaler for cough or wheeze and call if he needs it more than twice a week or has trouble breathing, and dial 911 if his lips turn blue
+    trigger_condition: rescue inhaler more than twice a week; trouble breathing; blue lips
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Ginevra.
+  Caller -> Hi, Ginevra. It's Genoveva Wolcott. I'm calling about my son. Pascal Wolcott. Just a check in about his asthma. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Genoveva. Good to hear from you. How's Pascal doing?
+  Caller -> Pretty well. Pretty well. A couple of little things. I wanted to make sure they're normal.
+  Nurse -> Sure. What's his date of birth?
+  Caller -> April ninth, twenty twenty. He turned six in the spring. || patient_dob
+  Nurse -> Perfect. And your number?
+  Caller -> Eight oh eight, five five five, zero one one nine. || callback_phone
+  Nurse -> Got it. Tell me about his controller. Is he still doing it twice a day?
+  Caller -> Um. Let me think. I'm trying to remember.
+  Nurse -> Take your time, there's no rush.
+  Caller -> Sorry, I keep going back and forth. It's been a long day.
+  Nurse -> I understand. Take a breath.
+  Caller -> Yes. The fluticasone. Forty four micrograms. Two puffs in the morning, two at night, with the spacer. I'm very strict. He did it this morning. || A1
+  Nurse -> Great. And the rescue inhaler? The albuterol? || A2
+  Caller -> Okay. I've got a notebook now. Go ahead.
+  Nurse -> Alright.
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> He needed it twice this week. Wednesday evening was the last one. Two puffs. He was coughing after soccer practice. || A2
+  Nurse -> Did the albuterol help? || A2
+  Caller -> Right away. Within five minutes. He went back to playing. He's got a lot of energy.
+  Nurse -> That's good. What about at night? Is he waking up coughing?
+  Caller -> Once. On Sunday. He coughed for a minute and went back to sleep. That's all. Just the once. || A3
+  Nurse -> Okay. Any wheezing right now? Fast breathing? Using his belly to breathe?
+  Caller -> Let me grab my glasses, one second.
+  Nurse -> Sure, I'll wait.
+  Caller -> No. He's playing with his trains. He's breathing totally normally. No sounds at all. || A4
+  Nurse -> Wonderful. Any colds, runny nose?
+  Caller -> A little sniffle at the beginning of the week. Gone now.
+  Nurse -> Good. Has anything changed at home? Pets, dust, smoke?
+  Caller -> We got a new rug. And my husband's been burning candles. Maybe it's the candles.
+  Nurse -> Candles can bother some kids. Maybe skip them for a while and see.
+  Caller -> Hang on, let me move to the other room. It's loud in here.
+  Nurse -> No problem, take your time.
+  Caller -> I'll tell him. He won't like it. He loves his pumpkin spice.
+  Nurse -> Ha. A sacrifice for the cause.
+  Caller -> One sec. My phone is making that beeping sound.
+  Nurse -> No worries, I'll wait.
+  Caller -> I'll make him.
+  Nurse -> Now, how is Pascal doing with the spacer?
+  Caller -> Good. I do it with him. He breathes in slow. We count.
+  Nurse -> Let me check technique with you. When he uses the spacer, he puts the puff in and breathes in slowly, and holds his breath for about ten seconds before breathing out. Is that what you do?
+  Caller -> I appreciate you being patient with me.
+  Nurse -> Not a problem at all.
+  Caller -> We hold for about five. Is ten better?
+  Nurse -> Ten is ideal if he can. Count out loud together. And after the controller inhaler, have him rinse his mouth and spit. That keeps the medicine from causing thrush. || E1
+  Caller -> Rinse and spit. We forget that sometimes. I'll put a cup by the sink.
+  Nurse -> A cup by the sink is a great trick.
+  Caller -> Okay. And what do I do about gym class? He's allowed to run, right? The teacher says maybe he shouldn't.
+  Nurse -> He can absolutely do gym. Exercise is good for him. Give him the rescue inhaler before gym if his doctor's plan says so, and make sure the teacher knows where it is.
+  Caller -> It's in his backpack. And the school nurse has a spare.
+  Nurse -> Perfect. Make sure the school has a copy of his asthma action plan. The green, yellow, red one.
+  Caller -> I gave them one in September. I'll check they still have it.
+  Nurse -> Good. And please call us if he needs the rescue inhaler more than twice a week, or if he has trouble breathing, or if the cough wakes him more. If his lips turn blue or he can't talk, call nine one one. || E2
+  Caller -> More than twice a week. Trouble breathing. Blue lips. Nine one one. Okay. I have it on the fridge.
+  Nurse -> Great. I'd like to check in with you again next week to see how the week went. || R1
+  Caller -> That would be nice. Thank you. Call anytime in the afternoon.
+  Nurse -> Will do. Anything else?
+  Caller -> Just one thing. He asked if he can get a dog. I said ask the nurse.
+  Nurse -> Ha. Sneaky. Dogs can bother asthma for some kids, but not all. Let's talk to his doctor first.
+  Caller -> Okay. I'll tell him you said we'll see.
+  Nurse -> Perfect. We'll see.
+  Caller -> He'll be thrilled. He thinks that's a yes.
+  Nurse -> Ha. Parents know that one.
+  Caller -> Okay. Sorry about that. Go on.
+  Nurse -> Alright, thank you.
+  Caller -> Thank you so much, Ginevra.
+  Nurse -> Anytime. Bye, Genoveva.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Pascal Wolcott, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2020-04-09", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Genoveva Wolcott, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "8085550119", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine asthma update on her son and asked about gym class.
+    speaker: Caller
+    turns: [2]
+    quote: "Just a check in about his asthma."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Fluticasone 44 mcg, two puffs twice a day with a spacer, was given this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "The fluticasone. Forty four micrograms."
+      explanation: Documents the controller inhaler.
+      facts:
+        - {type: medication, name: fluticasone, dose: "44", unit: mcg, frequency: two puffs twice a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Albuterol 2 puffs as needed was used twice this week, last on Wednesday evening.
+      speaker: Caller
+      turns: [20]
+      quote: "He needed it twice this week."
+      explanation: Documents the rescue inhaler use.
+      facts:
+        - {type: medication, name: albuterol, dose: "2", unit: puffs, frequency: as needed, prn: true, last_dose: Wednesday evening, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He coughed once at night on Sunday and went back to sleep.
+      speaker: Caller
+      turns: [24]
+      quote: "Once. On Sunday."
+      explanation: Documents the night cough.
+      facts:
+        - {type: symptom, name: night cough, present: true, severity: mild, onset: once this week, certainty: stated}
+      covers: [A3]
+    - text: He had no wheezing or fast breathing.
+      speaker: Caller
+      turns: [28]
+      quote: "He's breathing totally normally."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: wheezing or fast breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a callback next week.
+      speaker: Nurse
+      turns: [57]
+      quote: "I'd like to check in with you again next week"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: next week, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Reviewed spacer technique with a ten second hold and rinsing his mouth after the controller.
+      speaker: Nurse
+      turns: [47]
+      quote: "Ten is ideal if he can."
+      explanation: Documents equipment teaching.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for rescue inhaler use more than twice a week or trouble breathing, and 911 for blue lips.
+      speaker: Nurse
+      turns: [55]
+      quote: "please call us if he needs the rescue inhaler more than twice a week"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

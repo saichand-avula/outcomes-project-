@@ -1,0 +1,403 @@
+call_id: tr-283
+split: train
+blueprint: "A 58-year-old man with pancreatic cancer calls palliative care at night, whispering so he doesn't wake his wife: no real sleep for three nights, pain at a five in the belly, and he says he is tired of all of it and wishes he would not wake up. He is evasive at first, deflects to his garden and his daughter, and says he would never do anything to himself and has no plan. The nurse asks directly, takes his medicines list, and plans an on-call page, a social work and chaplain visit tomorrow, a nurse visit tomorrow morning, and a callback within thirty minutes. Gives the 988 line, asks him to have his wife hold the pills. Passive suicidal statement, self-caller aged 18-64, long v2, slow, with silences and tangents."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, offtopic_chatter, trap_phrasing]
+  clinical_domains: [mood, sleep, pain, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Larkspur Palliative Care
+  agency_type: palliative
+  nurse_name: Mina
+  call_timestamp_utc: "2026-11-01T06:35:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Desmond Achterberg
+  patient_name_spoken: Desmond Achterberg
+  patient_name_certainty: stated
+  patient_dob_true: "1967-05-13"
+  patient_dob_spoken: "1967-05-13"
+  patient_dob_certainty: stated
+  caller_name_true: Desmond Achterberg
+  caller_name_spoken: Desmond Achterberg
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3035550178"
+  callback_phone_spoken: "3035550178"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that he cannot sleep, has belly pain, and feels worn out and low
+  reason_category: mood
+  relevant_context: Palliative care patient with pancreatic cancer
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: not sleeping
+    symptom_present: true
+    onset_or_duration: three nights
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: feeling worn out and hopeless
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: belly pain
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: ten last night
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: patient
+    medication_name_true: mirtazapine
+    medication_name_spoken: mirtazapine
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    frequency: at bedtime
+    last_dose: nine last night
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: plan or intent to harm himself
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: context
+    reporter: patient
+    history_or_context_text: Lives with his wife, who was asleep upstairs, and did not want to wake her
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: worn out, hopeless statement, poor sleep and belly pain
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker and chaplain
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time, day or night, if the thoughts get worse or he feels unsafe
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Ask his wife to keep and give out his pain medicine and the other pill bottles for now
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call the line any hour tonight, and wake his wife if the thoughts change
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient says he wishes he would not wake up
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Larkspur Palliative Care, this is Mina.
+  Caller -> Hi. Um. Hi. Sorry. Is this too early? I didn't know if somebody would answer.
+  Nurse -> No, someone is always here. I'm glad you called. Who am I talking to?
+  Caller -> It's Desmond. Desmond Achterberg. || caller_name, relationship, patient_name
+  Nurse -> Hi, Desmond. I'm Mina, I'm a nurse. How can I help?
+  Caller -> I, uh. I can't sleep. That's the main thing. I'm sorry to bother you. || cc
+  Nurse -> It's no bother. That's what this line is for. Can I get your date of birth so I can pull up your chart?
+  Caller -> Sure. It's May thirteenth. Nineteen sixty seven. || patient_dob
+  Nurse -> Thank you. And what's the best number to reach you at?
+  Caller -> This is my cell. Three zero three. Five five five. Zero one seven eight. || callback_phone
+  Nurse -> Got it. Desmond, you're talking quietly. Is somebody else there?
+  Caller -> My wife is upstairs. Annette. She's asleep. I'm in the kitchen. I don't want to wake her. She doesn't sleep much either. She's finally out. || A7
+  Nurse -> Okay. That's kind of you. So, you can't sleep. How long has this been going on?
+  Caller -> A while. I mean, I haven't slept. Not really. Three nights now. I lie there and I watch the clock. I might get an hour. Then I'm up. || A1
+  Nurse -> That sounds exhausting. What's keeping you up? Is it pain, or your mind going?
+  Caller -> Both. It's a bit of both. The pain is there. It's in my belly. It's a five, I'd say. It's not terrible. It's a dull one. It's always there. || A3
+  Nurse -> Okay. A five. And you're taking something for it?
+  Caller -> The oxycodone. Five milligrams. Every four hours if I need it. I took one at ten last night. I try not to take it too often. I don't like how foggy it makes me. || A4
+  Nurse -> Okay. That's good to know. And are there any other medicines you take at night?
+  Caller -> The mirtazapine. Fifteen milligrams. At bedtime. They said it would help me sleep and my appetite. I took it at nine. It's not doing much. || A5
+  Nurse -> Okay. Mirtazapine, fifteen, at bedtime, and it's not helping with sleep. || A5
+  Caller -> No. I think I'm too wound up. My brain doesn't turn off.
+  Nurse -> What's your brain doing when it's going?
+  Caller -> Just, you know. Going around. The same things.
+  Nurse -> What kind of things?
+  Caller -> Oh. Just. Everything. My daughter's wedding is in June. I won't be there. That's what I think about. I think, I won't be there to walk her down. And then I think about the garden. I never planted the bulbs this year. That's silly. It's a silly thing to be upset about.
+  Nurse -> It's not silly at all. It sounds like those things matter a lot to you.
+  Caller -> They do. They do. I put the tulips in every fall. Every year since we bought the house. And this year I just didn't. I looked at the bag in the garage. It's still sitting there. Annette keeps saying I'll do it next week.
+  Nurse -> It sounds like you've been carrying a lot.
+  Caller -> I guess.
+  Nurse -> How have you been feeling in yourself, emotionally, the last week or so?
+  Caller -> Tired. I'm just tired. Of all of it. The pills and the appointments and the, everyone being so careful with me. The looks. I don't know. I'm tired of all of it.
+  Nurse -> That makes sense. That's a lot to be tired of.
+  Caller -> Yeah.
+  Nurse -> Desmond, can I ask you more about that? When you say you're tired of all of it?
+  Caller -> I don't know. It's just that, sometimes I think it would be easier if I just didn't wake up. You know? I just wish I wouldn't wake up. Not in a bad way. || F1, A2
+  Nurse -> Thank you for telling me that. I know that's not easy to say. I want to ask you about it directly, if that's okay.
+  Caller -> Okay.
+  Nurse -> When you say you wish you wouldn't wake up, are you having thoughts of hurting yourself or ending your life?
+  Caller -> No. No. I'm not saying that. I wouldn't do anything. I'd never do that to Annette. Or Josie. That's my daughter. I'd never. I'm just saying I wish it was over. It's not me wanting to do something.
+  Nurse -> Okay. I hear you. Have you thought about how you might do something, even if you wouldn't?
+  Caller -> No. No plan. No. I'm not planning anything. I just, I get low at night. It's the nights. It's not like that during the day. During the day I'm okay. || A6
+  Nurse -> Okay. I believe you. And I'm really glad you told me. Has there been any time in the past few weeks you thought about acting on those thoughts?
+  Caller -> No. Honestly. No. It's just a wish. It's like, a heavy wish. I don't know how to say it.
+  Nurse -> You're saying it fine. It's a heavy feeling at night, and you wish it would just end, but you're not thinking about hurting yourself.
+  Caller -> Right. Right. That's exactly it.
+  Nurse -> Okay. Desmond, I want to make sure you're not alone with this. Have you told Annette or anyone how you've been feeling?
+  Caller -> I haven't. I don't want to scare her. She's got enough. She's doing everything. I don't want to put this on her.
+  Nurse -> I understand. She loves you. She'd probably want to know. But we can come back to that. Is there anyone else you talk to? Josie? A friend?
+  Caller -> Josie, I call her on Sundays. I don't tell her the bad stuff. I tell her about the football. My buddy Walt comes by on Thursdays. We watch the game.
+  Nurse -> That sounds good. Do you talk about how you're feeling with Walt?
+  Caller -> No. No, we talk about the Broncos. It's fine. It's what I like about Walt. He doesn't ask.
+  Nurse -> Ha. Okay. Some people are good like that.
+  Caller -> He's good like that.
+  Nurse -> Desmond, do you have a lot of medicines in the house? The oxycodone, the others? || A4
+  Caller -> Some. The bottles are in the drawer in the bathroom. Upstairs. And a few down here in the cabinet.
+  Nurse -> Okay. And Annette knows where they are?
+  Caller -> She does the pill sorting for the week. She puts them in the little box. But the bottles are around.
+  Nurse -> Okay. I'm going to ask you something, and it's not because I think you'd do anything. It's just a way of keeping things safe on a hard night. Would you be okay with Annette keeping the bottles, and handing out your doses for now?
+  Caller -> She already does most of them. I'd have to tell her why.
+  Nurse -> You don't have to tell her everything tonight. You could say the team suggested it. And tomorrow, the social worker can help you talk to her if you want.
+  Caller -> I could do that. I'd say the nurse said to. Okay.
+  Nurse -> I'd like you to do that. Maybe tonight, or first thing in the morning. Wake her if you need to. || E2
+  Caller -> I'll talk to her in the morning. She's up at six.
+  Nurse -> That's soon. Okay. How's your pain right now? Still at a five?
+  Caller -> About that. It's a five. It's a steady five.
+  Nurse -> Would a dose of your oxycodone help? It's been more than four hours since ten. || A4
+  Caller -> Maybe. Yeah. I could take one. I was holding off.
+  Nurse -> I think that would be a good idea. It might help you rest. And let me page the on-call clinician right now. They might have something to suggest for the nights too. || R1
+  Caller -> Okay. Is that a big deal? Calling the doctor?
+  Nurse -> It's not a big deal. It's what we do. I just want them to know what you told me, about being worn out and the nights being hard. You deserve to have this looked at.
+  Caller -> Okay. That's fine.
+  Nurse -> I'd also like our social worker and our chaplain to come see you tomorrow. They're really good at this part of things. The worry, the heavy nights, the wedding. || R2
+  Caller -> The chaplain. I'm not really a church guy.
+  Nurse -> That's fine. Ours are not preachy. Some people just like to talk to someone who isn't family. You can say no.
+  Caller -> Okay. I'll see them. I'll see the social worker. Maybe the chaplain. Let me see.
+  Nurse -> That works. And I'm going to send a nurse out in the morning to see you, too. To check your pain and your sleep, and just sit with you. || R3
+  Caller -> What time?
+  Nurse -> Morning. The scheduler will call you with a window. I'll ask for early.
+  Caller -> That's fine. We're home. We're always home.
+  Nurse -> Good. Desmond, I also want to give you a number. If these thoughts ever get stronger, or you ever feel unsafe, you can call or text nine eight eight, any time, day or night. It's the crisis line. Anyone can use it. || E1
+  Caller -> Nine eight eight. Okay.
+  Nurse -> Do you want to write it down?
+  Caller -> I can remember. Nine eight eight. Like a, like a phone number. It's easy.
+  Nurse -> That's right. And you can also call us here, any hour tonight, and if the thoughts change, wake Annette. She would want you to. || E3
+  Caller -> I'd rather not wake her. But I'll call you.
+  Nurse -> That's fine. Call me. I'll be here. And I'm going to call you back in about thirty minutes, after I talk to the on-call clinician, to see how you're doing and tell you what they said. || R4
+  Caller -> You'll call me? On this phone?
+  Nurse -> On the cell, yes. Three oh three, five five five, zero one seven eight. || callback_phone
+  Caller -> That's right. Okay.
+  Nurse -> Is the phone going to be on?
+  Caller -> I'll keep it in my pocket. I'll put it on vibrate so it doesn't wake her.
+  Nurse -> Good idea. Take your medicine now, if you're going to. And try to have some water.
+  Caller -> I'll go get the pill. It's in the kitchen cabinet. Hold on. I'll be a minute.
+  Nurse -> I'll wait.
+  Caller -> Okay. Got it. I'm taking it. Water. Okay. Done.
+  Nurse -> Good. Thank you. Desmond, I want to say something. I'm really glad you called. It took courage to say what you said.
+  Caller -> I don't feel brave. I feel foolish.
+  Nurse -> There's nothing foolish about it. A lot of people in your situation feel this way, especially at night. It's very human.
+  Caller -> Yeah. I suppose.
+  Nurse -> And we're going to help. Okay? You're not on your own.
+  Caller -> Okay. Thank you.
+  Nurse -> Tell me about the tulips. What color do you plant?
+  Caller -> Red and yellow. A mix. Annette likes the red. I like the yellow ones, they look like little suns. I get them from a place on Federal Boulevard. They have the best ones.
+  Nurse -> That sounds beautiful. Maybe someone could help you plant them, even if you just sit and tell them where.
+  Caller -> Josie could. She said she'd come in a couple weeks. We could do it together. If the ground's not frozen.
+  Nurse -> That would be a lovely thing to do together. Hold on to that.
+  Caller -> Okay. I like that idea.
+  Caller -> She sends me pictures of the dress fabric. Little squares. I don't know the difference between any of them. They all look white to me.
+  Nurse -> Ha. That's every father of the bride.
+  Nurse -> Okay. I'm going to go page the on-call clinician now. I'll call you in about thirty minutes. Is there anything else you want to tell me before I go?
+  Caller -> No. I think that's it. Thank you for not making it weird.
+  Nurse -> Of course. Talk soon, Desmond.
+  Caller -> Okay. Bye.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Desmond Achterberg, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1967-05-13", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Desmond Achterberg, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "3035550178", certainty: stated, heard_as: [], turns: [10, 89]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that he could not sleep, had belly pain, and felt worn out and low.
+    speaker: Caller
+    turns: [6]
+    quote: "I can't sleep. That's the main thing."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: He had not slept for three nights, getting about an hour at a time.
+      speaker: Caller
+      turns: [14]
+      quote: "Three nights now."
+      explanation: Documents the insomnia.
+      facts:
+        - {type: symptom, name: not sleeping, present: true, onset: three nights, certainty: stated}
+      covers: [A1]
+    - text: He felt tired of everything and said he wished he would not wake up.
+      speaker: Caller
+      turns: [36]
+      quote: "I just wish I wouldn't wake up."
+      explanation: Documents the low mood.
+      facts:
+        - {type: symptom, name: feeling worn out and hopeless, present: true, certainty: stated}
+      covers: [A2]
+    - text: Belly pain was a dull, steady five.
+      speaker: Caller
+      turns: [16]
+      quote: "It's a five, I'd say."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: belly pain, present: true, severity: "5", certainty: stated}
+      covers: [A3]
+    - text: Oxycodone 5 mg every four hours as needed was taken, last at ten the night before.
+      speaker: Caller
+      turns: [18]
+      quote: "The oxycodone. Five milligrams. Every four hours if I need it."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: ten last night, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: Mirtazapine 15 mg at bedtime was taken at nine and was not helping him sleep.
+      speaker: Caller
+      turns: [20]
+      quote: "The mirtazapine. Fifteen milligrams. At bedtime."
+      explanation: Documents the sleep medication.
+      facts:
+        - {type: medication, name: mirtazapine, dose: "15", unit: mg, frequency: at bedtime, last_dose: nine last night, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: He denied any plan or intent to harm himself.
+      speaker: Caller
+      turns: [42]
+      quote: "No plan. No. I'm not planning anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: plan or intent to harm himself, certainty: stated}
+      covers: [A6]
+    - text: He lived with his wife, who was asleep upstairs, and did not want to wake her.
+      speaker: Caller
+      turns: [12]
+      quote: "My wife is upstairs. Annette. She's asleep."
+      explanation: Documents the home context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [69]
+      quote: "let me page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a social worker and chaplain visit tomorrow.
+      speaker: Nurse
+      turns: [73]
+      quote: "I'd also like our social worker and our chaplain to come see you tomorrow."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit in the morning.
+      speaker: Nurse
+      turns: [77]
+      quote: "I'm going to send a nurse out in the morning to see you"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in about thirty minutes after speaking with the on-call clinician.
+      speaker: Nurse
+      turns: [87]
+      quote: "I'm going to call you back in about thirty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 any time if the thoughts got stronger or he felt unsafe.
+      speaker: Nurse
+      turns: [81]
+      quote: "you can call or text nine eight eight, any time, day or night."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised having his wife keep his medicine bottles and hand out his doses for now.
+      speaker: Nurse
+      turns: [59]
+      quote: "Would you be okay with Annette keeping the bottles, and handing out your doses for now?"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Invited him to call any hour tonight and to wake his wife if the thoughts changed.
+      speaker: Nurse
+      turns: [85]
+      quote: "you can also call us here, any hour tonight"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [36], quote: "I just wish I wouldn't wake up."}

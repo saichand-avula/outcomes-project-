@@ -1,0 +1,190 @@
+call_id: tr-059
+split: train
+blueprint: "Daughter panics: her mother with COPD is gasping, can't finish sentences, lips look bluish, pulse ox reads 84. Nurse tells her to call 911 now, to sit mother upright and unlock the door, and stays available. Flags: breathing_concern and escalation_request (nurse sends to 911)."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [split_turns, crosstalk, late_answers]
+  clinical_domains: [dyspnea]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-18T06:14:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lucinda Prewitt
+  patient_name_spoken: Lucinda Prewitt
+  patient_name_certainty: stated
+  patient_dob_true: "1951-07-09"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Imogen
+  caller_name_spoken: Imogen
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4045550118"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Reported that her mother is struggling to breathe with bluish lips
+  reason_category: dyspnea
+  relevant_context: Mother has COPD
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe shortness of breath
+    symptom_present: true
+    onset_or_duration: since waking this morning and getting worse
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bluish lips
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "84"
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: History of COPD with a rescue inhaler that has not helped
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: severe breathing difficulty with low oxygen
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, sit her upright, unlock the front door, and stay with her
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Mother cannot finish sentences, has bluish lips and oxygen saturation of eighty four
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse tells the daughter to call 911 immediately
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Tom, it's Imogen, it's my mom, she can't, she can't breathe right. Lucinda Prewitt. || caller_name, relationship, patient_name, cc
+  Nurse -> Imogen, I'm here. Is she awake? Is she talking to you?
+  Caller -> She's awake but she can't, she can't finish a sentence. She's gasping. She's been bad since she woke up and it's getting worse. || A1, F1
+  Nurse -> Okay. Does she have blue or gray color anywhere? Lips, fingers?
+  Caller -> Her lips. Her lips look kind of blue. Oh God. || A2, F1
+  Nurse -> Do you have a pulse oximeter on her?
+  Caller -> Yes, we have one, hang on. Hang on. Mom, hold still. It says eighty four. || A3, F1
+  Nurse -> Okay. Has she used her rescue inhaler?
+  Caller -> Twice. It's not doing anything. She has the COPD, she's had it for years but she's never been this bad. || A4
+  Nurse -> Is she confused, or really sleepy? Is she still answering you?
+  Caller -> No, she knows me. She's, she's looking right at me. She's just scared. We're both scared.
+  Nurse -> Okay. Any chest pain, any fever or coughing up anything different?
+  Caller -> I don't think so. She's been coughing a lot, like normal, I mean, a bit more. I don't know.
+  Nurse -> Imogen, listen to me. I want you to hang up and call 911 right now. She needs an ambulance. || R1, E1, F2
+  Caller -> Okay. Okay. Should I, should I keep you on?
+  Nurse -> No. Call 911 first. Sit her up straight, as upright as she'll go, and unlock your front door so they can get in. Stay with her. || E1
+  Caller -> Okay. Up straight. Door. I'm calling.
+  Nurse -> I'll call the hospital and let them know she's coming. Go ahead, Imogen. || E1
+  Caller -> Okay. Thank you, Tom.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: She can't finish a sentence, heard_form: "she can't, she can't breathe right", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lucinda Prewitt, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Imogen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother is struggling to breathe with bluish lips.
+    speaker: Caller
+    turns: [2]
+    quote: "it's my mom, she can't, she can't breathe right."
+    explanation: Documents the emergency prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Severe shortness of breath was reported, worsening since waking this morning, with gasping and inability to finish a sentence.
+      speaker: Caller
+      turns: [4]
+      quote: "She's awake but she can't, she can't finish a sentence. She's gasping."
+      explanation: Documents the breathing symptoms.
+      facts:
+        - {type: symptom, name: severe shortness of breath, present: true, duration: since waking this morning and getting worse, certainty: stated}
+      covers: [A1]
+    - text: Her lips looked bluish.
+      speaker: Caller
+      turns: [6]
+      quote: "Her lips look kind of blue."
+      explanation: Documents a sign of poor oxygenation.
+      facts:
+        - {type: symptom, name: bluish lips, present: true, certainty: stated}
+      covers: [A2]
+    - text: Oxygen saturation was reported as 84.
+      speaker: Caller
+      turns: [8]
+      quote: "It says eighty four."
+      explanation: Documents the pulse oximeter reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "84", certainty: stated}
+      covers: [A3]
+    - text: She had COPD and had used her rescue inhaler twice without benefit.
+      speaker: Caller
+      turns: [10]
+      quote: "Twice. It's not doing anything."
+      explanation: Documents the history and failed treatment.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised calling 911 immediately for an ambulance.
+      speaker: Nurse
+      turns: [15]
+      quote: "I want you to hang up and call 911 right now."
+      explanation: Documents the emergency escalation.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised sitting her upright, unlocking the front door, and staying with her until help arrived.
+      speaker: Nurse
+      turns: [17]
+      quote: "Sit her up straight, as upright as she'll go, and unlock your front door so they can get in. Stay with her."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: breathing_concern, turns: [4], quote: "She's awake but she can't, she can't finish a sentence."}
+    - {category: escalation_request, turns: [15], quote: "I want you to hang up and call 911 right now."}

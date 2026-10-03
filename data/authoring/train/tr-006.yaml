@@ -1,0 +1,200 @@
+call_id: tr-006
+split: train
+blueprint: "Aide reports BP 152/88 after lunch, asks if okay; no headache or dizziness; patient name heard wrong by nurse then spelled (resolved); nurse advises recheck in 30 minutes, call if over 180; plans message to PCP."
+setup:
+  scenario_category: routine
+  subtype: general_question
+  secondary_tags: [name_drift, name_spelled, split_turns, late_answers, phone_from_file]
+  clinical_domains: [blood_pressure]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-08-17T17:12:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Eugene Pruitt
+  patient_name_spoken: Eugene Pruitt
+  patient_name_certainty: stated
+  patient_dob_true: "1946-09-03"
+  patient_dob_spoken: "1946-09-03"
+  patient_dob_certainty: stated
+  caller_name_true: Tanya
+  caller_name_spoken: Tanya
+  caller_name_certainty: stated
+  relationship_to_patient: caregiver
+  relationship_certainty: stated
+  callback_phone_true: "4045550115"
+  callback_phone_spoken: "4045550115"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked whether a blood pressure of 152/88 after lunch is okay
+  reason_category: blood_pressure
+  relevant_context: Home health aide checking vitals during shift
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 152/88
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: headache
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: dizziness
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Morning blood pressure medicine given at 8, and he just finished lunch
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: primary care office
+    reason_or_trigger: blood pressure reading
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Recheck BP in 30 minutes after resting seated with feet flat
+    timing_or_threshold: 30 minutes
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if top number is over 180 or if headache, dizziness, vision changes appear; 911 for chest pain, weakness on one side, or trouble speaking
+    trigger_condition: systolic over 180; headache; dizziness; vision change
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, um, this is Tanya, I'm the aide for Mr. Pruitt? || caller_name, relationship
+  Nurse -> Okay, Tanya. What's his first and last name?
+  Caller -> Eugene. Eugene Pruitt. || patient_name
+  Nurse -> Eugene Prewitt, P R E W I T T?
+  Caller -> No, no. P R U I T T. || patient_name
+  Nurse -> Got it, Pruitt. Okay. And his birthday?
+  Caller -> September third, forty six. Nineteen forty six. || patient_dob
+  Nurse -> Thank you. I have a number on file, four oh four, five five five, zero one one five. Is that you? || callback_phone
+  Caller -> That's the agency cell, yeah. That's me. || callback_phone
+  Nurse -> Okay. What's going on, Tanya?
+  Caller -> So I took his blood pressure just now, and it's one fifty two over eighty eight. || cc, A1
+  Caller -> I just, I wanted to ask if that's okay. I don't know. || cc
+  Nurse -> Okay. What's his usual run, do you know?
+  Caller -> Usually it's like one thirty something. One thirty over eighty. Something like that.
+  Nurse -> Okay. Does he have a headache?
+  Caller -> No. || A2
+  Nurse -> Any dizziness? Anything blurry in his eyes?
+  Caller -> No. He's sitting in his chair, he's fine. He's talking about the game. || A3
+  Nurse -> Okay. Did he take his blood pressure medicine today?
+  Caller -> Yes. He took it at eight, I gave it to him. And he just finished lunch. || A4
+  Caller -> Maybe that's why? I don't know.
+  Nurse -> It could be part of it. Sometimes it runs up a little after a meal, or if he's been up and moving around. So, what I want you to do is have him sit quietly, feet flat on the floor, arm resting at heart level, and take it again in thirty minutes. || E1
+  Caller -> Okay. Thirty minutes.
+  Nurse -> Right. If the top number is over one eighty, or he gets a headache or dizzy or his vision changes, you call us right back. || E2
+  Caller -> Over one eighty. Okay.
+  Nurse -> And if he has chest pain, or weakness on one side, or trouble talking, that's nine one one, don't call us first. || E2
+  Caller -> Okay. Got it.
+  Nurse -> I'm going to send a note to his doctor's office about the reading so they have it. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> Sure. Anything else?
+  Caller -> No. That's it. Thank you, Rhonda.
+  Nurse -> Bye now.
+noise_events:
+  - {turn: 5, type: name_drift, true_form: Pruitt, heard_form: Prewitt, fact_id: patient_name}
+  - {turn: 8, type: split_turn, true_form: "single DOB answer", heard_form: "Nineteen forty six", fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eugene Pruitt, certainty: stated, heard_as: [], turns: [4, 6]}
+    patient_dob: {value: "1946-09-03", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Tanya, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550115", certainty: stated, heard_as: [], turns: [9, 10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether a blood pressure reading of 152/88 was acceptable.
+    speaker: Caller
+    turns: [13]
+    quote: "I just, I wanted to ask if that's okay."
+    explanation: Documents the question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Blood pressure was 152/88 after lunch.
+      speaker: Caller
+      turns: [12]
+      quote: "So I took his blood pressure just now, and it's one fifty two over eighty eight."
+      explanation: Documents the reported blood pressure reading.
+      facts:
+        - {type: vital, name: blood pressure, value: 152/88, certainty: stated}
+      covers: [A1]
+    - text: No headache or dizziness was reported.
+      speaker: Caller
+      turns: [19]
+      quote: "No. He's sitting in his chair, he's fine."
+      explanation: Documents pertinent negative symptoms associated with elevated blood pressure.
+      facts:
+        - {type: pertinent_negative, name: headache, certainty: stated}
+        - {type: pertinent_negative, name: dizziness, certainty: stated}
+      covers: [A2, A3]
+    - text: Morning blood pressure medication was given at 8:00 and he had just finished lunch.
+      speaker: Caller
+      turns: [21]
+      quote: "Yes. He took it at eight, I gave it to him. And he just finished lunch."
+      explanation: Documents medication timing and meal context for the reading.
+      facts:
+        - {type: context, last_dose: "8", certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to send a note about the reading to his doctor's office.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm going to send a note to his doctor's office about the reading so they have it."
+      explanation: Documents the planned communication to the primary care office.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised resting quietly seated with feet flat and arm at heart level, then rechecking blood pressure in 30 minutes.
+      speaker: Nurse
+      turns: [23]
+      quote: "have him sit quietly, feet flat on the floor, arm resting at heart level, and take it again in thirty minutes."
+      explanation: Documents the recheck instruction.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back if the top number exceeded 180 or if headache, dizziness, or vision changes developed, and calling 911 for chest pain, one-sided weakness, or trouble speaking.
+      speaker: Nurse
+      turns: [25]
+      quote: "If the top number is over one eighty, or he gets a headache or dizzy or his vision changes, you call us right back."
+      explanation: Documents return precautions and emergency instructions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

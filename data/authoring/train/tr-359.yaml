@@ -1,0 +1,358 @@
+call_id: tr-359
+split: train
+blueprint: "A mother of a five-year-old with a g-tube calls the pediatric home nurse with a long routine update: feeds tolerated on the pump, weight 38 pounds up from 36, site clean and dry, stools normal, sleeping through. She asks whether they can move from pump feeds to quicker daytime bolus feeds so he can keep up at kindergarten, and says they are down to a few extension sets. Nurse says she will ask the team about bolus feeds, places a supply order for extension sets, reviews site care and tube flushes and return precautions, and plans a callback Friday. Routine, pediatric, parent, long v2."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [intake_appetite, equipment, wound_skin, sleep]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Sunflower Pediatric Nursing
+  agency_type: pediatric_home_care
+  nurse_name: Beatriz
+  call_timestamp_utc: "2026-10-23T20:00:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Mateo Villanueva
+  patient_name_spoken: Mateo Villanueva
+  patient_name_certainty: stated
+  patient_dob_true: "2021-04-13"
+  patient_dob_spoken: "2021-04-13"
+  patient_dob_certainty: stated
+  caller_name_true: Ximena Villanueva
+  caller_name_spoken: Ximena Villanueva
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "5055550149"
+  callback_phone_spoken: "5055550149"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on her son's tube feeds and asked about bolus feeds and supplies
+  reason_category: intake_appetite
+  relevant_context: Pediatric home care patient with a gastrostomy tube
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: tolerating pump feeds
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: weight
+    vital_value: "38 pounds"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: redness or drainage at the g-tube site
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or diarrhea
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: supply
+    reporter: caller
+    supply_item: feeding extension sets
+    supply_remaining: three left
+    supply_unit: sets
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask about moving to daytime bolus feeds
+    certainty: stated
+  - item_id: R2
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: feeding extension sets
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Flush the tube with ten mL of water before and after each feed and after any medicine
+    certainty: stated
+  - item_id: E2
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Clean around the site once a day with warm water and mild soap, rinse, and pat dry
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting with feeds, fever, redness or drainage at the site, or if the tube comes out, and cover the site and come in right away
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sunflower Pediatric Nursing, this is Beatriz.
+  Caller -> Hi, Beatriz. It's Ximena. Ximena Villanueva. Mateo's mom. || caller_name, relationship
+  Nurse -> Hi, Ximena. How are you? How's Mateo?
+  Caller -> We're good. I think. I have a few questions, and a few updates. Is now a good time? I know it's the end of your day.
+  Nurse -> It's a fine time. I'm at my desk. Go ahead.
+  Caller -> Okay. Thank you. Let me get my notes. I wrote everything down because I forget when I call.
+  Nurse -> Smart. Take your time.
+  Caller -> Mateo Villanueva, he's five. M A T E O. You have him as Mateo with the one T, right? || patient_name
+  Nurse -> Yes. M A T E O. One T. I've got him.
+  Caller -> Okay good. Sometimes the pharmacy puts two Ts. It drives me crazy.
+  Nurse -> Does the pharmacy ever get his birthday wrong too?
+  Caller -> Once. They had him as a girl, even. Mateo, F. I had to call twice.
+  Nurse -> Ugh. Those little errors add up.
+  Caller -> I check every label now. Every bottle. I'm the label police.
+  Caller -> And his sticker chart. We have a sticker chart for the whole week. Gold stars for every feed with no fussing.
+  Nurse -> Does it work?
+  Caller -> Mostly. He negotiates. Two stars for the morning feed. Three if it's a Monday.
+  Nurse -> Ha. A tough negotiator.
+  Nurse -> Ha. I'll watch for it. Can I confirm his date of birth?
+  Caller -> April thirteenth, two thousand twenty one. || patient_dob
+  Nurse -> Thank you. And your number?
+  Caller -> Five oh five, five five five, zero one four nine. || callback_phone
+  Nurse -> Five oh five, five five five, zero one four nine. Is that right? || callback_phone
+  Caller -> That's it.
+  Nurse -> Great. So, what's going on?
+  Caller -> Mostly good news. I wanted to give you an update on the feeds and ask about changing the schedule. And we're running low on stuff. || cc
+  Nurse -> Okay. Start with the update. How are the feeds going?
+  Caller -> They're going great. He's tolerating the pump. All night, and then the bolus in the morning that he, no, wait. Not bolus. The pump. We're still on the pump. The pump runs at night and a little in the morning. || A1
+  Nurse -> Okay. Pump feeds. And is he tolerating them? Any belly pain, bloating, gagging?
+  Caller -> No gagging. No bloating. He sleeps right through. The pump beeps sometimes if the tubing is kinked, and I hear it from my room, and I go in. But it's usually the dog.
+  Nurse -> The dog?
+  Caller -> The dog lies on the tubing. I swear. He loves the warm formula bag. We have a dog who is a pillow thief.
+  Nurse -> Ha. That's a new one.
+  Caller -> I know. He's a golden retriever. He thinks he's helping.
+  Nurse -> Does Mateo mind?
+  Caller -> Mateo thinks it's hilarious. He says the dog is his night nurse.
+  Nurse -> Ha. That's sweet.
+  Caller -> It is. Okay. Weight. I weighed him Sunday. Thirty eight pounds. He was thirty six last month. || A2
+  Nurse -> Thirty eight pounds. That's two pounds in a month. That's great.
+  Caller -> I couldn't believe it. I weighed him twice. On the bathroom scale, and then I did me holding him and subtracted. Same.
+  Nurse -> That's a good method. We'll confirm at the next visit on the clinic scale.
+  Caller -> Okay. He's so proud of himself. He says he's a big kid now. He tells everybody he's thirty eight.
+  Nurse -> Ha. He should. And his stools? Any diarrhea, constipation?
+  Caller -> Normal. Every day. Soft. Not watery. No vomiting. Not once this week. He did gag on a cough Tuesday. He had a little cough. But it was nothing. No vomiting. || A4
+  Nurse -> Okay. Any fever?
+  Caller -> No fever. I don't think. I took it Wednesday, when he coughed. It was normal. I don't remember the number. Ninety eight something.
+  Nurse -> That's fine. How's the g-tube site? The skin around it?
+  Caller -> I look every morning. It's clean. It's dry. No redness. No drainage. No crusty stuff. I clean it with the soap and the warm water like you showed me. It looks great. Like a little belly button. || A3
+  Nurse -> That's wonderful. Is he complaining at all about it? Pulling on it?
+  Caller -> He pulls on it sometimes. He thinks it's a toy. I put a little onesie under his shirt so he can't reach. Like a belt.
+  Nurse -> That's a good idea.
+  Caller -> My sister told me. She's a nurse. She works with adults though.
+  Nurse -> Ha. She gave you good advice.
+  Caller -> She does. She does. Okay. Next. School. He started kindergarten. Half days. And the school nurse is great. But the feeds are the problem. The pump is, it's slow. It takes him two hours for a feed, and the school day is only four hours. So he's hooked up to the pump half of the day. He can't play. He can't do circle time.
+  Nurse -> Oh. I see. That's hard on him.
+  Caller -> It is. He's sitting there with a backpack with a pump in it. He looks like a little astronaut. The other kids are fine with it. But he wants to run. And the backpack beeps.
+  Caller -> The teacher made him a name tag for the backpack. It says Captain Mateo. He wears it like a medal.
+  Nurse -> That's wonderful. She sounds kind.
+  Caller -> She is. She asked me to come in and show the class how the pump works. I might do that. Do you think that's okay?
+  Nurse -> Ask the school nurse first, but kids usually love that.
+  Caller -> I'll bring the dog. No, I won't bring the dog.
+  Nurse -> Ha. Probably not.
+  Nurse -> That's a real concern. What were you hoping for?
+  Caller -> I was thinking. Could we do the bolus feeds? In the day? Like, a syringe, five or ten minutes, and then he's done and he can go play. And keep the pump for the night. I read about it in a parent group. Some kids do it.
+  Nurse -> Some do. It's something the team has to decide. It depends on how his stomach handles a faster feed. I can't change the schedule myself. But I can ask them.
+  Caller -> Would you? That would be so great. I don't want to do anything without asking. I just want him to be able to run.
+  Nurse -> Of course. I'm going to leave a message for the team to ask about moving him to daytime bolus feeds. And I'll let you know what they say. || R1
+  Caller -> Okay. Thank you. Thank you so much. I was nervous to ask. I thought you'd say no.
+  Nurse -> It's a good question. Not a no. It's an ask.
+  Caller -> An ask. Okay. I like that.
+  Nurse -> In the meantime, keep him on the schedule you have. Don't change anything until they say.
+  Caller -> Okay. I won't. I'll keep it the same.
+  Nurse -> What was the other thing? Supplies?
+  Caller -> Yes. The extension sets. The little tubes that connect to the button. We have three left. They're supposed to last a week each, but I replaced one early because it got gross. And the school wants their own, one for the nurse's office. So I need a few more. || A5
+  Nurse -> Okay. Three left. I'll place an order with the supply company for more extension sets. Do you know how many you need?
+  Caller -> I'd say, um, a box? Do they come in a box? The box of ten?
+  Nurse -> I'll order a box. Ten. That'll cover you and the school for a while. I'll put the order in today. || R2
+  Caller -> Perfect. Thank you. And the school one, can they deliver to the school? Or I'll pick it up?
+  Nurse -> It comes to your house. You can bring one to the school.
+  Caller -> Okay. That's easy.
+  Nurse -> While we're talking about the tube. How are you flushing?
+  Caller -> Water. Before and after. Ten mL. With the syringe. I do it with every feed. And after the medicines. He doesn't have a lot of medicines now. Just the vitamin.
+  Nurse -> Perfect. Ten mL of water before and after each feed and after any medicine. Keep doing that. It keeps the tube from clogging. || E1
+  Caller -> I know. I got a clog once. In July. That was a nightmare. I never want that again.
+  Nurse -> That's why the flushes matter.
+  Caller -> I know. I'm religious about it now.
+  Nurse -> And keep cleaning the site once a day, with warm water and a mild soap. Rinse it well and pat it dry. || E2
+  Caller -> Warm water, mild soap, rinse, pat dry. That's what I do. Yes. I use the baby soap.
+  Nurse -> That's fine.
+  Caller -> I do it after his bath. He loves the bath. It's, like, an hour of splashing. I get more water on the floor than in the tub.
+  Nurse -> Ha. That's a five year old.
+  Caller -> It's an ocean.
+  Caller -> And he sings in the tub. The same song. About a bus. Forty minutes of the bus song.
+  Nurse -> The wheels on the bus?
+  Caller -> A different bus. He made up the verses. There's a verse about a dinosaur who drives.
+  Nurse -> Ha. I'd like to hear that one.
+  Nurse -> Ximena, I also want to go over when to call. Call us if he's vomiting with feeds, if he has a fever, if you see redness or drainage at the site, or if the tube comes out. If the tube comes out, cover the site with a clean gauze and get to us right away, because the opening can start to close within hours. || E3
+  Caller -> Vomiting with feeds. Fever. Redness or drainage. Tube comes out. Cover it and come in right away. I know. I have the spare button in the kit. And the phone number is on the fridge.
+  Nurse -> Good. You're prepared.
+  Caller -> I'm paranoid. But I'm prepared.
+  Nurse -> Paranoid is good with a g-tube.
+  Caller -> Ha. That's what the surgeon said.
+  Nurse -> Smart surgeon. Okay. I'll call you back Friday. By then I should know what the team says about the bolus feeds. || R3
+  Caller -> Friday. Okay. Call my cell. I'm at work but I'll see it. I'm a dental hygienist, I can step out between patients.
+  Nurse -> A hygienist. That's a good job for a mom who has to keep things clean.
+  Caller -> Ha. It helps. I'm the one in the house with the sterile technique.
+  Nurse -> I bet. How's your husband handling the night feeds?
+  Caller -> He's great. He does the Tuesday and Thursday nights. He sets up the pump, he reads the story, he tucks in the dog. He says he's the best night nurse.
+  Nurse -> A second night nurse. Mateo's lucky.
+  Caller -> He thinks so. We all take turns.
+  Nurse -> That's a lot of help. How are you holding up?
+  Caller -> Tired. But good. Not as tired as when we first started. I used to set an alarm every two hours. Now I sleep through. Unless the dog sits on the tubing.
+  Nurse -> Ha. The dog.
+  Caller -> I'm going to buy him a bed. A separate bed. With heat.
+  Nurse -> That might work.
+  Caller -> It might. If not I'm going to buy a bigger dog.
+  Nurse -> What's the dog's name?
+  Caller -> Biscuit. Biscuit, get off the couch. Sorry. He's looking at me.
+  Nurse -> Ha. He knows you're talking about him.
+  Caller -> He always knows.
+  Nurse -> Ha. Okay. Anything else on your list?
+  Caller -> No. That's all. I checked. I crossed it all off. I feel so organized.
+  Nurse -> Do you keep the notes in a notebook?
+  Caller -> On my phone. Plus a paper one on the fridge, in case my phone dies.
+  Nurse -> You are organized. You're doing a great job with him.
+  Caller -> Thank you. I needed to hear that. Some days I feel like I'm just guessing.
+  Nurse -> Everyone is guessing a little. You're doing it well.
+  Caller -> Okay. I'll let you go. Thank you again, Beatriz.
+  Nurse -> Anytime. Talk to you Friday.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Mateo Villanueva, certainty: stated, heard_as: [], turns: [8]}
+    patient_dob: {value: "2021-04-13", certainty: stated, heard_as: [], turns: [20]}
+    caller_name: {value: Ximena Villanueva, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550149", certainty: stated, heard_as: [], turns: [22, 23]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on her son's tube feeds and asked about bolus feeds and supplies.
+    speaker: Caller
+    turns: [26]
+    quote: "I wanted to give you an update on the feeds and ask about changing the schedule."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He was tolerating the pump feeds with no gagging or bloating.
+      speaker: Caller
+      turns: [30]
+      quote: "No gagging. No bloating."
+      explanation: Documents feed tolerance.
+      facts:
+        - {type: symptom, name: tolerating pump feeds, present: true, certainty: stated}
+      covers: [A1]
+    - text: Weight was 38 pounds on Sunday, up from 36 last month.
+      speaker: Caller
+      turns: [38]
+      quote: "Thirty eight pounds."
+      explanation: Documents the weight.
+      facts:
+        - {type: vital, name: weight, value: "38 pounds", certainty: stated}
+      covers: [A2]
+    - text: The g-tube site was clean and dry with no redness or drainage.
+      speaker: Caller
+      turns: [48]
+      quote: "No redness. No drainage."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: redness or drainage at the g-tube site, certainty: stated}
+      covers: [A3]
+    - text: He had no vomiting or diarrhea this week.
+      speaker: Caller
+      turns: [44]
+      quote: "No vomiting. Not once this week."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or diarrhea, certainty: stated}
+      covers: [A4]
+    - text: Three feeding extension sets were left.
+      speaker: Caller
+      turns: [74]
+      quote: "We have three left."
+      explanation: Documents the supply count.
+      facts:
+        - {type: supply, item: feeding extension sets, supply: three left, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to leave a message for the team about moving to daytime bolus feeds.
+      speaker: Nurse
+      turns: [67]
+      quote: "I'm going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to order a box of ten extension sets today.
+      speaker: Nurse
+      turns: [77]
+      quote: "I'll put the order in today."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back Friday with the team's answer.
+      speaker: Nurse
+      turns: [103]
+      quote: "I'll call you back Friday."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised flushing with ten mL of water before and after each feed and after any medicine.
+      speaker: Nurse
+      turns: [83]
+      quote: "Ten mL of water before and after each feed and after any medicine."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised cleaning the site once a day with warm water and mild soap, rinsing and patting dry.
+      speaker: Nurse
+      turns: [87]
+      quote: "keep cleaning the site once a day"
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for vomiting with feeds, fever, redness or drainage, or if the tube came out, covering the site and coming in right away.
+      speaker: Nurse
+      turns: [97]
+      quote: "Call us if he's vomiting with feeds"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

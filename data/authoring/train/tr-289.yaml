@@ -1,0 +1,316 @@
+call_id: tr-289
+split: train
+blueprint: "Evening call from the wife of a hospice patient with COPD: Lowell can't catch his breath since mid-afternoon, his lips look bluish, and the finger oximeter reads 84 on two liters of oxygen. He used his albuterol nebulizer an hour ago with little relief. No chest pain. He has a DNR so she does not want the hospital. The nurse pages on-call, sends a nurse within the hour, coaches sitting upright, a fan on the face and checking the oxygen tubing, and plans a callback in ten minutes. Breathing concern flag, spouse caller, v2 short, panicked with fillers."
+setup:
+  scenario_category: high_risk
+  subtype: breathing_concern
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [dyspnea, equipment, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Mountain View Hospice
+  agency_type: hospice
+  nurse_name: Cal
+  call_timestamp_utc: "2026-10-31T01:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lowell Prentiss
+  patient_name_spoken: Lowell Prentiss
+  patient_name_certainty: stated
+  patient_dob_true: "1942-06-27"
+  patient_dob_spoken: "1942-06-27"
+  patient_dob_certainty: stated
+  caller_name_true: Wanda Prentiss
+  caller_name_spoken: Wanda Prentiss
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3145550146"
+  callback_phone_spoken: "3145550146"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is struggling to breathe with a low oxygen reading
+  reason_category: dyspnea
+  relevant_context: Hospice patient with COPD on home oxygen
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe shortness of breath
+    symptom_present: true
+    onset_or_duration: since mid-afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "84"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: bluish lips
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    frequency: nebulizer as needed
+    prn: true
+    last_dose: an hour ago
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: He is on oxygen at two liters and has a DNR, and she does not want him to go to the hospital
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: severe shortness of breath with oxygen saturation of 84
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in ten minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Sit him upright with pillows behind him, put a fan on his face, and keep him calm
+    certainty: stated
+  - item_id: E2
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Check that the oxygen tubing is connected, not kinked, and the concentrator is running and set at two liters
+    certainty: stated
+  - item_id: E3
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call right back if he gets worse, becomes very sleepy or if the oxygen reading drops
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Severe shortness of breath with oxygen saturation of 84 and bluish lips
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Mountain View Hospice, this is Cal.
+  Caller -> Cal, it's Wanda Prentiss. It's Lowell. He can't breathe. He can't catch his breath. I don't know what to do. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Wanda. I'm here. Take a breath. Is Lowell awake?
+  Caller -> He's awake. He's in his chair. He's sitting up. He's gasping. He's working so hard. His shoulders are going up and down.
+  Nurse -> Okay. What's his date of birth, Wanda?
+  Caller -> June twenty seventh. Nineteen forty two. Please, Cal. || patient_dob
+  Nurse -> Got it. And your number?
+  Caller -> It's three one four, five five five, zero one four six. It's the house. || callback_phone
+  Nurse -> Okay. Is anyone else there with you right now?
+  Caller -> No. It's just us. Our son is in Kansas City. My neighbor's at her daughter's. It's just me. It's always just me at night.
+  Nurse -> Okay. You're not alone, I'm right here. Is he on his oxygen?
+  Caller -> He is. He's on the two liters. It's been on all day. The machine is running, I can hear it. But it's not helping. He started getting worse about three, around the middle of the afternoon, and now it's like he's drowning.
+  Nurse -> Okay. Do you have the finger oximeter?
+  Caller -> I do. It's on him. I put it on. It says eighty four. Eighty four. Is that bad? It was ninety one this morning. || A2
+  Nurse -> It's lower than we want. Wanda, look at his lips. What color are they?
+  Caller -> They look kind of blue. Purple. Bluish. Oh God. I didn't notice. They're blue around the edges. || A3
+  Nurse -> Okay. I'm going to page the on-call clinician and send a nurse. But first, did he have a breathing treatment?
+  Caller -> He had the nebulizer. The albuterol. About an hour ago. It helped for like ten minutes and then he got worse again. I did it again at the same time, that's the second time, no, it's just the one. I did one. One time an hour ago. || A4
+  Nurse -> Okay. One treatment an hour ago. Does he have any chest pain?
+  Caller -> No. He hasn't said chest pain. He's pointing at his throat. Not his chest. He says it's his breathing, not his heart. || A5
+  Nurse -> Okay. Good. Is he able to talk at all, even a word or two?
+  Caller -> A word. A word at a time. He said my name. He said hurts to breathe. That's all.
+  Nurse -> Okay. Wanda, I'm paging the on-call clinician right now, and I'm sending a nurse out to you. I want her there within the hour. || R1, R2
+  Caller -> Thank you. Thank you. Should I call nine one one? Should I call an ambulance? I don't want to. He doesn't want to go. He has the paper. The DNR. He said no hospital. || A6
+  Nurse -> I know. And I'm not going to send an ambulance unless you and he want that. Our job is to keep him comfortable at home. That's what we're doing. Does Lowell still want to stay home?
+  Caller -> Yes. He told me. He told me this afternoon, between breaths. He said, "Don't let them take me." I won't. I promised him.
+  Nurse -> Okay. Then we'll do everything here at home. Let's do some things right now while we wait. Can you sit him up straighter? Put pillows behind his back, so he's upright, leaning a little forward.
+  Caller -> He's sitting up. He's in the recliner. I'll put the pillows. Okay. I'm putting them. He's leaning on the pillow.
+  Nurse -> Good. Do you have a fan? A small one?
+  Caller -> I have the box fan. In the bedroom. Hold on. I can get it. It's heavy. I'll get the little one off the dresser.
+  Nurse -> The little one is perfect. Put it on a table, pointing at his face, on low. Moving air on the face helps a lot with the feeling of not getting enough air. || E1
+  Caller -> Okay. A fan on his face. Okay. I'm plugging it in. It's on his face. He's closing his eyes. He likes it.
+  Nurse -> Good. Now, Wanda, check the oxygen tubing. Follow it from the machine to his nose. Is it connected everywhere? Any kinks? Is it under the chair leg?
+  Caller -> It's, hold on. Let me follow. It goes from the machine across the floor, around the corner, through the door. Oh. The wheel of the chair is on it. The wheel of the recliner. It's pinched. Oh my God.
+  Nurse -> Okay. Lift the chair a little or move the tubing. Free it up.
+  Caller -> Okay. I'm moving it. I got it out. Okay. It's free. I straightened it. It was flat.
+  Nurse -> Good. That might have been part of it. Check that the machine is running and set to two liters. || E2
+  Caller -> It's on. It's humming. The ball is at the two. The little ball on the tube. It's at two.
+  Nurse -> Okay. Now look at the oximeter again. Give it a minute.
+  Caller -> It's, it's changing. Eighty six. Now eighty seven. It's going up. Eighty eight.
+  Nurse -> That's good. Keep the fan on him. Stay calm, and keep your voice soft. He'll breathe easier if you're calm.
+  Nurse -> Is there a comfort kit in the house? The little box from the hospice?
+  Caller -> In the fridge. It's in the fridge door. I haven't touched it. Should I?
+  Nurse -> Not yet. Let's see what the nurse and the on-call clinician say. I just want you to know where it is.
+  Caller -> Okay. In the fridge. I won't touch it.
+  Caller -> I'm trying. I'm trying. I'm shaking. Lowell, honey, the nurse is helping. You're doing so good. Cal, he's nodding. He's looking at me.
+  Nurse -> That's what I want to see. I'll stay on. The on-call clinician is being paged and the nurse is on the way. I'll call you back in ten minutes with an update, but I'm here.
+  Caller -> Ten minutes. Okay. But I can stay on? I'm scared to hang up.
+  Nurse -> I'll stay on the line until the other phone is ready. Or if you hang up, I'll call right back in ten minutes. Which would you like?
+  Caller -> Call me back. I want to sit with him. I'll keep the phone next to me.
+  Nurse -> Okay. I'll call you back in ten minutes. Keep the fan on, keep him upright, and watch the number on the finger monitor. || R3
+  Caller -> Okay. And if it goes down again?
+  Nurse -> Call me right back, any time. Call if he gets worse, if he gets very sleepy and you can't wake him, or if the number drops again. || E3
+  Caller -> Worse, can't wake him, number drops. Okay. Okay. Thank you, Cal. I was going crazy.
+  Nurse -> You're doing great. You noticed the tubing. That was the key.
+  Caller -> I can't believe the wheel was on it. I've been so careful. I check it every morning.
+  Caller -> He moved the chair himself this afternoon. He wanted to see the window. I should have looked.
+  Nurse -> It happens all the time. Don't blame yourself. Is the front door unlocked for the nurse?
+  Caller -> Oh. No. Let me. I'll unlock it. I'll leave the porch light on too. Hold on, stay with him for a second, Lowell, I'm just going to the door. Okay. It's open.
+  Nurse -> Good. Back to him. Nothing else to do but sit with him.
+  Caller -> Okay. I'm back. He's looking at me.
+  Nurse -> Don't blame yourself.
+  Caller -> Okay. I won't. I just want him comfortable.
+  Nurse -> We'll make sure. Ten minutes.
+  Caller -> Ten minutes. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lowell Prentiss, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-06-27", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Wanda Prentiss, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550146", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was struggling to breathe with a low oxygen reading.
+    speaker: Caller
+    turns: [2]
+    quote: "He can't breathe. He can't catch his breath."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Severe shortness of breath began in the middle of the afternoon and was getting worse.
+      speaker: Caller
+      turns: [12]
+      quote: "He started getting worse about three, around the middle of the afternoon"
+      explanation: Documents the breathing difficulty.
+      facts:
+        - {type: symptom, name: severe shortness of breath, present: true, onset: since mid-afternoon, certainty: stated}
+      covers: [A1]
+    - text: Oxygen saturation was 84 on the finger oximeter, down from 91 that morning.
+      speaker: Caller
+      turns: [14]
+      quote: "It says eighty four. Eighty four."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "84", certainty: stated}
+      covers: [A2]
+    - text: His lips looked bluish.
+      speaker: Caller
+      turns: [16]
+      quote: "They look kind of blue. Purple. Bluish."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: bluish lips, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had one albuterol nebulizer treatment an hour earlier that helped for about ten minutes.
+      speaker: Caller
+      turns: [18]
+      quote: "He had the nebulizer. The albuterol. About an hour ago."
+      explanation: Documents the breathing treatment.
+      facts:
+        - {type: medication, name: albuterol, frequency: nebulizer as needed, prn: true, last_dose: an hour ago, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: No chest pain was reported.
+      speaker: Caller
+      turns: [20]
+      quote: "No. He hasn't said chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5]
+    - text: He was on oxygen at two liters with a DNR, and she did not want him taken to the hospital.
+      speaker: Caller
+      turns: [24]
+      quote: "He has the paper. The DNR. He said no hospital."
+      explanation: Documents the care preferences.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm sending a nurse out to you. I want her there within the hour."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in ten minutes.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you back in ten minutes. Keep the fan on"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in ten minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised sitting him upright with pillows and placing a fan on his face.
+      speaker: Nurse
+      turns: [31]
+      quote: "Put it on a table, pointing at his face, on low."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised checking that the oxygen tubing was connected and not kinked and the concentrator was set at two liters.
+      speaker: Nurse
+      turns: [37]
+      quote: "Check that the machine is running and set to two liters."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right back if he worsened, became very sleepy, or the oxygen number dropped.
+      speaker: Nurse
+      turns: [53]
+      quote: "Call if he gets worse, if he gets very sleepy and you can't wake him, or if the number drops again."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe. He can't catch his breath."}

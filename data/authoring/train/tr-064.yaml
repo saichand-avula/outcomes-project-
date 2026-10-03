@@ -1,0 +1,235 @@
+call_id: tr-064
+split: train
+blueprint: "Father of a 5-year-old realizes both he and his wife each gave children's ibuprofen (9 mL) about 20 minutes apart; child is playing, no vomiting or belly pain. Nurse tells him to call Poison Control now and give nothing more, pages on-call, and calls back in 15 minutes. Flag: medication_concern."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [liquid_concentration, late_answers, split_turns, hedging]
+  clinical_domains: [medication, fever]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-09-23T00:25:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Willa Renner
+  patient_name_spoken: Willa Renner
+  patient_name_certainty: stated
+  patient_dob_true: "2021-09-02"
+  patient_dob_spoken: "2021-09-02"
+  patient_dob_certainty: stated
+  caller_name_true: Tobias Renner
+  caller_name_spoken: Tobias Renner
+  caller_name_certainty: stated
+  relationship_to_patient: father
+  relationship_certainty: stated
+  callback_phone_true: "6025550128"
+  callback_phone_spoken: "6025550128"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his daughter was accidentally given two doses of ibuprofen close together
+  reason_category: medication
+  relevant_context: Child had a fever earlier this evening
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: ibuprofen
+    medication_name_spoken: ibuprofen
+    medication_status: extra_dose
+    strength: 100 mg per 5 mL
+    dose: "9"
+    unit: mL
+    last_dose: two doses about 20 minutes apart
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: stomach pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: She is awake and playing
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: call Poison Control now and give no more ibuprofen or fever medicine tonight
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call pediatric nurse
+    reason_or_trigger: double ibuprofen dose
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she is hard to wake, vomits blood, has trouble breathing, or has a seizure
+    trigger_condition: hard to wake; vomiting blood; trouble breathing; seizure
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Write down every dose and time on the fridge so both parents can see what has been given
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Child received two doses of ibuprofen about twenty minutes apart
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi. Hi, Priya. This is Tobias Renner. I'm Willa's dad. Willa Renner. I think I did something wrong. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Tobias, I'm here. What's her date of birth?
+  Caller -> September second, twenty twenty one. || patient_dob
+  Nurse -> And is six oh two, five five five, zero one two eight still your number? || callback_phone
+  Caller -> Yes. Yes it is. || callback_phone
+  Nurse -> Okay. Tell me what happened.
+  Caller -> So she had a fever earlier. Around dinner. And I gave her the ibuprofen. The children's. The, the liquid. Nine milliliters. And then my wife, she came home and she didn't know, and she gave her another nine. || A1, F1
+  Nurse -> How far apart were those?
+  Caller -> Twenty minutes? Maybe twenty. Like, twenty minutes. I just found out. I just saw the cup on the counter. || A1, F1
+  Nurse -> Okay. Is she awake? How is she acting?
+  Caller -> She's fine. She's, she's playing. She's right here, she's doing a puzzle. || A4
+  Nurse -> Has she vomited? Any stomach pain?
+  Caller -> No. No throwing up. She hasn't said her stomach hurts. || A2, A3
+  Nurse -> Okay. What strength is the bottle? Can you read me the label?
+  Caller -> Hundred milligrams. Per five milliliters. || A1
+  Nurse -> Okay. That matches her order, nine milliliters is her dose. So she got two doses close together. I want you to call Poison Control right now. They're open all night, and they'll tell you exactly what to watch for. || R1
+  Caller -> Okay. What's the number?
+  Nurse -> One, eight hundred, two two two, one two two two. Call them first. Do you want to write that down?
+  Caller -> Yeah. Yes. Hang on. One eight hundred, two two two, one two two two. Got it.
+  Nurse -> Don't give her any more ibuprofen or any other fever medicine tonight, not until they or the doctor say so. || R1
+  Caller -> No. No more. Okay.
+  Nurse -> I'm also going to page our on-call pediatric nurse about this right now. || R2
+  Caller -> Okay.
+  Nurse -> And I'll call you back in fifteen minutes to see what Poison Control said. || R3
+  Caller -> Okay. Fifteen minutes.
+  Nurse -> If she gets very sleepy and hard to wake up, if she throws up blood, has any trouble breathing, or has a seizure, call 911 right away. || E1
+  Caller -> Okay. Sleepy, blood, breathing, seizure. Okay.
+  Nurse -> And once things settle down, put a sheet on the fridge, write every dose and the time, so you and your wife can both see what she's had. || E2
+  Caller -> Yeah. We're going to. I feel awful.
+  Nurse -> It happens a lot, Tobias. You caught it fast. Go call them now.
+  Caller -> Okay. Thank you, Priya.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Willa Renner, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2021-09-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tobias Renner, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: father, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550128", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his daughter was accidentally given two doses of ibuprofen close together.
+    speaker: Caller
+    turns: [2]
+    quote: "I think I did something wrong."
+    explanation: Documents the medication error prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two 9 mL doses of children's ibuprofen (100 mg per 5 mL) were given about 20 minutes apart by each parent.
+      speaker: Caller
+      turns: [8]
+      quote: "And I gave her the ibuprofen. The children's. The, the liquid. Nine milliliters. And then my wife, she came home and she didn't know, and she gave her another nine."
+      explanation: Documents the duplicate dose.
+      facts:
+        - {type: medication, name: ibuprofen, strength: 100 mg per 5 mL, dose: "9", unit: mL, last_dose: two doses about 20 minutes apart, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: She was awake and playing.
+      speaker: Caller
+      turns: [12]
+      quote: "She's fine. She's, she's playing."
+      explanation: Documents her current status.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+    - text: No vomiting or stomach pain was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No throwing up. She hasn't said her stomach hurts."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+        - {type: pertinent_negative, name: stomach pain, certainty: stated}
+      covers: [A2, A3]
+  response:
+    - text: Advised calling Poison Control right away and giving no more ibuprofen or other fever medicine tonight.
+      speaker: Nurse
+      turns: [17]
+      quote: "I want you to call Poison Control right now."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call pediatric nurse about the double dose.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'm also going to page our on-call pediatric nurse about this right now."
+      explanation: Documents the planned escalation.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 15 minutes to hear what Poison Control said.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you back in fifteen minutes to see what Poison Control said."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling 911 if she became very sleepy and hard to wake, vomited blood, had trouble breathing, or had a seizure.
+      speaker: Nurse
+      turns: [27]
+      quote: "if she gets very sleepy and hard to wake up, if she throws up blood, has any trouble breathing, or has a seizure, call 911 right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping a written record of every dose and time on the fridge so both parents could see it.
+      speaker: Nurse
+      turns: [29]
+      quote: "put a sheet on the fridge, write every dose and the time, so you and your wife can both see what she's had."
+      explanation: Documents medication tracking guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "And then my wife, she came home and she didn't know, and she gave her another nine."}

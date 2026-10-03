@@ -1,0 +1,210 @@
+call_id: tr-232
+split: train
+blueprint: "Daughter of a 79-year-old homebound patient with an indwelling catheter: only two drainage bags and one catheter-securement strap are left; urine is clear and draining well. Nurse places the order (completed), plans delivery coordination for tomorrow, and plans a nurse visit Friday for the routine catheter change. Catheter supplies."
+setup:
+  scenario_category: supply
+  subtype: catheter_supplies
+  secondary_tags: [phone_from_file, hedging, split_turns]
+  clinical_domains: [equipment, urinary_catheter]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-14T15:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelius Bledsoe
+  patient_name_spoken: Cornelius Bledsoe
+  patient_name_certainty: stated
+  patient_dob_true: "1947-06-30"
+  patient_dob_spoken: "1947-06-30"
+  patient_dob_certainty: stated
+  caller_name_true: Yvette Bledsoe
+  caller_name_spoken: Yvette Bledsoe
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3145550162"
+  callback_phone_spoken: "3145550162"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that catheter drainage bags and straps are running low
+  reason_category: supply_catheter
+  relevant_context: Home health patient with an indwelling urinary catheter
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: drainage bags
+    supply_remaining: "2"
+    supply_unit: bags
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: catheter securement straps
+    supply_remaining: "1"
+    supply_unit: strap
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: leaking or cloudy urine
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: drainage bags and securement straps
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Keep the bag below the bladder, empty it when half full, and wash hands before and after
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for no urine in the bag for several hours, cloudy or bloody urine, fever, or leaking around the catheter
+    trigger_condition: no urine for hours; cloudy or bloody urine; fever; leaking
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. This is Yvette Bledsoe. I'm calling about my dad's catheter supplies. We're running low on the bags. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Yvette. Let me find his chart. Can you tell me his date of birth?
+  Caller -> June thirtieth, nineteen forty seven. Cornelius Bledsoe, by the way, I didn't say. || patient_dob, patient_name
+  Nurse -> Got it. And I have three one four, five five five, zero one six two for you. || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> Okay. How many drainage bags do you have?
+  Caller -> Two. Two left. And I think one of the leg strap things, the one that holds the tube to his leg. One. I use a new one every week. || A1, A2
+  Nurse -> Okay. How's he doing with the catheter? Is the urine draining well? Any leaking, or does it look cloudy?
+  Caller -> No leaking. It's draining fine. It's clear, kind of light yellow. It looks the same as always. || A3
+  Nurse -> Good. I'm going to put in the order for drainage bags and securement straps now. It's done. || R1
+  Caller -> Oh, good. I was worried we'd run out this weekend.
+  Nurse -> I'm going to coordinate the delivery for tomorrow. || R2
+  Caller -> Tomorrow. That's perfect. I work till three but my brother is home.
+  Nurse -> That's fine. Also, I'm going to send a nurse out Friday for his routine catheter change, since that's due. || R3
+  Caller -> Friday. Okay. Yes, I think it's due. I'll tell Dad.
+  Nurse -> In the meantime, keep the bag below the level of his bladder, empty it when it's about half full, and wash your hands before and after. || E1
+  Caller -> Below the bladder. Half full. Wash hands. I do that. I'm careful. I used to be a nurse's aide.
+  Nurse -> Then you know. Call us if there's no urine in the bag for several hours, if it turns cloudy or bloody, if he gets a fever, or if it leaks around the catheter. || E2
+  Caller -> No urine, cloudy or bloody, fever, leaking. Okay. I'll write it on the fridge.
+  Nurse -> Anything else, Yvette?
+  Caller -> No. That's it. Thanks, Marcus.
+  Nurse -> You're welcome. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelius Bledsoe, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1947-06-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Yvette Bledsoe, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550162", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that catheter drainage bags and straps were running low.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling about my dad's catheter supplies. We're running low on the bags."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two drainage bags remained.
+      speaker: Caller
+      turns: [8]
+      quote: "Two. Two left."
+      explanation: Documents the bag supply.
+      facts:
+        - {type: supply, item: drainage bags, supply: 2 bags, certainty: stated}
+      covers: [A1]
+    - text: One catheter securement strap remained, changed weekly.
+      speaker: Caller
+      turns: [8]
+      quote: "One. I use a new one every week."
+      explanation: Documents the strap supply.
+      facts:
+        - {type: supply, item: catheter securement straps, supply: 1 strap, certainty: stated}
+      covers: [A2]
+    - text: No leaking was reported and the urine was clear and light yellow.
+      speaker: Caller
+      turns: [10]
+      quote: "No leaking. It's draining fine. It's clear, kind of light yellow."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: leaking or cloudy urine, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Placed the order for drainage bags and securement straps.
+      speaker: Nurse
+      turns: [11]
+      quote: "I'm going to put in the order for drainage bags and securement straps now. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to coordinate delivery for tomorrow.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to coordinate the delivery for tomorrow."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to send a nurse out Friday for the routine catheter change.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to send a nurse out Friday for his routine catheter change"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised keeping the bag below the bladder, emptying it when half full, and washing hands before and after.
+      speaker: Nurse
+      turns: [17]
+      quote: "keep the bag below the level of his bladder, empty it when it's about half full, and wash your hands before and after."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for no urine for several hours, cloudy or bloody urine, fever, or leaking around the catheter.
+      speaker: Nurse
+      turns: [19]
+      quote: "Call us if there's no urine in the bag for several hours, if it turns cloudy or bloody, if he gets a fever, or if it leaks around the catheter."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

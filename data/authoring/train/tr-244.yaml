@@ -1,0 +1,261 @@
+call_id: tr-244
+split: train
+blueprint: "62-year-old patient on a steroid taper calls confused: the pharmacy label and her discharge sheet disagree, and she thinks she may have taken four milligrams twice yesterday. The nurse reads the provider's note (four milligrams daily through Sunday, then two milligrams daily for three days, then stop), has her go through exactly what she took, and decides to message the provider to confirm. She is jittery from the medicine, sleeps badly, and rambles. Taper confusion, v2 short, many short turns, self-corrections."
+setup:
+  scenario_category: medication
+  subtype: taper_confusion
+  secondary_tags: [hedging, contradiction, late_answers, split_turns, trap_phrasing, multi_issue]
+  clinical_domains: [medication, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Tom
+  call_timestamp_utc: "2026-10-18T15:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gwendolyn Raskin
+  patient_name_spoken: Gwendolyn Raskin
+  patient_name_certainty: stated
+  patient_dob_true: "1964-08-21"
+  patient_dob_spoken: "1964-08-21"
+  patient_dob_certainty: stated
+  caller_name_true: Gwendolyn Raskin
+  caller_name_spoken: Gwendolyn Raskin
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "9525550147"
+  callback_phone_spoken: "9525550147"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked for help with a steroid dose that seems different on two papers
+  reason_category: medication_question
+  relevant_context: Home health patient on a steroid taper
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: dexamethasone
+    medication_name_spoken: dexamethasone
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: once a day
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: dexamethasone
+    medication_name_spoken: dexamethasone
+    medication_status: extra_dose
+    dose: "4"
+    unit: mg
+    last_dose: yesterday evening
+    certainty: unclear
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: jittery and trouble sleeping
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: take four milligrams once a day through Sunday, then two milligrams for three days, then stop
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: possible extra dexamethasone dose and mismatched instructions
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take the dexamethasone once a day in the morning with food, write each dose on a calendar, and do not stop it early
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Watch for high sugars, stomach pain, black stools, or strong mood changes and report them
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Tom.
+  Caller -> Hi, Tom, it's Gwen. Gwendolyn Raskin. I'm sorry, I think I'm confused about my pill. || caller_name, relationship, patient_name
+  Nurse -> No need to be sorry, Gwen. Which pill?
+  Caller -> The steroid. The dexamethasone. I have two papers and they don't agree. || cc, A1
+  Nurse -> Okay. Give me a second, I'll pull up your chart. What's your date of birth?
+  Caller -> August twenty first. Nineteen sixty four. || patient_dob
+  Nurse -> And is nine five two, five five five, zero one four seven still your number? || callback_phone
+  Caller -> Yes. That's the cell.
+  Nurse -> Great. And you're at home today? Anyone with you?
+  Caller -> My daughter was here this morning. She went to work. She's back at six. I'm alone right now.
+  Nurse -> Okay. That's fine.
+  Nurse -> Okay. So tell me about the two papers.
+  Caller -> The pharmacy label says one tablet in the morning. Four milligrams. And the sheet from the hospital says something about, hold on, it says taper. Four, then two, then something. And I don't know when I'm supposed to switch. || A1
+  Nurse -> Okay. Can you read me what the hospital sheet says?
+  Caller -> It's small. Hold on, let me get my glasses. They're on the, they're in the kitchen. Hold on.
+  Nurse -> Take your time.
+  Caller -> Okay. I got them. It says, four milligrams daily. Then, wait. Then it says, "decrease." And then there's a date. It's a Sunday. And I don't know if that Sunday is this one or last one.
+  Nurse -> Okay. I have the provider's note here in front of me. Let me read it to you, and tell me if it matches.
+  Caller -> Okay.
+  Nurse -> It says four milligrams once a day through this Sunday. Then two milligrams once a day for three days. Then stop. || R1, A1
+  Caller -> Through this Sunday. This Sunday coming. Not the one that just passed.
+  Nurse -> Right. This coming Sunday. The twenty fifth.
+  Caller -> Oh. Okay. So I'm still on the four. Okay. That's good. That's what I thought. Then two for three days. Then done.
+  Nurse -> Then done. Exactly. Now, can you tell me what you've taken the last two days? Walk me through it.
+  Caller -> Okay. Yesterday. Yesterday I took one in the morning. Four. With my oatmeal.
+  Nurse -> Okay.
+  Caller -> And then, oh. And then last night I couldn't sleep, and I was looking at the sheet, and I thought maybe I was supposed to take two a day. Because it said "four daily" and I thought daily was like, four a day, or twice. And I took another dexamethasone. At about, maybe eight? Eight or nine. || A2
+  Nurse -> Okay. So you may have taken a second four milligram tablet last night. Are you sure about that?
+  Caller -> I think so. I think. I have the bottle. Let me count. They gave me, hm, I don't remember how many they gave me. So I can't count it. Ugh.
+  Nurse -> That's okay. If you think you took it, we'll treat it as if you did. And this morning?
+  Caller -> This morning I didn't. I read the label again and it said one in the morning and I was like, well, I already had my extra. So I skipped it. Was that wrong?
+  Nurse -> Okay. That's not unreasonable, but the plan is to take it once a day. Have you taken any today?
+  Caller -> No. Not today. It's three o'clock. Should I take it now?
+  Nurse -> Let me ask something first. Did you eat today? Anything at all?
+  Caller -> A piece of toast. And coffee. Which is probably why I'm jittery. Ha. I'm drinking coffee on top of it.
+  Nurse -> That'll do it. Maybe switch to decaf for the rest of the day.
+  Caller -> I will. I will switch. Okay.
+  Nurse -> Let me check one thing first. I'd like to message the provider before you take today's dose, because of the extra last night. Can you hold off for now?
+  Caller -> I can hold off. Okay. But what if it makes it, I'm worried I'll get sick if I skip.
+  Nurse -> One missed morning on a taper isn't dangerous, but I'd like the provider to tell us what to do. I'm going to send them a message right now. || R2
+  Caller -> Okay. Thank you. I feel so stupid.
+  Nurse -> You're not stupid. Two papers that say different things would confuse anyone.
+  Caller -> I just want to do it right.
+  Nurse -> I know. And Gwen, how are you feeling? You mentioned you couldn't sleep.
+  Caller -> I'm jittery. I feel shaky. I feel like I had five coffees. And I didn't sleep, I was up till four. || A3
+  Nurse -> Okay. That's common with steroids, especially with an extra dose. Any stomach pain? Any black stools? Any trouble breathing?
+  Caller -> No. No stomach pain. My stomach's fine. No. I mean, a little acid, but I always get that. No black stools.
+  Nurse -> Okay. Thank you.
+  Caller -> My daughter says I should write everything on a calendar.
+  Nurse -> Your daughter's right. That's what I'd do too. Write each dose on a calendar, and make it a habit. Take the dexamethasone once a day, in the morning with food, and don't stop it early. || E1, A1
+  Caller -> Once a day. Morning. With food. Calendar. Don't stop early. Okay. I'll get a calendar. I think I have one from the vet. It has cats on it.
+  Nurse -> A calendar with cats works.
+  Caller -> Ha. It's the one the vet gave out. Okay.
+  Nurse -> What kind of cats?
+  Caller -> Orange ones. All orange. Twelve orange cats. One for each month. I have two orange cats at home so it's fitting.
+  Nurse -> Also, with steroids it's a good idea to watch for high sugar, stomach pain, black stools, or any strong mood changes, and let us know. || E2
+  Caller -> High sugar. Stomach pain. Black stools. Moods. Okay. I get weepy sometimes. I thought that was just me.
+  Nurse -> It can be the medicine. I'm glad you mentioned it. I'll add it to the message.
+  Caller -> Okay. Thank you. I'm so sorry for calling.
+  Nurse -> Please don't be. You did the right thing asking. I'll call you this evening after I hear from the provider. || R3
+  Caller -> This evening. Okay. What time?
+  Nurse -> Between five and six, probably.
+  Caller -> Okay. Between five and six. I'll be here. I'm not going anywhere. I'll make some tea. Decaf. Ha.
+  Nurse -> Good idea. Decaf.
+  Caller -> Okay. Bye, Tom.
+  Nurse -> Bye, Gwen.
+noise_events:
+  - {turn: auto, type: dropped_words, true_form: "It's small. Hold on, let me get my glasses", heard_form: "It's small. Hold on, let me get my glasses. They're on the, they're in the kitchen", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gwendolyn Raskin, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1964-08-21", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Gwendolyn Raskin, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "9525550147", certainty: stated, heard_as: [], turns: [7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked for help with a steroid dose that seemed different on two papers.
+    speaker: Caller
+    turns: [4]
+    quote: "The steroid. The dexamethasone. I have two papers and they don't agree."
+    explanation: Documents the question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Dexamethasone 4 mg once a day was being taken in the morning as a taper.
+      speaker: Caller
+      turns: [13]
+      quote: "The pharmacy label says one tablet in the morning. Four milligrams."
+      explanation: Documents the steroid dose.
+      facts:
+        - {type: medication, name: dexamethasone, dose: "4", unit: mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: A second 4 mg tablet may have been taken last night at about eight or nine (unclear; she was not sure and could not count the tablets).
+      speaker: Caller
+      turns: [27]
+      quote: "And I took another dexamethasone. At about, maybe eight? Eight or nine."
+      explanation: Documents the possible extra dose while preserving the uncertainty.
+      facts:
+        - {type: medication, name: dexamethasone, dose: "4", unit: mg, last_dose: yesterday evening, med_status: extra_dose, certainty: unclear}
+      covers: [A2]
+    - text: She felt jittery and could not sleep.
+      speaker: Caller
+      turns: [45]
+      quote: "I'm jittery. I feel shaky."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: jittery and trouble sleeping, present: true, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Read the provider's note, which called for 4 mg once a day through Sunday, then 2 mg once a day for three days, then stop.
+      speaker: Nurse
+      turns: [20]
+      quote: "It says four milligrams once a day through this Sunday. Then two milligrams once a day for three days. Then stop."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the possible extra dose and the mismatched instructions.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'm going to send them a message right now."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening after hearing from the provider.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'll call you this evening after I hear from the provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised taking the dexamethasone once a day in the morning with food, writing each dose on a calendar, and not stopping early.
+      speaker: Nurse
+      turns: [50]
+      quote: "Take the dexamethasone once a day, in the morning with food, and don't stop it early."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised watching for high sugar, stomach pain, black stools, or strong mood changes.
+      speaker: Nurse
+      turns: [56]
+      quote: "it's a good idea to watch for high sugar, stomach pain, black stools, or any strong mood changes, and let us know."
+      explanation: Documents symptom monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+  risk_flags: []

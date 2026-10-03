@@ -1,0 +1,251 @@
+call_id: tr-038
+split: train
+blueprint: "Daughter says her mother took about 4 hydromorphone tablets in 2 hours (unsure of the count); drowsy but answers questions; breathing seems normal (hedged); nurse advises staying with her and not giving more, will call the on-call physician, 911 if hard to wake or breathing slows. Flag: medication concern."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [tall_man_drug, hedging, late_answers]
+  clinical_domains: [medication, sedation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-09-22T20:14:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Odessa Marlowe
+  patient_name_spoken: Odessa Marlowe
+  patient_name_certainty: stated
+  patient_dob_true: "1937-12-28"
+  patient_dob_spoken: "1937-12-28"
+  patient_dob_certainty: stated
+  caller_name_true: Janelle
+  caller_name_spoken: Janelle
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4705550143"
+  callback_phone_spoken: "4705550143"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Mother may have taken too many hydromorphone tablets
+  reason_category: medication_overdose_concern
+  relevant_context: Mother manages her own pills
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydromorphone
+    medication_name_spoken: hydromorphone
+    medication_status: extra_dose
+    strength: 2 mg
+    dose: about 4 tablets
+    unit: tablets
+    last_dose_time: over the last 2 hours
+    certainty: unclear
+    unclear_detail: Caller counted the remaining pills and is unsure of exactly how many were taken
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: drowsiness
+    symptom_present: true
+    severity: sleepy but answers questions
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: slow or shallow breathing
+    symptom_present: false
+    certainty: unclear
+    unclear_detail: Caller said breathing seems regular, hedged
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: hydromorphone
+    medication_name_spoken: hydromorphone
+    reason_or_trigger: do not give or take any more
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call physician
+    reason_or_trigger: possible hydromorphone overdose
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 10 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if she is hard to wake, her breathing slows or becomes shallow, her lips turn blue, or she stops answering
+    trigger_condition: hard to wake; slow or shallow breathing; blue lips; no answers
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with her, keep her awake by talking, keep her sitting up or on her side, and put the pill bottle away
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller reports patient may have taken about four hydromorphone tablets in two hours and is drowsy
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Marcus, I need help. It's Janelle. It's my mom, Odessa Marlowe. || caller_name, relationship, patient_name
+  Nurse -> Okay, Janelle. What's your mom's date of birth?
+  Caller -> December twenty eighth, nineteen thirty seven. || patient_dob
+  Nurse -> And your number, is it four seven oh, five five five, zero one four three? || callback_phone
+  Caller -> Yes. Yes, that's me. || callback_phone
+  Nurse -> What's going on?
+  Caller -> I think my mom took too many of her hydromorphone pills. || cc, A1, F1
+  Nurse -> Okay. How many do you think she took?
+  Caller -> I don't know exactly. I counted what's left in the bottle and I think she took about four. In the last two hours. || A1
+  Nurse -> Okay. And what's the strength of the tablet?
+  Caller -> Two milligrams. The two milligram ones. || A1
+  Nurse -> Okay. And what's she supposed to take?
+  Caller -> One. One every four hours, if she needs it. She did it herself, she was in pain and I think she just kept taking them. || A1
+  Nurse -> Okay. How is she right now? Is she awake?
+  Caller -> She's awake. She's really sleepy. But she answers me when I talk to her. || A2
+  Nurse -> Okay. Is she hard to wake up?
+  Caller -> No. She's sleepy, but she, she's, she answers. She's talking.
+  Nurse -> Okay. What does her breathing look like? Is it slow, or shallow?
+  Caller -> I think it's regular. It looks regular. I think. I'm not sure what slow would look like. || A3
+  Nurse -> Okay. Is she throwing up?
+  Caller -> No, no throwing up at all. || A4
+  Nurse -> Okay, Janelle. Here's what I need you to do. Stay right with her. Talk to her, keep her awake. Keep her sitting up, or on her side, not flat on her back. || E2
+  Caller -> Okay. Okay. I'm with her.
+  Nurse -> Don't give her any more hydromorphone, and put the bottle away where she can't reach it. || R1
+  Caller -> I took it. It's in my hand.
+  Nurse -> Good. I'm going to page the on-call doctor right now about this. || R2
+  Caller -> Okay.
+  Nurse -> And I'll call you back in ten minutes. But if she gets hard to wake up, or her breathing slows down or gets shallow, or her lips look blue, or she stops answering you, hang up and call nine one one right away. || R3, E1
+  Caller -> Okay. Nine one one if she's hard to wake, her breathing. Okay.
+  Nurse -> Right. Keep talking to her. Stay with her.
+  Caller -> I will. Mom? Mom, can you hear me? She's nodding.
+  Nurse -> Good. Keep her talking. Talk to you in ten minutes.
+  Caller -> Okay.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "answer to nurse", heard_form: "She's sleepy, but she, she's, she answers", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Odessa Marlowe, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1937-12-28", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Janelle, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "4705550143", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that her mother may have taken too many hydromorphone tablets.
+    speaker: Caller
+    turns: [8]
+    quote: "I think my mom took too many of her hydromorphone pills."
+    explanation: Documents the medication safety concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: About 4 hydromorphone 2 mg tablets were thought to have been taken over the last 2 hours; the caller was unsure of the exact count, and the order was 1 tablet every 4 hours as needed.
+      speaker: Caller
+      turns: [10]
+      quote: "I counted what's left in the bottle and I think she took about four. In the last two hours."
+      explanation: Documents the suspected excess dosing with the caller's uncertainty preserved.
+      facts:
+        - {type: medication, name: hydromorphone, strength: 2 mg, dose: about 4 tablets, unit: tablets, last_dose: over the last 2 hours, med_status: extra_dose, certainty: unclear}
+      covers: [A1]
+    - text: She was very sleepy but awake and answering questions.
+      speaker: Caller
+      turns: [16]
+      quote: "She's awake. She's really sleepy. But she answers me when I talk to her."
+      explanation: Documents her current level of alertness.
+      facts:
+        - {type: symptom, name: drowsiness, present: true, severity: sleepy but answers questions, certainty: stated}
+      covers: [A2]
+    - text: Breathing appeared regular, though the caller was not sure what slow breathing would look like.
+      speaker: Caller
+      turns: [20]
+      quote: "I think it's regular. It looks regular. I think. I'm not sure what slow would look like."
+      explanation: Documents the breathing observation with the caller's uncertainty preserved.
+      facts:
+        - {type: pertinent_negative, name: slow or shallow breathing, certainty: unclear}
+      covers: [A3]
+    - text: No vomiting was reported.
+      speaker: Caller
+      turns: [22]
+      quote: "No, no throwing up at all."
+      explanation: Documents a pertinent negative for vomiting.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised not giving or taking any more hydromorphone and putting the bottle out of reach.
+      speaker: Nurse
+      turns: [25]
+      quote: "Don't give her any more hydromorphone, and put the bottle away where she can't reach it."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: hydromorphone, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call physician about the possible overdose.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'm going to page the on-call doctor right now about this."
+      explanation: Documents the planned physician page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 10 minutes.
+      speaker: Nurse
+      turns: [29]
+      quote: "And I'll call you back in ten minutes."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 10 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling 911 immediately if she became hard to wake, her breathing slowed or became shallow, her lips turned blue, or she stopped answering.
+      speaker: Nurse
+      turns: [29]
+      quote: "if she gets hard to wake up, or her breathing slows down or gets shallow, or her lips look blue, or she stops answering you, hang up and call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised staying with her, keeping her awake and sitting up or on her side.
+      speaker: Nurse
+      turns: [23]
+      quote: "Stay right with her. Talk to her, keep her awake. Keep her sitting up, or on her side, not flat on her back."
+      explanation: Documents safety measures.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "I think my mom took too many of her hydromorphone pills."}

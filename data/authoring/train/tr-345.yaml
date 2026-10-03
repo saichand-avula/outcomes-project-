@@ -1,0 +1,323 @@
+call_id: tr-345
+split: train
+blueprint: "A husband calls home health because his wife Opal's nebulizer machine stopped turning on this morning; she has COPD and uses albuterol by nebulizer every six hours as needed. She has a rescue inhaler with about forty puffs left but no spacer. She is mildly wheezy, oxygen 93 on room air, no severe shortness of breath. The nurse orders a replacement machine for same-day delivery (completed), arranges the delivery window, plans a nurse visit tomorrow, and teaches how to use the inhaler with a spacer or tube in the meantime. Equipment supply with a respiratory medicine, spouse caller, medium v2."
+setup:
+  scenario_category: supply
+  subtype: nebulizer_equipment
+  secondary_tags: [phone_from_file, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [equipment, dyspnea, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Bluebird Home Health
+  agency_type: home_health
+  nurse_name: Kamal
+  call_timestamp_utc: "2026-10-23T16:45:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [albuterol]
+chief_complaint:
+  patient_name_true: Opal Penhallow
+  patient_name_spoken: Opal Penhallow
+  patient_name_certainty: stated
+  patient_dob_true: "1955-10-27"
+  patient_dob_spoken: "1955-10-27"
+  patient_dob_certainty: stated
+  caller_name_true: Clyde Penhallow
+  caller_name_spoken: Clyde Penhallow
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "9015550121"
+  callback_phone_spoken: "9015550121"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the nebulizer machine stopped working
+  reason_category: supply
+  relevant_context: Home health patient with COPD who uses albuterol by nebulizer
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: nebulizer machine
+    supply_remaining: not working
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: albuterol
+    medication_name_spoken: albuterol
+    medication_status: taking
+    frequency: nebulizer every six hours as needed
+    prn: true
+    last_dose: midnight
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: rescue inhaler
+    supply_remaining: about forty puffs
+    supply_unit: puffs
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild wheezing
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "93"
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: severe shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: equipment company
+    reason_or_trigger: replacement nebulizer machine
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Use the rescue inhaler with a spacer if there is one, shake it, take two puffs one minute apart, and breathe in slowly and hold for ten seconds
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for severe breathlessness, blue lips or if the inhaler does not help, and call back if the new machine has not arrived by nine
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebird Home Health, this is Kamal.
+  Caller -> Kamal, hi. It's Clyde Penhallow. P E N H A L L O W. I'm calling about my wife. Opal Penhallow. Her breathing machine broke. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Clyde. Let me get Opal's chart. What's her date of birth?
+  Caller -> Is this a bad time? I can call back if you're busy.
+  Nurse -> Not at all. I'm right here.
+  Caller -> October twenty seventh. Nineteen fifty five. || patient_dob
+  Nurse -> And a number to reach you at?
+  Caller -> Nine oh one, five five five, zero one two one. That's the house phone. We keep it on the wall in the kitchen. It's the only one that works inside. The cell is no good. || callback_phone
+  Nurse -> Is the signal bad at your house?
+  Caller -> Terrible. We're in a hollow. You have to go out to the mailbox to get a bar. We kept the old landline for that reason.
+  Nurse -> That makes sense.
+  Nurse -> Got it. Okay. Tell me about the machine.
+  Caller -> It's the nebulizer. The little box. The compressor. This morning I plugged it in and nothing. No light. No sound. It's dead. I tried a different outlet. I tried a different cord. Nothing. I think the motor's gone. It's seven years old. || A1
+  Nurse -> Who supplied it originally?
+  Caller -> The same company as the oxygen. Lakeside Medical. The one with the green truck.
+  Nurse -> Good. I know them.
+  Nurse -> Okay. The nebulizer machine won't turn on at all. Did it make any noise before it died?
+  Caller -> Yesterday it was louder. A rattly sound. And hot. It smelled like burning plastic. I should have called then.
+  Nurse -> You did the right thing to unplug it. Please don't plug it back in.
+  Caller -> I haven't. It's sitting on the counter. I put a note on it. Do not use.
+  Nurse -> Perfect.
+  Nurse -> Okay. That's good information. When was the last time Opal used it?
+  Caller -> This morning at six. I plugged it in and nothing came out. So she hasn't had a treatment since last night at midnight. Wait. No. She had one at midnight. At six I tried and it was dead. So the last real treatment was at midnight. Six hours ago. Now it's noon. Twelve hours ago? No. I'm confusing myself. || A2
+  Nurse -> Okay. Let's say the last treatment was around midnight, and she's due. How is she breathing right now?
+  Caller -> She's wheezy. A little. Not bad. I can hear it when she breathes out. A whistle. She's sitting in her chair. She's not struggling. She's talking in full sentences. || A4
+  Nurse -> Good. Do you have her finger oxygen monitor handy?
+  Caller -> I do. It's on her finger. Ninety three. It's usually ninety four, ninety five. So a little lower. || A5
+  Nurse -> Okay. Ninety three. Is she short of breath at all? Is she gasping, or using her neck muscles?
+  Caller -> No. No gasping. She's comfortable. She's a bit winded if she gets up. But sitting she's fine. She's just wheezy. She's doing a crossword. || A6
+  Nurse -> What are the words today?
+  Caller -> I don't know. She just asked me what a seven letter word for sorrow is. I said I don't do the crossword.
+  Nurse -> Ha. Sadness. Maybe melancholy?
+  Caller -> I'll tell her. She'll say that's eight letters.
+  Nurse -> Okay. That's reassuring. Does she have a rescue inhaler?
+  Caller -> She does. The blue one. Albuterol. It's in her purse. It's almost empty. The counter says forty. Forty puffs. || A3
+  Nurse -> Okay. Forty puffs left. Does she have a spacer? A tube that attaches to it?
+  Caller -> I don't know what that is. A tube? Hm. No. I don't think so. Just the inhaler. She uses it straight.
+  Nurse -> How often does she use the rescue inhaler?
+  Caller -> A few times a week. Mostly when she walks to the mailbox. Or the stairs. She didn't use it yesterday.
+  Nurse -> Okay.
+  Nurse -> Okay. That's fine for today. Clyde, here's what I'm going to do. I'm ordering a new nebulizer machine right now. Hold on. I'll put it in as urgent.
+  Caller -> Oh good. Thank you.
+  Nurse -> It's in. I just placed the order with the equipment company for a replacement nebulizer machine, marked urgent, same day. || R1
+  Caller -> Same day? Really? That's great.
+  Nurse -> I'm going to call and ask them to deliver this evening. Will someone be home?
+  Caller -> I'm home. I don't go anywhere. I take care of her. She can't be alone for long.
+  Nurse -> How long have you been her main caregiver?
+  Caller -> Four years. Since the diagnosis. I used to work at the lumber yard. I retired to take care of her. It's the best job I've had.
+  Nurse -> That's wonderful.
+  Nurse -> Okay. I'll ask for this evening, and I'll ask them to call when they're close. || R2
+  Caller -> Perfect. Is it going to be the same kind? The same machine?
+  Nurse -> A similar one. A small compressor. It comes with the tubing and the mask and the cups. Do you have extra albuterol vials for the neb? || A2
+  Caller -> I have a box. About twenty. We're good on those.
+  Nurse -> Okay. Good. In the meantime, let's use the inhaler. I'd like you to have her use the rescue inhaler. Shake it first. Two puffs, one minute apart. Breathe in slowly, hold for ten seconds, then breathe out. || E1
+  Caller -> Shake. Two puffs. A minute apart. Slow breath. Hold ten. Okay. Hold on. I'll get it from her purse. Opal, honey, here's your inhaler. Okay. She's doing it. Puff one. Hold. Okay. She's holding. I'm counting. Seven, eight, nine, ten. Out. Okay. A minute. I'll wait. I'm looking at the clock.
+  Caller -> She's rolling her eyes at me. She says she can do it herself. She can. I'm hovering.
+  Nurse -> Ha. A little hovering is allowed.
+  Nurse -> Good. Wait a full minute. Then the second puff.
+  Caller -> Okay. A minute. Okay. Second puff. Hold. Counting. Okay. Done. Whew. She says it tastes like chalk.
+  Nurse -> Ha. It does. How is she feeling?
+  Caller -> A little better. Her wheeze is softer. She says it's easier. She's smiling. She's at ninety four.
+  Nurse -> Does she feel any jitteriness or fast heartbeat from it?
+  Caller -> A little. She says her heart is going a bit. She always gets that. It passes in ten minutes.
+  Nurse -> That's normal with albuterol. || A2
+  Nurse -> Good. That's what we want. She can use it again in four to six hours if she needs it. You've got forty puffs, so there's plenty for today.
+  Caller -> She's put the crossword down. She's telling me about the neighbors now. She's feeling more herself.
+  Nurse -> That's a good sign. Keep her sitting up and relaxed.
+  Caller -> I will. I'll make her some tea. Does tea hurt?
+  Nurse -> A warm drink is fine. It can even loosen the chest a bit.
+  Caller -> Okay. Four to six hours. If she needs. I'll watch.
+  Nurse -> Does she keep a log of when she uses it?
+  Caller -> I do. On the calendar. I write an X. It's right next to the fridge.
+  Nurse -> Perfect. The nurse will like that.
+  Nurse -> I'm also sending a nurse out tomorrow to check on Opal and set up the new machine, if it arrives. || R3
+  Caller -> Tomorrow. Okay. Good. Morning or afternoon?
+  Nurse -> The scheduler will call you with a time.
+  Caller -> Okay. Thank you.
+  Nurse -> Clyde, please call nine one one if she gets severely short of breath, her lips turn blue, or the inhaler doesn't help. And call us back if the new machine hasn't arrived by nine tonight. || E2
+  Caller -> Severe, blue lips, inhaler doesn't help. Nine one one. Machine not here by nine, call you. Okay. I wrote it on the back of an envelope.
+  Caller -> I have a lot of envelopes. I never throw them out.
+  Nurse -> Ha. A habit I respect.
+  Nurse -> Perfect. Anything else?
+  Caller -> No. Thank you, Kamal. You've been a big help.
+  Nurse -> Anytime. Take care of Opal.
+  Caller -> I will. She says thank you. She says you sound like a doctor.
+  Nurse -> Ha. Tell her I'm just a nurse.
+  Caller -> She says the best kind.
+  Nurse -> Aw. Thank you. Bye, Clyde.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Opal Penhallow, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1955-10-27", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Clyde Penhallow, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550121", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the nebulizer machine stopped working.
+    speaker: Caller
+    turns: [2]
+    quote: "Her breathing machine broke."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The nebulizer machine would not turn on, after rattling and smelling like hot plastic the day before.
+      speaker: Caller
+      turns: [13]
+      quote: "It's dead."
+      explanation: Documents the broken machine.
+      facts:
+        - {type: supply, item: nebulizer machine, supply: not working, certainty: stated}
+      covers: [A1]
+    - text: Albuterol by nebulizer every six hours as needed, with the last treatment around midnight.
+      speaker: Caller
+      turns: [23]
+      quote: "So the last real treatment was at midnight."
+      explanation: Documents the breathing treatment.
+      facts:
+        - {type: medication, name: albuterol, frequency: nebulizer every six hours as needed, prn: true, last_dose: midnight, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Her rescue inhaler had about forty puffs left and no spacer.
+      speaker: Caller
+      turns: [35]
+      quote: "The counter says forty. Forty puffs."
+      explanation: Documents the inhaler supply.
+      facts:
+        - {type: supply, item: rescue inhaler, supply: about forty puffs, certainty: stated}
+      covers: [A3]
+    - text: She had mild wheezing but spoke in full sentences.
+      speaker: Caller
+      turns: [25]
+      quote: "She's wheezy. A little. Not bad."
+      explanation: Documents the wheezing.
+      facts:
+        - {type: symptom, name: mild wheezing, present: true, severity: mild, certainty: stated}
+      covers: [A4]
+    - text: Oxygen saturation was 93, a little below her usual.
+      speaker: Caller
+      turns: [27]
+      quote: "Ninety three. It's usually ninety four, ninety five."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "93", certainty: stated}
+      covers: [A5]
+    - text: She had no severe shortness of breath or gasping.
+      speaker: Caller
+      turns: [29]
+      quote: "No. No gasping. She's comfortable."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: severe shortness of breath, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Placed an urgent same-day order for a replacement nebulizer machine.
+      speaker: Nurse
+      turns: [43]
+      quote: "I just placed the order with the equipment company for a replacement nebulizer machine"
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask for delivery this evening with a call when close.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll ask for this evening, and I'll ask them to call when they're close."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to check on her and set up the new machine.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'm also sending a nurse out tomorrow to check on Opal"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised using the rescue inhaler, shaking it, taking two puffs a minute apart and holding each breath for ten seconds.
+      speaker: Nurse
+      turns: [54]
+      quote: "Shake it first. Two puffs, one minute apart."
+      explanation: Documents inhaler technique.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for severe breathlessness, blue lips or an inhaler that did not help, and calling back if the machine had not arrived by nine.
+      speaker: Nurse
+      turns: [78]
+      quote: "please call nine one one if she gets severely short of breath"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

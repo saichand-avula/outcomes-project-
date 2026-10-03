@@ -1,0 +1,369 @@
+call_id: tr-500
+split: train
+blueprint: "A wife calls home health at dinner in a panic: her 78-year-old husband is choking on a piece of steak, cannot speak or cough, and is turning red then gray. The nurse tells her to call 911 on a second phone, coaches abdominal thrusts (stand behind him, fist above the navel, quick inward and upward), and the piece comes out after a few thrusts; he then coughs, is hoarse, lips not blue. Nurse keeps 911 coming, pages on-call, and reviews watching his breathing and cutting food small. Airway obstruction emergency (breathing concern and escalation), spouse caller, patient 65+, v2 long."
+setup:
+  scenario_category: high_risk
+  subtype: choking_airway_obstruction
+  secondary_tags: [crosstalk, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [dyspnea, swallowing]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cardinal Home Health
+  agency_type: home_health
+  nurse_name: Nadia
+  call_timestamp_utc: "2026-12-03T00:40:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alphonse Montague
+  patient_name_spoken: Alphonse Montague
+  patient_name_certainty: stated
+  patient_dob_true: "1948-08-30"
+  patient_dob_spoken: "1948-08-30"
+  patient_dob_certainty: stated
+  caller_name_true: Berenice Montague
+  caller_name_spoken: Berenice Montague
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6465550135"
+  callback_phone_spoken: "6465550135"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband was choking on food and could not breathe
+  reason_category: dyspnea
+  relevant_context: Home health patient with swallowing difficulty
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: choking on a piece of steak and unable to speak or cough
+    symptom_present: true
+    severity: severe
+    onset: a few minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: face turned red then gray
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: hoarse voice and coughing after the piece came out
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: blue lips
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: The piece of steak came out after abdominal thrusts guided by the nurse
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: choking on food and unable to breathe
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: airway obstruction relieved and ambulance on the way
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Stand behind him, put a fist above the navel, and give quick inward and upward thrusts until the food comes out or he can breathe
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Cut food into small pieces, have him sit fully upright and eat slowly, and take no more bites until the crew has checked him
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Choking on food, unable to speak or cough, face turning red then gray
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse told her to call 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Cardinal Home Health, this is Nadia.
+  Caller -> Nadia! Nadia, please! It's an emergency, I don't know who else to call, I called you because the number was on the fridge and it was the first one I saw!
+  Nurse -> You did the right thing. I'm here. Tell me what's happening.
+  Caller -> Nadia, it's Berenice Montague. My husband Alphonse Montague. He's choking. He can't talk. He's choking on his steak. || caller_name, patient_name, relationship, cc, F1, A1
+  Nurse -> Berenice, I'm listening. Is anyone choking, or is there another emergency?
+  Caller -> Choking! My husband! Right now!
+  Nurse -> Berenice, is he coughing? Can he make any sound?
+  Caller -> He's waving his arms. He's trying to point at his throat. His eyes are huge. He's so scared.
+  Caller -> Wait. Wait. Let me look. Alphonse! Look at me!
+  Caller -> No. No sound. He's holding his throat. His face is red. Oh my God, it's turning gray. Alphonse! Alphonse! || A2
+  Nurse -> Okay. Stay with me, Berenice.
+  Caller -> I'm here. I'm here. Oh God.
+  Nurse -> Okay. Listen to me. Call 911 right now, from another phone. Do it right now. I will stay on this line. || R1, F2
+  Caller -> Right now? You're sure? Should I try to hit his back first?
+  Nurse -> Call 911 first. I'll tell you what to do while you call.
+  Caller -> I don't have another phone! I have the cell. I'm on the house phone. The cell is on the counter. I can't leave him!
+  Nurse -> You have the cell. Use it. Quick.
+  Caller -> The cell. The cell. Where is it. It's on the counter. I see it.
+  Nurse -> Put the house phone on speaker and put it down. Use the cell for 911. Do it now.
+  Caller -> Speaker. Okay. I pressed something. Is it on?
+  Nurse -> I can hear you. It's on.
+  Caller -> Okay. Okay. The cell. I'm dialing. It's ringing.
+  Nurse -> Tell them clearly. Choking. Adult male.
+  Caller -> Choking. Adult. Man. Seventy eight.
+  Caller -> Nine one one. Nine. One. One. It's ringing.
+  Nurse -> Tell them your husband is choking. Give them your address. Then put the cell on speaker too.
+  Caller -> Hello? Hello? Yes. Yes. My husband is choking.
+  Caller -> Hello? My husband is choking. He can't breathe. Eleven twelve Cypress Lane. Cypress. C Y P R E S S. Yes. Yes. They want me to stay on. They're sending someone.
+  Nurse -> Perfect. You're doing everything right. Now the next step.
+  Caller -> Okay. Tell me. Please. Tell me what to do.
+  Caller -> They're asking me questions. Is he conscious? Yes. Is he breathing? No. He's trying. I don't know. Yes, he's conscious.
+  Caller -> Wait. Wait. Alphonse, let me hear. Okay. I hear him. I hear air.
+  Nurse -> Look at his chest. Is it moving? Is air going in and out?
+  Caller -> Yes. Yes, it's moving. It's moving. I can hear it. It's wheezy but I can hear it.
+  Nurse -> Keep answering them. I'll wait.
+  Nurse -> Good. Keep going.
+  Nurse -> Good. Berenice, now I need you to help him. Stand behind him. Wrap your arms around his waist.
+  Caller -> Help him how? I don't know how. I took a class in nineteen ninety. I forgot.
+  Nurse -> I'll tell you each step.
+  Caller -> He's sitting. He's at the table. He's in the chair.
+  Nurse -> Okay. Get behind the chair.
+  Nurse -> Get him standing if you can. Or stand behind the chair and reach around him. Make a fist with one hand. Put it just above his belly button, below his ribs.
+  Caller -> He's heavy. I can't lift him. He's trying to stand. He's pushing up. Okay. He's up.
+  Nurse -> Good. Now stay behind him.
+  Caller -> Okay. Okay. I'm behind him. I have my arms around him. I have a fist. Here? Above the belly button?
+  Nurse -> Yes. That's right. Fist above the belly button.
+  Nurse -> Yes. Put your other hand over your fist. Now pull hard, in and up. Quick thrusts. Like you're trying to lift him. In and up. || E1
+  Caller -> Both hands. Fist and hand. Above the belly button. Under the ribs. I got it.
+  Caller -> In and up. Okay. One. Two. Nothing. Three. He's gagging. Alphonse, hold on. Four. Five.
+  Nurse -> Keep going. Harder.
+  Nurse -> Keep going. Don't stop. In and up. Hard.
+  Caller -> I'm trying! I'm trying! Alphonse, please!
+  Caller -> Six. Seven. Oh, it's coming. Something's coming. He coughed. He coughed it out. It's on the floor. A big piece of meat. Alphonse! Alphonse, breathe!
+  Nurse -> That's it! Let him cough. Don't stop him.
+  Nurse -> Good. That's his body doing its job.
+  Caller -> He's coughing so hard. He's holding on to the table. He's coughing and coughing.
+  Nurse -> Is he breathing?
+  Caller -> I think so. I think so. Wait.
+  Caller -> He's coughing. He's gasping. He's breathing. He's making a noise, a terrible noise. But he's breathing. He's coughing. He's alive. || A5, A3
+  Nurse -> That's good. Let him cough.
+  Nurse -> Good. That's good. Keep him sitting up. Keep him calm. Stay with 911 on the cell.
+  Caller -> He's sitting. He's got his hand on his chest. He's looking at me.
+  Caller -> I'm here. I'm here. They're asking if he's breathing. Yes. He's breathing. Yes. He's coughing. Okay.
+  Nurse -> Tell them the thrusts worked.
+  Caller -> I told them. They said good job. They said keep him sitting.
+  Caller -> They want to know if he can talk. He's whispering. He says he can breathe. They say stay on the line. Help is five minutes away.
+  Nurse -> Is his color coming back? Look at his lips.
+  Caller -> I keep looking at him. I can't believe it. A minute ago I thought he was gone.
+  Nurse -> I know. It's been terrifying.
+  Caller -> Wait. Let me turn on the light. The kitchen light.
+  Caller -> His face is pink now. The gray is gone. His lips are, they're not blue. They're pink. Alphonse, say something. Can you say something?
+  Nurse -> What does he say?
+  Caller -> He says he thinks he's okay. He says his throat is on fire.
+  Caller -> He's hoarse. He said, I'm okay. In a whisper. He said, my throat hurts. He's coughing. He's trying to cough more. || A4
+  Nurse -> Good. Keep him as calm as you can.
+  Nurse -> That's normal after this. His throat will be sore. The ambulance still needs to check him. Berenice, keep him sitting up. No food or drink right now.
+  Caller -> He keeps touching his throat. He looks so tired. He's sweating.
+  Nurse -> Keep him sitting. He'll need to rest.
+  Caller -> I put a pillow behind his back. He's leaning on it.
+  Nurse -> Good.
+  Caller -> Okay. Okay. He's nodding.
+  Caller -> No food. No drink. Okay. He's looking at the steak on the floor. He looks scared. I'm scared.
+  Caller -> I threw the rest of the steak in the sink. I'm never cooking steak again.
+  Nurse -> Ha. You will, but with smaller pieces.
+  Nurse -> I know. You did exactly right. I'm going to page the on-call clinician and tell them what happened, and that he's being checked by the crew. || R2
+  Caller -> I keep thinking about how close it was. If I hadn't called you.
+  Nurse -> You did call, and you acted.
+  Caller -> Thank you. Thank you, Nadia. I didn't know I could do that.
+  Caller -> Oh, I'm crying. I'm sorry. I can't stop.
+  Nurse -> It's all right. You're allowed. You were incredible.
+  Nurse -> You did it. You saved his life. Berenice, I'd like his date of birth, for the crew.
+  Caller -> I don't feel like I did. My legs are shaking.
+  Nurse -> That's normal. Sit if you need to.
+  Caller -> August thirtieth. Nineteen forty eight. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six four six, five five five, oh one three five. || callback_phone
+  Nurse -> Six four six, five five five, oh one three five. Right? || callback_phone
+  Caller -> Yes. That's the cell.
+  Caller -> The dispatcher is asking me something. Hold on. What? Is he diabetic? No. No, he's not.
+  Nurse -> Answer them.
+  Nurse -> Good. Tell the crew what happened. That he choked on steak, that you did abdominal thrusts, that it came out after seven or so, and that he's hoarse.
+  Caller -> I'll tell them everything. From the beginning. The steak, the chair, the thrusts.
+  Nurse -> Perfect.
+  Caller -> I'll tell them everything. From the beginning. The steak, the chair, the thrusts.
+  Nurse -> Perfect.
+  Caller -> After seven thrusts. Hoarse. Steak. Okay. They're asking me to unlock the front door. I have to leave him. Can I?
+  Nurse -> Yes. And tell them he's sixty nine, no, seventy seven.
+  Caller -> Seventy eight. He just turned seventy eight in August.
+  Nurse -> Seventy eight.
+  Nurse -> Is he sitting? Is he stable?
+  Caller -> Yes. He's sitting. He's drinking, no, he's holding the table. He's breathing.
+  Nurse -> No drinking.
+  Caller -> Right. Right. No drinking. I know.
+  Nurse -> Go quickly. Unlock the door and come right back.
+  Caller -> I'm back. The door is wide open. The dog is barking. I'll hold her.
+  Nurse -> Good.
+  Caller -> I'm running. I'm running.
+  Caller -> Okay. I'm going. I'm going. It's unlocked. I'm back. Alphonse, I'm here. I'm here.
+  Nurse -> Good. Do you hear a siren?
+  Caller -> Wait. Yes. Yes! I hear it.
+  Caller -> I hear one. It's far. It's getting closer. Alphonse, they're coming.
+  Nurse -> Good. Keep him calm.
+  Caller -> I'm holding his hand. He's squeezing. He's squeezing really hard.
+  Nurse -> That's a strong grip.
+  Nurse -> Good. While you wait, don't let him eat or drink. And keep him sitting up.
+  Caller -> Okay. He's sipping the air. He's trying to swallow. His throat hurts.
+  Nurse -> It will for a while.
+  Caller -> He wants water. His throat hurts. Can he have one sip?
+  Nurse -> No. Not yet. Let the crew look at his throat first.
+  Caller -> Okay. No water. Alphonse, not yet. The nurse says not yet.
+  Caller -> He's mouthing something. I think he's saying I love you.
+  Nurse -> That's beautiful.
+  Nurse -> After this, cut his food into small pieces, have him sit all the way upright, and eat slowly. But that's for later. || E2
+  Caller -> Small pieces. Sit up. Slow. Okay. I always cut his meat. I didn't tonight. I was in a hurry. I wanted to watch my show.
+  Caller -> I've done the same thing a thousand times. Cut his meat. I just forgot tonight.
+  Nurse -> It happens to everyone.
+  Nurse -> Don't blame yourself. It happens.
+  Caller -> Thank you. It helps to hear that.
+  Caller -> It was my fault. I'm so sorry, Alphonse.
+  Nurse -> Berenice, listen. It could have happened to anybody.
+  Caller -> He's shaking his head at me. He's telling me it's not my fault.
+  Nurse -> He's right.
+  Nurse -> Berenice, it wasn't your fault. You acted perfectly.
+  Caller -> Thank you. I'll tell myself that tomorrow too.
+  Caller -> They're here. I see lights. I see the ambulance. Oh, thank God.
+  Caller -> There are two men. They're coming up the walk. One has a bag.
+  Nurse -> Good. Let them in.
+  Nurse -> Go let them in. Tell them everything.
+  Caller -> I will. Every detail. I'll be the world's best reporter.
+  Nurse -> Ha. Thank you.
+  Caller -> I will. Thank you. Thank you.
+  Nurse -> You did great. Go.
+  Caller -> Thank you. I'm going. I'll let you know how he is.
+  Nurse -> Please do. Take care of him.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alphonse Montague, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1948-08-30", certainty: stated, heard_as: [], turns: [94]}
+    caller_name: {value: Berenice Montague, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: wife, certainty: stated, turns: [4]}
+    callback_phone: {value: "6465550135", certainty: stated, heard_as: [], turns: [96, 97]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband was choking on food and could not breathe.
+    speaker: Caller
+    turns: [4]
+    quote: "He's choking. He can't talk. He's choking on his steak."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He was choking on a piece of steak and could not make a sound.
+      speaker: Caller
+      turns: [10]
+      quote: "No. No sound. He's holding his throat."
+      explanation: Documents the choking.
+      facts:
+        - {type: symptom, name: choking on a piece of steak and unable to speak or cough, present: true, severity: severe, onset: a few minutes ago, certainty: stated}
+      covers: [A1]
+    - text: His face turned red and then gray.
+      speaker: Caller
+      turns: [10]
+      quote: "His face is red."
+      explanation: Documents the color change.
+      facts:
+        - {type: symptom, name: face turned red then gray, present: true, certainty: stated}
+      covers: [A2]
+    - text: He was hoarse with a sore throat and coughing after the piece came out.
+      speaker: Caller
+      turns: [74]
+      quote: "He's hoarse."
+      explanation: Documents the symptoms after the obstruction.
+      facts:
+        - {type: symptom, name: hoarse voice and coughing after the piece came out, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: His lips were pink, not blue.
+      speaker: Caller
+      turns: [71]
+      quote: "They're not blue. They're pink."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: blue lips, certainty: stated}
+      covers: [A4]
+    - text: The piece of steak came out after abdominal thrusts.
+      speaker: Caller
+      turns: [53]
+      quote: "He coughed it out."
+      explanation: Documents the outcome.
+      facts:
+        - {type: context, text: The piece of steak came out after abdominal thrusts guided by the nurse, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 right away.
+      speaker: Nurse
+      turns: [13]
+      quote: "Call 911 right now, from another phone."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician about the airway obstruction.
+      speaker: Nurse
+      turns: [85]
+      quote: "I'm going to page the on-call clinician"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised standing behind him with a fist above the navel and giving quick inward and upward thrusts.
+      speaker: Nurse
+      turns: [47]
+      quote: "Now pull hard, in and up."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised cutting food small, sitting fully upright, eating slowly, and no food or drink until checked.
+      speaker: Nurse
+      turns: [133]
+      quote: "cut his food into small pieces, have him sit all the way upright, and eat slowly."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [4], quote: "He's choking. He can't talk. He's choking on his steak."}
+    - {category: escalation_request, turns: [13], quote: "Call 911 right now, from another phone."}

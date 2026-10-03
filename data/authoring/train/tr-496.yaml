@@ -1,0 +1,262 @@
+call_id: tr-496
+split: train
+blueprint: "A 66-year-old woman who finished a chemotherapy cycle yesterday calls home health herself about nausea: she says she took her ondansetron eight milligram dissolving tablet last night, then corrects herself to four milligrams as the bottle says. Nausea is moderate, she has vomited once and is keeping sips down, and no belly pain or fever. Nurse messages the team, plans a callback tomorrow, and reviews the dissolving tablet, sips and when to call. Explicit self-correction of a dose, self caller, patient 65+, v2 short."
+setup:
+  scenario_category: medication
+  subtype: dose_self_correction_nausea
+  secondary_tags: [contradiction, trap_phrasing, hedging, late_answers, split_turns]
+  clinical_domains: [medication, nausea_vomiting]
+  relationship_group: self
+  na_reason: null
+  agency_name: Rowan Home Health
+  agency_type: home_health
+  nurse_name: Ezra
+  call_timestamp_utc: "2026-11-29T12:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Isolde Brannigan
+  patient_name_spoken: Isolde Brannigan
+  patient_name_certainty: stated
+  patient_dob_true: "1960-02-11"
+  patient_dob_spoken: "1960-02-11"
+  patient_dob_certainty: stated
+  caller_name_true: Isolde Brannigan
+  caller_name_spoken: Isolde Brannigan
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "7045550181"
+  callback_phone_spoken: "7045550181"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported nausea after chemotherapy and asked about her anti-nausea medicine
+  reason_category: nausea_vomiting
+  relevant_context: Home health patient who finished a chemotherapy cycle yesterday
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: ondansetron
+    medication_name_spoken: ondansetron
+    medication_status: taking
+    dose: "4"
+    unit: mg
+    frequency: every eight hours as needed
+    prn: true
+    last_dose: last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: nausea with one episode of vomiting
+    symptom_present: true
+    severity: moderate
+    onset: since yesterday
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: belly pain or fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: tell the team about the nausea and vomiting after chemotherapy
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Let the dissolving tablet melt on the tongue, wait at least eight hours before the next one, and do not take more than three in a day
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Take small sips of water or ginger ale every few minutes and bland foods like crackers when the nausea settles
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for vomiting more than three times, not keeping down fluids for eight hours, fever, dizziness, or very little urine
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Rowan Home Health, this is Ezra.
+  Caller -> Hello? Ezra? It's hard to hear myself think. I'll talk slowly.
+  Nurse -> Take your time.
+  Caller -> Hi, Ezra. It's Isolde Brannigan. I'm a patient. I finished my chemo cycle yesterday and I'm very nauseous. I want to check on my nausea medicine. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Isolde. I'm sorry you're feeling rough. Tell me what you've taken.
+  Caller -> Thank you. I'm lying on the couch with a bucket. Just in case.
+  Nurse -> Smart to keep one close.
+  Caller -> The ondansetron. The dissolving one. I took an eight milligram last night at about ten. No. Four. Four milligrams. The bottle says four. I always get that mixed up. It's the little tablet. Yes. Four. || A1
+  Nurse -> Thanks.
+  Nurse -> Ondansetron, four milligrams, last night at ten. Okay. How often are you allowed to take it? || A1
+  Caller -> It's the one in the green box. My daughter wrote four on the lid.
+  Nurse -> Good idea.
+  Caller -> Every eight hours as needed. That's what the label says. I haven't taken any today. I'm almost eight hours. It's a little before six. No, it's noon. Hold on. I took it at ten last night so it's been fourteen hours. I haven't taken any today. I'm nervous about it.
+  Caller -> I wrote the times on a card. I do that every cycle. Ten at night, six in the morning.
+  Nurse -> Okay.
+  Nurse -> Okay. Fourteen hours. That's well past eight. Tell me how the nausea is.
+  Caller -> Sorry for the math. My head is foggy.
+  Nurse -> Totally fine.
+  Caller -> Moderate. It's there all the time. A rolling feeling. It's worse when I smell food. I vomited once this morning at seven. Just once. It was mostly water. And then I drank a little water, and it stayed down. || A2
+  Nurse -> I'm sorry. That's miserable.
+  Caller -> It's okay. I've had worse. The first cycle was terrible.
+  Nurse -> It helps that you know what to expect.
+  Nurse -> Okay. One episode of vomiting. Are you keeping sips down?
+  Caller -> It was early. Seven. I haven't thrown up since.
+  Nurse -> That's a good sign.
+  Caller -> Yes. A few sips of water every ten minutes. And some ginger ale. It's flat. It stays down.
+  Nurse -> Good. Keep doing that.
+  Nurse -> Good. Any belly pain? Fever?
+  Caller -> I keep checking. I'm a champion checker.
+  Nurse -> Ha. Good.
+  Caller -> No pain. My stomach is just queasy. No fever. I took it a while ago and it was normal. || A3
+  Nurse -> Okay.
+  Caller -> It's more like seasick. Like a boat ride that never ends.
+  Nurse -> That's a good way to describe it.
+  Nurse -> Okay. Isolde, what's your date of birth?
+  Caller -> Sure. February something. I'm foggy. I'll get it.
+  Caller -> February eleventh. Nineteen sixty. || patient_dob
+  Nurse -> And your number?
+  Caller -> Seven oh four, five five five, oh one eight one. || callback_phone
+  Nurse -> Seven oh four, five five five, oh one eight one. Right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. Let me tell you about the tablet. It's a dissolving one. Put it on your tongue and let it melt. No water needed. Wait at least eight hours before the next one, and don't take more than three in a day. || E1
+  Caller -> Please. I never read the little leaflet.
+  Nurse -> Ha. Nobody does.
+  Caller -> Let it melt. Eight hours. No more than three. Okay. I'll have the next one once we hang up. The bottle is right here on the table.
+  Nurse -> Sounds good.
+  Nurse -> Okay. I'm going to send a message to the team about the nausea and the vomiting after your chemo, so they can see it. || R1
+  Caller -> Thank you. They might have something stronger. Last cycle I had a second pill.
+  Nurse -> The team will look at what's best.
+  Nurse -> They'll decide. I'll also call you tomorrow to see how you're doing. || R2
+  Caller -> Tomorrow. Okay. What time?
+  Caller -> I'll have my phone on the couch cushion. I fall asleep with it.
+  Nurse -> Ha.
+  Nurse -> Late morning.
+  Caller -> Good. I'll be on the couch.
+  Nurse -> In the meantime, take small sips of water or ginger ale every few minutes. When the nausea settles a bit, try bland foods, like crackers. || E2
+  Caller -> Sips. Ginger ale. Crackers. Okay. I have saltines. I have a whole sleeve.
+  Caller -> I wish I could eat the soup my neighbor brought. The smell is too much.
+  Nurse -> That will pass in a day or two.
+  Nurse -> Perfect. And call us if you vomit more than three times, if you can't keep fluids down for eight hours, if you get a fever, dizziness, or very little urine. || E3
+  Caller -> More than three. Eight hours. Fever. Dizzy. Little urine. Okay. I wrote it on my hand. Just kidding. On a sticky note.
+  Nurse -> Ha. A sticky note is better.
+  Nurse -> And keep the note somewhere you'll see it.
+  Caller -> I put it on the lamp. It's the first thing I'll see.
+  Caller -> Thank you, Ezra.
+  Caller -> You have a calm voice. It helps.
+  Nurse -> I appreciate that. Rest now.
+  Nurse -> You're welcome. Rest.
+  Caller -> I will. Bye.
+  Nurse -> Feel better.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Isolde Brannigan, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1960-02-11", certainty: stated, heard_as: [], turns: [37]}
+    caller_name: {value: Isolde Brannigan, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "7045550181", certainty: stated, heard_as: [], turns: [39, 40]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported nausea after chemotherapy and asked about her anti-nausea medicine.
+    speaker: Caller
+    turns: [4]
+    quote: "I want to check on my nausea medicine."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Ondansetron 4 mg dissolving tablet every eight hours as needed was last taken last night, after she corrected eight to four.
+      speaker: Caller
+      turns: [8]
+      quote: "I took an eight milligram last night at about ten. No. Four. Four milligrams."
+      explanation: Documents the medication and the self-correction.
+      facts:
+        - {type: medication, name: ondansetron, dose: "4", unit: mg, frequency: every eight hours as needed, prn: true, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Moderate constant nausea with one episode of vomiting this morning.
+      speaker: Caller
+      turns: [19]
+      quote: "Moderate. It's there all the time."
+      explanation: Documents the nausea.
+      facts:
+        - {type: symptom, name: nausea with one episode of vomiting, present: true, severity: moderate, onset: since yesterday, certainty: stated}
+      covers: [A2]
+    - text: She had no belly pain or fever.
+      speaker: Caller
+      turns: [31]
+      quote: "No pain. My stomach is just queasy."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: belly pain or fever, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the team about the nausea and vomiting.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to send a message to the team about the nausea and the vomiting after your chemo"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback tomorrow.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'll also call you tomorrow to see how you're doing."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised letting the dissolving tablet melt on the tongue, waiting eight hours between doses, and taking no more than three a day.
+      speaker: Nurse
+      turns: [42]
+      quote: "Put it on your tongue and let it melt."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised small sips of water or ginger ale and bland foods like crackers.
+      speaker: Nurse
+      turns: [56]
+      quote: "take small sips of water or ginger ale every few minutes."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for repeated vomiting, not keeping fluids down for eight hours, fever, dizziness, or very little urine.
+      speaker: Nurse
+      turns: [60]
+      quote: "call us if you vomit more than three times"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

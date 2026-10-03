@@ -1,0 +1,266 @@
+call_id: va-046
+split: val
+blueprint: "A medication technician at an assisted living facility, Marisol Duquette, calls the hospice line about resident Alphonse Greaves, whose hip and back pain is eight out of ten two hours after his morphine. He is grimacing and refusing lunch. Nurse pages the on-call clinician, tells her to hold further doses until orders come, and sends a nurse within the hour. Facility staff caller, uncontrolled pain flag, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_pain_facility
+  secondary_tags: [facility_staff, uncontrolled_pain, split_turns, hedging]
+  clinical_domains: [pain, medication]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Pilar
+  call_timestamp_utc: "2026-11-24T17:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alphonse Greaves
+  patient_name_spoken: Alphonse Greaves
+  patient_name_certainty: stated
+  patient_dob_true: "1938-02-19"
+  patient_dob_spoken: "1938-02-19"
+  patient_dob_certainty: stated
+  caller_name_true: Marisol Duquette
+  caller_name_spoken: Marisol Duquette
+  caller_name_certainty: stated
+  relationship_to_patient: facility staff
+  relationship_certainty: stated
+  callback_phone_true: "3125550162"
+  callback_phone_spoken: "3125550162"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported severe hip and back pain in a hospice resident despite morphine
+  reason_category: pain
+  relevant_context: Hospice patient living in an assisted living facility
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip and back pain
+    symptom_present: true
+    severity: eight out of ten
+    onset: started this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every four hours as needed
+    prn: true
+    last_dose: two hours ago, about eleven
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: grimacing and refusing lunch
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall or trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: pain not controlled by the as-needed morphine
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give no more morphine until the clinician calls with orders, and chart the time of the last dose
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Reposition him gently with pillows between the knees and apply a warm pack to the lower back for twenty minutes
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Pain eight out of ten two hours after as-needed morphine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Pilar.
+  Caller -> Hi, Pilar. This is Marisol Duquette. I'm a med tech at Cedar Court Assisted Living. I'm calling about one of our residents, Alphonse Greaves. He's one of yours. He's in a lot of pain. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Marisol. Thank you for calling. Tell me what's going on.
+  Caller -> Sorry, I'm a little rattled. I've only been here since seven.
+  Nurse -> You're doing fine. Take your time.
+  Caller -> So he's been, um, he started hurting this morning. In his hip. And his lower back. It's the left side. He was fine at breakfast, then around nine he started moaning.
+  Nurse -> How bad is it? Zero to ten, ten being the worst.
+  Caller -> I asked him. He said eight. He said eight out of ten. And he's a tough guy. He never complains. || A1
+  Nurse -> Okay. Has he had anything for it?
+  Caller -> Yes. I gave him morphine. The five milligram. It was about eleven. So two hours ago, I guess. It's on the PRN sheet. Every four hours as needed. || A2
+  Nurse -> And did it help at all?
+  Caller -> Not really. Maybe a little at first. I'm not sure. He's still, he's still grimacing. He keeps shifting around and he can't get comfortable.
+  Nurse -> Is he eating?
+  Caller -> He won't. He refused lunch. The aide brought it and he pushed the tray away. || A3
+  Nurse -> That isn't like him?
+  Caller -> No. He loves the pot roast on Wednesdays. He loves it.
+  Nurse -> Ha. Then it's definitely not normal.
+  Caller -> Exactly.
+  Nurse -> Okay. Did he fall? Hit anything? Any new injury?
+  Caller -> No. We checked the incident log. No falls. Nobody saw anything. He's been in bed mostly.
+  Nurse -> Is he having trouble breathing? Any shortness of breath?
+  Caller -> No, he's breathing normally. It's just the pain. || A4
+  Nurse -> Okay. And is he awake and talking?
+  Caller -> Yes. He's talking. He's, he told me to quit hovering, so.
+  Nurse -> Ha. That sounds like him.
+  Caller -> Yeah. But I can tell he's hurting.
+  Nurse -> I need his date of birth to pull up his chart.
+  Caller -> February nineteenth, nineteen thirty eight. || patient_dob
+  Nurse -> Got it. And what's the best number to reach you at the facility?
+  Caller -> Three one two, five five five, zero one six two. That's the med room. I'll stay by it. || callback_phone
+  Nurse -> Perfect. I see his orders here. Marisol, I'm going to page the on-call clinician right now. His pain isn't controlled and he'll need new orders. || R1
+  Caller -> Okay. Good. Should I give him another dose? It's only been two hours.
+  Nurse -> No. Please do not give any more morphine until the clinician calls you with orders. I don't want you to double up. Write down the time you gave the last one. || E1
+  Caller -> No more until they call. And chart the time. Eleven. Okay.
+  Nurse -> And while you wait, there are a few things you can do to make him more comfortable. Put a pillow between his knees and ease him onto his right side. Do you have a heating pad?
+  Caller -> We have the warm packs. The ones you heat in the microwave. They're in the supply closet.
+  Nurse -> Those are good. Wrap it in a towel and put it on his lower back for about twenty minutes. Check his skin so it's not too hot. || E2
+  Caller -> Pillow between the knees. Warm pack in a towel, twenty minutes. Okay. I'll get one.
+  Nurse -> I'm also going to send one of our nurses over. She should be there within the hour. || R2
+  Caller -> Within the hour. Okay. Do I need to tell his daughter?
+  Nurse -> It's up to the facility, but yes, I'd call her. I'll let the clinician know the daughter's number is in the chart.
+  Caller -> Okay. I'll let the director know. She'll call the daughter.
+  Nurse -> Good. Is there a nurse at the facility today?
+  Caller -> There's one down the hall, but she covers the whole second floor. I'm the one with him.
+  Nurse -> Okay. Stay with him if you can.
+  Caller -> I will. I'll go sit with him now.
+  Nurse -> Good. Keep your voice low and calm.
+  Caller -> I will. He likes the radio. I'll put on his station.
+  Nurse -> When the clinician calls, they'll ask about his pain score again and what he's had. Have the sheet in front of you.
+  Caller -> Yes. Last dose, time, amount. I know the drill.
+  Nurse -> You do. Thank you.
+  Caller -> Yes. I've got it. I'll grab the clipboard.
+  Nurse -> Marisol, is anyone else with him? Family there?
+  Caller -> No. His daughter comes Sunday. He doesn't have anyone else.
+  Nurse -> Okay. Tell him we're on our way. It helps to hear it.
+  Nurse -> One more thing. Is the door to his room easy for the nurse to get to?
+  Caller -> Yes. I'll leave it propped. She can come straight in.
+  Caller -> I will. I'll tell him help is coming.
+  Nurse -> Thank you. He's lucky to have you.
+  Caller -> I just want him to stop hurting. It's hard to watch.
+  Nurse -> I know. We'll get it under control.
+  Caller -> Okay. Thank you, Pilar.
+  Nurse -> Call us back if anything changes before the clinician calls. Especially if he's hard to wake, or he can't breathe well.
+  Caller -> Hard to wake. Breathing. Okay. I'll watch.
+  Nurse -> Take care.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alphonse Greaves, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-02-19", certainty: stated, heard_as: [], turns: [28]}
+    caller_name: {value: Marisol Duquette, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: facility staff, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550162", certainty: stated, heard_as: [], turns: [30]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported severe hip and back pain in a hospice resident despite morphine.
+    speaker: Caller
+    turns: [2]
+    quote: "He's in a lot of pain."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Left hip and lower back pain started this morning at eight out of ten.
+      speaker: Caller
+      turns: [8]
+      quote: "He said eight out of ten."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: hip and back pain, present: true, severity: eight out of ten, onset: started this morning, certainty: stated}
+      covers: [A1]
+    - text: Morphine 5 mg was given about two hours earlier, around eleven, as needed every four hours.
+      speaker: Caller
+      turns: [10]
+      quote: "I gave him morphine. The five milligram."
+      explanation: Documents the morphine dose.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: every four hours as needed, prn: true, last_dose: two hours ago, about eleven, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was grimacing and refused lunch.
+      speaker: Caller
+      turns: [14]
+      quote: "He refused lunch."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: grimacing and refusing lunch, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no fall or trouble breathing.
+      speaker: Caller
+      turns: [20]
+      quote: "No falls."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall or trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician for new orders.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [39]
+      quote: "She should be there within the hour."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised giving no more morphine until the clinician calls and charting the last dose time.
+      speaker: Nurse
+      turns: [33]
+      quote: "do not give any more morphine until the clinician calls you with orders."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised repositioning with a pillow between the knees and a warm pack to the lower back.
+      speaker: Nurse
+      turns: [35]
+      quote: "Put a pillow between his knees"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [8], quote: "He said eight out of ten."}

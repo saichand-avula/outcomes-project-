@@ -1,0 +1,391 @@
+call_id: va-025
+split: val
+blueprint: "Long call: a patient in cancer treatment calls because she cannot sleep and says sometimes she wishes she would not wake up; she denies a plan and intent tonight and has no firearms; her husband works nights; nurse stays on the line, gives 988, gets permission to call her husband, and plans a counselor callback within 2 hours and a provider message. Flag: suicidal statement."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [passive_ideation, hedging, split_turns, multi_issue]
+  clinical_domains: [mood, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-09-23T03:40:00Z"
+  length_bucket: long
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Josephine Arbuckle
+  patient_name_spoken: Josephine Arbuckle
+  patient_name_certainty: stated
+  patient_dob_true: "1980-11-02"
+  patient_dob_spoken: "1980-11-02"
+  patient_dob_certainty: stated
+  caller_name_true: Josephine Arbuckle
+  caller_name_spoken: Josephine Arbuckle
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4045550194"
+  callback_phone_spoken: "4045550194"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Cannot sleep, feels overwhelmed, and says sometimes she wishes she would not wake up
+  reason_category: mood_safety
+  relevant_context: In treatment for breast cancer; husband works nights
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: wish not to wake up
+    symptom_present: true
+    severity: sometimes wishes she would not wake up
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: suicide plan
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: intent to act tonight
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: access to firearms
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: patient
+    symptom_name: low mood and loss of interest
+    symptom_present: true
+    severity: not enjoying anything
+    onset_or_duration: since the diagnosis 4 months ago
+    certainty: stated
+  - item_id: A6
+    item_type: symptom
+    reporter: patient
+    symptom_name: poor sleep
+    symptom_present: true
+    severity: about 3 hours a night
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: patient
+    history_or_context_text: Husband works nights and is home in the morning; her sister Hannah lives 30 minutes away
+    certainty: stated
+  - item_id: A8
+    item_type: medication
+    reporter: patient
+    medication_name_true: sertraline
+    medication_name_spoken: sertraline
+    medication_status: taking
+    strength: 50 mg
+    frequency: once a day
+    response_to_medication: Not noticing a difference yet
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: counselor
+    timeframe: callback within 2 hours
+    certainty: stated
+  - item_id: R2
+    action_type: physician_notification
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: mood and sleep, review of the antidepressant
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient
+    timeframe: in 30 minutes
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient's husband, with her permission
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time; call 911 if she forms a plan or has an urge to act
+    trigger_condition: plan; urge to act
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have her husband or sister stay with her, and keep medications in the daily amount only
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call at any time if the thoughts get stronger
+    trigger_condition: stronger thoughts
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient says sometimes she wishes she would not wake up
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Northstar Home Health, this is Priscilla.
+  Caller -> Hi, Priscilla. This is Josephine Arbuckle. I'm a patient. I'm sorry it's so late. || patient_name, caller_name, relationship
+  Nurse -> Hi, Josephine. Don't apologize. We're here all night. Can I get your date of birth?
+  Caller -> November second, nineteen eighty. || patient_dob
+  Nurse -> And a number for you? I have four oh four, five five five, zero one nine four. || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> I can't sleep. I haven't been able to sleep for weeks. I lie there, and my mind just races. || cc, A6
+  Nurse -> How much are you sleeping, would you say?
+  Caller -> Maybe three hours. If I'm lucky. || A6
+  Nurse -> Okay. That sounds exhausting.
+  Caller -> It is. And I'm just, I'm so tired of everything. The treatments, the appointments. The fear.
+  Nurse -> Of course you are. You've been through so much. How long since the diagnosis?
+  Caller -> Four months. It feels like four years. || A5
+  Nurse -> Okay. How have you been feeling emotionally?
+  Caller -> Honestly? Not good. I don't enjoy anything anymore. Not my garden, not my books. I used to love my garden. Now I just look out the window and feel nothing. || A5
+  Nurse -> Okay. Thank you for telling me. That's an important thing to say out loud.
+  Caller -> I haven't told anyone. Not even my husband.
+  Nurse -> I'm glad you told me. Josephine, I'd like to ask you something. Have you had any thoughts of hurting yourself, or of not wanting to be here?
+  Caller -> Sometimes I wish I wouldn't wake up. In the morning. || A1, F1
+  Caller -> I'm not saying I'd do anything. It's not like that. I just, some nights I think, it would be easier if I didn't wake up.
+  Nurse -> Okay. Thank you for being so honest. That took courage. I'm really glad you called.
+  Caller -> I didn't plan to say that. It just came out.
+  Nurse -> I'm glad it did. I want to ask a few more questions, so I can understand and help. Is that okay?
+  Caller -> Okay.
+  Nurse -> Do you have a plan? Have you thought about how you might do it?
+  Caller -> No. No plan. I haven't thought about that. I wouldn't know how. || A2
+  Nurse -> Okay. Do you have any guns in the house?
+  Caller -> No. We don't have any guns. My husband hates them. || A4
+  Nurse -> Okay. And are you thinking of doing anything tonight?
+  Caller -> No. No, I'm not going to do anything. I just needed to talk. I couldn't talk to Dennis because he's at work. || A3
+  Nurse -> Okay. Dennis is your husband?
+  Caller -> Yes. He works nights at the hospital. He's a respiratory therapist. He gets home around seven in the morning. || A7
+  Nurse -> Okay. So you're alone right now.
+  Caller -> Yes. The house is so quiet at night.
+  Nurse -> Is there anyone else who could come and be with you? A friend, or family?
+  Caller -> My sister, Hannah. She lives about thirty minutes away. || A7
+  Nurse -> Would you be okay if I called Hannah, with your permission?
+  Caller -> I don't want to wake her. She has two little kids.
+  Nurse -> I understand. But I think it would help to have someone with you tonight. And she'd want to know. Would you let me call her?
+  Caller -> I guess so. Okay. But can you call Dennis instead? He's at work, but he'd want to know. I'd feel better if he knew.
+  Nurse -> Of course. I can call Dennis. Is it okay if I tell him what you told me tonight?
+  Caller -> Yes. I want him to know. I just couldn't say it myself. || R4
+  Nurse -> Thank you. I'll call him as soon as we finish. Is that okay?
+  Caller -> Yes. Thank you.
+  Nurse -> Josephine, what are you taking right now? Any medicines for mood?
+  Caller -> The sertraline. Fifty milligrams, once a day. They started it three weeks ago. || A8
+  Nurse -> Okay. Has it helped?
+  Caller -> I don't notice a difference yet. Maybe I'm not giving it enough time. || A8
+  Nurse -> It can take a few weeks. But I want your provider to know how you're doing, so they can adjust things if needed. I'm going to let them know tonight. || R2
+  Caller -> I'd like that. I really would.
+  Nurse -> And I'm going to have our counselor call you today. She'll call within two hours. She's wonderful, she works with people going through cancer treatment, and she knows how heavy it can be. || R1
+  Caller -> Okay. That sounds good. I'd like to talk to someone.
+  Nurse -> And I'll call you back in thirty minutes, to check on you. || R3
+  Caller -> Okay. Thank you.
+  Nurse -> I want to give you a number, Josephine. Nine eight eight. It's a crisis line. You can call or text it any time, day or night. And if you ever form a plan, or you feel like you might act on the thoughts, call nine one one. || E1
+  Caller -> Nine eight eight. Okay. I know that one. I never thought I'd need it.
+  Nurse -> You don't have to be in an emergency to call. Even if you're not sure.
+  Caller -> Okay. I understand.
+  Nurse -> And for tonight, please keep your medicines to just the daily amount, nothing extra. And if Dennis or Hannah can stay with you, that would be best. || E2
+  Caller -> I only have what I take. I'll make sure it stays that way.
+  Nurse -> And if the thoughts get stronger tonight, you call us right away. Any time. || E3
+  Caller -> Okay. I will.
+  Caller -> Can I tell you what scares me the most? I feel like I'm a burden. Dennis has taken so much time off work. He drives me to every appointment. He cooks, he cleans. I feel like I'm ruining his life.
+  Nurse -> That's a heavy thing to carry, Josephine. And a very common feeling for people in treatment. Have you told him that?
+  Caller -> No. I don't want to make him feel worse. He's trying so hard.
+  Nurse -> Sometimes the person who loves us most wants to know exactly what we're feeling, even the hard parts. And I think he'd tell you that you are not a burden.
+  Caller -> He would. He says it all the time. But I don't believe him.
+  Nurse -> That makes sense when you're this tired. Depression and exhaustion tell us things that aren't true.
+  Caller -> That's what the oncology social worker said once. I didn't want to hear it then.
+  Nurse -> Maybe you'll be ready to hear it now. And our counselor can pick up where she left off.
+  Caller -> Maybe. I think I would like that.
+  Nurse -> What helps you when you can't sleep, Josephine? Is there anything that calms you?
+  Caller -> Tea, sometimes. Chamomile. And music. I used to play the cello. I haven't touched it since the chemo made my hands numb.
+  Nurse -> The cello. That must have been a big part of your life.
+  Caller -> It was. I played in a community orchestra for twelve years. I miss it so much.
+  Nurse -> That's a real loss. Maybe the counselor can talk with you about it, and about ways to ease back in.
+  Caller -> Maybe. I'd like that. It feels good to say it out loud.
+  Caller -> I still have the cello. It's in the living room, in the corner. Sometimes I look at it and think, I should just try.
+  Nurse -> Maybe tomorrow, even for a few minutes. Even just holding it.
+  Caller -> Maybe. My hands tingle, but they're not numb all the time. Some days are better.
+  Nurse -> Then it might be worth trying on a good day. Without any pressure to play well.
+  Caller -> Ha. That's what Dennis says. He says he'll listen to anything, even scales.
+  Nurse -> He sounds like a keeper.
+  Caller -> He is. Okay. I'm going to cry, I think. But I think it's a good cry.
+  Nurse -> That's okay. Let it out. I'm here.
+  Caller -> Thank you.
+  Nurse -> I'm glad. Why don't you make some of that chamomile tea while I call Dennis? I'll check on you in thirty minutes.
+  Caller -> Okay. I'll do that. I'll put the kettle on right now. Thank you, Priscilla. Really.
+  Nurse -> You're welcome, Josephine. You did something brave tonight. Dennis will be glad you reached out, and so will the counselor.
+  Caller -> Thank you. I'll keep the phone next to me. Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single statement", heard_form: "I'm not saying I'd do anything", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Josephine Arbuckle, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1980-11-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Josephine Arbuckle, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550194", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported being unable to sleep and feeling overwhelmed, and later disclosed that sometimes she wishes she would not wake up.
+    speaker: Caller
+    turns: [8]
+    quote: "I can't sleep. I haven't been able to sleep for weeks."
+    explanation: Documents the complaint prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Sleep was poor, about 3 hours a night.
+      speaker: Caller
+      turns: [10]
+      quote: "Maybe three hours. If I'm lucky."
+      explanation: Documents the sleep disturbance.
+      facts:
+        - {type: symptom, name: poor sleep, present: true, severity: about 3 hours a night, certainty: stated}
+      covers: [A6]
+    - text: Low mood and loss of interest in her garden and books had been present since the diagnosis 4 months ago.
+      speaker: Caller
+      turns: [16]
+      quote: "I don't enjoy anything anymore. Not my garden, not my books."
+      explanation: Documents depressive symptoms.
+      facts:
+        - {type: symptom, name: low mood and loss of interest, present: true, severity: not enjoying anything, onset: since the diagnosis 4 months ago, certainty: stated}
+      covers: [A5]
+    - text: She said sometimes she wished she would not wake up.
+      speaker: Caller
+      turns: [20]
+      quote: "Sometimes I wish I wouldn't wake up. In the morning."
+      explanation: Documents the passive suicidal ideation disclosed during the call.
+      facts:
+        - {type: symptom, name: wish not to wake up, present: true, severity: sometimes wishes she would not wake up, certainty: stated}
+      covers: [A1]
+    - text: She denied having a plan.
+      speaker: Caller
+      turns: [27]
+      quote: "No. No plan. I haven't thought about that. I wouldn't know how."
+      explanation: Documents a pertinent negative from suicide screening.
+      facts:
+        - {type: pertinent_negative, name: suicide plan, certainty: stated}
+      covers: [A2]
+    - text: She reported no firearms in the house.
+      speaker: Caller
+      turns: [29]
+      quote: "No. We don't have any guns. My husband hates them."
+      explanation: Documents means screening.
+      facts:
+        - {type: pertinent_negative, name: access to firearms, certainty: stated}
+      covers: [A4]
+    - text: She denied intent to act tonight.
+      speaker: Caller
+      turns: [31]
+      quote: "No. No, I'm not going to do anything. I just needed to talk."
+      explanation: Documents a pertinent negative for imminent intent.
+      facts:
+        - {type: pertinent_negative, name: intent to act tonight, certainty: stated}
+      covers: [A3]
+    - text: Her husband worked nights and was home around 7 in the morning, and her sister Hannah lived about 30 minutes away.
+      speaker: Caller
+      turns: [33]
+      quote: "Yes. He works nights at the hospital."
+      explanation: Documents her support situation.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+    - text: Sertraline 50 mg once a day had been started 3 weeks ago, and she had not yet noticed a difference.
+      speaker: Caller
+      turns: [47]
+      quote: "The sertraline. Fifty milligrams, once a day."
+      explanation: Documents the current antidepressant and its effect so far.
+      facts:
+        - {type: medication, name: sertraline, strength: 50 mg, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned for the counselor to call her today within 2 hours.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm going to have our counselor call you today. She'll call within two hours."
+      explanation: Documents the planned counseling contact.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to notify her provider tonight about her mood and sleep.
+      speaker: Nurse
+      turns: [50]
+      quote: "I want your provider to know how you're doing, so they can adjust things if needed. I'm going to let them know tonight."
+      explanation: Documents the planned provider notification.
+      facts:
+        - {type: action, action_type: physician_notification, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 30 minutes.
+      speaker: Nurse
+      turns: [54]
+      quote: "And I'll call you back in thirty minutes, to check on you."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 30 minutes, certainty: stated}
+      covers: [R3]
+    - text: Planned to call her husband, with her permission, as soon as the call ended.
+      speaker: Nurse
+      turns: [44]
+      quote: "Thank you. I'll call him as soon as we finish."
+      explanation: Documents the planned family contact after consent.
+      facts:
+        - {type: action, action_type: callback, status: planned, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling or texting 988 at any time and calling 911 if she formed a plan or felt she might act.
+      speaker: Nurse
+      turns: [56]
+      quote: "Nine eight eight. It's a crisis line. You can call or text it any time, day or night."
+      explanation: Documents crisis resources and emergency instructions.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised having her husband or sister stay with her and keeping medication to the daily amount only.
+      speaker: Nurse
+      turns: [60]
+      quote: "please keep your medicines to just the daily amount, nothing extra."
+      explanation: Documents safety measures.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away at any time if the thoughts got stronger.
+      speaker: Nurse
+      turns: [62]
+      quote: "if the thoughts get stronger tonight, you call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: suicidal_statement, turns: [20], quote: "Sometimes I wish I wouldn't wake up."}

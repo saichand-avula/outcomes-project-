@@ -1,0 +1,271 @@
+call_id: tr-478
+split: train
+blueprint: "A grandson calls home care to check on things promised yesterday for his 91-year-old grandmother: a bedside commode was ordered yesterday (done) and delivery is set for tomorrow (planned), the doctor was messaged yesterday about her mild dry cough of three days (done, no reply yet), and a nurse visit is planned Thursday. Cough is mild and dry, no fever or shortness of breath. Nurse confirms what is done versus planned and offers comfort tips. Routine follow-up with completed and planned actions, other family caller, patient 90+, v2 short."
+setup:
+  scenario_category: routine
+  subtype: follow_up_status_check
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [cough_uri, equipment]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Saltmarsh Home Care
+  agency_type: home_care
+  nurse_name: Tobiah
+  call_timestamp_utc: "2026-11-17T15:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 90+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hortensia Albuquerque
+  patient_name_spoken: Hortensia Albuquerque
+  patient_name_certainty: stated
+  patient_dob_true: "1935-05-09"
+  patient_dob_spoken: "1935-05-09"
+  patient_dob_certainty: stated
+  caller_name_true: Mateus Ferreira
+  caller_name_spoken: Mateus Ferreira
+  caller_name_certainty: stated
+  relationship_to_patient: grandson
+  relationship_certainty: stated
+  callback_phone_true: "9015550147"
+  callback_phone_spoken: "9015550147"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Followed up on what was ordered and arranged yesterday for his grandmother
+  reason_category: cough_uri
+  relevant_context: Home care client who lives with her grandson
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild dry cough
+    symptom_present: true
+    severity: mild
+    onset: three days
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or shortness of breath
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: Waiting on a bedside commode that was ordered yesterday
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: bedside commode ordered yesterday
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: message_to_team
+    action_status: completed
+    actor: nurse
+    reason_or_trigger: messaged the doctor yesterday about the cough
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Offer warm tea with honey, keep her head raised with an extra pillow, and use a cool mist humidifier at night
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, trouble breathing, a cough that brings up colored mucus, or choking when she drinks
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Saltmarsh Home Care, this is Tobiah.
+  Caller -> Hi, Tobiah. It's Mateus Ferreira. I'm the grandson of Hortensia Albuquerque. I'm calling to check on a few things from yesterday. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Mateus. Sure. I have her chart open. What would you like to know?
+  Caller -> Thanks. I only have about ten minutes. My break is short.
+  Nurse -> No problem. Let's be quick.
+  Caller -> Yesterday I talked to a nurse. I don't remember her name. Maybe Beth? She said she would order a commode. And message the doctor about my grandmother's cough. I just want to make sure it happened.
+  Nurse -> I'll look under yesterday's notes.
+  Nurse -> Let me look at the notes. Give me a moment.
+  Caller -> Sure. No rush. I'm at work. I'm on my break.
+  Caller -> I'm in the break room. Someone is microwaving fish. Sorry about the noise.
+  Nurse -> Ha. I can hear a little.
+  Nurse -> Okay. I see the note. Yes. The bedside commode was ordered yesterday afternoon. That one is done. || R1, A3
+  Caller -> Oh. Great. Because we've been waiting. She has to walk all the way to the bathroom at night. I worry.
+  Nurse -> I know it's been a few days.
+  Caller -> A week, really.
+  Nurse -> I understand. The delivery is planned for tomorrow. I'll confirm the window with the supply company. || R2
+  Caller -> Tomorrow. Okay. I'll be at work. My cousin can let them in. She lives down the street.
+  Nurse -> That's fine. I'll note her as a contact.
+  Caller -> Her name is Larissa. Larissa Ferreira.
+  Nurse -> Thank you. Spelled L A R I S S A?
+  Caller -> Yes. Two S's.
+  Nurse -> Got it. Next. The message to the doctor about the cough. I see that was sent yesterday at four fifteen. || R3
+  Caller -> Did the doctor reply?
+  Nurse -> Not yet. No reply is in the chart. I'll keep an eye out.
+  Caller -> Okay. That's what I figured.
+  Caller -> Okay. That's fine. She's still coughing. A dry cough. Three days now. It isn't terrible. She coughs a few times a day. More at night. || A1
+  Nurse -> Okay. Is there any fever?
+  Caller -> No fever. We have a thermometer. I took it this morning. Normal. And she's breathing fine. No wheezing. No short of breath. She did her puzzle at the table. || A2
+  Nurse -> Good. Is she eating and drinking?
+  Caller -> Yes. She likes the soup I make. She's fussy, but she's eating.
+  Nurse -> What kind of soup?
+  Caller -> Chicken with little noodles. Her recipe, but I make it badly.
+  Nurse -> Ha. She still eats it.
+  Nurse -> Great. Mateus, what's her date of birth, so I can verify?
+  Caller -> May ninth. Nineteen thirty five. She'll be ninety one this year. Wait, she's already ninety one. Sorry. || patient_dob
+  Nurse -> Ha. Right. And your number?
+  Caller -> Sorry. Math is not my strong suit.
+  Caller -> Nine oh one, five five five, oh one four seven. || callback_phone
+  Nurse -> Nine oh one, five five five, oh one four seven. Right? || callback_phone
+  Caller -> Yes. That's my work cell. I answer it all day.
+  Nurse -> Good.
+  Nurse -> Perfect. Also, I see a nurse visit is planned Thursday. || R4
+  Caller -> Thursday. Yes. They told me. Morning? I wrote it down.
+  Nurse -> The note says morning.
+  Caller -> Good. She's alert in the morning.
+  Nurse -> That helps.
+  Caller -> Good. Great. It's a lot. I'm glad everything is moving.
+  Caller -> I just want to make sure nothing falls through the cracks.
+  Nurse -> That's exactly why I'm checking.
+  Nurse -> It is moving. For the cough, you can offer her warm tea with honey. And an extra pillow so her head is up at night. A cool mist humidifier helps too. || E1
+  Caller -> Tea with honey. Extra pillow. Humidifier. We have a humidifier from my aunt. It's in the garage. I'll bring it in.
+  Caller -> The humidifier is the kind with the little blue light. It's loud, but she likes it.
+  Nurse -> Perfect. And call us if she gets a fever, has trouble breathing, if she's coughing up colored mucus, or if she chokes when she drinks. || E2
+  Caller -> Fever. Breathing. Colored. Choking. Okay. I'll text it to my cousin too.
+  Nurse -> Good idea.
+  Caller -> She'd kill me if she knew I was texting about her.
+  Caller -> She doesn't like to ask for things. My grandmother. She doesn't tell me when something hurts.
+  Nurse -> That's common. Keep asking. Watch her face.
+  Caller -> I try. She just says, I'm fine. Always fine.
+  Caller -> I do. She hides it. She's tough. She came here from Brazil when she was nineteen.
+  Nurse -> That's an incredible story.
+  Caller -> She talks about it more now. I record it on my phone.
+  Nurse -> What a gift.
+  Caller -> She taught herself English from the radio.
+  Nurse -> Wow.
+  Caller -> I'll tell her you said that. She'll love it.
+  Nurse -> Please do. Anything else?
+  Caller -> No, that's it. Thank you, Tobiah.
+  Nurse -> You're welcome, Mateus. Take care.
+  Caller -> You too. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hortensia Albuquerque, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1935-05-09", certainty: stated, heard_as: [], turns: [35]}
+    caller_name: {value: Mateus Ferreira, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: grandson, certainty: stated, turns: [2]}
+    callback_phone: {value: "9015550147", certainty: stated, heard_as: [], turns: [38, 39]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Followed up on what was ordered and arranged yesterday for his grandmother.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling to check on a few things from yesterday."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She had a mild dry cough for three days, worse at night.
+      speaker: Caller
+      turns: [26]
+      quote: "A dry cough. Three days now."
+      explanation: Documents the cough.
+      facts:
+        - {type: symptom, name: mild dry cough, present: true, severity: mild, onset: three days, certainty: stated}
+      covers: [A1]
+    - text: She had no fever or shortness of breath.
+      speaker: Caller
+      turns: [28]
+      quote: "No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or shortness of breath, certainty: stated}
+      covers: [A2]
+    - text: They were waiting on a bedside commode ordered yesterday.
+      speaker: Caller
+      turns: [13]
+      quote: "Because we've been waiting."
+      explanation: Documents the equipment context.
+      facts:
+        - {type: context, text: Waiting on a bedside commode that was ordered yesterday, certainty: stated}
+      covers: [A3]
+  response:
+    - text: The bedside commode was ordered yesterday afternoon.
+      speaker: Nurse
+      turns: [12]
+      quote: "The bedside commode was ordered yesterday afternoon."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to confirm the delivery window for tomorrow.
+      speaker: Nurse
+      turns: [16]
+      quote: "The delivery is planned for tomorrow."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: The message to the doctor about the cough was sent yesterday.
+      speaker: Nurse
+      turns: [22]
+      quote: "I see that was sent yesterday at four fifteen."
+      explanation: Documents the completed message to the doctor.
+      facts:
+        - {type: action, action_type: message_to_team, status: completed, certainty: stated}
+      covers: [R3]
+    - text: A nurse visit was planned Thursday morning.
+      speaker: Nurse
+      turns: [42]
+      quote: "I see a nurse visit is planned Thursday."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised warm tea with honey, an extra pillow, and a cool mist humidifier at night.
+      speaker: Nurse
+      turns: [50]
+      quote: "you can offer her warm tea with honey."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, trouble breathing, colored mucus, or choking when she drinks.
+      speaker: Nurse
+      turns: [53]
+      quote: "call us if she gets a fever"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

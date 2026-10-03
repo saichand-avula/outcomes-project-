@@ -1,0 +1,208 @@
+call_id: tr-202
+split: train
+blueprint: "Sister of a 37-year-old palliative patient says the pharmacy gave him Lamisil instead of his Lamictal; he has not taken any yet. She spells the surname Whitcomb. Nurse tells her to hold the bottle, calls the pharmacy (completed), messages the provider, and calls back this afternoon. Flag: medication_concern (wrong medicine). Tall-man sound-alike."
+setup:
+  scenario_category: medication
+  subtype: pharmacy_error
+  secondary_tags: [tall_man_drug, name_spelled, hedging, late_answers, split_turns]
+  clinical_domains: [medication, neurologic]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-08T16:10:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Arlen Whitcomb
+  patient_name_spoken: Arlen Whitcomb
+  patient_name_certainty: stated
+  patient_dob_true: "1988-04-04"
+  patient_dob_spoken: "1988-04-04"
+  patient_dob_certainty: stated
+  caller_name_true: Corinne Whitcomb
+  caller_name_spoken: Corinne Whitcomb
+  caller_name_certainty: stated
+  relationship_to_patient: sister
+  relationship_certainty: stated
+  callback_phone_true: "2815550142"
+  callback_phone_spoken: "2815550142"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that the pharmacy gave her brother the wrong medicine
+  reason_category: medication
+  relevant_context: Palliative patient who takes a seizure medicine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lamisil
+    medication_name_spoken: Lamisil
+    medication_status: prescribed
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lamictal
+    medication_name_spoken: Lamictal
+    medication_status: taking
+    dose: "100"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: any dose of the wrong medicine taken
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: wrong medicine dispensed
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: Lamisil dispensed instead of Lamictal
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give the Lamisil, keep the bottle for the pharmacist, and give no Lamictal doses from the wrong bottle until the right one arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Pharmacy dispensed Lamisil instead of Lamictal
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Carla.
+  Caller -> Hi, Carla. This is Corinne Whitcomb. I'm calling about my brother Arlen. The pharmacy gave him the wrong medicine. || caller_name, relationship, cc, F1
+  Nurse -> Okay, Corinne. I'm listening. What's Arlen's full name, and his date of birth?
+  Caller -> Arlen Whitcomb. W H I T C O M B. April fourth, nineteen eighty eight. || patient_name, patient_dob
+  Nurse -> And a good number for you?
+  Caller -> Two eight one, five five five, zero one four two. || callback_phone
+  Nurse -> Got it. Tell me what happened with the medicine.
+  Caller -> So he's supposed to get Lamictal. A hundred milligrams, twice a day. For his seizures. I picked it up an hour ago, and the bottle says Lamisil. L A M I S I L. That's not what he takes. || A1, A2, F1
+  Nurse -> Okay. Thank you for checking the label. Has he taken any from that bottle?
+  Caller -> No. No, not a one. I looked before I opened it. He had his Lamictal this morning from the old bottle, so he's okay for now. || A3, A2
+  Nurse -> Good. That's good. I'm calling the pharmacy right now, while we're talking. || R1
+  Caller -> Oh. Okay.
+  Nurse -> Okay. I did reach them. They say they'll fix it and bring the right bottle out to you. || R1
+  Caller -> Oh, thank goodness. Today? He can't miss the evening dose.
+  Nurse -> I'll make sure they know that. I'm also going to message his provider about the mix-up. || R2
+  Caller -> Thank you. Thank you so much.
+  Nurse -> Please don't give him anything from the Lamisil bottle, and keep it so the driver can take it back. Don't mix it in with his other bottles. || E1, A1
+  Caller -> Don't give the Lamisil. Keep the bottle. Okay. It's in a bag on the counter.
+  Nurse -> Perfect. I'll call you back this afternoon to confirm the delivery. || R3
+  Caller -> This afternoon. Okay. I'll be here.
+  Nurse -> Anything else I can help with, Corinne?
+  Caller -> No, I don't think so. I was worried sick. He's been through so much already. I didn't want one more thing.
+  Nurse -> I know. You did exactly the right thing by checking.
+  Caller -> Thank you, Carla.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Arlen Whitcomb, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1988-04-04", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Corinne Whitcomb, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: sister, certainty: stated, turns: [2]}
+    callback_phone: {value: "2815550142", certainty: stated, heard_as: [], turns: [6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the pharmacy gave her brother the wrong medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "The pharmacy gave him the wrong medicine."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The bottle was labeled Lamisil rather than the usual medicine.
+      speaker: Caller
+      turns: [8]
+      quote: "the bottle says Lamisil."
+      explanation: Documents the wrong medication dispensed.
+      facts:
+        - {type: medication, name: Lamisil, med_status: prescribed, certainty: stated}
+      covers: [A1]
+    - text: Lamictal 100 mg twice a day was his usual medicine; he had taken it that morning from the old bottle.
+      speaker: Caller
+      turns: [8]
+      quote: "A hundred milligrams, twice a day."
+      explanation: Documents the usual medication.
+      facts:
+        - {type: medication, name: Lamictal, dose: "100", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No dose from the wrong bottle had been taken.
+      speaker: Caller
+      turns: [10]
+      quote: "No. No, not a one. I looked before I opened it."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: any dose of the wrong medicine taken, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Called the pharmacy, which would bring the right bottle.
+      speaker: Nurse
+      turns: [13]
+      quote: "I did reach them."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the mix-up.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm also going to message his provider about the mix-up."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this afternoon to confirm the delivery.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back this afternoon to confirm the delivery."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not giving anything from the Lamisil bottle and keeping it for the driver to return.
+      speaker: Nurse
+      turns: [17]
+      quote: "Please don't give him anything from the Lamisil bottle"
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "The pharmacy gave him the wrong medicine."}

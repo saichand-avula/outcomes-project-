@@ -1,0 +1,216 @@
+call_id: tr-187
+split: train
+blueprint: "Mother of a 2-year-old: fever 101.6 since last night, runny nose, tugging at an ear, drinking and wetting diapers, playing between naps. She gave acetaminophen 160 mg this morning. Nurse messages the pediatric provider, plans a callback this afternoon, and reviews fever care and return precautions. Routine, short."
+setup:
+  scenario_category: routine
+  subtype: pediatric_fever
+  secondary_tags: [liquid_concentration, hedging, late_answers, split_turns]
+  clinical_domains: [fever, cough_uri]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Samira
+  call_timestamp_utc: "2026-10-06T12:30:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Soren Lindahl
+  patient_name_spoken: Soren Lindahl
+  patient_name_certainty: stated
+  patient_dob_true: "2024-08-06"
+  patient_dob_spoken: "2024-08-06"
+  patient_dob_certainty: stated
+  caller_name_true: Karin Lindahl
+  caller_name_spoken: Karin Lindahl
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "8015550133"
+  callback_phone_spoken: "8015550133"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son has a fever and runny nose
+  reason_category: fever
+  relevant_context: Toddler followed by pediatric home care
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "101.6"
+    onset_or_duration: since last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: runny nose and tugging at his ear
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: given_previously
+    dose: "160"
+    unit: mg
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: poor drinking or fewer wet diapers
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pediatric provider
+    reason_or_trigger: fever with ear tugging
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Dress him lightly, offer fluids often, and use a lukewarm washcloth rather than a cold bath
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature over 104, a stiff neck, a rash, fewer than 3 wet diapers in a day, or being hard to wake; 911 for a seizure or trouble breathing
+    trigger_condition: temperature over 104; stiff neck; rash; few wet diapers; hard to wake; seizure; trouble breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Samira.
+  Caller -> Hi, Samira. It's Karin Lindahl. My son Soren has a fever. Soren Lindahl. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Karin. What's his date of birth?
+  Caller -> August sixth, twenty twenty four. He's two. || patient_dob
+  Nurse -> And is eight oh one, five five five, zero one three three your number? || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> What's his temperature?
+  Caller -> A hundred and one point six. It started last night. It's been about a hundred and one all day. || A1
+  Nurse -> Okay. Any other symptoms?
+  Caller -> A runny nose. Green, yellow. And he keeps pulling at his right ear. He's fussy about it. || A2
+  Nurse -> Okay. Did you give him anything for the fever?
+  Caller -> Yes. Acetaminophen. The children's liquid. I gave him five milliliters, that's a hundred and sixty milligrams. At about eight this morning. || A3
+  Nurse -> Okay. Is he drinking?
+  Caller -> Yes. He's drinking milk and juice. He's had, let me think, four wet diapers since last night. He's playing in between naps. He's okay. Just warm. || A4
+  Nurse -> Okay. That's reassuring. I'll message his pediatric provider about the fever and the ear pulling. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> I'll call you back this afternoon with what they say. || R2
+  Caller -> This afternoon. Okay.
+  Nurse -> Meanwhile, dress him lightly, offer fluids often, and use a lukewarm washcloth on his skin if he feels hot, not a cold bath. || E1
+  Caller -> Light clothes. Fluids. Lukewarm cloth. Okay. I'll take his sweater off.
+  Nurse -> Karin, call us if his temperature goes over one oh four, if he has a stiff neck or a rash, if he has fewer than three wet diapers in a day, or if he's hard to wake. And if he has a seizure or trouble breathing, call nine one one. || E2
+  Caller -> Over one oh four. Stiff neck. Rash. Few diapers. Hard to wake. Seizure or breathing, nine one one. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thank you, Samira. He just climbed into my lap and fell asleep, so that's the update.
+  Nurse -> That's a sweet update. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Soren Lindahl, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2024-08-06", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Karin Lindahl, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "8015550133", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son has a fever and runny nose.
+    speaker: Caller
+    turns: [2]
+    quote: "My son Soren has a fever."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Temperature was 101.6, running about 101 all day, since last night.
+      speaker: Caller
+      turns: [8]
+      quote: "A hundred and one point six. It started last night."
+      explanation: Documents the fever.
+      facts:
+        - {type: vital, name: temperature, value: "101.6", duration: since last night, certainty: stated}
+      covers: [A1]
+    - text: He had a runny nose and kept pulling at his right ear.
+      speaker: Caller
+      turns: [10]
+      quote: "A runny nose. Green, yellow. And he keeps pulling at his right ear."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: runny nose and tugging at his ear, present: true, certainty: stated}
+      covers: [A2]
+    - text: Acetaminophen 160 mg was given at about eight this morning.
+      speaker: Caller
+      turns: [12]
+      quote: "I gave him five milliliters, that's a hundred and sixty milligrams. At about eight this morning."
+      explanation: Documents the fever medicine.
+      facts:
+        - {type: medication, name: acetaminophen, dose: "160", unit: mg, last_dose: this morning, med_status: given_previously, certainty: stated}
+      covers: [A3]
+    - text: He was drinking and had four wet diapers since last night.
+      speaker: Caller
+      turns: [14]
+      quote: "Yes. He's drinking milk and juice."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: poor drinking or fewer wet diapers, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the pediatric provider about the fever and ear pulling.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll message his pediatric provider about the fever and the ear pulling."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back this afternoon.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you back this afternoon with what they say."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised dressing him lightly, offering fluids often, and using a lukewarm washcloth rather than a cold bath.
+      speaker: Nurse
+      turns: [19]
+      quote: "dress him lightly, offer fluids often, and use a lukewarm washcloth on his skin if he feels hot, not a cold bath."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a temperature over 104, a stiff neck or rash, fewer than 3 wet diapers a day, or being hard to wake, and calling 911 for a seizure or trouble breathing.
+      speaker: Nurse
+      turns: [21]
+      quote: "call us if his temperature goes over one oh four, if he has a stiff neck or a rash, if he has fewer than three wet diapers in a day, or if he's hard to wake."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

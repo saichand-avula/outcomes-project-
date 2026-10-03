@@ -1,0 +1,341 @@
+call_id: tr-065
+split: train
+blueprint: "Husband of a 75-year-old calls because her fasting sugar has been in the 240s for three mornings since starting prednisone; she is thirsty and urinating more but alert, no vomiting. He asks whether to skip the prednisone (told no). Nurse messages the doctor, plans a visit tomorrow and a callback, teaches fluids and a sugar log. Medium length with family chatter."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [prn_and_scheduled, late_answers, offtopic_chatter, multi_issue, hedging]
+  clinical_domains: [glucose, medication, intake_appetite]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-09-24T15:12:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [atorvastatin]
+chief_complaint:
+  patient_name_true: Adelaide Sorensen
+  patient_name_spoken: Adelaide Sorensen
+  patient_name_certainty: stated
+  patient_dob_true: "1951-01-30"
+  patient_dob_spoken: "1951-01-30"
+  patient_dob_certainty: stated
+  caller_name_true: Roy Sorensen
+  caller_name_spoken: Roy Sorensen
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8165550107"
+  callback_phone_spoken: "8165550107"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported high morning blood sugars since she started prednisone
+  reason_category: glucose
+  relevant_context: Prednisone started for a COPD flare 5 days ago
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: fasting blood sugar
+    vital_value: "248"
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    onset_or_duration: 3 mornings
+    history_or_context_text: Fasting sugars were high for 3 mornings in a row
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: prednisone
+    medication_name_spoken: prednisone
+    medication_status: taking
+    dose: "20"
+    unit: mg
+    frequency: once a day in the morning
+    last_dose: started 5 days ago
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased thirst and urination
+    symptom_present: true
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: confusion
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Wondered whether to skip the prednisone because of the sugars
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: high fasting sugars on prednisone
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: check sugar and exam
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+  - item_id: R4
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: do not stop prednisone on her own
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Drink plenty of water; avoid juice, regular soda, and sweets
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check sugar before breakfast and at bedtime and write the numbers down
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a sugar over 350, vomiting, confusion, or being very sleepy
+    trigger_condition: sugar over 350; vomiting; confusion; very sleepy
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Hi, Marcus. It's Roy Sorensen. I'm calling about my wife, Adelaide. || caller_name, relationship, patient_name
+  Nurse -> Hi, Roy. Is that S O R E N S E N?
+  Caller -> With an E N, yes. Sorensen. || patient_name
+  Nurse -> Got it. And what's her birthday?
+  Caller -> January thirtieth, nineteen fifty one. || patient_dob
+  Nurse -> And I have eight one six, five five five, zero one zero seven for you. || callback_phone
+  Caller -> That's the right number. That's mine. || callback_phone
+  Nurse -> What's going on today?
+  Caller -> It's her sugars. They've been, they've been high in the mornings. She took it this morning and it was two forty eight. || cc, A1
+  Nurse -> Two forty eight. Is that fasting, before she eats?
+  Caller -> Yes, before breakfast. And the last two days it was like two forty, two forty something too. So three mornings now. || A2
+  Nurse -> Okay. Is she on any new medicine?
+  Caller -> Yeah, the prednisone. For her lungs. The doctor started that five days ago. Twenty milligrams in the morning. || A3
+  Nurse -> Right, I do see that. And she's still taking her metformin? || A4
+  Caller -> Yes. The metformin, five hundred, twice a day. Breakfast and dinner. || A4
+  Nurse -> Okay. How's she feeling otherwise?
+  Caller -> She's thirsty. She's very thirsty, she's drinking a lot of water. And she's up to the bathroom a lot, a lot more than usual. || A5
+  Nurse -> And is she eating normally? What did she have for dinner last night?
+  Caller -> She had, let me think, she had the chicken, and some rice. Rice and, and green beans. And then she had a little ice cream. Just a little.
+  Nurse -> Okay. And a snack before bed?
+  Caller -> She had some crackers. A few. I told her not to, but you know how she is.
+  Nurse -> That's okay, that's helpful to know. Any vomiting, or nausea?
+  Caller -> No. No throwing up. Her appetite's fine. || A6
+  Nurse -> Is she thinking clearly? Any confusion, or unusually sleepy?
+  Caller -> No. She's sharp. She's actually been bossing me around all morning. || A7
+  Nurse -> Ha. Good sign, then. Is she walking around okay? Any dizziness when she stands?
+  Caller -> No dizziness. She's using the walker. She went out to the mailbox yesterday by herself, I about had a heart attack.
+  Nurse -> That's good that she's moving, even if it's scary for you. How's her breathing, with the lungs?
+  Caller -> It's better. It's better since the prednisone, that's the thing. That's why she's, why she doesn't want to stop it. || A3
+  Caller -> Honestly, I was going to ask if she should skip it. Because of the sugar. Would that be, would that be okay? || A8
+  Nurse -> That's a good question to ask, and I'm glad you did. I don't want her to stop the prednisone on her own. It's helping her lungs, and stopping it suddenly can cause problems. Let the doctor decide how to handle the sugar. || R4, A3
+  Caller -> Okay. All right. So she keeps taking it.
+  Nurse -> For now, yes. I'm going to send a message to her doctor today about these morning numbers, since they're high for three days now. || R1
+  Caller -> Okay.
+  Nurse -> And I'm going to have a nurse come tomorrow to check her sugar and take a look at her. || R2
+  Caller -> Tomorrow. Okay, good. What time, do you know?
+  Nurse -> I'll have the schedule by this evening, and I'll call you then with the time and what the doctor says. || R3
+  Caller -> Perfect. This evening. My son's coming by tonight too, so he'll be here if you want to talk to him.
+  Nurse -> That's great, thanks. Okay, here's what helps in the meantime. Have her drink plenty of water, and skip the juice, the regular soda, and sweets for now. || E1
+  Caller -> She likes the orange juice in the morning. She's not going to like that.
+  Nurse -> I know. Water or sugar-free for now. Just until the doctor weighs in.
+  Caller -> I'll tell her. I'll tell her it's doctor's orders.
+  Nurse -> Ha, that works. And keep checking her sugar before breakfast and again at bedtime, and write the numbers down for the nurse. || E2
+  Caller -> I do write them. I have a little notebook. It's by the toaster.
+  Nurse -> Perfect. If her sugar goes over three fifty, or she starts throwing up, gets confused, or very sleepy, call us right away. || E3
+  Caller -> Over three fifty, throwing up, confused, sleepy. Okay.
+  Nurse -> Does she have enough test strips and lancets? I don't want you running out with all this checking.
+  Caller -> Oh. Let me look. We have, I think a whole box. Maybe half a box. We're okay for a couple of weeks.
+  Nurse -> Okay. If it gets low, tell the nurse tomorrow and she'll bring more.
+  Caller -> Okay, I will.
+  Nurse -> Anything else you want to ask?
+  Caller -> Her feet, she's had, she wants to know about her feet, but that can wait.
+  Nurse -> We can look at those tomorrow when the nurse comes.
+  Caller -> Okay. Thank you, Marcus. You're always so helpful.
+  Nurse -> Anytime, Roy.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Adelaide Sorensen, certainty: stated, heard_as: [], turns: [2, 4]}
+    patient_dob: {value: "1951-01-30", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Roy Sorensen, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550107", certainty: stated, heard_as: [], turns: [7, 8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported high morning blood sugars since she started prednisone.
+    speaker: Caller
+    turns: [10]
+    quote: "It's her sugars. They've been, they've been high in the mornings."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A fasting blood sugar of 248 was reported this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "She took it this morning and it was two forty eight."
+      explanation: Documents the fasting glucose reading.
+      facts:
+        - {type: vital, name: fasting blood sugar, value: "248", certainty: stated}
+      covers: [A1]
+    - text: Fasting sugars were high for 3 mornings in a row.
+      speaker: Caller
+      turns: [12]
+      quote: "So three mornings now."
+      explanation: Documents the duration of the elevation.
+      facts:
+        - {type: context, onset: 3 mornings, certainty: stated}
+      covers: [A2]
+    - text: Prednisone 20 mg every morning was started 5 days ago for her lungs.
+      speaker: Caller
+      turns: [14]
+      quote: "the prednisone. For her lungs. The doctor started that five days ago. Twenty milligrams in the morning."
+      explanation: Documents the likely contributing medication.
+      facts:
+        - {type: medication, name: prednisone, dose: "20", unit: mg, frequency: once a day in the morning, last_dose: started 5 days ago, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Metformin 500 mg twice a day was being taken.
+      speaker: Caller
+      turns: [16]
+      quote: "The metformin, five hundred, twice a day."
+      explanation: Documents the current diabetes medication.
+      facts:
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: She was very thirsty and urinating more than usual.
+      speaker: Caller
+      turns: [18]
+      quote: "She's very thirsty, she's drinking a lot of water."
+      explanation: Documents hyperglycemia symptoms.
+      facts:
+        - {type: symptom, name: increased thirst and urination, present: true, certainty: stated}
+      covers: [A5]
+    - text: No vomiting or confusion was reported.
+      speaker: Caller
+      turns: [24]
+      quote: "No. No throwing up. Her appetite's fine."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+        - {type: pertinent_negative, name: confusion, certainty: stated}
+      covers: [A6, A7]
+    - text: The caller asked whether she should skip the prednisone because of the sugars.
+      speaker: Caller
+      turns: [31]
+      quote: "I was going to ask if she should skip it. Because of the sugar."
+      explanation: Documents the caller's question.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Advised that she should not stop the prednisone on her own and should let the doctor decide.
+      speaker: Nurse
+      turns: [32]
+      quote: "I don't want her to stop the prednisone on her own."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R4]
+    - text: Planned to message the doctor today about the high morning numbers.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'm going to send a message to her doctor today about these morning numbers"
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to check her sugar and examine her.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to have a nurse come tomorrow to check her sugar and take a look at her."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with the visit time and the doctor's response.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'll have the schedule by this evening, and I'll call you then with the time and what the doctor says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised drinking plenty of water and avoiding juice, regular soda, and sweets for now.
+      speaker: Nurse
+      turns: [40]
+      quote: "Have her drink plenty of water, and skip the juice, the regular soda, and sweets for now."
+      explanation: Documents hydration and diet guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised checking her sugar before breakfast and at bedtime and writing the numbers down.
+      speaker: Nurse
+      turns: [44]
+      quote: "keep checking her sugar before breakfast and again at bedtime, and write the numbers down for the nurse."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for a sugar over 350, vomiting, confusion, or being very sleepy.
+      speaker: Nurse
+      turns: [46]
+      quote: "If her sugar goes over three fifty, or she starts throwing up, gets confused, or very sleepy, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,182 @@
+call_id: va-011
+split: val
+blueprint: "Wife's callback number is garbled on the first telling; the nurse reads it back and she confirms (resolved); her husband has a small skin tear on his forearm that bled a little and stopped; nurse arranges a dressing visit tomorrow."
+setup:
+  scenario_category: asr_error
+  subtype: number_conflict_resolved
+  secondary_tags: [name_drift, late_answers]
+  clinical_domains: [wound_skin]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Northstar Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-09-21T10:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clyde Hartman
+  patient_name_spoken: Clyde Hartman
+  patient_name_certainty: stated
+  patient_dob_true: "1944-01-27"
+  patient_dob_spoken: "1944-01-27"
+  patient_dob_certainty: stated
+  caller_name_true: Bernice
+  caller_name_spoken: Bernice
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6145550173"
+  callback_phone_spoken: "6145550173"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Skin tear on his forearm
+  reason_category: wound_skin
+  relevant_context: Fragile skin; bumped his arm on a door frame
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: skin tear
+    symptom_present: true
+    severity: about an inch long
+    body_location: right forearm
+    onset_or_duration: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bleeding
+    symptom_present: true
+    severity: bled a little and stopped after 10 minutes of pressure
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: ongoing bleeding
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    reason_or_trigger: dress the skin tear
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Leave it covered with a non-stick pad and gauze wrap, do not use tape on the skin, keep it dry
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for bleeding that restarts, redness, warmth, pus, or fever; press firmly for 10 minutes if it bleeds
+    trigger_condition: bleeding restarts; redness; warmth; pus; fever
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Northstar Home Health, this is Priscilla.
+  Caller -> Hi. This is Bernice Hartman. I'm calling about my husband, Clyde. || caller_name, relationship, patient_name
+  Nurse -> Hi, Bernadette. And Clyde's date of birth?
+  Caller -> It's Bernice. January twenty seventh, nineteen forty four. || caller_name, patient_dob
+  Nurse -> Sorry, Bernice. And a number for you?
+  Caller -> Six one four, five five five, oh one seventy three. || callback_phone
+  Nurse -> Let me read it back. Six one four, five five five, zero one seven three. Is that right? || callback_phone
+  Caller -> Yes. That's right. || callback_phone
+  Nurse -> What's going on with Clyde?
+  Caller -> He has a skin tear. On his forearm. The right one. He hit it on the door frame this morning. About an inch long. || cc, A1
+  Nurse -> Okay. Did it bleed?
+  Caller -> It did, a little. I pressed on it for ten minutes, and it stopped. || A2
+  Nurse -> Okay. Is it bleeding now?
+  Caller -> No. It's stopped. It's covered. || A3
+  Nurse -> Okay. Good. Leave it covered with a non-stick pad and a gauze wrap. Don't put tape on his skin, it can tear it again. Keep it dry. || E1
+  Caller -> We have the gauze wrap. Okay.
+  Nurse -> I'll send a nurse out tomorrow morning to dress it properly. || R1
+  Caller -> Oh good. Thank you.
+  Nurse -> If it starts bleeding again, press firmly for ten minutes. If it bleeds again, or you see redness, warmth, pus, or he gets a fever, call us. || E2
+  Caller -> Okay. I will.
+  Nurse -> Is he comfortable otherwise? Any dizziness, or did he fall when he bumped it?
+  Caller -> No fall. He just caught his arm walking through the doorway. He's fine. He's watching his program.
+  Nurse -> Good. His skin is fragile, so it's worth padding sharp corners if you can.
+  Caller -> I'll put some foam on the door frame. Good idea.
+  Nurse -> Anything else, Bernice?
+  Caller -> No. That's it. Thanks, Priscilla.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Bernice, heard_form: Bernadette, fact_id: caller_name}
+  - {turn: auto, type: number_garble, true_form: "oh one seven three", heard_form: "oh one seventy three", fact_id: callback_phone}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clyde Hartman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-01-27", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Bernice, certainty: stated, heard_as: [], turns: [2, 4]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6145550173", certainty: stated, heard_as: [], turns: [6, 7, 8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had a skin tear on his forearm.
+    speaker: Caller
+    turns: [10]
+    quote: "He has a skin tear. On his forearm. The right one."
+    explanation: Documents the injury prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: The skin tear bled a little and stopped after 10 minutes of pressure.
+      speaker: Caller
+      turns: [12]
+      quote: "It did, a little. I pressed on it for ten minutes, and it stopped."
+      explanation: Documents the bleeding and its control.
+      facts:
+        - {type: symptom, name: bleeding, present: true, severity: bled a little and stopped after 10 minutes of pressure, certainty: stated}
+      covers: [A2]
+    - text: The wound was no longer bleeding and was covered.
+      speaker: Caller
+      turns: [14]
+      quote: "No. It's stopped. It's covered."
+      explanation: Documents a pertinent negative for ongoing bleeding.
+      facts:
+        - {type: pertinent_negative, name: ongoing bleeding, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned a nurse visit tomorrow morning to dress the skin tear.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll send a nurse out tomorrow morning to dress it properly."
+      explanation: Documents the planned wound care visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised leaving it covered with a non-stick pad and gauze wrap, avoiding tape on the skin, and keeping it dry.
+      speaker: Nurse
+      turns: [15]
+      quote: "Leave it covered with a non-stick pad and a gauze wrap. Don't put tape on his skin, it can tear it again. Keep it dry."
+      explanation: Documents wound care instructions.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised pressing firmly for 10 minutes if it bled again, and calling for repeat bleeding, redness, warmth, pus, or fever.
+      speaker: Nurse
+      turns: [19]
+      quote: "If it starts bleeding again, press firmly for ten minutes. If it bleeds again, or you see redness, warmth, pus, or he gets a fever, call us."
+      explanation: Documents first aid and return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

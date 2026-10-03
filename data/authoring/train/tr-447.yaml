@@ -1,0 +1,272 @@
+call_id: tr-447
+split: train
+blueprint: "A wife reads her husband's morning blood pressure to home health over a bad connection; the number comes through garbled ('won fordy ate over nigh tea too') and she repeats it clearly as one forty eight over ninety two. His weight is up three pounds in two days and his ankles are puffier. He takes furosemide forty milligrams each morning. No shortness of breath lying flat. Nurse plans to message the team about his water pill and a nurse visit tomorrow, with daily weight and low salt reminders. ASR number garble, heart failure, spouse caller, patient 65-89, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [number_garble, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [blood_pressure, edema, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Brightwater Home Health
+  agency_type: home_health
+  nurse_name: Priya
+  call_timestamp_utc: "2026-12-01T15:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Percival Anstruther
+  patient_name_spoken: Percival Anstruther
+  patient_name_certainty: stated
+  patient_dob_true: "1950-05-05"
+  patient_dob_spoken: "1950-05-05"
+  patient_dob_certainty: stated
+  caller_name_true: Lavinia Anstruther
+  caller_name_spoken: Lavinia Anstruther
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2065550176"
+  callback_phone_spoken: "2065550176"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a higher blood pressure, weight gain and ankle swelling in her husband
+  reason_category: edema
+  relevant_context: Home health patient with heart failure on a water pill
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "148/92"
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: weight up three pounds and puffier ankles
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: furosemide
+    medication_name_spoken: furosemide
+    medication_status: taking
+    dose: "40"
+    unit: mg
+    frequency: every morning
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath lying flat
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team and clinician
+    reason_or_trigger: review his water pill dose for weight gain and swelling
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh him every morning after he urinates and before breakfast, and write down the weight and blood pressure
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Keep salt low, avoid canned soups and deli meats, and keep his feet up when sitting
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for trouble breathing, needing more pillows to sleep, chest pain, weight up five pounds, or much more swelling
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Brightwater Home Health, this is Priya.
+  Caller -> Oh good, you answered. I was afraid I'd get the machine. Hello? Can you hear me now?
+  Nurse -> I can hear you. Go ahead.
+  Caller -> Hi, Priya. It's Lavinia Anstruther. Can you hear me? I'm calling about my husband, Percival. P E R C I V A L. Anstruther. A N S T R U T H E R. || caller_name, patient_name, relationship
+  Nurse -> Take your time. Which numbers are you worried about?
+  Nurse -> I can hear you, Lavinia, but the line is fuzzy. What's going on with Percival?
+  Caller -> His numbers are off. His blood pressure, and his weight. I wanted to tell someone. || cc
+  Caller -> I don't want to be a pest. I know you have sick people. But I don't like when his numbers change.
+  Nurse -> You're not a pest. This is what we're here for.
+  Nurse -> Okay. Let me open his chart. What's his date of birth?
+  Caller -> May fifth. Nineteen fifty. || patient_dob
+  Nurse -> And your number?
+  Caller -> Two oh six, five five five, zero one seven six. || callback_phone
+  Nurse -> Thanks. So tell me the numbers.
+  Caller -> I wrote them on the pad. My handwriting. I'll read them. One second. I'm putting on my glasses.
+  Caller -> The blood pressure this morning was won fordy ate over nigh tea too. || A1
+  Nurse -> I'm sorry, Lavinia, I couldn't make that out. Can you say it again slowly, number by number?
+  Caller -> It sounds like I'm in a tunnel. I'm going to move closer to the window. Maybe that helps.
+  Caller -> Sorry. The line. One. Four. Eight. Over nine. Two. One forty eight over ninety two. || A1
+  Nurse -> One forty eight over ninety two. Okay. What's his usual?
+  Caller -> About one twenty eight over seventy eight. This is higher.
+  Nurse -> It is. What about his weight?
+  Caller -> We have the digital scale. The kind that talks. It says the number out loud. Percival hates it. He says it judges him.
+  Nurse -> Ha. A talking scale. Wow.
+  Caller -> He weighs himself every morning. Monday he was one eighty one. Today one eighty four. That's up three pounds in two days. And his ankles are puffy. More than usual. || A2
+  Nurse -> Okay. Is he taking his water pill?
+  Caller -> I put the pills in the organizer on Sundays. Morning, noon, evening, bedtime. I watch him swallow.
+  Caller -> The furosemide. Forty milligrams, every morning. He took it today at eight. He has never missed. || A3
+  Nurse -> Okay. Is he short of breath?
+  Caller -> No. Not walking. And not at night. I asked him. He sleeps on two pillows like always. He's not waking up gasping. He's fine lying flat. || A4
+  Nurse -> Good. What has he eaten? Anything salty?
+  Caller -> I keep telling him no salt. And then he shakes it over his eggs. I take away the shaker. He finds another.
+  Caller -> We had a ham at the church supper on Sunday. And then leftovers. And he had canned soup yesterday. Chicken noodle. I know. I should know better.
+  Nurse -> That can do it. Don't be hard on yourself. Lavinia, I'll message the team and the clinician to review his water pill. || R1
+  Caller -> I'm a worrier. My mother was a worrier. We're a long line of women who count other people's pills.
+  Caller -> Thank you. Should I give him an extra one?
+  Caller -> My neighbor said her husband takes two when he swells. She said the doctor told her.
+  Nurse -> Every person is different. Please wait for the clinician.
+  Nurse -> Please don't change it. Let the clinician decide.
+  Caller -> Okay. I won't. I'll wait.
+  Nurse -> I'd also like to send a nurse out tomorrow to check him over. || R2
+  Caller -> Tomorrow. That's good. In the morning?
+  Caller -> He has a haircut at eleven. I told him to cancel it. He says nobody cancels a haircut. It's the barber's birthday.
+  Nurse -> I'll ask for morning.
+  Caller -> Perfect. He's more alert in the morning.
+  Nurse -> Keep weighing him every morning, after he uses the bathroom and before breakfast. Write down the weight and the blood pressure. || E1
+  Caller -> Every morning. After the bathroom. Before breakfast. Write both. I do. I have the chart on the fridge.
+  Caller -> He stands on the scale in his socks. I told him to take them off. He says socks don't weigh anything.
+  Nurse -> Ha. A small difference. Same socks or no socks, as long as it's the same each day.
+  Nurse -> And keep the salt low. No canned soups or deli meats. And put his feet up when he's sitting. || E2
+  Caller -> No canned soup. I'll make my own. Feet up on the ottoman.
+  Caller -> I make a good chicken soup. No salt. I use lemon and garlic and pepper. It tastes fine. He says it tastes like water with ideas.
+  Nurse -> Call us if he has trouble breathing, if he needs more pillows to sleep, if he has chest pain, if his weight goes up five pounds, or if the swelling gets much worse. || E3
+  Caller -> Trouble breathing. More pillows. Chest pain. Five pounds. More swelling. I wrote it down.
+  Nurse -> Perfect.
+  Caller -> Sorry about the bad line. I'm in the basement. The washer is going. I'm folding towels.
+  Nurse -> Ha. You're multitasking.
+  Caller -> The basement is the only place I get quiet. The cat keeps coming down to supervise.
+  Caller -> Always. Percival says I never sit still. He says I'll fold the whole house one day.
+  Nurse -> Ha. A useful hobby.
+  Caller -> It beats worrying. When I fold, I can't think about anything else.
+  Caller -> And it's warm down here, by the dryer. My feet are cold in the winter.
+  Nurse -> That sounds peaceful.
+  Caller -> Thank you, Priya. Bye.
+  Nurse -> Bye, Lavinia.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: "one forty eight over ninety two", heard_form: "won fordy ate over nigh tea too", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Percival Anstruther, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1950-05-05", certainty: stated, heard_as: [], turns: [11]}
+    caller_name: {value: Lavinia Anstruther, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: wife, certainty: stated, turns: [4]}
+    callback_phone: {value: "2065550176", certainty: stated, heard_as: [], turns: [13]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a higher blood pressure, weight gain and ankle swelling in her husband.
+    speaker: Caller
+    turns: [7]
+    quote: "His numbers are off. His blood pressure, and his weight."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Blood pressure this morning was 148 over 92.
+      speaker: Caller
+      turns: [19]
+      quote: "One forty eight over ninety two."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "148/92", certainty: stated}
+      covers: [A1]
+    - text: His weight was up three pounds in two days and his ankles were puffier.
+      speaker: Caller
+      turns: [25]
+      quote: "That's up three pounds in two days."
+      explanation: Documents the weight gain and swelling.
+      facts:
+        - {type: symptom, name: weight up three pounds and puffier ankles, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Furosemide 40 mg every morning was taken today at eight.
+      speaker: Caller
+      turns: [28]
+      quote: "Forty milligrams, every morning."
+      explanation: Documents the water pill.
+      facts:
+        - {type: medication, name: furosemide, dose: "40", unit: mg, frequency: every morning, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He had no shortness of breath, including lying flat at night.
+      speaker: Caller
+      turns: [30]
+      quote: "No. Not walking. And not at night."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath lying flat, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the team and clinician to review his water pill.
+      speaker: Nurse
+      turns: [34]
+      quote: "I'll message the team and the clinician to review his water pill."
+      explanation: Documents the planned message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'd also like to send a nurse out tomorrow"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised weighing him every morning after he urinates and before breakfast and writing down the weight and blood pressure.
+      speaker: Nurse
+      turns: [46]
+      quote: "Keep weighing him every morning"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping salt low, avoiding canned soups and deli meats and keeping his feet up.
+      speaker: Nurse
+      turns: [50]
+      quote: "keep the salt low."
+      explanation: Documents nutrition teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling for trouble breathing, needing more pillows, chest pain, weight up five pounds or much more swelling.
+      speaker: Nurse
+      turns: [53]
+      quote: "Call us if he has trouble breathing"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

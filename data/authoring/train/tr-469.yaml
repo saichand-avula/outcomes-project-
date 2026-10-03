@@ -1,0 +1,262 @@
+call_id: tr-469
+split: train
+blueprint: "A paid caregiver calls home care worried about possible elder abuse: her 81-year-old client has a fingermark-shaped bruise on her upper arm, flinched when her grandson came in shouting, and says he took her bank card. The client says she did not fall. Nurse takes it seriously, messages the supervising team, plans a social work referral and a nurse visit tomorrow, and advises the aide not to confront the grandson and to call 911 if the client is in danger. Possible abuse concern (other urgent), paid caregiver caller, patient 65+, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: suspected_abuse
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [wound_skin, mood, falls_safety]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Aspen Row Home Care
+  agency_type: home_care
+  nurse_name: Yvette
+  call_timestamp_utc: "2026-11-13T20:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Genevieve Pomeroy
+  patient_name_spoken: Genevieve Pomeroy
+  patient_name_certainty: stated
+  patient_dob_true: "1944-09-18"
+  patient_dob_spoken: "1944-09-18"
+  patient_dob_certainty: stated
+  caller_name_true: Tobias Underhill
+  caller_name_spoken: Tobias Underhill
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "6155550191"
+  callback_phone_spoken: "6155550191"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Concerned that a client's grandson may be hurting and taking money from her
+  reason_category: safety
+  relevant_context: Home care client who lives with her grandson
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: bruise on the upper arm shaped like fingermarks
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: fearful and withdrawn around her grandson
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: Her grandson lives with her, shouts at her, and took her bank card
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: tell the supervisor about the bruise and the concern for abuse
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: possible elder abuse and financial exploitation
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not confront the grandson, stay calm, write down what you see, and call 911 if she is in immediate danger
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Suspected physical abuse and financial exploitation of an older adult by a family member
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Aspen Row Home Care, this is Yvette.
+  Caller -> Hi, Yvette. It's Tobias Underhill. I'm a caregiver for Genevieve Pomeroy. I think something's wrong at her house. I think her grandson is hurting her. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Tobias, thank you for calling. I'm listening. Are you with her right now?
+  Caller -> Thank you for picking up. I almost didn't call.
+  Nurse -> I'm glad you did.
+  Caller -> No. I'm in my car. I just left. I finished my shift at seven. I sat in the driveway for ten minutes before I called. I didn't want to leave her.
+  Nurse -> Okay. Is she safe right now? Is the grandson there?
+  Caller -> He was there when I left. He's in the other room with the TV loud. She was in her recliner. She was okay. She was quiet.
+  Nurse -> Okay. Is there immediate danger? Do you think someone needs to go there right now?
+  Caller -> I don't think so. Not right this minute. I don't think he'd hurt her tonight. But I'm worried. That's why I'm calling.
+  Nurse -> Okay. Tell me what you saw.
+  Caller -> I have to say it in order or I'll lose my place. Is that okay?
+  Nurse -> Take your time.
+  Caller -> I was helping her change her shirt. She has a bruise. On her upper arm. The left one. It's purple and yellow. And it's shaped like, like fingers. Four marks on one side and one on the other. Like somebody grabbed her. || A1
+  Nurse -> A bruise like fingermarks, on her left upper arm. Did she tell you how she got it?
+  Caller -> I asked. She said she bumped it on the door. But she wouldn't look at me. And the marks don't fit a door.
+  Nurse -> Did she fall?
+  Caller -> No. I asked that too. She said no. She said she didn't fall. She's very steady on her walker. || A4
+  Nurse -> Okay. What else did you notice?
+  Caller -> I keep going over it in my head.
+  Caller -> When the grandson came in the kitchen, she flinched. I saw it. Her whole body went stiff. And he yelled at her. About the dinner. He said, why isn't this ready. In front of me. Like I wasn't there. || A2
+  Nurse -> How did she respond?
+  Caller -> She said sorry. She said sorry, sweetheart. She kept apologizing. And she got quiet and went to her chair. She didn't talk to me for the rest of the shift.
+  Nurse -> Okay. Anything else?
+  Caller -> Hold on. I'm checking the road. I'm still parked at the corner.
+  Caller -> He took her bank card. She told me. She said, he has my card, I don't know why. He said he'd pay the bills. And she says she has no money for her own groceries. I buy her oranges sometimes. || A3
+  Nurse -> Okay. Does he live with her?
+  Caller -> I'd say that the house feels different since he moved in. Quieter.
+  Caller -> Yes. He moved in last spring. He's thirty four. I don't know what he does. He's there all day.
+  Nurse -> Okay. Thank you for telling me all this. You did the right thing.
+  Caller -> I'm so worried. I didn't know if I should call you or the police.
+  Nurse -> You called the right place. I'm going to take this seriously, and the team will too.
+  Caller -> Thank you.
+  Nurse -> Tobias, I need a few details. What's her date of birth?
+  Caller -> September eighteenth. Nineteen forty four. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six one five, five five five, oh one nine one. || callback_phone
+  Nurse -> Six one five, five five five, oh one nine one. Right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Perfect. Keep it on.
+  Nurse -> Okay. Here's what happens next. I'm going to send a message to the supervising team tonight about the bruise and what you observed. They'll decide how to proceed. || R1
+  Caller -> Okay. Is she going to get in trouble?
+  Caller -> I just keep thinking she'll be scared if people show up.
+  Nurse -> No. She's not in trouble. Our job is to keep her safe.
+  Caller -> Okay. Good.
+  Nurse -> We'll be gentle with her.
+  Nurse -> I'm also putting in a referral to our social worker. They work with older adults who may be hurt or having money taken. || R2
+  Caller -> Social worker. Okay. That's good. She needs somebody.
+  Nurse -> And I'd like a nurse to see her tomorrow. To look at the bruise, and to talk with her alone if possible. || R3
+  Caller -> Alone. Good. Because when he's in the house she won't say anything.
+  Nurse -> I understand. The nurse will find a way.
+  Caller -> I'm there tomorrow at eight. Do you want me to stay when the nurse comes?
+  Nurse -> The team will contact you about that. For now, keep doing your regular shift.
+  Caller -> Okay. Will do.
+  Caller -> I'll act like nothing is wrong. I'm good at that. I was in theater in school.
+  Nurse -> Ha. That'll help.
+  Nurse -> Tobias, please don't confront the grandson. Stay calm, and treat everything as normal. Write down what you see and hear, with the date and time. And if she is ever in immediate danger, call 911 right away. || E1
+  Caller -> Don't confront. Stay calm. Write it down. Call 911 if she's in danger. Okay. I have a notebook in the car. I'll write it tonight while it's fresh.
+  Nurse -> That's a great idea.
+  Caller -> I took a picture of the bruise. Is that okay? She said yes.
+  Nurse -> Don't send it from your phone. Keep it, and tell the team that you have it. They'll tell you what to do.
+  Caller -> Okay. I'll keep it safe. I won't show anyone.
+  Nurse -> Good.
+  Caller -> Thank you for believing me.
+  Nurse -> Of course. Thank you for being such a good caregiver.
+  Caller -> I love her. She calls me her boy. She knits me a scarf every year.
+  Nurse -> She's lucky to have you.
+  Caller -> I hope she's okay tonight.
+  Nurse -> Me too. Call back if anything changes.
+  Caller -> I will. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Genevieve Pomeroy, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-09-18", certainty: stated, heard_as: [], turns: [35]}
+    caller_name: {value: Tobias Underhill, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550191", certainty: stated, heard_as: [], turns: [37, 38]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Concerned that a client's grandson may be hurting and taking money from her.
+    speaker: Caller
+    turns: [2]
+    quote: "I think her grandson is hurting her."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She had a purple and yellow bruise on her left upper arm shaped like fingermarks.
+      speaker: Caller
+      turns: [14]
+      quote: "She has a bruise. On her upper arm."
+      explanation: Documents the bruise.
+      facts:
+        - {type: symptom, name: bruise on the upper arm shaped like fingermarks, present: true, severity: moderate, certainty: stated}
+      covers: [A1]
+    - text: She flinched and became stiff and apologetic when her grandson shouted at her.
+      speaker: Caller
+      turns: [21]
+      quote: "she flinched."
+      explanation: Documents her fearful behavior.
+      facts:
+        - {type: symptom, name: fearful and withdrawn around her grandson, present: true, certainty: stated}
+      covers: [A2]
+    - text: Her grandson lived with her, shouted at her, and had taken her bank card.
+      speaker: Caller
+      turns: [26]
+      quote: "He took her bank card."
+      explanation: Documents the context.
+      facts:
+        - {type: context, text: Her grandson lives with her, shouts at her, and took her bank card, certainty: stated}
+      covers: [A3]
+    - text: She said she did not fall.
+      speaker: Caller
+      turns: [18]
+      quote: "She said she didn't fall."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the supervising team about the bruise and the concern.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'm going to send a message to the supervising team tonight about the bruise"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a social worker referral.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm also putting in a referral to our social worker."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to look at the bruise and speak with her alone.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'd like a nurse to see her tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not confronting the grandson, staying calm, documenting what he saw, and calling 911 if she was in immediate danger.
+      speaker: Nurse
+      turns: [57]
+      quote: "please don't confront the grandson."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "I think her grandson is hurting her."}

@@ -1,0 +1,282 @@
+call_id: va-091
+split: val
+blueprint: "A son, Matthias Oyelaran, calls the hospice line at night because his father Jonas has become very restless and agitated: pulling at his sheets, trying to climb out of bed, calling for people who are not there, not settling after his usual haloperidol. He has no pain grimace and normal-looking breathing. Nurse pages on-call, walks him through safe positioning and a calm room, sends a nurse within the hour, and says not to give extra haloperidol until the clinician calls. Uncontrolled terminal agitation, adult child caller, uncontrolled symptom flag, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: terminal_agitation
+  secondary_tags: [adult_child, uncontrolled_symptom, end_of_life, safety, split_turns, late_answers]
+  clinical_domains: [agitation_delirium, medication, safety]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Octavia
+  call_timestamp_utc: "2026-12-16T03:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [morphine]
+chief_complaint:
+  patient_name_true: Jonas Oyelaran
+  patient_name_spoken: Jonas Oyelaran
+  patient_name_certainty: stated
+  patient_dob_true: "1939-06-30"
+  patient_dob_spoken: "1939-06-30"
+  patient_dob_certainty: stated
+  caller_name_true: Matthias Oyelaran
+  caller_name_spoken: Matthias Oyelaran
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "9185550170"
+  callback_phone_spoken: "9185550170"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his father is very restless and agitated and not settling
+  reason_category: agitation_delirium
+  relevant_context: Hospice patient near the end of life
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe restlessness and agitation
+    symptom_present: true
+    severity: severe
+    onset: since about midnight
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: haloperidol
+    medication_name_spoken: haloperidol
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: every six hours as needed
+    prn: true
+    last_dose: at one this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: seeing and calling for people who are not there
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pain grimace or labored breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Lower the bed to its lowest setting, pad the floor beside it, keep the side he is not on clear, and stay with him so he does not climb out
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give another dose of the haloperidol until the clinician calls with orders
+    certainty: stated
+  - item_id: E3
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Dim the lights, turn off the television, speak softly and calmly, and avoid arguing with what he sees
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Severe agitation not settling after his as-needed haloperidol
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Octavia.
+  Caller -> Octavia, it's Matthias Oyelaran. My father is Jonas Oyelaran. He's agitated. He's really agitated. He won't settle. I don't know what to do. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Okay, Matthias. I'm here. Tell me what you're seeing.
+  Caller -> Sorry for calling so late. Early. I don't know what time it is anymore.
+  Nurse -> Any hour is fine. That's what we're here for.
+  Caller -> He's been like this since about midnight. Restless. He's pulling the sheets off. He keeps trying to sit up and swing his legs over. He tried to climb out of the bed twice. I had to hold him. || A1
+  Caller -> He's strong. He was a boxer in his twenties. It took everything I had to keep him from standing.
+  Nurse -> That's a lot. Are you hurt?
+  Caller -> No. A scratch on my arm. I'm fine.
+  Nurse -> Is he talking?
+  Caller -> He's mumbling. He's talking to people. He keeps saying, Ruth, Ruth, come in, shut the door. My mother's name is Ruth. She's been dead for eleven years. And he's looking at the corner like she's standing there. || A3
+  Caller -> It's frightening. I keep looking at the corner too. There's nothing there. But he's so sure.
+  Nurse -> That's normal for visitors to feel that. It's okay to be shaken.
+  Nurse -> Okay. That's very common near the end of life. It's called terminal restlessness. It's not dangerous for him in the way it feels to you. Has he had any medicine for it?
+  Caller -> The haloperidol. Half a milligram. Every six hours as needed. I gave it at one. It's three fifty now. It didn't help. He's the same. || A2
+  Nurse -> Has he eaten or had anything to drink tonight?
+  Caller -> He had some juice around ten. Nothing since. He wouldn't take his pills.
+  Nurse -> Okay. We'll let the clinician know.
+  Nurse -> Okay. Is he in pain, do you think? Grimacing, moaning?
+  Caller -> No. His face is not in pain. It's more like worry. And his breathing is normal. Not fast. Not noisy. It's just that he can't stay still. || A4
+  Nurse -> Good. When did he last have morphine?
+  Caller -> Nine last night. He hasn't needed any since. I asked him about pain and he shook his head.
+  Nurse -> Okay. Has he had a bowel movement? Is he able to urinate? Retention and constipation can make people restless.
+  Caller -> He has the catheter. The bag has some. And no bowel movement in three days. I told the nurse that on Monday.
+  Nurse -> Is the catheter bag draining well? Is the tubing kinked?
+  Caller -> It looks straight. It's draining. A small amount, dark yellow.
+  Nurse -> Thank you. That helps.
+  Nurse -> Okay. That could be adding to it. We'll tell the clinician. Matthias, I'm going to page the on-call clinician now. They'll call you back with orders. || R1
+  Caller -> Is there something we can do about that tonight?
+  Nurse -> The clinician may order something. Don't give any laxative on your own.
+  Caller -> Understood.
+  Caller -> Okay. Please. Thank you.
+  Nurse -> I'm also sending a nurse to be with you. She should be there within the hour. || R2
+  Caller -> Within the hour. Okay. I'm so glad. I thought I'd have to do this alone till morning.
+  Caller -> My wife's asleep upstairs with the baby. I didn't want to wake her. She has to work tomorrow.
+  Nurse -> You can still wake her if you need a second pair of hands. It's a hard night.
+  Nurse -> You won't. Let me help with the next hour. First, safety. Is the bed at its lowest?
+  Caller -> No. It's up high. For my back, when I change him. Should I lower it?
+  Nurse -> Yes, lower it all the way down. And put pillows or a folded blanket on the floor next to the bed, in case he does get out. Keep the area clear. And stay with him. Don't leave him alone. || E1
+  Caller -> Lower it. Pillows on the floor. Stay with him. Okay. I'm lowering it now. There. It's down.
+  Nurse -> Good. Now the room. Dim the lights and turn off the television. Speak softly. And don't argue with what he sees.
+  Caller -> The TV's already off. The lamp's on. I'll turn it low. I won't argue. I said to him, Dad, Mom's not here. That upset him.
+  Nurse -> It can. Try, I hear you, Dad. Everything's okay. You're safe. You don't have to agree.
+  Caller -> That sounds so simple. I couldn't think of it. I was just panicking.
+  Nurse -> Panic is normal. You're thinking just fine now.
+  Caller -> I hear you, Dad. Everything's okay. You're safe. Okay. He's calmer already. A little. || E3
+  Nurse -> Good. Another thing: please don't give another dose of the haloperidol until the clinician calls. I want them to decide. || E2
+  Caller -> No more until they call. Okay.
+  Nurse -> What's his date of birth, Matthias?
+  Caller -> June thirtieth, nineteen thirty nine. || patient_dob
+  Nurse -> And your number?
+  Caller -> Nine one eight, five five five, zero one seven zero. || callback_phone
+  Nurse -> Is that a cell? Will you hear it ring if you're by the bed?
+  Caller -> Yes. I keep it on loud.
+  Nurse -> Perfect.
+  Nurse -> Got it. Keep talking to him. Hold his hand. Sometimes touch helps.
+  Caller -> He's whispering something. I think he's praying. Or counting.
+  Nurse -> Let him. It may be soothing to him.
+  Caller -> I'm holding it. He squeezed. He said, my boy. He knows me.
+  Caller -> I haven't heard him say that in days. He's been so quiet.
+  Nurse -> It's a good moment. Hold on to it.
+  Nurse -> That's wonderful. He knows you're there.
+  Caller -> Yeah. Okay. He's lying back a little. His hands are still moving. But he's less wild.
+  Nurse -> Good. The clinician will call within about fifteen minutes. Keep your phone beside you.
+  Caller -> Should I wake my brother? He's across town. He'd want to be here.
+  Nurse -> That's your decision. If you want company, call him. A familiar voice can help.
+  Caller -> I'll call him after I hang up.
+  Caller -> It's on the bed. Right next to his hand. Thank you, Octavia.
+  Nurse -> I'm here. If he gets worse, call me right back.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Jonas Oyelaran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1939-06-30", certainty: stated, heard_as: [], turns: [50]}
+    caller_name: {value: Matthias Oyelaran, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550170", certainty: stated, heard_as: [], turns: [52]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father is very restless and agitated and not settling.
+    speaker: Caller
+    turns: [2]
+    quote: "He's agitated. He's really agitated."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He had been restless since about midnight, pulling at sheets and trying to climb out of bed twice.
+      speaker: Caller
+      turns: [6]
+      quote: "He tried to climb out of the bed twice."
+      explanation: Documents the agitation.
+      facts:
+        - {type: symptom, name: severe restlessness and agitation, present: true, severity: severe, onset: since about midnight, certainty: stated}
+      covers: [A1]
+    - text: Haloperidol 0.5 mg every six hours as needed was given at one and did not help.
+      speaker: Caller
+      turns: [15]
+      quote: "Half a milligram. Every six hours as needed."
+      explanation: Documents the haloperidol.
+      facts:
+        - {type: medication, name: haloperidol, dose: "0.5", unit: mg, frequency: every six hours as needed, prn: true, last_dose: at one this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was talking to and looking at people who were not there, calling for his late wife.
+      speaker: Caller
+      turns: [11]
+      quote: "He's talking to people."
+      explanation: Documents the hallucinations.
+      facts:
+        - {type: symptom, name: seeing and calling for people who are not there, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no pain grimace or labored breathing.
+      speaker: Caller
+      turns: [20]
+      quote: "His face is not in pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: pain grimace or labored breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [28]
+      quote: "I'm going to page the on-call clinician now."
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm also sending a nurse to be with you."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised lowering the bed, padding the floor, clearing the area, and staying with him.
+      speaker: Nurse
+      turns: [39]
+      quote: "lower it all the way down."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised not giving another haloperidol dose until the clinician calls.
+      speaker: Nurse
+      turns: [47]
+      quote: "please don't give another dose of the haloperidol until the clinician calls."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised dimming the lights, turning off the television, speaking softly, and not arguing with what he sees.
+      speaker: Nurse
+      turns: [41]
+      quote: "Dim the lights and turn off the television."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "He's agitated. He's really agitated."}

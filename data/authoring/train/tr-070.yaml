@@ -1,0 +1,196 @@
+call_id: tr-070
+split: train
+blueprint: "Wife says the side rail on her husband's hospital bed is loose and wobbles; she tried to tighten it. Nurse tells her to stop using the rail, lower the bed and pad the floor side, contacts the equipment vendor, and coordinates a repair visit tomorrow morning between 8 and 12."
+setup:
+  scenario_category: supply
+  subtype: equipment_repair
+  secondary_tags: [phone_from_file, split_turns, late_answers]
+  clinical_domains: [equipment, falls_safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Ana
+  call_timestamp_utc: "2026-09-30T20:02:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Theodore Lundquist
+  patient_name_spoken: Theodore Lundquist
+  patient_name_certainty: stated
+  patient_dob_true: "1941-06-17"
+  patient_dob_spoken: "1941-06-17"
+  patient_dob_certainty: stated
+  caller_name_true: Greta Lundquist
+  caller_name_spoken: Greta Lundquist
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6125550125"
+  callback_phone_spoken: "6125550125"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a loose side rail on his hospital bed
+  reason_category: equipment
+  relevant_context: Uses a rental hospital bed
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: loose side rail on the hospital bed
+    symptom_present: true
+    body_location: left side rail
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: She tried to tighten the rail herself with no success
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Worried he could fall out of bed or get caught in the rail
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment vendor
+    reason_or_trigger: loose side rail
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow between 8 and 12
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Do not use the loose rail to pull or lean on; keep the bed at its lowest height
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put a folded blanket or pad on the floor beside the bed and check on him often tonight
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Ana.
+  Caller -> Hi, Ana. This is Greta Lundquist. I'm calling about my husband's bed. Theodore. || caller_name, relationship, patient_name
+  Nurse -> Hi, Greta. His birthday?
+  Caller -> June seventeenth, nineteen forty one. || patient_dob
+  Nurse -> And I've got six one two, five five five, zero one two five? || callback_phone
+  Caller -> That's me. || callback_phone
+  Nurse -> What's going on with the bed?
+  Caller -> The rail. The side rail. It's loose, it wobbles. The left one. It started yesterday. || cc, A1
+  Nurse -> Okay. Is it coming off, or just shaking?
+  Caller -> Just shaking. But when he leans on it to sit up, it, it moves a lot. || A1
+  Nurse -> Have you tried anything?
+  Caller -> I tried tightening it. With a screwdriver. There's a little screw. It didn't do anything. || A2
+  Nurse -> Okay. Stop messing with it, you might make it worse.
+  Caller -> I'm worried he's going to fall out. Or get his arm stuck. I don't know. I can't sleep. || A3
+  Nurse -> I understand. Here's what we'll do. I'm going to contact our equipment company tonight about the rail. || R1
+  Caller -> Okay.
+  Nurse -> They can send somebody tomorrow between eight and twelve. I'll set that up. Will somebody be home? || R2
+  Caller -> I'll be here. I'm always here.
+  Nurse -> Perfect. For tonight, don't let him pull on that rail or lean on it. Keep the bed as low as it goes. || E1
+  Caller -> Lowest. Okay. It's already pretty low.
+  Nurse -> And put a folded blanket or a mat on the floor next to the bed, on that side, just in case. And check on him a few times tonight. || E2
+  Caller -> I'll do the blanket. I have the, the quilt.
+  Nurse -> That works. Anything else, Greta?
+  Caller -> No. That's it. Thank you.
+  Nurse -> You're welcome.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Theodore Lundquist, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-06-17", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Greta Lundquist, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6125550125", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a loose side rail on his hospital bed.
+    speaker: Caller
+    turns: [8]
+    quote: "The rail. The side rail. It's loose, it wobbles."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The left side rail was loose and wobbled, starting yesterday.
+      speaker: Caller
+      turns: [8]
+      quote: "The left one. It started yesterday."
+      explanation: Documents the equipment problem details.
+      facts:
+        - {type: symptom, name: loose side rail on the hospital bed, present: true, location: left side rail, duration: since yesterday, certainty: stated}
+      covers: [A1]
+    - text: She tried to tighten the rail with a screwdriver without success.
+      speaker: Caller
+      turns: [12]
+      quote: "I tried tightening it. With a screwdriver."
+      explanation: Documents the attempted fix.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: She was worried he could fall out of bed or get his arm caught.
+      speaker: Caller
+      turns: [14]
+      quote: "I'm worried he's going to fall out. Or get his arm stuck."
+      explanation: Documents the caller's safety concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to contact the equipment company about the rail.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to contact our equipment company tonight about the rail."
+      explanation: Documents the planned vendor contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a repair visit tomorrow between 8 and 12.
+      speaker: Nurse
+      turns: [17]
+      quote: "They can send somebody tomorrow between eight and twelve."
+      explanation: Documents the planned repair scheduling.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow between 8 and 12, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not letting him pull or lean on the loose rail and keeping the bed at its lowest height.
+      speaker: Nurse
+      turns: [19]
+      quote: "don't let him pull on that rail or lean on it. Keep the bed as low as it goes."
+      explanation: Documents equipment safety guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised putting a folded blanket or mat on the floor beside the bed and checking on him several times tonight.
+      speaker: Nurse
+      turns: [21]
+      quote: "put a folded blanket or a mat on the floor next to the bed, on that side, just in case."
+      explanation: Documents fall-injury prevention.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,322 @@
+call_id: tr-441
+split: train
+blueprint: "A daughter calls hospice at night: her 79-year-old father with end-stage COPD is gasping and panicking, lips look dusky, his oxygen is running at three liters, and nothing he has tried helps. He has a do-not-resuscitate order and does not want 911. Nurse coaches her to sit him up with a fan on his face, give the comfort kit morphine liquid five milligrams under the tongue, pages on-call, sends a nurse now, and calls back in fifteen minutes. Severe breathlessness (breathing concern and uncontrolled symptom), adult child caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: respiratory_distress_hospice
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [dyspnea, medication, end_of_life_changes]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Sycamore Row Hospice
+  agency_type: hospice
+  nurse_name: Beatrice
+  call_timestamp_utc: "2026-11-26T03:10:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Augustus Waldrop
+  patient_name_spoken: Augustus Waldrop
+  patient_name_certainty: stated
+  patient_dob_true: "1946-09-12"
+  patient_dob_spoken: "1946-09-12"
+  patient_dob_certainty: stated
+  caller_name_true: Leontyne Waldrop
+  caller_name_spoken: Leontyne Waldrop
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4145550159"
+  callback_phone_spoken: "4145550159"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported severe breathlessness and panic in her father with end-stage COPD
+  reason_category: dyspnea
+  relevant_context: Hospice patient with end-stage COPD on oxygen with a comfort kit
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: severe shortness of breath and panic
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: dusky lips
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: context
+    reporter: caller
+    history_or_context_text: Oxygen is running at three liters and he has a do-not-resuscitate order and does not want 911
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: prescribed
+    dose: "5"
+    unit: mg
+    frequency: as needed for breathlessness
+    prn: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    reason_or_trigger: give five milligrams of the comfort kit liquid under the tongue now
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: severe breathlessness not relieved at home
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: now
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Sit him upright, aim a fan at his face, loosen his clothing, keep the oxygen tubing in place and speak calmly
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw up point two five milliliter of the twenty milligram per milliliter morphine with the oral syringe, place it between cheek and gum, and wait fifteen minutes before any more
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Severe breathlessness with dusky lips in end-stage COPD
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Breathlessness not relieved by oxygen and sitting up
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Sycamore Row Hospice, this is Beatrice.
+  Caller -> Beatrice, it's Leontyne Waldrop. My father, Augustus Waldrop. He can't breathe. He's panicking. His lips look blue. Please. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Leontyne, take a breath. I'm Beatrice and I'm with you.
+  Caller -> I'm sorry. I'm so sorry. I don't know what to do.
+  Nurse -> Leontyne, I'm here. We'll get him help. Is he awake?
+  Caller -> He's awake. He's gasping. He's sitting on the edge of the bed. He keeps saying, I can't, I can't. His eyes are huge. || A1
+  Nurse -> Is he able to talk in sentences, or just single words?
+  Caller -> Just words. One or two at a time. He can't finish a sentence.
+  Nurse -> Okay. What's the oxygen set to?
+  Caller -> Three liters. It's on. The tubing is in his nose. I checked. It's not kinked. But he's pulling at it. He says it's not enough. || A3, F2
+  Nurse -> Is the concentrator humming and the tubing connected to it?
+  Caller -> Yes. I can hear it. The machine is on. I feel air at the end of the tube.
+  Nurse -> Okay. Does he have a do-not-resuscitate order? A DNR?
+  Caller -> Yes. We have it on the refrigerator. He doesn't want to go to the hospital. He said it clearly. Never again. He doesn't want 911. || A3
+  Caller -> He signed it two years ago. He told the whole family. He said no tubes, no machines, no ICU. Just home.
+  Nurse -> Then we'll honor that. Let's keep him as comfortable as we can.
+  Nurse -> Okay. Then we'll treat this at home, and I'm going to help you. Leontyne, I need you to do a few things quickly. First, is he sitting up straight?
+  Caller -> He's leaning over. His elbows on his knees.
+  Nurse -> Good. Keep him upright. Put a pillow in front of him to lean on, if you want. Is there a fan in the house?
+  Caller -> He's still leaning forward. I put the pillow on his knees. Now he's resting his arms on it.
+  Nurse -> Perfect. That's the position that helps him breathe.
+  Caller -> A box fan. In the bedroom. Hold on. I'll turn it on. It's on the dresser. I'm pointing it at him. His hair is blowing.
+  Caller -> It's an old one. It's loud. It rattles. He's had it since before I was born.
+  Nurse -> Then it's lucky. Turn it to the lowest setting.
+  Nurse -> Perfect. A fan on his face helps. Loosen his shirt at the neck. Keep the oxygen on. || E1
+  Caller -> I'm unbuttoning his collar. I'm talking to him. Dad, I'm here. The nurse is here. Breathe slow with me.
+  Caller -> His chest is wet with sweat. He's burning up. Should I take his shirt off?
+  Nurse -> You can, if he's too warm. Keep a blanket handy for later.
+  Nurse -> That's good. Speak calmly. He'll feed off your calm. Now, do you have the comfort kit? The box from the refrigerator, with the vials and bottles?
+  Caller -> The comfort kit. Yes. It's in the refrigerator door. I'll get it. Running. I have it. The box with the blue label.
+  Caller -> The nurse put it in the refrigerator last month and told us exactly where. I never opened it until tonight.
+  Nurse -> Open it. Find the bottle of morphine. It's a small brown bottle with a dropper or an oral syringe. || A4, R1
+  Caller -> Morphine. M O R P H I N E. I have it. It says twenty milligrams per milliliter. Concentrate. And a little oral syringe. || A4
+  Caller -> My hands are shaking. I'm afraid of dropping the bottle. I'm holding it with both hands.
+  Nurse -> Take your time. Set it on the nightstand if you need to.
+  Nurse -> That's the one. Is there a dose written on the label for breathlessness?
+  Caller -> It says point two five milliliter, that's five milligrams, every hour as needed for shortness of breath. || A4
+  Nurse -> Good. Read me the line on the syringe so we know it's the right one.
+  Caller -> The syringe has little lines. Point one, point two, point three. Point two five is between two and three.
+  Nurse -> Right. Leontyne, I want you to give him point two five milliliter. Five milligrams. Draw it up in the oral syringe to the point two five line. Put it in his cheek, between the cheek and gum. Not down his throat. || R1, E2
+  Caller -> Point two five. I'm drawing. The line is so small. I see it. I'm on the line. Okay. Dad, open. Cheek. There. It's in. I gave it. I gave it.
+  Caller -> I got it. I checked it three times. The liquid is right at the line.
+  Nurse -> Good job. What time is it?
+  Caller -> Three twelve. It's three twelve in the morning.
+  Caller -> I hear a siren somewhere. No, wait. That's a car. Sorry.
+  Nurse -> Write that down. Don't give any more for at least fifteen minutes. It takes some time to work. In the meantime, keep him upright, with the fan, and stay with him.
+  Caller -> Okay. I'm writing. Three twelve on the back of my hand. I'm staying. I'm holding his hand.
+  Caller -> I'm also texting my brother. He's coming. He's twenty minutes away. He'll be here soon.
+  Nurse -> Good. It's good to have family nearby tonight.
+  Nurse -> I'm paging the on-call clinician right now, and sending a nurse to your house right away. || R2, R3
+  Caller -> Thank you. Thank you. How long?
+  Caller -> The doctor said this might happen. I thought I was ready. I'm not ready.
+  Nurse -> No one ever feels ready. You're doing exactly what he needs.
+  Nurse -> About thirty minutes. I'll stay on the phone until I hear the page confirmed. Are you okay?
+  Caller -> I'm scared. He's looking at me. He's terrified. His chest is going so fast.
+  Caller -> He grabbed my hand. His fingers are so cold. He's squeezing so hard.
+  Nurse -> I know. The medicine will help the feeling of panic and the air hunger. Keep talking to him. Tell him he's safe.
+  Caller -> Dad, you're safe. I'm right here. You're not alone. We're not going anywhere. I love you.
+  Caller -> He's nodding. He understands me. He's trying to say something. He says, thank you.
+  Nurse -> That's beautiful. He knows you're there.
+  Nurse -> Leontyne, what's his date of birth?
+  Caller -> September twelfth. Nineteen forty six. || patient_dob
+  Nurse -> And your number is the one ending in one five nine?
+  Caller -> Yes. Four one four, five five five, zero one five nine. || callback_phone
+  Nurse -> Good. How are his lips now?
+  Caller -> Still a little blue. Dusky. Not as blue as before. I think. || A2
+  Caller -> His nail beds are pink, I think. It's hard to tell in this light. The lamp is orange.
+  Nurse -> And his breathing?
+  Caller -> Still fast. But he's a bit calmer. He's not gasping as much. His shoulders are relaxing. The fan is helping.
+  Caller -> His eyes are closing a little. Not all the way. He's blinking slowly. That's better than the wide eyes.
+  Nurse -> Good. That's the morphine and the fan working. Give it a few more minutes. || A4, R1
+  Caller -> Okay. I'm counting. It's been five minutes. Six.
+  Caller -> The fan makes the curtains flutter. It's like the room is breathing too.
+  Nurse -> You're doing everything right. I'll call you back in fifteen minutes, whether or not the nurse is there yet. || R4
+  Caller -> Fifteen. Okay. I'll keep the phone near. I'll keep him sitting up.
+  Caller -> Should I give him anything to drink? Water? He's very thirsty.
+  Nurse -> Little sips only, if he can swallow safely. Or a damp sponge on his lips.
+  Caller -> A sponge. I have the little pink ones from the kit. I'll use those.
+  Nurse -> If he gets worse, or if he stops breathing, or if you need me sooner, call right away. I'll pick up.
+  Caller -> Okay. I will. I have the number. I'll keep it on speed dial.
+  Caller -> My brother says there's a flashlight on the front step. He's trying to find the porch light switch. It's the one that sticks.
+  Nurse -> You are not alone. We're coming.
+  Caller -> I'm going to unlock the front door now, for the nurse. I'll be one second. Dad, I'm going to the door.
+  Nurse -> Go ahead. I'll wait here.
+  Caller -> It's unlocked. I'm back. I put the porch light on.
+  Caller -> Thank you, Beatrice. I don't know what I'd do without you.
+  Nurse -> You're doing it. Take care of him. We'll talk in a few minutes.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Augustus Waldrop, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1946-09-12", certainty: stated, heard_as: [], turns: [62]}
+    caller_name: {value: Leontyne Waldrop, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550159", certainty: stated, heard_as: [], turns: [64]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported severe breathlessness and panic in her father with end-stage COPD.
+    speaker: Caller
+    turns: [2]
+    quote: "He can't breathe. He's panicking."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He was gasping and panicking, saying he could not breathe.
+      speaker: Caller
+      turns: [6]
+      quote: "He's awake. He's gasping."
+      explanation: Documents the severe breathlessness.
+      facts:
+        - {type: symptom, name: severe shortness of breath and panic, present: true, severity: severe, certainty: stated}
+      covers: [A1]
+    - text: His lips were dusky or bluish and still a little blue after treatment.
+      speaker: Caller
+      turns: [66]
+      quote: "Still a little blue. Dusky."
+      explanation: Documents the lip color.
+      facts:
+        - {type: symptom, name: dusky lips, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Oxygen was running at three liters and he had a do-not-resuscitate order and did not want 911.
+      speaker: Caller
+      turns: [14]
+      quote: "Yes. We have it on the refrigerator."
+      explanation: Documents the oxygen and code status.
+      facts:
+        - {type: context, text: Oxygen is running at three liters and he has a do-not-resuscitate order and does not want 911, certainty: stated}
+      covers: [A3]
+    - text: Comfort kit morphine 20 mg per mL was labeled for 0.25 mL (5 mg) every hour as needed for shortness of breath.
+      speaker: Caller
+      turns: [37]
+      quote: "It says point two five milliliter, that's five milligrams, every hour as needed for shortness of breath."
+      explanation: Documents the comfort kit medicine.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: as needed for breathlessness, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Advised giving the comfort kit morphine 5 mg under the tongue now.
+      speaker: Nurse
+      turns: [40]
+      quote: "I want you to give him point two five milliliter."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to send a nurse to the house right away.
+      speaker: Nurse
+      turns: [50]
+      quote: "sending a nurse to your house right away."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: now, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in fifteen minutes.
+      speaker: Nurse
+      turns: [74]
+      quote: "I'll call you back in fifteen minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised sitting him upright with a fan on his face, loosening his clothing and keeping the oxygen on.
+      speaker: Nurse
+      turns: [25]
+      quote: "A fan on his face helps."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised drawing up point two five milliliter in the oral syringe, placing it in the cheek and waiting fifteen minutes before more.
+      speaker: Nurse
+      turns: [40]
+      quote: "Put it in his cheek, between the cheek and gum."
+      explanation: Documents medication administration teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe. He's panicking."}
+    - {category: uncontrolled_symptom, turns: [10], quote: "He says it's not enough."}

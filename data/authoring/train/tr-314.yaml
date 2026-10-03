@@ -1,0 +1,279 @@
+call_id: tr-314
+split: train
+blueprint: "A mother of a 14-year-old with type 1 diabetes calls the pediatric nurse in the evening: she realized after dinner that she drew up five units of Humulin R from the wrong vial instead of his usual Humalog. His sugar before dinner was 168, now 150 an hour later; he feels fine, not shaky or sweaty. She is scared of a delayed low. Nurse pages on-call, tells her not to give any more Humalog tonight until the clinician says, plans a callback in an hour, and gives a sugar-check schedule and low-sugar treatment. Wrong-medication flag with a look-alike insulin pair, name spelled, parent caller, v2 short."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [tall_man_drug, name_spelled, trap_phrasing, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, glucose]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Riverbend Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Candace
+  call_timestamp_utc: "2026-10-28T01:50:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Jasper Montague
+  patient_name_spoken: Jasper Montague
+  patient_name_certainty: stated
+  patient_dob_true: "2012-08-30"
+  patient_dob_spoken: "2012-08-30"
+  patient_dob_certainty: stated
+  caller_name_true: Dahlia Montague
+  caller_name_spoken: Dahlia Montague
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "4045550101"
+  callback_phone_spoken: "4045550101"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported giving the wrong insulin at dinner
+  reason_category: medication
+  relevant_context: Pediatric home care patient with type 1 diabetes
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Humulin R
+    medication_name_spoken: Humulin
+    medication_status: extra_dose
+    dose: "5"
+    unit: units
+    frequency: given once at dinner
+    last_dose: about an hour ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Humalog
+    medication_name_spoken: Humalog
+    medication_status: prescribed
+    frequency: with meals
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "150"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shakiness or sweating
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong insulin given at dinner
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: no more Humalog tonight until the clinician says
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in one hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check his sugar every hour until the callback and then every two hours through the night, and write down each number with the time
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: If the sugar is under seventy give fifteen grams of fast sugar like juice and recheck in fifteen minutes, and call 911 if he is unresponsive or has a seizure
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Wrong insulin, Humulin, given at dinner instead of Humalog
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Pediatric Home Care, this is Candace.
+  Caller -> Candace, hi. I need to tell somebody something. I gave Jasper the wrong insulin. || cc, F1
+  Nurse -> Okay. I'm here. Let's slow down. Who is this?
+  Caller -> It's Dahlia. Dahlia Montague. D A H L I A. Jasper's mom. Jasper Montague. He's fourteen. || caller_name, relationship, patient_name
+  Nurse -> Dahlia, D A H L I A. Got it. And Jasper, J A S P E R, right?
+  Caller -> Yes. Like the park. Like Jasper National Park. My husband picked it.
+  Nurse -> Okay, Dahlia. Thank you. What's Jasper's date of birth?
+  Caller -> August thirtieth. Two thousand twelve. || patient_dob
+  Nurse -> And your number?
+  Caller -> Four oh four, five five five, zero one zero one. || callback_phone
+  Nurse -> Got it. Tell me exactly what happened.
+  Caller -> So at dinner I drew up his insulin. He gets the Humalog with meals. Five units. And I drew it up and I gave it. And then I went to put the vial back in the fridge and it said Humulin. Humulin R. The regular one. The one from his grandfather's. I had grabbed the wrong vial. They're in the same drawer. || A1
+  Nurse -> Okay. So you gave five units of Humulin R instead of five units of Humalog. || A1, A2
+  Caller -> Yes. Yes. Five units. Of the wrong one. I'm so upset.
+  Nurse -> Take a breath. You're doing the right thing by calling right away.
+  Caller -> Okay. Okay. I'm breathing. In. Out.
+  Nurse -> Okay. Thank you for telling me right away. What time was the shot?
+  Caller -> It was six thirty. It's seven thirty now. About an hour ago. Maybe a little more.
+  Nurse -> Okay. Does he have a pump or injections?
+  Caller -> Injections. Pens for the long acting at night, and vials and syringes for the mealtime ones. He's on the vials because the pens kept breaking.
+  Nurse -> Okay. About an hour ago. And his usual Humalog is how many units with dinner? || A2
+  Caller -> It's five tonight. Five units, because he ate a normal dinner. Sometimes it's six. His plan is on the fridge. || A2
+  Caller -> The plan has a table. For the carbs. Sixty grams, five units. Seventy five, six units. I follow the chart. I'm very careful. This is the first time in two years.
+  Nurse -> Okay. So the dose was the right number, just a different insulin. Humulin R acts slower than Humalog and lasts longer. That's why we want to watch him tonight. How was his sugar? || A1, A2
+  Caller -> Before dinner it was one sixty eight. And I just checked it. It's one fifty. It went down a little. || A3
+  Nurse -> Okay. One fifty. Thank you for checking. How's he feeling? Is he shaky, sweaty, confused, hungry?
+  Caller -> No. No. He's fine. He's playing video games. He's laughing. He's yelling at his friend through the headset. He's not shaky. No sweat. He's himself. || A4
+  Nurse -> Okay. That's good. What did he have for dinner?
+  Caller -> Pasta. Chicken. Garlic bread. A salad. And some ice cream. He had a normal dinner. I counted the carbs. Sixty grams.
+  Nurse -> Did he do any exercise after dinner?
+  Caller -> No. He's been on the couch. He did soccer this afternoon, a practice. Before dinner. That's probably why his sugar was a little lower.
+  Nurse -> Okay. That's important. Exercise can lower sugar later too. I'll tell the clinician.
+  Nurse -> Okay. Good. So he has some food on board. Dahlia, here's what I'm going to do. I'm going to page the on-call clinician right now, so they can give us instructions for tonight. || R1
+  Caller -> Okay. Thank you. Do I need to go to the hospital?
+  Nurse -> Not right now. He's feeling fine and his sugar is okay. But I want the clinician to weigh in. Meanwhile, please do not give any more Humalog tonight, even for a snack, until the clinician says. || R2
+  Caller -> No more Humalog. Okay. He usually has a snack at nine. Do I still give the snack? || A2
+  Nurse -> If he's hungry, he can have a snack, but no insulin for it. Let's wait for the clinician.
+  Caller -> No insulin for the snack. Okay.
+  Caller -> What if he says he's low? Before the call? Should I call you back?
+  Nurse -> Yes, call right away. Don't wait for me.
+  Caller -> Okay. I will.
+  Nurse -> I'll call you back in an hour. || R3
+  Caller -> An hour. Okay. And until then?
+  Nurse -> I want you to check his sugar every hour until I call, and then every two hours through the night. Write down each number with the time. Can you set an alarm on your phone? || E1
+  Caller -> Every hour. Then every two. Write it down. I'll set an alarm. Yes. I'm setting it. For eight thirty. Nine thirty.
+  Nurse -> Good. And if the sugar is under seventy, give him fifteen grams of fast sugar. Juice, glucose tablets. Then recheck in fifteen minutes. And call nine one one if he's unresponsive or has a seizure. || E2
+  Caller -> Under seventy. Fifteen grams. Juice. Recheck in fifteen minutes. Nine one one if he's out or seizing. Okay. We have glucose tabs. In the drawer. I'll put them next to his bed.
+  Nurse -> Good. And keep the juice in the fridge, in case.
+  Caller -> We have apple juice boxes. Four of them.
+  Nurse -> Perfect.
+  Caller -> I'm so sorry. I've never done this. In two years.
+  Nurse -> It happens to everybody. The vials are easy to mix up. After this, I'd suggest putting the Humulin in a different spot. Or taking it out of the house if it's not being used. || A1
+  Caller -> I'll take it to my dad. Or throw it away. Yeah. I'll put it in a bag and get it out of the fridge tonight.
+  Nurse -> Good idea. Just don't do it now. Stay with Jasper.
+  Caller -> Okay. I'll do it later.
+  Nurse -> How's his mood about it? Does he know?
+  Caller -> I told him. He said it's okay, Mom. He said it's the same number of units. He's very calm. He's more calm than me.
+  Nurse -> That's a great kid. How long has he been managing his own sugar?
+  Caller -> He checks it himself since twelve. I still do the shots, mostly. He's learning.
+  Nurse -> Good. He'll be fine tonight with your help.
+  Nurse -> Good. Let him help keep an eye on himself. He can tell you if he feels funny.
+  Caller -> I told him to tell me if he feels shaky or weird. He said okay.
+  Nurse -> Perfect. I'll talk to you in an hour.
+  Caller -> Thank you, Candace. Thank you.
+  Nurse -> Bye, Dahlia.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Jasper Montague, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "2012-08-30", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Dahlia Montague, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: mother, certainty: stated, turns: [4]}
+    callback_phone: {value: "4045550101", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported giving the wrong insulin at dinner.
+    speaker: Caller
+    turns: [2]
+    quote: "I gave Jasper the wrong insulin."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Five units of Humulin R were given at dinner about an hour earlier instead of his usual Humalog.
+      speaker: Caller
+      turns: [12]
+      quote: "And I gave it. And then I went to put the vial back in the fridge and it said Humulin."
+      explanation: Documents the wrong insulin.
+      facts:
+        - {type: medication, name: Humulin, dose: "5", unit: units, frequency: given once at dinner, last_dose: about an hour ago, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: His usual mealtime insulin is Humalog, five units with dinner tonight.
+      speaker: Caller
+      turns: [22]
+      quote: "It's five tonight. Five units, because he ate a normal dinner."
+      explanation: Documents the intended insulin.
+      facts:
+        - {type: medication, name: Humalog, frequency: with meals, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: Blood sugar was 168 before dinner and 150 an hour later.
+      speaker: Caller
+      turns: [25]
+      quote: "And I just checked it. It's one fifty."
+      explanation: Documents the blood sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "150", certainty: stated}
+      covers: [A3]
+    - text: He was not shaky or sweaty.
+      speaker: Caller
+      turns: [27]
+      quote: "He's not shaky. No sweat."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shakiness or sweating, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician about the wrong insulin.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised giving no more Humalog tonight until the clinician said so.
+      speaker: Nurse
+      turns: [35]
+      quote: "please do not give any more Humalog tonight"
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: Humalog, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in an hour.
+      speaker: Nurse
+      turns: [42]
+      quote: "I'll call you back in an hour."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in one hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking his sugar every hour until the callback and every two hours overnight, writing down each number with the time.
+      speaker: Nurse
+      turns: [44]
+      quote: "I want you to check his sugar every hour until I call"
+      explanation: Documents monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised giving fifteen grams of fast sugar for a sugar under seventy and calling 911 if he was unresponsive or seized.
+      speaker: Nurse
+      turns: [46]
+      quote: "if the sugar is under seventy, give him fifteen grams of fast sugar."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I gave Jasper the wrong insulin."}

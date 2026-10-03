@@ -1,0 +1,309 @@
+call_id: tr-418
+split: train
+blueprint: "A husband calls home health because his 72-year-old wife has had two black, tarry, foul-smelling stools today and is lightheaded when she stands; her home cuff reads ninety eight over sixty with a pulse of one hundred eight. She takes ibuprofen six hundred milligrams three times a day for arthritis. No vomiting of blood. Nurse recognizes possible GI bleeding, tells him to call 911 now rather than drive, lay her down with her feet up, give nothing by mouth, stop the ibuprofen and bring the bottles, and pages on-call. Possible GI bleed (other urgent and escalation request), spouse caller, medium v2."
+setup:
+  scenario_category: high_risk
+  subtype: gi_bleed
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, phone_from_file]
+  clinical_domains: [bleeding, dizziness, medication, blood_pressure]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Linden Park Home Health
+  agency_type: home_health
+  nurse_name: Mei
+  call_timestamp_utc: "2026-11-09T15:30:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [aspirin]
+chief_complaint:
+  patient_name_true: Winifred Castellanos
+  patient_name_spoken: Winifred Castellanos
+  patient_name_certainty: stated
+  patient_dob_true: "1953-12-28"
+  patient_dob_spoken: "1953-12-28"
+  patient_dob_certainty: stated
+  caller_name_true: Hector Castellanos
+  caller_name_spoken: Hector Castellanos
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8165550120"
+  callback_phone_spoken: "8165550120"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported black tarry stools and lightheadedness in his wife
+  reason_category: bleeding
+  relevant_context: Home health patient who takes ibuprofen for arthritis
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: black tarry stools
+    symptom_present: true
+    severity: severe
+    onset: today
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: lightheaded when standing
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: ibuprofen
+    medication_name_spoken: ibuprofen
+    medication_status: taking
+    dose: "600"
+    unit: mg
+    frequency: three times a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "98/60"
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting blood
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: black tarry stools with lightheadedness and a low blood pressure
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: possible stomach bleeding
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Hang up and call 911 now and do not drive her, lay her down with her feet raised, and give her nothing to eat or drink
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Stop the ibuprofen and bring all of her medicine bottles to the hospital
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Black tarry stools with lightheadedness and low blood pressure suggesting a GI bleed
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Linden Park Home Health, this is Mei.
+  Caller -> Mei, hello. This is Hector Castellanos. My wife is Winifred. Winifred Castellanos. She's not right. She had black stools today. Black like tar. || caller_name, patient_name, relationship, cc, A1, F1
+  Nurse -> Hector, thank you for calling. I'm here. When did she have the black stools?
+  Caller -> I didn't know who else to call. Our doctor's office is closed on Mondays.
+  Nurse -> You did the right thing. I'm glad you called us.
+  Caller -> Twice today. Once this morning, and once about an hour ago. It smells terrible. It's sticky. She was embarrassed to tell me.
+  Caller -> I've never seen anything like it. I thought maybe it was something she ate. She had blackberries yesterday.
+  Nurse -> Blackberries can darken a stool, but not like tar, and not with dizziness. Let's take it seriously.
+  Nurse -> Okay. Is she with you? Can she talk to me?
+  Caller -> She's on the couch. She's pale. She's lying down. Winifred, the nurse wants to know how you feel. She says tired. And dizzy.
+  Caller -> She's got that look. Gray. Like paper. I've been married to her for forty four years and I know her face.
+  Nurse -> Dizzy how? All the time, or when she stands?
+  Caller -> When she stands. She tried to go to the bathroom and she had to hold the wall. She said the room spun. She sat right back down. || A2
+  Caller -> She's never dizzy. She's the one who runs up the stairs and tells me to hurry.
+  Nurse -> Okay. Have you checked her blood pressure or pulse?
+  Caller -> Yes. I have the cuff. It says ninety eight over sixty. And the pulse is one hundred eight. It's usually a hundred thirty over eighty. || A4
+  Caller -> I bought it at the drugstore. It's a good one. Automatic. I check it every Sunday.
+  Nurse -> That's very helpful today.
+  Nurse -> That's lower than her usual, and her heart rate is fast. Did she vomit? Any blood in the vomit, or anything that looks like coffee grounds?
+  Caller -> No. No vomiting. Her stomach hurts a bit. A burning. She said it's been going on for a week. But no throwing up. No blood. || A5
+  Caller -> She's been saying heartburn. She takes the pink chewable ones. They don't help anymore.
+  Nurse -> Okay. I'll note that. Thank you.
+  Nurse -> Okay. What medicines does she take? Anything for pain, arthritis?
+  Caller -> The ibuprofen. Six hundred milligrams. Three times a day. For her knees. She's been taking it for months. The doctor said to take with food. She takes it with toast. || A3
+  Caller -> The pharmacist told her once to stop. Or to take less. She said she can't. Her knees are bad.
+  Nurse -> And when was the last dose?
+  Caller -> This morning. About eight. With breakfast.
+  Nurse -> Does she take a blood thinner, or aspirin?
+  Caller -> No blood thinner. A baby aspirin, I think. Yes. Eighty one. Every day.
+  Nurse -> Okay. Hector, I'm worried this may be bleeding in her stomach. Black, tarry stools, dizziness and a low blood pressure are warning signs. She needs to be seen in the hospital now. I want you to hang up and call 911 right now. || R1, F2
+  Caller -> Nine one one? Oh. Is it that serious?
+  Nurse -> It can be. Bleeding can get worse fast. Please don't drive her. If she faints in the car, you can't help her. Paramedics can start treatment right away.
+  Caller -> I'm trying to stay calm. My hands are shaking. I'm going to dial now.
+  Nurse -> Take a breath, then dial. I'm right here.
+  Caller -> Okay. Okay. I'm dialing. Wait. Should I stay on with you?
+  Nurse -> Put me on speaker, if you can, and dial from your cell. I'll stay on. Is the front door unlocked?
+  Caller -> It's on the table. It's on speaker. I'm pressing the numbers. Nine, one, one.
+  Caller -> It's unlocked. We don't lock it in the daytime. I'm dialing. It's ringing.
+  Nurse -> Good. Tell them your wife has black, tarry stools and is dizzy and pale.
+  Caller -> Hello? Yes. My wife, she's having bleeding I think. Black stools. She's dizzy. Yes, forty one thirty Elm Court. Yes. They're sending someone, Mei.
+  Nurse -> Perfect. Keep her lying down with her feet up. Put a pillow under her ankles. Give her nothing to eat or drink. || E1
+  Caller -> Feet up. No food or water. Okay. I'm putting the pillow. Winifred, lift your feet. There.
+  Caller -> She wants a glass of water. She's thirsty. Is it okay to wet her lips?
+  Nurse -> A damp cloth on her lips is fine. Nothing to swallow.
+  Caller -> Okay. I'm using a washcloth. She says thank you.
+  Nurse -> And please gather all her medicine bottles, including the ibuprofen and aspirin, and put them in a bag to go with her. And stop the ibuprofen. Do not give her any more. || E2
+  Caller -> No more ibuprofen. Bag of bottles. Hold on. I'm getting them from the kitchen. They're all on the windowsill. I'm putting them in a grocery bag. || A3
+  Caller -> There's the arthritis cream too. The tube. Should I bring that?
+  Nurse -> Sure, bring everything. The more they see, the better.
+  Nurse -> Good. And grab her insurance card and a list of her medical conditions, if you can.
+  Caller -> The card is in her purse. The purse is on the chair. I have it. I'll put it all by the door.
+  Nurse -> Hector, I'm paging our on-call clinician now so they know she's headed to the hospital. || R2
+  Caller -> Thank you. Winifred, you're doing fine. The ambulance is coming.
+  Caller -> It's a long street. They have to come from the fire station on Third. Maybe six minutes.
+  Nurse -> That's fine. They're on the way.
+  Nurse -> What's her date of birth? I'll give it to the hospital.
+  Caller -> December twenty eighth. Nineteen fifty three. || patient_dob
+  Nurse -> And is your cell the one on file, ending in oh one two oh?
+  Caller -> Yes, eight one six, five five five, zero one two zero. || callback_phone
+  Nurse -> Good. How is she now?
+  Caller -> Same. She's pale. She's cold. Her hands are cold. She says she's okay. She keeps saying she's okay.
+  Caller -> She's shivering a little. I'm warming her feet in my hands.
+  Nurse -> Put a blanket over her. Stay close. Talk to her.
+  Caller -> I have the afghan. I'm putting it on. Winifred, look at me. She's looking at me. She's awake.
+  Nurse -> Good. Is she answering you clearly?
+  Caller -> Yes. She said, I'm fine, Hector. She said call the cat sitter. Ha. She's worried about the cat.
+  Nurse -> Ha. That's a sign she's thinking clearly. We'll handle the cat.
+  Caller -> I'll text the neighbor. After. She has a key.
+  Nurse -> Good. Let's keep focused on her for now.
+  Caller -> You're right. I'm sorry. I'm a little scattered.
+  Nurse -> You're doing great. Just keep talking to her.
+  Caller -> I hear a siren. Is that them? It's close.
+  Nurse -> It might be. Go to the front door and wave them in. Leave me on the phone on the table.
+  Caller -> Okay. Going. Here! Over here! In the living room! She's on the couch! Black stools! Dizzy! Pressure ninety eight over sixty!
+  Nurse -> Hector, answer them. I'll be here.
+  Caller -> They're with her. They're asking questions. They're putting something on her finger. They're saying her heart rate is fast.
+  Nurse -> That's what they do. Tell them about the ibuprofen and the baby aspirin. || A3
+  Caller -> Ibuprofen six hundred, three times a day. And aspirin eighty one. They're writing it down. || A3
+  Nurse -> Which hospital?
+  Caller -> Mercy General. On Chambers. They said she'll get blood tests and a scope probably.
+  Nurse -> That's a good hospital. I'll call ahead. I'll also let the team know.
+  Caller -> They did her knee there two years ago. The staff was nice. Dr. Ibarra. I hope he's on.
+  Nurse -> I'll mention it to the team. The nurse will follow up tomorrow.
+  Caller -> Thank you. I'm going in the ambulance. They said I can.
+  Nurse -> Go with her. Take the bag of bottles and your phone. We'll check in tomorrow.
+  Caller -> Thank you, Mei. Thank you for being there. I didn't know what to do.
+  Nurse -> You did exactly the right thing. Go. Bye for now.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Winifred Castellanos, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1953-12-28", certainty: stated, heard_as: [], turns: [57]}
+    caller_name: {value: Hector Castellanos, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550120", certainty: stated, heard_as: [], turns: [59]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported black tarry stools and lightheadedness in his wife.
+    speaker: Caller
+    turns: [2]
+    quote: "She had black stools today. Black like tar."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: She had two black, sticky, foul-smelling stools today.
+      speaker: Caller
+      turns: [6]
+      quote: "Twice today."
+      explanation: Documents the black stools.
+      facts:
+        - {type: symptom, name: black tarry stools, present: true, severity: severe, onset: today, certainty: stated}
+      covers: [A1]
+    - text: She was lightheaded when standing and had to hold the wall.
+      speaker: Caller
+      turns: [13]
+      quote: "When she stands."
+      explanation: Documents the dizziness.
+      facts:
+        - {type: symptom, name: lightheaded when standing, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: Ibuprofen 600 mg was taken three times a day, last dose this morning at eight.
+      speaker: Caller
+      turns: [24]
+      quote: "Six hundred milligrams. Three times a day."
+      explanation: Documents the medicine.
+      facts:
+        - {type: medication, name: ibuprofen, dose: "600", unit: mg, frequency: three times a day, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Blood pressure was 98/60 with a pulse of 108.
+      speaker: Caller
+      turns: [16]
+      quote: "It says ninety eight over sixty."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "98/60", certainty: stated}
+      covers: [A4]
+    - text: She had not vomited or vomited blood.
+      speaker: Caller
+      turns: [20]
+      quote: "No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting blood, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 now for possible stomach bleeding.
+      speaker: Nurse
+      turns: [30]
+      quote: "I want you to hang up and call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm paging our on-call clinician now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised not driving her, lying her down with her feet raised and giving nothing by mouth.
+      speaker: Nurse
+      turns: [32]
+      quote: "Please don't drive her."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised stopping the ibuprofen and bringing all medicine bottles to the hospital.
+      speaker: Nurse
+      turns: [46]
+      quote: "And stop the ibuprofen."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "She had black stools today. Black like tar."}
+    - {category: escalation_request, turns: [30], quote: "I want you to hang up and call 911 right now."}

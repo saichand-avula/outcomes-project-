@@ -1,0 +1,221 @@
+call_id: tr-019
+split: train
+blueprint: "Facility nurse says the patient's extended-release morphine is 5 mg or 15 mg (garbled); the hospice nurse reads 15 mg every 12 hours from the chart in response and the facility nurse confirms (resolved); one reply is mislabeled as the nurse; breakthrough oxycodone advised before dressing changes."
+setup:
+  scenario_category: asr_error
+  subtype: dose_conflict_resolved_chart
+  secondary_tags: [speaker_label_errors, garbled_drug, prn_and_scheduled, call_center_transfer]
+  clinical_domains: [pain, wound_skin]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Tom
+  call_timestamp_utc: "2026-09-03T11:20:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A2]
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: true
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Gordon Fairchild
+  patient_name_spoken: Gordon Fairchild
+  patient_name_certainty: stated
+  patient_dob_true: "1968-03-14"
+  patient_dob_spoken: "1968-03-14"
+  patient_dob_certainty: stated
+  caller_name_true: Teresa
+  caller_name_spoken: Teresa
+  caller_name_certainty: stated
+  relationship_to_patient: facility nurse
+  relationship_certainty: stated
+  callback_phone_true: "8165550128"
+  callback_phone_spoken: "8165550128"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Pain during dressing changes; asks which pain medicines to give
+  reason_category: pain
+  relevant_context: Patient resides at Maple Court Care Center
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 6/10
+    body_location: sacral wound
+    onset_or_duration: during dressing changes
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine extended release
+    medication_name_spoken: morphine extended release
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    route: by mouth
+    frequency: every 12 hours
+    certainty: stated
+    unclear_detail: Facility nurse first said 5 mg; nurse read 15 mg from the chart and the facility nurse confirmed
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: prescribed
+    dose: "5"
+    unit: mg
+    frequency: every 4 hours
+    prn: true
+    last_dose_time: 8 this morning
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    timeframe: 30 minutes before dressing changes
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: wound and pain reassessment
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Premedicate, position gently during dressing change, and pause if pain spikes
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if pain stays above 7 despite the breakthrough dose or if he becomes very sleepy
+    trigger_condition: pain above 7 after breakthrough dose; very sleepy
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Tom.
+  Caller -> Hi, Tom. This is Teresa, I'm the nurse at Maple Court Care Center. I'm calling about one of your patients. || caller_name, relationship
+  Nurse -> Okay, Teresa. Who's the patient?
+  Caller -> Gordon Fairchild. || patient_name
+  Nurse -> And his date of birth?
+  Caller -> March fourteenth, nineteen sixty eight. || patient_dob
+  Nurse -> Thank you. And a number to reach you?
+  Caller -> The nursing station. Eight one six, five five five, zero one two eight. || callback_phone
+  Nurse -> Okay. What do you need?
+  Caller -> So he has a sacral wound, and when we change the dressing, his pain goes through the roof. || cc, A1
+  Caller -> I'd say a six. Six out of ten, during the dressing change. || A1
+  Nurse -> Okay. What's he got ordered for pain?
+  Caller -> He's on the morphine extended release. Five milligrams. No, fifteen. I'm sorry, I'm looking at the wrong line. || A2
+  Nurse -> Let me look at the chart. I'm showing morphine extended release, fifteen milligrams, by mouth, every twelve hours. || A2
+  Nurse -> Yes, it's the fifteen. Every twelve hours. || A2, label_error
+  Nurse -> Okay, great. That matches. And what else does he have?
+  Caller -> He has oxycodone, five milligrams, every four hours as needed. || A3
+  Nurse -> Okay. And when was the last time he had the oxycodone? || A3
+  Caller -> Eight this morning. || A3
+  Nurse -> Alright. So here's what I'd like to do. About thirty minutes before the dressing change, give him the oxycodone. That's the breakthrough dose, and it's there for exactly this. || R1
+  Caller -> Okay. Thirty minutes before. We can time that.
+  Nurse -> Yes. And when you do the dressing, go slow, position him gently, and stop for a minute if he winces. || E1
+  Caller -> Okay. We'll take our time.
+  Nurse -> I'm also going to send a nurse to see him tomorrow to look at the wound and reassess the pain. || R2
+  Caller -> Oh good. That'd be great.
+  Nurse -> If his pain stays over a seven even after the oxycodone, or he gets really sleepy, call us. || E2
+  Caller -> Okay. Seven or really sleepy. Got it.
+  Nurse -> Anything else?
+  Caller -> No. Thank you.
+  Nurse -> Thanks, Teresa.
+noise_events:
+  - {turn: auto, type: speaker_label, true_form: "facility nurse reply", heard_form: "Yes, it's the fifteen", fact_id: A2}
+  - {turn: auto, type: number_garble, true_form: "fifteen milligrams", heard_form: "Five milligrams. No, fifteen", fact_id: A2}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Gordon Fairchild, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1968-03-14", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Teresa, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: facility nurse, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550128", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that the patient's pain increased during dressing changes of a sacral wound and asked about pain medication.
+    speaker: Caller
+    turns: [10]
+    quote: "So he has a sacral wound, and when we change the dressing, his pain goes through the roof."
+    explanation: Documents the pain concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Pain of 6/10 occurred during dressing changes of a sacral wound.
+      speaker: Caller
+      turns: [11]
+      quote: "I'd say a six. Six out of ten, during the dressing change."
+      explanation: Documents the reported pain severity and trigger.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 6/10, location: sacral wound, onset: during dressing changes, certainty: stated}
+      covers: [A1]
+    - text: Morphine extended release 15 mg by mouth every 12 hours was confirmed; the caller initially said 5 mg and corrected it after the nurse read the order from the chart.
+      speaker: Nurse
+      turns: [14]
+      quote: "I'm showing morphine extended release, fifteen milligrams, by mouth, every twelve hours."
+      explanation: Documents the scheduled medication as confirmed against the order.
+      facts:
+        - {type: medication, name: morphine extended release, dose: "15", unit: mg, route: by mouth, frequency: every 12 hours, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Oxycodone 5 mg every 4 hours as needed was available, with the last dose at 8 this morning.
+      speaker: Caller
+      turns: [17]
+      quote: "He has oxycodone, five milligrams, every four hours as needed."
+      explanation: Documents the breakthrough pain medication and timing.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 4 hours, prn: true, last_dose: 8 this morning, med_status: prescribed, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised giving oxycodone about 30 minutes before dressing changes as a breakthrough dose.
+      speaker: Nurse
+      turns: [20]
+      quote: "About thirty minutes before the dressing change, give him the oxycodone."
+      explanation: Documents the premedication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: oxycodone, timeframe: 30 minutes before dressing changes, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to examine the wound and reassess the pain.
+      speaker: Nurse
+      turns: [24]
+      quote: "I'm also going to send a nurse to see him tomorrow to look at the wound and reassess the pain."
+      explanation: Documents the planned in-person reassessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised going slowly, positioning him gently, and pausing if he winced during dressing changes.
+      speaker: Nurse
+      turns: [22]
+      quote: "when you do the dressing, go slow, position him gently, and stop for a minute if he winces."
+      explanation: Documents comfort measures during wound care.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if pain stayed above 7 despite the oxycodone or if he became very sleepy.
+      speaker: Nurse
+      turns: [26]
+      quote: "If his pain stays over a seven even after the oxycodone, or he gets really sleepy, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

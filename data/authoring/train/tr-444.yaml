@@ -1,0 +1,311 @@
+call_id: tr-444
+split: train
+blueprint: "A son calls hospice at four in the afternoon: his 93-year-old mother came home from the hospital today on hospice, but the hospital bed, oxygen concentrator and bedside commode have not arrived and she is on a sofa with a portable tank that has about two hours left. She is comfortable, breathing easily on two liters. Nurse calls the equipment vendor, arranges delivery of all three items tonight, plans a nurse visit this evening, and gives oxygen safety and positioning advice while they wait. Multi-item equipment supply for a new admission, adult child caller, patient 90+, long v2."
+setup:
+  scenario_category: supply
+  subtype: admission_equipment
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, phone_from_file, offtopic_chatter]
+  clinical_domains: [equipment, dyspnea, mobility]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-11-28T21:00:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 90+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Clementine Ostrowski
+  patient_name_spoken: Clementine Ostrowski
+  patient_name_certainty: stated
+  patient_dob_true: "1933-03-30"
+  patient_dob_spoken: "1933-03-30"
+  patient_dob_certainty: stated
+  caller_name_true: Lucius Ostrowski
+  caller_name_spoken: Lucius Ostrowski
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7045550111"
+  callback_phone_spoken: "7045550111"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the hospital bed, oxygen concentrator and commode had not been delivered
+  reason_category: equipment
+  relevant_context: New hospice patient who came home from the hospital today
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: hospital bed
+    supply_remaining: not delivered
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: oxygen concentrator
+    supply_remaining: not delivered, portable tank has about two hours left
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: bedside commode
+    supply_remaining: not delivered
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: trouble breathing
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: equipment vendor for the bed, concentrator and commode
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Check the tank gauge every thirty minutes, keep her on two liters, and switch to the second tank when the first is in the red
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep her upright on the sofa with pillows, no smoking or flames near the oxygen, and keep the tubing out of walkways
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Marcus.
+  Caller -> Marcus, hi. This is Lucius Ostrowski. My mother is Clementine Ostrowski. She came home from the hospital today on hospice. And none of the equipment is here. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Lucius. I'm glad you called. Take a breath and tell me what's going on.
+  Caller -> Sorry. I'm frazzled. It's been a very long day. We were at the hospital until noon.
+  Nurse -> Hi, Lucius. I'm sorry about that. Let's fix it right now. What's her date of birth?
+  Caller -> It's not your fault. I know it's the vendor. I just don't know who to yell at.
+  Nurse -> You can yell at me. I can take it.
+  Caller -> Ha. I'm not going to yell at you. You're the first person who picked up.
+  Caller -> March thirtieth. Nineteen thirty three. She's ninety three. || patient_dob
+  Nurse -> Thank you. And your number? I have a cell on file. Is it still the one ending in oh one one one?
+  Caller -> I switched phones last week. The number is the same. The screen is cracked.
+  Caller -> Yes. Seven oh four, five five five, zero one one one. || callback_phone
+  Nurse -> Great. So tell me what you're missing.
+  Caller -> The hospital bed. The oxygen machine, the concentrator. And the commode. They said it would all be here by two o'clock. It's four. Nobody has called. || A1, A2, A3
+  Nurse -> And did anyone from the vendor call you today?
+  Caller -> One call this morning. A voicemail. Saying they would deliver between noon and two. And then nothing.
+  Nurse -> Okay. Where is she right now?
+  Caller -> She's been asking for her own pillow all afternoon. It's the one with the blue case. We forgot it at the hospital, I think, or it's in the car. I have to check.
+  Caller -> On the sofa in the living room. We put pillows behind her. It's the only place she can sit. Her own bed is upstairs and she can't climb the stairs.
+  Caller -> We have a leather sofa. She's slipping down. We keep pushing her up. She hates it.
+  Nurse -> Keep adding pillows behind her. I'll tell you more in a moment.
+  Nurse -> Okay. Is she comfortable? Is she breathing okay?
+  Caller -> The hospital sent her home with a bag of papers an inch thick. Medication lists, instructions, phone numbers. It's all on the kitchen table in a pile. I haven't read half of it.
+  Nurse -> That's normal. We'll go through it together when the nurse comes.
+  Caller -> She's fine. She's comfortable. She's watching her program. She's breathing easily. She's on the portable tank, two liters, the one they sent from the hospital. || A4
+  Caller -> She's watching a game show, the one with the spinning wheel. She's shouting at the TV. That's a good sign.
+  Nurse -> Ha. A very good sign.
+  Caller -> She's also correcting the contestants out loud. She knows the answers better than they do. She was a librarian for thirty years.
+  Nurse -> Good. How much is left in the tank?
+  Caller -> I asked the hospital nurse how to read the gauge. She said green is full, yellow is half, red is almost empty. It's between yellow and red. That's what has me nervous.
+  Caller -> The gauge is down near the red. The nurse at the hospital said it would last about four hours. We left at one. So I figure we have two hours left. Maybe less.
+  Caller -> It has a little needle. It's in the yellow, and the yellow is shrinking. I stare at it.
+  Nurse -> Do you have a second tank?
+  Caller -> No. Just the one. That's why I'm worried.
+  Caller -> The hospital gave us the tank and a small cart with wheels. They said the home company would bring the rest. Everyone said everything would be ready.
+  Nurse -> Okay. Lucius, I'm going to call the equipment company right now. I'll order the bed, the concentrator, the commode, and an extra portable tank. || R1
+  Caller -> Thank you. Please. I've been on hold with them for twenty minutes, and then it hung up.
+  Caller -> The automatic voice kept saying my call is important. It's not important to them, apparently.
+  Nurse -> I'll call from here. Is there someone at the house to let them in?
+  Caller -> The doorbell sticks, so they should knock hard. Or call my cell. I'll be right here either way, I'm not going to leave my mother alone.
+  Caller -> Me and my wife. We're both here. My wife is in the kitchen making soup.
+  Nurse -> Good. Is there room for a hospital bed? Where would you like it?
+  Caller -> We measured it. Seven feet by four. My wife used a tape measure and a ball of string. She's very thorough.
+  Caller -> We cleared the dining room. It's on the first floor. There's a door to the bathroom. We moved the table out. It's ready.
+  Nurse -> Perfect. Let me make the call. It may take a few minutes. Can you hold, or should I call you back?
+  Caller -> While you're calling, I'll find her medication list. It's in the hospital folder somewhere. There was a page that says current medications, and one that says stopped medications. I get them mixed up.
+  Caller -> I'll hold. I'll just walk around the house in circles. I'm too tense to sit.
+  Caller -> I'll hold. I don't mind. I'm standing here in the dining room staring at the empty space.
+  Nurse -> Okay. Give me about five minutes.
+  Caller -> Take your time. I'm not going anywhere.
+  Caller -> I'll fold some towels. For the commode, so we have something ready.
+  Caller -> And I'll put clean sheets on the bed frame when it comes. My wife washed a whole set this morning and ironed them. She irons when she's anxious.
+  Nurse -> Lucius, I'm back. I spoke to the dispatcher. They had a delay with the truck this afternoon. They can bring the bed, the concentrator, a second tank, and the commode tonight. They're targeting between seven and nine. || R2
+  Caller -> Tonight. Between seven and nine. Okay. Can they bring the tank first? The tank is the thing I'm worried about.
+  Caller -> My mother is going to need to use the bathroom before then. We have the little walker. We'll manage.
+  Nurse -> Walk with her and hold her waist. Two people if you can.
+  Nurse -> I asked for that. They said a driver can drop off the tank within the hour, and the rest comes later.
+  Caller -> If the tank doesn't come, my wife says she'll drive to the hospital and ask for one. I told her to wait for your call. She doesn't like waiting.
+  Caller -> That would be a huge relief.
+  Nurse -> In the meantime, check the gauge every thirty minutes. Keep her on two liters. And when it goes into the red, we'll switch to the second tank as soon as it arrives. || E1
+  Caller -> Every thirty minutes. Two liters. Okay. I'll set the timer on my phone.
+  Caller -> I printed a sheet with the times. Four thirty, five, five thirty, six. I taped it to the sofa.
+  Nurse -> And I'd like to send a nurse out this evening, to see her and make sure everything is set up. || R3
+  Caller -> This evening. Oh, that's great. Thank you. What time?
+  Caller -> My wife keeps asking if she needs to clean. I told her the nurse won't judge. She says I'm wrong.
+  Nurse -> Ha. Please tell her not to worry about the house.
+  Nurse -> Probably around six. She'll call from the car.
+  Caller -> I'll turn on the porch light. And the hall light. And I'll shovel the walk. It's only an inch but it's slippery.
+  Caller -> Six. Good. My wife will be happy. She's been worried.
+  Caller -> She's been calling every pharmacy in the county to find a spare oxygen tank. She found nothing.
+  Nurse -> Lucius, keep her sitting upright on the sofa with the pillows. No smoking or open flames near the oxygen, including candles. And keep the tubing out of the walkway so nobody trips. || E2
+  Caller -> No candles. My wife was going to light one. She likes the vanilla one. I'll tell her.
+  Caller -> She lights a candle every night in memory of my father. It's a tradition. She'll use a battery one tonight.
+  Nurse -> A battery candle is a lovely idea.
+  Nurse -> Ha. Not near the oxygen.
+  Caller -> Right. And the tubing is across the rug. I'll move it. I'll tape it to the wall.
+  Nurse -> Great. Is she eating or drinking?
+  Nurse -> Small sips are fine for now. Don't push food. The nurse will go over everything tonight.
+  Caller -> We bought some of the nutrition shakes at the pharmacy. She doesn't like the chocolate one. She says it tastes like glue.
+  Caller -> She had a few spoonfuls of broth when we got home. And some water. She was tired from the trip. She was in the hospital for nine days.
+  Nurse -> That's a long stay. I'm glad she's home.
+  Caller -> She kept asking when she could go home. The nurses said soon, soon, and then the paperwork took all day.
+  Caller -> Me too. She was so happy to see the house. She cried a little in the driveway.
+  Nurse -> That must have been beautiful.
+  Caller -> It was. She looked at the maple tree and said, I'm home.
+  Caller -> It was a big red maple, and half the leaves were still on it. She said it was waiting for her.
+  Nurse -> I'm glad you could bring her.
+  Caller -> My brother wanted to come, but he's flying in from Seattle tomorrow. He can't get here until the evening. I'll tell him everything.
+  Caller -> Marcus, one question. When the bed comes, who sets it up?
+  Caller -> It's a strange feeling, setting up a hospital bed in your dining room. The table was my grandmother's.
+  Nurse -> It's hard to move familiar things. It's a sign of how much you care.
+  Nurse -> The delivery team will set it up, and show you how to use the controls.
+  Caller -> Good. I'm not a handyman. My wife says I can't hang a picture.
+  Caller -> I once put a shelf up backwards. My wife still brings it up at parties.
+  Nurse -> Ha. Don't worry, they do it every day.
+  Caller -> When the delivery men come, should I help or stay out of the way? I never know which one is polite.
+  Nurse -> Stay nearby but let them work. Ask questions if you're unsure.
+  Caller -> What if I have a question after they leave?
+  Caller -> Our old neighbor used hospice for her husband. She said the nights were the scariest.
+  Nurse -> Call us anytime. The nurse on call will walk you through it.
+  Caller -> That's a comfort. Honestly, this is the first time I felt like someone was in charge.
+  Caller -> The hospital discharge was like being handed a baby and told good luck. At least you pick up the phone.
+  Nurse -> We're here. You don't have to figure it out alone.
+  Caller -> Thank you. Thank you, Marcus. I mean it.
+  Caller -> I'm sorry for rambling. When I'm worried, I talk. My wife says I narrate my own life.
+  Nurse -> Ha. It's fine. I like hearing the details.
+  Caller -> I'm going to go tell my wife the plan. She's going to cry. In a good way.
+  Nurse -> You're welcome. We'll see you tonight.
+  Caller -> Marcus, one more thing and I'll let you go. If the bed comes late, say nine thirty, is it too late for the nurse to come after? I don't want to burden anyone.
+  Nurse -> The nurse will adjust. It's never a burden. We work evenings for exactly this reason.
+  Caller -> Okay. Bye.
+  Nurse -> Bye, Lucius.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Clementine Ostrowski, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1933-03-30", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Lucius Ostrowski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "7045550111", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the hospital bed, oxygen concentrator and commode had not been delivered.
+    speaker: Caller
+    turns: [2]
+    quote: "And none of the equipment is here."
+    explanation: Documents the equipment problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: The hospital bed had not been delivered.
+      speaker: Caller
+      turns: [14]
+      quote: "The hospital bed."
+      explanation: Documents the missing bed.
+      facts:
+        - {type: supply, item: hospital bed, supply: not delivered, certainty: stated}
+      covers: [A1]
+    - text: The oxygen concentrator had not been delivered and the portable tank had about two hours left.
+      speaker: Caller
+      turns: [14]
+      quote: "The oxygen machine, the concentrator."
+      explanation: Documents the missing concentrator.
+      facts:
+        - {type: supply, item: oxygen concentrator, supply: not delivered, portable tank has about two hours left, certainty: stated}
+      covers: [A2]
+    - text: The bedside commode had not been delivered.
+      speaker: Caller
+      turns: [14]
+      quote: "And the commode."
+      explanation: Documents the missing commode.
+      facts:
+        - {type: supply, item: bedside commode, supply: not delivered, certainty: stated}
+      covers: [A3]
+    - text: She was comfortable and breathing easily on two liters.
+      speaker: Caller
+      turns: [25]
+      quote: "She's breathing easily."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: trouble breathing, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to order the bed, concentrator, commode and an extra portable tank from the vendor.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'll order the bed, the concentrator, the commode, and an extra portable tank."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned delivery of the equipment tonight between seven and nine.
+      speaker: Nurse
+      turns: [53]
+      quote: "They can bring the bed, the concentrator, a second tank, and the commode tonight."
+      explanation: Documents the planned delivery.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit this evening.
+      speaker: Nurse
+      turns: [63]
+      quote: "I'd like to send a nurse out this evening"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking the tank gauge every thirty minutes and keeping her on two liters until the second tank arrived.
+      speaker: Nurse
+      turns: [60]
+      quote: "check the gauge every thirty minutes."
+      explanation: Documents equipment teaching.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping her upright, no smoking or flames near the oxygen and tubing out of the walkway.
+      speaker: Nurse
+      turns: [71]
+      quote: "No smoking or open flames near the oxygen"
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,239 @@
+call_id: tr-083
+split: train
+blueprint: "Neighbor helping an 84-year-old man with Parkinson's: his tremor and stiffness are worse today and she is unsure if his midday pill was given; she calls it 'cinnamet'. Nurse reads the chart (Sinemet 25/100, one tablet three times a day) and the neighbor agrees. Nurse tells her to give the midday dose now, plans a prescriber message and a visit tomorrow."
+setup:
+  scenario_category: medication
+  subtype: garbled_drug_resolved
+  secondary_tags: [garbled_drug, hedging, late_answers, split_turns]
+  clinical_domains: [medication, tremor, falls_safety]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Carla
+  call_timestamp_utc: "2026-10-12T18:05:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: [A1]
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Barnaby Tuckett
+  patient_name_spoken: Barnaby Tuckett
+  patient_name_certainty: stated
+  patient_dob_true: "1942-11-02"
+  patient_dob_spoken: "1942-11-02"
+  patient_dob_certainty: stated
+  caller_name_true: Joyce
+  caller_name_spoken: Joyce
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "4175550138"
+  callback_phone_spoken: "4175550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported worse tremor and stiffness and asked about his midday Parkinson's pill
+  reason_category: medication_question
+  relevant_context: Neighbor helps with his meds on weekdays
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Sinemet
+    medication_name_spoken: Sinemet
+    medication_status: missed
+    strength: 25/100
+    dose: "1"
+    unit: tablet
+    frequency: three times a day
+    last_dose: unsure whether the midday dose was given
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: worse tremor
+    symptom_present: true
+    onset_or_duration: today
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: stiffness and slow walking
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give the midday Sinemet now and keep the rest of the schedule
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    reason_or_trigger: worse tremor and a possible missed dose
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Stay with him when he stands or walks and use the walker
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Write the time of each dose on a chart on the fridge
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Carla.
+  Caller -> Hi. Hi, Carla. This is Joyce. I'm Barnaby's neighbor. Barnaby Tuckett. He's on your, on your hospice. || caller_name, relationship, patient_name
+  Nurse -> Hi, Joyce. His date of birth?
+  Caller -> Oh, I don't. Hang on, his daughter wrote it on the, on the fridge. November second, nineteen forty two. || patient_dob
+  Nurse -> And I have four one seven, five five five, zero one three eight. || callback_phone
+  Caller -> Yes. That's the house. I'm at his house. || callback_phone
+  Nurse -> Okay. What's happening?
+  Caller -> His shaking is worse. He's shaking a lot more than normal. And he's stiff. Walking really slow. Like, shuffling. || cc, A2, A3
+  Nurse -> Mm-hm. When did that start?
+  Caller -> Today. This afternoon. He was fine this morning. He was, he was okay. || A2
+  Nurse -> Okay. Has he fallen?
+  Caller -> No. No, no. He's been in his chair. || A4
+  Nurse -> Good. What medicines does he take for the Parkinson's?
+  Caller -> The, um. The cinnamet. I think it's cinnamet? || A1
+  Nurse -> Let me look at his chart. I see Sinemet. Twenty five, one hundred, one tablet, three times a day. Is that the one you mean? || A1
+  Caller -> Yes! Yes, that's it. Sinemet. That's what it says on the bottle. || A1
+  Nurse -> Okay. When was his last dose?
+  Caller -> The morning one, I gave him that at eight. But the lunchtime one, I. I'm not sure. I was on the phone with my sister and I, I can't remember if I gave it to him. || A1
+  Nurse -> Okay. Look at the pill box. Is the midday slot empty?
+  Caller -> Hold on. It's, no. It's still there. It's still in there. I didn't give it. Oh. Oh no. It's almost three. || A1
+  Nurse -> Okay, it's okay, Joyce. That explains a lot. Give him the midday dose right now, with a few sips of water, and then go back to the regular schedule. || R1
+  Caller -> Okay. Now. Okay. Giving it now.
+  Nurse -> And I'll message his prescriber about today, and what we should do with the evening dose. || R2
+  Caller -> Okay.
+  Nurse -> I'll also send a nurse tomorrow to see him. || R3
+  Caller -> Tomorrow. Okay. Good.
+  Nurse -> Stay with him when he stands up or walks around, and make sure he uses the walker. He's more unsteady when he's stiff. || E1
+  Caller -> I'll stay right here. I'm not going anywhere.
+  Nurse -> And for the next few days, it would help to put a little chart on the fridge. Write the time every time he takes a dose. || E2
+  Caller -> I'll do that. I'll do that today. I feel terrible.
+  Nurse -> Don't. You caught it. That's what matters.
+  Caller -> Thank you, Carla.
+noise_events:
+  - {turn: auto, type: drug_garble, true_form: Sinemet, heard_form: cinnamet, fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Barnaby Tuckett, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-11-02", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Joyce, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "4175550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported worse tremor and stiffness and asked about his midday Parkinson's pill.
+    speaker: Caller
+    turns: [8]
+    quote: "His shaking is worse. He's shaking a lot more than normal."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Tremor was worse than usual since this afternoon.
+      speaker: Caller
+      turns: [10]
+      quote: "Today. This afternoon. He was fine this morning."
+      explanation: Documents the onset of worsening tremor.
+      facts:
+        - {type: symptom, name: worse tremor, present: true, duration: today, certainty: stated}
+      covers: [A2]
+    - text: He was stiff and shuffling when walking.
+      speaker: Caller
+      turns: [8]
+      quote: "And he's stiff. Walking really slow. Like, shuffling."
+      explanation: Documents stiffness and slowed gait.
+      facts:
+        - {type: symptom, name: stiffness and slow walking, present: true, certainty: stated}
+      covers: [A3]
+    - text: No fall was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No, no. He's been in his chair."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fall, certainty: stated}
+      covers: [A4]
+    - text: Sinemet 25/100, 1 tablet three times a day, was in use; the midday dose had been missed (name confirmed from the chart).
+      speaker: Caller
+      turns: [20]
+      quote: "Hold on. It's, no. It's still there. It's still in there. I didn't give it."
+      explanation: Documents the missed midday dose.
+      facts:
+        - {type: medication, name: Sinemet, strength: 25/100, dose: "1", unit: tablet, frequency: three times a day, last_dose: unsure whether the midday dose was given, med_status: missed, certainty: stated}
+      covers: [A1]
+  response:
+    - text: Advised giving the midday Sinemet right away and then resuming the regular schedule.
+      speaker: Nurse
+      turns: [21]
+      quote: "Give him the midday dose right now, with a few sips of water, and then go back to the regular schedule."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the prescriber about today's missed dose and the evening dose.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll message his prescriber about today, and what we should do with the evening dose."
+      explanation: Documents the planned prescriber contact.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll also send a nurse tomorrow to see him."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised staying with him when he stood or walked and having him use the walker.
+      speaker: Nurse
+      turns: [27]
+      quote: "Stay with him when he stands up or walks around, and make sure he uses the walker."
+      explanation: Documents fall-prevention guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping a chart on the fridge with the time of every dose.
+      speaker: Nurse
+      turns: [29]
+      quote: "put a little chart on the fridge. Write the time every time he takes a dose."
+      explanation: Documents medication tracking guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags: []

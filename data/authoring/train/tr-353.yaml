@@ -1,0 +1,309 @@
+call_id: tr-353
+split: train
+blueprint: "A daughter calls home health: her father's blood pressure pill bottle from the new pharmacy says hydroxyzine, but his list says hydralazine. He has taken it three times a day for three days and has been sleepy and dry mouthed, blood pressure 168 over 92. Nurse tells her to stop giving it, pages on-call, plans to contact the pharmacy and visit this afternoon. Wrong medication (tall-man look-alike), daughter caller, v2 short."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication
+  secondary_tags: [tall_man_drug, chart_reading_distractor, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, blood_pressure, sedation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Priscilla
+  call_timestamp_utc: "2026-10-23T14:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [lisinopril]
+chief_complaint:
+  patient_name_true: Walter Brandvold
+  patient_name_spoken: Walter Brandvold
+  patient_name_certainty: stated
+  patient_dob_true: "1943-08-04"
+  patient_dob_spoken: "1943-08-04"
+  patient_dob_certainty: stated
+  caller_name_true: Karin Brandvold
+  caller_name_spoken: Karin Brandvold
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3145550153"
+  callback_phone_spoken: "3145550153"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father's blood pressure pill bottle names a different medicine than the one ordered
+  reason_category: medication
+  relevant_context: Home health patient with high blood pressure
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning at eight
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    medication_status: prescribed
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "168/92"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepy and dry mouth
+    symptom_present: true
+    onset_or_duration: three days
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls or chest pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: stop giving the hydroxyzine and keep the bottle
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: wrong medication dispensed and high blood pressure
+    certainty: stated
+  - item_id: R3
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him seated or lying down, help him stand slowly, and stay with him when he walks because of the sleepiness
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away or 911 for chest pain, trouble breathing, a bad headache, confusion, or if he is hard to wake
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Wrong medication dispensed and given three times a day for three days
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Priscilla.
+  Caller -> Hi, yes, this is Karin Brandvold. I'm calling about my dad, Walter Brandvold. I think the pharmacy made a mistake. || caller_name, patient_name, relationship
+  Nurse -> Hi Karin. Okay. Let's look at it together. Can I get Walter's date of birth first?
+  Caller -> August fourth, nineteen forty three. || patient_dob
+  Nurse -> Thank you. And the best number for you?
+  Caller -> Three one four, five five five, zero one five three. || callback_phone
+  Nurse -> Three one four, five five five, zero one five three. Did I get that right? || callback_phone
+  Caller -> Yes. That's the cell.
+  Nurse -> Okay. Tell me what happened.
+  Caller -> So, um. Dad takes a blood pressure pill. He's supposed to. And I was, I was setting up his pill box last night and I looked at the new bottle. And it says hydroxyzine. But his list from the doctor says hydralazine. They look the same, almost. || cc, A1, A2
+  Nurse -> Okay. They do look alike. Read me the whole label, if you can. Slowly.
+  Caller -> H Y D R O X Y Z I N E. Twenty five milligrams. One tablet three times a day. It says, take with food. The pharmacy sticker is, it's from the new place. The one by the grocery store. || A1
+  Nurse -> Okay. Hydroxyzine twenty five milligrams, three times a day. And what does his list say? || A1
+  Caller -> The list says hydralazine. H Y D R A L A Z I N E. Twenty five milligrams. Three times a day. So same dose, same schedule, different word. || A2
+  Nurse -> Okay. Thank you. That's what the doctor ordered, hydralazine. For the pressure. Hydroxyzine is a different medicine, an antihistamine, for itching or anxiety. || A2
+  Caller -> Oh no. Oh no. That's what I was afraid of.
+  Nurse -> Okay. Stay with me. How long has he been taking the new bottle?
+  Caller -> Since Saturday. So, three days. I picked it up Friday. Before that he had the old bottle, the right one, but it ran out. So three days of the new one. || A1, F1
+  Nurse -> And when did he last take one?
+  Caller -> This morning. At eight. With his oatmeal. Eight o'clock. || A1
+  Nurse -> Okay. Has anything seemed different with him these three days?
+  Caller -> He's been sleepy. A lot. He sleeps in the chair all afternoon. And his mouth is dry. He keeps asking for water. I thought it was the weather. || A4
+  Nurse -> That fits with hydroxyzine. Did you take his blood pressure? || A1
+  Caller -> I did this morning. One sixty eight over ninety two. That's higher than usual. Usually it's one thirty something. || A3
+  Nurse -> Okay. That makes sense too, since he hasn't had the right medicine. Any chest pain, any falls?
+  Caller -> No chest pain. No falls. He's been steady, just slow. He's not complaining of anything. || A5
+  Nurse -> Good. Is he awake now?
+  Caller -> He's right here. He's watching the game show. He's awake. He just yelled an answer at the TV.
+  Nurse -> Ha. Okay. Good. I'd like to tell you what to do now.
+  Caller -> Okay. Please.
+  Nurse -> Don't give him any more of the hydroxyzine. Not the afternoon dose, not tonight. And keep the bottle, don't throw it out. We'll need the label. || R1
+  Caller -> Don't give any more. Keep the bottle. Okay. I'll put it in a bag.
+  Nurse -> Good. I'm paging the on-call clinician right now, because he's been on the wrong medicine and his pressure is up. The clinician will tell us what to do about the blood pressure medicine. || R2
+  Caller -> Okay. Should I give him the old one? The hydralazine? I don't have any left. || A2
+  Nurse -> No. Don't give him anything else for now. Wait for the clinician. I'll also be calling the pharmacy to straighten this out and get the right bottle. || R3
+  Caller -> Thank you. I was so upset last night. I almost called at ten.
+  Nurse -> Ten last night? You could have called the after hours line. It's always open.
+  Caller -> I didn't want to bother anyone. I figured I'd wait until morning.
+  Nurse -> It's never a bother. Next time, call.
+  Caller -> Okay. I will.
+  Nurse -> I'm glad you caught it. It's a very common mix up. They look so similar on paper.
+  Caller -> I only caught it because Dad's list is taped to the fridge. I read it every time.
+  Nurse -> That's a good habit.
+  Caller -> My mom started it. She made the list ten years ago.
+  Nurse -> It's saving you now.
+  Caller -> I know.
+  Nurse -> I'm also going to send someone out this afternoon, to check his pressure and see how sleepy he is. || R4
+  Caller -> This afternoon. Okay. I'll be here. I work from home on Tuesdays.
+  Nurse -> Great. Until then, keep him seated or lying down, help him up slowly, and stay with him when he walks. He may be unsteady because of the sleepiness. || E1
+  Caller -> Slowly. Stay with him. Okay.
+  Nurse -> And call us right away, or 911, if he has chest pain, trouble breathing, a really bad headache, confusion, or if he gets hard to wake up. || E2
+  Caller -> Chest pain, breathing, headache, confusion, hard to wake. Okay. Okay. I'm writing it on my hand. I don't have paper.
+  Caller -> I have a pen. Hold on. I'm writing on my hand. Okay.
+  Nurse -> Ha. That works.
+  Caller -> My handwriting on my hand is terrible.
+  Nurse -> As long as you can read it.
+  Caller -> Can he eat lunch?
+  Nurse -> Yes. Lunch is fine. Plenty of water too, since his mouth is dry.
+  Caller -> Okay. I'll make him a sandwich.
+  Nurse -> Is he eating okay, other than the dry mouth?
+  Caller -> He ate his oatmeal. Half of it. He's a slow eater these days.
+  Nurse -> And Karin, you did the right thing calling.
+  Caller -> Thank you. I feel better. I was kicking myself.
+  Nurse -> Don't. The pharmacy is the one who should feel bad.
+  Caller -> Ha. I'm going to have words with them.
+  Nurse -> I'll have words first. I'll keep you posted.
+  Caller -> Thank you. Thank you so much.
+  Nurse -> Bye now.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Walter Brandvold, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1943-08-04", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Karin Brandvold, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550153", certainty: stated, heard_as: [], turns: [6, 7]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father's blood pressure pill bottle named a different medicine than the one ordered.
+    speaker: Caller
+    turns: [2]
+    quote: "I think the pharmacy made a mistake."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hydroxyzine 25 mg three times a day was taken from the new bottle, last dose this morning at eight.
+      speaker: Caller
+      turns: [12]
+      quote: "Twenty five milligrams. One tablet three times a day."
+      explanation: Documents the medication on the label.
+      facts:
+        - {type: medication, name: hydroxyzine, dose: "25", unit: mg, frequency: three times a day, last_dose: this morning at eight, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Hydralazine was the medicine prescribed on the doctor's list.
+      speaker: Caller
+      turns: [14]
+      quote: "The list says hydralazine."
+      explanation: Documents the prescribed medication.
+      facts:
+        - {type: medication, name: hydralazine, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: Blood pressure was 168/92 this morning.
+      speaker: Caller
+      turns: [24]
+      quote: "One sixty eight over ninety two."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "168/92", certainty: stated}
+      covers: [A3]
+    - text: He was sleepy with a dry mouth for three days.
+      speaker: Caller
+      turns: [22]
+      quote: "He's been sleepy. A lot."
+      explanation: Documents the symptoms.
+      facts:
+        - {type: symptom, name: sleepy and dry mouth, present: true, duration: three days, certainty: stated}
+      covers: [A4]
+    - text: He had no chest pain or falls.
+      speaker: Caller
+      turns: [26]
+      quote: "No chest pain. No falls."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls or chest pain, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised stopping the hydroxyzine and keeping the bottle.
+      speaker: Nurse
+      turns: [31]
+      quote: "Don't give him any more of the hydroxyzine."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: hydroxyzine, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'm paging the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to contact the pharmacy.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'll also be calling the pharmacy to straighten this out"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R3]
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm also going to send someone out this afternoon"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised keeping him seated or lying down, helping him up slowly and staying with him when he walks.
+      speaker: Nurse
+      turns: [49]
+      quote: "keep him seated or lying down, help him up slowly"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away or 911 for chest pain, trouble breathing, a bad headache, confusion, or if he was hard to wake.
+      speaker: Nurse
+      turns: [51]
+      quote: "call us right away, or 911, if he has chest pain"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [18], quote: "Since Saturday. So, three days."}

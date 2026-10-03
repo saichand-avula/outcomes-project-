@@ -1,0 +1,203 @@
+call_id: tr-153
+split: train
+blueprint: "42-year-old home health patient after an appendectomy calls himself: pain 4/10 at the incision, mild redness, temperature 99.6, oxycodone 5 mg twice today. He first gives his birth year wrong and corrects it (1981, no 1982). His surname is heard as Watkins once by the nurse. Nurse messages the surgeon and plans a visit tomorrow."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift_dob_correction
+  secondary_tags: [name_drift, dob_self_corrected, late_answers, split_turns]
+  clinical_domains: [wound_skin, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Meadowbrook Home Care
+  agency_type: home_care
+  nurse_name: Naomi
+  call_timestamp_utc: "2026-10-03T18:40:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Terrell Washington
+  patient_name_spoken: Terrell Washington
+  patient_name_certainty: stated
+  patient_dob_true: "1982-09-30"
+  patient_dob_spoken: "1982-09-30"
+  patient_dob_certainty: stated
+  caller_name_true: Terrell Washington
+  caller_name_spoken: Terrell Washington
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3145550129"
+  callback_phone_spoken: "3145550129"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported pain and mild redness at his surgical incision
+  reason_category: wound
+  relevant_context: Recovering from an appendectomy
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: pain at the incision
+    symptom_present: true
+    severity: 4/10
+    body_location: incision
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: mild redness at the incision
+    symptom_present: true
+    body_location: incision
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: patient
+    vital_name: temperature
+    vital_value: "99.6"
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: patient
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    last_dose: twice today
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: surgeon's office
+    reason_or_trigger: pain and redness at the incision
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for a temperature over 101, spreading redness, pus, or worsening pain; 911 for severe belly pain
+    trigger_condition: temperature over 101; spreading redness; pus; worse pain; severe belly pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Meadowbrook Home Care, this is Naomi.
+  Caller -> Hi, Naomi. It's Terrell Washington. I'm a patient. I had my appendix out. || caller_name, relationship, patient_name
+  Nurse -> Hi, Terrell Watkins. How are you feeling?
+  Caller -> Not great. My side hurts. Can I tell you my birthday first? September thirtieth. Nineteen eighty one. No. Nineteen eighty two. Sorry. Eighty two. || patient_dob
+  Nurse -> No problem. Eighty two. And is three one four, five five five, zero one two nine your number? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's going on with your side?
+  Caller -> The cut. Where they took it out. It hurts. About a four. And there's a little redness around it. Pink. Not much. || cc, A1, A2
+  Nurse -> Okay. Any fluid coming out? Any fever?
+  Caller -> No fluid. I took my temperature. Ninety nine point six. || A3
+  Nurse -> Okay. What are you taking for the pain?
+  Caller -> The oxycodone. Five milligrams. I took one this morning and one at lunch. || A4
+  Nurse -> Okay. I'll message your surgeon's office about the pain and the redness. || R1
+  Caller -> Okay. Thank you.
+  Nurse -> And a nurse will come see you tomorrow. || R2
+  Caller -> Tomorrow. Good. I'm home.
+  Nurse -> Call us if your temperature goes over one oh one, the redness spreads, you see pus, or the pain gets worse. And if you get severe belly pain, call nine one one. || E1
+  Caller -> Over one oh one, redness, pus, pain. Severe belly, nine one one. Got it.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Naomi. Sorry about all the back and forth with my birthday. I haven't slept well since the surgery, my brain is mush.
+  Nurse -> No need to apologize. Rest is part of healing. Take it easy.
+  Caller -> I will. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Washington, heard_form: Watkins, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Terrell Washington, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1982-09-30", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Terrell Washington, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3145550129", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported pain and mild redness at his surgical incision.
+    speaker: Caller
+    turns: [8]
+    quote: "The cut. Where they took it out. It hurts."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Incision pain was about 4/10.
+      speaker: Caller
+      turns: [8]
+      quote: "It hurts. About a four."
+      explanation: Documents pain level.
+      facts:
+        - {type: symptom, name: pain at the incision, present: true, severity: 4/10, location: incision, certainty: stated}
+      covers: [A1]
+    - text: Mild pink redness was present around the incision.
+      speaker: Caller
+      turns: [8]
+      quote: "there's a little redness around it. Pink. Not much."
+      explanation: Documents the redness.
+      facts:
+        - {type: symptom, name: mild redness at the incision, present: true, location: incision, certainty: stated}
+      covers: [A2]
+    - text: Temperature was 99.6.
+      speaker: Caller
+      turns: [10]
+      quote: "Ninety nine point six."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "99.6", certainty: stated}
+      covers: [A3]
+    - text: Oxycodone 5 mg was taken twice today.
+      speaker: Caller
+      turns: [12]
+      quote: "Five milligrams. I took one this morning and one at lunch."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, last_dose: twice today, med_status: taking, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to message the surgeon's office about the pain and redness.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'll message your surgeon's office about the pain and the redness."
+      explanation: Documents the planned office message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [15]
+      quote: "a nurse will come see you tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised calling for a temperature over 101, spreading redness, pus, or worse pain, and calling 911 for severe belly pain.
+      speaker: Nurse
+      turns: [17]
+      quote: "Call us if your temperature goes over one oh one, the redness spreads, you see pus, or the pain gets worse."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+  risk_flags: []

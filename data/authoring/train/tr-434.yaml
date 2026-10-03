@@ -1,0 +1,395 @@
+call_id: tr-434
+split: train
+blueprint: "A daughter makes her weekly check-in call to hospice about her 88-year-old mother, covering many small things: hip pain a two on scheduled acetaminophen, eating about half portions, sleeping more in the day, occasionally tearful, and her own exhaustion from caring for her mother at night. They also need a shower chair. Nurse plans a social work referral for caregiver support, orders the shower chair, a nurse visit Wednesday, and gives comfort, nutrition, and shower safety tips. Routine multi-issue update, adult child caller, patient 65-89, long v2."
+setup:
+  scenario_category: routine
+  subtype: weekly_update_multi_issue
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue, phone_from_file]
+  clinical_domains: [pain, intake_appetite, sleep, mood, caregiver_stress, equipment]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Sycamore Row Hospice
+  agency_type: hospice
+  nurse_name: Beatrice
+  call_timestamp_utc: "2026-11-19T16:00:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelia Whitlock
+  patient_name_spoken: Cornelia Whitlock
+  patient_name_certainty: stated
+  patient_dob_true: "1938-02-25"
+  patient_dob_spoken: "1938-02-25"
+  patient_dob_certainty: stated
+  caller_name_true: Ramona Pierce
+  caller_name_spoken: Ramona Pierce
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "4045550150"
+  callback_phone_spoken: "4045550150"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Gave her weekly update on her mother and asked for a shower chair and some support
+  reason_category: pain
+  relevant_context: Hospice patient cared for at home by her daughter
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: hip pain
+    symptom_present: true
+    severity: "2"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: acetaminophen
+    medication_name_spoken: acetaminophen
+    medication_status: taking
+    dose: "650"
+    unit: mg
+    frequency: every six hours
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating about half portions
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping more during the day
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: occasional tearfulness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A6
+    item_type: context
+    reporter: caller
+    history_or_context_text: The daughter is exhausted from night caregiving and has little help
+    certainty: stated
+  - item_id: A7
+    item_type: supply
+    reporter: caller
+    supply_item: shower chair
+    supply_remaining: none
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice social worker for caregiver support
+    certainty: stated
+  - item_id: R2
+    action_type: supply_order
+    action_status: planned
+    actor: nurse
+    recipient_or_target: shower chair
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Let her rest when she wants, keep short quiet visits, play her music and sit with her when she is tearful
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small frequent meals and her favorite foods, and do not push if she refuses
+    certainty: stated
+  - item_id: E3
+    education_type: safety
+    speaker: nurse
+    instruction_content: Use the shower chair with a hand-held shower, keep the water warm, and stay with her the whole time
+    certainty: stated
+  - item_id: E4
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call anytime day or night, and do not wait for the weekly check-in if something changes
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sycamore Row Hospice, this is Beatrice.
+  Caller -> Hi, Beatrice. It's Ramona Pierce. I'm the daughter of Cornelia Whitlock. I'm calling for the weekly update. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Ramona. I was hoping it was you. How is your mom this week?
+  Caller -> You're sweet. I always hope it's you who answers. The other nurse rushes me.
+  Nurse -> I'll never rush you. I've got all the time you need today.
+  Caller -> Thank you. I made a list this time. I wrote everything on the back of an envelope so I wouldn't forget.
+  Caller -> She's okay. Mostly okay. I have a few things. Do you have time for a few things?
+  Caller -> It's been a quiet week. Not as scary as the last one. We got through Tuesday and Wednesday without any big moments.
+  Nurse -> Absolutely. Take your time. Let me open her chart. What's her date of birth?
+  Caller -> I won't take long. I know you have other families to talk to today.
+  Nurse -> Don't worry about that. You're my priority right now.
+  Caller -> February twenty fifth. Nineteen thirty eight. || patient_dob
+  Nurse -> Thanks. And your cell is still the one ending in oh one five oh?
+  Caller -> I got a new phone, but the number's the same. I'm still figuring out how the screen works.
+  Nurse -> It takes time. They're so complicated now.
+  Caller -> Yes. Four oh four, five five five, zero one five oh. || callback_phone
+  Nurse -> Great. Where would you like to start?
+  Caller -> The hip. Her hip pain. It's better. She says it's a two. Mostly in the mornings when she gets up. By lunch it's gone. || A1
+  Nurse -> That's an improvement. Is she taking the acetaminophen on schedule? || A2
+  Caller -> Yes. The acetaminophen. Six fifty milligrams. Every six hours. I give it at six, noon, six, and midnight. She took the morning one at six today. || A2
+  Caller -> I have a pill organizer for her, the big kind with four slots a day. It's color coded. My neighbor helped me set it up.
+  Nurse -> That sounds like a great system.
+  Nurse -> Perfect. Any nighttime pain?
+  Caller -> Not really. Sometimes she shifts and says ow. But she goes right back to sleep.
+  Caller -> I sleep on the recliner in her room so I can hear her. I wake up every time she moves. That's partly why I'm so tired.
+  Nurse -> Good. How is she eating?
+  Caller -> About half of everything. Half the oatmeal. Half the sandwich. She used to clean her plate. Now she looks at it and says, that's enough. || A3
+  Caller -> I made her favorite, chicken and dumplings, on Sunday. She ate three dumplings and said it was too much. Three. She used to eat ten.
+  Nurse -> That's a lot of love in that bowl, even if she only ate a bit.
+  Nurse -> That's a common change. Is she drinking?
+  Caller -> Tea mostly. And water with a straw. About five or six cups a day, I think. I count.
+  Caller -> I keep a small cup by her bed with a lid. She sips between naps. It's one of those ones with the bendy straw from the dentist.
+  Nurse -> That's reasonable. What about sleep?
+  Caller -> She's sleeping a lot more in the daytime. She naps after breakfast and after lunch. Two or three hours each. Then she's up at night, not always, but some nights. || A4
+  Nurse -> Is she confused when she wakes up?
+  Caller -> No. She knows me. She knows where she is. She's just sleepy. She wakes up and asks what day it is.
+  Caller -> This morning she woke up and said, Ramona, you look tired. I said, I am, Mama. She said, go to bed.
+  Nurse -> Ha. A mother's instinct.
+  Nurse -> That sounds normal for this stage.
+  Caller -> I figured. I just wanted to tell you.
+  Caller -> My sister says it's normal too, but she lives in Florida and she's not here. It's different when you see it every day.
+  Nurse -> It is. Seeing it up close makes it more real.
+  Nurse -> I'm glad you did. How is her mood?
+  Caller -> I almost didn't mention it. I didn't want to make it sound worse than it is.
+  Nurse -> It's important. These details help us take better care of her.
+  Caller -> She cries sometimes. Not a lot. A few times this week. She looked at a picture of my father and teared up. And last Saturday she cried at a commercial. || A5
+  Nurse -> That's very understandable. Does she say what she's feeling?
+  Caller -> She says she's just thinking. She says don't worry about me. She says she's had a good life.
+  Caller -> She told me last night she's not afraid. She said she's ready whenever it happens. I didn't know what to say. I just squeezed her hand.
+  Nurse -> That's exactly the right thing. You don't have to say anything.
+  Nurse -> She sounds peaceful in her own way. Sitting with her when she's tearful can help. Let her talk if she wants to, or just sit quietly. || E1
+  Caller -> Sometimes I cry with her. Is that okay? I don't want to upset her.
+  Nurse -> It's more than okay. It tells her she isn't alone. Crying together is a form of closeness.
+  Caller -> I do that. I hold her hand. I don't know what else to do.
+  Nurse -> That's exactly what to do. Play her favorite music, and keep visits short and quiet, so she doesn't get tired.
+  Caller -> I also read to her sometimes. She likes the old poems. Robert Frost. Her voice moves along with the words.
+  Caller -> She loves Sinatra. I'll put on the CD.
+  Nurse -> That's lovely. Now, how are you doing, Ramona?
+  Caller -> I put it on in the evenings with a cup of tea. We both fall asleep to it. It's the best part of my day.
+  Caller -> Honestly? I'm exhausted. I'm up two or three times a night with her. My brother lives in Seattle and my husband works nights. I'm doing most of it. || A6
+  Nurse -> That sounds like a lot. Do you have any help at all?
+  Caller -> My husband tries. He works nights at the bakery and sleeps all day. I can't ask him for more. He's worn out too.
+  Caller -> A neighbor comes on Tuesdays for two hours. That's all. I haven't left the house for more than two hours in a month.
+  Caller -> She's a retired schoolteacher, Mrs. Abbott. She brings her knitting and sits right next to my mother. They talk about nothing for two hours.
+  Nurse -> Ramona, I'm so glad you told me. I'd like our social worker to call you. She can talk about respite care and other support. || R1
+  Caller -> Respite? Like someone to stay with her so I can sleep?
+  Nurse -> Yes. There are options, including volunteers, and short stays at a facility if you need a few days.
+  Caller -> A volunteer. Like someone who sits and reads or talks to her? That would be wonderful. She'd love the company.
+  Nurse -> Yes, exactly that. The social worker can arrange it.
+  Caller -> I didn't know that. I thought I had to do it all.
+  Nurse -> You don't. You shouldn't. Hospice is for the whole family.
+  Caller -> Thank you. I needed to hear that. I was afraid to ask.
+  Nurse -> Never be afraid. What else do you need?
+  Caller -> I'm the type who brings a casserole to everyone else. I'm not used to being on the other side of the table.
+  Caller -> I'm so used to doing everything myself. Asking feels strange. Like I'm failing.
+  Nurse -> You're not failing. You're doing one of the hardest jobs there is.
+  Caller -> The shower. She wants to take a real shower. We've been doing sponge baths. She hates them. We don't have a shower chair. She can't stand for long. || A7
+  Nurse -> Okay. I'll order a shower chair for you. || R2
+  Caller -> We tried the kitchen chair once in the bathroom, and it was slippery and wobbly. I almost dropped her. I won't do that again.
+  Caller -> She used to take such long, hot showers. It was her favorite part of the day. I miss seeing her enjoy something.
+  Caller -> Oh, thank you. That would make a huge difference. And a handheld shower, can that be arranged?
+  Nurse -> We'll ask the equipment company. Some chairs come with a handheld. If not, hardware stores sell them cheap.
+  Caller -> We have a handheld in the garage from the old house. I'll put it on.
+  Caller -> My husband can mount it on the wall bracket. He's good with tools. It'll take him ten minutes.
+  Nurse -> Perfect. When you use the chair, keep the water warm, not hot, and stay with her the whole time. Don't leave her alone, even for a second. || E3
+  Caller -> I won't. I'll sit on the toilet lid with a towel. I'll keep my hand on her shoulder.
+  Caller -> I also have a nonslip mat. A blue one with suction cups. I'll put it in the tub.
+  Nurse -> Perfect. That's a good safety step.
+  Nurse -> That's right. Ramona, I'd also like to send a nurse out on Wednesday for a visit. || R3
+  Caller -> Wednesday. Good. Morning or afternoon?
+  Caller -> I'll write it on the calendar. We have a big kitchen calendar. My mother's appointments are in red. Mine are in blue.
+  Nurse -> The nurse will call to set a time. Probably late morning.
+  Caller -> Late morning works. She's up and alert then.
+  Nurse -> For her eating, offer small frequent meals and her favorite foods. Don't push if she says no. || E2
+  Caller -> Small meals. Favorite foods. She likes pudding. And applesauce. And those little cheese crackers.
+  Caller -> She asked for ice cream yesterday. Butter pecan. I almost cried. It was the first thing she's asked for in days.
+  Nurse -> Then butter pecan it is. Enjoy every spoonful.
+  Nurse -> Perfect. Any of those are fine.
+  Caller -> I tried the protein shakes once. She wrinkled her nose and said it tasted like chalk. I won't try those again.
+  Nurse -> No need. Her favorite foods are better than any shake.
+  Caller -> I feel better already. It's good to just say it out loud.
+  Caller -> I've been carrying this all by myself. I didn't realize how heavy it was until I said it all out loud.
+  Nurse -> Anytime you need to say it, call. Day or night. You don't have to wait for the weekly check-in if something changes. || E4
+  Caller -> Day or night. Okay. I'll remember that. I wasn't sure about the night.
+  Nurse -> The line is open all night. A nurse will answer.
+  Caller -> That's a comfort. Honestly, it is.
+  Caller -> Sometimes at three in the morning I just want to hear a human voice. Now I know I can call.
+  Nurse -> You can. Anytime. I mean that.
+  Caller -> Oh, one more thing. Is it normal for her to want the TV on all day, even when she's asleep?
+  Nurse -> It's very common. Familiar sounds are comforting. Just keep the volume low.
+  Caller -> It's on one of those home makeover shows. She loves the before and after.
+  Nurse -> Ha. A good choice. Lots of nice endings.
+  Caller -> She keeps a little notebook by her bed and writes down the ideas she likes. A tile pattern. A paint color. It makes her happy.
+  Caller -> That's what she says. She says she likes the endings.
+  Nurse -> I like that.
+  Caller -> Me too. Okay, I'll let you go. Thank you, Beatrice. Really.
+  Nurse -> Take care of yourself, Ramona. Talk soon.
+  Caller -> Wait, I forgot. She asked me to tell you thank you. She said the hospice nurses are the nicest people she's met in her life.
+  Nurse -> That means a lot to me. Please tell her thank you back.
+  Caller -> I will. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelia Whitlock, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-02-25", certainty: stated, heard_as: [], turns: [12]}
+    caller_name: {value: Ramona Pierce, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550150", certainty: stated, heard_as: [], turns: [16]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Gave her weekly update on her mother and asked for a shower chair and some support.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling for the weekly update."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Hip pain was a two, mostly in the mornings.
+      speaker: Caller
+      turns: [18]
+      quote: "She says it's a two."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: hip pain, present: true, severity: "2", certainty: stated}
+      covers: [A1]
+    - text: Acetaminophen 650 mg every six hours was given on schedule, last at six this morning.
+      speaker: Caller
+      turns: [20]
+      quote: "Six fifty milligrams. Every six hours."
+      explanation: Documents the scheduled pain medicine.
+      facts:
+        - {type: medication, name: acetaminophen, dose: "650", unit: mg, frequency: every six hours, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: She ate about half of each meal.
+      speaker: Caller
+      turns: [27]
+      quote: "About half of everything."
+      explanation: Documents the reduced appetite.
+      facts:
+        - {type: symptom, name: eating about half portions, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She slept more in the daytime, napping two or three hours after breakfast and lunch.
+      speaker: Caller
+      turns: [34]
+      quote: "She's sleeping a lot more in the daytime."
+      explanation: Documents the sleep change.
+      facts:
+        - {type: symptom, name: sleeping more during the day, present: true, certainty: stated}
+      covers: [A4]
+    - text: She cried a few times this week, looking at a photo of her late husband.
+      speaker: Caller
+      turns: [46]
+      quote: "She cries sometimes. Not a lot."
+      explanation: Documents the tearfulness.
+      facts:
+        - {type: symptom, name: occasional tearfulness, present: true, severity: mild, certainty: stated}
+      covers: [A5]
+    - text: The daughter was exhausted from waking two or three times a night with little help.
+      speaker: Caller
+      turns: [60]
+      quote: "Honestly? I'm exhausted."
+      explanation: Documents the caregiver strain.
+      facts:
+        - {type: context, text: The daughter is exhausted from night caregiving and has little help, certainty: stated}
+      covers: [A6]
+    - text: They did not have a shower chair.
+      speaker: Caller
+      turns: [77]
+      quote: "We don't have a shower chair."
+      explanation: Documents the equipment need.
+      facts:
+        - {type: supply, item: shower chair, supply: none, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned a social work referral for caregiver support and respite options.
+      speaker: Nurse
+      turns: [65]
+      quote: "I'd like our social worker to call you."
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to order a shower chair.
+      speaker: Nurse
+      turns: [78]
+      quote: "I'll order a shower chair for you."
+      explanation: Documents the planned supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit Wednesday.
+      speaker: Nurse
+      turns: [89]
+      quote: "I'd also like to send a nurse out on Wednesday for a visit."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised sitting with her when tearful, playing her music and keeping visits short and quiet.
+      speaker: Nurse
+      turns: [51]
+      quote: "Sitting with her when she's tearful can help."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised small frequent meals of favorite foods without pushing.
+      speaker: Nurse
+      turns: [94]
+      quote: "offer small frequent meals and her favorite foods."
+      explanation: Documents nutrition teaching.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised warm water, a handheld shower and staying with her the whole time on the shower chair.
+      speaker: Nurse
+      turns: [85]
+      quote: "keep the water warm, not hot, and stay with her the whole time."
+      explanation: Documents shower safety.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E3]
+    - text: Advised calling anytime day or night without waiting for the weekly check-in.
+      speaker: Nurse
+      turns: [103]
+      quote: "Anytime you need to say it, call. Day or night."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E4]
+  risk_flags: []

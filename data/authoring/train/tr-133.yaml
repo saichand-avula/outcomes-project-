@@ -1,0 +1,189 @@
+call_id: tr-133
+split: train
+blueprint: "Patient asks for a lorazepam refill: three 0.5 mg tablets left, last taken last night, afraid of running out over the weekend. Nurse sends the refill request and plans a callback tomorrow; reminds her to take it only as needed. Short."
+setup:
+  scenario_category: medication
+  subtype: refill_request
+  secondary_tags: [tall_man_drug, hedging, split_turns]
+  clinical_domains: [medication, sleep]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-01T16:45:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dorothea Winslow
+  patient_name_spoken: Dorothea Winslow
+  patient_name_certainty: stated
+  patient_dob_true: "1942-02-21"
+  patient_dob_spoken: "1942-02-21"
+  patient_dob_certainty: stated
+  caller_name_true: Dorothea Winslow
+  caller_name_spoken: Dorothea Winslow
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6095550141"
+  callback_phone_spoken: "6095550141"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Requested a refill of her lorazepam
+  reason_category: refill_request
+  relevant_context: Home health patient using lorazepam as needed
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    medication_status: taking
+    dose: "0.5"
+    unit: mg
+    frequency: as needed
+    last_dose: last night
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: patient
+    supply_item: lorazepam tablets
+    supply_remaining: "3"
+    supply_unit: tablets
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: patient
+    caller_concern_text: Worried about running out over the weekend
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: refill_request
+    action_status: planned
+    actor: nurse
+    recipient_or_target: prescriber
+    medication_name_true: lorazepam
+    medication_name_spoken: lorazepam
+    reason_or_trigger: lorazepam refill
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Take lorazepam only as needed and do not double up
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Marcus.
+  Caller -> Hi, Marcus. This is Dorothea Winslow. I'm a patient. || caller_name, relationship, patient_name
+  Nurse -> Hi, Dorothea. Date of birth?
+  Caller -> February twenty first. Nineteen forty two. || patient_dob
+  Nurse -> And six oh nine, five five five, zero one four one for you? || callback_phone
+  Caller -> That's my home number. Yes. || callback_phone
+  Nurse -> What do you need today?
+  Caller -> I need a refill. On my lorazepam. I'm almost out. || cc, A1
+  Nurse -> Okay. What dose is it, and how often do you take it?
+  Caller -> Half a milligram. Point five. I take it when I need it. Not every night. Mostly for when I can't sleep. Last night I took one. || A1
+  Nurse -> Okay. How many do you have left?
+  Caller -> Three. I counted. Three tablets. || A2
+  Nurse -> Okay. And you're worried about running out?
+  Caller -> I am. It's Thursday. The weekend. If I run out Saturday I'll be, well. I'll be up all night. And I get worked up about it. || A3
+  Nurse -> I understand. I'll send the lorazepam refill request to your prescriber today. || R1
+  Caller -> Oh, thank you. Thank you.
+  Nurse -> And I'll call you tomorrow to let you know where it stands. || R2
+  Caller -> Tomorrow. Okay. I'll keep the phone on me. I'm not going anywhere, I don't drive anymore.
+  Nurse -> That's fine. I'll leave a message if I can't reach you.
+  Nurse -> Dorothea, just a reminder. Take the lorazepam only when you need it, and don't double up if you miss a night. || E1
+  Caller -> No. I wouldn't. I never do. One at a time.
+  Nurse -> Good. Anything else?
+  Caller -> No. That's all. You're very kind, Marcus. Not everybody has the patience, you know. Some of them rush me off the phone.
+  Nurse -> Never. Take care, Dorothea.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dorothea Winslow, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-02-21", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Dorothea Winslow, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6095550141", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested a refill of her lorazepam.
+    speaker: Caller
+    turns: [8]
+    quote: "I need a refill. On my lorazepam. I'm almost out."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Lorazepam 0.5 mg was taken as needed, mostly for sleep, with the last dose last night.
+      speaker: Caller
+      turns: [10]
+      quote: "Half a milligram. Point five. I take it when I need it."
+      explanation: Documents the medication use.
+      facts:
+        - {type: medication, name: lorazepam, dose: "0.5", unit: mg, frequency: as needed, prn: true, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Three tablets remained.
+      speaker: Caller
+      turns: [12]
+      quote: "Three. I counted. Three tablets."
+      explanation: Documents the supply left.
+      facts:
+        - {type: supply, item: lorazepam tablets, supply: 3 tablets, certainty: stated}
+      covers: [A2]
+    - text: She was worried about running out over the weekend.
+      speaker: Caller
+      turns: [14]
+      quote: "It's Thursday. The weekend. If I run out Saturday I'll be, well. I'll be up all night."
+      explanation: Documents the concern.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to send the lorazepam refill request to the prescriber today.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'll send the lorazepam refill request to your prescriber today."
+      explanation: Documents the planned refill request.
+      facts:
+        - {type: action, action_type: refill_request, status: planned, medication: lorazepam, certainty: stated}
+      covers: [R1]
+    - text: Planned to call tomorrow with an update.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'll call you tomorrow to let you know where it stands."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised taking lorazepam only when needed and not doubling up if a night is missed.
+      speaker: Nurse
+      turns: [20]
+      quote: "Take the lorazepam only when you need it, and don't double up if you miss a night."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags: []

@@ -1,0 +1,287 @@
+call_id: tr-284
+split: train
+blueprint: "A paid caregiver covering a one-off shift calls the home care agency about a client whose name she only half remembers (Quintana, or Quintanilla), with no date of birth. The client has a wet cough since yesterday, a temperature of 100.4 she took with a forehead thermometer, and eats less. The daughter gave Tylenol at noon. No shortness of breath. The nurse finds her by the address and the daughter's name, plans a nurse visit this afternoon, a message to the physician, and a callback to the aide within the hour, with fluids and return precautions. Ambiguous identity (name unclear, DOB not stated), paid caregiver, v2 short."
+setup:
+  scenario_category: ambiguous
+  subtype: partial_identity
+  secondary_tags: [identity_unresolved, name_drift, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [cough_uri, fever, intake_appetite]
+  relationship_group: paid_caregiver
+  na_reason: null
+  agency_name: Cedarbrook Home Care
+  agency_type: home_care
+  nurse_name: Hector
+  call_timestamp_utc: "2026-10-31T18:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Aurelia Quintanilla
+  patient_name_spoken: Aurelia Quintanilla
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Aurelia Quintana]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Yolanda Prewitt
+  caller_name_spoken: Yolanda Prewitt
+  caller_name_certainty: stated
+  relationship_to_patient: paid caregiver
+  relationship_certainty: stated
+  callback_phone_true: "2065550196"
+  callback_phone_spoken: "2065550196"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that a client has a wet cough, a fever and is eating less
+  reason_category: cough_uri
+  relevant_context: Paid caregiver covering a single shift
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: wet cough
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: temperature
+    vital_value: "100.4"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: eating less
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: given_previously
+    dose: "500"
+    unit: mg
+    last_dose: noon
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R2
+    action_type: physician_notification
+    action_status: planned
+    actor: nurse
+    recipient_or_target: physician
+    reason_or_trigger: wet cough and temperature of 100.4
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: caregiver
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer water, broth or juice in small sips every half hour and let her eat whatever she wants in small amounts
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for trouble breathing, blue lips, confusion or if she cannot be woken
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedarbrook Home Care, this is Hector.
+  Caller -> Hi, Hector. I'm, um, I'm one of the aides, but I'm not her regular aide. I'm covering today. My name's Yolanda. Yolanda Prewitt. || caller_name, relationship
+  Nurse -> Okay, Yolanda. Welcome. Which client are you with?
+  Caller -> That's the thing. I'm so embarrassed. I have it written down but my sheet is in the car. Her name is, it's something like Quintana. Or Quintanilla. Mrs. Aurelia Quintana. Maybe. || patient_name
+  Nurse -> Okay. No worries. Do you have the address?
+  Caller -> Yes. Yes. It's four twelve Larch Street. Apartment two. The daughter let me in this morning. Her name's Rosa. Rosa something.
+  Nurse -> Okay. Let me look. Larch Street, apartment two, daughter Rosa. Give me a second. I see an Aurelia Quintanilla at four twelve Larch. Is that her?
+  Caller -> Yes. Yes, Quintanilla. That's it. That's her. Okay. Oh good. || patient_name
+  Nurse -> Okay. Good. And do you have her date of birth?
+  Caller -> No. I don't. I'm sorry. It's not on my sheet. It's just the name and the schedule. Can you get it from the file?
+  Nurse -> Yes, I have it here. Don't worry. What's a good number to call you back on, Yolanda?
+  Caller -> My cell. Two zero six, five five five, zero one nine six. || callback_phone
+  Nurse -> Got it. Okay. Tell me what's going on with Mrs. Quintanilla.
+  Caller -> So she's coughing. A lot. A wet cough. Like there's something in her chest. And her daughter said it started yesterday. And this morning she was warm. And she's not eating. She had like three bites of oatmeal. || A1, A3, cc
+  Nurse -> Okay. Is the cough bringing up anything? Phlegm?
+  Caller -> I think so. I saw her spit into the tissue. It was kind of yellow. I'm not sure. I didn't look close.
+  Nurse -> Okay. And did you take her temperature?
+  Caller -> I did. We have a forehead one. It's the kind where you wave it. It said a hundred point four. I did it twice. Hundred point four, and then hundred point three. || A2
+  Nurse -> Okay. Hundred point four. Thank you for doing it twice. Does she feel warm to you?
+  Caller -> Yes. Her forehead is hot. She's wrapped up in a blanket and she says she's cold. But she's hot. You know what I mean.
+  Nurse -> Chills. Okay. Has she had anything for the fever?
+  Caller -> The daughter gave her a Tylenol before she left. At noon. Five hundred milligrams. She wrote it on the fridge. I checked. || A4
+  Nurse -> Okay. Tylenol five hundred at noon. What time is it right now? || A4
+  Caller -> It's, hold on, it's one fifty. Almost two. So a couple hours.
+  Nurse -> Okay. Is she having any trouble breathing? Any shortness of breath?
+  Caller -> No. No. She's breathing okay. She's not panting. She's just coughing. She's sitting in the chair. I'd say she's okay. She's talking. She told me about her garden. || A5
+  Nurse -> Okay. That's reassuring. Is she alert? Does she know where she is?
+  Caller -> Oh yes. She knows. She told me I put the kettle on the wrong burner. She's sharp.
+  Nurse -> Ha. Okay. Is she drinking?
+  Caller -> Hold on, she's calling me. Mrs. Quintanilla? Yes, ma'am. I'm on the phone with the office. No, not about you. Well, about you. Okay. She wants her sweater.
+  Nurse -> Go ahead, get her the sweater. I'll wait.
+  Caller -> Okay. I'm back. She says the house is cold. It's not cold. It's the fever.
+  Nurse -> It's probably the chills from the fever. A light blanket is fine, just not too many layers.
+  Caller -> Okay. I'll take one off after.
+  Caller -> A little. I gave her water. She had half a glass. She doesn't like water. She likes the, the hibiscus tea. I made her some.
+  Nurse -> That's fine. Tea counts. Okay, Yolanda. Here's my plan. I'm going to send a nurse out to see her this afternoon. I'll try for three or four o'clock. || R1
+  Caller -> This afternoon. Okay. Good. I'm here until six.
+  Nurse -> Good. So you'll be there. I'm also going to notify her physician about the cough and the temperature. They'll want to know about the fever. || R2
+  Caller -> Okay. Should I do anything else?
+  Nurse -> Yes. Offer her water, broth or juice in small sips, about every half hour. And let her eat whatever she wants, small amounts. Don't push. || E1
+  Caller -> Small sips. Every half hour. Whatever she wants. Okay. She'll like the broth. The daughter left some in the fridge.
+  Nurse -> Perfect. Warm it up. Not too hot.
+  Caller -> Okay. The microwave's a little weird, it does the thing where the middle is hot and the edges are cold. I'll stir it.
+  Nurse -> Good plan.
+  Nurse -> And Yolanda, this is important. If she has trouble breathing, if her lips look blue, if she gets confused, or if you can't wake her up, call nine one one right away. || E2
+  Caller -> Trouble breathing, blue lips, confused, can't wake her. Nine one one. Okay. Okay. I've got it. I'll write it down. Wait, I need a pen. I have a pen. Okay.
+  Nurse -> Good. I'll call you back within the hour to check on her.
+  Caller -> Within the hour. Okay. On this number. I'll keep it on me. || R3
+  Nurse -> Good. Do you have anything else you want me to pass along?
+  Caller -> Just that I'm sorry I didn't know her name. I only got the call this morning. They said just go.
+  Nurse -> It's okay. It happens. Next time, take a picture of the sheet before you leave. Ha.
+  Caller -> I will. I'll do that. I'll take a picture.
+  Nurse -> Okay. Does she have any allergies you know about?
+  Caller -> I don't. It's not on my sheet. I can ask the daughter if she calls.
+  Nurse -> That's okay. I have it in the chart. I'll tell the nurse.
+  Caller -> Okay. Good.
+  Nurse -> Is the daughter reachable if we need her?
+  Caller -> She said she's at work till five. Her phone's on. She said call anytime. I have the number on the sheet in the car.
+  Nurse -> I have it too. I'll try her if we need to.
+  Caller -> Does she need to stay in the chair? Or should I put her in bed?
+  Nurse -> Whichever is more comfortable. If she sleeps, prop her up on a couple of pillows so the cough isn't as bad lying flat.
+  Caller -> Pillows. Okay. She has the big ones.
+  Caller -> Okay. Thank you, Hector. I feel better having talked to you.
+  Nurse -> You did great, Yolanda. Thanks for calling.
+  Caller -> Bye now.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Quintanilla, heard_form: Quintana, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Aurelia Quintanilla, certainty: unclear, heard_as: [Aurelia Quintana], turns: [4, 8]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Yolanda Prewitt, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: paid caregiver, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550196", certainty: stated, heard_as: [], turns: [12]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that a client had a wet cough, a fever and was eating less.
+    speaker: Caller
+    turns: [14]
+    quote: "So she's coughing. A lot. A wet cough."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She had a wet cough since yesterday with slightly yellow sputum.
+      speaker: Caller
+      turns: [14]
+      quote: "And her daughter said it started yesterday."
+      explanation: Documents the cough.
+      facts:
+        - {type: symptom, name: wet cough, present: true, onset: since yesterday, certainty: stated}
+      covers: [A1]
+    - text: Temperature was 100.4 on a forehead thermometer, then 100.3.
+      speaker: Caller
+      turns: [18]
+      quote: "Hundred point four, and then hundred point three."
+      explanation: Documents the temperature.
+      facts:
+        - {type: vital, name: temperature, value: "100.4", certainty: stated}
+      covers: [A2]
+    - text: She was eating less, with about three bites of oatmeal.
+      speaker: Caller
+      turns: [14]
+      quote: "And she's not eating."
+      explanation: Documents the poor intake.
+      facts:
+        - {type: symptom, name: eating less, present: true, certainty: stated}
+      covers: [A3]
+    - text: Tylenol 500 mg was given by her daughter at noon.
+      speaker: Caller
+      turns: [22]
+      quote: "The daughter gave her a Tylenol before she left. At noon. Five hundred milligrams."
+      explanation: Documents the antipyretic.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, last_dose: noon, med_status: given_previously, certainty: stated}
+      covers: [A4]
+    - text: No shortness of breath was reported.
+      speaker: Caller
+      turns: [26]
+      quote: "She's breathing okay. She's not panting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit this afternoon.
+      speaker: Nurse
+      turns: [36]
+      quote: "I'm going to send a nurse out to see her this afternoon."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1]
+    - text: Planned to notify her physician about the cough and temperature.
+      speaker: Nurse
+      turns: [38]
+      quote: "I'm also going to notify her physician about the cough and the temperature."
+      explanation: Documents the planned physician notification.
+      facts:
+        - {type: action, action_type: physician_notification, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call the aide back within the hour.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'll call you back within the hour to check on her."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised offering water, broth or juice in small sips about every half hour and letting her eat what she wanted in small amounts.
+      speaker: Nurse
+      turns: [40]
+      quote: "Offer her water, broth or juice in small sips, about every half hour."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for trouble breathing, blue lips, confusion or being unable to wake her.
+      speaker: Nurse
+      turns: [45]
+      quote: "call nine one one right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

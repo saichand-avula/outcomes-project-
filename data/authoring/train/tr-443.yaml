@@ -1,0 +1,243 @@
+call_id: tr-443
+split: train
+blueprint: "A wife reads from her husband's pain log during a routine hospice update: Monday was a six, Tuesday a five, and today a two after the Tylenol schedule was changed to five hundred milligrams every six hours. She reads the earlier numbers aloud before giving today's. He sleeps well, no falls. She corrects his birth year mid-sentence. Nurse plans a visit Friday and suggests a warm pack for his back. Routine update with chart-reading distractor numbers, DOB self-correction, spouse caller, v2 short."
+setup:
+  scenario_category: routine
+  subtype: status_update
+  secondary_tags: [chart_reading_distractor, dob_self_corrected, negated_risk_phrase, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [pain, sleep, falls_safety]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-11-27T18:30:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Hollis Brannigan
+  patient_name_spoken: Hollis Brannigan
+  patient_name_certainty: stated
+  patient_dob_true: "1941-02-19"
+  patient_dob_spoken: "1941-02-19"
+  patient_dob_certainty: stated
+  caller_name_true: Mabel Brannigan
+  caller_name_spoken: Mabel Brannigan
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "7135550197"
+  callback_phone_spoken: "7135550197"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Gave a routine update on her husband's back pain and sleep
+  reason_category: pain
+  relevant_context: Hospice patient with back pain managed on a Tylenol schedule
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: back pain
+    symptom_present: true
+    severity: "2"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: every six hours
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleeping well through the night
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Use a warm pack on his lower back for twenty minutes, wrapped in a towel, and change his position often
+    certainty: stated
+  - item_id: E2
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call if his pain goes above a four or the Tylenol stops working
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Marcus.
+  Caller -> Hi, Marcus. It's Mabel Brannigan. B R A N N I G A N. I'm calling about my husband, Hollis. I just want to give you the weekly report. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Mabel. Good to hear from you. Let me open his chart. What's his date of birth?
+  Caller -> You too. I'm sorry I'm calling the day after Thanksgiving. I figured you'd be home.
+  Nurse -> We're always here. How was the holiday?
+  Caller -> Quiet. Just the two of us. And the dog. We had turkey breast and one slice of pie each.
+  Caller -> February nineteenth. Nineteen forty. No, no. Nineteen forty one. He's eighty five. He was born the year after his brother. I always mix that up. || patient_dob
+  Nurse -> Forty one. Got it. And your number?
+  Caller -> Sure. It's still the same cell. I haven't changed it since two thousand ten.
+  Caller -> Seven one three, five five five, zero one nine seven. || callback_phone
+  Nurse -> Perfect. Tell me how he's doing.
+  Caller -> I got a new pen for the log. It writes smoothly. I've been using a bad pen for weeks and my handwriting was awful.
+  Caller -> Better. His back is better. I have the log here. Let me read it to you. Monday was a six. Tuesday was a five. Wednesday was a three. And today, Thursday, he said a two. || A1
+  Nurse -> Okay. So today is a two. That's a nice downward trend.
+  Caller -> Sorry, I tend to read everything on the page. My daughter says I should skip the old days.
+  Nurse -> No, it's helpful to see the trend. Thank you.
+  Caller -> It is. I don't want you to think Monday is today. Monday was bad. Today is good.
+  Nurse -> Got it. Today is a two.
+  Caller -> Yes. The Tylenol schedule you changed on Tuesday. Five hundred milligrams every six hours. It's helping. I give it at six, noon, six and midnight. He took the noon one today. || A2
+  Nurse -> Good. Any other pain medicine?
+  Caller -> The doctor mentioned a patch once. I told him no. Hollis doesn't like being stuck with things.
+  Caller -> No. Just the Tylenol. He doesn't want the strong stuff. He says he's not in that kind of pain. And I agree. He's not wincing. He's not holding his back. It's mostly in the morning when he gets up. || A2
+  Nurse -> That's good. How is he sleeping?
+  Caller -> Wonderful. He went to bed at nine and slept until six. No waking up. I didn't hear a peep. I slept too. First time in a week. || A3
+  Caller -> I put on the white noise machine. The one that sounds like rain. It helps him.
+  Nurse -> That's great news for both of you.
+  Caller -> He snored like a freight train. I never thought I would be happy about snoring.
+  Caller -> I know. I woke up and I felt human.
+  Nurse -> Any falls, or near falls?
+  Caller -> No falls. None. He's using the walker. He hasn't tried to stand without it. He wouldn't dare. I'd yell at him. || A4
+  Nurse -> Ha. Good. And his appetite?
+  Caller -> I've been making him soups. He likes the barley soup. He asks for the barley soup by name.
+  Caller -> Fine. He ate a whole pork chop on Sunday. I almost cried.
+  Nurse -> Ha. A big pork chop.
+  Caller -> It was a thin one. But he ate all of it. And mashed potatoes.
+  Nurse -> That sounds wonderful.
+  Nurse -> Mabel, for his back in the mornings, you could try a warm pack on his lower back for about twenty minutes. Wrap it in a towel, so it's not too hot. And have him change position often. || E1
+  Caller -> A warm pack. We have the rice sock. I heat it in the microwave. Is that okay?
+  Nurse -> A rice sock is perfect. Just test it on your wrist first.
+  Caller -> My mother taught me that. She knitted the sock. It has stripes. Hollis calls it the sausage.
+  Nurse -> Ha. A hot sausage.
+  Caller -> I do. I've burned myself before. Once. Not again.
+  Nurse -> Ha. Learned the hard way.
+  Caller -> Anyway. My point is the rice sock works. It's the best invention since the toaster.
+  Caller -> I learned very hard. Anyway. Thank you.
+  Nurse -> I'll come out Friday for the regular visit. || R1
+  Caller -> Friday. In the afternoon? He's best after lunch.
+  Caller -> I'll make coffee. He likes it when the nurse stays for a cup. It's his only social outing.
+  Nurse -> I'll try for after one.
+  Caller -> Wonderful. Oh, and Marcus, the dog is in the yard. He'll bark. He's friendly.
+  Nurse -> Sounds good. I'll see you then.
+  Nurse -> Ha. I remember him. A big golden.
+  Nurse -> What a sweetheart.
+  Caller -> He sits by Hollis's chair all day. He thinks he's a lap dog. He weighs eighty pounds.
+  Caller -> That's Duke. He loves everyone. He loves you in particular, you smell like a cheeseburger.
+  Nurse -> Ha. I did eat a burger yesterday.
+  Caller -> He sniffed your shoes last time and made a little noise of approval.
+  Caller -> He knows. They always know.
+  Nurse -> Call us if his pain goes above a four, or if the Tylenol stops working for him. || E2
+  Caller -> Above a four. Tylenol stops working. Okay. I'll write it on the log. || A2
+  Caller -> I'll also tell my daughter. She calls every night at seven. She'll want to know.
+  Nurse -> Perfect.
+  Caller -> Thank you. I'll let you go. Happy Thanksgiving weekend.
+  Nurse -> You too, Mabel. Bye.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hollis Brannigan, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-02-19", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Mabel Brannigan, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550197", certainty: stated, heard_as: [], turns: [10]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave a routine update on her husband's back pain and sleep.
+    speaker: Caller
+    turns: [2]
+    quote: "I just want to give you the weekly report."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Back pain today was a two, down from earlier in the week.
+      speaker: Caller
+      turns: [13]
+      quote: "And today, Thursday, he said a two."
+      explanation: Documents the current pain.
+      facts:
+        - {type: symptom, name: back pain, present: true, severity: "2", certainty: stated}
+      covers: [A1]
+    - text: Tylenol 500 mg every six hours was given on schedule, with the noon dose taken today.
+      speaker: Caller
+      turns: [19]
+      quote: "Five hundred milligrams every six hours."
+      explanation: Documents the scheduled medicine.
+      facts:
+        - {type: medication, name: Tylenol, dose: "500", unit: mg, frequency: every six hours, prn: false, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He slept well from nine to six without waking.
+      speaker: Caller
+      turns: [24]
+      quote: "He went to bed at nine and slept until six."
+      explanation: Documents the sleep.
+      facts:
+        - {type: symptom, name: sleeping well through the night, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had no falls and used the walker.
+      speaker: Caller
+      turns: [30]
+      quote: "No falls. None."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit Friday.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'll come out Friday for the regular visit."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised a warm pack on his lower back for twenty minutes wrapped in a towel and changing position often.
+      speaker: Nurse
+      turns: [37]
+      quote: "you could try a warm pack on his lower back"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if his pain went above a four or the Tylenol stopped working.
+      speaker: Nurse
+      turns: [59]
+      quote: "Call us if his pain goes above a four"
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E2]
+  risk_flags: []

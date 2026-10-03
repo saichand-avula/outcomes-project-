@@ -1,0 +1,217 @@
+call_id: tr-085
+split: train
+blueprint: "52-year-old with a leg ulcer says the pain 'is killing me, I'm dying here, ha, not literally' (figurative) at 6/10; no fever, little drainage. Nurse plans a visit tomorrow and a message to the wound nurse, and teaches elevation and dressing care. No flags: figurative language and pain below 7."
+setup:
+  scenario_category: routine
+  subtype: wound_symptom_update
+  secondary_tags: [figurative_risk_language, negated_risk_phrase, trap_phrasing, phone_from_file, late_answers]
+  clinical_domains: [wound_skin, pain]
+  relationship_group: self
+  na_reason: null
+  agency_name: Oakhaven Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-14T20:40:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Garrett Holloway
+  patient_name_spoken: Garrett Holloway
+  patient_name_certainty: stated
+  patient_dob_true: "1974-02-20"
+  patient_dob_spoken: "1974-02-20"
+  patient_dob_certainty: stated
+  caller_name_true: Garrett Holloway
+  caller_name_spoken: Garrett Holloway
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4045550166"
+  callback_phone_spoken: "4045550166"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported increased pain at a leg ulcer
+  reason_category: wound_skin
+  relevant_context: Has a venous ulcer on the right shin under compression wraps
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: leg ulcer pain
+    symptom_present: true
+    severity: 6/10
+    body_location: right shin
+    onset_or_duration: worse over the past 2 days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: wound drainage
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: spreading redness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: change the wrap and assess the ulcer
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wound nurse
+    reason_or_trigger: increased pain and drainage
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise the leg above the heart on pillows when sitting or lying down
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, spreading redness, a bad smell, or pain that climbs above 8
+    trigger_condition: fever; spreading redness; bad smell; pain above 8
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Oakhaven Home Health, this is Marcus.
+  Caller -> Hey, Marcus. It's Garrett Holloway. Calling about my leg. Again. Ha. || patient_name, caller_name, relationship
+  Nurse -> Hi, Garrett. Your date of birth?
+  Caller -> February twentieth, nineteen seventy four. || patient_dob
+  Nurse -> And I've got four oh four, five five five, zero one six six. || callback_phone
+  Caller -> Yep. That's me. || callback_phone
+  Nurse -> What's going on with the leg?
+  Caller -> It hurts. The ulcer. It's really, honestly, it's killing me. I'm dying here. Not literally, ha. But it's bad. || cc, A1
+  Nurse -> Okay. Where's the pain, on the zero to ten?
+  Caller -> I'd say a six. It's a six. Right on the shin. The right one. It's been getting worse the last two days. || A1
+  Nurse -> Okay. And the drainage?
+  Caller -> There's some. More than before. It's coming through the wrap a little. || A2
+  Nurse -> Any fever?
+  Caller -> No. No fever. || A3
+  Nurse -> Any redness spreading up your leg?
+  Caller -> No. It's just around the sore. It's not going up or anything. || A4
+  Nurse -> Alright. I'd like a nurse to see you tomorrow and change the wrap and take a look at it. || R1
+  Caller -> Okay. Yeah. That'd be good.
+  Nurse -> I'll also message our wound nurse today about the pain and the extra drainage. || R2
+  Caller -> Okay.
+  Nurse -> In the meantime, keep that leg up. Above your heart, on pillows, when you're sitting or lying down. || E1
+  Caller -> Above my heart. Okay. I'll prop it up.
+  Nurse -> And call us if you get a fever, if the redness starts spreading, if it smells bad, or if the pain goes above an eight. || E2
+  Caller -> Okay. Fever, redness, smell, eight. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Marcus. Sorry for the drama.
+  Nurse -> No drama. See you tomorrow.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Garrett Holloway, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1974-02-20", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Garrett Holloway, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4045550166", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported increased pain at a leg ulcer.
+    speaker: Caller
+    turns: [8]
+    quote: "It hurts. The ulcer."
+    explanation: Documents the symptom prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Pain at the right shin ulcer was rated 6/10 and had worsened over 2 days.
+      speaker: Caller
+      turns: [10]
+      quote: "I'd say a six. It's a six. Right on the shin. The right one. It's been getting worse the last two days."
+      explanation: Documents pain severity and trend.
+      facts:
+        - {type: symptom, name: leg ulcer pain, present: true, severity: 6/10, location: right shin, duration: worse over the past 2 days, certainty: stated}
+      covers: [A1]
+    - text: Drainage was increased and coming through the wrap.
+      speaker: Caller
+      turns: [12]
+      quote: "There's some. More than before. It's coming through the wrap a little."
+      explanation: Documents wound drainage.
+      facts:
+        - {type: symptom, name: wound drainage, present: true, certainty: stated}
+      covers: [A2]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "No. No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+    - text: Redness was only around the sore and was not spreading.
+      speaker: Caller
+      turns: [16]
+      quote: "It's just around the sore. It's not going up or anything."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: spreading redness, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned a nurse visit tomorrow to change the wrap and assess the ulcer.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'd like a nurse to see you tomorrow and change the wrap and take a look at it."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the wound nurse about the pain and extra drainage.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll also message our wound nurse today about the pain and the extra drainage."
+      explanation: Documents the planned team message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping the leg above the heart on pillows when sitting or lying down.
+      speaker: Nurse
+      turns: [21]
+      quote: "keep that leg up. Above your heart, on pillows, when you're sitting or lying down."
+      explanation: Documents comfort and edema guidance.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for fever, spreading redness, a bad smell, or pain above 8.
+      speaker: Nurse
+      turns: [23]
+      quote: "call us if you get a fever, if the redness starts spreading, if it smells bad, or if the pain goes above an eight."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

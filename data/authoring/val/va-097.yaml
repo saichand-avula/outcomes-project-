@@ -1,0 +1,276 @@
+call_id: va-097
+split: val
+blueprint: "An evening aide at an assisted living facility, Bernadette Whitcombe-Park, calls about a resident who had a bad cough and a low oxygen reading, but two residents share a similar name and she is unsure which one is on the agency's list: Mr. Albert Kessler or Mr. Albert Kessling. She checks the door sign, the wristband and the chart and settles on Kessling after going back and forth, but the date of birth she reads from the chart is not clearly legible. Oxygen is ninety one, he has a wet cough, no fever. Nurse pages on-call and plans a visit. Unresolved name between two residents, facility staff caller, ambiguous, medium, v2."
+setup:
+  scenario_category: ambiguous
+  subtype: similar_names_two_residents
+  secondary_tags: [facility_staff, name_drift, identity_unresolved, hedging, late_answers, split_turns]
+  clinical_domains: [respiratory, fever]
+  relationship_group: facility_staff
+  na_reason: null
+  agency_name: Magnolia Home Health
+  agency_type: home_health
+  nurse_name: Teodora
+  call_timestamp_utc: "2026-12-18T23:10:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Albert Kessling
+  patient_name_spoken: Albert Kessling
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Albert Kessler]
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Bernadette Whitcombe-Park
+  caller_name_spoken: Bernadette Whitcombe-Park
+  caller_name_certainty: stated
+  relationship_to_patient: facility staff
+  relationship_certainty: stated
+  callback_phone_true: "5055550129"
+  callback_phone_spoken: "5055550129"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported a resident with a wet cough and a low oxygen reading
+  reason_category: cough_uri
+  relevant_context: Assisted living resident; two residents have similar names
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: wet cough
+    symptom_present: true
+    severity: moderate
+    onset: since this afternoon
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "91%"
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or chest pain
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: context
+    reporter: caller
+    history_or_context_text: Two residents have similar names, Kessling and Kessler, and the aide settled on Kessling after checking the door sign and wristband
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Sit him upright, recheck oxygen every thirty minutes and write it down, and confirm his identity by the wristband before giving anything
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if the oxygen is under 88, he is struggling to breathe, his lips turn blue or he becomes confused
+    trigger_condition: oxygen under 88; struggling to breathe; blue lips; confusion
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Magnolia Home Health, this is Teodora.
+  Caller -> Hi, Teodora. This is Bernadette Whitcombe-Park. I'm the evening aide at Sunset Terrace Assisted Living. I'm calling about one of our residents. Albert Kessling. Or Albert Kessler. I'm checking. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Bernadette. Which is it?
+  Caller -> I wish I knew. I've been here three years and this is the first time I've had to ask.
+  Nurse -> It's a good thing you're asking. Go on.
+  Caller -> Okay. So we have two. Albert Kessler is in room twelve. Albert Kessling is in room fourteen. They're both Albert. Both ninety something. They look alike. They've been mixed up before. And I'm not sure which one is yours.
+  Nurse -> Okay. That sounds tricky. Let me ask what you're seeing first. Then we'll sort out the name.
+  Caller -> Um. Let me think. I'm trying to remember.
+  Nurse -> Take your time, there's no rush.
+  Caller -> Okay. Good. He's got a wet cough. Since this afternoon. A rattly cough. Wet. And he sounds congested. || A1
+  Nurse -> Did it start suddenly, or did it build over time?
+  Caller -> Afternoon. After lunch. He coughed through dinner. Our day aide said he'd been clearing his throat all morning.
+  Nurse -> So it built during the day.
+  Nurse -> Is he short of breath?
+  Caller -> A little. Not terrible. I put the oxygen clip on him. It says ninety one. Ninety one percent. || A2
+  Caller -> The clip is the kind you put on the finger. It shows a number and a pulse. The pulse is steady.
+  Nurse -> Good.
+  Nurse -> What does he usually run?
+  Caller -> Wait, say that again? I missed the first part.
+  Nurse -> Of course. Let me say it slower.
+  Caller -> I think ninety five or six. It's in the book. I don't have the book. It's at the desk. I'm in the room.
+  Nurse -> Okay. Any fever?
+  Caller -> I took it. It's normal. Ninety eight something. No fever. And no chest pain. He says no. He's pretty clear. || A3
+  Nurse -> Is he sitting up?
+  Caller -> In his chair. I propped him up with pillows. He's coughing and he brings up a little white stuff. He looks tired.
+  Nurse -> Is he able to speak in full sentences?
+  Caller -> Yes. He told me his granddaughter's name and what he ate for lunch. He's clear.
+  Nurse -> Okay. Now, which resident is he? Albert Kessler or Albert Kessling?
+  Caller -> I'm in his room. The door says Kessling on the card. But the wristband says, hold on, K E S S, I can't read it. The print is tiny. I need my glasses. I left them at the desk. Hold on.
+  Nurse -> Take your time.
+  Caller -> Let me grab my glasses, one second.
+  Nurse -> Sure, I'll wait.
+  Caller -> Okay. I have them. It says K E S S L E R. Kessler. No wait. The band says Kessler. The door card says Kessling. I'm in room fourteen. That's Kessling's room. But the band says Kessler. Maybe they switched bands? Or maybe I'm in the wrong room?
+  Nurse -> Does the room have a bed name tag, or a personal item with his name? A photo?
+  Caller -> A photo on the nightstand. A man in a Navy uniform. And the name Albert on the frame.
+  Nurse -> Albert. That fits both.
+  Caller -> Ha. Yes. That doesn't help.
+  Nurse -> Okay, Bernadette. That's important. Let's slow down. Is there a chart nearby? A medicine sheet?
+  Caller -> I have the med sheet clipboard. It says Kessling on top. K E S S L I N G. Albert. And a date of birth. It's smudged. It says nineteen, I think, thirty one? Thirty seven? I can't tell. It's blurry.
+  Nurse -> That's fine. Don't worry about the date. We'll get it from our system.
+  Caller -> I'm sorry. It's the copy machine. It makes everything gray.
+  Nurse -> So the sheet says Kessling. The door says Kessling. The band says Kessler.
+  Caller -> Yes. Two of three. I think it's Kessling. I think the band got swapped. It's happened. || A4
+  Nurse -> That's a safety concern in itself. Please don't give any medicine or oxygen changes based on the band. Verify by the face and the other residents' staff. Is there another aide who knows him?
+  Caller -> Phyllis. She's been here twenty years. She's on break. I'll get her.
+  Nurse -> Please do. While you do, I'm going to page the on-call clinician about the oxygen and the cough. I'll ask them to confirm which resident we have. || R1
+  Caller -> Okay. Okay. That's good. Thank you. Phyllis! Phyllis, can you come to fourteen? I need you to ID someone.
+  Nurse -> Take your time.
+  Caller -> Sorry, I'm writing this down as we go.
+  Nurse -> Good idea. I'll pause.
+  Caller -> Phyllis says, it's Kessling. She says Albert Kessling has the ring on his left hand with the blue stone. And he's got the hearing aids. Kessler doesn't. This one has the ring and hearing aids. So it's Kessling. She's sure.
+  Nurse -> Does Phyllis know which Albert is on our service, the one who sees our nurse on Thursdays?
+  Caller -> She says Kessling gets the visiting nurse. Kessler goes to the clinic.
+  Nurse -> That matches. Thank you, Phyllis.
+  Nurse -> Good. That's reassuring. Please fix the wristband tonight, and chart the swap.
+  Caller -> I will. I'll get a new band from the nurse. I'll write it all down.
+  Caller -> I'll also tell the day shift to put a name sticker on each door in big print.
+  Nurse -> That would help a lot.
+  Nurse -> Do you have his date of birth from a reliable source?
+  Caller -> The face sheet. Hold on, Phyllis has it. It says, no, it's the other resident's face sheet. I'm getting confused. I'll have to call you back with the date. The sheets are in the office and the office is locked.
+  Nurse -> That's okay. We'll get it from our own records. What's a good callback number?
+  Caller -> Five oh five, five five five, zero one two nine. That's the unit phone. || callback_phone
+  Nurse -> Got it. I'm going to send a nurse out tonight to look at him. || R2
+  Caller -> Tonight. Oh thank goodness. Thank you.
+  Nurse -> Meanwhile, keep him sitting upright. Check his oxygen every thirty minutes and write it down. And before anyone gives him anything, check his face against his photo on the chart, not just the wristband. || E1
+  Caller -> Upright. Oxygen every thirty minutes. Check the photo. Okay. I'll tell the other aides.
+  Nurse -> Call nine one one if his oxygen drops below eighty eight, if he's struggling to breathe, if his lips turn blue, or he becomes confused. || E2
+  Caller -> Under eighty eight. Struggling. Blue lips. Confused. Nine one one. I'm writing it on the whiteboard.
+  Nurse -> Good. Is there oxygen available in the building?
+  Caller -> Yes. A concentrator in the med room. We use it for emergencies. I'll wheel it in.
+  Nurse -> Don't start it until the clinician says so. I'll have them call within fifteen minutes.
+  Caller -> Okay. I'm back. What was the question?
+  Nurse -> I'll repeat it, no trouble.
+  Caller -> Okay. I won't. I'll wait for the call.
+  Caller -> I'm going to make him some warm tea with honey, if that's okay? His throat sounds scratchy.
+  Nurse -> Small sips are fine if he's sitting up and swallowing well.
+  Nurse -> Thank you, Bernadette. You did well to double check.
+  Caller -> It's scary. We had a med error last year because of exactly this. Two Alberts.
+  Nurse -> I'm sorry that happened. Is the facility doing anything about the name alerts?
+  Caller -> They put red stickers on both charts. But the stickers peel. I peeled one off just now, by accident.
+  Nurse -> Ha. Stickers are a common weak point, and that is a good reason to check twice.
+  Nurse -> It happens. That's why we double check.
+  Caller -> I'm going to write a note to the director. This needs to change. They should be on different floors.
+  Nurse -> That sounds like a good idea.
+  Caller -> I'll go check on him. He's coughing. Thank you.
+  Nurse -> Good luck. Call back if anything changes.
+  Caller -> Will do. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Kessling, heard_form: Kessler, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Albert Kessling, certainty: unclear, heard_as: [Albert Kessler], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Bernadette Whitcombe-Park, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: facility staff, certainty: stated, turns: [2]}
+    callback_phone: {value: "5055550129", certainty: stated, heard_as: [], turns: [62]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported a resident with a wet cough and a low oxygen reading.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling about one of our residents."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He had a wet rattly cough since this afternoon with congestion.
+      speaker: Caller
+      turns: [10]
+      quote: "He's got a wet cough."
+      explanation: Documents the cough.
+      facts:
+        - {type: symptom, name: wet cough, present: true, severity: moderate, onset: since this afternoon, certainty: stated}
+      covers: [A1]
+    - text: Oxygen saturation was 91 percent.
+      speaker: Caller
+      turns: [15]
+      quote: "Ninety one percent."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "91%", certainty: stated}
+      covers: [A2]
+    - text: He had no fever or chest pain.
+      speaker: Caller
+      turns: [23]
+      quote: "No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or chest pain, certainty: stated}
+      covers: [A3]
+    - text: (unclear) Two residents have similar names, and the aide settled on Kessling after the door sign, med sheet and an experienced aide agreed, though the wristband said Kessler.
+      speaker: Caller
+      turns: [43]
+      quote: "I think the band got swapped."
+      explanation: Documents the identity uncertainty.
+      facts:
+        - {type: context, text: Two residents have similar names, Kessling and Kessler, and the aide settled on Kessling after checking the door sign and wristband, certainty: unclear}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician about the oxygen and cough.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm going to page the on-call clinician about the oxygen and the cough."
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tonight.
+      speaker: Nurse
+      turns: [63]
+      quote: "I'm going to send a nurse out tonight to look at him."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping him upright, rechecking oxygen every thirty minutes, and verifying identity beyond the wristband.
+      speaker: Nurse
+      turns: [65]
+      quote: "keep him sitting upright."
+      explanation: Documents symptom monitoring.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 if oxygen drops below 88, he struggles to breathe, his lips turn blue, or he becomes confused.
+      speaker: Nurse
+      turns: [67]
+      quote: "Call nine one one if his oxygen drops below eighty eight"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

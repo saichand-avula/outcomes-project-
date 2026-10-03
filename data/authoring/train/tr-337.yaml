@@ -1,0 +1,301 @@
+call_id: tr-337
+split: train
+blueprint: "A husband on a bad cell connection reads his wife's daily numbers to the nurse: weight 'to eleven' (two eleven) which is four pounds up from Sunday, blood pressure 'won thirty ate over eighty too' (138 over 82), pulse 'ninety for' (94). Ankle swelling is a little worse and she is a bit more short of breath on the stairs. The nurse reads each number back and he confirms. Heart failure. Number garbles on vitals, name spelled, spouse caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: number_garble
+  secondary_tags: [name_spelled, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [edema, dyspnea, blood_pressure, cardiac]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Quiet Pines Hospice
+  agency_type: hospice
+  nurse_name: Tamsin
+  call_timestamp_utc: "2026-10-24T15:45:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 3
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Philomena Okeke
+  patient_name_spoken: Philomena Okeke
+  patient_name_certainty: stated
+  patient_dob_true: "1951-03-05"
+  patient_dob_spoken: "1951-03-05"
+  patient_dob_certainty: stated
+  caller_name_true: Obinna Okeke
+  caller_name_spoken: Obinna Okeke
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "6025550160"
+  callback_phone_spoken: "6025550160"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported daily weight, blood pressure and pulse readings with more swelling and breathlessness
+  reason_category: edema
+  relevant_context: Hospice patient with heart failure
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: weight
+    vital_value: "211"
+    vital_unit: pounds
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: "138/82"
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "94"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling
+    symptom_present: true
+    severity: a little worse
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: more short of breath on the stairs
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: weight up four pounds with more swelling and breathlessness
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Keep weighing her every morning at the same time and write the numbers down for the visit
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep her feet up on a stool or pillows and limit the stairs to what she really needs
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain or trouble breathing at rest, and call back if she cannot lie flat or the weight keeps rising
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Quiet Pines Hospice, this is Tamsin.
+  Caller -> Hello? Hello, Tamsin? It's Obinna. O B I N N A. Obinna Okeke. I'm calling about my wife. Philomena Okeke. || caller_name, relationship, patient_name
+  Nurse -> Okay. And can you spell Okeke for me, just to be sure?
+  Caller -> O K E K E. Okeke. It's a Nigerian name. Igbo. People often say Okee-key.
+  Nurse -> Okeke. Got it.
+  Nurse -> Hi, Mr. Okeke. I can hear you, but it's a little choppy. Let me get Philomena's chart. What's her birth date?
+  Caller -> March fifth. Nineteen fifty one. || patient_dob
+  Nurse -> Got it. And your number?
+  Caller -> Six oh two, five five five, zero one six zero. Can you hear me? It keeps cutting out.
+  Nurse -> I got most of it. Six oh two, five five five, zero one six zero? || callback_phone
+  Caller -> Yes. That's it. That's my cell.
+  Nurse -> Great. You said you had her numbers for the day?
+  Caller -> I do. I wrote them down like the nurse said. Her weight this morning is to eleven. To eleven. || cc, callback_phone
+  Nurse -> Sorry, the line cut out. Did you say two eleven?
+  Caller -> Two eleven. Yes. Two hundred eleven. And on Sunday she was two oh seven. So that's up four. || A1
+  Nurse -> Okay. Two eleven, up from two oh seven. Thank you. What about her blood pressure?
+  Nurse -> Does she weigh herself, or do you help?
+  Caller -> She stands on the scale and I read it. She can't see the numbers without her glasses. She holds the sink. I hold her elbow.
+  Nurse -> Perfect. That's safe.
+  Caller -> It was won thirty ate over eighty too. Won thirty ate. || A2
+  Nurse -> One thirty eight over eighty two?
+  Caller -> One thirty eight over eighty two. Right. That's what it said on the machine. I took it twice. It was the same.
+  Nurse -> What kind of cuff do you use? Wrist or arm?
+  Caller -> The arm. With the Velcro. It goes on the left. Her right arm has the old fistula.
+  Nurse -> Okay. Good. Use the left arm.
+  Nurse -> Okay. And the pulse?
+  Caller -> Ninety for. Ninety for. That's a little fast for her. She's usually in the seventies. || A3
+  Nurse -> Ninety four? Is that right?
+  Caller -> Ninety four. Yes.
+  Nurse -> Okay. Thank you for the numbers. Now tell me how she's feeling. Any swelling?
+  Caller -> Her ankles. They're more swollen than Sunday. A little more. I pushed on them and it leaves a dent. It was less before. It's up to the middle of her shin now. || A4
+  Nurse -> Is the swelling in both legs or one?
+  Caller -> Both. The left is a bit more. Same as always.
+  Nurse -> Okay. Any redness, warmth, or pain in the legs?
+  Caller -> No pain. No red. They're tight. Shiny. She says they feel heavy.
+  Nurse -> Okay. That fits fluid.
+  Nurse -> Okay. And her breathing?
+  Caller -> She's a bit more short of breath. When she goes up the stairs. She stops halfway. She gets winded. It's the stairs to the bedroom. She stops and holds the rail. She didn't do that last week. || A5
+  Nurse -> Does she need to rest for long?
+  Caller -> A minute. A minute and she goes on. She says she's fine. I can see her chest going up and down.
+  Nurse -> Okay. I'll let the nurse know that.
+  Nurse -> Okay. Is she short of breath sitting still?
+  Caller -> No. No. Sitting she's fine. She's in the chair watching television. She's breathing normal. Just the stairs.
+  Nurse -> And chest pain? Any?
+  Caller -> No chest pain. She would tell me. She tells me everything. She'd complain about it.
+  Nurse -> Ha. Okay. Can she lie flat at night?
+  Caller -> She has two pillows. Same as usual. She sleeps okay.
+  Nurse -> And how's her appetite? Her salt intake?
+  Caller -> She eats okay. I'm trying to cut the salt. She loves her fried plantains and the soup. I've been making the soup without salt. She says it tastes like water.
+  Nurse -> Ha. Keep trying. Spices help.
+  Nurse -> Good. Mr. Okeke, I'm going to message the hospice provider this afternoon about the weight gain, the swelling and the stairs. They may want to adjust her water pill. || R1
+  Caller -> Okay. That sounds right. The nurse said call if the weight goes up two pounds. It's up four.
+  Nurse -> You did exactly the right thing. I'm also sending a nurse out tomorrow to examine her. || R2
+  Caller -> Tomorrow. Good. Thank you.
+  Nurse -> And I'll call you this evening with the provider's answer. || R3
+  Caller -> This evening. I'll be home. Where does the signal work? I'll stand by the window.
+  Caller -> I put the phone on the windowsill. I'll watch it like a hawk.
+  Nurse -> Good idea. Keep weighing her every morning, same time, and write it down for the nurse. || E1
+  Caller -> Every morning. I write on the calendar. It's on the refrigerator.
+  Nurse -> Perfect. Also, have her put her feet up on a stool or pillows when she's sitting. And try to limit the stairs to what she really needs. || E2
+  Caller -> Feet up. Fewer stairs. Okay. She sleeps downstairs. I'll make her a bed in the den. She wants her own bed. She's stubborn.
+  Nurse -> Ha. A little stubbornness is healthy.
+  Caller -> After fifty three years I know it well.
+  Nurse -> It's worth it for a few days. And call nine one one for chest pain or trouble breathing even when she's sitting still. Call us back if she can't lie flat or the weight keeps going up. || E3
+  Caller -> Chest pain. Breathing at rest. Nine one one. Can't lie flat or weight up, call. Okay. I'll watch.
+  Nurse -> Good. Anything else?
+  Caller -> No. Thank you. I'm sorry about the connection. I'm on my daughter's old phone.
+  Nurse -> You did great. Talk soon.
+  Caller -> Goodbye.
+noise_events:
+  - {turn: auto, type: number_garble, true_form: "two eleven", heard_form: "to eleven", fact_id: A1}
+  - {turn: auto, type: number_garble, true_form: "one thirty eight over eighty two", heard_form: "won thirty ate over eighty too", fact_id: A2}
+  - {turn: auto, type: number_garble, true_form: "ninety four", heard_form: "ninety for", fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Philomena Okeke, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1951-03-05", certainty: stated, heard_as: [], turns: [7]}
+    caller_name: {value: Obinna Okeke, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "6025550160", certainty: stated, heard_as: [], turns: [10, 13]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported daily weight, blood pressure and pulse readings with more swelling and breathlessness.
+    speaker: Caller
+    turns: [13]
+    quote: "I wrote them down like the nurse said."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Weight was 211 pounds, up four pounds from 207 on Sunday.
+      speaker: Caller
+      turns: [15]
+      quote: "Two eleven. Yes. Two hundred eleven."
+      explanation: Documents the weight.
+      facts:
+        - {type: vital, name: weight, value: "211", unit: pounds, certainty: stated}
+      covers: [A1]
+    - text: Blood pressure was 138/82 on two readings.
+      speaker: Caller
+      turns: [22]
+      quote: "One thirty eight over eighty two."
+      explanation: Documents the blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: "138/82", certainty: stated}
+      covers: [A2]
+    - text: Pulse was 94, faster than her usual seventies.
+      speaker: Caller
+      turns: [29]
+      quote: "Ninety four. Yes."
+      explanation: Documents the pulse.
+      facts:
+        - {type: vital, name: pulse, value: "94", certainty: stated}
+      covers: [A3]
+    - text: Ankle swelling was a little worse and pitting up to the middle of the shin.
+      speaker: Caller
+      turns: [31]
+      quote: "Her ankles. They're more swollen than Sunday."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, severity: a little worse, certainty: stated}
+      covers: [A4]
+    - text: She was more short of breath on the stairs, stopping halfway.
+      speaker: Caller
+      turns: [38]
+      quote: "She's a bit more short of breath. When she goes up the stairs."
+      explanation: Documents the breathlessness.
+      facts:
+        - {type: symptom, name: more short of breath on the stairs, present: true, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the hospice provider about the weight gain, swelling and stairs.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm going to message the hospice provider this afternoon about the weight gain"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [53]
+      quote: "I'm also sending a nurse out tomorrow to examine her."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with the provider's answer.
+      speaker: Nurse
+      turns: [55]
+      quote: "I'll call you this evening with the provider's answer."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised weighing her every morning at the same time and writing the numbers down.
+      speaker: Nurse
+      turns: [58]
+      quote: "Keep weighing her every morning, same time, and write it down for the nurse."
+      explanation: Documents weight monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping her feet up on a stool or pillows and limiting the stairs.
+      speaker: Nurse
+      turns: [60]
+      quote: "have her put her feet up on a stool or pillows when she's sitting."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for chest pain or trouble breathing at rest, and calling back if she could not lie flat or the weight kept rising.
+      speaker: Nurse
+      turns: [64]
+      quote: "call nine one one for chest pain or trouble breathing even when she's sitting still."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

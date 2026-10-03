@@ -1,0 +1,431 @@
+call_id: va-080
+split: val
+blueprint: "A wife, Ingrid Vandenberg, calls the hospice line near midnight because her husband Cornelis, who has end-stage heart failure, is no longer waking, has long pauses in his breathing, a wet rattling sound, and mottled knees. He has a DNR and the family wants him kept comfortable at home. Nurse coaches her through giving sublingual morphine and atropine drops during the call, explains what is happening, pages on-call, sends a nurse within the hour, and offers the social worker and chaplain. Active dying, spouse caller, breathing concern flag, medications given during the call, long, v2."
+setup:
+  scenario_category: high_risk
+  subtype: active_dying_comfort_care
+  secondary_tags: [spouse, breathing_concern, given_during_call, end_of_life, split_turns, late_answers]
+  clinical_domains: [dyspnea, end_of_life_changes, medication, comfort]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Octavia
+  call_timestamp_utc: "2026-12-11T05:20:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Cornelis Vandenberg
+  patient_name_spoken: Cornelis Vandenberg
+  patient_name_certainty: stated
+  patient_dob_true: "1938-03-11"
+  patient_dob_spoken: "1938-03-11"
+  patient_dob_certainty: stated
+  caller_name_true: Ingrid Vandenberg
+  caller_name_spoken: Ingrid Vandenberg
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "9185550163"
+  callback_phone_spoken: "9185550163"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband is no longer waking and has long pauses in his breathing and a wet rattle
+  reason_category: end_of_life_changes
+  relevant_context: Hospice patient with end-stage heart failure and a DNR order
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: long pauses in breathing
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: wet rattling breathing
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: unresponsive to voice
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: mottled knees and cool feet
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: given_during_call
+    dose: "5"
+    unit: mg
+    frequency: every two hours as needed
+    prn: true
+    last_dose: given during this call
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: atropine
+    medication_name_spoken: atropine
+    medication_status: given_during_call
+    dose: "2"
+    unit: drops
+    frequency: every four hours as needed
+    prn: true
+    last_dose: given during this call
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: grimacing or moaning
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has a DNR order and the family wants him kept comfortable at home
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker and chaplain
+    timeframe: in the morning
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Give the morphine and the atropine drops under the tongue, a little at a time, and write down the time of each
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise his head on pillows, turn him gently to one side, moisten his mouth and lips, and keep talking to him because hearing is the last sense to go
+    certainty: stated
+  - item_id: E3
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: The pauses, the rattle and the mottling are expected changes at this stage and do not mean he is suffering
+    certainty: stated
+  - item_id: E4
+    education_type: callback_invitation
+    speaker: nurse
+    instruction_content: Call back any time tonight and the nurse will stay with her until the visiting nurse arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Long pauses in breathing with a wet rattle in a hospice patient who is no longer waking
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Octavia.
+  Caller -> Octavia, it's Ingrid Vandenberg. My husband is Cornelis Vandenberg. I think this is it. I think he's dying. His breathing is different. It stops for a long time and then it starts again. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Ingrid, I'm here with you. Take a breath. I'm going to help you through this. Where is Cornelis right now?
+  Caller -> I'm trying. I'm so sorry. I don't know why I'm apologizing.
+  Nurse -> You don't need to. This is a lot. Go slowly.
+  Caller -> He's in the hospital bed. In the living room. I'm sitting next to him. I'm holding his hand.
+  Nurse -> Good. Is anyone else in the house?
+  Caller -> No. Just me. My son is on his way. He's driving from Tulsa. He'll be here in about forty minutes.
+  Nurse -> Okay. Tell me what you're seeing. The breathing first.
+  Caller -> It's, he takes a few breaths, loud ones, deep, and then he stops. For a long time. I count. It's twenty seconds. Twenty five. I think he's gone, and then he takes another one. It's awful. || A1
+  Nurse -> That pattern is called Cheyne-Stokes. It's common near the end of life. It's frightening to watch, but he isn't struggling.
+  Caller -> I read the booklet you gave us. It said this might happen. But reading is different from seeing.
+  Nurse -> It is very different. I'm here.
+  Caller -> Is he in pain? He doesn't look like he's in pain. His face is smooth. He's not moaning. || A7
+  Nurse -> It sounds like he's comfortable. Is there any sound when he breathes?
+  Caller -> Yes. A wet sound. Like a rattle. Like gurgling in the back of his throat. It's been going on for an hour. It's getting louder. || A2
+  Nurse -> That's the secretions that gather in the throat. He can't clear them anymore. It sounds worse than it feels to him. We have medicine for that in the comfort kit.
+  Caller -> The kit. The box in the refrigerator.
+  Nurse -> Yes. Can you bring it to him?
+  Caller -> I'll get it. Hold on. I have to let go of his hand. Don't hang up.
+  Nurse -> I'll be right here.
+  Caller -> Okay. I'm in the kitchen. I have the box. I'm going back.
+  Nurse -> Good. Ingrid, is he waking up at all? Does he respond to your voice?
+  Nurse -> When did he last eat or drink anything?
+  Caller -> Yesterday morning. A few spoonfuls of applesauce. Nothing since, not even water.
+  Nurse -> That's expected too. He isn't hungry or thirsty now.
+  Caller -> He hasn't opened his eyes since this afternoon. He doesn't squeeze my hand. I said his name just now and nothing. || A3
+  Nurse -> Okay. Have you looked at his legs and feet? What color are they?
+  Caller -> I lifted the blanket. His knees are blotchy. Purple and white, like marble. His feet are cold. Cold and a little bluish. || A4
+  Nurse -> Those changes are normal at this stage. The body is slowing down. Ingrid, does he have a DNR?
+  Caller -> Yes. It's on the refrigerator. We signed it months ago. We don't want the ambulance. He told me. He wants to be home. He said, Ingrid, no machines. || A8
+  Nurse -> Then you're doing exactly what he asked. Let me ask for his date of birth to be sure I have the right chart.
+  Caller -> I keep wondering if I should call the ambulance anyway. Just in case.
+  Nurse -> I understand the urge. He asked for comfort at home, and that's what we're giving him. If you ever want to talk about that, I'm here.
+  Caller -> No. I know what he wanted.
+  Caller -> March eleventh, nineteen thirty eight. || patient_dob
+  Nurse -> And your number, in case we get cut off?
+  Caller -> Nine one eight, five five five, zero one six three. || callback_phone
+  Nurse -> Got it. Now let's give him the medicine. Open the comfort kit. Do you see a small bottle of morphine with an oral syringe? || A5
+  Caller -> Yes. It says morphine concentrate. And there's a syringe. It's in a bag. || A5
+  Nurse -> The order is five milligrams every two hours as needed. That's a quarter of a milliliter on the syringe. Draw it up to the first mark, the quarter mark.
+  Caller -> Okay. I'm drawing it. It's, I'm shaking. Okay. It's at the line.
+  Nurse -> Perfect. Now lift his upper lip a little and squirt it slowly in the pocket under his tongue, or between his cheek and gum. A little at a time. || E1
+  Caller -> Under the tongue. Okay. His mouth is open. I'm doing it. Slowly. A little. Okay. A little more. That's all of it.
+  Nurse -> Beautiful. That's five milligrams of morphine. It will ease any air hunger and keep him comfortable. || A5
+  Nurse -> Take a moment. Watch his face.
+  Caller -> His forehead is smooth. His jaw is relaxed. He looks like he does when he's napping.
+  Nurse -> That's what we hope to see.
+  Caller -> Okay. Okay. Should I write the time?
+  Nurse -> Yes. What time is it?
+  Caller -> Five twenty. No, five twenty three.
+  Nurse -> Write five twenty three. Morphine, five milligrams. Now, the other bottle. Do you see small drops? It says atropine. || A5, A6
+  Caller -> Yes. A little white bottle with a dropper. Atropine. One percent. || A6
+  Nurse -> Give him two drops under the tongue. Tip his head back just a little first.
+  Caller -> Two drops. Okay. One. Two. Done. They went in. He didn't react.
+  Nurse -> Good. That dries the secretions. It takes about fifteen to twenty minutes to work. The rattle may soften. || A6
+  Caller -> Okay. Okay. And again in how long?
+  Nurse -> The atropine can be repeated every four hours as needed. The morphine every two hours. Write both down. || A5, A6
+  Caller -> I wrote them. Morphine five twenty three. Atropine five twenty five. || A5, A6
+  Nurse -> Perfect. You did great, Ingrid.
+  Caller -> Is there anything I did wrong? I was so slow with the syringe.
+  Nurse -> Nothing. You did it exactly right, step by step.
+  Caller -> I'm just glad I'm doing something. I felt so helpless.
+  Nurse -> You're doing everything right. Now let's make him more comfortable. Can you raise the head of the bed, or add pillows behind his head and shoulders?
+  Caller -> The bed has a button. Let me. There. It's up a bit.
+  Nurse -> Good. Turn him gently onto his side with a pillow at his back. That helps the fluid drain from the throat.
+  Caller -> Won't it hurt him to move him?
+  Nurse -> Gentle turning shouldn't hurt, and the morphine is on board. Move him slowly and support his head. || A5
+  Caller -> He's so light. I can do it. Okay. He's on his left side. His mouth is hanging open.
+  Caller -> He used to carry me over the threshold. Every anniversary, until his back gave out.
+  Nurse -> A romantic. I love that.
+  Nurse -> That's fine. Moisten his mouth and lips with one of the pink swabs and a little water. And lip balm. || E2
+  Caller -> I have the swabs. I'm doing it. Okay. His lips are so dry. I'm putting the balm.
+  Nurse -> Lovely. Now talk to him. Hearing is the last sense to go. Tell him you're here, tell him it's all right.
+  Caller -> I'm here, Cor. I'm right here. Gerrit's on his way. You're not alone. It's all right. You can rest. I love you.
+  Nurse -> That's perfect. He can hear you.
+  Caller -> I'm going to put on his music. The Sinatra. He loves the Sinatra.
+  Nurse -> That's a lovely idea. Keep it soft.
+  Caller -> I'll turn it down low. There. Fly me to the moon.
+  Nurse -> He'd approve.
+  Caller -> Do you think so? Really?
+  Nurse -> I do. Everything you say matters to him.
+  Caller -> I told him for fifty nine years to stop leaving his socks on the floor. I'd give anything to find one now.
+  Nurse -> Ha. That's a beautiful thing to say.
+  Caller -> I mean it.
+  Nurse -> I know. Ingrid, the pauses in his breathing, the rattle, the cold, the blotchy skin, those are all expected at this stage. They don't mean he's suffering. They mean his body is winding down. || E3
+  Caller -> Okay. I'm trying to remember that.
+  Nurse -> Say it back to me if it helps. What do the pauses mean?
+  Caller -> They're normal. His body is winding down. He's not in pain.
+  Nurse -> That's right.
+  Nurse -> I'm going to page the on-call clinician right now so they know, and I'm sending a nurse to be with you. She should be there within the hour. || R1
+  Caller -> Within the hour. Okay. Thank you. Please hurry.
+  Nurse -> She's on her way. I'll make sure of it. || R2
+  Caller -> Okay. What do I do until then?
+  Nurse -> Stay with him. Hold his hand. Keep talking. If the rattle gets louder, you can turn him a little more. If he seems restless or the breathing looks labored, you can give another dose of morphine in two hours. Or call me sooner. || A5
+  Caller -> Two hours. Five twenty three. So seven twenty three.
+  Nurse -> Or sooner if I tell you to. Stay on the phone with me if you like.
+  Caller -> Can I? Can you stay on?
+  Nurse -> As long as you need.
+  Caller -> I've never done this before. Not with anyone.
+  Nurse -> You're doing it beautifully. Most families haven't, and no one is ever ready.
+  Caller -> Thank you. I don't want to be alone.
+  Nurse -> You're not. I'm right here. Tell me about Cornelis.
+  Caller -> He was a carpenter. He built this house. Every cabinet. Every door. He built the crib for our first baby. He hand cut the dovetails.
+  Nurse -> That sounds like a craftsman.
+  Caller -> He taught our grandson to hold a chisel. They built a birdhouse last summer. It's on the porch.
+  Nurse -> Then a piece of him is on the porch.
+  Caller -> Yes. I'll sit there tomorrow.
+  Caller -> He was. He fixed everyone's porches. He never charged the widows.
+  Nurse -> That's a good man.
+  Caller -> The best. I'm so lucky.
+  Nurse -> Does he have a favorite chair, or a favorite spot he'd want to be near?
+  Caller -> The window. He likes the morning light. The bed is by the window. I arranged it that way.
+  Nurse -> You thought of everything.
+  Nurse -> Ingrid, our social worker and our chaplain will reach out to you in the morning, if you'd like. They can help with whatever comes next. || R3
+  Caller -> I'd like that. Yes. Our pastor is coming too. I'll call him once Gerrit gets here.
+  Nurse -> That's a good plan. Call back at any hour tonight. Even if you only want to hear a voice. I'll stay with you until the nurse arrives. || E4
+  Caller -> Thank you. I think the rattle is softer. Or maybe I'm used to it. Hold on. Let me listen.
+  Nurse -> Take your time.
+  Caller -> It's softer. It really is. And the pauses are about the same. He's breathing slowly. It's peaceful.
+  Nurse -> That's what we hope for.
+  Caller -> I think I can hear the car. Is that Gerrit? Hold on. Yes. Headlights. He's here.
+  Nurse -> Good. Let him in. The nurse will be there soon too.
+  Caller -> Okay. I'm going to the door. Thank you, Octavia. Thank you for being with me.
+  Nurse -> Take your time. Turn on a light on the porch for him.
+  Caller -> The porch light is on. I left it on for him.
+  Nurse -> It's been an honor, Ingrid. I'm right here if you need me.
+  Caller -> Will you write down everything for the other nurse? So I don't have to explain it all again?
+  Nurse -> Yes. I'll note the doses and times. She'll have it all when she walks in.
+  Caller -> I know. Bye for now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Cornelis Vandenberg, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-03-11", certainty: stated, heard_as: [], turns: [36]}
+    caller_name: {value: Ingrid Vandenberg, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "9185550163", certainty: stated, heard_as: [], turns: [38]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband is no longer waking and has long pauses in his breathing and a wet rattle.
+    speaker: Caller
+    turns: [2]
+    quote: "I think he's dying."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: His breathing stopped for twenty to twenty five seconds between deep breaths.
+      speaker: Caller
+      turns: [10]
+      quote: "It's twenty seconds. Twenty five."
+      explanation: Documents the breathing pauses.
+      facts:
+        - {type: symptom, name: long pauses in breathing, present: true, severity: severe, certainty: stated}
+      covers: [A1]
+    - text: A wet rattling gurgle had been present for an hour and was getting louder.
+      speaker: Caller
+      turns: [16]
+      quote: "A wet sound. Like a rattle."
+      explanation: Documents the rattle.
+      facts:
+        - {type: symptom, name: wet rattling breathing, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: He had not opened his eyes since the afternoon and did not respond to his name.
+      speaker: Caller
+      turns: [27]
+      quote: "He hasn't opened his eyes since this afternoon."
+      explanation: Documents the unresponsiveness.
+      facts:
+        - {type: symptom, name: unresponsive to voice, present: true, certainty: stated}
+      covers: [A3]
+    - text: His knees were mottled and his feet cold and bluish.
+      speaker: Caller
+      turns: [29]
+      quote: "His knees are blotchy."
+      explanation: Documents the skin changes.
+      facts:
+        - {type: symptom, name: mottled knees and cool feet, present: true, certainty: stated}
+      covers: [A4]
+    - text: Morphine 5 mg was given under the tongue during the call at five twenty three.
+      speaker: Caller
+      turns: [44]
+      quote: "Under the tongue. Okay."
+      explanation: Documents the morphine given.
+      facts:
+        - {type: medication, name: morphine, dose: "5", unit: mg, frequency: every two hours as needed, prn: true, last_dose: given during this call, med_status: given_during_call, certainty: stated}
+      covers: [A5]
+    - text: Atropine 2 drops were given under the tongue during the call.
+      speaker: Caller
+      turns: [55]
+      quote: "Two drops. Okay."
+      explanation: Documents the atropine given.
+      facts:
+        - {type: medication, name: atropine, dose: "2", unit: drops, frequency: every four hours as needed, prn: true, last_dose: given during this call, med_status: given_during_call, certainty: stated}
+      covers: [A6]
+    - text: His face was smooth and he was not moaning.
+      speaker: Caller
+      turns: [14]
+      quote: "He's not moaning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: grimacing or moaning, certainty: stated}
+      covers: [A7]
+    - text: He had a DNR and wanted to be kept comfortable at home.
+      speaker: Caller
+      turns: [31]
+      quote: "We don't want the ambulance."
+      explanation: Documents the goals of care.
+      facts:
+        - {type: context, text: He has a DNR order and the family wants him kept comfortable at home, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [91]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [91]
+      quote: "I'm sending a nurse to be with you."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned a social worker and chaplain contact in the morning.
+      speaker: Nurse
+      turns: [115]
+      quote: "our social worker and our chaplain will reach out to you in the morning"
+      explanation: Documents the planned referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: in the morning, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Taught giving the morphine and atropine under the tongue a little at a time and writing down the time.
+      speaker: Nurse
+      turns: [43]
+      quote: "squirt it slowly in the pocket under his tongue"
+      explanation: Documents medication administration teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised raising his head, turning him on his side, mouth care, and talking to him.
+      speaker: Nurse
+      turns: [72]
+      quote: "Moisten his mouth and lips with one of the pink swabs"
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Explained that the pauses, rattle and mottling are expected and do not mean he is suffering.
+      speaker: Nurse
+      turns: [86]
+      quote: "those are all expected at this stage."
+      explanation: Documents symptom education.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E3]
+    - text: Invited her to call back any hour and offered to stay on the line until the nurse arrived.
+      speaker: Nurse
+      turns: [117]
+      quote: "Call back at any hour tonight."
+      explanation: Documents the callback invitation.
+      facts:
+        - {type: education, education_type: callback_invitation, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "It stops for a long time and then it starts again."}

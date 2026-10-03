@@ -1,0 +1,201 @@
+call_id: tr-130
+split: train
+blueprint: "Father of a 4-year-old with a feeding tube reports mild redness around the tube site with no drainage and no fever. Nurse messages the team, schedules a visit Friday, and reviews site care and return precautions. Short."
+setup:
+  scenario_category: routine
+  subtype: tube_site_check
+  secondary_tags: [phone_from_file, split_turns]
+  clinical_domains: [equipment, wound_skin]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Priya
+  call_timestamp_utc: "2026-09-30T21:05:00Z"
+  length_bucket: short
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Penelope Vasko
+  patient_name_spoken: Penelope Vasko
+  patient_name_certainty: stated
+  patient_dob_true: "2022-03-11"
+  patient_dob_spoken: "2022-03-11"
+  patient_dob_certainty: stated
+  caller_name_true: Joel Vasko
+  caller_name_spoken: Joel Vasko
+  caller_name_certainty: stated
+  relationship_to_patient: father
+  relationship_certainty: stated
+  callback_phone_true: "4435550119"
+  callback_phone_spoken: "4435550119"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported redness around his daughter's feeding tube site
+  reason_category: equipment
+  relevant_context: Child with a feeding tube
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: mild redness around the feeding tube site
+    symptom_present: true
+    body_location: tube site
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: drainage
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: care team
+    reason_or_trigger: redness at the tube site
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Friday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Clean around the site with warm water and mild soap, dry it well, and keep the tube from tugging
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for spreading redness, pus, a fever, or the tube coming out
+    trigger_condition: spreading redness; pus; fever; tube out
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Priya.
+  Caller -> Hi, Priya. It's Joel Vasko. My daughter is Penelope. Penelope Vasko. || caller_name, relationship, patient_name
+  Nurse -> Hi, Joel. Her date of birth?
+  Caller -> March eleventh, twenty twenty two. || patient_dob
+  Nurse -> And four four three, five five five, zero one one nine? || callback_phone
+  Caller -> Yes. That's me. || callback_phone
+  Nurse -> What's going on with Penelope?
+  Caller -> It's her tube. Her feeding tube. The skin around it is red. || cc, A1
+  Nurse -> Okay. How red? Is it spreading, or just right around the tube?
+  Caller -> Just around it. A little pink ring. Not big. Maybe a quarter inch? || A1
+  Nurse -> Any drainage? Pus? Anything coming out around it?
+  Caller -> No. Nothing. It's dry. || A2
+  Nurse -> Okay. Any fever?
+  Caller -> No. I took it this evening and she was normal. || A3
+  Nurse -> Okay. That's reassuring. I'm going to message the team about the redness. || R1
+  Caller -> Okay.
+  Nurse -> And a nurse will come see her Friday. || R2
+  Caller -> Friday. Okay. We're home all day.
+  Nurse -> Until then, clean around the site with warm water and a little mild soap. Dry it really well. And try not to let the tube tug. || E1
+  Caller -> Okay. Warm water, soap, dry. We tape it. I'll tape it better.
+  Nurse -> And call us if the redness spreads, you see pus, she runs a fever, or the tube comes out. || E2
+  Caller -> Spreads, pus, fever, tube out. Okay.
+  Nurse -> Anything else?
+  Caller -> No. Sorry to call so late. I wasn't sure if it was a big deal.
+  Nurse -> Not at all. You did the right thing calling. Redness around the site is something we like to look at.
+  Caller -> Okay. I just didn't want to wait and see.
+  Nurse -> That's the right instinct, Joel. Give her a hug from me.
+  Caller -> I will. Thank you, Priya.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Penelope Vasko, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2022-03-11", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Joel Vasko, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: father, certainty: stated, turns: [2]}
+    callback_phone: {value: "4435550119", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported redness around his daughter's feeding tube site.
+    speaker: Caller
+    turns: [8]
+    quote: "It's her tube. Her feeding tube. The skin around it is red."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A small pink ring of redness, about a quarter inch, was present just around the tube site.
+      speaker: Caller
+      turns: [10]
+      quote: "Just around it. A little pink ring. Not big."
+      explanation: Documents the redness.
+      facts:
+        - {type: symptom, name: mild redness around the feeding tube site, present: true, location: tube site, certainty: stated}
+      covers: [A1]
+    - text: No drainage was reported.
+      speaker: Caller
+      turns: [12]
+      quote: "No. Nothing. It's dry."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: drainage, certainty: stated}
+      covers: [A2]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [14]
+      quote: "I took it this evening and she was normal."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the team about the redness.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to message the team about the redness."
+      explanation: Documents the planned team message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for Friday.
+      speaker: Nurse
+      turns: [17]
+      quote: "a nurse will come see her Friday."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Friday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised cleaning around the site with warm water and mild soap, drying it well, and keeping the tube from tugging.
+      speaker: Nurse
+      turns: [19]
+      quote: "clean around the site with warm water and a little mild soap."
+      explanation: Documents site care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for spreading redness, pus, a fever, or the tube coming out.
+      speaker: Nurse
+      turns: [21]
+      quote: "call us if the redness spreads, you see pus, she runs a fever, or the tube comes out."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

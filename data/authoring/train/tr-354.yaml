@@ -1,0 +1,276 @@
+call_id: tr-354
+split: train
+blueprint: "A husband calls hospice about his wife's constipation: no bowel movement for four days, mild nausea, belly feels full, taking senna and Miralax. The nurse hears the patient's name as 'Ally' instead of Eilidh and uses it throughout. Nurse plans a visit tomorrow, a message to the team about a stronger bowel regimen, and advises fluids and gentle movement. Name drift on the patient, spouse caller, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, name_spelled, hedging, late_answers, split_turns]
+  clinical_domains: [constipation, nausea_vomiting]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-23T17:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Eilidh Paddock
+  patient_name_spoken: Eilidh Paddock
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Ally Paddock]
+  patient_dob_true: "1947-12-09"
+  patient_dob_spoken: "1947-12-09"
+  patient_dob_certainty: stated
+  caller_name_true: Roland Paddock
+  caller_name_spoken: Roland Paddock
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "8165550144"
+  callback_phone_spoken: "8165550144"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his wife has had no bowel movement for four days
+  reason_category: constipation
+  relevant_context: Hospice patient living at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: constipation
+    symptom_present: true
+    onset_or_duration: four days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: full belly and mild nausea
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "8.6"
+    unit: mg
+    frequency: twice a day
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: polyethylene glycol
+    medication_name_spoken: Miralax
+    medication_status: taking
+    frequency: once a day
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or passing gas
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: ask about a stronger bowel regimen
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Offer small sips of fluids through the day, prune juice if she likes it, and small frequent meals
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she starts vomiting, her belly becomes hard or very painful, or she cannot keep fluids down
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Marcus.
+  Caller -> Hi Marcus. This is Roland Paddock. I'm calling about my wife. She's on your service. Her name is Eilidh. E I L I D H. It's Scottish. || caller_name, relationship, patient_name
+  Nurse -> Okay Roland. Ally, A L L Y. Let me pull up Ally Paddock.
+  Caller -> Eilidh. E I L I D H. But she answers to Ally. Everybody says Ally.
+  Nurse -> Okay. Got it. Ally Paddock. And what's her date of birth?
+  Caller -> December ninth. Nineteen forty seven. || patient_dob
+  Nurse -> Thank you. And a good number to reach you?
+  Caller -> Eight one six, five five five, zero one four four. || callback_phone
+  Nurse -> Eight one six, five five five, zero one four four. Is that right? || callback_phone
+  Caller -> Yes. That's the house phone.
+  Nurse -> Okay. What's going on with Ally today?
+  Caller -> It's her bowels. She hasn't gone in four days. I'm worried. She's uncomfortable. || cc, A1
+  Nurse -> Four days. I'm sorry. When was the last time she went?
+  Caller -> Saturday. In the morning. It was small and hard. Like pebbles. Since then, nothing. It's Wednesday now. So four days. || A1
+  Nurse -> Okay. Is she having any belly pain or bloating?
+  Caller -> Her belly feels full. She says it's tight. She keeps rubbing it. And she's a little queasy. Not throwing up. Just says she feels yucky. Mild. || A2
+  Nurse -> Okay. Mild nausea and a full belly. Is she passing any gas?
+  Caller -> Yes. She is. A little. She's, um, she passed gas this morning. And no vomiting. She's keeping her tea down. || A5
+  Nurse -> That's good to hear. What is she taking for her bowels right now?
+  Caller -> Senna. The little brown pills. Eight point six. Twice a day. And the Miralax. The powder. One scoop in juice. Every morning. || A3
+  Nurse -> Okay. Senna twice a day, and Miralax once a day. Is she taking all of that? || A3
+  Caller -> She's been taking the senna. The Miralax she skipped yesterday. She said she was sick of drinking it. It tastes like nothing but she says it's slimy. || A4
+  Nurse -> Okay. Today?
+  Caller -> I got her to take it today. In apple juice. She drank half of it.
+  Nurse -> Okay. That's a start. Let me ask a few more things. Is she eating?
+  Caller -> A little. Toast. Soup. Not much. She's not that hungry. I think the, I think it's because she's backed up.
+  Nurse -> That's very possible. And she's getting fluids?
+  Caller -> I'm pushing them. Tea. Juice. Water. She sips. She doesn't like to drink a lot at once.
+  Nurse -> Okay. Is she moving around, or mostly in bed?
+  Caller -> She's in the recliner. She does a little walk to the bathroom. Then back.
+  Nurse -> Okay. Thank you, Roland. I'm going to send a nurse to see Ally tomorrow, and we'll check her belly. || R1
+  Caller -> Tomorrow. Okay. What time?
+  Nurse -> I'll have the scheduler call you in the morning with a window.
+  Caller -> Good. That's good. I was afraid you'd say Friday.
+  Nurse -> Not Friday. I'm also going to leave a message for the team, to ask about a stronger bowel regimen for Ally. Something more than the senna and the powder. || R2
+  Caller -> Oh, thank God. I was hoping you'd say that. Because what she's taking isn't doing it.
+  Nurse -> I agree. The doctor may add something. I can't promise, but I'll ask.
+  Caller -> That's all I ask.
+  Nurse -> Does she have anyone else who helps during the day?
+  Caller -> My sister in law comes Tuesdays. She does the laundry and talks Ally's ear off. Ally loves it.
+  Nurse -> That's a good thing to have.
+  Nurse -> In the meantime, offer her small sips of fluids all day, prune juice if she likes it, and small frequent meals instead of big ones. || E1
+  Caller -> Small sips. Prune juice. Small meals. She hates prune juice. But I'll try. Maybe I'll warm it up. Like tea.
+  Nurse -> Warm prune juice. Some people swear by it.
+  Caller -> I'll try anything.
+  Nurse -> And call us back if she starts vomiting, if her belly gets hard or very painful, or if she can't keep fluids down. || E2
+  Caller -> Vomiting. Hard belly. Pain. Can't keep fluids down. Okay. I'll watch.
+  Nurse -> If it's after hours, you can call this same number. Someone is always here.
+  Caller -> Okay. I didn't know that. I thought it was just during the day.
+  Nurse -> No. Twenty four hours, seven days.
+  Caller -> That's a relief. I'm up at three in the morning half the time.
+  Nurse -> Ha. Then you can call at three in the morning.
+  Caller -> Ha. I just might.
+  Nurse -> How are you holding up, Roland?
+  Caller -> Tired. But okay. My daughter comes on weekends. She gives me a break. I go to the hardware store and walk around.
+  Nurse -> Ha. That sounds like a good break.
+  Caller -> It's the only place I can be alone. Nobody talks to me in the plumbing aisle.
+  Nurse -> What are you working on at the store?
+  Caller -> Nothing. I look at faucets. I bought a faucet in August. We don't need a faucet.
+  Caller -> I look at the washers and the little rubber rings. Very calming.
+  Nurse -> Ha. Whatever works.
+  Nurse -> Take the break. You've earned it.
+  Caller -> Thanks, Marcus.
+  Nurse -> Anything else for Ally today?
+  Caller -> No. I think that's everything. Please tell the nurse to come early if she can.
+  Nurse -> I'll put that in the note. Take care, Roland.
+  Caller -> You too. Bye.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Eilidh, heard_form: Ally, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Eilidh Paddock, certainty: unclear, heard_as: [Ally Paddock], turns: [2]}
+    patient_dob: {value: "1947-12-09", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Roland Paddock, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550144", certainty: stated, heard_as: [], turns: [8, 9]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife had no bowel movement for four days.
+    speaker: Caller
+    turns: [12]
+    quote: "It's her bowels. She hasn't gone in four days."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: No bowel movement for four days, the last one small and hard on Saturday.
+      speaker: Caller
+      turns: [14]
+      quote: "Saturday. In the morning. It was small and hard."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: constipation, present: true, duration: four days, certainty: stated}
+      covers: [A1]
+    - text: Belly felt full and tight with mild nausea.
+      speaker: Caller
+      turns: [16]
+      quote: "Her belly feels full. She says it's tight."
+      explanation: Documents the abdominal symptoms.
+      facts:
+        - {type: symptom, name: full belly and mild nausea, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Senna 8.6 mg twice a day was taken.
+      speaker: Caller
+      turns: [20]
+      quote: "Senna. The little brown pills. Eight point six. Twice a day."
+      explanation: Documents the medication.
+      facts:
+        - {type: medication, name: senna, dose: "8.6", unit: mg, frequency: twice a day, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Miralax was taken once a day, skipped yesterday and half taken today.
+      speaker: Caller
+      turns: [22]
+      quote: "The Miralax she skipped yesterday."
+      explanation: Documents the medication.
+      facts:
+        - {type: medication, name: Miralax, frequency: once a day, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: She had no vomiting and passed some gas this morning.
+      speaker: Caller
+      turns: [18]
+      quote: "she passed gas this morning. And no vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or passing gas, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm going to send a nurse to see Ally tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+    - text: Planned to leave a message for the team about a stronger bowel regimen.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm also going to leave a message for the team"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised small sips of fluids through the day, prune juice if she liked it, and small frequent meals.
+      speaker: Nurse
+      turns: [42]
+      quote: "offer her small sips of fluids all day"
+      explanation: Documents hydration and nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if she started vomiting, her belly became hard or very painful, or she could not keep fluids down.
+      speaker: Nurse
+      turns: [46]
+      quote: "call us back if she starts vomiting"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

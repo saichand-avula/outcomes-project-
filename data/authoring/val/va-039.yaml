@@ -1,0 +1,384 @@
+call_id: va-039
+split: val
+blueprint: "Long call: husband thinks his wife took one of his metoprolol tablets by mistake about 40 minutes ago (unsure); she feels lightheaded, pulse 62, BP 110/70, no fainting; nurse pages the on-call physician (completed), advises lying down, monitoring every 15 minutes, no further doses of his pills, and calls back in 15 minutes. Flag: medication concern. Chart reading, chatter, and a call-waiting interruption."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [hedging, chart_reading_distractor, offtopic_chatter, split_turns, multi_issue, tall_man_drug, phone_not_given]
+  clinical_domains: [medication, dizziness, blood_pressure]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-09-11T20:35:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 1
+  distractor_meds: [atorvastatin, famotidine]
+chief_complaint:
+  patient_name_true: Sunita Rao
+  patient_name_spoken: Sunita Rao
+  patient_name_certainty: stated
+  patient_dob_true: "1952-04-18"
+  patient_dob_spoken: "1952-04-18"
+  patient_dob_certainty: stated
+  caller_name_true: Vikram
+  caller_name_spoken: Vikram
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "6465550163"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Wife may have taken one of his metoprolol tablets by mistake
+  reason_category: medication_error
+  relevant_context: The two keep pill bottles next to each other
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: extra_dose
+    strength: 50 mg
+    dose: "1"
+    unit: tablet
+    last_dose_time: about 40 minutes ago
+    certainty: unclear
+    unclear_detail: Caller found a tablet missing and thinks she took it but is not certain
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: lightheadedness
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "62"
+    certainty: stated
+  - item_id: A4
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 110/70
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting
+    symptom_present: false
+    history_or_context_text: No chest pain or trouble breathing either
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: asthma or diabetes or heart rhythm problems
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: taking
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    last_dose_time: this morning at 8
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call physician
+    reason_or_trigger: possible accidental metoprolol ingestion
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    reason_or_trigger: no more of his tablets for her
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have her lie down or sit, stand up slowly, and do not walk alone
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Check pulse and blood pressure every 15 minutes and write them down
+    timing_or_threshold: every 15 minutes
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for fainting, chest pain, trouble breathing, or a pulse under 50
+    trigger_condition: fainting; chest pain; trouble breathing; pulse under 50
+    certainty: stated
+  - item_id: E4
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Keep each person's pills in a separate labeled organizer in different places
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller reports wife may have taken one of his metoprolol tablets and feels lightheaded
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Beth, hi. I think I need some help. It's Vikram Rao. It's about my wife, Sunita. || caller_name, relationship, patient_name
+  Nurse -> Hi, Vikram. What's Sunita's date of birth?
+  Caller -> April eighteenth, nineteen fifty two. || patient_dob
+  Nurse -> And a number to reach you, in case we get cut off?
+  Caller -> I'm calling from the house phone. You have it on the chart. I can't remember it right now, I'm sorry. My mind is blank.
+  Nurse -> That's okay. I'll use the one on file.
+  Caller -> Thank you.
+  Nurse -> What's going on?
+  Caller -> I think my wife took one of my pills. By mistake. My metoprolol. || cc, A1, F1
+  Nurse -> Okay. Tell me what happened.
+  Caller -> So we keep our pills in the same cabinet. On the same shelf. Her bottles, my bottles. And mine is fifty milligrams. Hers are different. || A1
+  Caller -> I counted tonight, because I was going to take mine. And there's one missing. I had exactly the right number. And now I'm one short. || A1
+  Nurse -> Okay. So you think she took one.
+  Caller -> I think so. She was in the kitchen about forty minutes ago, she took her evening pills with her tea. And now, she says she feels a little dizzy. || A1, A2
+  Nurse -> Okay. Did she say she took one of yours?
+  Caller -> No. She doesn't know. She says she took her pills like always. I don't know. Maybe I miscounted. I'm not sure. But I think she took mine. || A1
+  Nurse -> Okay. So you're not certain.
+  Caller -> No. I'm not certain. It's possible I dropped one, or took one this morning and forgot. But the timing, with her being dizzy, I'm worried.
+  Nurse -> Okay. That's a good instinct, to call. Is Sunita there with you?
+  Caller -> Yes. She's sitting on the couch. She's okay. She's talking.
+  Nurse -> Okay. Has she fainted, or almost fainted?
+  Caller -> No. No fainting. And no chest pain, no trouble breathing. Just a little lightheaded. || A5, A2
+  Nurse -> Okay. Do you have a blood pressure cuff?
+  Caller -> Yes. We have one. Hang on. Sunita, give me your arm. Okay.
+  Caller -> It says one ten over seventy. And the pulse is sixty two. || A3, A4
+  Nurse -> Okay. One ten over seventy, pulse sixty two. Those are on the lower side, but they're not alarming. Is her pulse usually around that?
+  Caller -> I think she's usually around seventy something. Maybe seventy five.
+  Nurse -> Okay. So it's a bit lower than normal. That could fit with a beta blocker like metoprolol. Let me look at her chart so I know what she takes. || A1
+  Caller -> Sure. Take your time.
+  Nurse -> Okay. I'm seeing lisinopril, ten milligrams once a day. Atorvastatin. Famotidine. || A6
+  Caller -> Yes. She takes the lisinopril in the morning. This morning at eight. The atorvastatin and the famotidine at night. || A6
+  Nurse -> Okay. That's helpful. The lisinopril can lower blood pressure too, so I want to be extra careful. || A6
+  Caller -> I see. Yes.
+  Nurse -> Vikram, a couple of quick questions, because they matter with this kind of medicine. Does Sunita have asthma, or diabetes, or any heart rhythm problems?
+  Caller -> No asthma. No diabetes. No heart rhythm thing that I know of. She just has the blood pressure, and the cholesterol. And the stomach acid. || A7
+  Nurse -> Okay. That's helpful. Thank you.
+  Caller -> Is that good? That she doesn't have those?
+  Nurse -> It's reassuring. It means fewer things to worry about with the extra pill.
+  Caller -> Okay. Good. I'm trying to breathe.
+  Nurse -> Take a slow breath. You're doing fine.
+  Caller -> Sunita is asking what the nurse said. I told her. She says, don't fuss. She says she's fine.
+  Nurse -> Ha. That sounds like a wife. But we're going to fuss a little anyway.
+  Caller -> I told her that. She rolled her eyes.
+  Nurse -> Vikram, here's what I'm going to do. I'm going to page our on-call doctor right now. Hold on. Okay. I've sent the page. She'll call us back shortly. || R1
+  Caller -> Okay. Thank you. Thank you so much.
+  Nurse -> Meanwhile, I want Sunita to lie down, or at least sit in a good chair. And if she needs to stand up, she should go slowly, and not walk alone. || E1
+  Caller -> Okay. Sunita, lie down on the couch. Put your feet up. There. Okay.
+  Nurse -> Good. And no more of your metoprolol, none, not even a half. If she has any more of your pills, I'd like you to take that bottle out of the cabinet now. || R3
+  Caller -> I took it out. It's in my pocket. I'll put it in my bedroom.
+  Nurse -> Perfect. I'll call you back in fifteen minutes, either way. || R2
+  Caller -> Fifteen minutes. Okay.
+  Nurse -> Check her pulse and blood pressure every fifteen minutes, and write down the numbers and the time. || E2
+  Caller -> Okay. I have a pad. I'll write.
+  Nurse -> If she faints, or has chest pain, or any trouble breathing, or her pulse drops under fifty, call nine one one right away. Don't wait for us. || E3
+  Caller -> Nine one one. Under fifty. Okay.
+  Nurse -> Vikram, how are you holding up?
+  Caller -> Not great. I'm shaking, honestly. I just feel so terrible. I should have kept our pills apart.
+  Nurse -> It happens to a lot of couples. It's an easy mistake. But let's fix it going forward. Use a separate pill organizer for each of you, labeled with your names. And keep them in different places. || E4
+  Caller -> I have two organizers. I just never used hers. I'll do that tomorrow. I'll label them.
+  Nurse -> Good. And if you can, write the name of each person on the bottles with a marker.
+  Caller -> I'll do that tonight. I can do that now, while I wait.
+  Nurse -> Perfect. That'll keep your mind busy, too.
+  Caller -> Yes. It will. I might ask Sunita to read the labels back to me, so we double check each bottle.
+  Nurse -> That's a great idea. Two sets of eyes.
+  Caller -> She's better at reading small print than I am. She has her glasses on. I always lose mine.
+  Nurse -> Ha. That's the story of every household. Where are yours?
+  Caller -> On my head. As usual. Sunita just pointed to them.
+  Nurse -> Ha. There you go.
+  Caller -> Thank you for the laugh. I needed that. You know, our son keeps telling us to move closer to him. In Chicago. He says it's not safe, two old people alone.
+  Nurse -> It's a lot to think about. How do you feel about it?
+  Caller -> I don't want to leave our home. Forty years in this house. Sunita planted every tree in that yard.
+  Nurse -> That's a big attachment. It sounds like something to talk through with your son, and maybe with our social worker too.
+  Caller -> Maybe. Tonight made me realize we do need more help, though. More eyes.
+  Nurse -> That's a wise thing to realize. We can talk about options when things are calmer.
+  Caller -> I'd like that. Okay.
+  Caller -> Oh, hold on. The other line. It's my daughter. She's calling. I'll let it go to voicemail. She's calling from Chicago.
+  Nurse -> No worries. Does she know what's going on?
+  Caller -> Not yet. I don't want to worry her. But I will call her back as soon as we're done.
+  Nurse -> That's a good plan. Let's get through this first.
+  Caller -> Sunita is saying she feels a bit better. She says it's passing.
+  Nurse -> Good. Keep resting. Keep checking the numbers.
+  Caller -> Okay. I will. We've been married forty eight years. I can't imagine, if anything.
+  Nurse -> Vikram, she's talking, her pulse and pressure are okay, and help is on the way. You did the right thing by calling.
+  Caller -> Thank you. You're very calm. It helps.
+  Nurse -> I'm here. And Vikram, forty eight years. Do you have any special plans for the anniversary?
+  Caller -> We usually go to the same Indian restaurant. Little place on Fifth. The owner knows us. He always brings out the gulab jamun for free.
+  Nurse -> Oh, I love that. Ha. That sounds like a great tradition.
+  Caller -> It is. We have a table by the window. Same one every year.
+  Nurse -> I hope you'll still be able to go this year.
+  Caller -> We will. She'll be fine. I just have to be careful with these pills. I'll be more careful.
+  Nurse -> You will. Okay. Talk to you in fifteen.
+  Caller -> Okay. Bye.
+noise_events:
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "I had exactly the right number", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Sunita Rao, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1952-04-18", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Vikram, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his wife may have taken one of his metoprolol tablets by mistake.
+    speaker: Caller
+    turns: [10]
+    quote: "I think my wife took one of my pills. By mistake. My metoprolol."
+    explanation: Documents the medication concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: One metoprolol 50 mg tablet belonging to the husband was found missing and the caller thought his wife took it about 40 minutes ago, but he was not certain.
+      speaker: Caller
+      turns: [13]
+      quote: "I counted tonight, because I was going to take mine. And there's one missing."
+      explanation: Documents the suspected duplicate medication exposure with uncertainty preserved.
+      facts:
+        - {type: medication, name: metoprolol, strength: 50 mg, dose: "1", unit: tablet, last_dose: about 40 minutes ago, med_status: extra_dose, certainty: unclear}
+      covers: [A1]
+    - text: She reported mild lightheadedness.
+      speaker: Caller
+      turns: [23]
+      quote: "Just a little lightheaded."
+      explanation: Documents the symptom.
+      facts:
+        - {type: symptom, name: lightheadedness, present: true, severity: mild, certainty: stated}
+      covers: [A2]
+    - text: Blood pressure was 110/70.
+      speaker: Caller
+      turns: [26]
+      quote: "It says one ten over seventy. And the pulse is sixty two."
+      explanation: Documents the reported blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 110/70, certainty: stated}
+      covers: [A4]
+    - text: Pulse was 62.
+      speaker: Caller
+      turns: [26]
+      quote: "It says one ten over seventy. And the pulse is sixty two."
+      explanation: Documents the reported pulse.
+      facts:
+        - {type: vital, name: pulse, value: "62", certainty: stated}
+      covers: [A3]
+    - text: No fainting, chest pain, or trouble breathing was reported.
+      speaker: Caller
+      turns: [23]
+      quote: "No. No fainting. And no chest pain, no trouble breathing."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: fainting, certainty: stated}
+      covers: [A5]
+    - text: She had no asthma, diabetes, or known heart rhythm problems.
+      speaker: Caller
+      turns: [36]
+      quote: "No asthma. No diabetes. No heart rhythm thing that I know of."
+      explanation: Documents pertinent negatives relevant to beta blocker exposure.
+      facts:
+        - {type: pertinent_negative, name: asthma or diabetes or heart rhythm problems, certainty: stated}
+      covers: [A7]
+    - text: Lisinopril 10 mg once a day was taken this morning at 8.
+      speaker: Caller
+      turns: [32]
+      quote: "She takes the lisinopril in the morning. This morning at eight."
+      explanation: Documents her other blood pressure medication.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: once a day, last_dose: this morning at 8, med_status: taking, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Paged the on-call physician during the call.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm going to page our on-call doctor right now. Hold on. Okay. I've sent the page."
+      explanation: Documents the completed physician page.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Advised that she take no more of his metoprolol and that the bottle be removed from the shared cabinet.
+      speaker: Nurse
+      turns: [49]
+      quote: "And no more of your metoprolol, none, not even a half."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: metoprolol, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in 15 minutes.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you back in fifteen minutes, either way."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised that she lie down or sit comfortably, stand slowly, and not walk alone.
+      speaker: Nurse
+      turns: [47]
+      quote: "I want Sunita to lie down, or at least sit in a good chair. And if she needs to stand up, she should go slowly, and not walk alone."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised checking pulse and blood pressure every 15 minutes and writing them down.
+      speaker: Nurse
+      turns: [53]
+      quote: "Check her pulse and blood pressure every fifteen minutes, and write down the numbers and the time."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for fainting, chest pain, trouble breathing, or a pulse under 50.
+      speaker: Nurse
+      turns: [55]
+      quote: "If she faints, or has chest pain, or any trouble breathing, or her pulse drops under fifty, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+    - text: Advised separate labeled pill organizers kept in different places.
+      speaker: Nurse
+      turns: [59]
+      quote: "Use a separate pill organizer for each of you, labeled with your names. And keep them in different places."
+      explanation: Documents medication-safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: medication_concern, turns: [10], quote: "I think my wife took one of my pills. By mistake."}

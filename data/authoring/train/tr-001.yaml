@@ -1,0 +1,249 @@
+call_id: tr-001
+split: train
+blueprint: "Daughter reports no bowel movement for 3 days; senna given nightly; no nausea or belly pain; nurse advises MiraLAX per PRN order, documents, and notes the visit already scheduled for tomorrow."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [late_answers, phone_from_file, prn_and_scheduled]
+  clinical_domains: [constipation]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Willow Creek Hospice
+  agency_type: hospice
+  nurse_name: Priya
+  call_timestamp_utc: "2026-08-03T15:22:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Dorothy Lindqvist
+  patient_name_spoken: Dorothy Lindqvist
+  patient_name_certainty: stated
+  patient_dob_true: "1941-03-22"
+  patient_dob_spoken: "1941-03-22"
+  patient_dob_certainty: stated
+  caller_name_true: Karen
+  caller_name_spoken: Karen
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "3125550110"
+  callback_phone_spoken: "3125550110"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: No bowel movement for 3 days
+  reason_category: constipation
+  relevant_context: Hospice patient on nightly senna
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: constipation
+    symptom_present: true
+    onset_or_duration: 3 days
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "2"
+    unit: tablets
+    frequency: every night
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: abdominal pain
+    symptom_present: false
+    history_or_context_text: Abdomen feels soft; passing gas
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: nurse
+    medication_name_true: polyethylene glycol
+    medication_name_spoken: MiraLAX
+    medication_status: prescribed
+    prn: true
+    history_or_context_text: Available at home, not yet used
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: polyethylene glycol
+    medication_name_spoken: MiraLAX
+    dose: 1 capful (17 grams)
+    reason_or_trigger: constipation 3 days
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: senna
+    medication_name_spoken: senna
+    frequency: every night
+    certainty: stated
+  - item_id: R3
+    action_type: documentation
+    action_status: completed
+    actor: nurse
+    recipient_or_target: chart note for visiting nurse
+    certainty: stated
+  - item_id: R4
+    action_type: nurse_visit
+    action_status: planned
+    actor: visiting nurse
+    timeframe: tomorrow at 10
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Increase fluids, prune juice, fruit if eating
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call back for vomiting, hard or swollen abdomen, or no bowel movement by tomorrow evening after MiraLAX
+    trigger_condition: vomiting; hard or swollen belly; no BM by tomorrow evening
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Willow Creek Hospice, this is Priya, one of the nurses. Can I get the patient's first and last name, please?
+  Caller -> Hi, yes. It's for my mom. Um, Dorothy. Dorothy Lindqvist. || patient_name
+  Nurse -> Okay, Dorothy Lindqvist. And her date of birth? || patient_name
+  Caller -> And I'm Karen, I'm her daughter. || caller_name, relationship
+  Caller -> Oh, sorry, her birthday. March twenty second, nineteen forty one. || patient_dob
+  Nurse -> Thank you, Karen. March twenty second, forty one. And I have a callback number here of three one two, five five five, zero one one zero. Is that still good? || callback_phone
+  Caller -> Yes, that's my cell. || callback_phone
+  Nurse -> Perfect. How can I help you this morning?
+  Caller -> So, um, she hasn't had a bowel movement in, it's been three days now. || cc, A1
+  Caller -> And I'm, I'm starting to worry about it.
+  Nurse -> Okay. Three days. Is she on anything for her bowels right now? || A1
+  Caller -> She has the senna. She takes the two tablets at night, every night. || A2
+  Caller -> And we've been doing that.
+  Nurse -> Okay, good. And is she having any nausea or throwing up at all?
+  Caller -> No. No nausea. || A3
+  Nurse -> Any belly pain, or does her belly feel hard or swollen to you?
+  Caller -> Um, no, she says her belly isn't hurting her. It feels soft. She's passing gas, so. || A4
+  Nurse -> Okay, that's good to hear.
+  Caller -> Uh huh.
+  Nurse -> Let me just look at her orders here. Okay. So she does have the MiraLAX ordered as needed. Do you have that in the house? || A5
+  Caller -> We do. We have the the big bottle, but we haven't used it yet. || A5
+  Nurse -> Okay. So what I would do is go ahead and give her one capful of the MiraLAX today. That's seventeen grams, mixed in about eight ounces of water or juice. || R1
+  Caller -> One capful. Okay. In juice is fine?
+  Nurse -> Juice is fine. And keep up with the senna at night like you've been doing. || R2
+  Caller -> Okay.
+  Nurse -> And try to get some fluids in her, prune juice if she likes it, and, you know, some fruit if she's eating. || E1
+  Caller -> She does like prune juice, actually.
+  Nurse -> Oh good. Now, I've put a note in her chart so Shannon sees it. And Shannon is scheduled to come out tomorrow at ten for her visit, so she'll check on her. || R3, R4
+  Caller -> Oh good, okay. Ten o'clock.
+  Nurse -> Mm hmm. But if she starts throwing up, or her belly gets hard or swollen, or she hasn't gone by tomorrow evening after the MiraLAX, please call us back right away. || E2
+  Caller -> Okay. Throwing up, belly hard, or nothing by tomorrow night. Got it.
+  Nurse -> You got it. Anything else I can help with?
+  Caller -> No, that's it. Thank you so much, Priya.
+  Nurse -> You're welcome, Karen. Have a good day.
+  Caller -> You too. Bye.
+noise_events:
+  - {turn: 4, type: late_answer, true_form: "DOB answer", heard_form: "I'm Karen", fact_id: patient_dob}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Dorothy Lindqvist, certainty: stated, heard_as: [], turns: [2, 3]}
+    patient_dob: {value: "1941-03-22", certainty: stated, heard_as: [], turns: [5]}
+    caller_name: {value: Karen, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: daughter, certainty: stated, turns: [4]}
+    callback_phone: {value: "3125550110", certainty: stated, heard_as: [], turns: [6, 7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported no bowel movement for 3 days.
+    speaker: Caller
+    turns: [9]
+    quote: "So, um, she hasn't had a bowel movement in, it's been three days now."
+    explanation: Documents the bowel concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: No bowel movement had occurred for 3 days despite senna 2 tablets taken every night.
+      speaker: Caller
+      turns: [12]
+      quote: "She has the senna. She takes the two tablets at night, every night."
+      explanation: Documents the duration of constipation and the current bowel regimen.
+      facts:
+        - {type: symptom, name: constipation, present: true, onset: 3 days, certainty: stated}
+        - {type: medication, name: senna, dose: "2", unit: tablets, frequency: every night, med_status: taking, certainty: stated}
+      covers: [A1, A2]
+    - text: No nausea or abdominal pain was reported; the abdomen felt soft and she was passing gas.
+      speaker: Caller
+      turns: [17]
+      quote: "Um, no, she says her belly isn't hurting her. It feels soft. She's passing gas, so."
+      explanation: Documents pertinent negative abdominal findings.
+      facts:
+        - {type: pertinent_negative, name: nausea, certainty: stated}
+        - {type: pertinent_negative, name: abdominal pain, certainty: stated}
+      covers: [A3, A4]
+    - text: MiraLAX was ordered as needed and available in the home but had not yet been used.
+      speaker: Caller
+      turns: [21]
+      quote: "We do. We have the the big bottle, but we haven't used it yet."
+      explanation: Documents availability of the as-needed bowel medication.
+      facts:
+        - {type: medication, name: MiraLAX, prn: true, med_status: prescribed, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised giving one capful (17 grams) of MiraLAX in about 8 ounces of water or juice today and continuing senna every night.
+      speaker: Nurse
+      turns: [22]
+      quote: "So what I would do is go ahead and give her one capful of the MiraLAX today. That's seventeen grams, mixed in about eight ounces of water or juice."
+      explanation: Documents the medication instruction for constipation.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: MiraLAX, certainty: stated}
+        - {type: action, action_type: medication_instruction, status: advised, medication: senna, certainty: stated}
+      covers: [R1, R2]
+    - text: Documented the concern in the chart for the visiting nurse; the scheduled nurse visit was planned for tomorrow at 10:00.
+      speaker: Nurse
+      turns: [28]
+      quote: "Now, I've put a note in her chart so Shannon sees it. And Shannon is scheduled to come out tomorrow at ten for her visit"
+      explanation: Documents the completed chart note and the planned follow-up visit.
+      facts:
+        - {type: action, action_type: documentation, status: completed, certainty: stated}
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow at 10, certainty: stated}
+      covers: [R3, R4]
+  education:
+    - text: Advised increasing fluids, including prune juice, and offering fruit if she was eating.
+      speaker: Nurse
+      turns: [26]
+      quote: "And try to get some fluids in her, prune juice if she likes it, and, you know, some fruit if she's eating."
+      explanation: Documents supportive bowel-care guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling back right away for vomiting, a hard or swollen abdomen, or no bowel movement by tomorrow evening after MiraLAX.
+      speaker: Nurse
+      turns: [30]
+      quote: "But if she starts throwing up, or her belly gets hard or swollen, or she hasn't gone by tomorrow evening after the MiraLAX, please call us back right away."
+      explanation: Documents return precautions for worsening constipation.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

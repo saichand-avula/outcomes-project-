@@ -1,0 +1,416 @@
+call_id: tr-220
+split: train
+blueprint: "Mother of a 7-year-old with a feeding tube and a seizure disorder: he had a three-minute seizure around two last night and she gave Diastat; he is sleepy but wakes, no fever, no injury. She also reports redness and leaking at the tube site and says only four cans of formula are left. Nurse pages on-call, plans a visit this afternoon, orders formula (completed), coordinates delivery tomorrow morning, messages the neurologist, and calls back within the hour. Long, multi-issue call with sibling interruptions. Flag: other_urgent (seizure)."
+setup:
+  scenario_category: high_risk
+  subtype: other_urgent
+  secondary_tags: [multi_issue, offtopic_chatter, hedging, late_answers, split_turns, phone_from_file]
+  clinical_domains: [neurologic, medication, equipment, wound_skin]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Oaks Pediatric Home Care
+  agency_type: pediatric_home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-11T14:30:00Z"
+  length_bucket: long
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 2
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ezra Lindholm
+  patient_name_spoken: Ezra Lindholm
+  patient_name_certainty: stated
+  patient_dob_true: "2019-06-12"
+  patient_dob_spoken: "2019-06-12"
+  patient_dob_certainty: stated
+  caller_name_true: Hannah Lindholm
+  caller_name_spoken: Hannah Lindholm
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "4155550138"
+  callback_phone_spoken: "4155550138"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her son had a seizure last night and also has a leaking feeding tube site and low formula
+  reason_category: seizure
+  relevant_context: Pediatric home care patient with a feeding tube and a seizure disorder
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: seizure
+    symptom_present: true
+    severity: about three minutes
+    onset_or_duration: last night around two
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Diastat
+    medication_name_spoken: Diastat
+    medication_status: given_previously
+    last_dose: last night around two
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: Keppra
+    medication_name_spoken: Keppra
+    medication_status: taking
+    dose: "5"
+    unit: mL
+    frequency: twice a day
+    last_dose: this morning at eight
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: sleepiness
+    symptom_present: true
+    severity: mild
+    onset_or_duration: this morning
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: redness and leaking at the feeding tube site
+    symptom_present: true
+    onset_or_duration: since yesterday
+    certainty: stated
+  - item_id: A6
+    item_type: supply
+    reporter: caller
+    supply_item: Peptamen formula
+    supply_remaining: "4"
+    supply_unit: cans
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A8
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: injury during the seizure
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: seizure last night treated with Diastat
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+  - item_id: R3
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: Peptamen formula
+    certainty: stated
+  - item_id: R4
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R5
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: neurologist
+    reason_or_trigger: seizure last night
+    certainty: stated
+  - item_id: R6
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Keep him on his side when sleeping or seizing, time any seizure, stay with him, and do not put anything in his mouth
+    certainty: stated
+  - item_id: E2
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Keep the tube site clean and dry, clean gently with soap and water, and put no creams or ointments on it
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if a seizure lasts longer than five minutes, another seizure follows, or he turns blue
+    certainty: stated
+  - item_id: E4
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever, vomiting, a hard time waking him, or if the leaking gets worse
+    trigger_condition: fever; vomiting; hard to wake; worse leaking
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: other_urgent
+    trigger_description: Child had a three-minute seizure last night requiring Diastat
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Little Oaks Pediatric Home Care, this is Beth.
+  Caller -> Hi, Beth. It's Hannah Lindholm. My son is Ezra. I have a few things, but the big one is that he had a seizure last night. || caller_name, relationship, patient_name, cc, A1, F1
+  Nurse -> Oh, Hannah. Okay. I'm glad you called. Let me pull up Ezra's chart. What's his date of birth?
+  Caller -> June twelfth, twenty nineteen. || patient_dob
+  Nurse -> Thank you. And I have four one five, five five five, zero one three eight for you. Is that still the best number? || callback_phone
+  Caller -> Yes. That's my cell. Caleb, put that down. Sorry. Sorry. Yes, that's the best one. || callback_phone
+  Nurse -> No worries. Okay, tell me about the seizure. What time did it happen?
+  Caller -> It was around two in the morning. I heard him from the monitor. A noise, a kind of a grunt. And I went in and he was stiff and shaking. His eyes were rolled up. || A1
+  Nurse -> Okay. How long did it last, do you know?
+  Caller -> About three minutes. I looked at the clock on the wall. It felt like an hour. But I think three minutes. Maybe a little more than three. || A1
+  Nurse -> Okay. Did you give him anything for it?
+  Caller -> I gave him the Diastat. The rectal one. I gave it at the two minute mark, like you taught us. And it stopped, I think, right after. Or maybe it would have stopped anyway. || A2
+  Nurse -> Okay. You did exactly what the plan says. And then what happened?
+  Caller -> He was really sleepy. He slept the rest of the night. I stayed in the chair next to his bed. I didn't sleep. || A2
+  Nurse -> Of course you didn't. How is he this morning?
+  Caller -> He's sleepy. Sleepier than normal. But he wakes up when I talk to him, and he knows me. He said "Mama" and he smiled. He's sort of floppy but I think that's the medicine. || A4
+  Nurse -> Okay. That's good that he's waking and responding. Did he hit his head, or bite his tongue, or get hurt in any way?
+  Caller -> No. He was in the bed with the rails up. No blood, I checked his mouth. Nothing. || A8
+  Nurse -> Okay. Any fever? Have you taken his temperature?
+  Caller -> I did. At seven. It was normal. No fever. He felt cool, even. || A7
+  Nurse -> Okay. Good. Has he had his regular seizure medicine this morning?
+  Caller -> Yes, the Keppra. Five milliliters. I gave it through the tube at eight, like always. He tolerated it fine. || A3
+  Nurse -> Okay. Twice a day, five milliliters?
+  Caller -> Twice a day. Eight and eight. || A3
+  Nurse -> Okay. Hannah, how long has it been since his last seizure before this one?
+  Caller -> Oh, gosh. At least two months. It was the middle of August, I think. The last time. Mom, can you, hold on. Sorry. My mother just came in, she's asking about lunch. Mom, he's okay. We're talking to the nurse.
+  Nurse -> That's all right. Take your time. I'm here.
+  Caller -> Sorry about that. It's been a morning. I'm back.
+  Nurse -> No problem. Two months seizure free is good, and now this one. I'm going to page the on-call clinician right now, so they know about the seizure and the Diastat. || R1
+  Caller -> Okay. Good. Do I need to take him to the hospital? I wasn't sure. He seems okay, but I didn't know.
+  Nurse -> It's a good question. The on-call clinician will make that call with us. Because he woke up and he's responding, and you gave the Diastat on time, I think it's okay to wait for them. But I'm also going to send a nurse out to see him this afternoon. || R2
+  Caller -> This afternoon. Okay. Thank you. Oh, that makes me feel better.
+  Nurse -> You mentioned a few things. What else is going on?
+  Caller -> Okay. The second thing is his tube. The G-tube. Around the button, it's red. And it's leaking a little. It started yesterday, I think. The formula is leaking out around the edge. And his shirt was wet this morning. || A5
+  Nurse -> Okay. How red? Is it just around the opening, or is it spreading?
+  Caller -> Just around the opening. A ring. Like a pink ring. It doesn't look like it's spreading. It's not hot. There's no pus. I looked. Just wet and pink.
+  Nurse -> Okay. Thank you for describing it so well. The nurse will look at it when she's there. In the meantime, keep it clean and dry. Wash gently with soap and water, pat it dry, and don't put any creams or ointments on it. || E2
+  Caller -> Soap and water. Pat dry. No creams. I did put some of the, what's it called, the barrier cream. On it. Last night. Should I not do that?
+  Nurse -> Let's hold off on that for now. The nurse will tell you whether it's okay. Just keep it clean and dry.
+  Caller -> Okay. No cream. Wash it, dry it. Okay.
+  Nurse -> What was the third thing?
+  Caller -> The formula. We're low. We have four cans of the Peptamen left. I thought the delivery was coming Monday, but I called and they said there was a mix-up with the order. || A6
+  Nurse -> Okay. Four cans. How long does that last him?
+  Caller -> About two days. A little less, maybe. He takes about two cans a day. Or a little more with the water flushes. So, two days.
+  Nurse -> Okay. I'm going to put in a new order for the Peptamen now. It's done. || R3
+  Caller -> Oh, thank you.
+  Nurse -> And I'm going to coordinate the delivery for tomorrow morning, so you don't run out. || R4
+  Caller -> Tomorrow morning. That would be wonderful. I'll be home. I'm always home.
+  Nurse -> Hannah, I'm also going to message Ezra's neurologist about last night's seizure, so they're aware. || R5
+  Caller -> Please. His neurologist wanted us to tell them if he had another one. I was going to call but I wasn't sure if I should call them or you.
+  Nurse -> You did the right thing calling us. I'll make sure they hear it. And I'll call you back within the hour, after I've reached the on-call clinician. || R6
+  Caller -> Within the hour. Okay. I'll keep my phone on me. Caleb. Caleb, no. Sorry. My other son, he's trying to feed the dog from the counter.
+  Nurse -> It sounds like you've got your hands full.
+  Caller -> I really do. My husband is at work until six. My mother is here, but she's, she's not much help with Ezra. She gets nervous around the tube.
+  Nurse -> That's okay. You're doing the heavy lifting. Let me go over a couple of things for today, in case there's another seizure. Keep Ezra on his side when he's sleeping. If he has another seizure, time it, stay with him, keep him on his side, and don't put anything in his mouth. || E1
+  Caller -> On his side. Time it. Stay with him. Nothing in his mouth. Right. Okay. I know that. I always do that.
+  Nurse -> I know you do. And if a seizure lasts longer than five minutes, if he has another one right after, or if he turns blue, call nine one one. || E3
+  Caller -> Longer than five minutes. Another one right after. Blue. Nine one one. Okay. I have the number by the phone.
+  Nurse -> Good. And call us if he gets a fever, if he vomits, if you can't wake him up like you do now, or if the leaking gets worse. || E4
+  Caller -> Fever. Vomit. Can't wake him. Leaking more. Okay. I'm writing it on the whiteboard. We have a whiteboard in the kitchen for him.
+  Nurse -> That's perfect. Is there anything else going on, anything you've been wondering about?
+  Caller -> Well, there's one more thing, but it's not urgent. I wanted to ask about school. He's supposed to start part-time in November, and after last night I'm worried. Is that crazy?
+  Nurse -> It's not crazy at all. That's a good question for the neurologist and the team, and I'll add it to my message so they can talk with you about it.
+  Caller -> Okay. I'd like that. I don't want to panic. I just don't want to send him somewhere and then, you know.
+  Nurse -> I understand. Let's get through today first. How are you doing, Hannah? You were up all night.
+  Caller -> I'm tired. I'm really tired. But I'm okay. I had coffee. My mother made me eat toast.
+  Nurse -> Good. Please try to rest when the nurse is here this afternoon, even for a little bit.
+  Caller -> I'll try. I'll try. Thank you, Beth. You always make me feel like I'm not crazy.
+  Nurse -> You're not crazy. You're a great mom. I'll talk to you within the hour.
+  Caller -> Okay. Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply about the last seizure", heard_form: "Mom, he's okay. We're talking to the nurse", fact_id: A1}
+  - {turn: auto, type: split_turn, true_form: "single sentence", heard_form: "Sorry about that. It's been a morning. I'm back", fact_id: A1}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ezra Lindholm, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2019-06-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Hannah Lindholm, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "4155550138", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her son had a seizure last night and also had a leaking feeding tube site and low formula.
+    speaker: Caller
+    turns: [2]
+    quote: "the big one is that he had a seizure last night."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: A seizure occurred around two in the morning, lasting about three minutes.
+      speaker: Caller
+      turns: [10]
+      quote: "About three minutes. I looked at the clock on the wall."
+      explanation: Documents the seizure.
+      facts:
+        - {type: symptom, name: seizure, present: true, severity: about three minutes, onset: last night around two, certainty: stated}
+      covers: [A1]
+    - text: Diastat was given rectally at the two-minute mark last night.
+      speaker: Caller
+      turns: [12]
+      quote: "I gave him the Diastat. The rectal one."
+      explanation: Documents the rescue medication.
+      facts:
+        - {type: medication, name: Diastat, last_dose: last night around two, med_status: given_previously, certainty: stated}
+      covers: [A2]
+    - text: Keppra 5 mL twice a day was being given through the tube, with the last dose at eight this morning.
+      speaker: Caller
+      turns: [22]
+      quote: "Yes, the Keppra. Five milliliters."
+      explanation: Documents the seizure medication.
+      facts:
+        - {type: medication, name: Keppra, dose: "5", unit: mL, frequency: twice a day, last_dose: this morning at eight, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: He was sleepier than normal this morning but woke when spoken to.
+      speaker: Caller
+      turns: [16]
+      quote: "He's sleepy. Sleepier than normal. But he wakes up when I talk to him, and he knows me."
+      explanation: Documents the drowsiness.
+      facts:
+        - {type: symptom, name: sleepiness, present: true, severity: mild, onset: this morning, certainty: stated}
+      covers: [A4]
+    - text: The feeding tube site was red and leaking since yesterday.
+      speaker: Caller
+      turns: [34]
+      quote: "Around the button, it's red. And it's leaking a little."
+      explanation: Documents the tube site problem.
+      facts:
+        - {type: symptom, name: redness and leaking at the feeding tube site, present: true, onset: since yesterday, certainty: stated}
+      covers: [A5]
+    - text: Four cans of Peptamen formula remained.
+      speaker: Caller
+      turns: [42]
+      quote: "We have four cans of the Peptamen left."
+      explanation: Documents the formula supply.
+      facts:
+        - {type: supply, item: Peptamen formula, supply: 4 cans, certainty: stated}
+      covers: [A6]
+    - text: No fever was reported.
+      speaker: Caller
+      turns: [20]
+      quote: "It was normal. No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A7]
+    - text: No injury occurred during the seizure.
+      speaker: Caller
+      turns: [18]
+      quote: "No. He was in the bed with the rails up."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: injury during the seizure, certainty: stated}
+      covers: [A8]
+  response:
+    - text: Planned to page the on-call clinician about the seizure and the Diastat.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'm going to page the on-call clinician right now, so they know about the seizure and the Diastat."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out this afternoon.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm also going to send a nurse out to see him this afternoon."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R2]
+    - text: Placed the order for Peptamen formula.
+      speaker: Nurse
+      turns: [45]
+      quote: "I'm going to put in a new order for the Peptamen now. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R3]
+    - text: Planned to coordinate delivery for tomorrow morning.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm going to coordinate the delivery for tomorrow morning, so you don't run out."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R4]
+    - text: Planned to message the neurologist about the seizure.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'm also going to message Ezra's neurologist about last night's seizure, so they're aware."
+      explanation: Documents the planned message to the specialist.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R5]
+    - text: Planned to call back within the hour after reaching the on-call clinician.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you back within the hour, after I've reached the on-call clinician."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R6]
+  education:
+    - text: Advised keeping him on his side, timing any seizure, staying with him, and putting nothing in his mouth.
+      speaker: Nurse
+      turns: [55]
+      quote: "Keep Ezra on his side when he's sleeping."
+      explanation: Documents seizure safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping the tube site clean and dry, washing gently with soap and water, and using no creams or ointments.
+      speaker: Nurse
+      turns: [37]
+      quote: "keep it clean and dry. Wash gently with soap and water, pat it dry, and don't put any creams or ointments on it."
+      explanation: Documents skin care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if a seizure lasted longer than five minutes, another followed, or he turned blue.
+      speaker: Nurse
+      turns: [57]
+      quote: "if a seizure lasts longer than five minutes, if he has another one right after, or if he turns blue, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+    - text: Advised calling for fever, vomiting, difficulty waking him, or worsening leaking.
+      speaker: Nurse
+      turns: [59]
+      quote: "call us if he gets a fever, if he vomits, if you can't wake him up like you do now, or if the leaking gets worse."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: other_urgent, turns: [2], quote: "he had a seizure last night."}

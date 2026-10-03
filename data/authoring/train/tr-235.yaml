@@ -1,0 +1,234 @@
+call_id: tr-235
+split: train
+blueprint: "Wife of a 77-year-old hospice patient: he has vomited six times since this morning despite Zofran twice, cannot keep sips down, and is getting weak. Nurse pages the on-call clinician, plans a nurse visit within two hours, advises holding food and giving only ice chips, and calls back in thirty minutes. Flag: uncontrolled_symptom (persisting despite treatment)."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [nausea_vomiting, medication, hydration]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Joel
+  call_timestamp_utc: "2026-10-15T20:15:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Abner Quillfeather
+  patient_name_spoken: Abner Quillfeather
+  patient_name_certainty: stated
+  patient_dob_true: "1949-12-19"
+  patient_dob_spoken: "1949-12-19"
+  patient_dob_certainty: stated
+  caller_name_true: Ruth Quillfeather
+  caller_name_spoken: Ruth Quillfeather
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "4055550114"
+  callback_phone_spoken: "4055550114"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her husband keeps vomiting despite nausea medicine
+  reason_category: nausea_vomiting
+  relevant_context: Hospice patient with nausea medicine at home
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: true
+    severity: six times
+    onset_or_duration: since this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Zofran
+    medication_name_spoken: Zofran
+    medication_status: taking
+    last_dose: two doses today
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: unable to keep sips down
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: weakness
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: vomiting not controlled by Zofran
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Hold food and drinks, offer only ice chips, and keep his head raised
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give another Zofran until the on-call clinician advises
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Vomiting six times and persisting despite two doses of Zofran
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Joel.
+  Caller -> Joel, it's Ruth Quillfeather. My husband Abner won't stop throwing up. Six times since this morning, and I gave him the Zofran twice and it isn't working. || caller_name, relationship, patient_name, cc, A1, A2, F1
+  Nurse -> Okay, Ruth. I'm sorry. I'm going to help. What's Abner's date of birth?
+  Caller -> December nineteenth, nineteen forty nine. || patient_dob
+  Nurse -> Thanks. And I have four oh five, five five five, zero one one four? || callback_phone
+  Caller -> Yes. Yes, that's the house. || callback_phone
+  Nurse -> Okay. Can he keep anything down, even a few sips?
+  Caller -> No. I tried water an hour ago and it came right back. Even a sip. He can't keep a thing down. || A3
+  Nurse -> Okay. When did he last have the Zofran? || A2
+  Caller -> The second one was about two hours ago. I don't know if it stayed down either. Maybe it did. He threw up a bit after. || A2
+  Nurse -> Okay. How is he otherwise? Is he alert? Weak?
+  Caller -> He's weak. He's lying there and he doesn't want to move. He's so tired. He can't lift his head without it spinning. || A4
+  Nurse -> Okay, Ruth. This isn't being controlled, so I'm going to page the on-call clinician right now. || R1
+  Caller -> Please. Please. What do I do? Do I give him more of the Zofran? || A2
+  Nurse -> Please don't give another Zofran until the on-call clinician tells you. And hold the food and drinks. Just ice chips, a few at a time, and keep his head up on pillows. || E2, E1, A2
+  Caller -> No more Zofran. Ice chips. Head up. Okay. I'll get the ice. || A2
+  Nurse -> I'm also going to send a nurse out within two hours. || R2
+  Caller -> Within two hours. Okay. Okay. Thank you so much.
+  Nurse -> I'll call you back in thirty minutes, whether or not you've heard from the on-call clinician. || R3
+  Caller -> Thirty minutes. Okay. I'll keep the phone with me.
+  Nurse -> Is there anyone with you?
+  Caller -> No. Just me. Our daughter is two hours away. I haven't called her. I didn't want to scare her.
+  Nurse -> I'd call her. She'd want to know, and you shouldn't be alone tonight.
+  Caller -> You're right. I'll call her after I give him the ice. Thank you, Joel.
+  Nurse -> Of course. Talk soon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Abner Quillfeather, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1949-12-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Ruth Quillfeather, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "4055550114", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband kept vomiting despite nausea medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "My husband Abner won't stop throwing up."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Vomiting had occurred six times since this morning.
+      speaker: Caller
+      turns: [2]
+      quote: "Six times since this morning"
+      explanation: Documents the vomiting.
+      facts:
+        - {type: symptom, name: vomiting, present: true, severity: six times, onset: since this morning, certainty: stated}
+      covers: [A1]
+    - text: Zofran was given twice today, the second dose about two hours earlier, without control of the vomiting.
+      speaker: Caller
+      turns: [10]
+      quote: "The second one was about two hours ago."
+      explanation: Documents the nausea medication use.
+      facts:
+        - {type: medication, name: Zofran, last_dose: two doses today, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He could not keep sips of water down.
+      speaker: Caller
+      turns: [8]
+      quote: "I tried water an hour ago and it came right back."
+      explanation: Documents the inability to keep fluids down.
+      facts:
+        - {type: symptom, name: unable to keep sips down, present: true, certainty: stated}
+      covers: [A3]
+    - text: He was weak and did not want to move.
+      speaker: Caller
+      turns: [12]
+      quote: "He's weak. He's lying there and he doesn't want to move."
+      explanation: Documents the weakness.
+      facts:
+        - {type: symptom, name: weakness, present: true, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to page the on-call clinician right now."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to send a nurse out within two hours.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm also going to send a nurse out within two hours."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [19]
+      quote: "I'll call you back in thirty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised holding food and drinks, giving only a few ice chips at a time, and keeping his head raised.
+      speaker: Nurse
+      turns: [15]
+      quote: "And hold the food and drinks. Just ice chips, a few at a time, and keep his head up on pillows."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised not giving another Zofran until the on-call clinician advised.
+      speaker: Nurse
+      turns: [15]
+      quote: "please don't give another Zofran until the on-call clinician tells you."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "Six times since this morning, and I gave him the Zofran twice and it isn't working."}

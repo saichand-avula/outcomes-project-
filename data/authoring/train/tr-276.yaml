@@ -1,0 +1,304 @@
+call_id: tr-276
+split: train
+blueprint: "A neighbor, Gloria, calls the home care agency about the man next door, Walter Pruitt, 71, who lives alone. She went in to drop off soup and noticed his weekly pillbox is still full for Monday through Wednesday. He says he's tired and not hungry. She read his meter for him: 248 this morning. He's talking normally, no chest pain. She reads the DOB off his medical alert card and doesn't know his pharmacy. Nurse plans a visit tomorrow, a message to the team, and a call to Walter this afternoon. Medication missed doses, friend_neighbor caller, v2 short, meandering and a little chatty."
+setup:
+  scenario_category: medication
+  subtype: missed_doses
+  secondary_tags: [hedging, late_answers, split_turns, offtopic_chatter, multi_issue]
+  clinical_domains: [medication, glucose, fatigue]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Sunrise Home Care
+  agency_type: home_care
+  nurse_name: Dana
+  call_timestamp_utc: "2026-10-31T21:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Walter Pruitt
+  patient_name_spoken: Walter Pruitt
+  patient_name_certainty: stated
+  patient_dob_true: "1954-06-09"
+  patient_dob_spoken: "1954-06-09"
+  patient_dob_certainty: stated
+  caller_name_true: Gloria Fennimore
+  caller_name_spoken: Gloria Fennimore
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "6155550177"
+  callback_phone_spoken: "6155550177"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that a neighbor who lives alone appears to have missed several days of his pills
+  reason_category: medication
+  relevant_context: Home care client living alone, caller is the neighbor
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metformin
+    medication_name_spoken: metformin
+    medication_status: missed
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    last_dose: Sunday
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: lisinopril
+    medication_name_spoken: lisinopril
+    medication_status: missed
+    dose: "10"
+    unit: mg
+    frequency: once a day
+    last_dose: Sunday
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood sugar
+    vital_value: "248"
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: tiredness and poor appetite
+    symptom_present: true
+    onset_or_duration: a few days
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: supervising nurse
+    reason_or_trigger: several days of missed pills and a sugar of 248
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: Walter
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give him the missed doses all at once; he should take the next dose on schedule until the nurse checks the plan
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if he has chest pain, becomes confused, is very hard to wake, or is vomiting and cannot keep fluids down
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Sunrise Home Care, this is Dana.
+  Caller -> Oh. Hi. Hi, Dana. Um, I'm not sure I've got the right number. I'm calling about my neighbor, he gets, you all send somebody to him? || cc
+  Nurse -> What's your neighbor's name? I can look him up.
+  Caller -> It's Walter. Walter Pruitt. P R U I T T. I'm Gloria. Gloria Fennimore. I live next door. || caller_name, relationship, patient_name
+  Nurse -> Okay, Gloria. Hold on, let me pull him up. Walter Pruitt. Yes, I see him. What's going on?
+  Caller -> Well. I don't know if it's anything. I'm probably being a worry wart.
+  Nurse -> No, that's what we're here for. Tell me.
+  Caller -> So I brought him some soup. Chicken and rice, I make too much, always. And I went over around noon, and he was in the recliner. And I was putting the soup in the kitchen and I saw his pill thing. The box with the days on it.
+  Nurse -> The pillbox. Okay.
+  Caller -> Yes. And it's full. Monday, Tuesday, Wednesday, all the little doors have pills in them still. And today's Wednesday, so. That's three days. I think he hasn't been taking them.
+  Nurse -> Okay. And you're sure it's Monday through Wednesday that are full?
+  Caller -> Um, Monday, Tuesday, and today. Wednesday. Yes. Sunday's empty. So the last one he took was Sunday, I'd guess.
+  Nurse -> Okay. Did you ask him about it?
+  Caller -> I did. I said Walter, you didn't take your pills. And he said he knows, he's just not hungry, and he doesn't like taking them on an empty stomach.
+  Nurse -> That makes sense. Some of them can upset the stomach.
+  Caller -> That's what he said. I said well, you could eat some soup, and he said maybe later.
+  Nurse -> Gloria, do you know which pills he's supposed to take?
+  Caller -> Well, I looked at the bottles. I hope that's okay. I didn't open anything. They were on the counter. There's the, hold on, I wrote it down. The metformin. Five hundred milligrams, twice a day. And the lisinopril, ten milligrams, once a day. || A1, A2
+  Nurse -> Okay. Metformin and lisinopril. Thank you for writing that down. That's very helpful. || A1, A2
+  Caller -> I figured you'd want it. I used to be a school secretary, so. I write everything down.
+  Nurse -> It shows. Okay. And you said the last day those were taken was Sunday?
+  Caller -> Sunday, yes, I think. I'm guessing from the box.
+  Nurse -> Okay. Now, can I get Walter's date of birth? Just so I have the right record.
+  Caller -> I don't know it by heart. Oh. He wears one of those, the medical alert thing around his neck. Hold on. Walter! Walter, what's your birthday? No, I mean, can I read your thing? Okay. It says, it's on the back, June ninth. Nineteen fifty four. || patient_dob
+  Nurse -> June ninth, nineteen fifty four. Good, that matches.
+  Caller -> Oh good.
+  Nurse -> And what's a good number to reach you, in case we need to call you back?
+  Caller -> I'm in the book, but you can use my cell. Six one five, five five five, zero one seven seven. || callback_phone
+  Nurse -> Got it. Thanks. Now, how has Walter been otherwise? You said he's tired?
+  Caller -> He's tired. He's been tired. I'd say, since the weekend maybe? A few days. He's just sitting. He's not himself. He usually walks around the block and waves at everybody. And he hasn't been eating much. Just crackers. || A4
+  Nurse -> Okay. And is he talking with you normally? Does he make sense?
+  Caller -> Oh yes. Oh, he makes sense. He told me all about the football game. He's sharp as a tack. Just tired.
+  Nurse -> Okay. Does he have any chest pain? Or is he confused at all?
+  Caller -> No. No, no chest pain. I asked him. He said no. And he's not confused. I'd know. He corrected my grammar. || A5
+  Nurse -> Ha. Okay. That's a good sign.
+  Caller -> He does that. Anyway.
+  Nurse -> Does Walter have diabetes? Is that what the metformin's for?
+  Caller -> He does, yes, he has the sugar. He has the little meter. And I said let's check it, and he said fine. So I did it for him. I don't love doing the finger, but I did.
+  Nurse -> Thank you. What did the meter say?
+  Caller -> Two forty eight. It said two, four, eight. That's high, isn't it?
+  Nurse -> It's higher than we want, especially in the morning. But it's not an emergency number. When was that?
+  Caller -> That was just now, like twenty minutes ago. He hadn't eaten anything but the crackers. || A3
+  Nurse -> Okay. Thank you. That helps us know what's going on.
+  Caller -> I didn't know if I should call you or, who do I call? I don't have the daughter's number. She's in Oregon.
+  Nurse -> You did the right thing calling us. Gloria, what I'm going to do is have a nurse come out tomorrow morning to see Walter, check his sugar and his pressure, and go over his pills with him. || R1
+  Caller -> Oh good. Tomorrow morning. Should I be there?
+  Nurse -> You don't have to be. But if you're around, it might help. He might like the company.
+  Caller -> I'll be around. I'm always around. I'll bring muffins.
+  Nurse -> That's very kind. Now, I'll also send a message to our supervising nurse today about the missed pills and the sugar, so they know before the visit. || R2
+  Caller -> Okay. Okay good.
+  Nurse -> And I'm going to call Walter myself this afternoon, just to check on him and see how he's feeling. || R3
+  Caller -> He'll like that. He likes you girls. He talks about you.
+  Nurse -> That's nice to hear.
+  Caller -> Is he in trouble? For not taking the pills?
+  Nurse -> No, not at all. We just want to understand what's going on and help.
+  Caller -> Okay. Because he's proud. He doesn't like being fussed over.
+  Nurse -> I understand. We'll be gentle.
+  Caller -> Thank you.
+  Nurse -> Now, here's what's important, Gloria. Please don't give him the missed pills all at once to catch up. He should just take the next one on schedule, with a little food, until the nurse checks the plan. || E1
+  Caller -> Oh. No, I wouldn't, I wouldn't do that. Okay. Just the next one. With some food. Like some of that soup.
+  Nurse -> The soup would be perfect.
+  Caller -> I'll heat it up for him before I go. I'll make him eat a bowl. Or half a bowl.
+  Nurse -> And if anything changes, if he has chest pain, or gets confused, or he's very hard to wake up, or he's throwing up and can't keep fluids down, call nine one one right away. Don't wait for us. || E2
+  Caller -> Chest pain, confused, hard to wake up, throwing up. Okay. Nine one one. I've got it. I'm going to write that on the fridge.
+  Nurse -> Good idea.
+  Caller -> Can I ask something silly? Is it okay if I pop in a couple times today? Just to look.
+  Nurse -> That's not silly at all. It would help a lot.
+  Caller -> Okay. I will. I'm only next door. I can see his porch light from my kitchen.
+  Nurse -> That's a good neighbor.
+  Caller -> Well, he's a good neighbor too. He shovels my walk every winter. Or he did. I guess I'll shovel his this year.
+  Nurse -> Ha. Hopefully he'll be back to it by then.
+  Caller -> I hope so. Okay. So tomorrow morning, the nurse. And you'll call Walter this afternoon.
+  Nurse -> Yes. Is there anything else you want me to know?
+  Caller -> I don't think so. Oh, one thing. He has a little dog. Pepper. Somebody's been walking her, I think, but I'm not sure it's every day. I'll take her out too.
+  Nurse -> That would be wonderful. Thank you, Gloria.
+  Caller -> Okay. Thank you, Dana. Sorry to bother you.
+  Nurse -> It's no bother at all. Take care.
+  Caller -> Bye bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Walter Pruitt, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1954-06-09", certainty: stated, heard_as: [], turns: [24]}
+    caller_name: {value: Gloria Fennimore, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: neighbor, certainty: stated, turns: [4]}
+    callback_phone: {value: "6155550177", certainty: stated, heard_as: [], turns: [28]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that a neighbor who lives alone appeared to have missed several days of his pills.
+    speaker: Caller
+    turns: [10]
+    quote: "I think he hasn't been taking them."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metformin 500 mg twice a day was missed, with the last dose taken Sunday.
+      speaker: Caller
+      turns: [18]
+      quote: "The metformin. Five hundred milligrams, twice a day."
+      explanation: Documents the missed medication.
+      facts:
+        - {type: medication, name: metformin, dose: "500", unit: mg, frequency: twice a day, last_dose: Sunday, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Lisinopril 10 mg once a day was missed, with the last dose taken Sunday.
+      speaker: Caller
+      turns: [18]
+      quote: "And the lisinopril, ten milligrams, once a day."
+      explanation: Documents the missed medication.
+      facts:
+        - {type: medication, name: lisinopril, dose: "10", unit: mg, frequency: once a day, last_dose: Sunday, med_status: missed, certainty: stated}
+      covers: [A2]
+    - text: Blood sugar was 248 about twenty minutes earlier.
+      speaker: Caller
+      turns: [40]
+      quote: "Two forty eight."
+      explanation: Documents the glucose reading.
+      facts:
+        - {type: vital, name: blood sugar, value: "248", certainty: stated}
+      covers: [A3]
+    - text: He had been tired for a few days and was eating only crackers.
+      speaker: Caller
+      turns: [30]
+      quote: "He's tired. He's been tired."
+      explanation: Documents the tiredness and poor appetite.
+      facts:
+        - {type: symptom, name: tiredness and poor appetite, present: true, onset: a few days, certainty: stated}
+      covers: [A4]
+    - text: No chest pain or confusion was reported.
+      speaker: Caller
+      turns: [34]
+      quote: "No, no chest pain."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or confusion, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned a nurse visit tomorrow morning to check his sugar and pressure and review his pills.
+      speaker: Nurse
+      turns: [45]
+      quote: "have a nurse come out tomorrow morning to see Walter"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the supervising nurse about the missed pills and the sugar.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll also send a message to our supervising nurse today about the missed pills and the sugar"
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call Walter this afternoon to check on him.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'm going to call Walter myself this afternoon"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised against giving the missed pills all at once and having him take the next dose on schedule with food.
+      speaker: Nurse
+      turns: [59]
+      quote: "Please don't give him the missed pills all at once to catch up."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for chest pain, confusion, being very hard to wake, or vomiting without keeping fluids down.
+      speaker: Nurse
+      turns: [63]
+      quote: "call nine one one right away. Don't wait for us."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

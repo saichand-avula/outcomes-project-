@@ -1,0 +1,345 @@
+call_id: tr-482
+split: train
+blueprint: "A 70-year-old woman who takes glipizide five milligrams for diabetes calls home health herself: the new bottle from the mail order pharmacy says glyburide, a look-alike diabetes pill, in the same five milligrams; she has not taken any from it. Fasting sugar one hundred eighteen, no shakiness or sweating. She first reads the label wrong and corrects herself. Nurse contacts the pharmacy, messages the team, plans a callback today, and tells her not to take from the new bottle and to keep using her old supply. Tall-man pair with an explicit self-correction (medication concern), self caller, patient 65+, v2 medium."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication_dispensed
+  secondary_tags: [tall_man_drug, trap_phrasing, contradiction, hedging, late_answers, split_turns]
+  clinical_domains: [medication, glucose]
+  relationship_group: self
+  na_reason: null
+  agency_name: Alderwood Home Health
+  agency_type: home_health
+  nurse_name: Magnus
+  call_timestamp_utc: "2026-11-19T16:00:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Evangelina Ruttledge
+  patient_name_spoken: Evangelina Ruttledge
+  patient_name_certainty: stated
+  patient_dob_true: "1956-04-11"
+  patient_dob_spoken: "1956-04-11"
+  patient_dob_certainty: stated
+  caller_name_true: Evangelina Ruttledge
+  caller_name_spoken: Evangelina Ruttledge
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3035550190"
+  callback_phone_spoken: "3035550190"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Found a look-alike diabetes pill in her new bottle and wants to know what to do
+  reason_category: medication
+  relevant_context: Home health patient with diabetes on a mail order pharmacy
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: glipizide
+    medication_name_spoken: glipizide
+    medication_status: prescribed
+    dose: "5"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: glyburide
+    medication_name_spoken: glyburide
+    medication_status: discussed
+    dose: "5"
+    unit: mg
+    frequency: dispensed in error and not taken
+    prn: false
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: fasting blood glucose
+    vital_value: "118"
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shakiness or sweating
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: mail order pharmacy
+    reason_or_trigger: wrong diabetes pill in the new bottle
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    reason_or_trigger: tell the team about the dispensing error
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: today
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take any pills from the new bottle, keep using the old supply, and set the new bottle aside for the pharmacy
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Keep checking her sugar before meals and at bedtime and call for readings under seventy or over three hundred
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Look-alike diabetes pill dispensed in place of her prescribed medicine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Alderwood Home Health, this is Magnus.
+  Caller -> Hello? Is this home health? I'm so sorry, I always call this number and get the machine.
+  Nurse -> You've got a person today. Go ahead.
+  Caller -> Hi, Magnus. This is Evangelina Ruttledge. I'm a patient. My diabetes pill came from the mail order pharmacy and I think it's the wrong one. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Hi, Evangelina. Thanks for calling. Let's check it together. What are you supposed to be taking?
+  Caller -> Thank you for answering. I was about to call my daughter first, but I thought I should call you.
+  Nurse -> You made a good choice.
+  Caller -> Glipizide. Five milligrams. Twice a day. With breakfast and with dinner. I've taken it for six years. || A1
+  Nurse -> Okay.
+  Caller -> Sorry, did I say that clearly?
+  Nurse -> Yes. Very clearly.
+  Nurse -> Okay. Glipizide, five milligrams, twice a day. And what does the new bottle say? || A1
+  Caller -> It's the little white one. I've always taken it with food, so I don't get dizzy.
+  Nurse -> That's right.
+  Caller -> It says, hold on, I need my glasses. G L Y B U R I D E. Glyburide. No wait. Let me look again. Glipizide? No. Hm. It says glyburide. Yes. G L Y. Glyburide. Five milligrams. || A2
+  Nurse -> Thank you.
+  Caller -> I'm going to write down what you said so I don't forget.
+  Nurse -> Take your time.
+  Nurse -> Take your time.
+  Caller -> They were on my head. Of course they were on my head. Ha. Okay.
+  Caller -> Thank you for being so kind. It means a lot.
+  Nurse -> Glyburide, five milligrams. Okay. Is it the same name on the bag the bottle came in? || A2
+  Caller -> The paper in the bag says glipizide. The bottle says glyburide. They don't match. That's why I'm confused. || A1, A2
+  Nurse -> Okay.
+  Caller -> I read it three times. It says the right one. The bottle says something else. It's a mix up.
+  Nurse -> It sounds like it.
+  Nurse -> Good catch. Is the patient name on the bottle yours?
+  Caller -> Let me check the other side of the label too. Hold on.
+  Nurse -> Sure.
+  Caller -> Yes. Same name, same address. The doctor's name is right.
+  Caller -> Yes. Evangelina Ruttledge. My name. The doctor is right. The date is right. It's just the, the pill name.
+  Nurse -> Good.
+  Nurse -> Okay. Have you taken any pills from the new bottle?
+  Caller -> No. No. I haven't opened it. Well, I opened the lid and looked. But I haven't taken any. I took this morning's dose from my old bottle. I still have about two weeks left in it.
+  Nurse -> Okay.
+  Nurse -> Perfect. That's the right thing. How do the pills look? Are they the same as the old ones?
+  Caller -> What time is it, by the way? I lost track.
+  Nurse -> It's a little after ten.
+  Caller -> Oh good. I have time before pottery.
+  Caller -> I'll keep the log. I'm very neat about the log. It's got columns.
+  Caller -> I'll get a plastic bag. Hold on.
+  Nurse -> Sure.
+  Caller -> Okay. I have the bag. I'm putting the bottle in.
+  Caller -> Different. The old ones are small and white. The new ones are pink. Oval. That's how I knew something was off. I'm not good with names, but I know my pills.
+  Nurse -> Okay.
+  Nurse -> That's a great way to catch it. Thank you for calling instead of just taking them.
+  Caller -> I'm stubborn, but not that stubborn.
+  Nurse -> Ha. That's a good kind of stubborn.
+  Caller -> I've been taking them so long. I know the look of them like I know my own hands.
+  Caller -> I almost did. I'd taken the first ones out of the bottle. Then I thought, these look funny.
+  Nurse -> Where are those pills now?
+  Caller -> On the kitchen counter. In a little pile. I'll put them back in the bottle.
+  Nurse -> Okay. Please put them back in the bottle.
+  Caller -> Right. I'll do it right now. Hold on.
+  Nurse -> Take your time.
+  Caller -> Okay. They're back in the bottle. I put the lid on tight.
+  Nurse -> Good. Don't take them.
+  Caller -> I won't. Not even by accident.
+  Nurse -> Good.
+  Caller -> I put them in a sandwich bag too. Just in case. Double bagged.
+  Nurse -> That's thorough.
+  Caller -> I won't.
+  Nurse -> How are you feeling today? Have you checked your sugar?
+  Caller -> I did. This morning before breakfast. It was one eighteen. That's good for me. || A3
+  Nurse -> Okay.
+  Caller -> I check it at six thirty every morning. I'm up with the birds.
+  Nurse -> That's a good habit.
+  Nurse -> One eighteen. Any shakiness, sweating, headache?
+  Caller -> No. None of that. I feel fine. I made oatmeal. I'm fine. || A4
+  Nurse -> Good. Now let me ask. What's your date of birth?
+  Caller -> April eleventh. Nineteen fifty six. || patient_dob
+  Nurse -> And your number?
+  Caller -> Three oh three, five five five, oh one nine oh. || callback_phone
+  Nurse -> Three oh three, five five five, oh one nine oh. Right? || callback_phone
+  Caller -> Yes.
+  Nurse -> Okay. Here's what I'll do. I'll call the mail order pharmacy and tell them the bottle has the wrong pill in it. I'll ask them to send the right medicine. || R1
+  Caller -> Oh, good. Thank you. Do you think they'll be nice about it? They're usually a recording.
+  Nurse -> I'll do my best.
+  Nurse -> I'll get a person. I'll stay on the line.
+  Caller -> Thank you.
+  Nurse -> I'm also going to send a message to the team so they know about the error. || R2
+  Caller -> Okay. Good.
+  Caller -> Is it bad that I'm nervous? I know it's just a pill.
+  Nurse -> It's normal. You're careful, and that's good.
+  Nurse -> And I'll call you back today to let you know what the pharmacy says. || R3
+  Caller -> Today. Okay. I'll be home. I have a pottery class at four, but I'll take the phone.
+  Nurse -> Perfect.
+  Nurse -> Pottery. Nice.
+  Caller -> We meet Thursdays too. Tomorrow I'll tell them the story.
+  Nurse -> Ha. A good story.
+  Caller -> I started after my husband passed. Two years ago. It gives me something to do with my hands.
+  Nurse -> That sounds lovely.
+  Caller -> It's my favorite thing. I made a bowl. It's lopsided. It holds cereal.
+  Nurse -> Ha. That's a good bowl.
+  Caller -> It is.
+  Caller -> I'll bring you a mug. If I make a good one.
+  Nurse -> Ha. I'd like that. But I can't accept gifts.
+  Caller -> Oh. Rules. Of course.
+  Nurse -> Evangelina, in the meantime, please don't take any pills from the new bottle. Keep using the old bottle. And put the new one aside, in a bag, so the pharmacy can see it. || E1
+  Caller -> Don't take the new ones. Use the old. Put the new in a bag. Okay. I'll put a sticky note on it that says wrong. In big letters.
+  Nurse -> Perfect.
+  Caller -> What if the old bottle runs out before they send the new one? I have two weeks, but still.
+  Nurse -> The pharmacy should send it well before that. And I'll make sure of it.
+  Caller -> Okay. I trust you.
+  Nurse -> I'll make sure.
+  Caller -> Okay. That makes me feel better.
+  Nurse -> Also, keep checking your sugar before meals and at bedtime. Call us if it's under seventy, or over three hundred. || E2
+  Caller -> Before meals and at bedtime. Under seventy, over three hundred. I write them in the log. I'll keep doing that.
+  Nurse -> Perfect.
+  Caller -> I'm glad I looked. I could have taken the wrong pill for weeks.
+  Nurse -> This is why we check. You did it right.
+  Caller -> I appreciate that. I felt silly.
+  Nurse -> Don't. Nothing silly about it.
+  Caller -> My daughter's a pharmacist. She always says check the pills. I should call her.
+  Nurse -> That's helpful to have in the family.
+  Caller -> Most of the time. Sometimes she corrects my grammar too.
+  Nurse -> That's a good idea. She'll be proud.
+  Caller -> She works at a hospital in Denver. She'll probably call the mail order company herself.
+  Nurse -> Ha. Please let me handle it first.
+  Caller -> Okay. I'll tell her to wait.
+  Caller -> She will. Then she'll lecture me. Ha.
+  Nurse -> Ha.
+  Caller -> Anything else I should do?
+  Nurse -> Let me double check my notes.
+  Caller -> Take your time. I'm just sitting here with my tea.
+  Nurse -> I think that's it. Take care. I'll call you this afternoon.
+  Caller -> Thank you again. I mean it.
+  Caller -> Thank you, Magnus. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Evangelina Ruttledge, certainty: stated, heard_as: [], turns: [4]}
+    patient_dob: {value: "1956-04-11", certainty: stated, heard_as: [], turns: [71]}
+    caller_name: {value: Evangelina Ruttledge, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: self, certainty: stated, turns: [4]}
+    callback_phone: {value: "3035550190", certainty: stated, heard_as: [], turns: [73, 74]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Found a look-alike diabetes pill in her new bottle and wants to know what to do.
+    speaker: Caller
+    turns: [4]
+    quote: "My diabetes pill came from the mail order pharmacy and I think it's the wrong one."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Glipizide 5 mg was prescribed twice a day with breakfast and dinner, last taken this morning from her old bottle.
+      speaker: Caller
+      turns: [8]
+      quote: "Glipizide. Five milligrams. Twice a day."
+      explanation: Documents the prescribed medication.
+      facts:
+        - {type: medication, name: glipizide, dose: "5", unit: mg, frequency: twice a day, prn: false, last_dose: this morning, med_status: prescribed, certainty: stated}
+      covers: [A1]
+    - text: The new bottle said glyburide 5 mg; none was taken.
+      speaker: Caller
+      turns: [15]
+      quote: "Glyburide. No wait."
+      explanation: Documents the dispensed pill.
+      facts:
+        - {type: medication, name: glyburide, dose: "5", unit: mg, frequency: dispensed in error and not taken, prn: false, med_status: discussed, certainty: stated}
+      covers: [A2]
+    - text: Fasting blood glucose this morning was 118.
+      speaker: Caller
+      turns: [64]
+      quote: "It was one eighteen."
+      explanation: Documents the glucose reading.
+      facts:
+        - {type: vital, name: fasting blood glucose, value: "118", certainty: stated}
+      covers: [A3]
+    - text: She had no shakiness or sweating.
+      speaker: Caller
+      turns: [69]
+      quote: "No. None of that. I feel fine."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: shakiness or sweating, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call the mail order pharmacy about the wrong pill and ask for the right medicine.
+      speaker: Nurse
+      turns: [76]
+      quote: "I'll call the mail order pharmacy and tell them the bottle has the wrong pill in it."
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the team about the error.
+      speaker: Nurse
+      turns: [81]
+      quote: "I'm also going to send a message to the team so they know about the error."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a callback today.
+      speaker: Nurse
+      turns: [85]
+      quote: "I'll call you back today"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: today, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not taking pills from the new bottle, continuing the old supply, and setting the new bottle aside for the pharmacy.
+      speaker: Nurse
+      turns: [99]
+      quote: "please don't take any pills from the new bottle."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised checking her sugar before meals and at bedtime and calling for readings under seventy or over three hundred.
+      speaker: Nurse
+      turns: [107]
+      quote: "keep checking your sugar before meals and at bedtime."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [4], quote: "My diabetes pill came from the mail order pharmacy and I think it's the wrong one."}

@@ -1,0 +1,166 @@
+call_id: tr-226
+split: train
+blueprint: "72-year-old diabetic patient calls for test strips: about six strips left, checks twice a day; this morning's sugar was 142. She cannot find the callback number she wants to give (phone not given; the agency has it on file). Nurse places the order (completed) and plans delivery coordination for Thursday. Supply category; phone not given."
+setup:
+  scenario_category: supply
+  subtype: diabetic_supplies
+  secondary_tags: [phone_from_file, phone_not_given, hedging, late_answers, split_turns]
+  clinical_domains: [equipment, glucose]
+  relationship_group: self
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Kim
+  call_timestamp_utc: "2026-10-13T14:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Geraldine Hobart
+  patient_name_spoken: Geraldine Hobart
+  patient_name_certainty: stated
+  patient_dob_true: "1954-01-08"
+  patient_dob_spoken: "1954-01-08"
+  patient_dob_certainty: stated
+  caller_name_true: Geraldine Hobart
+  caller_name_spoken: Geraldine Hobart
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Requested more blood sugar test strips
+  reason_category: supply_request
+  relevant_context: Home care patient with diabetes
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: patient
+    supply_item: blood sugar test strips
+    supply_remaining: "6"
+    supply_unit: strips
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: patient
+    vital_name: blood sugar
+    vital_value: "142"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: test strips
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Keep checking twice a day, write down each number, and call for a sugar over 300 or under 70
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Kim.
+  Caller -> Hi, Kim. This is Geraldine Hobart. I'm a patient. I need more test strips for my sugar. I'm running low. || caller_name, relationship, patient_name, cc, A1
+  Nurse -> Hi, Geraldine. I can help with that. What's your date of birth?
+  Caller -> January eighth, nineteen fifty four. || patient_dob
+  Nurse -> Thank you. And a number where we can reach you?
+  Caller -> Oh, gosh. I just got a new phone and I never remember the number. Hold on. I don't have it. I'm sorry.
+  Nurse -> That's all right. We have a number on file for you. Let me take a look. I'll use that one.
+  Caller -> Yes, please. Use whatever's on the file. It should be the same one.
+  Nurse -> Okay. How many strips do you have left?
+  Caller -> Six. I counted this morning. Six. I check twice a day, so that's three days. || A1
+  Nurse -> Okay. Do you remember what your sugar was this morning?
+  Caller -> A hundred and forty two. That was before breakfast. || A2
+  Nurse -> Okay. That's a good number. I've put the order in for test strips. It's done. || R1
+  Caller -> Oh, wonderful. When will they come?
+  Nurse -> I'm going to coordinate the delivery for Thursday. || R2
+  Caller -> Thursday. That's fine. That's in three days. That works. I'll have a couple left.
+  Nurse -> Right. Keep checking twice a day, write down each number, and call us if you get over three hundred or under seventy. || E1
+  Caller -> Twice a day. Write it down. Over three hundred, under seventy. I have it in my little book.
+  Nurse -> Good. Anything else for today?
+  Caller -> No, that's all. I'm sorry about the phone number.
+  Nurse -> No problem at all. It happens. Take care, Geraldine.
+  Caller -> You too, honey. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Geraldine Hobart, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1954-01-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Geraldine Hobart, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested more blood sugar test strips.
+    speaker: Caller
+    turns: [2]
+    quote: "I need more test strips for my sugar."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Six test strips remained, checked twice a day.
+      speaker: Caller
+      turns: [10]
+      quote: "Six. I counted this morning. Six."
+      explanation: Documents the strip supply.
+      facts:
+        - {type: supply, item: blood sugar test strips, supply: 6 strips, certainty: stated}
+      covers: [A1]
+    - text: Blood sugar was 142 before breakfast.
+      speaker: Caller
+      turns: [12]
+      quote: "A hundred and forty two. That was before breakfast."
+      explanation: Documents the glucose reading.
+      facts:
+        - {type: vital, name: blood sugar, value: "142", certainty: stated}
+      covers: [A2]
+  response:
+    - text: Placed the order for test strips.
+      speaker: Nurse
+      turns: [13]
+      quote: "I've put the order in for test strips. It's done."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to coordinate delivery for Thursday.
+      speaker: Nurse
+      turns: [15]
+      quote: "I'm going to coordinate the delivery for Thursday."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised checking twice a day, recording each number, and calling for a sugar over 300 or under 70.
+      speaker: Nurse
+      turns: [17]
+      quote: "Keep checking twice a day, write down each number, and call us if you get over three hundred or under seventy."
+      explanation: Documents symptom monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+  risk_flags: []

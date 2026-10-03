@@ -1,0 +1,322 @@
+call_id: tr-125
+split: train
+blueprint: "A neighbor, not family, calls about a hospice patient who has not had a bowel movement in four days: bloated belly, cramps 3/10, no vomiting, little fluid intake. She takes senna two at bedtime and oxycodone 5 mg as needed for her back. Neighbor does not know her birthday. Nurse messages the provider, plans a visit tomorrow morning and a callback tonight. Medium length with dog chatter."
+setup:
+  scenario_category: routine
+  subtype: constipation
+  secondary_tags: [offtopic_chatter, late_answers, split_turns, multi_issue, prn_and_scheduled, hedging]
+  clinical_domains: [constipation, pain]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Cedar Point Hospice
+  agency_type: hospice
+  nurse_name: Beth
+  call_timestamp_utc: "2026-10-01T15:40:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Alma Sutherland
+  patient_name_spoken: Alma Sutherland
+  patient_name_certainty: stated
+  patient_dob_true: null
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Pete Granger
+  caller_name_spoken: Pete Granger
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "6155550183"
+  callback_phone_spoken: "6155550183"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that his neighbor has gone four days without a bowel movement
+  reason_category: constipation
+  relevant_context: Hospice patient who lives alone and is checked on by her neighbor
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: no bowel movement
+    symptom_present: true
+    onset_or_duration: four days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: puffy tight belly
+    symptom_present: true
+    body_location: belly
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: belly cramps
+    symptom_present: true
+    severity: 3/10
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting
+    symptom_present: false
+    history_or_context_text: Ate toast and half a banana this morning
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: senna
+    medication_name_spoken: senna
+    medication_status: taking
+    dose: "2"
+    unit: tablets
+    frequency: at bedtime
+    certainty: stated
+  - item_id: A6
+    item_type: medication
+    reporter: caller
+    medication_name_true: oxycodone
+    medication_name_spoken: oxycodone
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every 4 hours as needed
+    certainty: stated
+  - item_id: A7
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Neighbor checks on her every morning and evening; her daughter lives out of state
+    certainty: stated
+  - item_id: A8
+    item_type: symptom
+    reporter: caller
+    symptom_name: low fluid intake
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: stronger bowel plan
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    reason_or_trigger: tell him what the provider says
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Encourage fluids such as water, prune juice or warm tea, and small meals with a little fruit
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away for vomiting, bad belly pain, or being unable to pass gas
+    trigger_condition: vomiting; bad belly pain; no gas
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cedar Point Hospice, this is Beth.
+  Caller -> Hi. Yes. Hello. My name is Pete Granger. I'm a neighbor. I'm calling about Alma next door. Alma Sutherland. || caller_name, relationship, patient_name
+  Nurse -> Hi, Pete. Thanks for calling. Do you know Alma's date of birth?
+  Caller -> Oh, gosh. No. I know she turned eighty seven last spring, her daughter told me. But the date, no. I'm sorry. || patient_dob
+  Nurse -> That's alright. We can work around it. Is Alma okay right now?
+  Caller -> She's awake. She's in her chair by the window. She's okay. It's just that she told me this morning she hasn't gone, you know, number two, in four days. And she's embarrassed. I could tell. || cc, A1
+  Nurse -> Okay. Thank you for telling me, Pete. It's very common and we can help with it. What's a good number for you?
+  Caller -> Six one five, five five five, oh one eight three. || callback_phone
+  Nurse -> Six one five, five five five, zero one eight three. || callback_phone
+  Caller -> That's it. That's my house phone. || callback_phone
+  Nurse -> Okay. So four days with no bowel movement. Does she have any belly pain?
+  Caller -> She said some cramps. On and off. She said it's, what did she say, a three? A three out of ten. || A3
+  Nurse -> Okay. And does her belly look swollen or tight to you?
+  Caller -> It does, actually. It looks puffy. Kind of tight. She keeps pressing on it with her hand. || A2
+  Nurse -> Okay. Any nausea? Has she thrown up?
+  Caller -> No. No throwing up. She ate some toast this morning. And half a banana. || A4
+  Nurse -> Okay. That's good. And how much has she been drinking?
+  Caller -> Not much. She says she's not thirsty. A cup of tea this morning, that's about it. || A8
+  Nurse -> Okay. Does she take anything for constipation?
+  Caller -> Yes, there's a box on the counter. Senna. The purple box. She told me she takes two at bedtime. || A5
+  Nurse -> Okay. Senna, two at bedtime. And is she on any pain medicine? Like oxycodone? || A5, A6
+  Caller -> Yeah, I see the oxycodone bottle on the counter too. She takes it for her back. Five milligrams, it says on the label. Every four hours if she needs it. || A6
+  Nurse -> Okay. That can slow things down. Pete, are you with her during the day?
+  Caller -> No, no. I'm next door. I check on her every morning and again in the evening. Her daughter lives in Oregon, so I'm kind of, you know, the person. || A7
+  Nurse -> That's really kind of you. It means a lot.
+  Caller -> Oh, it's nothing. She makes me banana bread. And the dog loves her. He's sitting right on her feet now, he followed me over.
+  Nurse -> Ha. Dogs know. What kind of dog?
+  Caller -> A beagle. Well, half beagle. Mostly he's a, he's a couch. He doesn't do anything.
+  Nurse -> That sounds like good company for her.
+  Caller -> It is. It really is. She talks to him. She tells him all about her day, even when nothing happened.
+  Nurse -> How long have you two been neighbors?
+  Caller -> Thirty one years. We moved in the same spring. Her husband, Walt, he and I used to do the gutters together every fall. He passed a while back. So now I do hers.
+  Nurse -> Oh, Pete. That's lovely.
+  Caller -> Well. It's what you do. You know. Anyway. Okay, sorry. Back to Alma.
+  Nurse -> No, it's fine. I'm glad she has you. Will you be around to let the nurse in tomorrow?
+  Caller -> Yes. I have her spare key. I'm retired. I'm over there every morning at eight, so I can just stay till they come.
+  Nurse -> No, it's fine. Okay, Pete. Here's what I'm going to do. I'm going to message her hospice provider about a stronger plan for her bowels. || R1
+  Caller -> Okay. A stronger plan. Good.
+  Nurse -> And one of our nurses will come see her tomorrow morning. || R2
+  Caller -> Tomorrow morning. Okay. I'll make sure she's up and I'll let them in.
+  Nurse -> Thank you. And I'll call you back tonight to let you know what the provider says. || R3
+  Caller -> Tonight. Okay. Same number.
+  Nurse -> Yes. Meanwhile, see if she'll drink some fluids. Water, prune juice, warm tea, whatever she likes. And small meals, a little fruit if she can. || E1
+  Caller -> Prune juice. She hates it. But I'll tell her it's medicine. I'll bring her some tonight.
+  Nurse -> Ha. That works. And Pete, if she starts vomiting, if the belly pain gets bad, or she can't pass gas, call us right away. || E2
+  Caller -> Vomiting. Pain. No gas. Okay. Should I write that down?
+  Nurse -> That's a good idea.
+  Caller -> Okay, I have a pen. Vomiting, belly pain, no gas. Call Cedar Point.
+  Nurse -> Perfect. Anything else I can help you with?
+  Caller -> No. No, that's everything. Thank you so much, Beth. She'll be glad someone's coming.
+  Nurse -> We'll take good care of her. Thanks for looking out for her.
+  Caller -> Of course. I'll tell her you called. She'll pretend she's annoyed, but she'll be glad.
+  Nurse -> Ha. Tell her Beth says hello.
+  Caller -> Will do. Bye now.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Alma Sutherland, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: [4]}
+    caller_name: {value: Pete Granger, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: "6155550183", certainty: stated, heard_as: [], turns: [8, 9, 10]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that his neighbor has gone four days without a bowel movement.
+    speaker: Caller
+    turns: [6]
+    quote: "she hasn't gone, you know, number two, in four days."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: No bowel movement had occurred for four days.
+      speaker: Caller
+      turns: [6]
+      quote: "she hasn't gone, you know, number two, in four days."
+      explanation: Documents the constipation.
+      facts:
+        - {type: symptom, name: no bowel movement, present: true, duration: four days, certainty: stated}
+      covers: [A1]
+    - text: Intermittent belly cramps were rated about 3/10.
+      speaker: Caller
+      turns: [12]
+      quote: "She said some cramps. On and off."
+      explanation: Documents the cramps.
+      facts:
+        - {type: symptom, name: belly cramps, present: true, severity: 3/10, certainty: stated}
+      covers: [A3]
+    - text: Her belly looked puffy and tight.
+      speaker: Caller
+      turns: [14]
+      quote: "It looks puffy. Kind of tight."
+      explanation: Documents the belly swelling.
+      facts:
+        - {type: symptom, name: puffy tight belly, present: true, location: belly, certainty: stated}
+      covers: [A2]
+    - text: No vomiting was reported, and she ate toast and half a banana this morning.
+      speaker: Caller
+      turns: [16]
+      quote: "No throwing up. She ate some toast this morning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting, certainty: stated}
+      covers: [A4]
+    - text: Fluid intake was low, about one cup of tea this morning.
+      speaker: Caller
+      turns: [18]
+      quote: "Not much. She says she's not thirsty."
+      explanation: Documents the low fluid intake.
+      facts:
+        - {type: symptom, name: low fluid intake, present: true, certainty: stated}
+      covers: [A8]
+    - text: Senna, 2 tablets at bedtime, was being taken.
+      speaker: Caller
+      turns: [20]
+      quote: "Senna. The purple box. She told me she takes two at bedtime."
+      explanation: Documents the laxative.
+      facts:
+        - {type: medication, name: senna, dose: "2", unit: tablets, frequency: at bedtime, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: Oxycodone 5 mg every 4 hours as needed was being taken for her back.
+      speaker: Caller
+      turns: [22]
+      quote: "Five milligrams, it says on the label. Every four hours if she needs it."
+      explanation: Documents the pain medication.
+      facts:
+        - {type: medication, name: oxycodone, dose: "5", unit: mg, frequency: every 4 hours as needed, prn: true, med_status: taking, certainty: stated}
+      covers: [A6]
+    - text: The neighbor checked on her every morning and evening, and her daughter lived out of state.
+      speaker: Caller
+      turns: [24]
+      quote: "I check on her every morning and again in the evening."
+      explanation: Documents her support situation.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Planned to message the hospice provider about a stronger bowel plan.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to message her hospice provider about a stronger plan for her bowels."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow morning.
+      speaker: Nurse
+      turns: [39]
+      quote: "one of our nurses will come see her tomorrow morning."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back tonight with the provider's reply.
+      speaker: Nurse
+      turns: [41]
+      quote: "I'll call you back tonight to let you know what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised encouraging fluids such as water, prune juice, or warm tea, and small meals with a little fruit.
+      speaker: Nurse
+      turns: [43]
+      quote: "see if she'll drink some fluids. Water, prune juice, warm tea, whatever she likes."
+      explanation: Documents hydration guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for vomiting, bad belly pain, or being unable to pass gas.
+      speaker: Nurse
+      turns: [45]
+      quote: "if she starts vomiting, if the belly pain gets bad, or she can't pass gas, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,209 @@
+call_id: tr-012
+split: train
+blueprint: "Neighbor calls about a patient's swollen ankle (duration vague, side unsure); does not know the DOB; last name uncertain (Whitaker/Whitacre); declines to give a callback number; nurse plans to call the daughter on file."
+setup:
+  scenario_category: ambiguous
+  subtype: vague_timeline
+  secondary_tags: [hedging, phone_not_given, identity_unresolved]
+  clinical_domains: [edema]
+  relationship_group: friend_neighbor
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-08-26T21:15:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: false
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Carol Whitaker
+  patient_name_spoken: Carol Whitaker
+  patient_name_certainty: unclear
+  patient_dob_true: "1968-04-09"
+  patient_dob_spoken: null
+  patient_dob_certainty: not_stated
+  caller_name_true: Dana
+  caller_name_spoken: Dana
+  caller_name_certainty: stated
+  relationship_to_patient: neighbor
+  relationship_certainty: stated
+  callback_phone_true: "6155550120"
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: her
+  reason_for_call: Neighbor reports swollen ankle
+  reason_category: edema
+  relevant_context: Neighbor stopped by to check on patient who is home alone this week
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling
+    symptom_present: true
+    body_location: left ankle
+    onset_or_duration: a few days or maybe a week
+    certainty: unclear
+    unclear_detail: Caller unsure which ankle and how long
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: patient says it does not hurt much
+    certainty: stated
+  - item_id: A3
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Unsure whether patient has been taking her water pill
+    certainty: unclear
+    unclear_detail: Caller does not know
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    recipient_or_target: patient's daughter, number on file
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    reason_or_trigger: assess ankle swelling
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Keep the foot up on a pillow when sitting or lying down
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, trouble breathing, or if the leg turns red, hot, or very painful
+    trigger_condition: chest pain; trouble breathing; red hot painful leg
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi. Um, I don't know if I'm calling the right place. I'm calling about my neighbor. || relationship
+  Nurse -> Okay. Can I get your neighbor's name?
+  Caller -> Carol. Carol Whitaker. Or Whitacre? Something like that. I think it's Whitaker. || patient_name
+  Nurse -> Okay. Do you know her date of birth?
+  Caller -> Oh gosh, no. She's, I want to say late fifties? I don't know.
+  Nurse -> That's okay. And what's your name?
+  Caller -> I'm Dana. Dana from next door. || caller_name
+  Nurse -> Hi, Dana. What's a good callback number for you?
+  Caller -> Actually I'm on my cell and I'm going to lose signal in the garage. Could you just call her daughter? You should have the number.
+  Nurse -> Okay. I'll check. What's going on with Carol?
+  Caller -> So I stopped by to check on her this morning, and her ankle's all swollen. || cc, A1
+  Nurse -> Okay. Which ankle?
+  Caller -> The left one. I think. Maybe the left. || A1
+  Nurse -> And how long has it been like that?
+  Caller -> She said a few days. Maybe a week? She wasn't sure either. || A1
+  Nurse -> Okay. Does it hurt?
+  Caller -> She says it doesn't hurt much. She's not complaining. || A2
+  Nurse -> Okay. Any shortness of breath, chest pain, anything like that, that you've noticed?
+  Caller -> I didn't notice anything. But I wasn't there long.
+  Nurse -> Okay. Is she taking a water pill, do you know?
+  Caller -> I really don't know. I don't know what she takes. I'm sorry. || A3
+  Nurse -> That's alright. I have her chart pulled up. I do see her daughter on the contact list. I'll call her this evening, and let her know about the ankle. || R1
+  Caller -> Oh good. That'd be great.
+  Nurse -> And I'm going to see about getting a nurse out there tomorrow to take a look at it. || R2
+  Caller -> Tomorrow. Okay. Good.
+  Nurse -> In the meantime, if you're able to, have her sit with that foot up on a pillow. || E1
+  Caller -> Okay. I'll tell her.
+  Nurse -> And if she has chest pain, or trouble breathing, or the leg turns red, hot, or really painful, call nine one one. || E2
+  Caller -> Okay. Nine one one. Got it.
+  Nurse -> Thank you so much for checking on her, Dana. That's really helpful.
+  Caller -> Of course. She's a sweetheart.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Whitaker, heard_form: Whitacre, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Carol Whitaker, certainty: unclear, heard_as: [Whitacre], turns: [4]}
+    patient_dob: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    caller_name: {value: Dana, certainty: stated, heard_as: [], turns: [8]}
+    relationship: {value: neighbor, certainty: stated, turns: [2]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the patient's ankle was swollen.
+    speaker: Caller
+    turns: [12]
+    quote: "So I stopped by to check on her this morning, and her ankle's all swollen."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ankle swelling was reported, thought to be the left ankle for a few days or possibly a week; the caller was unsure of the side and duration.
+      speaker: Caller
+      turns: [16]
+      quote: "She said a few days. Maybe a week? She wasn't sure either."
+      explanation: Documents the swelling with the caller's uncertainty preserved.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, location: left ankle, onset: a few days or maybe a week, certainty: unclear}
+      covers: [A1]
+    - text: The patient reportedly said the ankle did not hurt much.
+      speaker: Caller
+      turns: [18]
+      quote: "She says it doesn't hurt much. She's not complaining."
+      explanation: Documents the reported pain level.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: patient says it does not hurt much, certainty: stated}
+      covers: [A2]
+    - text: The caller did not know whether the patient was taking a water pill.
+      speaker: Caller
+      turns: [22]
+      quote: "I really don't know. I don't know what she takes. I'm sorry."
+      explanation: Documents the limits of the caller's knowledge about medications.
+      facts:
+        - {type: context, certainty: unclear}
+      covers: [A3]
+  response:
+    - text: Planned to call the patient's daughter this evening using the number on file.
+      speaker: Nurse
+      turns: [23]
+      quote: "I'll call her this evening, and let her know about the ankle."
+      explanation: Documents the planned family notification.
+      facts:
+        - {type: action, action_type: callback, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to arrange a nurse visit tomorrow to assess the ankle.
+      speaker: Nurse
+      turns: [25]
+      quote: "And I'm going to see about getting a nurse out there tomorrow to take a look at it."
+      explanation: Documents the planned in-person assessment.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised keeping the foot elevated on a pillow.
+      speaker: Nurse
+      turns: [27]
+      quote: "have her sit with that foot up on a pillow."
+      explanation: Documents a comfort measure.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for chest pain, trouble breathing, or a leg that became red, hot, or very painful.
+      speaker: Nurse
+      turns: [29]
+      quote: "if she has chest pain, or trouble breathing, or the leg turns red, hot, or really painful, call nine one one."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

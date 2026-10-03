@@ -1,0 +1,352 @@
+call_id: tr-436
+split: train
+blueprint: "A wife calls home health: ten minutes after her husband's first dose of Augmentin, hives are spreading over his chest, his lips and tongue feel swollen, and he is wheezing and saying his throat feels tight. He has a documented penicillin allergy that the pharmacy missed. They have an epinephrine auto-injector from his bee sting allergy. Nurse tells her to use the epinephrine now, call 911, lay him down with legs raised unless breathing is easier sitting, and stays on the line until paramedics arrive; pages on-call. Suspected anaphylaxis from a wrong medication (breathing concern, medication concern, escalation request), spouse caller, patient 18-64, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: anaphylaxis
+  secondary_tags: [hedging, late_answers, split_turns, crosstalk, multi_issue]
+  clinical_domains: [medication, dyspnea, skin]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Larkspur Home Health
+  agency_type: home_health
+  nurse_name: Dana
+  call_timestamp_utc: "2026-11-21T21:45:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [epinephrine]
+chief_complaint:
+  patient_name_true: Everett Halloran
+  patient_name_spoken: Everett Halloran
+  patient_name_certainty: stated
+  patient_dob_true: "1971-04-09"
+  patient_dob_spoken: "1971-04-09"
+  patient_dob_certainty: stated
+  caller_name_true: Georgiana Halloran
+  caller_name_spoken: Georgiana Halloran
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "6105550173"
+  callback_phone_spoken: "6105550173"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported hives, swelling and wheezing in her husband after his first dose of an antibiotic
+  reason_category: medication
+  relevant_context: Home health patient with a documented penicillin allergy
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Augmentin
+    medication_name_spoken: Augmentin
+    medication_status: taking
+    dose: "875"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: ten minutes ago
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: spreading hives on chest
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: swollen lips and tongue with tight throat
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: wheezing
+    symptom_present: true
+    severity: severe
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: He has a documented penicillin allergy that the pharmacy missed
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: allergic reaction with swelling and wheezing after a penicillin-type antibiotic
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: epinephrine auto-injector
+    medication_name_spoken: epinephrine auto-injector
+    reason_or_trigger: use the auto-injector in the outer thigh now
+    certainty: stated
+  - item_id: R3
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: severe allergic reaction to a wrong medication
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Use the epinephrine auto-injector in the outer thigh, hang up and call 911, and tell the paramedics about the penicillin allergy and the antibiotic taken
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Lay him down with his legs raised unless breathing is easier sitting, give nothing by mouth, and be ready to use a second injector in five to fifteen minutes if symptoms continue
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: breathing_concern
+    trigger_description: Wheezing, tight throat and swollen lips and tongue after a new antibiotic
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: medication_concern
+    trigger_description: Antibiotic given despite a documented penicillin allergy
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F3
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 and using the epinephrine now
+    trigger_speaker: nurse
+    flag_required: true
+transcript: |
+  Nurse -> Larkspur Home Health, this is Dana.
+  Caller -> Dana, it's Georgiana Halloran. My husband, Everett Halloran. He just took the new antibiotic and he's broken out in hives. He can't breathe right. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Georgiana, take a breath. I'm Dana. I'm right here with you.
+  Nurse -> Georgiana, I'm here. Tell me what you see.
+  Caller -> I don't know where to start. His face is red. He's scratching his arms. He keeps saying something's wrong.
+  Nurse -> Slow down, I need you with me. Describe what you see, one thing at a time.
+  Caller -> Hives. All over his chest. They're spreading up his neck. And his lips are puffy. His tongue feels thick. He says his throat is tight. || A2, A3
+  Nurse -> Is there swelling anywhere else, like his eyes or his hands?
+  Caller -> His eyelids look a little puffy. His hands, I don't know. I'm not looking at his hands.
+  Caller -> They're big. Raised, like welts. Some of them are joining together. They weren't there ten minutes ago.
+  Nurse -> Okay. Keep looking at him while we talk.
+  Nurse -> Is he wheezing? Can he talk?
+  Caller -> He's wheezing. I can hear it. He can only say a few words at a time. Hold on. Everett, say something. He said, can't swallow. He said it in pieces. || A4
+  Caller -> His voice sounds different. Hoarse. It's like he's talking through a straw.
+  Nurse -> That's important. Thank you for telling me.
+  Nurse -> Georgiana, this sounds like a severe allergic reaction. What medicine did he take, and when?
+  Caller -> It's an allergic reaction? From the pill? But the doctor prescribed it. The doctor wouldn't prescribe something he's allergic to.
+  Nurse -> We'll sort out how it happened later. Right now, let's help him breathe.
+  Caller -> The Augmentin. It was the first dose. Eight seventy five milligrams. About ten minutes ago. He took it with dinner. || A1
+  Nurse -> Does he have any allergies?
+  Caller -> Penicillin! He's allergic to penicillin! It's in the chart! It's on his bracelet! I forgot. The pharmacy gave us this and nobody checked. Oh my God. I should have looked. || A5, F2
+  Nurse -> Okay. We'll deal with that. Right now, we focus on his breathing.
+  Caller -> I feel sick. I am so angry at the pharmacy, and at myself. I am angry at everyone.
+  Nurse -> That's understandable. Stay with Everett right now.
+  Nurse -> Georgiana, listen to me. This is an emergency. Do you have an epinephrine auto-injector in the house? An EpiPen? || R2
+  Caller -> Yes! Yes, we have one. For his bee stings. In the kitchen drawer. By the stove. I'll get it.
+  Caller -> It's in the drawer with the batteries and the tape. I keep it there because the kids can't reach it. No, wait, we don't have kids at home anymore. It's just habit.
+  Nurse -> Go get it now. Stay on the phone. Take me with you.
+  Caller -> I'm running. My slippers are slipping. I almost fell. Okay. I'm at the stove.
+  Caller -> Running. I'm in the kitchen. It's in the drawer. I have it. It's in the orange case. It's expired? No. It says March next year. It's good.
+  Nurse -> Good. Use it now. Take off the cap, and push the tip into his outer thigh, through his clothes if you need to. Hold it for three seconds. || R2, E1, F3
+  Caller -> I've never used one. I watched the video in the doctor's office. I'm scared. What if I do it wrong?
+  Nurse -> You can't do it wrong. Just push it firmly into the thigh. You'll hear a click.
+  Caller -> Outer thigh. I'm going. Everett, I'm coming. I'm kneeling. Okay. Cap off. Pushing. I hear a click. One, two, three. It's in. It's done.
+  Caller -> It's done. It's in. The needle came out and there's a little orange cover now. Is that normal?
+  Nurse -> Yes, that's normal. Hold on to the pen so you can show the paramedics.
+  Caller -> He flinched. He said, ow. But he's still breathing. Is that good?
+  Nurse -> Yes. Feeling it means it went in.
+  Nurse -> Good. Now call 911 right now. Put me on speaker, if you can, and dial from your cell. || R1
+  Caller -> Wait. Should I call 911 first or give him more? I'm confused. I'm sorry.
+  Nurse -> You've already given the first one. Now call 911. You're doing it in the right order.
+  Caller -> I'm dialing. It's ringing. Hello? Yes. My husband is having an allergic reaction. He took penicillin by accident. He can't breathe. I gave him the epinephrine. The address is eleven twelve Cranberry Lane. Yes. Yes. They're coming, Dana.
+  Nurse -> Perfect. Tell them it's anaphylaxis, and when you used the epinephrine. What time was it?
+  Caller -> The operator asked me a hundred questions. I couldn't answer half of them. He's still looking at me.
+  Nurse -> That's okay. They're sending help. That's what matters.
+  Caller -> It's nine forty eight. I just gave it. Nine forty eight.
+  Nurse -> Write that down, or say it to the paramedics. Georgiana, how is he now?
+  Caller -> I'm writing it on my hand. With the pen from the junk drawer. Nine forty eight.
+  Caller -> He's, his chest is going up and down fast. He's pale. The hives are still there. He's holding his throat.
+  Nurse -> Lay him down with his legs raised, unless it's easier for him to breathe sitting up. Which is easier for him?
+  Caller -> Sitting. He says sitting. He's on the kitchen floor with his back against the cabinet.
+  Nurse -> Then keep him sitting. Don't give him anything by mouth. Not water, not pills. Is the front door unlocked? || E2
+  Caller -> Everett, you can sit up against the cabinet. I'll put a cushion behind you. There. He's leaning back. He's blinking at me.
+  Caller -> No. It's locked. I'll go. Everett, stay. I'll be right back. Don't move. I'm going to the door. Okay. It's open. The porch light's on.
+  Caller -> The lock sticks sometimes. Come on. Come on. There. It's open.
+  Nurse -> Good. Go back to him. Georgiana, I'm paging the on-call clinician now, and I'll tell the hospital he's coming. || R3
+  Caller -> Everett, I'm here. I'm here. Don't talk. Just breathe. I've got you. You're going to be okay.
+  Caller -> Please. Please. He's turning red. His face is flushed. Is that the medicine or the reaction?
+  Caller -> His neck is red and blotchy. The hives are on his arms now. I'm afraid to touch him.
+  Nurse -> You can touch him. Hold his hand. It will help him feel safe.
+  Nurse -> It's from the reaction, and the epinephrine can make the heart race, too. That's expected. Is his breathing any better?
+  Caller -> A little. Maybe. The wheezing is softer. He's still tight. He's saying it's a little better.
+  Caller -> His color is a little better. Not so gray. He's gripping my hand really hard.
+  Nurse -> Good. That means the epinephrine is working. But he still needs the hospital. Don't skip it, even if he feels better.
+  Caller -> I thought it would fix everything right away. Like in the movies.
+  Nurse -> It buys time. The hospital will take it from here.
+  Caller -> I won't. I won't skip it. Everett, you hear that? Don't argue. He's shaking his head. He's stubborn.
+  Caller -> He's so stubborn. He once drove himself to the ER with a broken finger and then argued about the bill.
+  Nurse -> Ha. This time he's going in the ambulance.
+  Nurse -> He needs to be seen. If the symptoms come back before the ambulance gets there, there's a second dose he can have in five to fifteen minutes. Do you have a second injector?
+  Caller -> It came as a two pack. The second one is in the case. I have it in my hand.
+  Caller -> The second pen is yellow, the first was too. I mean, they're the same. I'm shaking so much I can barely hold it.
+  Nurse -> Keep it in your hand. If the breathing gets worse again, use it the same way, on the other thigh.
+  Caller -> I'm holding it like it's made of glass. My hand is cramping from gripping it.
+  Nurse -> That's fine. Just keep it handy until the paramedics arrive.
+  Caller -> Other thigh. Okay. I'm holding it. Hold on. Everett, are you okay? He's looking at me.
+  Nurse -> Keep talking to him. What's his date of birth, so I can tell the hospital?
+  Nurse -> You're doing so well. Keep your voice low and steady. He can hear you.
+  Caller -> Everett, you're doing great. They're almost here. Just breathe slowly for me.
+  Caller -> Everett, stay with me. Look at me. Look at me, honey. He's looking.
+  Caller -> April ninth. Nineteen seventy one. || patient_dob
+  Nurse -> And your cell is the one ending in oh one seven three?
+  Caller -> Yes. Six one oh, five five five, zero one seven three. || callback_phone
+  Nurse -> Good. Now, can you hear the sirens?
+  Caller -> He's holding my hand so tight. His fingers are cold. But his lips look less puffy. A little.
+  Nurse -> That's encouraging. Let the paramedics take a look as soon as they arrive.
+  Caller -> Yes. I think so. Yes! They're close. The dog is going crazy. The porch light's on.
+  Caller -> The neighbor is on his porch. He sees the lights. He's waving his arms to get them to turn. Come on.
+  Nurse -> Go to the front door and wave them in. Leave the phone on the counter. I'll stay on.
+  Caller -> The dog is going to bark at them. I'll put her in the laundry room. Hold on. Here, Bella. In. Good girl.
+  Caller -> I'm going. Over here! In the kitchen! He's having anaphylaxis! Penicillin! I gave him the EpiPen at nine forty eight! He's wheezing! Hives! Over here!
+  Caller -> They're asking me to move. I'm backing up. I'm out of the way. Dana, I have to put the phone down.
+  Nurse -> Georgiana, I can hear them. Answer their questions. I'll be right here.
+  Caller -> He took Augmentin. First dose, ten minutes before the EpiPen. He's allergic to penicillin. He has a bracelet. Yes. Yes, a second pen, here, I didn't use it. Yes. || A1
+  Caller -> He's on oxygen now. They put a mask on his face. They're giving him something in his arm.
+  Nurse -> That's what they do. Let them work.
+  Nurse -> Which hospital?
+  Caller -> It's about fifteen minutes. I used to take my mother there. They know me at the front desk.
+  Caller -> They said Methodist. The emergency room. I'm going with him. They're putting him on a stretcher.
+  Nurse -> Bring the bottle of Augmentin and his medicine list. And his bracelet is on him? || A1
+  Caller -> The list is on the fridge. Under the magnet. I'm grabbing it. Is there anything else?
+  Nurse -> Your phone and your keys. Lock up behind you.
+  Caller -> The bracelet is on his wrist. I have the bottle in my hand. And the used pen. They said to bring it.
+  Nurse -> Good. Go with him. Tell the ER about the pharmacy mix up. We'll follow up tomorrow.
+  Caller -> Thank you, Dana. Thank you for staying on. I'm going.
+  Caller -> I would have panicked if you weren't on the line. I really would have. I was frozen.
+  Nurse -> You weren't frozen. You acted fast. That's what saved him.
+  Nurse -> Go. Take care of him. Bye.
+  Caller -> I'll call you from the hospital when I know more. And I'll call the pharmacy tomorrow. They need to know.
+  Nurse -> Yes, please. They'll want to hear it.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everett Halloran, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1971-04-09", certainty: stated, heard_as: [], turns: [81]}
+    caller_name: {value: Georgiana Halloran, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550173", certainty: stated, heard_as: [], turns: [83]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported hives, swelling and wheezing in her husband after his first dose of an antibiotic.
+    speaker: Caller
+    turns: [2]
+    quote: "He just took the new antibiotic and he's broken out in hives."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Augmentin 875 mg twice a day, first dose taken about ten minutes ago with dinner.
+      speaker: Caller
+      turns: [19]
+      quote: "The Augmentin. It was the first dose. Eight seventy five milligrams."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: Augmentin, dose: "875", unit: mg, frequency: twice a day, prn: false, last_dose: ten minutes ago, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Hives were spreading over his chest and up his neck.
+      speaker: Caller
+      turns: [7]
+      quote: "Hives. All over his chest."
+      explanation: Documents the hives.
+      facts:
+        - {type: symptom, name: spreading hives on chest, present: true, severity: severe, certainty: stated}
+      covers: [A2]
+    - text: His lips were puffy, his tongue felt thick and his throat was tight.
+      speaker: Caller
+      turns: [7]
+      quote: "his lips are puffy. His tongue feels thick."
+      explanation: Documents the swelling.
+      facts:
+        - {type: symptom, name: swollen lips and tongue with tight throat, present: true, severity: severe, certainty: stated}
+      covers: [A3]
+    - text: He was wheezing and could only say a few words at a time.
+      speaker: Caller
+      turns: [13]
+      quote: "He's wheezing. I can hear it."
+      explanation: Documents the wheezing.
+      facts:
+        - {type: symptom, name: wheezing, present: true, severity: severe, certainty: stated}
+      covers: [A4]
+    - text: He had a documented penicillin allergy that the pharmacy missed.
+      speaker: Caller
+      turns: [21]
+      quote: "Penicillin! He's allergic to penicillin!"
+      explanation: Documents the allergy.
+      facts:
+        - {type: context, text: He has a documented penicillin allergy that the pharmacy missed, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Advised calling 911 now.
+      speaker: Nurse
+      turns: [39]
+      quote: "Now call 911 right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Advised using the epinephrine auto-injector in his outer thigh now.
+      speaker: Nurse
+      turns: [31]
+      quote: "Use it now. Take off the cap, and push the tip into his outer thigh"
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R2]
+    - text: Planned to page the on-call clinician and alert the hospital.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'm paging the on-call clinician now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised using the auto-injector in the outer thigh and telling the paramedics about the allergy and the antibiotic.
+      speaker: Nurse
+      turns: [43]
+      quote: "Tell them it's anaphylaxis"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised keeping him seated or lying with legs raised, nothing by mouth and a second injector ready if symptoms continued.
+      speaker: Nurse
+      turns: [52]
+      quote: "Don't give him anything by mouth."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: breathing_concern, turns: [2], quote: "He can't breathe right."}
+    - {category: medication_concern, turns: [21], quote: "He's allergic to penicillin!"}
+    - {category: escalation_request, turns: [39], quote: "Now call 911 right now."}

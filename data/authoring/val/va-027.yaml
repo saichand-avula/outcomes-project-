@@ -1,0 +1,216 @@
+call_id: va-027
+split: val
+blueprint: "Daughter alone with her restless 92-year-old father after the night aide did not arrive; asks someone to come tonight; nurse pages the on-call nurse (completed), arranges a visit within the hour (planned), and calls back in 15 minutes. Flag: escalation request."
+setup:
+  scenario_category: high_risk
+  subtype: escalation_request
+  secondary_tags: [trap_phrasing]
+  clinical_domains: [agitation_delirium, equipment]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Juniper Ridge Hospice
+  agency_type: hospice
+  nurse_name: Lena
+  call_timestamp_utc: "2026-10-02T04:15:00Z"
+  length_bucket: short
+  patient_age_group: "90+"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Arlen Bosch
+  patient_name_spoken: Arlen Bosch
+  patient_name_certainty: stated
+  patient_dob_true: "1934-05-19"
+  patient_dob_spoken: "1934-05-19"
+  patient_dob_certainty: stated
+  caller_name_true: Marta
+  caller_name_spoken: Marta
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5075550184"
+  callback_phone_spoken: "5075550184"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asks for someone to come tonight because she cannot manage her restless father alone
+  reason_category: caregiver_crisis
+  relevant_context: The night aide did not arrive
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness
+    symptom_present: true
+    severity: moaning and trying to stand up
+    onset_or_duration: past hour
+    certainty: stated
+  - item_id: A2
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: The night aide did not arrive and the caller is alone with him
+    certainty: stated
+  - item_id: A3
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Bed is soaked and he cannot stand without help
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fall tonight
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call nurse
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: on-call nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not try to lift him alone; keep him in bed with the rails or low bed, and stay near
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Dim the lights, speak softly, and put a dry pad under him if possible
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Caller asks the nurse to send someone tonight because she cannot manage him
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Juniper Ridge Hospice, this is Lena.
+  Caller -> Lena, it's Marta Bosch. I'm so sorry to call so late. It's my father, Arlen. || caller_name, relationship, patient_name
+  Nurse -> Hi, Marta. Arlen's date of birth?
+  Caller -> May nineteenth, nineteen thirty four. || patient_dob
+  Nurse -> And your number is five oh seven, five five five, zero one eight four? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's going on tonight?
+  Caller -> Please send someone tonight. We can't manage him. The aide didn't come, and I'm here alone. || cc, A2, F1
+  Caller -> He's been moaning and trying to stand up for about an hour. And the bed is soaked. I can't get him up by myself. || A1, A3
+  Nurse -> Okay, Marta. I'm glad you called. Has he fallen tonight?
+  Caller -> No. No fall. I've been holding on to him. || A4
+  Nurse -> Okay. I'm paging our on-call nurse right now. Hold on. Okay, I've paged her. || R1
+  Caller -> Thank you.
+  Nurse -> She will come to you. I'm arranging a visit within the hour. || R2
+  Caller -> Within the hour. Okay. Thank you.
+  Nurse -> I'll call you back in fifteen minutes to check on you. || R3
+  Caller -> Okay.
+  Nurse -> Marta, please don't try to lift him by yourself. Keep him in bed, with the rails up or the bed low, and stay near him. || E1
+  Caller -> Okay. I won't lift him. I'll stay right here.
+  Nurse -> Dim the lights, speak softly to him, and if you can, slip a dry pad under him. || E2
+  Caller -> I have the pads. I'll do that.
+  Nurse -> Does he have any pain, do you think? Is he grimacing, or hurting somewhere?
+  Caller -> I don't know. He's just moaning. He doesn't seem to be pointing at anything. Maybe he's just uncomfortable in the wet bed.
+  Nurse -> That's possible. The nurse will check him over when she arrives.
+  Caller -> Okay. I'm just so tired. I've been up since five yesterday morning.
+  Nurse -> I understand. You're doing a good job. Help is on the way.
+  Caller -> Thank you so much, Lena.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Arlen Bosch, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1934-05-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Marta, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "5075550184", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked for someone to come tonight because she could not manage her father alone.
+    speaker: Caller
+    turns: [8]
+    quote: "Please send someone tonight. We can't manage him. The aide didn't come, and I'm here alone."
+    explanation: Documents the request prompting the call.
+    covers: [cc, A2]
+  assessment:
+    - text: Moaning and trying to stand up for about an hour, with a soaked bed; the caller could not get him up alone.
+      speaker: Caller
+      turns: [9]
+      quote: "He's been moaning and trying to stand up for about an hour."
+      explanation: Documents the symptoms and care difficulty.
+      facts:
+        - {type: symptom, name: restlessness, present: true, severity: moaning and trying to stand up, onset: past hour, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A3]
+    - text: No fall had occurred tonight.
+      speaker: Caller
+      turns: [11]
+      quote: "No. No fall. I've been holding on to him."
+      explanation: Documents a pertinent negative for falls.
+      facts:
+        - {type: pertinent_negative, name: fall tonight, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Paged the on-call nurse during the call.
+      speaker: Nurse
+      turns: [12]
+      quote: "I'm paging our on-call nurse right now. Hold on. Okay, I've paged her."
+      explanation: Documents the completed page.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned an on-call nurse visit within the hour.
+      speaker: Nurse
+      turns: [14]
+      quote: "She will come to you. I'm arranging a visit within the hour."
+      explanation: Documents the planned urgent visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 15 minutes.
+      speaker: Nurse
+      turns: [16]
+      quote: "I'll call you back in fifteen minutes to check on you."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not lifting him alone, keeping him in bed with the rails up or the bed low, and staying near him.
+      speaker: Nurse
+      turns: [18]
+      quote: "please don't try to lift him by yourself. Keep him in bed, with the rails up or the bed low, and stay near him."
+      explanation: Documents safety instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised dimming the lights, speaking softly, and placing a dry pad under him if possible.
+      speaker: Nurse
+      turns: [20]
+      quote: "Dim the lights, speak softly to him, and if you can, slip a dry pad under him."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: escalation_request, turns: [8], quote: "Please send someone tonight."}

@@ -1,0 +1,209 @@
+call_id: tr-002
+split: train
+blueprint: "Post-op patient asks if she can shower with abdominal dressing; no fever or drainage; nurse advises covering it; will message wound nurse and call back (planned)."
+setup:
+  scenario_category: routine
+  subtype: general_question
+  secondary_tags: [negated_risk_phrase, phone_from_file, trap_phrasing]
+  clinical_domains: [wound_skin]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-08-05T13:07:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: low
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Angela Ruiz
+  patient_name_spoken: Angela Ruiz
+  patient_name_certainty: stated
+  patient_dob_true: "1979-11-08"
+  patient_dob_spoken: "1979-11-08"
+  patient_dob_certainty: stated
+  caller_name_true: Angela Ruiz
+  caller_name_spoken: Angela Ruiz
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4155550111"
+  callback_phone_spoken: "4155550111"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Asked whether she can shower with her abdominal surgical dressing
+  reason_category: wound_care_question
+  relevant_context: Hernia repair 9 days ago
+assessment:
+  - item_id: A1
+    item_type: history_context
+    reporter: patient
+    onset_or_duration: 9 days
+    history_or_context_text: Hernia repair surgery 9 days ago with abdominal incision dressing
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: patient
+    symptom_name: incision pain
+    symptom_present: true
+    severity: 2/10
+    body_location: abdominal incision
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: drainage
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: redness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: wound nurse Tasha
+    reason_or_trigger: ask about waterproof dressing
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this afternoon
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Keep dressing dry; cover with plastic wrap taped at the edges to shower; no baths or soaking
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for redness, warmth, pus or drainage, or fever of 100.4 or higher
+    trigger_condition: redness, warmth, drainage, fever 100.4 or higher
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus. Who am I speaking with?
+  Caller -> Hi, Marcus. This is Angela Ruiz. I'm a patient. || patient_name, caller_name, relationship
+  Nurse -> Hi, Angela. Can you give me your date of birth?
+  Caller -> November eighth, nineteen seventy nine. || patient_dob
+  Nurse -> Thank you. And I've got four one five, five five five, zero one one one as your number. Still good? || callback_phone
+  Caller -> Yep, that's me. || callback_phone
+  Nurse -> Great. What's going on today?
+  Caller -> So I had my hernia repair, um, nine days ago now, and I still have the dressing on my belly. || A1
+  Caller -> And I just want to know if I can take a shower with it. Like an actual shower. || cc
+  Nurse -> Okay. That's a good question. How's the incision feeling?
+  Caller -> Honestly not bad. It's sore when I sit up, but I'd say like a two. || A2
+  Nurse -> Okay, a two. Any fever at all?
+  Caller -> No, no fever. I've been checking. || A3
+  Nurse -> Any drainage coming through the dressing, or any redness around the edges?
+  Caller -> No drainage. And it's not red, it looks, it looks fine. || A4, A5
+  Nurse -> Good. So the order I'm looking at says to keep the dressing dry until the wound nurse changes it.
+  Caller -> Okay.
+  Nurse -> So you can shower, but cover it. Plastic wrap over the dressing, tape it down on all the edges, and keep your back to the water. No baths, no soaking, no hot tub. || E1
+  Caller -> Got it. Plastic wrap and tape.
+  Nurse -> And I'll send a message to our wound nurse, Tasha, to ask if we can switch you to a waterproof dressing. That would make life easier. || R1
+  Caller -> Oh, that would be great.
+  Nurse -> She's usually quick. I'll call you back this afternoon with what she says. || R2
+  Caller -> Okay, perfect.
+  Nurse -> In the meantime, if you see redness, if it feels warm, if there's any pus or drainage, or you get a fever of one hundred point four or higher, you call us. || E2
+  Caller -> Okay. Redness, warmth, pus, fever. I can remember that.
+  Nurse -> Perfect. Anything else?
+  Caller -> No, that's everything. Thanks, Marcus.
+  Nurse -> You're welcome. Talk to you this afternoon.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Angela Ruiz, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1979-11-08", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Angela Ruiz, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4155550111", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Asked whether she could shower with her abdominal surgical dressing in place.
+    speaker: Caller
+    turns: [9]
+    quote: "And I just want to know if I can take a shower with it."
+    explanation: Documents the wound-care question prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Hernia repair was performed 9 days ago and the abdominal dressing remained in place.
+      speaker: Caller
+      turns: [8]
+      quote: "So I had my hernia repair, um, nine days ago now, and I still have the dressing on my belly."
+      explanation: Documents the surgical context for the dressing question.
+      facts:
+        - {type: context, onset: 9 days, certainty: stated}
+      covers: [A1]
+    - text: Incision soreness when sitting up was rated 2/10.
+      speaker: Caller
+      turns: [11]
+      quote: "It's sore when I sit up, but I'd say like a two."
+      explanation: Documents current incision pain severity.
+      facts:
+        - {type: symptom, name: incision pain, present: true, severity: 2/10, certainty: stated}
+      covers: [A2]
+    - text: No fever, drainage, or redness around the dressing was reported.
+      speaker: Caller
+      turns: [15]
+      quote: "No drainage. And it's not red, it looks, it looks fine."
+      explanation: Documents pertinent negative signs of wound infection.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+        - {type: pertinent_negative, name: drainage, certainty: stated}
+        - {type: pertinent_negative, name: redness, certainty: stated}
+      covers: [A3, A4, A5]
+  response:
+    - text: Planned to message the wound nurse about switching to a waterproof dressing and to call the patient back this afternoon.
+      speaker: Nurse
+      turns: [20]
+      quote: "And I'll send a message to our wound nurse, Tasha, to ask if we can switch you to a waterproof dressing."
+      explanation: Documents the planned team communication and callback.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+        - {type: action, action_type: callback, status: planned, timeframe: this afternoon, certainty: stated}
+      covers: [R1, R2]
+  education:
+    - text: Advised showering only with the dressing covered by plastic wrap taped at the edges, and avoiding baths or soaking.
+      speaker: Nurse
+      turns: [18]
+      quote: "So you can shower, but cover it. Plastic wrap over the dressing, tape it down on all the edges, and keep your back to the water. No baths, no soaking, no hot tub."
+      explanation: Documents dressing-protection instructions for showering.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for redness, warmth, pus or drainage, or a fever of 100.4 or higher.
+      speaker: Nurse
+      turns: [24]
+      quote: "In the meantime, if you see redness, if it feels warm, if there's any pus or drainage, or you get a fever of one hundred point four or higher, you call us."
+      explanation: Documents return precautions for possible wound infection.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

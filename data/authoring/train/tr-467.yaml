@@ -1,0 +1,346 @@
+call_id: tr-467
+split: train
+blueprint: "A son calls about his 72-year-old mother's bedtime insulin: she says she took her Lantus twenty units last night, but he found the pen cap still on the nightstand and the dose log blank, and he is not sure. Morning sugar was two hundred twelve and she is a little thirstier than usual; no nausea, vomiting or confusion. Nurse pages on-call for guidance, will call back within the hour, plans a nurse visit tomorrow, and teaches not to double up and when to call 911. Contradictory report about a dose (unclear last dose), adult child caller, patient 65+, v2 medium."
+setup:
+  scenario_category: ambiguous
+  subtype: contradictory_dose_report
+  secondary_tags: [contradiction, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, glucose]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Tamarack Home Health
+  agency_type: home_health
+  nurse_name: Rosario
+  call_timestamp_utc: "2026-11-12T15:30:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: 65+
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: [insulin]
+chief_complaint:
+  patient_name_true: Prudence Lockhart
+  patient_name_spoken: Prudence Lockhart
+  patient_name_certainty: stated
+  patient_dob_true: "1954-07-07"
+  patient_dob_spoken: "1954-07-07"
+  patient_dob_certainty: stated
+  caller_name_true: Desmond Lockhart
+  caller_name_spoken: Desmond Lockhart
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "8165550149"
+  callback_phone_spoken: "8165550149"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Unsure whether his mother took her bedtime insulin last night
+  reason_category: medication
+  relevant_context: Home health patient with diabetes on bedtime insulin
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lantus
+    medication_name_spoken: Lantus
+    medication_status: taking
+    dose: "20"
+    unit: units
+    frequency: once a day at bedtime
+    prn: false
+    last_dose: unclear whether taken last night
+    certainty: unclear
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: blood glucose
+    vital_value: "212"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: increased thirst
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: nausea or vomiting or confusion
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: context
+    reporter: caller
+    history_or_context_text: She says she took it but the pen cap was left out and the dose log was blank
+    certainty: unclear
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: unclear whether bedtime insulin was taken and sugar of two hundred twelve
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give an extra dose to make up for it; wait for the clinician's instructions
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Recheck her sugar in two hours, write it down, and have her drink water
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for confusion, repeated vomiting, trouble breathing, or a meter that reads high
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Tamarack Home Health, this is Rosario.
+  Caller -> Hi, Rosario. This is Desmond Lockhart. I'm calling about my mother, Prudence Lockhart. I'm not sure if she took her insulin last night. It's the bedtime one. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Desmond. Is your mother with you right now?
+  Caller -> She's in the other room. She doesn't know I'm calling. Well, she knows. She rolled her eyes.
+  Nurse -> Ha. That's all right.
+  Nurse -> Hi, Desmond. Thank you for calling. Let's figure this out. Which insulin is it?
+  Caller -> Lantus. The pen. Twenty units at bedtime. Every night. || A1
+  Nurse -> Okay. Lantus, twenty units, at bedtime. And what makes you unsure? || A1
+  Caller -> Yes. It's the long acting one. She takes it at ten.
+  Caller -> So I stayed over last night. I was on the couch. And around ten, she said she was going to bed and she took her pen in the bedroom. This morning, she said, I took it, Desmond, don't fuss. But then I went in her room and the cap was on the nightstand. Not on the pen. And her log is empty for last night.
+  Nurse -> Take your time. Walk me through it.
+  Nurse -> Okay. So she says she took it, but the cap was off and the log was blank.
+  Caller -> No, wait. The cap was off the pen, on the nightstand. I mean, that's what she does when she takes it. She takes the cap off, leaves it. But she always writes it down. Always. The log is blank.
+  Nurse -> Okay. Does she ever forget to write it down?
+  Caller -> Sometimes. Maybe once a week. But not usually. She's very good with the log. She has a red pen.
+  Nurse -> Ha. A red pen. Good system.
+  Caller -> It's a system she started when my father was alive.
+  Nurse -> Have you asked her again this morning?
+  Caller -> I did. First she said yes. Then I said, are you sure, and she said, I think so. Then I said, did you feel the pen click, and she said, I don't remember. So now I don't know. || A5
+  Nurse -> Okay. That's very helpful. Is the pen with you? Can you look at the dial?
+  Caller -> I feel silly. It's one pen and I can't keep track of it.
+  Nurse -> It isn't silly. This is exactly the kind of thing to call about.
+  Caller -> Hang on. I'm going to get it. It's in the kitchen. I put it in the fridge, I think.
+  Caller -> Sorry. I'm stepping over the dog.
+  Nurse -> No hurry.
+  Nurse -> Take your time.
+  Caller -> Okay. I have it. It's the purple one. There's a little window with a number. It says, um, it's blank. I mean, it says zero.
+  Nurse -> The dial reads zero. That's normal after a dose, or if it was never dialed. It doesn't tell us either way.
+  Caller -> Right. So no help.
+  Nurse -> I'm sorry. It would be nice if it kept a memory.
+  Nurse -> Right. Let's go through how she's doing. Did you check her sugar this morning?
+  Caller -> Yes. At seven. It was two hundred twelve. || A2
+  Nurse -> Two hundred twelve. Is that high for her?
+  Caller -> It's higher than usual. She's normally around one thirty, one forty in the morning. So this is higher.
+  Nurse -> Okay. Anything unusual she ate yesterday?
+  Caller -> Dinner was spaghetti. With the bread. She had a second helping. And a cookie.
+  Nurse -> Okay. That could be part of it.
+  Nurse -> Okay. How is she feeling?
+  Caller -> She's okay. A little thirsty. She asked for a second glass of water at breakfast. That's not like her. || A3
+  Nurse -> Any nausea, vomiting, belly pain?
+  Caller -> No. None of that. She ate her toast and her egg.
+  Caller -> She does the same thing every morning. Eggs, toast, coffee. Sometimes it's decaf.
+  Nurse -> Is she confused or unusually sleepy?
+  Caller -> No. She's sharp. She was doing the crossword while we were talking. She corrected my spelling. || A4
+  Nurse -> Ha. Good. And has she had any other medicines this morning?
+  Caller -> I laid them out in the little tray. Seven compartments. Morning, noon, evening, bed.
+  Caller -> Her pills. She took them. I watched.
+  Nurse -> Okay. Desmond, what's her date of birth?
+  Caller -> July seventh. Nineteen fifty four. || patient_dob
+  Nurse -> And a number for you?
+  Caller -> Eight one six, five five five, oh one four nine. || callback_phone
+  Nurse -> Eight one six, five five five, oh one four nine. Right? || callback_phone
+  Caller -> Yes. That's my cell.
+  Nurse -> Thanks.
+  Caller -> I'll keep the volume up.
+  Nurse -> Okay. Here's what I'm going to do. I don't know for sure if she took the dose, and neither do you. I can't tell you to give more, and I can't tell you to skip. I'm going to page the on-call clinician right now, and ask them what to do. || R1
+  Caller -> Okay. Thank you. I just don't want to hurt her. If I give it and she already had it, that's a double dose.
+  Nurse -> Exactly. That's the concern. That's why please don't give an extra dose to make up for it. Wait for the clinician. || E1
+  Caller -> Okay. I won't give anything. What if she goes high?
+  Nurse -> Good question.
+  Nurse -> That's what the clinician will weigh. I'll call you back within the hour. || R2
+  Caller -> Within the hour. Okay. I'll stay by the phone.
+  Caller -> I'm in the kitchen. The reception is good in here.
+  Nurse -> In the meantime, recheck her sugar in two hours. Write it down. And have her drink water. || E2
+  Caller -> Two hours. Water. Write it down. Okay. That would be nine. I'll set an alarm.
+  Nurse -> That alarm is a good idea.
+  Caller -> My phone has a hundred alarms. One more won't hurt.
+  Nurse -> Good. If it keeps climbing, tell me when I call back.
+  Caller -> I'll write each number next to the time. On the back of the envelope.
+  Nurse -> That works.
+  Caller -> Will do.
+  Nurse -> I'd also like a nurse to come out tomorrow, and go through the insulin routine with her. Maybe set up a better way to track it. || R3
+  Caller -> That would be great. Honestly, I think she might be forgetting more. She's seventy two.
+  Nurse -> Okay. Thank you for telling me. The nurse can look at that, too.
+  Caller -> She would hate it if she knew I said that.
+  Nurse -> I understand. It's a hard thing to say about a parent.
+  Caller -> It really is.
+  Nurse -> It stays between us and the team.
+  Caller -> Thank you.
+  Nurse -> Desmond, call 911 if she gets confused, has repeated vomiting, has trouble breathing, or if her meter just says high. || E3
+  Caller -> Confused. Vomiting. Breathing. The meter says high. Okay. I'm writing it on the fridge whiteboard.
+  Nurse -> Perfect.
+  Caller -> Should I take the pen away? Or leave it with her?
+  Nurse -> Leave it where it is. The clinician will say.
+  Caller -> I'll tape a note on it. Do not use. She will roll her eyes at that too.
+  Nurse -> Ha. That's fine.
+  Caller -> Okay. I'll leave it in the fridge door. She'll look for it.
+  Nurse -> That's fine. Just don't have her give any until we call.
+  Caller -> Got it.
+  Nurse -> Is she nearby right now?
+  Caller -> I can see her through the doorway. She keeps looking over at me.
+  Nurse -> She can tell you're worried.
+  Caller -> Yes. She keeps asking if I'm okay.
+  Caller -> She's in the living room. Doing her puzzle.
+  Nurse -> Good. Keep an eye on her.
+  Caller -> She just asked me what I'm doing on the phone. I said work stuff.
+  Nurse -> Ha.
+  Caller -> I will. I took the day off.
+  Nurse -> That's helpful.
+  Caller -> I figured. I'd rather be here.
+  Nurse -> Does she mind?
+  Caller -> She pretends to. She made me a sandwich, so I think she's happy.
+  Nurse -> Anything else you want to tell me?
+  Caller -> Not really. I just wanted to make sure I did the right thing by calling.
+  Nurse -> You did.
+  Caller -> No. I just feel bad. I should have been more careful.
+  Nurse -> You're being careful now. That's what counts.
+  Caller -> I try. My sister says I hover.
+  Nurse -> A little hovering is allowed today.
+  Caller -> Thank you.
+  Nurse -> I'll page now. Talk to you soon.
+  Caller -> Okay. Thanks, Rosario.
+  Nurse -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Prudence Lockhart, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1954-07-07", certainty: stated, heard_as: [], turns: [49]}
+    caller_name: {value: Desmond Lockhart, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "8165550149", certainty: stated, heard_as: [], turns: [51, 52]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Unsure whether his mother took her bedtime insulin last night.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm not sure if she took her insulin last night."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Lantus 20 units at bedtime (unclear; she said she took it last night but could not confirm).
+      speaker: Caller
+      turns: [7]
+      quote: "Lantus. The pen. Twenty units at bedtime."
+      explanation: Documents the medication and the uncertain last dose.
+      facts:
+        - {type: medication, name: Lantus, dose: "20", unit: units, frequency: once a day at bedtime, prn: false, last_dose: unclear whether taken last night, med_status: taking, certainty: unclear}
+      covers: [A1]
+    - text: Blood sugar was 212 at seven this morning.
+      speaker: Caller
+      turns: [32]
+      quote: "It was two hundred twelve."
+      explanation: Documents the glucose reading.
+      facts:
+        - {type: vital, name: blood glucose, value: "212", certainty: stated}
+      covers: [A2]
+    - text: She was a little thirstier than usual.
+      speaker: Caller
+      turns: [39]
+      quote: "A little thirsty."
+      explanation: Documents the increased thirst.
+      facts:
+        - {type: symptom, name: increased thirst, present: true, severity: mild, certainty: stated}
+      covers: [A3]
+    - text: She had no nausea, vomiting or confusion.
+      speaker: Caller
+      turns: [44]
+      quote: "She's sharp."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: nausea or vomiting or confusion, certainty: stated}
+      covers: [A4]
+    - text: She said she took it, but the pen cap was left out and the dose log was blank (unclear).
+      speaker: Caller
+      turns: [19]
+      quote: "Then I said, did you feel the pen click, and she said, I don't remember."
+      explanation: Documents the contradictory report.
+      facts:
+        - {type: context, text: She says she took it but the pen cap was left out and the dose log was blank, certainty: unclear}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician about the unclear dose and the sugar.
+      speaker: Nurse
+      turns: [56]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a callback within the hour.
+      speaker: Nurse
+      turns: [61]
+      quote: "I'll call you back within the hour."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to review the insulin routine.
+      speaker: Nurse
+      turns: [72]
+      quote: "I'd also like a nurse to come out tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not giving an extra dose to make up for it and waiting for the clinician.
+      speaker: Nurse
+      turns: [58]
+      quote: "please don't give an extra dose to make up for it."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised rechecking her sugar in two hours, writing it down, and having her drink water.
+      speaker: Nurse
+      turns: [64]
+      quote: "recheck her sugar in two hours."
+      explanation: Documents monitoring teaching.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for confusion, repeated vomiting, trouble breathing, or a meter reading high.
+      speaker: Nurse
+      turns: [80]
+      quote: "call 911 if she gets confused"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

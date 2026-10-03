@@ -1,0 +1,224 @@
+call_id: tr-452
+split: train
+blueprint: "A wife reports on her husband's healing leg wound: the nurse keeps saying Sigfrid for Siegfried, which she spelled once and never corrects. She also corrects his birth year mid-sentence and, asked for a callback number, says to use the one on file. The wound is smaller, pink and dry with no pus or fever; the dressing is changed every other day. Nurse plans a visit Wednesday and reviews dressing care. ASR name drift on the patient, DOB self-correction, phone not given, spouse caller, patient 65-89, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, dob_self_corrected, phone_not_given, name_spelled, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [wound_skin, infection_risk]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Cottonwood Home Health
+  agency_type: home_health
+  nurse_name: Ruth
+  call_timestamp_utc: "2026-12-05T17:40:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 65-89
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Siegfried Hartwell
+  patient_name_spoken: Siegfried Hartwell
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Sigfrid Hartwell]
+  patient_dob_true: "1947-10-09"
+  patient_dob_spoken: "1947-10-09"
+  patient_dob_certainty: stated
+  caller_name_true: Annelise Hartwell
+  caller_name_spoken: Annelise Hartwell
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: null
+  callback_phone_spoken: null
+  callback_phone_certainty: not_stated
+  patient_pronoun: his
+  reason_for_call: Gave an update on her husband's healing leg wound
+  reason_category: wound_skin
+  relevant_context: Home health patient with a lower leg wound
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: leg wound smaller and pink and dry
+    symptom_present: true
+    severity: mild
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: caller
+    history_or_context_text: The dressing is changed every other day
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: pus or fever or increasing pain
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: Wednesday
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Wash hands, remove the old dressing gently, rinse with saline, apply the dressing flat and keep the leg elevated when sitting
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for spreading redness, yellow or green drainage, a bad smell, fever or more pain
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Cottonwood Home Health, this is Ruth.
+  Caller -> Hello, hello. Can you hear me? I'm in the greenhouse and there's a funny echo.
+  Nurse -> I can hear you fine. Go ahead.
+  Caller -> Hi, Ruth. It's Annelise Hartwell. A N N E L I S E. I'm calling about my husband, Siegfried. S I E G F R I E D. Hartwell. H A R T W E L L. His leg. || caller_name, patient_name, relationship, cc
+  Nurse -> Hi, Annelise. How's Sigfrid doing?
+  Caller -> He's right inside, in the kitchen window. I can see him from here. He's waving. Hi, honey.
+  Caller -> He's doing well. The wound is better. I wanted to give you an update.
+  Nurse -> Great. Let me get his chart. What's his date of birth?
+  Nurse -> Take your time with the date. No pressure.
+  Caller -> October ninth. Nineteen forty eight. No. Forty seven. Nineteen forty seven. He's seventy nine. I always add a year. || patient_dob
+  Nurse -> Forty seven. Thanks. And the best number to reach you?
+  Caller -> It's the same one as always. You have it. I won't read it out, it's a long number on my phone and I'm in the garden. Please use the one you have.
+  Nurse -> No problem. I'll use the number on file.
+  Caller -> Thank you.
+  Nurse -> So how does the wound look?
+  Caller -> Smaller. It was the size of a half dollar. Now it's the size of a dime. Pink. Dry around the edges. No more drainage on the gauze. || A1
+  Caller -> I measure it with a quarter. It's smaller than the quarter now, and it was bigger than the quarter last week.
+  Nurse -> That's real progress. How often are you changing the dressing?
+  Caller -> Every other day. Monday, Wednesday, Friday. Today is Friday, so I did it this morning. || A2
+  Caller -> I keep the supplies in a basket by the bed. Gauze, tape, saline, gloves. It's a whole production.
+  Nurse -> Any pus, or bad smell?
+  Caller -> No pus. No smell. And no fever. I took his temperature at noon. And he says it hurts less. Not more. He says he can barely feel it now. || A3
+  Caller -> I'm very careful about smells. My nose is excellent. I'd know.
+  Nurse -> That's what I like to hear. Any redness spreading up his leg?
+  Caller -> No. The skin around it is a normal color. A little pink right at the edge. That's it.
+  Caller -> I look at it with the big lamp, the one with the magnifier, so I can see every detail.
+  Nurse -> Good. How are you doing the dressing? Walk me through it.
+  Caller -> I'm very particular. I like it neat. He teases me. He says it looks like a gift.
+  Nurse -> Ha. That's a lovely compliment, really.
+  Caller -> I wash my hands. I peel off the old one slowly. I rinse the wound with the saline from the bottle. I pat it dry around the edges. Then I put on the new one. Flat, no wrinkles. And I tape it.
+  Nurse -> Perfect. That's exactly right. Remind him to keep his leg up when he's sitting. || E1
+  Caller -> The nurse who taught me, Margit, made me practice on an orange. I peeled the whole thing.
+  Nurse -> Ha. That's a good way to practice.
+  Caller -> On the ottoman. He's there now. With the crossword. He doesn't like it, but he does it.
+  Nurse -> Ha. A good patient.
+  Caller -> He grumbles but he does it. I bribe him with chocolate.
+  Caller -> He says the ottoman is for people with bad knees. I said, you have bad knees.
+  Nurse -> Ha. He does.
+  Caller -> He has a cane too, but he leaves it at the front door. He claims it's decorative.
+  Nurse -> I'll come by on Wednesday for the regular visit and to see the wound myself. || R1
+  Caller -> Wednesday. Good. What time?
+  Caller -> I have the schedule on the fridge. In red. Wednesday is a red day.
+  Nurse -> Mid morning.
+  Caller -> I'll make cinnamon rolls. They'll be coming out of the oven right when you arrive.
+  Caller -> I'll be home. I'm going to the garden club in the afternoon.
+  Nurse -> And call us if you see redness spreading, yellow or green drainage, a bad smell, a fever, or if the pain gets worse. || E2
+  Caller -> Redness. Yellow or green. Smell. Fever. More pain. I'll tell him.
+  Caller -> I tell him about the signs each time, but he says he'll know. I say, you can't see the back of your own leg.
+  Caller -> I'll put it on the fridge with the other lists. The fridge is a bulletin board at this point.
+  Nurse -> Perfect.
+  Caller -> I'm in the greenhouse right now, by the way. We have a little heated one. The tomatoes are still going.
+  Nurse -> A heated greenhouse. That sounds lovely.
+  Caller -> It's my favorite place. I read in there. I hum to the plants.
+  Nurse -> Ha. Do they respond?
+  Caller -> The tomatoes do. They grow better when I sing.
+  Nurse -> A heated greenhouse. Lucky you.
+  Caller -> My husband built it. Before the leg. He was proud of it.
+  Nurse -> It sounds wonderful.
+  Caller -> He designed the whole thing on graph paper. He was an engineer. Every pane is measured to the millimeter.
+  Nurse -> That's impressive.
+  Caller -> Okay. I'll let you go. Thank you, Ruth.
+  Caller -> The nurse before you said I'm one of the best caregivers she's seen. I almost cried.
+  Nurse -> She was right.
+  Nurse -> Bye, Annelise.
+  Caller -> Oh, and thank you for always being so gentle with him. He talks about you.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Siegfried, heard_form: Sigfrid, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Siegfried Hartwell, certainty: unclear, heard_as: [Sigfrid Hartwell], turns: [4]}
+    patient_dob: {value: "1947-10-09", certainty: stated, heard_as: [], turns: [10]}
+    caller_name: {value: Annelise Hartwell, certainty: stated, heard_as: [], turns: [4]}
+    relationship: {value: wife, certainty: stated, turns: [4]}
+    callback_phone: {value: null, certainty: not_stated, heard_as: [], turns: []}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Gave an update on her husband's healing leg wound.
+    speaker: Caller
+    turns: [7]
+    quote: "He's doing well. The wound is better."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: The wound had shrunk from the size of a half dollar to a dime, pink and dry with no drainage.
+      speaker: Caller
+      turns: [16]
+      quote: "Smaller. It was the size of a half dollar."
+      explanation: Documents the wound improvement.
+      facts:
+        - {type: symptom, name: leg wound smaller and pink and dry, present: true, severity: mild, certainty: stated}
+      covers: [A1]
+    - text: The dressing was changed every other day, Monday, Wednesday and Friday.
+      speaker: Caller
+      turns: [19]
+      quote: "Every other day. Monday, Wednesday, Friday."
+      explanation: Documents the dressing schedule.
+      facts:
+        - {type: context, text: The dressing is changed every other day, certainty: stated}
+      covers: [A2]
+    - text: There was no pus, bad smell, fever or increasing pain.
+      speaker: Caller
+      turns: [22]
+      quote: "No pus. No smell. And no fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: pus or fever or increasing pain, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned a nurse visit Wednesday.
+      speaker: Nurse
+      turns: [40]
+      quote: "I'll come by on Wednesday for the regular visit"
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: Wednesday, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised handwashing, gentle dressing changes with saline and keeping the leg elevated when sitting.
+      speaker: Nurse
+      turns: [31]
+      quote: "Remind him to keep his leg up when he's sitting."
+      explanation: Documents skin care teaching.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for spreading redness, yellow or green drainage, a bad smell, fever or more pain.
+      speaker: Nurse
+      turns: [46]
+      quote: "call us if you see redness spreading"
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

@@ -1,0 +1,312 @@
+call_id: tr-320
+split: train
+blueprint: "A 61-year-old man living alone calls home health himself because he realizes he took his morning glipizide twice, two 10 mg tablets back to back at eight after losing track, skipped breakfast, and now at ten feels shaky and sweaty with a sugar of 68 on his meter. He is alert and talking but slow, no passing out. The nurse tells him to take fast sugar now, recheck in fifteen minutes, then eat a real snack, pages on-call, plans a callback in fifteen minutes and a visit within two hours, and keeps him talking. Extra-dose flag, self caller aged 18-64, v2 short."
+setup:
+  scenario_category: medication
+  subtype: extra_dose
+  secondary_tags: [negated_risk_phrase, hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [medication, glucose]
+  relationship_group: self
+  na_reason: null
+  agency_name: Mesa Verde Home Health
+  agency_type: home_health
+  nurse_name: Pilar
+  call_timestamp_utc: "2026-10-27T17:00:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Everett Lowry
+  patient_name_spoken: Everett Lowry
+  patient_name_certainty: stated
+  patient_dob_true: "1965-05-25"
+  patient_dob_spoken: "1965-05-25"
+  patient_dob_certainty: stated
+  caller_name_true: Everett Lowry
+  caller_name_spoken: Everett Lowry
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "2065550116"
+  callback_phone_spoken: "2065550116"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported taking a double dose of his diabetes pill and feeling shaky with a low sugar
+  reason_category: medication
+  relevant_context: Home health patient with type 2 diabetes living alone
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: patient
+    medication_name_true: glipizide
+    medication_name_spoken: glipizide
+    medication_status: extra_dose
+    dose: "10"
+    unit: mg
+    frequency: once a day in the morning
+    last_dose: two tablets at eight this morning
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: patient
+    vital_name: blood sugar
+    vital_value: "68"
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: patient
+    symptom_name: shaky and sweaty
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: patient
+    symptom_name: skipped breakfast
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: passing out or confusion
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: double dose of glipizide with a sugar of 68
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in fifteen minutes
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within two hours
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Drink four ounces of juice or take glucose tablets now, recheck the sugar in fifteen minutes, and repeat if it is still under seventy
+    certainty: stated
+  - item_id: E2
+    education_type: hydration_nutrition
+    speaker: nurse
+    instruction_content: Once the sugar is up, eat a real snack with protein like peanut butter on toast and keep eating regular meals today
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 if he gets confused, cannot swallow, passes out or the sugar will not come up
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Took a double dose of glipizide and has a low blood sugar
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Mesa Verde Home Health, this is Pilar.
+  Caller -> Pilar. Hi. It's Everett. Everett Lowry. I did something dumb. I took my sugar pill twice. And I'm feeling kind of, kind of off. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Everett. I'm here. Let's figure it out. Are you sitting down?
+  Caller -> I'm in the kitchen. I'm sitting on the stool. I'm shaking a little. My hands are shaking.
+  Caller -> Sorry, I'm holding the phone with both hands. It keeps slipping.
+  Nurse -> No problem. Put me on speaker on the counter if that's easier.
+  Caller -> Okay. Speaker. Can you hear me better?
+  Nurse -> Loud and clear.
+  Nurse -> Okay. Stay sitting. Which pill did you take twice?
+  Caller -> The glipizide. The ten milligram one. I take one in the morning. And this morning I took one at eight. And then I stood there and I thought, did I take it? I couldn't remember. So I took another one. || A1
+  Nurse -> Okay. So you took two ten milligram tablets of glipizide, about eight o'clock? || A1
+  Caller -> Yes. At eight. Right on top of each other. Like two minutes apart. I saw the empty slot afterwards. Both slots. I put two in my hand and saw that.
+  Nurse -> Okay. It's good you caught it. What time is it now?
+  Caller -> Ten. It's ten. I'm looking at the clock. It's ten oh five.
+  Nurse -> Okay. Two hours. Did you eat breakfast?
+  Caller -> No. I didn't. I was going to. And then I didn't. I'm not hungry in the morning. I usually have coffee. I had coffee. That's it. || A4
+  Nurse -> Do you usually eat with that pill?
+  Caller -> I'm supposed to. With breakfast. I know. I keep forgetting. The pharmacist wrote it on the bottle in red.
+  Nurse -> We'll go over that with the nurse too.
+  Nurse -> Okay. That's important. Everett, did you check your sugar?
+  Caller -> I did. Just now. Sixty eight. I have a meter. It says sixty eight. That's low, right? || A2
+  Nurse -> Yes, sixty eight is low. Thank you for checking. How are you feeling? Tell me everything.
+  Caller -> Shaky. And sweaty. My shirt is wet. My forehead is wet. And kind of, I'm hungry now. Really hungry. And a little dizzy, not bad. || A3
+  Nurse -> Okay. Right now I want you to do something. Do you have juice in the house? Or regular soda? Or glucose tablets?
+  Caller -> I have orange juice. In the fridge. And I have the glucose tablets in the cabinet. For emergencies.
+  Nurse -> Perfect. Let's do the juice. Get up slowly, hold on to the counter, and pour a small glass of orange juice. About four ounces. Half a cup. Drink it all now.
+  Caller -> Okay. Hold on. I'm getting up. I'm holding the counter. It's okay. Walking to the fridge. It's six steps. Okay. Opening it. Orange juice. I'm pouring. It's spilling. My hands. Okay. I'm drinking it. Okay.
+  Nurse -> Good. Drink it all. Take your time.
+  Caller -> I drank it. All of it. Ugh. That's sweet.
+  Nurse -> Sorry about the taste. How's your vision? Can you see okay?
+  Caller -> No, I can see fine. Just the shaking.
+  Nurse -> Okay. Good.
+  Nurse -> That's what we want. Now, in fifteen minutes, check your sugar again. If it's still under seventy, drink another half cup, or take four glucose tablets. And check again fifteen minutes after that. || E1
+  Caller -> Fifteen minutes. Check. Under seventy, more juice or four tablets. Check again. Okay. I got it. I'll set the timer on the stove.
+  Nurse -> Good. I'm also going to page the on-call clinician right now, so they know about the double dose. With that medicine, the sugar can keep dropping for many hours. || R1
+  Caller -> Many hours? Oh no. Okay.
+  Nurse -> That's why we're being careful. I'm going to call you back in fifteen minutes. Right when you've done your recheck. || R2
+  Caller -> Okay. Fifteen minutes. I'll have the number.
+  Nurse -> I'm also going to send a nurse to see you within two hours, so you're not alone with this. || R3
+  Caller -> Within two hours. That's good. That makes me feel better. I live alone. My wife died last year.
+  Nurse -> I'm sorry. It's good you called. Is there anyone who can come over? A neighbor?
+  Caller -> My neighbor, Tom. He's next door. He's retired. I could call him. He wouldn't mind.
+  Nurse -> I'd call him. Just so someone's with you.
+  Caller -> I'll call him after we hang up. Is that okay?
+  Nurse -> Call him now, if you want, and I'll wait.
+  Caller -> No, no. I can do it. After. I'm okay. I just feel weird.
+  Nurse -> Are you confused at all? Do you know where you are, what day it is?
+  Caller -> Oh no. I'm not confused. It's Tuesday. I'm in my kitchen. It's two thousand twenty six. I know my name. I'm Everett. I'm sixty one. I didn't pass out. I'm just slow. And shaky.
+  Nurse -> Okay. That's very reassuring. It's good that you're talking clearly. || A5
+  Caller -> Thanks. Is this going to be bad? Am I going to die? I mean, no. I'm not saying that. I mean, is this serious.
+  Nurse -> It can be, if the sugar drops a lot. But you're doing the right things, you caught it early. It's not a joke, but we've got it. I'm right here.
+  Caller -> Okay. Okay. That helps.
+  Nurse -> Everett, can I get your birth date, and a number? In case we get cut off?
+  Caller -> May twenty fifth. Nineteen sixty five. And my cell is two oh six, five five five, zero one one six. || patient_dob, callback_phone
+  Nurse -> Got it. Thank you. How are you feeling now?
+  Caller -> A little better. Not so shaky. I think the juice is working. Or I'm calming down. My heart is going fast.
+  Nurse -> That's the sugar coming up. Good. When your sugar is back above one hundred, eat something with protein. A real snack. Like peanut butter on toast. And keep eating regular meals today, don't skip any. || E2
+  Caller -> Peanut butter toast. I have that. And a banana. Okay. And not skip meals. I'll do lunch at noon.
+  Nurse -> Good. And if you get confused, can't swallow, pass out, or the sugar won't come up, call nine one one. Don't wait for me. || E3
+  Caller -> Confused, can't swallow, pass out, won't come up. Nine one one. Okay. I won't hesitate.
+  Nurse -> Good. Do you have a pillbox that has the days on it?
+  Caller -> I do. It's the seven day one. The morning slot for today is empty. I took both. That's how I knew. I think I put two in by mistake yesterday.
+  Nurse -> We'll go over that with the nurse. There might be a better way to set it up.
+  Caller -> I'd like that. I don't want this to happen again. I'm embarrassed.
+  Caller -> My daughter is going to kill me. She set up the pillbox. I told her I could handle it.
+  Nurse -> She'll be glad you called. We'll let her know if you'd like.
+  Caller -> Maybe tomorrow. I don't want to scare her today.
+  Nurse -> It's easy to do. Don't be embarrassed. Okay. The timer's about to go. How are you feeling?
+  Caller -> Better. Pretty good. I think I could eat the toast.
+  Nurse -> Wait for the recheck first. Then eat.
+  Caller -> Okay. Ten more minutes. Ten more minutes. I'm sitting here.
+  Nurse -> Good. I'll call you at ten twenty. Stay put.
+  Caller -> Okay. Bye. Thanks, Pilar.
+  Nurse -> Bye, Everett.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Everett Lowry, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1965-05-25", certainty: stated, heard_as: [], turns: [54]}
+    caller_name: {value: Everett Lowry, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550116", certainty: stated, heard_as: [], turns: [54]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported taking a double dose of his diabetes pill and feeling shaky with a low sugar.
+    speaker: Caller
+    turns: [2]
+    quote: "I took my sugar pill twice."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Two glipizide 10 mg tablets were taken two minutes apart at eight this morning instead of one.
+      speaker: Caller
+      turns: [10]
+      quote: "The glipizide. The ten milligram one."
+      explanation: Documents the double dose.
+      facts:
+        - {type: medication, name: glipizide, dose: "10", unit: mg, frequency: once a day in the morning, last_dose: two tablets at eight this morning, med_status: extra_dose, certainty: stated}
+      covers: [A1]
+    - text: Blood sugar was 68 at ten.
+      speaker: Caller
+      turns: [21]
+      quote: "Sixty eight. I have a meter."
+      explanation: Documents the low sugar.
+      facts:
+        - {type: vital, name: blood sugar, value: "68", certainty: stated}
+      covers: [A2]
+    - text: He felt shaky and sweaty, hungry and a little dizzy.
+      speaker: Caller
+      turns: [23]
+      quote: "Shaky. And sweaty."
+      explanation: Documents the symptoms of low sugar.
+      facts:
+        - {type: symptom, name: shaky and sweaty, present: true, certainty: stated}
+      covers: [A3]
+    - text: He had skipped breakfast and had only coffee.
+      speaker: Caller
+      turns: [16]
+      quote: "No. I didn't. I was going to."
+      explanation: Documents the missed meal.
+      facts:
+        - {type: symptom, name: skipped breakfast, present: true, certainty: stated}
+      covers: [A4]
+    - text: He had not passed out and was not confused.
+      speaker: Caller
+      turns: [48]
+      quote: "I didn't pass out. I'm just slow."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: passing out or confusion, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician about the double dose.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'm also going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to call back in fifteen minutes after his recheck.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to call you back in fifteen minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in fifteen minutes, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within two hours.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'm also going to send a nurse to see you within two hours"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within two hours, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised drinking half a cup of juice now, rechecking in fifteen minutes and repeating if the sugar was still under seventy.
+      speaker: Nurse
+      turns: [33]
+      quote: "in fifteen minutes, check your sugar again."
+      explanation: Documents low sugar treatment.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised a protein snack once the sugar was up and regular meals through the day.
+      speaker: Nurse
+      turns: [57]
+      quote: "eat something with protein. A real snack."
+      explanation: Documents nutrition guidance.
+      facts:
+        - {type: education, education_type: hydration_nutrition, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 if he became confused, could not swallow, passed out or the sugar would not rise.
+      speaker: Nurse
+      turns: [59]
+      quote: "call nine one one. Don't wait for me."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "I took my sugar pill twice."}

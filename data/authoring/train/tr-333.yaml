@@ -1,0 +1,317 @@
+call_id: tr-333
+split: train
+blueprint: "A mother of a 5-year-old with a tracheostomy calls the pediatric home nurse: three suction catheters, five HME filters and no spare trach ties are left because the monthly delivery was shipped to an old address. His secretions are a bit thicker this week, saturation 97, no fever, color good. The nurse orders everything (completed), arranges delivery tomorrow morning, plans a visit tomorrow, and reviews suctioning and emergency plans. Pediatric supply, parent caller, medium v2, practical and well-informed mother."
+setup:
+  scenario_category: supply
+  subtype: trach_supplies
+  secondary_tags: [phone_from_file, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [equipment, secretions, dyspnea]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Harbor Lights Pediatric Nursing
+  agency_type: pediatric_home_care
+  nurse_name: Sunita
+  call_timestamp_utc: "2026-10-25T16:30:00Z"
+  length_bucket: medium
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Ezra Whitaker
+  patient_name_spoken: Ezra Whitaker
+  patient_name_certainty: stated
+  patient_dob_true: "2021-01-26"
+  patient_dob_spoken: "2021-01-26"
+  patient_dob_certainty: stated
+  caller_name_true: Noor Whitaker
+  caller_name_spoken: Noor Whitaker
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "7135550172"
+  callback_phone_spoken: "7135550172"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported running low on tracheostomy supplies after a missed delivery
+  reason_category: supply
+  relevant_context: Pediatric home care patient with a tracheostomy
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: suction catheters
+    supply_remaining: three left
+    supply_unit: catheters
+    certainty: stated
+  - item_id: A2
+    item_type: supply
+    reporter: caller
+    supply_item: HME filters
+    supply_remaining: five left
+    supply_unit: filters
+    certainty: stated
+  - item_id: A3
+    item_type: supply
+    reporter: caller
+    supply_item: trach ties
+    supply_remaining: none
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: thicker secretions
+    symptom_present: true
+    severity: mild
+    onset_or_duration: this week
+    certainty: stated
+  - item_id: A5
+    item_type: vital
+    reporter: caller
+    vital_name: oxygen saturation
+    vital_value: "97"
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever or color change
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: supply company
+    reason_or_trigger: suction catheters, HME filters and trach ties
+    certainty: stated
+  - item_id: R2
+    action_type: delivery_coordination
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Suction only when needed, use one catheter per pass without rinsing and reusing, change the ties when soiled using the second-person method, and run the humidifier
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 if the trach comes out and cannot be replaced, he turns blue or gray, or he cannot be cleared by suction
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Lights Pediatric Nursing, this is Sunita.
+  Caller -> Hi, Sunita. It's Noor Whitaker. I'm the mother of Ezra Whitaker. I'm calling about the supply delivery. It didn't come. || caller_name, relationship, patient_name
+  Nurse -> Hi, Noor. Let's look into it. What's Ezra's date of birth?
+  Caller -> January twenty sixth. Two thousand twenty one. || patient_dob
+  Nurse -> Thanks. And I have a number for you on file, seven one three, five five five, zero one seven two? || callback_phone
+  Caller -> Yes. That's my cell. Same one. Don't call the house, it's disconnected.
+  Nurse -> Got it. Cell only.
+  Caller -> Cell only. We got rid of the landline when we moved. It's all cell. Is that a problem?
+  Nurse -> Not at all.
+  Nurse -> Perfect. Okay. Tell me what's going on with the supplies.
+  Caller -> So we get a delivery on the twentieth. Every month. I get an email. And this month, the email said it was delivered. Delivered to the front door. But there was nothing. I looked. I called the company. They said it went to the old address. We moved in August. I updated my address in the portal. And they sent it to the old place anyway. || cc
+  Nurse -> Did you speak to a person or a machine?
+  Caller -> A person, finally. After forty minutes. She was very nice but she didn't have the authority to do anything. She said she'd put in a ticket.
+  Nurse -> Ugh. I'm sorry.
+  Nurse -> Oh no. That's frustrating. Where's the old address?
+  Caller -> Maple Court. The apartment. It's across town. They said they'd try to retrieve it. But it'll take a week. And I don't have a week. I'm low.
+  Nurse -> Okay. Let's see what you have. Let's start with the suction catheters.
+  Caller -> Three. I counted. Three. Ezra needs suctioning four, five times a day. More when he's congested. So that's less than a day. That's tonight and tomorrow morning. || A1
+  Nurse -> When does he need it most? Mornings, nights?
+  Caller -> Mornings, definitely. When he wakes up he's gurgling. And after naps. And when he's been lying down a long time.
+  Nurse -> That's pretty typical.
+  Nurse -> Okay. Three. That's tight. HME filters?
+  Caller -> Five. The little filters that go on the end of the trach. I change them once a day. And when they get wet. So five is maybe three days. Four. || A2
+  Nurse -> Okay. And the trach ties?
+  Caller -> None. Zero. I used the last one this morning. I have the one on him and nothing else. If it gets dirty or wet, I don't have a clean one. I made one out of a shoelace once. In an emergency. I don't want to do that again. || A3
+  Nurse -> Was that an emergency?
+  Caller -> At two in the morning, the tie got soaked from a spit up. And I had no spare. I used a shoelace from my running shoe. It held for the night. The nurse next morning nearly fainted.
+  Nurse -> Ha. I bet. Please, let's not do that again.
+  Nurse -> Oh my goodness. No shoelaces. We'll fix that today. Noor, how's Ezra doing? You mentioned congestion?
+  Caller -> A little. He's got thicker secretions this week. It's been about a week. They're thicker. Yellowish. Not green. He needs more suctioning. And it takes more passes to clear. But it clears. He's okay. || A4
+  Nurse -> Okay. Thick yellow secretions for about a week. Do you use the humidifier? And saline?
+  Caller -> Humidifier all the time. And saline drops before suctioning. I do the saline when it's thick. I've been doing that. It helps.
+  Nurse -> Good. How many drops?
+  Caller -> Two to three. Per the sheet. Never more. Too much makes him cough forever.
+  Nurse -> Exactly right.
+  Nurse -> Good. Is he running a fever?
+  Caller -> No. Ninety eight point five. This morning. And his color is good. Pink. Lips pink. Fingernails pink. No blue. No gray. || A6
+  Nurse -> Good. And his oxygen reading?
+  Caller -> Ninety seven. It's been ninety seven or ninety eight all day. He's on room air. He's doing fine. He's playing with his trains. || A5
+  Nurse -> How many trains does he have?
+  Caller -> Too many. They take up the whole living room. My husband steps on the track every morning and curses.
+  Nurse -> Ha. A hazard.
+  Nurse -> That's very reassuring. Is he eating, drinking, active?
+  Caller -> Eating great. He had pancakes. He wants chocolate milk. He's loud. He's running up and down the hall. With his trach. He doesn't let it slow him down. Ha.
+  Caller -> We bought a little tracheostomy shield for the bath. And a sprinkler outfit for the summer. He's not scared of anything.
+  Nurse -> What a brave kid.
+  Nurse -> I love that. Okay. Noor, I'm going to order your supplies right now. Let me enter it. Suction catheters, what size does Ezra use?
+  Caller -> The ten French. Ten Fr. I think. The green ones. In the sleeve.
+  Nurse -> Ten French. Got it. And the HME filters, the pediatric ones. And trach ties. Velcro or cotton?
+  Caller -> Velcro. The soft ones. The foam-lined ones. The cotton ones scratch him.
+  Nurse -> Velcro foam. Okay. I'm ordering a case of ten French suction catheters, two boxes of the pediatric HME filters, and a box of foam Velcro trach ties. I'm marking it urgent and using your current address.
+  Caller -> Thank you. Thank you so much. The new address is, do you have it? Cedar Hollow Lane. Forty seven.
+  Nurse -> Is there an apartment number?
+  Caller -> No. It's a house. It's the yellow house with the blue door. There's a ramp.
+  Nurse -> Perfect. I'll add the description.
+  Nurse -> Yes. Forty seven Cedar Hollow. Good. It's in. I just placed the order with the supply company for the suction catheters, the filters and the trach ties, marked urgent, to your new address. || R1
+  Caller -> Oh, thank God. When?
+  Nurse -> I'm going to arrange for a delivery tomorrow morning. I'll ask them to call you when they're on the way. Will someone be home?
+  Caller -> I'm home. I'm always home. I have a delivery man who knows our dog. Ha. He has treats.
+  Nurse -> Ha. Good. I'll arrange tomorrow morning for the delivery. || R2
+  Caller -> Perfect. Sunita, what about tonight? I have three catheters. What if I run out?
+  Nurse -> I'd like you to use them only when he needs it. Suction when you hear gurgling, see a drop in oxygen, or he looks distressed. Not on a schedule. One catheter per pass, and don't rinse and reuse a catheter. Use a fresh one each time, as you've been trained. If you're down to your last one tonight, call me and I'll figure out something. || E1
+  Caller -> Okay. Only when he needs it. A fresh one each time. I won't reuse. I know. One of the nurses told me you can rinse them out and use them again, but I said no.
+  Nurse -> Right. We don't do that at home for the lower airway.
+  Caller -> Okay. And call you if I'm down to one.
+  Nurse -> Yes. Day or night. I'll bring one myself if I have to.
+  Caller -> You'd do that? Wow. Okay. Thank you.
+  Nurse -> I'm also going to send a nurse to see Ezra tomorrow. She can look at him, listen to his lungs, and check the thicker secretions. || R3
+  Caller -> Tomorrow. Good. Ten o'clock? Eleven?
+  Nurse -> Either. The scheduler will call.
+  Caller -> Okay. Ezra likes the nurse with the braids. She does voices. She does a pirate voice.
+  Nurse -> Ha. That's Tabitha. I'll ask for her.
+  Caller -> She taught him to say trach. He says it like a pirate. Trarrrch.
+  Nurse -> Ha. Perfect.
+  Caller -> He'll be so happy.
+  Nurse -> Noor, one more thing, since the secretions are thicker. Make sure the humidifier is running at night too. And call nine one one if the trach comes out and can't go back in, if he turns blue or gray, or if suction doesn't clear him. || E2
+  Caller -> Trach out and can't replace. Blue or gray. Suction doesn't work. I know the plan. It's on the fridge. We have a go-bag. A spare trach, one size smaller. Everything.
+  Nurse -> That's perfect. Keep the go-bag by the door.
+  Caller -> It's by the door. Always.
+  Nurse -> You're a very prepared mom.
+  Caller -> I laminated the emergency plan. Twice. Because he colored on the first one.
+  Caller -> I have to be. Thank you, Sunita. I appreciate you.
+  Nurse -> You're welcome, Noor. Hang in there. Talk tomorrow.
+  Caller -> Bye. Say hi to the pirate nurse.
+  Nurse -> Ha. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Ezra Whitaker, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2021-01-26", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Noor Whitaker, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "7135550172", certainty: stated, heard_as: [], turns: [5]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported running low on tracheostomy supplies after a missed delivery.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling about the supply delivery. It didn't come."
+    explanation: Documents the supply problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Three suction catheters were left, less than a day's use.
+      speaker: Caller
+      turns: [18]
+      quote: "Three. I counted. Three."
+      explanation: Documents the catheter supply.
+      facts:
+        - {type: supply, item: suction catheters, supply: three left, certainty: stated}
+      covers: [A1]
+    - text: Five HME filters were left, about three to four days.
+      speaker: Caller
+      turns: [23]
+      quote: "Five. The little filters that go on the end of the trach."
+      explanation: Documents the filter supply.
+      facts:
+        - {type: supply, item: HME filters, supply: five left, certainty: stated}
+      covers: [A2]
+    - text: There were no spare trach ties and only the one on him.
+      speaker: Caller
+      turns: [25]
+      quote: "None. Zero. I used the last one this morning."
+      explanation: Documents the tie supply.
+      facts:
+        - {type: supply, item: trach ties, supply: none, certainty: stated}
+      covers: [A3]
+    - text: His secretions were thicker and yellowish for about a week, needing more suctioning.
+      speaker: Caller
+      turns: [30]
+      quote: "He's got thicker secretions this week."
+      explanation: Documents the thicker secretions.
+      facts:
+        - {type: symptom, name: thicker secretions, present: true, severity: mild, onset: this week, certainty: stated}
+      covers: [A4]
+    - text: Oxygen saturation was 97 on room air.
+      speaker: Caller
+      turns: [39]
+      quote: "Ninety seven. It's been ninety seven or ninety eight all day."
+      explanation: Documents the oxygen reading.
+      facts:
+        - {type: vital, name: oxygen saturation, value: "97", certainty: stated}
+      covers: [A5]
+    - text: He had no fever or color change.
+      speaker: Caller
+      turns: [37]
+      quote: "No. Ninety eight point five. This morning."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever or color change, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Placed an urgent order with the supply company for suction catheters, filters and trach ties, to her new address.
+      speaker: Nurse
+      turns: [56]
+      quote: "I just placed the order with the supply company for the suction catheters, the filters and the trach ties"
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned a delivery tomorrow morning.
+      speaker: Nurse
+      turns: [60]
+      quote: "I'll arrange tomorrow morning for the delivery."
+      explanation: Documents the planned delivery coordination.
+      facts:
+        - {type: action, action_type: delivery_coordination, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow to examine him and check the secretions.
+      speaker: Nurse
+      turns: [68]
+      quote: "I'm also going to send a nurse to see Ezra tomorrow."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised suctioning only when needed with a fresh catheter each time, and calling if down to the last catheter.
+      speaker: Nurse
+      turns: [62]
+      quote: "I'd like you to use them only when he needs it."
+      explanation: Documents equipment guidance.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised running the humidifier at night and calling 911 if the trach came out and could not be replaced, he turned blue or gray, or suction did not clear him.
+      speaker: Nurse
+      turns: [76]
+      quote: "call nine one one if the trach comes out and can't go back in"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

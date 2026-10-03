@@ -1,0 +1,359 @@
+call_id: tr-023
+split: train
+blueprint: "Son reports his father took his metoprolol twice this morning (forgot he had taken it); pulse 58, BP 104/62, mildly dizzy; nurse advises lying down and monitoring, 911 if fainting; has already paged the on-call physician (completed) and will call back in 15 minutes."
+setup:
+  scenario_category: medication
+  subtype: double_dose
+  secondary_tags: [trap_phrasing, multi_issue, split_turns, late_answers, phone_from_file]
+  clinical_domains: [blood_pressure, medication, dizziness]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-09T12:55:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Lionel Achebe
+  patient_name_spoken: Lionel Achebe
+  patient_name_certainty: stated
+  patient_dob_true: "1945-02-09"
+  patient_dob_spoken: "1945-02-09"
+  patient_dob_certainty: stated
+  caller_name_true: Raymond
+  caller_name_spoken: Raymond
+  caller_name_certainty: stated
+  relationship_to_patient: son
+  relationship_certainty: stated
+  callback_phone_true: "7735550132"
+  callback_phone_spoken: "7735550132"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Father took his metoprolol twice this morning and feels dizzy
+  reason_category: medication_error
+  relevant_context: Patient has a history of heart failure
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    medication_status: extra_dose
+    dose: "25"
+    unit: mg
+    frequency: twice a day
+    last_dose_time: 7 and again at 9 this morning
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: pulse
+    vital_value: "58"
+    certainty: stated
+  - item_id: A3
+    item_type: vital
+    reporter: caller
+    vital_name: blood pressure
+    vital_value: 104/62
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: dizziness
+    symptom_present: true
+    severity: mild
+    onset_or_duration: since about 10 this morning
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fainting
+    symptom_present: false
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain
+    symptom_present: false
+    history_or_context_text: No chest pain and no shortness of breath
+    certainty: stated
+  - item_id: A8
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: changes in appetite or sleep
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: caller_concern
+    reporter: caller
+    caller_concern_text: Father forgot he had already taken the morning dose
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: completed
+    actor: nurse
+    recipient_or_target: on-call physician
+    certainty: stated
+  - item_id: R2
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    certainty: stated
+  - item_id: R4
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: scheduler
+    reason_or_trigger: morning aide visits to set out pills
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: metoprolol
+    medication_name_spoken: metoprolol
+    reason_or_trigger: do not give the evening dose until the physician advises
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: safety
+    speaker: nurse
+    instruction_content: Have him lie down or sit, get up slowly, do not walk alone
+    certainty: stated
+  - item_id: E2
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Recheck pulse and blood pressure every 30 minutes and write them down
+    timing_or_threshold: every 30 minutes
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for fainting, chest pain, trouble breathing, or pulse under 50
+    trigger_condition: fainting; chest pain; trouble breathing; pulse under 50
+    certainty: stated
+  - item_id: E4
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Use a pill organizer and a written log so doses are not repeated
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Caller reports patient took metoprolol twice this morning and is dizzy with a slow pulse
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi, Joanne. It's Raymond. I'm calling about my dad. Lionel Achebe. || caller_name, relationship, patient_name
+  Nurse -> Hi, Raymond. And your dad's date of birth?
+  Caller -> February ninth, nineteen forty five. || patient_dob
+  Nurse -> Okay. And I have seven seven three, five five five, zero one three two for you. Still good? || callback_phone
+  Caller -> Yes, that's me. || callback_phone
+  Nurse -> What's going on?
+  Caller -> So, it's a medication thing. My dad took his metoprolol twice this morning. || cc, A1, F1
+  Nurse -> Okay. Twice. Tell me how that happened.
+  Caller -> He took it at seven, with his breakfast. Like he does. And then at nine, he took it again. He totally forgot he'd taken it. || A1, A7
+  Nurse -> Okay. And how much is the dose?
+  Caller -> Twenty five milligrams. It's twice a day, normally. So he's had his morning one, and then another. || A1
+  Nurse -> Okay. So he's had fifty milligrams in two hours. How's he feeling?
+  Caller -> He says he's a little dizzy. Kind of lightheaded. It started around ten, I think. || A4
+  Nurse -> Okay. Has he passed out, or almost passed out?
+  Caller -> No. No, he hasn't passed out. || A5
+  Nurse -> Any chest pain, or trouble breathing?
+  Caller -> No. None of that. || A6
+  Nurse -> Okay. Do you have a blood pressure cuff there?
+  Caller -> Yes. We have it. Hang on.
+  Caller -> Okay. It's, it says one oh four over sixty two. || A3
+  Nurse -> Okay. And a pulse?
+  Caller -> The pulse is fifty eight. || A2
+  Nurse -> Okay. Fifty eight. That's lower than I'd like. That's the metoprolol working, it slows the heart. Where is he right now? || A2
+  Caller -> He's in the kitchen. He's sitting at the table.
+  Nurse -> Okay. I want him to lie down, or at least sit in a good chair, and take it easy. Not walk around alone. If he gets up, he should get up slowly. || E1
+  Caller -> Okay. I'll get him to the couch.
+  Nurse -> I'm going to page the on-call doctor right now. I've already paged her actually, while we were talking. She'll call us back. || R1
+  Caller -> Oh. Okay. Good.
+  Nurse -> Don't give him any more metoprolol today, not the evening dose, not until the doctor tells you what to do. || R3
+  Caller -> Okay. No more metoprolol. Got it. || R3
+  Nurse -> And I'll call you back in fifteen minutes either way, to see how he's doing. || R2
+  Caller -> Okay. Fifteen minutes.
+  Nurse -> Check his pulse and blood pressure every thirty minutes, and write them down so we have the numbers. || E2
+  Caller -> Yeah. I'll write them on the pad.
+  Nurse -> If he faints, or has chest pain, or trouble breathing, or the pulse goes under fifty, call nine one one right away. Don't wait for us. || E3
+  Caller -> Under fifty. Okay.
+  Nurse -> Raymond, how is he with his pills usually? Does he manage them himself?
+  Caller -> Yeah, he does his own. He's very stubborn about it. But he's been forgetting more lately. Like last week he missed his water pill.
+  Nurse -> Okay. That's helpful to know. A pill organizer with the days on it can help a lot. And a little log where he checks off each dose. || E4
+  Caller -> I have one of those organizers in my car, actually. I got it for him a month ago and he said he didn't need it.
+  Nurse -> Ha. Maybe he needs it now. Put it on the table where he can't miss it.
+  Caller -> Yeah. I'll bring it in right now.
+  Caller -> I work nights, so I'm not here in the mornings. My sister Ngozi checks in on him, but she had a double shift today.
+  Nurse -> So he's alone a lot of the morning.
+  Caller -> A little. Mostly in the mornings. He doesn't like anybody hovering over him, you know? He's a proud man.
+  Nurse -> I understand. Would it help if one of our aides came in a couple of mornings a week? Even just to set out his pills and make sure he eats.
+  Caller -> Honestly, yes. He'd complain, but I think it would really help. || R4
+  Nurse -> I'll ask our scheduler to look at that and give you a call. I can't promise the timing, but I'll put the request in today. || R4
+  Caller -> Okay. That's great. Thank you.
+  Nurse -> Is there anything else going on with him, besides the forgetting? His appetite, or sleep?
+  Caller -> He's eating okay. He's sleeping okay. It's just the memory. || A8
+  Nurse -> Okay, good. I'll let the doctor know that, too.
+  Nurse -> And I'll mention the forgetfulness to the doctor when she calls. They may want to look at how he's managing at home.
+  Caller -> Okay. Thank you. I really appreciate it.
+  Nurse -> Of course. Talk to you in fifteen.
+  Caller -> Joanne, thank you. I panicked a little when I saw the two pill bottles on the table and he didn't remember. I'm glad I called right away.
+  Nurse -> You did exactly the right thing, Raymond. Calling right away is always the right move with a medicine mix-up.
+  Caller -> Okay. I'll go sit with him. Talk soon.
+  Caller -> Bye.
+noise_events:
+  - {turn: auto, type: late_answer, true_form: "reply with blood pressure", heard_form: "Yes. We have it. Hang on", fact_id: A3}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Lionel Achebe, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1945-02-09", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Raymond, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: son, certainty: stated, turns: [2]}
+    callback_phone: {value: "7735550132", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his father took his metoprolol twice this morning and was dizzy.
+    speaker: Caller
+    turns: [8]
+    quote: "So, it's a medication thing. My dad took his metoprolol twice this morning."
+    explanation: Documents the medication error prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Metoprolol 25 mg was taken at 7 and again at 9 this morning, a duplicate dose; he had forgotten the first dose.
+      speaker: Caller
+      turns: [10]
+      quote: "He took it at seven, with his breakfast. Like he does. And then at nine, he took it again. He totally forgot he'd taken it."
+      explanation: Documents the duplicate administration and its circumstances.
+      facts:
+        - {type: medication, name: metoprolol, dose: "25", unit: mg, frequency: twice a day, last_dose: 7 and again at 9 this morning, med_status: extra_dose, certainty: stated}
+        - {type: context, certainty: stated}
+      covers: [A1, A7]
+    - text: Mild lightheadedness began around 10 this morning.
+      speaker: Caller
+      turns: [14]
+      quote: "He says he's a little dizzy. Kind of lightheaded. It started around ten, I think."
+      explanation: Documents the reported symptom after the extra dose.
+      facts:
+        - {type: symptom, name: dizziness, present: true, severity: mild, onset: since about 10 this morning, certainty: stated}
+      covers: [A4]
+    - text: Blood pressure was 104/62.
+      speaker: Caller
+      turns: [21]
+      quote: "Okay. It's, it says one oh four over sixty two."
+      explanation: Documents the reported blood pressure.
+      facts:
+        - {type: vital, name: blood pressure, value: 104/62, certainty: stated}
+      covers: [A3]
+    - text: Pulse was 58.
+      speaker: Caller
+      turns: [23]
+      quote: "The pulse is fifty eight."
+      explanation: Documents the reported pulse.
+      facts:
+        - {type: vital, name: pulse, value: "58", certainty: stated}
+      covers: [A2]
+    - text: Appetite and sleep were reported as unchanged; the concern was memory.
+      speaker: Caller
+      turns: [52]
+      quote: "He's eating okay. He's sleeping okay. It's just the memory."
+      explanation: Documents pertinent negatives for appetite and sleep changes.
+      facts:
+        - {type: pertinent_negative, name: changes in appetite or sleep, certainty: stated}
+      covers: [A8]
+    - text: No fainting, chest pain, or trouble breathing was reported.
+      speaker: Caller
+      turns: [16]
+      quote: "No. No, he hasn't passed out."
+      explanation: Documents pertinent negative findings.
+      facts:
+        - {type: pertinent_negative, name: fainting, certainty: stated}
+        - {type: pertinent_negative, name: chest pain, certainty: stated}
+      covers: [A5, A6]
+  response:
+    - text: Paged the on-call physician during the call.
+      speaker: Nurse
+      turns: [28]
+      quote: "I've already paged her actually, while we were talking."
+      explanation: Documents the completed page to the on-call physician.
+      facts:
+        - {type: action, action_type: on_call_page, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Advised holding further metoprolol, including the evening dose, until the physician gave instructions.
+      speaker: Nurse
+      turns: [30]
+      quote: "Don't give him any more metoprolol today, not the evening dose, not until the doctor tells you what to do."
+      explanation: Documents the medication safety instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, medication: metoprolol, certainty: stated}
+      covers: [R3]
+    - text: Planned to ask the scheduler about morning aide visits to set out his pills and make sure he eats.
+      speaker: Nurse
+      turns: [49]
+      quote: "I'll ask our scheduler to look at that and give you a call."
+      explanation: Documents the planned request for aide support.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R4]
+    - text: Planned to call back in 15 minutes to check on him.
+      speaker: Nurse
+      turns: [32]
+      quote: "And I'll call you back in fifteen minutes either way, to see how he's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised that he lie down or sit, rise slowly, and not walk alone.
+      speaker: Nurse
+      turns: [26]
+      quote: "I want him to lie down, or at least sit in a good chair, and take it easy."
+      explanation: Documents fall-prevention instructions.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E1]
+    - text: Advised checking pulse and blood pressure every 30 minutes and recording them.
+      speaker: Nurse
+      turns: [34]
+      quote: "Check his pulse and blood pressure every thirty minutes, and write them down so we have the numbers."
+      explanation: Documents monitoring instructions.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for fainting, chest pain, trouble breathing, or a pulse under 50.
+      speaker: Nurse
+      turns: [36]
+      quote: "If he faints, or has chest pain, or trouble breathing, or the pulse goes under fifty, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+    - text: Advised using a pill organizer and a written dose log to prevent repeated doses.
+      speaker: Nurse
+      turns: [40]
+      quote: "A pill organizer with the days on it can help a lot. And a little log where he checks off each dose."
+      explanation: Documents medication-safety education.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E4]
+  risk_flags:
+    - {category: medication_concern, turns: [8], quote: "My dad took his metoprolol twice this morning."}

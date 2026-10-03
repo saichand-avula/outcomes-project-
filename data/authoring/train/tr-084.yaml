@@ -1,0 +1,218 @@
+call_id: tr-084
+split: train
+blueprint: "Wife of a hospice patient: his morphine liquid ran out last night, pain is 7/10 and he is restless. The nurse has already called the pharmacy and a courier is bringing a bottle within the hour (completed action); until then she may give the acetaminophen suppository from the comfort kit. Nurse also pages the on-call nurse. Flags: medication_concern and uncontrolled_symptom."
+setup:
+  scenario_category: high_risk
+  subtype: medication_concern
+  secondary_tags: [hedging, late_answers, split_turns, liquid_concentration]
+  clinical_domains: [pain, medication]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-10-13T13:12:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Raul Ferrer
+  patient_name_spoken: Raul Ferrer
+  patient_name_certainty: stated
+  patient_dob_true: "1944-04-28"
+  patient_dob_spoken: "1944-04-28"
+  patient_dob_certainty: stated
+  caller_name_true: Constance Ferrer
+  caller_name_spoken: Constance Ferrer
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "3125550147"
+  callback_phone_spoken: "3125550147"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that his morphine ran out and his pain is not controlled
+  reason_category: medication
+  relevant_context: Hospice patient with cancer pain
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine
+    medication_name_spoken: morphine
+    medication_status: missed
+    strength: 20 mg/mL
+    dose: "0.25"
+    unit: mL
+    last_dose: last night
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: 7/10
+    body_location: abdomen
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: restlessness
+    symptom_present: true
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: pharmacy_contact
+    action_status: completed
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: emergency delivery of morphine by courier within the hour
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call nurse
+    reason_or_trigger: uncontrolled pain without morphine
+    certainty: stated
+  - item_id: R3
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give the acetaminophen suppository from the comfort kit now
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Check the morphine supply every few days and call when only one day remains
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Morphine ran out last night
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: uncontrolled_symptom
+    trigger_description: Pain is seven out of ten without his morphine
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Riverbend Hospice, this is Rhonda.
+  Caller -> Rhonda, hi, it's Constance Ferrer. My husband Raul. Raul Ferrer. We ran out of his morphine. || caller_name, relationship, patient_name, cc, F1, A1
+  Nurse -> Okay, Constance, I'm here. What's his date of birth?
+  Caller -> April twenty eighth, nineteen forty four. || patient_dob
+  Nurse -> And three one two, five five five, zero one four seven? || callback_phone
+  Caller -> Yes. That's the house. || callback_phone
+  Nurse -> Okay. When did the morphine run out? || A1
+  Caller -> Last night. I gave him the last, the last bit. The little bottle is empty. || A1, F1
+  Nurse -> The liquid. The twenty milligram per milliliter? || A1
+  Caller -> Yes. That one. He gets the point two five. And I thought we had another bottle. I thought. We didn't. || A1
+  Nurse -> Okay. How's his pain right now?
+  Caller -> He says a seven. He's hurting. He's hurting in his belly. || A2, F2
+  Nurse -> Okay.
+  Caller -> And he can't lie still. He keeps moving. He's restless. || A3
+  Nurse -> Okay, Constance. Here's what I've done. I already called the pharmacy, and they're sending a courier with a new bottle. It'll be at your door within the hour. || R1
+  Caller -> Oh. Oh, thank God. Within the hour. Okay.
+  Nurse -> I'm also going to page our on-call nurse, so somebody is looking at him. || R2
+  Caller -> Okay. Thank you.
+  Nurse -> Until the bottle gets there, go to the comfort kit, the box in the fridge. There's an acetaminophen suppository. Give him one now. It should take the edge off. || R3
+  Caller -> The suppository. In the, okay. Let me. Hold on. I see it. The box. Okay.
+  Nurse -> Take your time.
+  Caller -> Okay. I'll give it now.
+  Nurse -> And Constance, going forward, check the morphine every couple of days, and call us when you're down to one day left. Don't wait until it's empty. || E1
+  Caller -> I know. I'm so sorry. I should have counted.
+  Nurse -> It's okay. It happens. We'll get you a refill schedule. You're doing the best you can.
+  Caller -> Thank you, Rhonda. Thank you.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Raul Ferrer, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-04-28", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Constance Ferrer, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "3125550147", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that his morphine ran out and his pain is not controlled.
+    speaker: Caller
+    turns: [2]
+    quote: "We ran out of his morphine."
+    explanation: Documents the medication problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: His morphine liquid, 0.25 mL of 20 mg/mL, ran out last night.
+      speaker: Caller
+      turns: [8]
+      quote: "Last night. I gave him the last, the last bit. The little bottle is empty."
+      explanation: Documents the supply running out.
+      facts:
+        - {type: medication, name: morphine, strength: 20 mg/mL, dose: "0.25", unit: mL, last_dose: last night, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Belly pain was rated 7/10.
+      speaker: Caller
+      turns: [12]
+      quote: "He says a seven. He's hurting. He's hurting in his belly."
+      explanation: Documents pain severity and location.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: 7/10, location: abdomen, certainty: stated}
+      covers: [A2]
+    - text: He could not lie still and was restless.
+      speaker: Caller
+      turns: [14]
+      quote: "he can't lie still. He keeps moving. He's restless."
+      explanation: Documents restlessness.
+      facts:
+        - {type: symptom, name: restlessness, present: true, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Already contacted the pharmacy, which was sending a courier with a new morphine bottle within the hour.
+      speaker: Nurse
+      turns: [15]
+      quote: "I already called the pharmacy, and they're sending a courier with a new bottle."
+      explanation: Documents the completed pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: completed, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call nurse.
+      speaker: Nurse
+      turns: [17]
+      quote: "I'm also going to page our on-call nurse, so somebody is looking at him."
+      explanation: Documents the planned escalation.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Advised giving the acetaminophen suppository from the comfort kit now.
+      speaker: Nurse
+      turns: [19]
+      quote: "There's an acetaminophen suppository. Give him one now."
+      explanation: Documents the interim medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised checking the morphine supply every couple of days and calling when one day remained.
+      speaker: Nurse
+      turns: [23]
+      quote: "check the morphine every couple of days, and call us when you're down to one day left."
+      explanation: Documents medication supply guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "We ran out of his morphine."}
+    - {category: uncontrolled_symptom, turns: [12], quote: "He says a seven."}

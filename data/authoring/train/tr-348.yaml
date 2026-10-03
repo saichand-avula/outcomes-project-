@@ -1,0 +1,378 @@
+call_id: tr-348
+split: train
+blueprint: "A mother calls the pediatric palliative nurse in the evening: her 12-year-old son Kieran, who has a bone tumor in his right leg, is crying with leg pain he rates an eight; his breakthrough dose of liquid morphine (2 mg per mL, 1.5 mL every three hours as needed) was given at four and helped for only an hour. He is not sleepy, breathing normally, no new weakness or fever. The nurse pages on-call, tells her it has been three hours so she can give the next breakthrough dose now, sends a nurse within the hour, coaches positioning and distraction, and plans a callback in twenty minutes. Uncontrolled pain in a child, liquid concentration, parent caller, long v2."
+setup:
+  scenario_category: high_risk
+  subtype: uncontrolled_symptom
+  secondary_tags: [liquid_concentration, prn_and_scheduled, hedging, late_answers, split_turns, multi_issue, offtopic_chatter]
+  clinical_domains: [pain, medication]
+  relationship_group: parent
+  na_reason: null
+  agency_name: Little Harbor Pediatric Palliative Care
+  agency_type: pediatric_home_care
+  nurse_name: Gwendolyn
+  call_timestamp_utc: "2026-10-23T00:10:00Z"
+  length_bucket: long
+  length_regime: v2
+  patient_age_group: pediatric
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: medium
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [fentanyl]
+chief_complaint:
+  patient_name_true: Kieran Abernethy
+  patient_name_spoken: Kieran Abernethy
+  patient_name_certainty: stated
+  patient_dob_true: "2014-06-12"
+  patient_dob_spoken: "2014-06-12"
+  patient_dob_certainty: stated
+  caller_name_true: Saoirse Abernethy
+  caller_name_spoken: Saoirse Abernethy
+  caller_name_certainty: stated
+  relationship_to_patient: mother
+  relationship_certainty: stated
+  callback_phone_true: "6465550164"
+  callback_phone_spoken: "6465550164"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported severe leg pain in her son that is not controlled by his breakthrough medicine
+  reason_category: pain
+  relevant_context: Pediatric palliative care patient with a bone tumor in the right leg
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: right leg pain
+    symptom_present: true
+    severity: "8"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine liquid
+    medication_name_spoken: morphine
+    medication_status: taking
+    strength: 2 mg per mL
+    dose: "1.5"
+    unit: mL
+    frequency: every three hours as needed
+    prn: true
+    last_dose: four this afternoon
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: crying and unable to get comfortable
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: sleepiness or new weakness
+    symptom_present: false
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: pain of eight not controlled by the breakthrough dose
+    certainty: stated
+  - item_id: R2
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    medication_name_true: morphine liquid
+    medication_name_spoken: morphine
+    reason_or_trigger: give the next breakthrough dose of morphine now
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: within the hour
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in twenty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Support the leg on pillows without squeezing, use a warm blanket, keep the room quiet, and distract him with a show or music
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Draw one and a half mL in the oral syringe, give it slowly in the cheek, and write down the time
+    certainty: stated
+  - item_id: E3
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call right away if he gets very sleepy, hard to wake, or his breathing slows, and call 911 if he cannot be woken
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: uncontrolled_symptom
+    trigger_description: Child's leg pain of eight out of ten that the breakthrough dose did not control
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Little Harbor Pediatric Palliative Care, this is Gwendolyn.
+  Caller -> Gwen, hi. It's Saoirse Abernethy. It's Kieran. He's in so much pain. The medicine isn't working. I don't know what to do. || caller_name, relationship, patient_name, cc, F1
+  Nurse -> Okay, Saoirse. I'm here. Take a breath. Is Kieran with you right now?
+  Caller -> He's on the couch. In the living room. He's crying. He's holding his leg. He can't get comfortable. || A3
+  Nurse -> Is anyone else at home with you?
+  Caller -> His little sister, Maeve. She's six. She's in her room. She's scared. She keeps coming out and asking if Kieran is okay.
+  Nurse -> Okay. That's hard for her too.
+  Nurse -> Okay. Tell me his date of birth, and I'll pull up his chart.
+  Caller -> June twelfth. Two thousand fourteen. || patient_dob
+  Nurse -> Thanks. And a number for you?
+  Caller -> Six four six, five five five, zero one six four. || callback_phone
+  Nurse -> Okay. Where's the pain?
+  Caller -> His right leg. Above the knee. Where the tumor is. He says it's burning and stabbing. He says it's an eight. He's twelve. He doesn't say numbers like that. He says eight. || A1
+  Nurse -> Does he usually say numbers? When he's hurting?
+  Caller -> Usually he says four or five. He's tough. He never says eight. This is the first eight.
+  Nurse -> Okay. That tells me this is a real flare.
+  Nurse -> An eight. Okay. When did the pain start getting worse?
+  Caller -> Around five. After dinner. He was okay in the afternoon. Then it got bad. He cried out when he moved. I've never seen him cry like this.
+  Nurse -> Is he able to move the leg? Is there any swelling or change in color?
+  Caller -> It looks the same. A bit swollen at the top. The skin is warm. It's always a bit warm. Same as the last visit.
+  Nurse -> Okay. Thank you.
+  Nurse -> Okay. What have you given him?
+  Caller -> The breakthrough. The morphine. The liquid. Two milligrams per mL. One point five mL. A mL and a half. I gave it at four. It took the edge off for an hour. And then it came back. And it's worse. || A2
+  Nurse -> Okay. So a mL and a half of the two milligram per mL morphine at four, and it helped for about an hour. Anything since? || A2, R2
+  Caller -> Nothing. I wasn't sure if I could give more. The sheet says every three hours. It's been, let me look. It's seven. It's been three hours.
+  Nurse -> It's always okay to ask. You did the right thing waiting until you called.
+  Caller -> I didn't want to give too much. Last time I gave it too early and the nurse scolded me. Not scolded. Gently told me.
+  Nurse -> It's three hours now. That's the right time.
+  Nurse -> Right. It's been three hours, so you can give the next dose now. I want you to give it right away. I'll walk you through it. || R2
+  Caller -> Okay. Okay. Please. I have the bottle. I have the syringe. I'm in the kitchen. Hold on. Let me get it.
+  Nurse -> Take your time. Do you have the dosing sheet?
+  Caller -> It's taped to the cabinet. It says one point five mL. Every three hours as needed for breakthrough pain. I'm reading it.
+  Nurse -> Perfect. Draw up one and a half mL. Tell me when you've got it.
+  Caller -> Okay. I'm drawing. Slowly. One. One point five. There. It's at the one point five line.
+  Nurse -> Great. Check that the plunger is exactly on the line.
+  Caller -> It is. The top of the black. It's on the line.
+  Nurse -> Good. Go to Kieran. Give it slowly into his cheek, a little at a time. Not straight down the throat. Then write the time on the sheet. || E2
+  Caller -> Okay. I'm walking. Kieran, honey, I have your medicine. Open up a little. Good boy. Slow. There. There. He took it all. He swallowed. Good job, sweetheart.
+  Caller -> He says it tastes like cherry. It's not cherry. It's morphine. But he says cherry. || A2, R2
+  Nurse -> Ha. A good sign he's talking.
+  Nurse -> Perfect. What time is it?
+  Caller -> Seven oh six. I'll write seven oh six. It's on the sheet. I wrote it.
+  Nurse -> Perfect. You're so organized. Saoirse, do you have a long acting medicine too?
+  Caller -> The patch. The fentanyl patch. It's on his shoulder. We changed it Sunday. It's due Wednesday.
+  Nurse -> Okay. That's good to know. I'll tell the clinician.
+  Nurse -> Good. It'll take about twenty or thirty minutes to work. While we wait, let's make him as comfortable as possible. Saoirse, I'm also going to page the on-call clinician now, because the pain is high and the last dose didn't last. || R1
+  Caller -> Will they change his medicine? Make it stronger?
+  Nurse -> They might. That's their decision. They'll look at the whole plan. I'm also sending a nurse out to see him. I want her there within the hour. || R3
+  Caller -> Within the hour. Thank you. Thank you.
+  Caller -> Should I get a bag ready? In case they want to take him to the hospital?
+  Nurse -> Not yet. We'll plan for home. If the clinician wants him seen, we'll arrange it.
+  Caller -> Okay. I'd like to keep him home if possible.
+  Nurse -> That's our goal too.
+  Nurse -> Now, can you help him get into a position of comfort? Support the leg on pillows. One under the knee, one under the foot. Don't squeeze the leg or press on it. Cover him with a warm blanket. Keep the room quiet. And if he likes, put on a show or music. A distraction can help. || E1
+  Caller -> Pillows. Yes. I'll put them. Kieran, I'm going to lift your leg a tiny bit. Okay? Here comes a pillow. Okay. And another. There. He says that's better. A little. He says it still hurts but it's not so sharp.
+  Nurse -> That's good news. Is he using his pain faces chart?
+  Caller -> No. He doesn't like the chart. He says it's for babies. I ask him a number. Eight, he said earlier. Now I'll ask. Kieran, what number now? He says six. He says six.
+  Nurse -> A six. That's progress. It's only been a few minutes.
+  Nurse -> Good. What does he like to watch?
+  Caller -> Minecraft videos. A guy who builds castles. He loves it. I'll put it on. Hold on. I'm setting up the tablet. Okay. It's on. He's watching. He's still crying a little. But he's looking.
+  Nurse -> Does he play Minecraft too?
+  Caller -> All the time. On the tablet. He builds with his friends online. They have a world. They call it the kingdom.
+  Nurse -> That's wonderful. It sounds like a great escape.
+  Caller -> It is. It's his happy place.
+  Caller -> He's built a whole castle with a moat. It's his masterpiece. He wants to show it to you someday.
+  Nurse -> I'd love to see it.
+  Nurse -> That's a good sign. Keep talking to him. Tell him the medicine is working.
+  Caller -> He asked if he's going to be able to go to school Friday. His friends are making him a card. They're having a pizza party for him.
+  Nurse -> That's so sweet. We'll see how he does. He can decide on Friday morning.
+  Caller -> I told him no pressure. He said he wants to go if the leg lets him. He's stubborn like his father.
+  Nurse -> Ha. I'd say determination is a good trait.
+  Caller -> He's been so strong through all of it. The surgery, the chemo. He's twelve and he's been braver than me.
+  Nurse -> Sounds like he gets it from somewhere.
+  Caller -> Maybe. I just cry in the car.
+  Nurse -> Crying in the car is a classic. You're allowed.
+  Caller -> Kieran, the medicine's going to work. It takes a little while. Gwen says. He says okay. He's holding my hand.
+  Nurse -> What a brave boy. Tell him I said so.
+  Caller -> Kieran, Gwen says you're brave. He says tell her I'm not brave. I'm just in pain. Ha. He's such a smart aleck.
+  Nurse -> I love it.
+  Nurse -> Saoirse, is he sleepy at all? Does he seem too sleepy, or is he alert?
+  Caller -> He's alert. Wide awake. He's looking at the screen. He's not drowsy. His breathing is normal. He's breathing fast because he's crying. But normal. And he's moving both legs. The left one fine. The right one's just in pain. No new weakness. || A4
+  Nurse -> Okay. Does he have a fever? Has he been hot?
+  Caller -> No. No fever. I took it at five. Ninety eight point four. He's cool. || A5
+  Nurse -> Good. Okay. I want to go over a few things. If he becomes very sleepy, hard to wake up, or his breathing slows down, call me right away. And call nine one one if you can't wake him. That's unlikely at this dose, but I always mention it. || E3
+  Caller -> Very sleepy, hard to wake, slow breathing, call you. Can't wake, nine one one. Okay. I understand.
+  Nurse -> Good. How are you holding up?
+  Caller -> I'm okay. I'm crying a little. I hate this. I hate seeing him hurt. I'd take it all for him.
+  Nurse -> That's what every parent says. It's the hardest part of this.
+  Caller -> It is. It's just the hardest. I'm sorry. I'm crying again.
+  Nurse -> Don't apologize. Cry. It's okay.
+  Nurse -> I know you would. You're doing everything right. You gave the dose on time, you called, you're comforting him.
+  Caller -> Thank you. Is my husband supposed to be here? He's working late. He doesn't know yet. Should I call him?
+  Nurse -> If you'd like him here, call him. It's okay to ask him to come home.
+  Caller -> I'll text. He'll come. He'd want to. He's at the plant.
+  Nurse -> Does Kieran ask for his dad when he's hurting?
+  Caller -> Always. They have a thing. His dad sings to him. A silly song about a goat. It always makes him laugh.
+  Nurse -> A song about a goat. That's wonderful. Tell him to sing it when he gets home.
+  Caller -> He's going to feel awful that he wasn't here. He works nights for the overtime. For the bills.
+  Nurse -> He's doing what he can. It will be okay.
+  Nurse -> That's fine. Do that after we hang up. I'll call you back in twenty minutes to see how Kieran is doing and what the clinician says.
+  Caller -> Twenty minutes. Okay. Seven twenty six.
+  Caller -> I set a timer on my phone for twenty minutes. Just so I'm not watching the clock.
+  Nurse -> That's smart. Let the timer do the watching.
+  Nurse -> Right. If he's worse before then, call me. Any time. || R4
+  Caller -> I will. I'm watching him. He's a little calmer now. His face is softer. He's looking at the video. The castle is huge.
+  Nurse -> Does he want a drink of water or juice?
+  Caller -> He says apple juice. I'll bring him some. Through a straw.
+  Nurse -> Good. Small sips.
+  Caller -> He's pointing at the screen. He says that's the dragon room. Oh, Gwen, he's smiling.
+  Nurse -> That's wonderful. Keep that going.
+  Nurse -> That's wonderful. Let him watch. Keep the leg up.
+  Caller -> I'm trying to remember everything. The pillows, the show, the warm blanket, the time on the sheet.
+  Nurse -> You're doing it all. You're not forgetting anything.
+  Caller -> It feels like I'm forgetting something.
+  Nurse -> Then call me. That's what I'm here for.
+  Caller -> I will. Thank you, Gwen. Thank you so much.
+  Nurse -> You're welcome. Talk soon.
+  Caller -> Gwen, one small thing. Thank you for answering at this hour. I know it's late.
+  Nurse -> It's what I do. I'm happy to be here for you and Kieran.
+  Caller -> Bye.
+  Nurse -> Bye, Saoirse.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Kieran Abernethy, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "2014-06-12", certainty: stated, heard_as: [], turns: [9]}
+    caller_name: {value: Saoirse Abernethy, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: mother, certainty: stated, turns: [2]}
+    callback_phone: {value: "6465550164", certainty: stated, heard_as: [], turns: [11]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported severe leg pain in her son that was not controlled by his breakthrough medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "He's in so much pain. The medicine isn't working."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Right leg pain above the knee was an eight, burning and stabbing, worse since about five.
+      speaker: Caller
+      turns: [13]
+      quote: "His right leg. Above the knee. Where the tumor is."
+      explanation: Documents the leg pain.
+      facts:
+        - {type: symptom, name: right leg pain, present: true, severity: "8", certainty: stated}
+      covers: [A1]
+    - text: Morphine liquid 2 mg per mL, 1.5 mL every three hours as needed, was last given at four and helped for about an hour.
+      speaker: Caller
+      turns: [23]
+      quote: "The breakthrough. The morphine. The liquid. Two milligrams per mL."
+      explanation: Documents the breakthrough medicine.
+      facts:
+        - {type: medication, name: morphine, strength: 2 mg per mL, dose: "1.5", unit: mL, frequency: every three hours as needed, prn: true, last_dose: four this afternoon, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was crying and could not get comfortable.
+      speaker: Caller
+      turns: [4]
+      quote: "He's crying. He's holding his leg. He can't get comfortable."
+      explanation: Documents the distress.
+      facts:
+        - {type: symptom, name: crying and unable to get comfortable, present: true, certainty: stated}
+      covers: [A3]
+    - text: He was alert and breathing normally with no sleepiness or new weakness.
+      speaker: Caller
+      turns: [81]
+      quote: "He's alert. Wide awake."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: sleepiness or new weakness, certainty: stated}
+      covers: [A4]
+    - text: He had no fever.
+      speaker: Caller
+      turns: [83]
+      quote: "No. No fever."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [46]
+      quote: "I'm also going to page the on-call clinician now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Advised giving the next breakthrough dose of morphine right away since three hours had passed.
+      speaker: Nurse
+      turns: [29]
+      quote: "you can give the next dose now. I want you to give it right away."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, med_name: morphine, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit within the hour.
+      speaker: Nurse
+      turns: [48]
+      quote: "I'm also sending a nurse out to see him."
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: within the hour, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back in twenty minutes.
+      speaker: Nurse
+      turns: [100]
+      quote: "I'll call you back in twenty minutes"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in twenty minutes, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised supporting the leg on pillows without squeezing, a warm blanket, a quiet room and a distraction like a show or music.
+      speaker: Nurse
+      turns: [54]
+      quote: "Support the leg on pillows."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised drawing one and a half mL, giving it slowly in the cheek and writing down the time.
+      speaker: Nurse
+      turns: [37]
+      quote: "Give it slowly into his cheek, a little at a time."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised calling right away if he became very sleepy or his breathing slowed, and 911 if he could not be woken.
+      speaker: Nurse
+      turns: [84]
+      quote: "If he becomes very sleepy, hard to wake up, or his breathing slows down, call me right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E3]
+  risk_flags:
+    - {category: uncontrolled_symptom, turns: [2], quote: "He's in so much pain. The medicine isn't working."}

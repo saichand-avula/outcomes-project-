@@ -1,0 +1,229 @@
+call_id: tr-224
+split: train
+blueprint: "Daughter of an 84-year-old hospice patient asks whether she can give a breakthrough dose of the liquid morphine now (a quarter of a milliliter, five milligrams, from the twenty-per-milliliter bottle); he also takes long-acting morphine fifteen mg twice a day, last given at eight this morning. Pain is a five. He has had two breakthrough doses today. Nurse confirms the label instructions, messages the provider about the increased use, and plans a callback tomorrow. Scheduled plus as-needed opioid with a liquid concentration."
+setup:
+  scenario_category: medication
+  subtype: dose_question
+  secondary_tags: [prn_and_scheduled, liquid_concentration, tall_man_drug, hedging, late_answers, split_turns]
+  clinical_domains: [pain, medication]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Riverbend Hospice
+  agency_type: hospice
+  nurse_name: Alan
+  call_timestamp_utc: "2026-10-12T19:00:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Vernon Ashgrove
+  patient_name_spoken: Vernon Ashgrove
+  patient_name_certainty: stated
+  patient_dob_true: "1942-05-29"
+  patient_dob_spoken: "1942-05-29"
+  patient_dob_certainty: stated
+  caller_name_true: Marcy Ashgrove
+  caller_name_spoken: Marcy Ashgrove
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "5185550184"
+  callback_phone_spoken: "5185550184"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Asked whether she can give a breakthrough dose of the liquid morphine
+  reason_category: medication_question
+  relevant_context: Hospice patient on long-acting and breakthrough morphine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine extended-release
+    medication_name_spoken: morphine extended-release
+    medication_status: taking
+    dose: "15"
+    unit: mg
+    frequency: twice a day
+    last_dose: eight this morning
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: morphine liquid
+    medication_name_spoken: morphine liquid
+    medication_status: taking
+    strength: 20 mg per mL
+    dose: "0.25"
+    unit: mL
+    frequency: every two hours as needed
+    prn: true
+    last_dose: two doses today
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: pain
+    symptom_present: true
+    severity: "5"
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: give the liquid morphine as labeled for breakthrough pain
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: hospice provider
+    reason_or_trigger: increased breakthrough morphine use
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Measure the liquid with the oral syringe to the quarter-milliliter mark, wait two hours between breakthrough doses, and write down each dose and time
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if pain stays above a five after a breakthrough dose, or he becomes hard to wake or his breathing slows
+    trigger_condition: pain not relieved; hard to wake; slow breathing
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Riverbend Hospice, this is Alan.
+  Caller -> Hi, Alan. It's Marcy Ashgrove. My dad is Vernon Ashgrove. I have a question about his morphine. || caller_name, relationship, patient_name, cc, A1, A2
+  Nurse -> Sure, Marcy. Let me pull up his chart. What's his date of birth?
+  Caller -> May twenty ninth, nineteen forty two. || patient_dob
+  Nurse -> And I have five one eight, five five five, zero one eight four for you. || callback_phone
+  Caller -> Yes. That's my number. || callback_phone
+  Nurse -> Okay. What's your question?
+  Caller -> He's in some pain. He says it's a five. And I want to give him the liquid morphine, the breakthrough, but I want to make sure I'm doing it right. || A3, A2
+  Nurse -> Okay. Tell me what he takes. Start with the long-acting one.
+  Caller -> He has the morphine extended-release. Fifteen milligrams, twice a day. I gave him the morning one at eight. The night one is at eight tonight. || A1
+  Nurse -> Okay. And the liquid?
+  Caller -> The morphine liquid. The bottle says twenty milligrams per milliliter. And the label says a quarter of a milliliter, which is five milligrams, every two hours if he needs it. || A2
+  Nurse -> Okay. That matches what I have. Has he had any of the liquid today?
+  Caller -> Two doses. One at noon and one at about four. So it's been three hours since the last one. || A2
+  Nurse -> Okay. That's been more than two hours, so it's fine to give another one. Draw it up to the quarter milliliter mark on the oral syringe, nothing more. || R1, E1, A2
+  Caller -> The quarter mark. Not the, there are marks for a whole milliliter and a half. Which one is the quarter?
+  Nurse -> It's the smallest line near the tip. If you hold the syringe up to the light, it's just a short little way up. Take your time, and double-check it against the label.
+  Caller -> Okay. I have it. I see it. The quarter mark. I'm going to draw it up. Okay, that's right. I think that's right.
+  Nurse -> Good. Write down the time you give it and what he got, so we have it for the nurse.
+  Caller -> I'll put it on the sheet on the fridge. Okay. Should I wait before I give the next one?
+  Nurse -> Wait at least two hours between doses. And I'm going to message the hospice provider tonight about the extra liquid doses he's been needing. || E1, R2, A2
+  Caller -> Okay. Is that bad? That he needs more?
+  Nurse -> It's not bad. It's information. It helps the provider decide if the long-acting dose needs to change.
+  Caller -> Okay. That makes sense.
+  Nurse -> I'll call you tomorrow to check in. || R3
+  Caller -> Tomorrow. Okay. Thank you.
+  Nurse -> And call us if the pain stays above a five after the dose, or if he's hard to wake up, or his breathing gets slow. || E2
+  Caller -> Pain not better. Hard to wake. Slow breathing. Okay. He's just resting. He's watching a game.
+  Nurse -> Good. You're doing a good job, Marcy.
+  Caller -> Thank you, Alan. I just always worry about getting it wrong.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Vernon Ashgrove, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1942-05-29", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Marcy Ashgrove, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "5185550184", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Asked whether she could give a breakthrough dose of the liquid morphine.
+    speaker: Caller
+    turns: [2]
+    quote: "I have a question about his morphine."
+    explanation: Documents the request prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Morphine extended-release 15 mg twice a day was being given, with the last dose at eight this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "He has the morphine extended-release. Fifteen milligrams, twice a day."
+      explanation: Documents the scheduled opioid.
+      facts:
+        - {type: medication, name: morphine extended-release, dose: "15", unit: mg, frequency: twice a day, last_dose: eight this morning, med_status: taking, certainty: stated}
+      covers: [A1]
+    - text: Morphine liquid at 20 mg per mL, a quarter of a milliliter every two hours as needed, was used with two doses taken today.
+      speaker: Caller
+      turns: [12]
+      quote: "a quarter of a milliliter, which is five milligrams, every two hours if he needs it."
+      explanation: Documents the breakthrough opioid.
+      facts:
+        - {type: medication, name: morphine liquid, strength: 20 mg per mL, dose: "0.25", unit: mL, frequency: every two hours as needed, prn: true, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: He was in pain rated a five.
+      speaker: Caller
+      turns: [8]
+      quote: "He says it's a five."
+      explanation: Documents the pain.
+      facts:
+        - {type: symptom, name: pain, present: true, severity: "5", certainty: stated}
+      covers: [A3]
+  response:
+    - text: Advised that another breakthrough dose could be given since more than two hours had passed.
+      speaker: Nurse
+      turns: [15]
+      quote: "That's been more than two hours, so it's fine to give another one."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the hospice provider about the extra liquid doses.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to message the hospice provider tonight about the extra liquid doses he's been needing."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call tomorrow to check in.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'll call you tomorrow to check in."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised drawing the liquid to the quarter-milliliter mark on the oral syringe, waiting at least two hours between doses, and recording each dose.
+      speaker: Nurse
+      turns: [15]
+      quote: "Draw it up to the quarter milliliter mark on the oral syringe, nothing more."
+      explanation: Documents medication administration guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised calling if pain stayed above a five after the dose, or if he was hard to wake or his breathing slowed.
+      speaker: Nurse
+      turns: [27]
+      quote: "call us if the pain stays above a five after the dose, or if he's hard to wake up, or his breathing gets slow."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

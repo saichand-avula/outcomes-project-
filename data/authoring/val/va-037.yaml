@@ -1,0 +1,162 @@
+call_id: va-037
+split: val
+blueprint: "Daughter needs a replacement nasal cannula and tubing because the tubing is cracked; mother breathing fine; nurse placed the order during the call (completed)."
+setup:
+  scenario_category: supply
+  subtype: dme_oxygen
+  secondary_tags: [negated_risk_phrase, trap_phrasing]
+  clinical_domains: [equipment]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Bluebell Home Care
+  agency_type: home_care
+  nurse_name: Joanne
+  call_timestamp_utc: "2026-09-06T17:40:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: false
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Imelda Castaneda
+  patient_name_spoken: Imelda Castaneda
+  patient_name_certainty: stated
+  patient_dob_true: "1944-03-03"
+  patient_dob_spoken: "1944-03-03"
+  patient_dob_certainty: stated
+  caller_name_true: Rosa
+  caller_name_spoken: Rosa
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "7185550161"
+  callback_phone_spoken: "7185550161"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Needs a new nasal cannula and oxygen tubing
+  reason_category: equipment_oxygen
+  relevant_context: Patient on continuous oxygen
+assessment:
+  - item_id: A1
+    item_type: supply
+    reporter: caller
+    supply_item: nasal cannula and tubing
+    supply_remaining: "0"
+    supply_unit: spares
+    history_or_context_text: Current tubing is cracked near the connector
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: breathing difficulty
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: supply_order
+    action_status: completed
+    actor: nurse
+    recipient_or_target: nasal cannula and oxygen tubing
+    timeframe: delivery tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: equipment_use
+    speaker: nurse
+    instruction_content: Keep the cracked tubing connected until the new one arrives only if it does not hiss; check for leaks; no smoking or flames
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call if she is short of breath, her lips look blue, or the machine alarms
+    trigger_condition: short of breath; blue lips; alarm
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Bluebell Home Care, this is Joanne.
+  Caller -> Hi, Joanne. It's Rosa. My mother is Imelda Castaneda. || caller_name, relationship, patient_name
+  Nurse -> Hi, Rosa. Imelda's date of birth?
+  Caller -> March third, nineteen forty four. || patient_dob
+  Nurse -> And your number is seven one eight, five five five, zero one six one? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What can I do for you?
+  Caller -> Her oxygen tubing is cracked. Right by the connector, where it plugs in. And I don't have a spare. I need a new nasal cannula, and tubing. || cc, A1
+  Nurse -> Okay. Is she breathing okay?
+  Caller -> She's fine. She's not struggling. She's sitting up watching her program. || A2
+  Nurse -> Okay, good. Does the tubing hiss, like it's leaking?
+  Caller -> A little, if you listen close. It's not terrible. I taped it for now. But I don't trust the tape.
+  Nurse -> Okay. Let me get an order in. I'm going to place the order right now. Okay. I've put it in. They'll deliver it tomorrow. || R1
+  Caller -> Oh, that was quick. Thank you.
+  Nurse -> Until it comes, check the connection a few times a day. If the hissing gets louder, or the crack gets bigger, call me and I'll see about a rush. || E1
+  Caller -> Okay. I'll check it.
+  Nurse -> And no smoking or flames near the oxygen, even the stove. Keep the tubing away from the candles.
+  Caller -> We don't use candles. Okay.
+  Nurse -> If she gets short of breath, or her lips look blue, or the machine alarms, call us right away. || E2
+  Caller -> Okay. I will.
+  Nurse -> How's she doing otherwise? Eating and sleeping okay?
+  Caller -> Yes. She ate well today. She's been sleeping a lot, but that's her normal these days.
+  Nurse -> Good. Anything else, Rosa?
+  Caller -> No. That's it. Thanks, Joanne.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Imelda Castaneda, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1944-03-03", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Rosa, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "7185550161", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Requested a new nasal cannula and oxygen tubing because the current tubing was cracked.
+    speaker: Caller
+    turns: [8]
+    quote: "Her oxygen tubing is cracked. Right by the connector, where it plugs in."
+    explanation: Documents the equipment need prompting the call.
+    covers: [cc, A1]
+  assessment:
+    - text: She was breathing comfortably.
+      speaker: Caller
+      turns: [10]
+      quote: "She's fine. She's not struggling. She's sitting up watching her program."
+      explanation: Documents a pertinent negative for breathing difficulty.
+      facts:
+        - {type: pertinent_negative, name: breathing difficulty, certainty: stated}
+      covers: [A2]
+  response:
+    - text: Ordered a nasal cannula and oxygen tubing during the call, for delivery tomorrow.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'm going to place the order right now. Okay. I've put it in. They'll deliver it tomorrow."
+      explanation: Documents the completed supply order.
+      facts:
+        - {type: action, action_type: supply_order, status: completed, timeframe: delivery tomorrow, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised checking the connection a few times a day and calling for a rush replacement if the hissing worsened or the crack grew.
+      speaker: Nurse
+      turns: [15]
+      quote: "check the connection a few times a day."
+      explanation: Documents equipment checks until delivery.
+      facts:
+        - {type: education, education_type: equipment_use, certainty: stated}
+      covers: [E1]
+    - text: Advised calling right away for shortness of breath, blue-looking lips, or a machine alarm.
+      speaker: Nurse
+      turns: [19]
+      quote: "If she gets short of breath, or her lips look blue, or the machine alarms, call us right away."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

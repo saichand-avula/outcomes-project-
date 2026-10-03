@@ -1,0 +1,313 @@
+call_id: tr-278
+split: train
+blueprint: "Husband Leonard calls palliative care about his wife Marguerite Szymanski's swelling: her ankles are puffier than last week and she's up four pounds on the bathroom scale in three days. She has heart failure. He reads two look-alike pill bottle labels slowly, hydroxyzine for itching at night and hydralazine for blood pressure. The nurse keeps saying Margaret Shimanski. He corrects the birth year himself. Breathing is the same as usual, no chest pain. Nurse messages the provider, plans a visit tomorrow and a callback this evening, gives weight and leg guidance. ASR/name drift with tall-man drugs and a self-corrected DOB, v2 short."
+setup:
+  scenario_category: asr_error
+  subtype: name_drift
+  secondary_tags: [name_drift, name_spelled, dob_self_corrected, tall_man_drug, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [edema, medication, cardiac]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Harbor Light Palliative Care
+  agency_type: palliative
+  nurse_name: Gus
+  call_timestamp_utc: "2026-10-31T22:05:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: high
+  number_words_spoken: true
+  name_drift: true
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 1
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Marguerite Szymanski
+  patient_name_spoken: Marguerite Szymanski
+  patient_name_certainty: unclear
+  patient_name_heard_as: [Margaret Shimanski]
+  patient_dob_true: "1947-11-04"
+  patient_dob_spoken: "1947-11-04"
+  patient_dob_certainty: stated
+  caller_name_true: Leonard Szymanski
+  caller_name_spoken: Leonard Szymanski
+  caller_name_certainty: stated
+  relationship_to_patient: husband
+  relationship_certainty: stated
+  callback_phone_true: "4145550128"
+  callback_phone_spoken: "4145550128"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported increased leg swelling and weight gain in his wife with heart failure
+  reason_category: edema
+  relevant_context: Palliative care patient with heart failure
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: ankle swelling
+    symptom_present: true
+    severity: worse than last week
+    certainty: stated
+  - item_id: A2
+    item_type: vital
+    reporter: caller
+    vital_name: weight gain
+    vital_value: "4"
+    vital_unit: pounds
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydroxyzine
+    medication_name_spoken: hydroxyzine
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: at bedtime as needed
+    prn: true
+    certainty: stated
+  - item_id: A4
+    item_type: medication
+    reporter: caller
+    medication_name_true: hydralazine
+    medication_name_spoken: hydralazine
+    medication_status: taking
+    dose: "25"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A5
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: chest pain or worse shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: palliative provider
+    reason_or_trigger: ankle swelling and four-pound weight gain
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: this evening
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: symptom_monitoring
+    speaker: nurse
+    instruction_content: Weigh her every morning after using the bathroom and before breakfast, write the number down, and report a gain of two pounds in a day
+    certainty: stated
+  - item_id: E2
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Raise her legs on pillows when she is sitting or in bed
+    certainty: stated
+  - item_id: E3
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for chest pain, trouble breathing at rest or while lying down, or confusion
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Palliative Care, this is Gus.
+  Caller -> Yes, hello. This is Leonard Szymanski. I'm calling about my wife. Her feet are all swollen up. Her legs. More than they were. || caller_name, relationship, cc
+  Nurse -> Okay, Mr. Szymanski. Sorry to hear that. What's your wife's name?
+  Caller -> Marguerite. Marguerite Szymanski. M A R G U E R I T E. And Szymanski is S Z Y M A N S K I. People always get it wrong. || patient_name
+  Nurse -> Okay. Margaret Shimanski. Let me pull up her chart. Hold on.
+  Caller -> Marguerite. With the, the U E.
+  Nurse -> Got it. I see her. What's her date of birth?
+  Caller -> November fourth. Nineteen forty eight. No. Wait. Forty seven. Nineteen forty seven. I'm sorry. I'm eighty, my brain. She's older than me. She's forty seven. || patient_dob
+  Nurse -> November fourth, nineteen forty seven. Okay. And a good number for you?
+  Caller -> The house phone is dead half the time. Use my cell. Four one four. Five five five. Zero one two eight. || callback_phone
+  Nurse -> Four one four, five five five, zero one two eight. Great. || callback_phone
+  Caller -> That's it.
+  Nurse -> Alright, tell me about the swelling. When did you notice it?
+  Caller -> Well, she's had a little. A little puffiness. Always. Ever since the heart thing. But last week it was just the ankles, like the sock line. And now it's up past the ankle. It's up the shin. It's, I pressed on it and my finger left a dent. || A1
+  Nurse -> A dent that stays for a bit?
+  Caller -> Stays. Stays a while. I counted. I counted to ten and it was still there.
+  Nurse -> Okay. Both legs?
+  Caller -> Both. The left is worse. A little.
+  Nurse -> And how's she doing otherwise? How's she feeling?
+  Caller -> Tired. She's always tired. She's sitting in the chair. She won't go out to the porch. Her friend Dolores came by and she said she didn't feel like talking.
+  Nurse -> Okay. Has she been weighing herself?
+  Caller -> I weigh her. I do the weighing. We have the scale in the bathroom. Every morning. And she was, the number I wrote down, she was one forty one on Sunday. And this morning she was one forty five. That's four pounds. In three days. || A2
+  Nurse -> Okay. Four pounds in three days. Thank you for keeping track.
+  Caller -> Well I'm not stupid. The nurse told us to. I just don't always understand what the number means.
+  Nurse -> No, you're doing it right. That weight gain is likely fluid, and that's what the provider needs to look at.
+  Caller -> Fluid. That's what I thought.
+  Nurse -> Now. Is her breathing different? Any chest pain?
+  Caller -> No. No chest pain. She says no. And the breathing is the same as it always is. She's a little short on the stairs but she doesn't do the stairs anymore. She sleeps with two pillows. Same as always. || A5
+  Nurse -> Okay. Same as usual. That's good to hear.
+  Caller -> It's good.
+  Nurse -> Mr. Szymanski, let me ask about her medicines. Can you read me what she's taking, from the bottles?
+  Caller -> Sure. Sure. Hold on. I have them in the, the little basket. Let me get my glasses. Okay. These two look alike. They give me a headache. One is hydroxyzine. H Y D R O X Y Z I N E. Twenty five milligrams. At bedtime, if needed, for the itching. || A3
+  Nurse -> Okay. Hydroxyzine, twenty five milligrams, bedtime as needed for itching. || A3
+  Caller -> Yes. She hardly uses it. And the other one. Hydralazine. H Y D R A L A Z I N E. Twenty five milligrams. Three times a day. That's her blood pressure one. || A4
+  Nurse -> Okay. Hydralazine twenty five, three times a day. Did she get her dose this morning? || A4
+  Caller -> This morning, yes. At eight. And she'll get one at two and one at bedtime. I do the pillbox. I'm very careful because the names are alike.
+  Nurse -> That's smart. Those two get mixed up a lot.
+  Caller -> I put a sticker on the hydroxyzine. A blue dot. For the itch. || A3
+  Nurse -> That's a great idea.
+  Caller -> Dolores gave me the stickers. She's a retired teacher.
+  Nurse -> Ha. That's lovely.
+  Caller -> Is she okay? The swelling. Should I be worried?
+  Nurse -> I don't think it's an emergency right now, because she's breathing the same and has no chest pain. But I do want the provider to know about it today. I'll send a message to the palliative provider about the ankle swelling and the four pound weight gain. || R1
+  Caller -> Will they change the water pill?
+  Nurse -> They might. That's the sort of thing they'd decide. I don't want to promise.
+  Caller -> No, no. I know.
+  Nurse -> I'm also going to send a nurse to see her tomorrow, to listen to her heart and lungs, check her legs, and weigh her. || R2
+  Caller -> Tomorrow. What time?
+  Nurse -> The scheduler will call you in the morning with a window.
+  Caller -> Okay. I'm home. I'm always home.
+  Nurse -> And I'll call you back this evening to let you know what the provider says. || R3
+  Caller -> This evening. Okay. After supper?
+  Nurse -> Probably around six or seven. I'll try.
+  Caller -> That's fine. We eat at five.
+  Nurse -> Okay. In the meantime, Mr. Szymanski, keep weighing her every morning. Right after she uses the bathroom and before breakfast, same scale, same clothes. Write it down. If she goes up two pounds in a day, call us. || E1
+  Caller -> Every morning after the bathroom. Write it down. Two pounds in a day. Okay. Two pounds. I'll put it on the fridge.
+  Nurse -> Good. And when she's sitting or lying down, put her legs up on pillows. That helps the swelling. || E2
+  Caller -> Up on pillows. She has the footstool but it's too low. I'll use the couch pillows.
+  Nurse -> The couch pillows are perfect.
+  Caller -> She'll complain. But she'll do it.
+  Nurse -> Ha. Tell her it's doctor's orders.
+  Caller -> I will. I'll say Gus said.
+  Nurse -> There you go. And one more thing. Call nine one one if she has chest pain, if she has trouble breathing sitting still or lying down, or if she gets confused. || E3
+  Caller -> Chest pain, can't breathe lying down, confused. Nine one one. I've got it.
+  Nurse -> Good. Do you have any questions for me?
+  Caller -> Just, will the swelling go down?
+  Nurse -> It often does when the provider adjusts the water pill. We'll see what they say.
+  Caller -> Okay. Okay. Thank you. I feel better. I was worried I was missing something.
+  Nurse -> You're not missing anything. You're paying attention. That's what she needs.
+  Caller -> Thank you, Gus. I'll wait for your call.
+  Nurse -> Talk to you this evening, Mr. Szymanski.
+  Caller -> Bye now.
+noise_events:
+  - {turn: auto, type: name_drift, true_form: Marguerite Szymanski, heard_form: Margaret Shimanski, fact_id: patient_name}
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Marguerite Szymanski, certainty: unclear, heard_as: [Margaret Shimanski], turns: [4]}
+    patient_dob: {value: "1947-11-04", certainty: stated, heard_as: [], turns: [8]}
+    caller_name: {value: Leonard Szymanski, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: husband, certainty: stated, turns: [2]}
+    callback_phone: {value: "4145550128", certainty: stated, heard_as: [], turns: [10, 11]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported increased leg swelling and weight gain in his wife with heart failure.
+    speaker: Caller
+    turns: [2]
+    quote: "Her feet are all swollen up. Her legs. More than they were."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: Ankle swelling had risen up the shins, with a dent that lasted past a count of ten, worse on the left.
+      speaker: Caller
+      turns: [14]
+      quote: "It's up the shin."
+      explanation: Documents the leg swelling.
+      facts:
+        - {type: symptom, name: ankle swelling, present: true, severity: worse than last week, certainty: stated}
+      covers: [A1]
+    - text: Weight was up four pounds in three days, from 141 on Sunday to 145 that morning.
+      speaker: Caller
+      turns: [22]
+      quote: "That's four pounds. In three days."
+      explanation: Documents the weight gain.
+      facts:
+        - {type: vital, name: weight gain, value: "4", unit: pounds, certainty: stated}
+      covers: [A2]
+    - text: Hydroxyzine 25 mg at bedtime as needed for itching was in use, rarely.
+      speaker: Caller
+      turns: [32]
+      quote: "One is hydroxyzine."
+      explanation: Documents the as-needed medication.
+      facts:
+        - {type: medication, name: hydroxyzine, dose: "25", unit: mg, frequency: at bedtime as needed, prn: true, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: Hydralazine 25 mg three times a day was being taken, with the morning dose given at eight.
+      speaker: Caller
+      turns: [34]
+      quote: "Hydralazine. H Y D R A L A Z I N E. Twenty five milligrams. Three times a day."
+      explanation: Documents the blood pressure medication.
+      facts:
+        - {type: medication, name: hydralazine, dose: "25", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A4]
+    - text: No chest pain or worsening shortness of breath was reported.
+      speaker: Caller
+      turns: [28]
+      quote: "No chest pain. She says no."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: chest pain or worse shortness of breath, certainty: stated}
+      covers: [A5]
+  response:
+    - text: Planned to message the palliative provider about the swelling and weight gain.
+      speaker: Nurse
+      turns: [43]
+      quote: "I'll send a message to the palliative provider about the ankle swelling and the four pound weight gain."
+      explanation: Documents the planned message to the team.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned a nurse visit tomorrow to listen to her heart and lungs, check her legs and weigh her.
+      speaker: Nurse
+      turns: [47]
+      quote: "I'm also going to send a nurse to see her tomorrow"
+      explanation: Documents the planned nurse visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back this evening with the provider's response.
+      speaker: Nurse
+      turns: [51]
+      quote: "I'll call you back this evening to let you know what the provider says."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: this evening, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised weighing her every morning after the bathroom and before breakfast, writing it down, and calling for a gain of two pounds in a day.
+      speaker: Nurse
+      turns: [55]
+      quote: "keep weighing her every morning."
+      explanation: Documents weight monitoring guidance.
+      facts:
+        - {type: education, education_type: symptom_monitoring, certainty: stated}
+      covers: [E1]
+    - text: Advised raising her legs on pillows when sitting or lying down.
+      speaker: Nurse
+      turns: [57]
+      quote: "put her legs up on pillows."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E2]
+    - text: Advised calling 911 for chest pain, trouble breathing sitting still or lying down, or confusion.
+      speaker: Nurse
+      turns: [63]
+      quote: "Call nine one one if she has chest pain"
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E3]
+  risk_flags: []

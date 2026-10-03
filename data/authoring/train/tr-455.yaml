@@ -1,0 +1,270 @@
+call_id: tr-455
+split: train
+blueprint: "A 36-year-old woman with epilepsy calls home health herself: the pharmacy filled Lamisil (terbinafine, a nail fungus pill) in the bottle where her lamotrigine should be, she noticed the label before taking any, and she has been without lamotrigine for two days because the refill was supposed to be ready Monday. No seizures, no aura, no lightheadedness. Nurse pages on-call for an urgent bridge supply, contacts the pharmacy, plans a nurse visit tomorrow, and reviews seizure precautions. Wrong drug dispensed with a gap in an anti-seizure medicine (medication concern), tall-man pair, self caller, patient 18-64, v2 short."
+setup:
+  scenario_category: medication
+  subtype: wrong_medication_dispensed
+  secondary_tags: [tall_man_drug, trap_phrasing, negated_risk_phrase, hedging, late_answers, split_turns, multi_issue]
+  clinical_domains: [medication, seizure]
+  relationship_group: self
+  na_reason: null
+  agency_name: Orchard Lane Home Health
+  agency_type: home_health
+  nurse_name: Samir
+  call_timestamp_utc: "2026-12-08T15:10:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: 18-64
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Imelda Rossiter
+  patient_name_spoken: Imelda Rossiter
+  patient_name_certainty: stated
+  patient_dob_true: "1990-02-14"
+  patient_dob_spoken: "1990-02-14"
+  patient_dob_certainty: stated
+  caller_name_true: Imelda Rossiter
+  caller_name_spoken: Imelda Rossiter
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "6105550169"
+  callback_phone_spoken: "6105550169"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported that the pharmacy filled the wrong pill and she has been without her seizure medicine
+  reason_category: medication
+  relevant_context: Home health patient with epilepsy on lamotrigine
+assessment:
+  - item_id: A1
+    item_type: medication
+    reporter: caller
+    medication_name_true: lamotrigine
+    medication_name_spoken: lamotrigine
+    medication_status: missed
+    dose: "100"
+    unit: mg
+    frequency: twice a day
+    prn: false
+    last_dose: two days ago
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: Lamisil
+    medication_name_spoken: Lamisil
+    medication_status: prescribed
+    dose: "250"
+    unit: mg
+    frequency: dispensed in error and not taken
+    prn: false
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: seizure or aura or lightheadedness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: two days without lamotrigine after a pharmacy error
+    certainty: stated
+  - item_id: R2
+    action_type: pharmacy_contact
+    action_status: planned
+    actor: nurse
+    recipient_or_target: pharmacy
+    reason_or_trigger: correct the fill and send lamotrigine today
+    certainty: stated
+  - item_id: R3
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take the Lamisil, keep the bottle aside for the pharmacy, and restart lamotrigine only as the clinician directs
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Do not drive, bathe alone or climb ladders until the medicine is back, keep someone nearby, and call 911 for a seizure lasting over five minutes
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: medication_concern
+    trigger_description: Pharmacy dispensed the wrong pill and she has been without her seizure medicine for two days
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Orchard Lane Home Health, this is Samir.
+  Caller -> Hi, Samir. It's Imelda Rossiter. R O S S I T E R. I'm a patient. The pharmacy gave me the wrong pill and I've been without my seizure medicine for two days. || caller_name, patient_name, relationship, cc, F1
+  Nurse -> Thanks for calling, Imelda. Let's sort it out. What's your date of birth?
+  Caller -> I'm so sorry. I'm shaking a little. I've been waiting on hold for the pharmacy for almost an hour and I'm about to lose it.
+  Nurse -> No need to apologize. You're in the right place.
+  Caller -> February fourteenth. Nineteen ninety. || patient_dob
+  Nurse -> And your number?
+  Caller -> Six one oh, five five five, zero one six nine. || callback_phone
+  Nurse -> Perfect.
+  Nurse -> Got it. Tell me what happened.
+  Caller -> I'll try to be clear. I'm usually good at this. I work in insurance claims. I read fine print all day.
+  Caller -> I take lamotrigine. L A M O T R I G I N E. A hundred milligrams, twice a day. My refill was due Monday. I ran out Sunday night. I took my last one Sunday evening. Two days ago. || A1
+  Nurse -> And the refill didn't come?
+  Caller -> It did, in a way. I picked it up this morning. I got home and the bottle says Lamisil. L A M I S I L. Two hundred fifty milligrams. That's a nail fungus pill. That's not mine. || A2
+  Caller -> I stood in the parking lot reading the bag. The tech was gone by then. I went back in and the pharmacist was on break. I waited fifteen minutes, and no one came.
+  Nurse -> Okay. You didn't take any, did you?
+  Caller -> No. I didn't. I read the label first. I always read the label. But I couldn't swear I didn't almost. I mean, I had the cap open. Then I saw the name. I put it back.
+  Caller -> I'm kind of shaken by how close it was. It's the same color pill. I'd have taken it with my coffee and never known.
+  Nurse -> Good. That's very good. Have you had any seizures, or any warning signs?
+  Caller -> No. No seizure. No aura. I didn't have the funny smell or the deja vu feeling. I'm not lightheaded. I'm not saying I don't feel anxious. I do. But no, nothing physical. || A3
+  Nurse -> That's reassuring. Imelda, it's important not to go without your seizure medicine. I'm going to page the on-call clinician right now to get an urgent supply. || R1
+  Caller -> I know. I know it is. I told the girl at the counter. She just said, sorry, we'll fix it tomorrow.
+  Caller -> Thank you. I've been terrified. The last time I missed two days, I had a seizure on the bus.
+  Caller -> It was on the number nine bus. A stranger held my head. I woke up in the ambulance with the paramedic asking me what day it was.
+  Nurse -> That sounds frightening. I'm sorry.
+  Nurse -> I understand. We'll move fast. I'll also contact the pharmacy to correct the fill and send the right medicine today. || R2
+  Caller -> I called them. They said it would be tomorrow. They said the system flagged it.
+  Caller -> Tomorrow is too far. I'm only just keeping myself calm. The thought of another night without it makes me want to cry.
+  Nurse -> I'll push for today. In the meantime, please don't take the Lamisil. Set the bottle aside for the pharmacy. And don't restart the lamotrigine on your own until the clinician tells you how. || E1
+  Caller -> Okay. I won't touch it. It's in a plastic bag on the counter. I wrote DO NOT TAKE on a sticky note.
+  Caller -> I put it next to the sink where I can see it. I didn't want to throw it away in case you need it as proof.
+  Nurse -> Good thinking. Keep it for the pharmacy.
+  Nurse -> Perfect. And I'd like a nurse to come see you tomorrow. || R3
+  Caller -> Tomorrow. That's good. I work from home on Wednesdays. I'll be here.
+  Caller -> My boss is very understanding. I'm going to let her know I might need to be offline for a bit tomorrow.
+  Nurse -> Until the medicine is back, please be careful. Don't drive, don't take a bath alone, don't climb on a ladder. Keep someone with you if you can. If you have a seizure that lasts over five minutes, call 911. || E2
+  Caller -> No driving. No bath. No ladders. Someone nearby. Five minutes, 911. Okay. My roommate is here. She works nights, so she's home during the day. I'll tell her.
+  Caller -> My roommate Priya is a nurse. She'll keep an eye on me. She's already looked at my pupils twice.
+  Nurse -> Good. How are you feeling about all this?
+  Caller -> I told my mother and she wanted to drive over. I said stay home, I'm fine. She said she's coming anyway. She's an hour away.
+  Caller -> Scared and angry. I don't want to be a person who has a seizure at work. It feels so unfair. I did everything right.
+  Nurse -> Tell me more about the fear.
+  Caller -> I've been seizure free for fourteen months. Fourteen months. I keep a tally on my calendar. I don't want to start over at zero.
+  Nurse -> You did. You read the label, you caught the error, you called. That's exactly right.
+  Caller -> I know. But it's scary anyway.
+  Nurse -> It is. We'll get you the right medicine as quickly as we can.
+  Caller -> I'm trying to think positive. Fourteen months is something. I'm going to keep saying that.
+  Nurse -> It is something big. Remember that.
+  Caller -> Thank you. Is there anything else I should do?
+  Nurse -> Drink water, eat regular meals, and try to sleep tonight. Stress and poor sleep can make a seizure more likely.
+  Caller -> I haven't eaten much today. Too nervous. I'll make some eggs.
+  Nurse -> Eggs sound perfect.
+  Caller -> I'll try. I'll make some tea. And I'll go to bed at nine. Not that I'll sleep.
+  Nurse -> Ha. Do your best.
+  Caller -> I'll try. I have a book I haven't finished. A mystery. It might work better than a pill.
+  Caller -> I have a weighted blanket. It helps. It's like a hug.
+  Caller -> I got it for my birthday. It's twelve pounds of beads, and it's navy blue. I fall asleep under it in five minutes usually.
+  Nurse -> That sounds good. Use it.
+  Caller -> I'm also going to listen to the rain sounds on my phone. They calm me down.
+  Nurse -> Ha. Rain is soothing for many people.
+  Caller -> Okay. Thanks, Samir.
+  Caller -> You were so calm. I needed someone calm. I'm a bit of a wreck today.
+  Nurse -> You're handling it well.
+  Nurse -> Anytime, Imelda. Bye.
+  Caller -> I'll keep my phone close. I'm going to leave the ringer on high.
+  Caller -> Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Imelda Rossiter, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1990-02-14", certainty: stated, heard_as: [], turns: [6]}
+    caller_name: {value: Imelda Rossiter, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "6105550169", certainty: stated, heard_as: [], turns: [8]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported that the pharmacy filled the wrong pill and she had been without her seizure medicine.
+    speaker: Caller
+    turns: [2]
+    quote: "The pharmacy gave me the wrong pill and I've been without my seizure medicine for two days."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: Lamotrigine 100 mg twice a day was missed for two days, with the last dose Sunday evening.
+      speaker: Caller
+      turns: [12]
+      quote: "A hundred milligrams, twice a day."
+      explanation: Documents the missed anti-seizure medicine.
+      facts:
+        - {type: medication, name: lamotrigine, dose: "100", unit: mg, frequency: twice a day, prn: false, last_dose: two days ago, med_status: missed, certainty: stated}
+      covers: [A1]
+    - text: Lamisil 250 mg was dispensed in error and not taken.
+      speaker: Caller
+      turns: [14]
+      quote: "Two hundred fifty milligrams. That's a nail fungus pill."
+      explanation: Documents the wrong pill.
+      facts:
+        - {type: medication, name: Lamisil, dose: "250", unit: mg, frequency: dispensed in error and not taken, prn: false, med_status: prescribed, certainty: stated}
+      covers: [A2]
+    - text: She had no seizure, aura or lightheadedness.
+      speaker: Caller
+      turns: [20]
+      quote: "No seizure. No aura."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: seizure or aura or lightheadedness, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to page the on-call clinician for an urgent supply.
+      speaker: Nurse
+      turns: [21]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to contact the pharmacy to correct the fill and send the right medicine today.
+      speaker: Nurse
+      turns: [26]
+      quote: "I'll also contact the pharmacy to correct the fill"
+      explanation: Documents the planned pharmacy contact.
+      facts:
+        - {type: action, action_type: pharmacy_contact, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned a nurse visit tomorrow.
+      speaker: Nurse
+      turns: [33]
+      quote: "I'd like a nurse to come see you tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised not taking the Lamisil and restarting lamotrigine only as the clinician directed.
+      speaker: Nurse
+      turns: [29]
+      quote: "please don't take the Lamisil."
+      explanation: Documents medication teaching.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E1]
+    - text: Advised no driving, bathing alone or ladders, having someone nearby and calling 911 for a seizure over five minutes.
+      speaker: Nurse
+      turns: [36]
+      quote: "Don't drive, don't take a bath alone, don't climb on a ladder."
+      explanation: Documents safety teaching.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: medication_concern, turns: [2], quote: "The pharmacy gave me the wrong pill and I've been without my seizure medicine for two days."}

@@ -1,0 +1,192 @@
+call_id: va-031
+split: val
+blueprint: "Wife reports a mild cough and runny nose for 2 days, no fever, breathing fine; nurse advises fluids and honey and plans a callback tomorrow."
+setup:
+  scenario_category: routine
+  subtype: symptom_update
+  secondary_tags: [negated_risk_phrase, pertinent_negatives, late_answers]
+  clinical_domains: [cough_uri]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Maple Lane Home Care
+  agency_type: home_care
+  nurse_name: Beth
+  call_timestamp_utc: "2026-09-02T14:10:00Z"
+  length_bucket: short
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-opus-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: medium
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Anthony Pellegrino
+  patient_name_spoken: Anthony Pellegrino
+  patient_name_certainty: stated
+  patient_dob_true: "1950-03-14"
+  patient_dob_spoken: "1950-03-14"
+  patient_dob_certainty: stated
+  caller_name_true: Joan
+  caller_name_spoken: Joan
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "2015550157"
+  callback_phone_spoken: "2015550157"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Cough and runny nose for two days
+  reason_category: cough_uri
+  relevant_context: null
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: cough
+    symptom_present: true
+    severity: mild and dry
+    onset_or_duration: 2 days
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: runny nose
+    symptom_present: true
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: shortness of breath
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Warm fluids and a spoon of honey, humidifier at night, rest
+    certainty: stated
+  - item_id: E2
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call for fever of 100.4 or higher, trouble breathing, or a cough lasting past a week
+    trigger_condition: fever 100.4+; trouble breathing; cough over a week
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Maple Lane Home Care, this is Beth.
+  Caller -> Hi, Beth. It's Joan. Joan Pellegrino. I'm calling about my husband, Anthony. || caller_name, relationship, patient_name
+  Nurse -> Hi, Joan. And Anthony's date of birth?
+  Caller -> March fourteenth, nineteen fifty. || patient_dob
+  Nurse -> Okay. And your number is two oh one, five five five, zero one five seven? || callback_phone
+  Caller -> Yes. || callback_phone
+  Nurse -> What's going on with Anthony?
+  Caller -> He's got a cough. And a runny nose. It started Monday. So, two days. || cc, A1, A2
+  Caller -> It's not terrible. It's kind of a dry cough. || A1
+  Nurse -> Okay. Any fever?
+  Caller -> No. I took his temperature this morning, and it was normal. || A3
+  Nurse -> Okay. And is he short of breath at all?
+  Caller -> No, no. His breathing is fine. He's just coughing and sniffling. || A4
+  Nurse -> Okay, that's good. It sounds like a common cold. For now, warm fluids, like tea or broth, and a spoon of honey can help the cough. Rest, and a humidifier at night. || E1
+  Caller -> We have a humidifier. Okay. I'll put it on in the bedroom.
+  Nurse -> If he gets a fever of one hundred point four or higher, or any trouble breathing, or the cough goes on more than a week, call us. || E2
+  Caller -> Okay. A fever, trouble breathing, or a week. Got it.
+  Nurse -> I'll give you a call tomorrow to see how he's doing. || R1
+  Caller -> Oh, that's nice. Thank you.
+  Nurse -> And how's he eating and sleeping? Is he still drinking enough?
+  Caller -> He's eating okay. He's drinking his tea, he loves his tea. He slept fine last night, the cough isn't bothering him at night.
+  Nurse -> Good. That's reassuring.
+  Caller -> Our granddaughter came by on Sunday with a bad cold. I think that's where he got it.
+  Nurse -> That's very likely. Colds go around. Wash hands well, and keep his tissues in a covered trash can.
+  Caller -> I'll do that. Okay.
+  Nurse -> Anything else, Joan?
+  Caller -> No, that's all. Thank you, Beth.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Anthony Pellegrino, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1950-03-14", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Joan, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "2015550157", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her husband had a cough and runny nose for two days.
+    speaker: Caller
+    turns: [8]
+    quote: "He's got a cough. And a runny nose. It started Monday. So, two days."
+    explanation: Documents the symptoms prompting the call.
+    covers: [cc, A2]
+  assessment:
+    - text: A mild dry cough had been present for 2 days.
+      speaker: Caller
+      turns: [9]
+      quote: "It's not terrible. It's kind of a dry cough."
+      explanation: Documents the character of the cough.
+      facts:
+        - {type: symptom, name: cough, present: true, severity: mild and dry, onset: 2 days, certainty: stated}
+      covers: [A1]
+    - text: No fever was reported; the temperature was normal this morning.
+      speaker: Caller
+      turns: [11]
+      quote: "No. I took his temperature this morning, and it was normal."
+      explanation: Documents a pertinent negative for fever.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+    - text: No shortness of breath was reported.
+      speaker: Caller
+      turns: [13]
+      quote: "No, no. His breathing is fine. He's just coughing and sniffling."
+      explanation: Documents a pertinent negative for dyspnea.
+      facts:
+        - {type: pertinent_negative, name: shortness of breath, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to call back tomorrow to check on him.
+      speaker: Nurse
+      turns: [18]
+      quote: "I'll give you a call tomorrow to see how he's doing."
+      explanation: Documents the planned follow-up call.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R1]
+  education:
+    - text: Advised warm fluids with honey, rest, and a humidifier at night.
+      speaker: Nurse
+      turns: [14]
+      quote: "warm fluids, like tea or broth, and a spoon of honey can help the cough. Rest, and a humidifier at night."
+      explanation: Documents comfort measures for a cold.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling for a fever of 100.4 or higher, trouble breathing, or a cough lasting more than a week.
+      speaker: Nurse
+      turns: [16]
+      quote: "If he gets a fever of one hundred point four or higher, or any trouble breathing, or the cough goes on more than a week, call us."
+      explanation: Documents return precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

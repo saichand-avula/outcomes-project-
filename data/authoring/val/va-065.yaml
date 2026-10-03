@@ -1,0 +1,306 @@
+call_id: va-065
+split: val
+blueprint: "A daughter-in-law, Annalise Quimby, calls because her father-in-law Sylvester fell in the bathroom and struck the side of his head on the tub. He takes warfarin, has a bleeding cut above the ear, a new headache and is a little repeating himself, but is awake and answering. Nurse tells her to call 911 now, apply firm pressure, keep him still, and not give food, drink or his evening pills; she also pages on-call. Head injury on a blood thinner, other-family caller, escalation plus urgent flag, v2 short."
+setup:
+  scenario_category: high_risk
+  subtype: head_injury_on_anticoagulant
+  secondary_tags: [other_family, escalation_911, fall, anticoagulant, crosstalk, split_turns, late_answers]
+  clinical_domains: [fall, bleeding, neurologic, medication]
+  relationship_group: other_family
+  na_reason: null
+  agency_name: Seabrook Home Health
+  agency_type: home_health
+  nurse_name: Valentina
+  call_timestamp_utc: "2026-12-03T00:25:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: true
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Sylvester Quimby
+  patient_name_spoken: Sylvester Quimby
+  patient_name_certainty: stated
+  patient_dob_true: "1938-12-15"
+  patient_dob_spoken: "1938-12-15"
+  patient_dob_certainty: stated
+  caller_name_true: Annalise Quimby
+  caller_name_spoken: Annalise Quimby
+  caller_name_certainty: stated
+  relationship_to_patient: daughter-in-law
+  relationship_certainty: stated
+  callback_phone_true: "2065550198"
+  callback_phone_spoken: "2065550198"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported that her father-in-law fell and hit his head while on a blood thinner
+  reason_category: fall
+  relevant_context: Home health patient on warfarin
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: fall with head strike
+    symptom_present: true
+    severity: severe
+    onset: just now in the bathroom
+    certainty: stated
+  - item_id: A2
+    item_type: symptom
+    reporter: caller
+    symptom_name: bleeding cut above the ear
+    symptom_present: true
+    severity: moderate
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: new headache
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: repeating himself
+    symptom_present: true
+    certainty: stated
+  - item_id: A5
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: once a day in the evening
+    prn: false
+    last_dose: last night
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: vomiting or loss of consciousness
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: escalation_911_ed
+    action_status: advised
+    actor: nurse
+    recipient_or_target: 911
+    certainty: stated
+  - item_id: R2
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 now, keep him still and lying down, press a clean cloth firmly on the cut, and give nothing by mouth
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not give any more of his blood thinner and tell the paramedics he takes warfarin
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: escalation_request
+    trigger_description: Nurse advised calling 911 for a head injury while on a blood thinner
+    trigger_speaker: nurse
+    flag_required: true
+  - flag_id: F2
+    risk_category: other_urgent
+    trigger_description: Fall with head strike, bleeding cut, new headache and repeating himself while on warfarin
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Seabrook Home Health, this is Valentina.
+  Caller -> Valentina, hi, it's Annalise Quimby. My father-in-law is Sylvester Quimby. He fell. He hit his head on the tub. He's bleeding. || caller_name, relationship, patient_name, cc, A1, F2
+  Nurse -> Okay, Annalise. Is he awake? Is he talking to you?
+  Caller -> He's awake. He's sitting on the bathroom floor. He's talking. He's, he keeps saying the same thing.
+  Nurse -> What is he saying?
+  Caller -> He keeps saying, did I fall? Did I fall? And I tell him yes and then he says it again. || A4
+  Nurse -> Okay. Where is he bleeding?
+  Caller -> Above his ear. The left side. It's a cut. I'd say two inches. It's bleeding a lot. I have a towel on it. It's soaked. || A2
+  Nurse -> Annalise, I'm going to ask you to call nine one one right now. Put me on speaker, or have someone else call while we keep talking. || R1, F1
+  Caller -> Oh god. Okay. Okay. Hold on. Greg! Greg, come here! Call nine one one! Dad fell! Hit his head!
+  Nurse -> Is Greg calling?
+  Caller -> He's on it. He's calling. Okay. I'm still here.
+  Nurse -> Good. Press a clean towel firmly on the cut. Don't lift it to peek. If it soaks through, put another one on top, and keep pressing. || E1
+  Caller -> Pressing. Firm. Okay. It's coming through. I'm putting another one on.
+  Nurse -> That's right. Keep pressing. Is he on any blood thinners?
+  Caller -> Yes. Warfarin. He takes it every evening. Five milligrams. He took it last night. || A5
+  Nurse -> Okay. That's very important. The paramedics need to know that. Tell them right away.
+  Caller -> Warfarin. I'll tell them. Greg! Tell the dispatcher he's on warfarin! || A5
+  Nurse -> Annalise, does he have a headache?
+  Caller -> He says his head hurts. He says it's a bad one. A headache, behind his eye. It wasn't there before he fell. || A3
+  Nurse -> Has he vomited? Did he pass out, even for a second?
+  Caller -> No. No vomiting. He didn't pass out. I heard the thump and I ran in and he was awake. He was sitting up already. || A6
+  Nurse -> Okay. Keep him still. Don't let him stand or walk around. Keep him lying down, or sitting against the wall if that's more comfortable. Don't move his neck.
+  Caller -> Wait, say that again? I missed the first part.
+  Nurse -> Of course. Let me say it slower.
+  Caller -> He's against the wall. He wants to get up. I'm telling him no. Dad, stay. Stay put.
+  Nurse -> That's right. Give him nothing by mouth. No water, no food, no pills.
+  Caller -> No pills. He has his evening pills on the counter. Do I give him anything?
+  Nurse -> No. None of them. Especially not the warfarin. Don't give him any of his medicines until the doctors say so. || E2
+  Caller -> No pills. Okay. I'm putting them away. Not yet. Hold on, I'm pressing. I can't. Okay. Greg's got the pills.
+  Nurse -> Good. Tell me when the dispatcher says they're on the way.
+  Caller -> Greg says they're sending an ambulance. They said ten minutes. Ten minutes.
+  Nurse -> Perfect. Stay with him. What's his date of birth, Annalise? For the paramedics.
+  Caller -> December fifteenth, nineteen thirty eight. || patient_dob
+  Nurse -> And the best number to reach you?
+  Caller -> Two oh six, five five five, zero one nine eight. That's my cell. || callback_phone
+  Nurse -> Got it. I'm going to page the on-call clinician right now so they know what's happening. || R2
+  Caller -> Okay. Thank you. Please.
+  Nurse -> Is the bleeding slowing at all?
+  Caller -> I don't know. Hold on. I can't look. If I lift it, it'll start again. The towel's heavy.
+  Nurse -> Don't lift. Just keep the pressure steady.
+  Caller -> Sorry, the dog is barking. Hold on.
+  Nurse -> Ha, no worries.
+  Caller -> Okay. I'm leaning on it. He's wincing.
+  Nurse -> I know. It hurts, but it's important. Talk to him. Keep him awake. Ask him his name, where he lives.
+  Caller -> Dad, what's your name? Sylvester. Where do you live? Dad? He says Cedar Street. That's right. And he said the year. He said nineteen... no, he said the wrong year.
+  Nurse -> What year did he say?
+  Caller -> He said twenty ten. It's twenty twenty six.
+  Nurse -> Okay. Tell the paramedics that, too. He's confused about the date.
+  Caller -> Okay. I'm back. What was the question?
+  Nurse -> I'll repeat it, no trouble.
+  Caller -> I will. I'll tell them everything.
+  Nurse -> Does he have any allergies or other health conditions you can tell them? Heart problems? Diabetes?
+  Caller -> He has atrial fibrillation. That's why the warfarin. And high blood pressure. No diabetes. No allergies I know of. || A5
+  Nurse -> Good. Tell them all that. Is there a list of his medicines?
+  Caller -> On the fridge. A printed list. Greg is grabbing it for them.
+  Nurse -> Perfect. Annalise, are you hurt? Did you fall?
+  Caller -> Okay. Sorry about that. Go on.
+  Nurse -> Alright, thank you.
+  Caller -> No. I'm fine. I'm just scared. My hands are shaking. I'm covered in his blood.
+  Nurse -> That's okay. You're doing great. Wash up after they take over, and wear gloves if you have them.
+  Caller -> I'll wash. I don't have gloves.
+  Nurse -> It's fine. Keep going.
+  Caller -> I hear something outside. Is that the sirens? Hold on. Greg, is that them?
+  Nurse -> Take your time. I'm here.
+  Caller -> Sorry, I'm writing this down as we go.
+  Nurse -> Good idea. I'll pause.
+  Caller -> Yes, yes, they're pulling up. Greg's going to the door. Okay. Here they come.
+  Nurse -> Good. Tell the paramedics the warfarin and the wrong date. They'll take it from here. || A5
+  Caller -> I will. Thank you. Thank you, Valentina.
+  Nurse -> Go ahead. We'll follow up with the family.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Sylvester Quimby, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1938-12-15", certainty: stated, heard_as: [], turns: [34]}
+    caller_name: {value: Annalise Quimby, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter-in-law, certainty: stated, turns: [2]}
+    callback_phone: {value: "2065550198", certainty: stated, heard_as: [], turns: [36]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported that her father-in-law fell and hit his head while on a blood thinner.
+    speaker: Caller
+    turns: [2]
+    quote: "He fell. He hit his head on the tub."
+    explanation: Documents the reason for the call.
+    covers: [cc]
+  assessment:
+    - text: He fell in the bathroom and hit his head on the tub.
+      speaker: Caller
+      turns: [2]
+      quote: "He hit his head on the tub."
+      explanation: Documents the fall.
+      facts:
+        - {type: symptom, name: fall with head strike, present: true, severity: severe, onset: just now in the bathroom, certainty: stated}
+      covers: [A1]
+    - text: He had a bleeding cut above the left ear, about two inches, soaking the towel.
+      speaker: Caller
+      turns: [8]
+      quote: "Above his ear."
+      explanation: Documents the head wound.
+      facts:
+        - {type: symptom, name: bleeding cut above the ear, present: true, severity: moderate, certainty: stated}
+      covers: [A2]
+    - text: He had a new bad headache behind his eye.
+      speaker: Caller
+      turns: [20]
+      quote: "He says his head hurts."
+      explanation: Documents the headache.
+      facts:
+        - {type: symptom, name: new headache, present: true, certainty: stated}
+      covers: [A3]
+    - text: He kept repeating that he fell and was confused about the year.
+      speaker: Caller
+      turns: [6]
+      quote: "did I fall? Did I fall?"
+      explanation: Documents the repetition.
+      facts:
+        - {type: symptom, name: repeating himself, present: true, certainty: stated}
+      covers: [A4]
+    - text: Warfarin 5 mg every evening, last taken last night.
+      speaker: Caller
+      turns: [16]
+      quote: "Warfarin. He takes it every evening."
+      explanation: Documents the anticoagulant.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: once a day in the evening, prn: false, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A5]
+    - text: He did not vomit or pass out.
+      speaker: Caller
+      turns: [22]
+      quote: "No vomiting."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: vomiting or loss of consciousness, certainty: stated}
+      covers: [A6]
+  response:
+    - text: Advised calling 911 immediately.
+      speaker: Nurse
+      turns: [9]
+      quote: "I'm going to ask you to call nine one one right now."
+      explanation: Documents the 911 advice.
+      facts:
+        - {type: action, action_type: escalation_911_ed, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [37]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised pressing a clean cloth firmly on the cut, keeping him still, and giving nothing by mouth.
+      speaker: Nurse
+      turns: [13]
+      quote: "Press a clean towel firmly on the cut."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E1]
+    - text: Advised giving none of his medicines, especially the warfarin, and telling the paramedics he takes it.
+      speaker: Nurse
+      turns: [29]
+      quote: "Especially not the warfarin."
+      explanation: Documents medication instruction.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: escalation_request, turns: [9], quote: "I'm going to ask you to call nine one one right now."}
+    - {category: other_urgent, turns: [2], quote: "He hit his head on the tub."}

@@ -1,0 +1,378 @@
+call_id: tr-190
+split: train
+blueprint: "Daughter reads her mother's lab result: INR 4.1 (goal 2 to 3) while on warfarin 5 mg every evening and ciprofloxacin 500 mg twice a day for a urinary infection started five days ago. Gums bled this morning and there is a new bruise on the arm, no black stools, nosebleed, headache or falls. Nurse reads the chart (levothyroxine is a distractor), tells her to hold tonight's warfarin, messages the provider, schedules an INR recheck Thursday, calls back tonight, and reviews bleeding precautions. No flag. Long."
+setup:
+  scenario_category: medication
+  subtype: high_inr
+  secondary_tags: [chart_reading_distractor, multi_issue, prn_and_scheduled, hedging, late_answers, split_turns, offtopic_chatter]
+  clinical_domains: [medication, bleeding]
+  relationship_group: adult_child
+  na_reason: null
+  agency_name: Lakeshore Home Health
+  agency_type: home_health
+  nurse_name: Rhonda
+  call_timestamp_utc: "2026-10-07T20:20:00Z"
+  length_bucket: long
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: true
+  noise_event_count: 0
+  distractor_meds: [levothyroxine]
+chief_complaint:
+  patient_name_true: Hazel Brockman
+  patient_name_spoken: Hazel Brockman
+  patient_name_certainty: stated
+  patient_dob_true: "1941-05-19"
+  patient_dob_spoken: "1941-05-19"
+  patient_dob_certainty: stated
+  caller_name_true: Tamsin Brockman
+  caller_name_spoken: Tamsin Brockman
+  caller_name_certainty: stated
+  relationship_to_patient: daughter
+  relationship_certainty: stated
+  callback_phone_true: "2625550179"
+  callback_phone_spoken: "2625550179"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Reported a high INR result for her mother who takes warfarin
+  reason_category: medication
+  relevant_context: Home health patient on a blood thinner who recently started an antibiotic
+assessment:
+  - item_id: A1
+    item_type: vital
+    reporter: caller
+    vital_name: INR
+    vital_value: "4.1"
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: caller
+    medication_name_true: warfarin
+    medication_name_spoken: warfarin
+    medication_status: taking
+    dose: "5"
+    unit: mg
+    frequency: every evening
+    last_dose: last night
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: caller
+    medication_name_true: ciprofloxacin
+    medication_name_spoken: ciprofloxacin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: twice a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A4
+    item_type: symptom
+    reporter: caller
+    symptom_name: gums bleeding when brushing
+    symptom_present: true
+    onset_or_duration: this morning
+    body_location: gums
+    certainty: stated
+  - item_id: A5
+    item_type: symptom
+    reporter: caller
+    symptom_name: new bruise on the arm
+    symptom_present: true
+    body_location: arm
+    certainty: stated
+  - item_id: A6
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: black stools
+    symptom_present: false
+    certainty: stated
+  - item_id: A7
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: falls
+    symptom_present: false
+    certainty: stated
+  - item_id: A9
+    item_type: medication
+    reporter: caller
+    medication_name_true: Tylenol
+    medication_name_spoken: Tylenol
+    medication_status: discussed
+    certainty: stated
+  - item_id: A8
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Started the antibiotic five days ago for a urinary infection, with two days left
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: medication_instruction
+    action_status: advised
+    actor: nurse
+    reason_or_trigger: hold tonight's warfarin because the INR is high
+    certainty: stated
+  - item_id: R2
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: high INR on warfarin with ciprofloxacin
+    certainty: stated
+  - item_id: R3
+    action_type: appointment_scheduling
+    action_status: planned
+    actor: nurse
+    timeframe: Thursday
+    reason_or_trigger: INR recheck
+    certainty: stated
+  - item_id: R4
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: tonight
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: return_precautions
+    speaker: nurse
+    instruction_content: Call 911 for black or bloody stools, vomiting blood, a bad headache, a fall, or a nosebleed that will not stop after 10 minutes of pressure
+    trigger_condition: black stools; vomiting blood; severe headache; fall; nosebleed over 10 minutes
+    certainty: stated
+  - item_id: E2
+    education_type: medication_administration
+    speaker: nurse
+    instruction_content: Do not take aspirin, ibuprofen or naproxen, and do not take extra warfarin
+    certainty: stated
+  - item_id: E3
+    education_type: skin_care
+    speaker: nurse
+    instruction_content: Use a soft toothbrush, avoid flossing hard until the INR is checked, and use an electric razor
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Lakeshore Home Health, this is Rhonda.
+  Caller -> Hi, Rhonda. It's Tamsin Brockman. I'm calling about my mother, Hazel Brockman. We just got her blood test results and I'm not sure what to do. It's the INR for her warfarin. || caller_name, relationship, patient_name, cc, A2
+  Nurse -> Okay, Tamsin, I'm glad you called. Let me get her date of birth.
+  Caller -> May nineteenth. Nineteen forty one. || patient_dob
+  Nurse -> And your number, two six two, five five five, zero one seven nine? || callback_phone
+  Caller -> Yes. That's my cell. I'm at her house. I came over after work to do her pills for the week. || callback_phone
+  Nurse -> That's very good of you. How is your mom feeling today?
+  Caller -> Tired. She's been sleeping a lot since the infection started. But she's in good spirits. She's watching her cooking shows.
+  Nurse -> Okay. What was the INR?
+  Caller -> The lab called this afternoon and said four point one. Four point one. I wrote it on my hand. They said her goal is two to three. And I don't know what that means, other than it's higher than it should be. || A1
+  Nurse -> Okay. It means her blood is thinner than we want it. Tamsin, tell me about the warfarin. What does she take? || A2
+  Caller -> Five milligrams. Every evening at six. I give it to her myself. She took it last night. || A2
+  Nurse -> Okay. Warfarin five every evening. And has anything changed with her medicines recently? Any new pills? || A2
+  Caller -> Yes. The antibiotic. Ciprofloxacin. She had a urinary infection. She started it five days ago. Five hundred milligrams, twice a day. She took one this morning. She has two more days to go. || A3, A8
+  Nurse -> Okay. That's very important. Ciprofloxacin can make warfarin stronger, which could be why her INR is up. Did anyone tell you about that? || A2, A3
+  Caller -> No. Nobody said anything. The doctor at urgent care wrote the antibiotic. She didn't know about the warfarin, I guess. || A2
+  Nurse -> It happens a lot. Okay. Tamsin, I'm looking at her chart now. I see warfarin five milligrams every evening. I see levothyroxine in the morning, we're not changing that. And I don't see the ciprofloxacin yet. Let me add that. || A2, A3
+  Caller -> Okay. Thank you. That's all her pills, plus the antibiotic.
+  Nurse -> Now, is she bleeding anywhere? Any bruises, nosebleeds, bleeding gums?
+  Caller -> Her gums. This morning she was brushing her teeth and the sink had pink in it. She said they bled for a minute and stopped. || A4
+  Nurse -> Okay. Anything else?
+  Caller -> A bruise. A new one. On her left forearm. About the size of a plum. She doesn't know what she bumped. It's dark purple. || A5
+  Nurse -> Okay. Any black or bloody stools? Any nosebleeds, or a bad headache?
+  Caller -> No. Her stools have been normal brown, I checked. No nosebleeds. No headache. She's been telling me she feels fine. Just tired because of the infection. || A6
+  Nurse -> Okay. Has she fallen, or hit her head?
+  Caller -> No falls. She's been using her walker. She hasn't hit anything that I know of. || A7
+  Nurse -> Did she eat and drink today?
+  Caller -> She had oatmeal and soup. She's drinking a lot of water because of the antibiotic. I keep a pitcher by her chair and I refill it all day.
+  Nurse -> That's perfect. Okay. Here's what I'd like you to do, Tamsin. Please hold tonight's warfarin. Don't give it. || R1, A2
+  Caller -> Hold it. Don't give tonight's warfarin. Okay. Even though it's almost six? || A2
+  Nurse -> Yes. Even though it's almost six. The provider will tell us when to restart it, and at what dose. I'm going to message her provider right now about the INR and the antibiotic. || R2
+  Caller -> Okay. Thank you. I was afraid that I was supposed to give it and that I'd make it worse. I almost gave it at five thirty, I had the pill in my hand, and then I thought, wait, I should call first.
+  Nurse -> I'm so glad you waited. That small pause made the difference.
+  Caller -> I got a feeling from the lab call. The woman's voice changed when she said four point one.
+  Nurse -> You did exactly the right thing by calling first. I'd also like to recheck her INR. I'll schedule that for Thursday. || R3
+  Caller -> Thursday. Okay. Does the lab come to the house?
+  Nurse -> Yes. A nurse will draw it at the house. I'll make sure of that.
+  Caller -> That's great. She doesn't like going out when she's sick.
+  Nurse -> And I'll call you back tonight, once I hear from the provider, to tell you what to do about tomorrow's dose. || R4
+  Caller -> Tonight. Okay. I'll stay until you call.
+  Nurse -> Tamsin, please also keep her away from aspirin, ibuprofen, and naproxen, like Advil or Aleve. And don't give any extra warfarin. || E2, A2, A9
+  Caller -> No aspirin. No Advil. No Aleve. No extra warfarin. Okay. She has a bottle of Tylenol. Is that okay? || A2, A9
+  Nurse -> Tylenol in normal doses is generally okay, but I'd like the provider to confirm. Hold off tonight if she doesn't need it. || A9
+  Caller -> Okay. She doesn't. I'll hold off.
+  Nurse -> And for her gums, use a soft toothbrush and be gentle. No hard flossing until we've checked the INR. If she shaves, use an electric razor. || E3
+  Caller -> Soft toothbrush. No hard flossing. Electric razor. She doesn't shave, but I will remember. I'll swap her toothbrush right now, we have a soft one in the drawer.
+  Nurse -> Perfect. Now, important. If she has black or bloody stools, if she vomits blood, a bad headache, if she falls, or if a nosebleed won't stop after ten minutes of pressure, call nine one one. || E1
+  Caller -> Black or bloody stool. Vomiting blood. Bad headache. A fall. Nosebleed over ten minutes. Nine one one. Okay. I'm writing it down.
+  Nurse -> Good. Also, try to keep her diet steady this week. Don't suddenly add a lot of greens or change what she usually eats.
+  Caller -> She eats the same thing every day, practically. Oatmeal, toast, chicken soup. Her friend brings her a salad on Fridays, I'll tell her to skip it this week.
+  Nurse -> A salad now and then is fine, just keep it consistent. How long has she been on the blood thinner?
+  Caller -> Six years. Since her heart rhythm problem, the atrial fibrillation. She has been very good about it. She goes for her blood tests every month and she never missed one. This is the first time it was ever high.
+  Nurse -> That's a good record. Something small, like an antibiotic, can tip it, and that's why we check. How is she feeling otherwise?
+  Caller -> Tired. And she has a little burning when she pees still. The antibiotic is helping, I think. She's drinking a lot of water.
+  Nurse -> Good. Keep her drinking. And the nurse who comes Thursday will check on that too.
+  Caller -> Okay. Thank you, Rhonda. I'm so glad I called. My brother said I was overreacting, he said it was just a number.
+  Nurse -> It's a number that matters. You weren't overreacting.
+  Caller -> I'll tell him you said so. He lives in Phoenix, so he doesn't see her every day like I do. It's easy to say from far away.
+  Nurse -> It is. You're the one who's there. Thank you for being so careful.
+  Nurse -> I'm glad too. Do you have any other questions?
+  Caller -> No, I think I've got it. Hold the warfarin tonight. Wait for your call. Soft toothbrush. Watch for bleeding. Thursday blood draw. || A2
+  Nurse -> You've got it exactly. I'll call you tonight.
+  Caller -> One more thing. Her friend's grandson is getting married next Saturday. She really wants to go. Will she be okay by then?
+  Nurse -> I can't promise, but once the INR is back in range and the infection is treated, there is no reason she can't. Let's get through this week first.
+  Caller -> Okay. I won't mention it to her yet. She'll want to buy a new hat.
+  Nurse -> Ha. Let her buy the hat. It will give her something to look forward to, and it will be good for her spirits while she finishes the antibiotic.
+  Caller -> Okay. Goodbye, Rhonda. Thank you again.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Hazel Brockman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-05-19", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Tamsin Brockman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: daughter, certainty: stated, turns: [2]}
+    callback_phone: {value: "2625550179", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Reported a high INR result for her mother who takes warfarin.
+    speaker: Caller
+    turns: [2]
+    quote: "We just got her blood test results and I'm not sure what to do."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: INR was 4.1, with a goal of 2 to 3.
+      speaker: Caller
+      turns: [10]
+      quote: "The lab called this afternoon and said four point one."
+      explanation: Documents the lab result.
+      facts:
+        - {type: vital, name: INR, value: "4.1", certainty: stated}
+      covers: [A1]
+    - text: Warfarin 5 mg every evening at six was being taken, last given last night.
+      speaker: Caller
+      turns: [12]
+      quote: "Five milligrams. Every evening at six. I give it to her myself."
+      explanation: Documents the blood thinner.
+      facts:
+        - {type: medication, name: warfarin, dose: "5", unit: mg, frequency: every evening, last_dose: last night, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: Ciprofloxacin 500 mg twice a day was being taken for a urinary infection.
+      speaker: Caller
+      turns: [14]
+      quote: "Five hundred milligrams, twice a day. She took one this morning."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: ciprofloxacin, dose: "500", unit: mg, frequency: twice a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A3]
+    - text: The antibiotic was started five days ago and she had two more days to go.
+      speaker: Caller
+      turns: [14]
+      quote: "She started it five days ago."
+      explanation: Documents the antibiotic timing.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A8]
+    - text: Her gums bled for a minute this morning when she brushed her teeth.
+      speaker: Caller
+      turns: [20]
+      quote: "This morning she was brushing her teeth and the sink had pink in it."
+      explanation: Documents the gum bleeding.
+      facts:
+        - {type: symptom, name: gums bleeding when brushing, present: true, duration: this morning, location: gums, certainty: stated}
+      covers: [A4]
+    - text: A new dark purple bruise about the size of a plum was on her left forearm.
+      speaker: Caller
+      turns: [22]
+      quote: "A bruise. A new one. On her left forearm."
+      explanation: Documents the bruising.
+      facts:
+        - {type: symptom, name: new bruise on the arm, present: true, location: arm, certainty: stated}
+      covers: [A5]
+    - text: No black stools were reported, and she had no nosebleeds or severe headache.
+      speaker: Caller
+      turns: [24]
+      quote: "No. Her stools have been normal brown, I checked. No nosebleeds. No headache."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: black stools, nosebleeds or severe headache, certainty: stated}
+      covers: [A6]
+    - text: Tylenol was available at home, and she asked whether it was okay.
+      speaker: Caller
+      turns: [42]
+      quote: "She has a bottle of Tylenol. Is that okay?"
+      explanation: Documents the over-the-counter medicine.
+      facts:
+        - {type: medication, name: Tylenol, med_status: discussed, certainty: stated}
+      covers: [A9]
+    - text: No falls were reported.
+      speaker: Caller
+      turns: [26]
+      quote: "No falls. She's been using her walker."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: falls, certainty: stated}
+      covers: [A7]
+  response:
+    - text: Advised holding tonight's warfarin.
+      speaker: Nurse
+      turns: [29]
+      quote: "Please hold tonight's warfarin. Don't give it."
+      explanation: Documents the medication instruction.
+      facts:
+        - {type: action, action_type: medication_instruction, status: advised, certainty: stated}
+      covers: [R1]
+    - text: Planned to message the provider about the INR and the antibiotic.
+      speaker: Nurse
+      turns: [31]
+      quote: "I'm going to message her provider right now about the INR and the antibiotic."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R2]
+    - text: An INR recheck was planned for Thursday.
+      speaker: Nurse
+      turns: [35]
+      quote: "I'd also like to recheck her INR. I'll schedule that for Thursday."
+      explanation: Documents the planned recheck.
+      facts:
+        - {type: action, action_type: appointment_scheduling, status: planned, timeframe: Thursday, certainty: stated}
+      covers: [R3]
+    - text: Planned to call back tonight about tomorrow's dose.
+      speaker: Nurse
+      turns: [39]
+      quote: "I'll call you back tonight, once I hear from the provider"
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: tonight, certainty: stated}
+      covers: [R4]
+  education:
+    - text: Advised calling 911 for black or bloody stools, vomiting blood, a bad headache, a fall, or a nosebleed that did not stop after ten minutes of pressure.
+      speaker: Nurse
+      turns: [47]
+      quote: "If she has black or bloody stools, if she vomits blood, a bad headache, if she falls, or if a nosebleed won't stop after ten minutes of pressure, call nine one one."
+      explanation: Documents bleeding precautions.
+      facts:
+        - {type: education, education_type: return_precautions, certainty: stated}
+      covers: [E1]
+    - text: Advised avoiding aspirin, ibuprofen, and naproxen, and not giving any extra warfarin.
+      speaker: Nurse
+      turns: [41]
+      quote: "please also keep her away from aspirin, ibuprofen, and naproxen, like Advil or Aleve."
+      explanation: Documents medication guidance.
+      facts:
+        - {type: education, education_type: medication_administration, certainty: stated}
+      covers: [E2]
+    - text: Advised a soft toothbrush, no hard flossing until the INR was checked, and an electric razor.
+      speaker: Nurse
+      turns: [45]
+      quote: "use a soft toothbrush and be gentle. No hard flossing until we've checked the INR."
+      explanation: Documents skin and gum care guidance.
+      facts:
+        - {type: education, education_type: skin_care, certainty: stated}
+      covers: [E3]
+  risk_flags: []

@@ -1,0 +1,204 @@
+call_id: tr-177
+split: train
+blueprint: "47-year-old home health patient with an itchy rash on his arms for four days (after starting a new antibiotic), says the itching is driving him crazy and is killing him at night; no fever, no trouble breathing or facial swelling. Figurative language, no risk flag. Nurse messages the provider, plans a visit tomorrow, and advises cool compresses."
+setup:
+  scenario_category: routine
+  subtype: rash_itching
+  secondary_tags: [figurative_risk_language, hedging, late_answers, split_turns]
+  clinical_domains: [skin, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Harbor Light Home Health
+  agency_type: home_health
+  nurse_name: Marcus
+  call_timestamp_utc: "2026-10-05T21:30:00Z"
+  length_bucket: short
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Kenji Morimoto
+  patient_name_spoken: Kenji Morimoto
+  patient_name_certainty: stated
+  patient_dob_true: "1979-12-04"
+  patient_dob_spoken: "1979-12-04"
+  patient_dob_certainty: stated
+  caller_name_true: Kenji Morimoto
+  caller_name_spoken: Kenji Morimoto
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "4255550134"
+  callback_phone_spoken: "4255550134"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Reported an itchy rash on his arms
+  reason_category: skin
+  relevant_context: Home health patient recently started on an antibiotic
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: itchy rash on both arms
+    symptom_present: true
+    onset_or_duration: four days
+    body_location: both arms
+    certainty: stated
+  - item_id: A2
+    item_type: medication
+    reporter: patient
+    medication_name_true: amoxicillin
+    medication_name_spoken: amoxicillin
+    medication_status: taking
+    dose: "500"
+    unit: mg
+    frequency: three times a day
+    last_dose: this morning
+    certainty: stated
+  - item_id: A3
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: fever
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: message_to_team
+    action_status: planned
+    actor: nurse
+    recipient_or_target: provider
+    reason_or_trigger: new rash on amoxicillin
+    certainty: stated
+  - item_id: R2
+    action_type: nurse_visit
+    action_status: planned
+    actor: nurse
+    timeframe: tomorrow
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: comfort_measures
+    speaker: nurse
+    instruction_content: Use cool compresses, wear loose cotton sleeves, and keep nails short to avoid scratching
+    certainty: stated
+  - item_id: E2
+    education_type: emergency_instructions
+    speaker: nurse
+    instruction_content: Call 911 for trouble breathing, swelling of the lips or face, or a tight throat
+    trigger_condition: trouble breathing; swollen lips or face; tight throat
+    certainty: stated
+risk_flags: []
+transcript: |
+  Nurse -> Harbor Light Home Health, this is Marcus.
+  Caller -> Marcus, hi. It's Kenji Morimoto. I'm a patient. This rash is driving me crazy. || caller_name, relationship, patient_name, cc
+  Nurse -> Hi, Kenji. Let me get your date of birth.
+  Caller -> December fourth. Nineteen seventy nine. || patient_dob
+  Nurse -> And is four two five, five five five, zero one three four a good number? || callback_phone
+  Caller -> Yeah. My cell. || callback_phone
+  Nurse -> Tell me about the rash.
+  Caller -> It's on both arms. From the wrists to the elbows. Red bumps, and they itch like crazy. It's been four days. At night it's killing me, I can't sleep. || A1
+  Nurse -> Okay. Did it start after any new medicine?
+  Caller -> Well. The antibiotic. The amoxicillin. I started it six days ago. Five hundred milligrams. Three times a day. I took one this morning. || A2
+  Nurse -> Okay. Thank you. Kenji, do you have any trouble breathing, any swelling in your face or lips, or a tight throat? Or a fever?
+  Caller -> No. No, nothing like that. My breathing is fine. No swelling. No fever. It's just the arms. || A3
+  Nurse -> Okay. I'll message your provider about the rash on the amoxicillin. They may want to change the antibiotic. || R1
+  Caller -> Okay. Good. Should I stop taking it?
+  Nurse -> Let me hear from the provider first. I don't want you to skip doses without a plan. I'll make sure they know quickly.
+  Caller -> Okay. I'll wait for the call.
+  Nurse -> And a nurse will come see you tomorrow. || R2
+  Caller -> Tomorrow. Okay. In the morning, I hope.
+  Nurse -> I'll ask for a morning visit. In the meantime, use cool compresses on your arms, wear loose cotton sleeves, and keep your nails short so you don't scratch. || E1
+  Caller -> Cool compresses. Cotton sleeves. Short nails. My wife is going to cut my nails, ha. I'll try.
+  Nurse -> Ha. Whatever works. And Kenji, if you get any trouble breathing, swelling in your lips or face, or a tight throat, call nine one one right away. || E2
+  Caller -> Breathing, swelling, tight throat. Nine one one. Okay. Got it.
+  Nurse -> Anything else?
+  Caller -> No. Thanks, Marcus. This itching is making me nuts, I just want it gone.
+  Nurse -> We'll get you some relief. Take care.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Kenji Morimoto, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1979-12-04", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Kenji Morimoto, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "4255550134", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Reported an itchy rash on his arms.
+    speaker: Caller
+    turns: [2]
+    quote: "This rash is driving me crazy."
+    explanation: Documents the problem prompting the call.
+    covers: [cc]
+  assessment:
+    - text: An itchy red bumpy rash on both arms from wrists to elbows had been present for four days and disturbed his sleep.
+      speaker: Caller
+      turns: [8]
+      quote: "It's on both arms. From the wrists to the elbows. Red bumps, and they itch like crazy."
+      explanation: Documents the rash.
+      facts:
+        - {type: symptom, name: itchy rash on both arms, present: true, duration: four days, location: both arms, certainty: stated}
+      covers: [A1]
+    - text: Amoxicillin 500 mg three times a day was started six days ago and last taken this morning.
+      speaker: Caller
+      turns: [10]
+      quote: "The amoxicillin. I started it six days ago. Five hundred milligrams. Three times a day."
+      explanation: Documents the antibiotic.
+      facts:
+        - {type: medication, name: amoxicillin, dose: "500", unit: mg, frequency: three times a day, last_dose: this morning, med_status: taking, certainty: stated}
+      covers: [A2]
+    - text: No fever was reported, and he had no trouble breathing or facial swelling.
+      speaker: Caller
+      turns: [12]
+      quote: "No. No, nothing like that. My breathing is fine. No swelling. No fever."
+      explanation: Documents pertinent negatives.
+      facts:
+        - {type: pertinent_negative, name: fever, certainty: stated}
+      covers: [A3]
+  response:
+    - text: Planned to message the provider about the rash on amoxicillin.
+      speaker: Nurse
+      turns: [13]
+      quote: "I'll message your provider about the rash on the amoxicillin."
+      explanation: Documents the planned provider message.
+      facts:
+        - {type: action, action_type: message_to_team, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A nurse visit was planned for tomorrow.
+      speaker: Nurse
+      turns: [17]
+      quote: "a nurse will come see you tomorrow."
+      explanation: Documents the planned visit.
+      facts:
+        - {type: action, action_type: nurse_visit, status: planned, timeframe: tomorrow, certainty: stated}
+      covers: [R2]
+  education:
+    - text: Advised cool compresses, loose cotton sleeves, and short nails.
+      speaker: Nurse
+      turns: [19]
+      quote: "use cool compresses on your arms, wear loose cotton sleeves, and keep your nails short so you don't scratch."
+      explanation: Documents comfort measures.
+      facts:
+        - {type: education, education_type: comfort_measures, certainty: stated}
+      covers: [E1]
+    - text: Advised calling 911 for trouble breathing, swelling of the lips or face, or a tight throat.
+      speaker: Nurse
+      turns: [21]
+      quote: "if you get any trouble breathing, swelling in your lips or face, or a tight throat, call nine one one right away."
+      explanation: Documents emergency instructions.
+      facts:
+        - {type: education, education_type: emergency_instructions, certainty: stated}
+      covers: [E2]
+  risk_flags: []

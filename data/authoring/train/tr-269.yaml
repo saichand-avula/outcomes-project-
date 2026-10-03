@@ -1,0 +1,279 @@
+call_id: tr-269
+split: train
+blueprint: "A 49-year-old palliative patient calls late at night, sounding flat. She says she has been giving away her things this week (jewelry to her sister, books to a neighbor), says she 'won't need them where I'm going' and 'I'm not going to be a burden much longer', and has stopped taking her pills for three days. She denies a plan when asked directly but says 'I just want it to be over'. Nurse stays calm, asks about means and plan, pages the on-call clinician, plans a social work referral and a callback in thirty minutes, and gives 988 and 911 guidance. Flags: suicidal_statement and medication_concern (stopped meds). Long v2 emotional call."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [hedging, late_answers, split_turns, multi_issue, trap_phrasing]
+  clinical_domains: [mood, medication]
+  relationship_group: self
+  na_reason: null
+  agency_name: Summit Palliative Care
+  agency_type: palliative
+  nurse_name: Denise
+  call_timestamp_utc: "2026-10-30T03:20:00Z"
+  length_bucket: short
+  length_regime: v2
+  patient_age_group: "18-64"
+  caller_is_patient: true
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Rebekah Alderman
+  patient_name_spoken: Rebekah Alderman
+  patient_name_certainty: stated
+  patient_dob_true: "1977-02-24"
+  patient_dob_spoken: "1977-02-24"
+  patient_dob_certainty: stated
+  caller_name_true: Rebekah Alderman
+  caller_name_spoken: Rebekah Alderman
+  caller_name_certainty: stated
+  relationship_to_patient: self
+  relationship_certainty: stated
+  callback_phone_true: "3035550184"
+  callback_phone_spoken: "3035550184"
+  callback_phone_certainty: stated
+  patient_pronoun: her
+  reason_for_call: Called late at night saying she wants it to be over and has stopped her pills
+  reason_category: mood
+  relevant_context: Palliative patient in her forties living alone
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: patient
+    symptom_name: statements that she wants it to be over
+    symptom_present: true
+    onset_or_duration: this week
+    certainty: stated
+  - item_id: A2
+    item_type: context
+    reporter: patient
+    history_or_context_text: She has been giving away her belongings this week
+    certainty: stated
+  - item_id: A3
+    item_type: medication
+    reporter: patient
+    medication_name_true: pain pills
+    medication_name_spoken: pain pills
+    medication_status: stopped
+    last_dose: three days ago
+    certainty: stated
+  - item_id: A4
+    item_type: pertinent_negative
+    reporter: patient
+    symptom_name: a plan to harm herself
+    symptom_present: false
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call clinician
+    reason_or_trigger: patient says she wants it to be over, gave away belongings and stopped her medicines
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: nurse
+    recipient_or_target: social worker
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in thirty minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time, call 911 if she feels she might act on the thoughts, and call the palliative line at any hour
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Ask her sister or a friend to come stay tonight and put her medicines out of easy reach
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Patient said she wants it to be over, will not need her things, and has been giving belongings away
+    trigger_speaker: caller
+    flag_required: true
+  - flag_id: F2
+    risk_category: medication_concern
+    trigger_description: Patient stopped taking her pain medicines three days ago
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Summit Palliative Care, this is Denise.
+  Caller -> Hi. Sorry. I know it's late. It's Rebekah. Rebekah Alderman. I'm a patient. || caller_name, relationship, patient_name
+  Nurse -> Hi, Rebekah. It's okay. I'm glad you called. What's going on tonight?
+  Nurse -> Rebekah, before we go on, so we have it in case we get cut off. Can I confirm your date of birth?
+  Caller -> February twenty fourth. Nineteen seventy seven. || patient_dob
+  Nurse -> And three oh three, five five five, zero one eight four is your cell? || callback_phone
+  Caller -> Yes. That's my cell. || callback_phone
+  Nurse -> Okay. Thank you. Now, tell me what's going on tonight.
+  Caller -> I don't know. I couldn't sleep. I thought, I'll just call. I don't know why. I'm sorry.
+  Nurse -> It's the right thing to do. What time did you wake up?
+  Caller -> I didn't go to sleep. I've been lying here since ten. I watched the ceiling for a while. Then I got up and made tea. I didn't drink it.
+  Nurse -> Okay. That sounds like a long night.
+  Nurse -> Don't be sorry. I'm here. Tell me what's been going on.
+  Caller -> I'm just tired. I'm so tired. Of all of it. I want it to be over. || cc, A1, F1
+  Nurse -> Okay. Thank you for telling me. When you say you want it to be over, what do you mean?
+  Caller -> I mean all of it. The treatments. The pain. Being a burden. I'm not going to be a burden much longer. || A1, F1
+  Nurse -> Who tells you you're a burden?
+  Caller -> No one. No one says it. I just feel it. My sister drives forty minutes every weekend. My neighbor brings me soup. I feel like I'm taking and taking.
+  Nurse -> It sounds like they love you. And that you feel guilty for needing help.
+  Caller -> Yes. Exactly. That's it. I feel so guilty.
+  Nurse -> Okay. Rebekah, I want to ask you directly. Are you thinking about ending your life?
+  Caller -> I don't know. Not exactly. I don't have a, a plan. I haven't thought about how. I just, I want it to stop. || A4, A1
+  Nurse -> Okay. Thank you for being honest with me. Have you been thinking about it a lot?
+  Caller -> More this week. I've been doing a lot of thinking. I gave my sister my jewelry. On Sunday. And I gave my neighbor my books. All of them. She came and took them in a box. || A2
+  Nurse -> Okay. Did you tell them why?
+  Caller -> I said I was cleaning out. I said I was simplifying. I told my sister she should have the necklace. I said, "I won't need them where I'm going." And she gave me a look. I said, I meant the hospice. Eventually.
+  Nurse -> Okay. Did you mean hospice? Or did you mean something else?
+  Caller -> I don't know. I meant both. I don't know.
+  Nurse -> Okay. That's honest. Rebekah, are you taking your medicines?
+  Caller -> No. I stopped. Three days ago. The pain pills. All of them. I just stopped. I didn't see the point. || A3, F2
+  Nurse -> Okay. You've been in pain without them for three days?
+  Caller -> Yes. It's bad. It's a six. A seven at night. But I figured, I don't know, I deserve it, or something. That's silly.
+  Nurse -> A six to seven out of ten. That's a lot of pain to carry alone. I'm glad you told me.
+  Caller -> I didn't want to tell anyone. I thought you'd all think I was crazy.
+  Nurse -> No one thinks that. Pain this strong can change how a person thinks and feels.
+  Nurse -> It's not silly. I hear that you're hurting, in more than one way. Rebekah, are you alone right now?
+  Caller -> Yes. I live alone. My sister is in Boulder. She's forty minutes away.
+  Nurse -> Okay. Do you have the medicines in the house? The pain pills? || A3
+  Caller -> Yes. They're in the bathroom. In the cabinet. I haven't touched them. I promise. I'm not going to take them all. I'm not.
+  Nurse -> Okay. I believe you. And I'd like to help you keep it that way. Can I ask you to do something?
+  Caller -> Okay.
+  Nurse -> Can you put the bottles somewhere that's hard to reach? Maybe in the trunk of your car, or a high shelf? Or give them to a neighbor tonight?
+  Caller -> I could put them in a bag. And put it in the garage. In the freezer chest. I never go in there.
+  Nurse -> That sounds good. Can you do that right now, while we're on the phone?
+  Caller -> Hold on. I'll take the phone. I'm walking to the bathroom. Okay. I have them. There's, one, two, three. Three bottles. Okay. I'm putting them in a bag. Okay.
+  Nurse -> Take your time. I'm right here.
+  Caller -> I'm going to the garage. Okay. It's cold in here. Okay. I put it in the freezer chest. Under the frozen peas. Okay. Done.
+  Nurse -> Thank you, Rebekah. That was hard and you did it. How are you feeling now?
+  Caller -> A little better. I don't know. Calmer. My hands are shaking.
+  Nurse -> Okay. I'm going to page the on-call clinician right now, so that someone who can adjust your pain medicines and talk with you tonight is looking at this. || R1
+  Caller -> Okay. Is somebody going to come? Is somebody going to take me away?
+  Nurse -> No one is going to take you anywhere you don't want to go. I want to get you help with the pain and the way you've been feeling. I'm also going to ask our social worker to call you. || R2
+  Caller -> Okay. I'd like that. I think I need to talk to someone. I haven't told anyone how bad it's been.
+  Nurse -> I'm glad you told me. And I'll call you back in thirty minutes. || R3
+  Caller -> Thirty minutes. Okay. You'll really call?
+  Nurse -> I'll really call. And Rebekah, if the thoughts get stronger, or you feel like you might act on them, call nine one one. You can also call or text nine eight eight any time, and you can call us any hour. || E1
+  Caller -> Nine one one. Nine eight eight. You. Okay. I wrote it on my hand.
+  Nurse -> Good. Is there someone who can come and stay with you tonight? Your sister?
+  Caller -> I could call her. She'd come. She's a night owl. She's probably awake. But I didn't want to scare her.
+  Nurse -> I think she'd want to be called. Would you be willing to call her after we hang up?
+  Caller -> Yeah. Okay. I'll call her. I'll tell her I want her to come. || E2
+  Nurse -> That sounds like a good plan. I'll talk to you in thirty minutes.
+  Caller -> Okay. Thank you, Denise. I'm sorry for calling so late.
+  Nurse -> Never be sorry. Call anytime.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Rebekah Alderman, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1977-02-24", certainty: stated, heard_as: [], turns: [5]}
+    caller_name: {value: Rebekah Alderman, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: self, certainty: stated, turns: [2]}
+    callback_phone: {value: "3035550184", certainty: stated, heard_as: [], turns: [6, 7]}
+    patient_pronoun: her
+  chief_complaint:
+    reason: Called late at night saying she wants it to be over and has stopped her pills.
+    speaker: Caller
+    turns: [14]
+    quote: "I want it to be over."
+    explanation: Documents the statement prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She said she wanted it to be over and would not be a burden much longer.
+      speaker: Caller
+      turns: [16]
+      quote: "I'm not going to be a burden much longer."
+      explanation: Documents the statements.
+      facts:
+        - {type: symptom, name: statements that she wants it to be over, present: true, onset: this week, certainty: stated}
+      covers: [A1]
+    - text: She had been giving away her belongings this week, jewelry to her sister and books to a neighbor.
+      speaker: Caller
+      turns: [24]
+      quote: "I gave my sister my jewelry. On Sunday."
+      explanation: Documents the context.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A2]
+    - text: Her pain medicines had been stopped three days ago.
+      speaker: Caller
+      turns: [30]
+      quote: "I stopped. Three days ago. The pain pills."
+      explanation: Documents the stopped medicines.
+      facts:
+        - {type: medication, name: pain pills, last_dose: three days ago, med_status: stopped, certainty: stated}
+      covers: [A3]
+    - text: She denied having a plan to harm herself.
+      speaker: Caller
+      turns: [22]
+      quote: "I don't have a, a plan. I haven't thought about how."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: a plan to harm herself, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call clinician.
+      speaker: Nurse
+      turns: [50]
+      quote: "I'm going to page the on-call clinician right now"
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: Planned to ask the social worker to call her.
+      speaker: Nurse
+      turns: [52]
+      quote: "I'm also going to ask our social worker to call you."
+      explanation: Documents the planned social work referral.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in thirty minutes.
+      speaker: Nurse
+      turns: [54]
+      quote: "I'll call you back in thirty minutes."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in thirty minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling or texting 988 any time, calling 911 if she felt she might act on the thoughts, and calling the palliative line at any hour.
+      speaker: Nurse
+      turns: [56]
+      quote: "call nine one one. You can also call or text nine eight eight any time"
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised asking her sister to come stay tonight and keeping her medicines out of easy reach.
+      speaker: Nurse
+      turns: [58]
+      quote: "Is there someone who can come and stay with you tonight? Your sister?"
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: suicidal_statement, turns: [14], quote: "I want it to be over."}
+    - {category: medication_concern, turns: [30], quote: "I stopped. Three days ago. The pain pills."}

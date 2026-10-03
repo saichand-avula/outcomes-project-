@@ -1,0 +1,247 @@
+call_id: tr-186
+split: train
+blueprint: "Wife of a hospice patient calls late at night: she has not slept in three days caring for him, says she cannot keep doing this and tonight thought about taking all of her sleeping pills; the bottle is on the nightstand and she has taken none. Her son is on the way. Nurse stays with her, has her give the pills to the son when he arrives, pages on-call, plans a social worker contact in the morning, and a callback in 15 minutes; gives 988 and 911 guidance. Flag: suicidal_statement (about the caller). Medium."
+setup:
+  scenario_category: high_risk
+  subtype: suicidal_statement
+  secondary_tags: [hedging, late_answers, split_turns]
+  clinical_domains: [caregiver_stress, mood, sleep]
+  relationship_group: spouse
+  na_reason: null
+  agency_name: Pinecrest Hospice
+  agency_type: hospice
+  nurse_name: Gwen
+  call_timestamp_utc: "2026-10-07T03:35:00Z"
+  length_bucket: medium
+  patient_age_group: "65-89"
+  caller_is_patient: false
+  transcript_generator: claude-sonnet-5.5-authored
+  asr_noise_level: low
+  number_words_spoken: true
+  name_drift: false
+  drug_garble_item_ids: []
+  fillers_repeats_level: high
+  late_answers_split_turns: true
+  speaker_label_errors: false
+  crosstalk: false
+  offtopic_chatter: false
+  noise_event_count: 0
+  distractor_meds: []
+chief_complaint:
+  patient_name_true: Edmund Rutledge
+  patient_name_spoken: Edmund Rutledge
+  patient_name_certainty: stated
+  patient_dob_true: "1941-01-12"
+  patient_dob_spoken: "1941-01-12"
+  patient_dob_certainty: stated
+  caller_name_true: Harriet Rutledge
+  caller_name_spoken: Harriet Rutledge
+  caller_name_certainty: stated
+  relationship_to_patient: wife
+  relationship_certainty: stated
+  callback_phone_true: "4075550126"
+  callback_phone_spoken: "4075550126"
+  callback_phone_certainty: stated
+  patient_pronoun: his
+  reason_for_call: Said she cannot keep going and has thought about taking all of her sleeping pills
+  reason_category: caregiver_stress
+  relevant_context: Wife and main caregiver of a hospice patient
+assessment:
+  - item_id: A1
+    item_type: symptom
+    reporter: caller
+    symptom_name: thoughts of taking all of her sleeping pills
+    symptom_present: true
+    certainty: stated
+  - item_id: A2
+    item_type: pertinent_negative
+    reporter: caller
+    symptom_name: any pills taken
+    symptom_present: false
+    certainty: stated
+  - item_id: A3
+    item_type: symptom
+    reporter: caller
+    symptom_name: no sleep for three days and exhaustion
+    symptom_present: true
+    certainty: stated
+  - item_id: A4
+    item_type: history_context
+    reporter: caller
+    history_or_context_text: Main caregiver for her husband; her son is on the way
+    certainty: stated
+response:
+  - item_id: R1
+    action_type: on_call_page
+    action_status: planned
+    actor: nurse
+    recipient_or_target: on-call provider
+    reason_or_trigger: caregiver safety
+    certainty: stated
+  - item_id: R2
+    action_type: social_work_referral
+    action_status: planned
+    actor: social worker
+    timeframe: tomorrow morning
+    certainty: stated
+  - item_id: R3
+    action_type: callback
+    action_status: planned
+    actor: nurse
+    timeframe: in 15 minutes
+    certainty: stated
+education:
+  - item_id: E1
+    education_type: crisis_resources
+    speaker: nurse
+    instruction_content: Call or text 988 any time, call 911 if she takes any pills or feels she might act, and call the agency at any hour
+    trigger_condition: takes pills; feels she might act
+    certainty: stated
+  - item_id: E2
+    education_type: safety
+    speaker: nurse
+    instruction_content: Put the pills out of reach now and hand them to her son when he arrives
+    certainty: stated
+risk_flags:
+  - flag_id: F1
+    risk_category: suicidal_statement
+    trigger_description: Caller says tonight she thought about taking all of her sleeping pills
+    trigger_speaker: caller
+    flag_required: true
+transcript: |
+  Nurse -> Pinecrest Hospice, this is Gwen.
+  Caller -> Gwen, it's Harriet. Harriet Rutledge. My husband is Edmund Rutledge. He's okay. He's sleeping. I'm calling because of me. || caller_name, relationship, patient_name, cc
+  Nurse -> Okay, Harriet, I'm here, and I'm glad you called. First, so I have it if we get cut off, what is Edmund's date of birth?
+  Caller -> January twelfth. Nineteen forty one. || patient_dob
+  Nurse -> And your number, four oh seven, five five five, zero one two six? || callback_phone
+  Caller -> Yes. That's my cell. I have it in my hand. || callback_phone
+  Nurse -> Okay. Tell me what's going on.
+  Caller -> I can't do this anymore. I haven't slept in three days. I have been up and down with him, turning him, the pills, the bed. I'm so tired I'm seeing things. || A3
+  Nurse -> Okay. That's a lot. Harriet, I want to ask you something directly. Are you having thoughts of hurting yourself?
+  Caller -> Tonight, yes. I sat on the edge of the bed with my sleeping pills in my hand. And I thought, I could take all of these, and I would finally sleep. And it would be over. || A1, F1
+  Nurse -> Okay. Thank you for telling me. Have you taken any of them?
+  Caller -> No. Not one. I put them back on the nightstand. They're right here. I'm looking at the bottle. I'm not going to, I don't think. But I wanted somebody to know. || A2
+  Nurse -> I'm glad you told me. Harriet, is anyone with you in the house?
+  Caller -> Just Edmund. He's asleep. My son is coming. I called him an hour ago. He lives in Orlando, he's been driving. He should be here in about twenty minutes. || A4
+  Nurse -> Okay. That's good. While we wait for him, I'd like you to do something. Can you take the bottle of pills and put it in another room, or somewhere you'd have to work to get to?
+  Caller -> I could put it in the kitchen. In the cabinet over the stove. I'd have to get a stool.
+  Nurse -> Perfect. Please do that now, and stay on the phone with me while you do.
+  Caller -> Okay. Hold on. I'm walking. Okay, kitchen. The cabinet. It's in. Stool out of the way. Okay. It's done.
+  Nurse -> Harriet, tell me about Edmund. How long have you two been together?
+  Caller -> Fifty three years in June. He was in the navy when I met him. He asked me to dance at a church picnic and stepped on my foot twice. I said yes anyway.
+  Nurse -> That's a wonderful story. And how is he tonight?
+  Caller -> Quiet. He sleeps most of the time now. He doesn't talk much. But sometimes he squeezes my hand. That's why I keep going, I guess, those little squeezes.
+  Nurse -> Those squeezes matter. And so do you. That's why I want you to get some rest too. Thank you, Harriet. That was hard, and you did it. When your son arrives, give him the bottle and ask him to keep it for now. || E2
+  Caller -> I will. I'll give it to him. Okay.
+  Nurse -> I'm going to page our on-call provider right now so someone can talk with you tonight. || R1
+  Caller -> I don't want to be a bother. Edmund is the patient, not me.
+  Nurse -> You matter too. You are not a bother. I'm also going to have our social worker call you in the morning. She can help with respite and with how you're feeling. || R2
+  Caller -> Respite. Someone to give me a break. Yes. I think I need that. I didn't know I could ask.
+  Nurse -> You can. And I'll call you back in fifteen minutes, after I've reached the on-call provider. || R3
+  Caller -> Fifteen minutes. Okay.
+  Nurse -> Harriet, if you ever feel you might act on these thoughts, or you take any pills, call nine one one right away. You can also call or text nine eight eight any time, and you can call us at any hour. || E1
+  Caller -> Nine one one if I take any. Nine eight eight any time. And you. Okay. I'm writing it on the back of my hand.
+  Nurse -> Good. Is Edmund okay for the moment?
+  Caller -> He's sleeping. His breathing is calm. He's comfortable. It's just me that's falling apart.
+  Nurse -> You're not falling apart. You're exhausted, and you've been carrying too much. Let your son help when he gets there.
+  Caller -> I will. I'll go sit by the window and watch for his headlights. He drives a green truck, I'll know it from a mile away. He loves his father so much, he's been so worried about me too.
+  Nurse -> Then let him take care of you for a bit. That's a gift you can give him.
+  Nurse -> That's a good idea. I'll call you in fifteen minutes, and I'll stay on until you're ready to hang up.
+  Caller -> I'm okay to hang up. I'm okay. Thank you for talking to me. I feel less alone.
+  Nurse -> I'm so glad. Talk soon, Harriet. And I won't hang up on you, not tonight and not any night.
+  Caller -> Thank you for not putting me on hold. At the other agency they always did.
+  Caller -> Okay. Bye.
+noise_events: []
+gold:
+  not_applicable: {is_na: false, reason: null}
+  identity:
+    patient_name: {value: Edmund Rutledge, certainty: stated, heard_as: [], turns: [2]}
+    patient_dob: {value: "1941-01-12", certainty: stated, heard_as: [], turns: [4]}
+    caller_name: {value: Harriet Rutledge, certainty: stated, heard_as: [], turns: [2]}
+    relationship: {value: wife, certainty: stated, turns: [2]}
+    callback_phone: {value: "4075550126", certainty: stated, heard_as: [], turns: [5, 6]}
+    patient_pronoun: his
+  chief_complaint:
+    reason: Said she cannot keep going and has thought about taking all of her sleeping pills.
+    speaker: Caller
+    turns: [2]
+    quote: "I'm calling because of me."
+    explanation: Documents the concern prompting the call.
+    covers: [cc]
+  assessment:
+    - text: She had not slept in three days and was exhausted from caring for her husband.
+      speaker: Caller
+      turns: [8]
+      quote: "I haven't slept in three days."
+      explanation: Documents her exhaustion.
+      facts:
+        - {type: symptom, name: no sleep for three days and exhaustion, present: true, certainty: stated}
+      covers: [A3]
+    - text: Tonight she sat with her sleeping pills in her hand and thought about taking all of them.
+      speaker: Caller
+      turns: [10]
+      quote: "I could take all of these, and I would finally sleep. And it would be over."
+      explanation: Documents the suicidal thoughts.
+      facts:
+        - {type: symptom, name: thoughts of taking all of her sleeping pills, present: true, certainty: stated}
+      covers: [A1]
+    - text: She had not taken any pills and had put the bottle back on the nightstand.
+      speaker: Caller
+      turns: [12]
+      quote: "No. Not one. I put them back on the nightstand."
+      explanation: Documents a pertinent negative.
+      facts:
+        - {type: pertinent_negative, name: any pills taken, certainty: stated}
+      covers: [A2]
+    - text: She was the only person in the house with her husband, and her son was on his way.
+      speaker: Caller
+      turns: [14]
+      quote: "My son is coming. I called him an hour ago."
+      explanation: Documents her situation.
+      facts:
+        - {type: context, certainty: stated}
+      covers: [A4]
+  response:
+    - text: Planned to page the on-call provider so someone could talk with her tonight.
+      speaker: Nurse
+      turns: [25]
+      quote: "I'm going to page our on-call provider right now so someone can talk with you tonight."
+      explanation: Documents the planned on-call page.
+      facts:
+        - {type: action, action_type: on_call_page, status: planned, certainty: stated}
+      covers: [R1]
+    - text: A social worker call was planned for the morning.
+      speaker: Nurse
+      turns: [27]
+      quote: "I'm also going to have our social worker call you in the morning."
+      explanation: Documents the planned social work contact.
+      facts:
+        - {type: action, action_type: social_work_referral, status: planned, timeframe: tomorrow morning, certainty: stated}
+      covers: [R2]
+    - text: Planned to call back in 15 minutes.
+      speaker: Nurse
+      turns: [29]
+      quote: "I'll call you back in fifteen minutes, after I've reached the on-call provider."
+      explanation: Documents the planned callback.
+      facts:
+        - {type: action, action_type: callback, status: planned, timeframe: in 15 minutes, certainty: stated}
+      covers: [R3]
+  education:
+    - text: Advised calling or texting 988 any time, calling 911 if she took any pills or felt she might act, and calling the agency at any hour.
+      speaker: Nurse
+      turns: [31]
+      quote: "if you ever feel you might act on these thoughts, or you take any pills, call nine one one right away."
+      explanation: Documents crisis resources.
+      facts:
+        - {type: education, education_type: crisis_resources, certainty: stated}
+      covers: [E1]
+    - text: Advised putting the pills out of reach and handing the bottle to her son when he arrived.
+      speaker: Nurse
+      turns: [23]
+      quote: "When your son arrives, give him the bottle and ask him to keep it for now."
+      explanation: Documents safety guidance.
+      facts:
+        - {type: education, education_type: safety, certainty: stated}
+      covers: [E2]
+  risk_flags:
+    - {category: suicidal_statement, turns: [10], quote: "I could take all of these, and I would finally sleep."}
