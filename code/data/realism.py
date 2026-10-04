@@ -54,7 +54,7 @@ def stats(transcripts: list[list[dict]]) -> dict[str, float]:
 
 
 def main() -> int:
-    refs = yaml.safe_load((ROOT / "synthetic_clinical_summary_examples.yaml").read_text())["examples"]
+    refs = yaml.safe_load((ROOT / "assignment" / "synthetic_clinical_summary_examples.yaml").read_text())["examples"]
     real = stats([parse_transcript(e["input_transcript"]) for e in refs])
     rows = {"real-5": real}
     for split in ("train", "val"):
