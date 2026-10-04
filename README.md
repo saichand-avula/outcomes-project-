@@ -1,45 +1,87 @@
-# Clinical Summary Generation Using an Open-Source LLM
+# Clinical Call Summaries with a Fine-Tuned Open Model
 
-Turns a nurse-line call transcript into a structured clinical summary with Gemma 4 12B (QAT W4A16) plus a LoRA adapter, then renders it into the exact reference format and checks it with deterministic validators. Design: [architecture.md](architecture.md). Build order and pass criteria: [plan.md](plan.md).
+Turn a nurse-line call transcript into a structured clinical summary with **Gemma 4 12B (4-bit QAT) + a LoRA adapter**, check every summary with **16 deterministic rules and a validated LLM judge**, and render it in the exact reference format. Hand-written data, a frozen evaluation pipeline, a trained adapter and a demo UI.
 
-## Status
+> **Status in one line:** fine-tuning clearly works (safe-pass **60% → 92%**, critical-fact accuracy **56.8% → 81.6%**), but the **95% target and the 15 s latency target were not reached**. Full, honest account: **[REPORT.md](REPORT.md)**.
 
-| Part | State |
-|---|---|
-| Dataset | **Done.** 500 training + 100 validation calls, hand-authored, 0 validator errors and 0 warnings, no name/DOB/phone shared across splits |
-| Authoring tools, gold validator, renderer | Done (`code/data/`, `code/common/`) |
-| System prompt | Draft v1 (`prompts/system_v1.md`), untested |
-| Model serving, baseline, pipeline validators, API/UI | Not started |
-| LoRA fine-tuning, evaluation, LLM judge, report, demo | Not started |
+## Results at a glance
 
-## Dataset at a glance
+100 validation calls (two agencies held out), same prompt, same schema, judge = base model. Details and every run: [REPORT.md](REPORT.md) §6.
 
-- **Splits:** Training 500, Validation 100. No separate evaluation split; the 5 provided real calls are not used as data. Validation holds out two agencies (Juniper Ridge Hospice, Northstar Home Health).
-- **Categories (train / validation):** routine 80/16 · ambiguous 60/12 · ASR-error 60/12 · medication 90/18 · supply 60/12 · high-risk 100/20 · not-applicable 50/10.
-- **Length mix:** about 72% short, 12% medium, 16% long (train 360/60/80, validation 73/11/16). Minimums: short ≥ 65 lines, medium ≥ 85, long ≥ 105; Not-Applicable calls are exempt.
-- **How it was made:** every call is written by hand (fact record → transcript with per-turn fact tags and logged ASR noise → gold summary). No random sampler, templates or external API. Every call must pass `code/data/validate_gold.py`.
-- **Open it:** `data/dataset_overview.xlsx`. The Analysis sheet has the sizes, coverage charts and the case checklist; Calls, Facts, Transcripts, Noise and Summaries show every call; Validator shows rule results.
+| | Base model | **Fine-tuned (epoch 3)** | Target |
+|---|---|---|---|
+| **G1** safe-pass (no rule error, judged faithful) | 60% | **92%** (lower bound 85%) | 95% ❌ |
+| G1r safe-pass after automatic quote repair | 78% | 94% (87.5%) | 95% ❌ |
+| **H19** Critical-Fact Accuracy against gold | 56.8% | **81.6%** (79%) | 95% ❌ |
+| Identity values and certainty (H2) | 91.8% | 98.0% (96.2%) | 95% ✅ |
+| Judged faithful (F1) | 95% | 97% (91.5%) | 95% ✅ (point estimate) |
+| Latency, 20 timed calls, one at a time, L40S | p50 28.1 s, p95 54.4 s | **p50 13.9 s, p95 19.8 s** | p95 < 15 s ❌ |
 
-## Layout
+What the model still gets wrong ([REPORT.md](REPORT.md) §8): it is more selective than the base model and **drops details**, and in 2 of 100 calls it **swapped one drug for another** (lisinopril → metoprolol). The rules cannot see that kind of swap; only the judge and the gold comparison can. Every automatic summary needs a nurse's review.
 
-| Path | Content |
-|---|---|
-| `data/authoring/{train,val}/*.yaml` | Source of truth, one file per call. Conventions: [data/authoring/README.md](data/authoring/README.md) |
-| `data/{facts,transcripts,gold}/{train,val}.jsonl` | Compiled fact records, tagged transcripts with noise logs, gold summaries |
-| `data/sft/{train,val}.jsonl` | `{id, transcript, call_timestamp_utc, target}`; the system prompt is not inside |
-| `data/dataset_overview.xlsx` | Generated overview and readable data |
-| `data/SHA256SUMS` | Hashes of compiled files |
-| `prompts/system_v1.md` | System prompt, kept separate from the data |
-| `code/train/batching.py` | Stratified SFT batch schedule (`data/sft/batch_schedule.json`) |
-| `code/data/` | `validate_gold.py`, `coverage.py`, `realism.py`, `compile.py`, `build_workbook.py` and authoring helpers |
-| `code/common/` | Loader, renderer, tall-man lettering, text normalization |
+## The LLM judge was validated before it was used
 
-## Reproduce the data checks
+We damaged 90 hand-picked summaries on purpose (wrong number, swapped drug, invented finding, flipped negative, removed item, planned → completed, swapped speaker, removed hedge) and checked whether the base model, used as a judge, found them. Prompts were tuned on 50 items; the final prompts were then **frozen and run once on 40 fresh items**.
+
+| Rubric | Fresh-set result | Trusted for |
+|---|---|---|
+| Faithfulness | kappa **1.00**, 10/10 caught, 0/30 false alarms (small sample) | yes |
+| Completeness | kappa 0.61 | missing nurse actions and instructions; **not** missing findings |
+| Calibration | kappa 0.55 | planned vs completed only |
+
+Method, five versions and limits: [llm_judge/README.md](llm_judge/README.md).
+
+## How it works
+
+```
+transcript ──► Gemma 12B + LoRA (vLLM, JSON schema, greedy) ──► JSON summary
+                                                                   │
+        16 rule validators (no model, no gold needed)  ◄───────────┤   quote repair: near-miss quote → exact span
+        frozen LLM judge (base model, optional)        ◄───────────┤
+        deterministic renderer                         ◄───────────┘
+                     │
+        PASS   or   NEEDS NURSE REVIEW / FAILED       (never shown as final)
+```
+
+## Try it (no GPU needed)
 
 ```bash
-python3 code/data/validate_gold.py      # expect: validated 600 calls: 0 errors, 0 warnings
-python3 code/data/coverage.py           # category, length and tag quotas
-python3 code/data/dupcheck.py          # cross-split near-duplicate check (5-gram Jaccard)
-python3 code/data/compile.py            # JSONL + SFT + SHA256SUMS (refuses on validator errors)
-python3 code/data/build_workbook.py     # data/dataset_overview.xlsx
+python3 app/server.py          # open http://localhost:8080
 ```
+Pick any of the 100 validation calls to see the base model's and the fine-tuned model's saved outputs, the checks, the evidence behind every bullet, and the hand-written gold side by side. With a model server running, "Live model" summarizes any pasted transcript ([app/README.md](app/README.md)).
+
+## Repo map
+
+| Path | What is in it |
+|---|---|
+| **[REPORT.md](REPORT.md)** | **Start here.** Results, everything that failed and why, why epoch 3, what to change next time |
+| [architecture.md](architecture.md) | The design, with an outcome note on every decision that did not survive contact with reality |
+| [plan.md](plan.md) | Build order, what is done and what is not |
+| [data/](data/) | 500 train + 100 validation calls: facts → transcript → gold summary. `dataset_overview.xlsx` is the readable view |
+| [code/](code/) | Data tools: gold validator, renderer, batching, tests |
+| [llm_judge/](llm_judge/) | Judge validation: golden sets, versions v1–v5, frozen prompts, results |
+| [pipeline/](pipeline/) | Evaluation pipeline (generate → rules → judge → matrix), prompts v1–v4, and **every run's saved outputs** |
+| [finetune/](finetune/) | LoRA training code, config and logs; adapters in `finetune/runs/ft1/epoch_{1,2,3}` (not in git; **use epoch 3**) |
+| [app/](app/) | Demo UI and API (Python standard library only) |
+
+## Data at a glance
+
+- **500 training + 100 validation calls**, all hand-written (fact record → transcript with per-turn fact tags and logged ASR noise → gold summary), 0 validator errors, no name / DOB / phone shared across splits. Validation holds out two agencies (Juniper Ridge Hospice, Northstar Home Health).
+- **Categories (train / validation):** routine 80/16 · ambiguous 60/12 · ASR-error 60/12 · medication 90/18 · supply 60/12 · high-risk 100/20 · not-applicable 50/10. Length mix about 72% short, 12% medium, 16% long.
+- No random sampler, templates or external API. There is **no separate test split**: validation is used for monitoring, for choosing the epoch and for the numbers above, so they are slightly optimistic. The 5 provided example calls are not used as data.
+- Open `data/dataset_overview.xlsx` for the sizes, coverage charts and every call. Authoring conventions: [data/authoring/README.md](data/authoring/README.md).
+
+## Checks you can run
+
+```bash
+python3 code/data/validate_gold.py                # expect: validated 600 calls: 0 errors, 0 warnings
+python3 code/data/coverage.py                     # category, length and tag quotas
+python3 code/data/dupcheck.py                     # cross-split near-duplicate check
+python3 code/tests/test_validator.py              # 15/15 damage types caught
+python3 code/tests/test_render.py
+cd pipeline && python3 run_pipeline.py selftest   # expect: selftest OK
+python3 run_pipeline.py matrix --systems base_v4_s2 finetuned_epoch3_s2     # rebuild the final comparison from saved outputs
+```
+Rebuild the compiled data after editing a call: `python3 code/data/compile.py && python3 code/data/build_workbook.py`. GPU steps (train, serve, evaluate) are in [finetune/README.md](finetune/README.md) and [pipeline/README.md](pipeline/README.md).
+
+*Research prototype on synthetic data. Not a medical device.*

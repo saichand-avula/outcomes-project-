@@ -1,6 +1,8 @@
 # Architecture — Clinical Summary Generation with Gemma 4 12B (QAT W4A16)
 
-Oct 3, 2026
+Oct 4, 2026
+
+> **Outcome (4 Oct 2026).** The design below was built and run. Fine-tuning improved safe-pass from 60% to 92% and critical-fact accuracy from 56.8% to 81.6%, but **neither reached the 95% target and p95 latency was 19.8 s against 15 s**. Sections marked **Outcome** record where reality differed from this plan; the full account, including everything that failed, is in [REPORT.md](REPORT.md). Not built from this design: the Not-Applicable gate before the model, the candidates table in the input, the targeted retry (§5.2); the demo UI in `app/` applies the rules, the quote repair and a review gate only.
 
 ## 0. Summary
 
@@ -298,11 +300,13 @@ Fact types: `symptom`, `pertinent_negative`, `medication` (name, heard_as, stren
 
 ```text
 data/sft/train.jsonl     {"id", "transcript", "call_timestamp_utc", "target"}   ← no prompt inside
-prompts/system_v1.md     system prompt (rules, schema description, style guide)
-code/pipeline/preprocess.py   same function at train time and in production
+pipeline/prompts/system_v4.md   system prompt (frozen; v1-v3 kept for the baseline history)
+finetune/textio.py              the user-message function (numbered transcript), a copy of pipeline/pl/transcript.py used at train time and by the pipeline
 ```
 
-At training time the script assembles `[system: prompts/system_vN.md] + [user: preprocess(transcript)] → [assistant: target]`. You can edit the prompt or the preprocessing before training without touching the data. Rule: the prompt version used in training is recorded with the adapter. Changing the prompt after training means re-validating on dev, and retraining if dev drops.
+**Decision (baseline runs on the validation set):** the baseline and the fine-tuned model both use `pipeline/prompts/system_v4.md`, frozen after three prompt revisions (v2 added the exact output format, v3 and v4 fixed name and relationship wording). Training therefore sees the same ≈ 2.2K-token prompt on every example (estimate; measure with `pipeline/dev/token_lengths.py`). Training cost goes up, but the comparison changes only the weights.
+
+At training time the script assembles `[system: pipeline/prompts/system_v4.md] + [user: preprocess(transcript)] → [assistant: target]`. You can edit the prompt or the preprocessing before training without touching the data. Rule: the prompt version used in training is recorded with the adapter. Changing the prompt after training means re-validating on dev, and retraining if dev drops.
 
 ### 4.2 LoRA, not full fine-tuning
 
@@ -317,6 +321,8 @@ At training time the script assembles `[system: prompts/system_vN.md] + [user: p
 | Learning rate | 2e-4 (sweep 1e-4), cosine schedule, 3% warmup | Unsloth default 2e-4. LoRA's best LR is about 10× full FT's, rising to ~15× for runs of ~100 steps (Thinking Machines); ours are ~60–190 steps |
 | Batch | 1 × 8 gradient accumulation, stratified by length and category (§4.3) | LoRA is less tolerant of large batches than full FT (Thinking Machines); 500 examples ÷ 8 ≈ 63 steps per epoch |
 | Epochs | Up to 3; checkpoint each epoch; **select by validation critical-fact accuracy, not loss** | LIMA found perplexity did not track output quality |
+| Monitoring | Training loss every step; validation loss on a fixed 25-call subset every 20 steps and on all 100 validation calls at each epoch end, plus the loss of the untouched model at step 0 | A diagnostic only (a rising validation loss while the training loss falls means memorising 500 calls; validation holds out two agencies). It never chooses the checkpoint. The validation set is therefore used for monitoring, for choosing among 3 checkpoints and for the final numbers; with no test split the reported scores are slightly optimistic, and the report says so |
+| Input at train time | Exactly the baseline's input: `system_v4.md` + `CALL TRANSCRIPT` with numbered turns, chat template with thinking off (the §5.2 candidates table is not used, so that only the weights differ) | Strict comparison; code in `finetune/` |
 | Dropout | 0.05 | Unsloth uses 0; a small value is cheap insurance at n = 500 [judgement] |
 | Loss | Completion-only (assistant tokens) | System prompt and transcript are inputs, not targets (TRL default for prompt-completion data) |
 | Length | `max_length` 8192, packing off, **assert zero truncation** | TRL's default `max_length` is 1024, which would silently cut targets ([TRL SFT docs](https://huggingface.co/docs/trl/sft_trainer)) |
@@ -325,6 +331,9 @@ At training time the script assembles `[system: prompts/system_vN.md] + [user: p
 **Adapter-in-vLLM check.** vLLM issue [#50059](https://github.com/vllm-project/vllm/issues/50059) reports unstable LoRA outputs on a compressed-tensors W4A16 base. It is a different model (OLMo-3.1-32B), and its working rank-8 adapter covered only the last 8 layers, so it is weak evidence about rank. It still justifies one cheap check: run HF+PEFT and vLLM+adapter greedy on 20 validation transcripts, plus 3 server restarts. Pass if validator-scored metrics agree within 1 point and repeat runs give identical outputs on ≥ 95% of transcripts. Fallback: r = 8.
 
 **Memory on the L40S (46,068 MiB)** [estimate, measured in the smoke test]: BF16 base ≈ 23.9 GB; LoRA parameters plus AdamW state ≈ 1 GB; activations with gradient checkpointing at 6–8K tokens ≈ 5–8 GB. Peak ≈ 31–35 GB, so it fits.
+
+**Outcome (training).** Run as specified: r = 16, alpha = 32, 328 LoRA modules (65.6 M trainable parameters), learning rate 2e-4, 63 steps per epoch for 3 epochs = 189 steps, 10,281 s (2.9 h), **measured peak 36.2 GB**. The dequantised load worked (0 quantised modules left). Validation loss: 0.635 before training (25-call subset) → 0.189 / 0.167 / 0.171 after epochs 1 / 2 / 3. One out-of-memory warning at step 9 recovered. **Epoch 3 was chosen** on the pipeline metrics, not on loss (REPORT §7.7), using the validation set we also report on, so the numbers are slightly optimistic. Gradient norms spiked up to 417 and were clipped to 1.0 without effect on the loss.
+**Not done from this section:** the learning-rate sweep, the rank fallback, the HF-versus-vLLM agreement check (vLLM did serve and run the adapter), evaluating epoch 1, and DPO. **A bug found on the way:** the constrained-decoding schema must list keys in the same order as the training targets, because vLLM's grammar forces schema order; ours did not and the first fine-tuned evaluation was invalid (REPORT §7.4). Training targets and schema should share one canonical key order (REPORT §10).
 
 **DPO: not planned.** It needs preference pairs and a second training stage. If time remains: pairs of (validator-failed output, corrected output) from validation runs.
 
@@ -361,7 +370,7 @@ At training time the script assembles `[system: prompts/system_vN.md] + [user: p
 | Decoding | Greedy (temperature 0) | The card's T = 1.0 / top_p 0.95 is a general chat default. Verbatim quotes and doses reward the most likely token. Tested on validation: greedy vs card sampling |
 | Thinking | Off | Each thought token is one decode step against a 15 s p95 budget. Tested on 50 validation calls; enabled only if it gains ≥ 2 points with p95 still < 15 s |
 | Structured output | JSON-schema constrained decoding | Guarantees parseable output; semantic rules stay in the system prompt |
-| Context | `max_model_len` 8192 | Longest real transcript ≈ 3.5K tokens [estimate] + ~1K system prompt + ≤ 2K output |
+| Context | `max_model_len` 16384 | Measured with the model tokenizer (`pipeline/dev/token_lengths.py`): system prompt v4 = 2,010 tokens; prompt + transcript max 5,379 (train) / 4,938 (validation); gold output max 2,098 (median 937). Every training example fits in 8,192. Training `max_length` stays 8,192. Serving uses 16,384, as in the baseline runs, so that a long call plus a long output cannot overflow |
 | Prefix caching | On | The fixed system prompt is reused on every call |
 
 ### 5.2 Steps
@@ -375,7 +384,7 @@ At training time the script assembles `[system: prompts/system_vN.md] + [user: p
    - Middle band: the model decides.
    - Any high-risk rule hit vetoes Not Applicable.
 3. **LLM call:** one schema-constrained generation.
-4. **Validators** (deterministic):
+4. **Validators** (deterministic; implemented and measured in `pipeline/`, which extends this list to V1-V16 and records which defects the rules can and cannot see):
 
 | ID | Check | On failure |
 |---|---|---|
@@ -418,6 +427,7 @@ CFA = gold critical slots matched / (gold critical slots + unsupported critical 
 - **Matched** = normalized value equal, correct speaker, correct certainty, correct status, and the cited quote passes V3.
 - **Unsupported** values (hallucinations) enter the denominator, so the metric can't be gamed by leaving things out or by adding extras.
 - **Target:** CFA ≥ 95% (point estimate with a transcript-level cluster-bootstrap 95% CI).
+- **Outcome:** implemented as H19 in `pipeline/pl/reference_metrics.py`, with simplifications: slots are matched by normalised value and cited-turn proximity, without the speaker and quote-validity conditions, and the intervals are Wilson bounds (not a cluster bootstrap). Result: 81.6% (lower bound 79.3%). A companion H19r (gold slots found, no penalty for extra facts) is 90.3%, because many of the "unsupported" facts are true details the gold does not record.
 - **Release gates:** fabricated medication or dose = 0; high-risk recall ≥ 98%; NA accuracy ≥ 95%; four sections present in 100% of non-NA outputs.
 - **Transcript-level safe-pass** (no unsupported critical value, no identity error, all flags found, NA correct) is reported with a Wilson CI.
 
@@ -429,7 +439,7 @@ CFA = gold critical slots matched / (gold critical slots + unsupported critical 
 | Medication name + dose | Strict P/R/F1 on (name, dose, unit); relaxed name-only; route/frequency accuracy |
 | Plus | Attribution, uncertainty preservation, planned vs completed, NA P/R, flag recall/precision per category |
 
-Every metric is also reported per category, per length bucket, and on a hard subset (ASR-heavy + ambiguous). Baseline vs fine-tuned on the same calls: McNemar test on safe-pass, paired bootstrap on CFA. Every failure is tagged with the validator ID that caught it.
+Every metric is also reported per category, per length bucket, and on a hard subset (ASR-heavy + ambiguous). Baseline vs fine-tuned on the same calls: McNemar test on safe-pass, paired bootstrap on CFA. **Outcome:** a paired sign test on safe-pass was used (equivalent to McNemar's exact test): 36 calls pass only with the fine-tuned model, 4 only with the base, p < 0.001; no bootstrap was run. Every failure is tagged with the validator ID that caught it.
 
 ### 6.2 Latency (L40S, concurrency 1, 10 warm-up requests discarded)
 
@@ -442,14 +452,16 @@ Every metric is also reported per category, per length bucket, and on a hard sub
 
 End-to-end = request received → validated and rendered response, including any retry.
 
-Estimate for the L40S, to be measured: 864 GB/s bandwidth and ~8.3 GB of weights read per token give ≈ 60–85 tok/s, so 1,000 output tokens ≈ 12–17 s. **p95 < 15 s is borderline.** Optimizations, applied in order and stopped once the target is met. Steps 1–5 keep the rendered format identical:
+**Outcome (measured, 20 evenly spaced calls, one at a time).** Base model p50 28.1 s, p95 54.4 s (slowest 70.6 s). Fine-tuned (epoch 3): **p50 13.9 s, p95 19.8 s** (slowest 21.7 s), 13 of 20 calls under 15 s; decode speed about 62 tokens/s (73 for the base model, so the adapter costs about 14%); median output 894 tokens. **The 15 s p95 target is not met.** The estimate that follows was right about the range and wrong about the verdict.
+
+Estimate for the L40S, written before measuring: 864 GB/s bandwidth and ~8.3 GB of weights read per token give ≈ 60–85 tok/s, so 1,000 output tokens ≈ 12–17 s. **p95 < 15 s is borderline.** Optimizations, applied in order and stopped once the target is met. Steps 1–5 keep the rendered format identical:
 
 1. Thinking off, compact JSON whitespace, a `max_tokens` cap.
 2. Prefix caching (TTFT only).
-3. N-gram (prompt-lookup) speculative decoding. Quotes are copied from the input, so draft tokens should often be accepted [untested].
-4. MTP speculative decoding with the Gemma 4 QAT assistant drafter, if vLLM accepts the pairing [untested].
+3. N-gram (prompt-lookup) speculative decoding. Quotes are copied from the input, so draft tokens should often be accepted. **Outcome: tried, made it slower** (34–43 tokens/s instead of 62; median 23 s instead of 14 s). Draft tokens were accepted (about 2.4–3.4 per step) but vLLM 0.30 falls back to its older model runner and disables asynchronous scheduling with n-gram speculation, and here it runs together with LoRA and constrained JSON decoding. Dropped.
+4. MTP speculative decoding with the Gemma 4 QAT assistant drafter, if vLLM accepts the pairing [untested; not tried].
 5. Quote pointers: the model emits turns plus first/last words and code fills in the verbatim quote. The targets convert mechanically from gold, so no data is rewritten.
-6. Templated explanations by fact type (wording changes, structure stays).
+6. Templated explanations by fact type (wording changes, structure stays). **Steps 5 and 6 were not tried.** `explanation` is 11% and `quote` 15% of the output characters, so even both together would leave the longest calls near 16 s; a faster GPU is the more reliable lever (estimate, not measured).
 
 ### 6.3 Gemma 12B as offline judge
 
@@ -458,9 +470,15 @@ Estimate for the L40S, to be measured: 864 GB/s bandwidth and ~8.3 GB of weights
 | Judge = **base** Gemma 12B (no adapter), offline only | Your mentor asked for it; it is not in the request path |
 | Given transcript + summary + **fact record as reference** | Reference-guided judging reduced judge errors on math and reasoning questions in MT-Bench ([Zheng et al. 2023](https://arxiv.org/abs/2306.05685)) |
 | Pointwise labels, not pairwise preference | Avoids position bias. Self-preference grows with self-recognition ([Panickssery et al., NeurIPS 2024](https://arxiv.org/abs/2404.13076)), and both summaries come from Gemma |
-| Labels: per bullet SUPPORTED / UNSUPPORTED / DISTORTED; per gold fact PRESENT / ABSENT / DISTORTED | Gives semantic faithfulness, semantic completeness and distortion rate |
-| Calibration: 40 summaries you label by hand (Cohen's κ, publish if ≥ 0.6) + mutation tests (swapped drug, flipped negation, planned→completed, "probably because" → "caused by", unsure → denied) | Shows what the judge can and cannot catch |
+| Three rubrics, each PASS/FAIL with a reason: **faithfulness** (anything wrong or invented), **completeness** (every fact-record item covered), **calibration** (hedging, planned vs completed, speaker) | Gives semantic faithfulness, completeness and distortion rate; the judge never sees labels. Exact prompts and settings: `llm_judge/v5_final/` |
+| Validated by mutation tests on hand-edited summaries, not by hand labels: 50 validation calls (25 edited with a known defect) for tuning, then **40 fresh calls with the prompts frozen** | Edits are known exactly, so agreement and kappa are exact. Method, version history and results: `llm_judge/README.md` |
 | Never decides the 95% headline | Judges are less reproducible than code |
+
+**Validation result (confirmation set, 40 fresh items, frozen prompts).** Faithfulness: 100% agreement, kappa 1.00, 10/10 edits caught, 0/30 false alarms (22/22 caught over both sets). Completeness (against the fact record): 90%, kappa 0.61; every removed nurse action or instruction was found (9/9 over both sets), but removed findings were missed 3 times in 6 when the topic still appeared elsewhere. Calibration: 90%, kappa 0.55; planned-vs-completed 6/6, swapped speaker labels 3/6, removed hedges 0/2. Consequences for the pipeline: faithfulness and completeness (actions and instructions) are used as judge metrics; calibration is reported as an indicator; speaker attribution and quote checks stay with the deterministic validators. A first design that judged completeness against the whole transcript was rejected: most of its "false alarms" were real omissions, because the gold summaries are complete against the fact record, not against every sentence in the call. Limits: 90 items in total, synthetic edits, one author. Details: `llm_judge/README.md`.
+
+### 6.4 Evaluation pipeline and the common matrix
+
+`pipeline/` runs one system (base or fine-tuned) through four stages and reports one table: **generate** (the model's JSON), **validate** (deterministic rules V1-V16 on transcript + output only), **judge** (the frozen v5 judge from 6.3), **matrix** (every metric normalized to a 0-100% rate with its source, counts, a 95% lower confidence bound and an evidence level). Reference-based rows (identity, medications, actions, flags, Critical-Fact Accuracy against the gold summary) are added when a case has gold, i.e. for our validation set; unseen calls get the reference-free rows and the combined **safe-pass** (no rule ERROR and judged faithful). The headline rows are fixed in advance: G1 safe-pass for unseen data, H19 Critical-Fact Accuracy and G1 on our validation set. **Outcome:** G1 60% → 92%, H19 56.8% → 81.6% (base → fine-tuned, epoch 3); 24 of 50 rows reach 95%, but neither headline does. Two additions made along the way, both reported next to the raw rows and never instead of them: automatic quote repair (`pipeline/pl/repair.py`, rows E1r and G1r) and the companion H19r. The rules were measured by damaging 100 validated gold summaries in 33 specific ways: 0 errors on undamaged gold (600 calls); structural damage, quotes, drug swaps, identity and status flips are caught at 80-100%; invented findings outside the term list, swapped patient/caller names, removed bullets and doses swapped with another spoken number are invisible to rules and are left to the judge. Details and commands: `pipeline/README.md`.
 
 ## 7. Hardware
 
@@ -482,6 +500,11 @@ RunPod pod, 1× **NVIDIA L40S, 46,068 MiB**, driver 595.91.07, CUDA 13.2 [VERIFI
 | Judge needs no fact table | Judge gets the fact record as reference | Reference-guided judging is more accurate |
 | — | System prompt stored separately from SFT data | Your requirement; prompt editable before training |
 | Out-of-formulary drug → `unclear` | Source-grounded value policy (§3.3) | Your decision: summarize what the transcript supports; uncertainty only from transcript evidence |
+| Training input includes a candidates table (§5.2) | Not used: the input is the system prompt plus the numbered transcript, identical for base and fine-tuned | Strictest comparison: only the weights differ |
+| Constrained schema in any key order | Schema key order must equal the training-target order | vLLM forces schema order; the first fine-tuned evaluation was invalid because of it (REPORT §7.4) |
+| Raw model output scored only | Quote repair reported separately (E1r, G1r) | Many failures were a stitched quote that has an exact counterpart in the call |
+| Validation set for final numbers only | Validation also used for monitoring and epoch choice | No test split exists; stated as a limitation |
+| Prompt written once | Prompt iterated v1 → v4 on the baseline, then frozen | v1 never defined formats (G1 7%); only formats and naming conventions changed |
 
 ## 10. Documented assumptions (confirmed)
 

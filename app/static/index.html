@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clinical Call Summarizer</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --ink: #1c2430; --muted: #5d6b7c; --line: #dfe4ea;
+    --accent: #1f6feb; --pass: #1a7f4b; --passbg: #e6f4ec; --warn: #9a6700; --warnbg: #fff4d6;
+    --err: #b42318; --errbg: #fde8e6; --info: #4b5565; --infobg: #eef1f5; --hl: #fff2a8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11151a; --panel: #1a2027; --ink: #e6ebf1; --muted: #98a4b3; --line: #2a333d;
+      --accent: #5aa2ff; --pass: #5ed39a; --passbg: #12301f; --warn: #f0c04d; --warnbg: #352a0c;
+      --err: #ff8a7d; --errbg: #3a1714; --info: #aab4c2; --infobg: #232b34; --hl: #5b4b00;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 18px 20px 10px; max-width: 1280px; margin: 0 auto; }
+  h1 { font-size: 21px; margin: 0 0 2px; }
+  header p { margin: 0; color: var(--muted); }
+  .badges { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--infobg); color: var(--info); border: 1px solid var(--line); }
+  .badge.good { background: var(--passbg); color: var(--pass); border-color: transparent; }
+  nav { max-width: 1280px; margin: 8px auto 0; padding: 0 20px; display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+  nav button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 9px 14px; font: inherit; color: var(--muted); cursor: pointer; }
+  nav button.on { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+  main { max-width: 1280px; margin: 0 auto; padding: 16px 20px 60px; }
+  .grid { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 10px; }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 8px 0 3px; }
+  select, textarea, input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; }
+  textarea { min-height: 150px; resize: vertical; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .row label { display: inline-flex; gap: 6px; align-items: center; margin: 6px 0; color: var(--ink); font-size: 14px; }
+  button.primary { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 9px 16px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 10px; }
+  button.primary:disabled { opacity: .55; cursor: wait; }
+  button.ghost { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; font: inherit; cursor: pointer; }
+  .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  .banner { border-radius: 10px; padding: 11px 14px; margin-bottom: 12px; font-weight: 600; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .banner small { font-weight: 400; }
+  .banner.PASS { background: var(--passbg); color: var(--pass); }
+  .banner.REVIEW { background: var(--warnbg); color: var(--warn); }
+  .banner.FAILED { background: var(--errbg); color: var(--err); }
+  .tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .tabs button { border: 1px solid var(--line); background: var(--bg); color: var(--muted); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  .tabs button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  pre.summary { white-space: pre-wrap; font: 13.5px/1.55 ui-monospace, Menlo, Consolas, monospace; margin: 0; }
+  .turn { padding: 3px 8px; border-radius: 6px; font-size: 13px; }
+  .turn b { color: var(--muted); font-weight: 600; margin-right: 6px; }
+  .turn.Nurse .who { color: var(--accent); }
+  .turn.hl { background: var(--hl); }
+  .turn .who { font-weight: 600; margin-right: 6px; }
+  #turns { max-height: 520px; overflow: auto; }
+  .bullet { border-left: 3px solid var(--line); padding: 4px 10px; margin: 8px 0; cursor: default; }
+  .bullet:hover { border-left-color: var(--accent); background: var(--infobg); }
+  .bullet .meta { font-size: 12px; color: var(--muted); }
+  .bullet q { color: var(--ink); font-style: italic; }
+  .chip { display: inline-block; font-size: 11.5px; padding: 1px 7px; border-radius: 999px; background: var(--infobg); color: var(--info); margin: 2px 4px 0 0; }
+  .finding { display: grid; grid-template-columns: 52px 62px 1fr; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .sev { font-size: 11.5px; font-weight: 700; border-radius: 5px; text-align: center; padding: 1px 0; height: 20px; }
+  .sev.ERROR { background: var(--errbg); color: var(--err); } .sev.WARN { background: var(--warnbg); color: var(--warn); } .sev.INFO { background: var(--infobg); color: var(--info); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  .miss { color: var(--err); font-weight: 600; }
+  .ok { color: var(--pass); font-weight: 600; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 900px) { .two { grid-template-columns: 1fr; } }
+  .callout { background: var(--warnbg); color: var(--ink); border-left: 4px solid var(--warn); padding: 10px 14px; border-radius: 6px; margin: 10px 0; font-size: 14px; }
+  .err { color: var(--err); }
+  footer { color: var(--muted); font-size: 12.5px; max-width: 1280px; margin: 0 auto; padding: 0 20px 30px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Clinical Call Summarizer</h1>
+  <p>Nurse-line call transcript → structured clinical summary, checked by rules and a validated LLM judge.</p>
+  <div class="badges" id="badges"></div>
+</header>
+<nav>
+  <button id="t-run" class="on">Summarize</button>
+  <button id="t-res">Results</button>
+  <button id="t-how">How it works</button>
+</nav>
+<main>
+<section id="p-run">
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>1 · Choose a call</h2>
+        <label for="case">Validation call (100 hand-written calls the model never trained on)</label>
+        <select id="case"></select>
+        <div class="row">
+          <label><input type="radio" name="mode" value="replay" checked> Replay saved output</label>
+          <label><input type="radio" name="mode" value="live"> Live model</label>
+        </div>
+        <div id="srcrow" class="row">
+          <label><input type="radio" name="src" value="finetuned" checked> Fine-tuned (epoch 3)</label>
+          <label><input type="radio" name="src" value="base"> Base model</label>
+        </div>
+        <label for="ts">Call time (UTC, optional)</label>
+        <input type="text" id="ts" placeholder="2026-09-12T12:20:00Z">
+        <label for="tr">Transcript (<code>Nurse -&gt; …</code> / <code>Caller -&gt; …</code>, one turn per line)</label>
+        <textarea id="tr" spellcheck="false"></textarea>
+        <button class="primary" id="run">Summarize</button>
+        <div class="hint" id="modehint"></div>
+      </div>
+      <div class="card">
+        <h2>Transcript</h2>
+        <div id="turns"><span class="hint">Run a summary to see the numbered transcript. Hover a bullet in the Evidence tab to light up the turns it cites.</span></div>
+      </div>
+    </div>
+    <div id="result">
+      <div class="card"><span class="hint">Pick a call and press <b>Summarize</b>. Replay mode needs no GPU: it shows what the models actually produced for that call.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="p-res" hidden>
+  <div class="card">
+    <h2>Headline results on the 100 validation calls</h2>
+    <div id="headline">loading…</div>
+    <div class="callout"><b>Honest reading.</b> The target was 95%. The fine-tuned model is far better than the base model but does <b>not</b> reach 95% on the two pre-registered headline metrics
+      (G1 safe-pass 92%, H19 critical-fact accuracy 81.6%), and its latency (p50 13.9 s, p95 19.8 s on 20 timed calls, L40S) misses the 15 s p95 target. Details, failures and what we would change are in <code>REPORT.md</code>.
+      Validation is also the set used to pick the epoch, so these numbers are slightly optimistic.</div>
+  </div>
+</section>
+
+<section id="p-how" hidden>
+  <div class="card">
+    <h2>Pipeline</h2>
+    <p><b>1. Model.</b> Gemma 4 12B (4-bit QAT) with a LoRA adapter reads the numbered transcript and writes one JSON object: identity, chief complaint, assessment / response / education bullets (each with the verbatim quote and turn numbers it relies on), typed facts and risk flags.</p>
+    <p><b>2. Rules (no model).</b> 16 deterministic validators check the JSON against the transcript: valid schema, quotes really in the cited turns, numbers / drugs / names spoken in the call, planned-vs-completed wording, negatives kept negative, hedges kept, Not-Applicable gate, risk flags. A near-miss quote is repaired automatically.</p>
+    <p><b>3. Render.</b> A deterministic renderer turns the JSON into the exact reference text format.</p>
+    <p><b>4. Judge (optional, live mode).</b> The <i>base</i> Gemma model, with frozen prompts, checks faithfulness, completeness and calibration. <b>The judge was validated before it was used.</b> We hand-edited 90 summaries with known defects (50 used to tune the prompts, then 40 fresh ones run once with the prompts frozen). Faithfulness: kappa 0.90 on the tuning set and 1.00 on the fresh set (10 of 10 edits caught, 0 of 30 clean summaries flagged; small sample). Completeness: kappa 0.61 on the fresh set; reliable for missing nurse actions and instructions, weak for missing findings. Calibration: kappa 0.55; reliable for planned-vs-completed only. Details: <code>llm_judge/README.md</code>.</p>
+    <p><b>5. Routing.</b> A summary with a rule error that survives repair, or invalid JSON, is marked <b>REVIEW</b> or <b>FAILED</b> for a nurse instead of being presented as final. No automatic summary should be trusted without that gate.</p>
+  </div>
+</section>
+</main>
+<footer>Research prototype on synthetic data. Not a medical device; every summary must be reviewed by a clinician.</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+let CFG = null, LAST = null;
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+function tab(name) {
+  for (const k of ["run", "res", "how"]) { $("p-" + k).hidden = k !== name; $("t-" + k).classList.toggle("on", k === name); }
+}
+$("t-run").onclick = () => tab("run"); $("t-res").onclick = () => tab("res"); $("t-how").onclick = () => tab("how");
+
+function mode() { return document.querySelector("input[name=mode]:checked").value; }
+function src() { return document.querySelector("input[name=src]:checked").value; }
+function syncMode() {
+  $("srcrow").style.display = mode() === "replay" ? "flex" : "none";
+  $("modehint").textContent = mode() === "replay"
+    ? "Replay shows the saved output for that validation call, checked by the same rules. No GPU needed. Editing the transcript has no effect in replay mode."
+    : (CFG && CFG.live_available ? `Live: sends the transcript to model '${CFG.model}' at ${CFG.llm_url}. Any pasted transcript works; expect 10–30 s.`
+       : `Live mode needs a model server at ${CFG ? CFG.llm_url : ""} (see app/README.md). Not reachable right now.`);
+}
+document.querySelectorAll("input[name=mode]").forEach((e) => (e.onchange = syncMode));
+
+async function init() {
+  CFG = await api("/api/config");
+  const cases = await api("/api/cases");
+  $("case").innerHTML = cases.map((c) => `<option value="${esc(c.id)}">${esc(c.id)} · ${esc(c.category)} · ${esc(c.length)}</option>`).join("");
+  $("case").onchange = loadCase;
+  $("badges").innerHTML = [
+    `<span class="badge good">LLM judge validated on 90 hand-edited items</span>`,
+    `<span class="badge">16 rule validators</span>`,
+    `<span class="badge">${CFG.live_available ? "live model: connected" : "live model: not connected (replay works)"}</span>`,
+    `<span class="badge">target 95% not reached on the headline metrics</span>`,
+  ].join("");
+  syncMode();
+  await loadCase();
+  renderHeadline();
+  const q = new URLSearchParams(location.search);  // shortcuts for demos: ?case=va-005&run=1&view=checks, ?tab=res
+  if (q.get("case")) { $("case").value = q.get("case"); await loadCase(); }
+  if (q.get("tab")) tab(q.get("tab"));
+  if (q.get("run")) { await run(); if (q.get("view")) show(q.get("view")); }
+}
+
+async function loadCase() {
+  const c = await api("/api/case?id=" + encodeURIComponent($("case").value));
+  $("tr").value = c.transcript; $("ts").value = c.call_timestamp_utc || "";
+}
+
+async function run() {
+  $("run").disabled = true; $("run").textContent = "Working…";
+  $("result").innerHTML = `<div class="card"><span class="hint">${mode() === "live" ? "Waiting for the model (10–30 s)…" : "Checking saved output…"}</span></div>`;
+  try {
+    const sel = await api("/api/case?id=" + encodeURIComponent($("case").value));
+    const same = $("tr").value.trim() === sel.transcript.trim();  // keep the case id (gold comparison, saved output) only while the transcript is unchanged
+    const body = { mode: mode(), source: src(), transcript: $("tr").value, call_timestamp_utc: $("ts").value || undefined,
+                   case_id: mode() === "replay" || same ? $("case").value : undefined };
+    LAST = await api("/api/summarize", body); LAST.__transcript = body.transcript; LAST.__case = body.case_id;
+    show();
+  } catch (e) {
+    $("result").innerHTML = `<div class="card err"><b>Error:</b> ${esc(e.message)}</div>`;
+  } finally { $("run").disabled = false; $("run").textContent = "Summarize"; }
+}
+$("run").onclick = run;
+
+function turnsHtml(hl) {
+  const set = new Set(hl || []);
+  $("turns").innerHTML = (LAST.numbered_transcript || []).map((t) =>
+    `<div class="turn ${t.speaker}${set.has(t.id) ? " hl" : ""}" id="turn-${t.id}"><b>T${t.id}</b><span class="who">${esc(t.speaker)}</span>${esc(t.text)}</div>`).join("");
+  if (set.size) { const el = $("turn-" + Math.min(...set)); if (el) el.scrollIntoView({ block: "nearest" }); }
+}
+
+function findings(list) {
+  if (!list.length) return `<div class="hint">No findings.</div>`;
+  const order = { ERROR: 0, WARN: 1, INFO: 2 };
+  return [...list].sort((a, b) => order[a.severity] - order[b.severity]).map((f) =>
+    `<div class="finding"><div class="sev ${f.severity}">${f.severity}</div><div><b>${esc(f.rule)}</b></div><div>${esc(f.message)}<div class="hint">${esc(f.path)}</div></div></div>`).join("");
+}
+
+function show(which) {
+  const r = LAST, c = r.counts, tabName = which || "summary";
+  const tabs = [["summary", "Summary"], ["evidence", "Evidence"], ["checks", "Checks"], ["gold", "Compare with gold"], ["judge", "Judge"]].filter(([k]) => k !== "gold" || r.gold_rendered);
+  let body = "";
+  if (tabName === "summary") {
+    body = r.rendered ? `<pre class="summary">${esc(r.rendered)}</pre>` : `<div class="err">No summary could be rendered: ${esc(r.why)}.</div>`;
+    if (r.risk_flags && r.risk_flags.length) body += `<h2 style="margin-top:14px">Risk flags</h2>` + r.risk_flags.map((f) => `<div class="bullet"><b>${esc(f.category)}</b> <span class="meta">turns ${esc((f.turns || []).join(", "))}</span><br><q>${esc(f.quote)}</q></div>`).join("");
+  } else if (tabName === "evidence") {
+    const cc = r.chief_complaint;
+    const all = [].concat(cc ? [{ section: "chief complaint", text: cc.reason, speaker: cc.speaker, turns: cc.turns, quote: cc.quote, facts: [] }] : [], r.bullets);
+    body = all.map((b, i) => `<div class="bullet" data-i="${i}"><b>${esc(b.section)}</b> · ${esc(b.text)}<div class="meta">${esc(b.speaker)} · turns ${esc((b.turns || []).join(", "))}</div><q>${esc(b.quote)}</q><div>${(b.facts || []).map((f) => `<span class="chip">${esc(f.type)}${f.name ? ": " + esc(f.name) : ""}${f.action_type ? ": " + esc(f.action_type) + "/" + esc(f.status) : ""}${f.education_type ? ": " + esc(f.education_type) : ""}</span>`).join("")}</div></div>`).join("") || `<div class="hint">No bullets.</div>`;
+  } else if (tabName === "checks") {
+    body = `<p class="hint">Raw output: ${c.raw_errors} error(s), ${c.raw_warnings} warning(s). After automatic quote repair (${c.quotes_repaired} quote(s) replaced by the exact span): ${c.errors_after_repair} error(s), ${c.warnings_after_repair} warning(s).</p>
+      <h2>Rule findings on the raw output</h2>${findings(r.findings_raw)}`;
+  } else if (tabName === "gold") {
+    body = `<div class="two"><div><h2>Model</h2><pre class="summary">${esc(r.rendered || "(not renderable)")}</pre></div><div><h2>Hand-written gold</h2><pre class="summary">${esc(r.gold_rendered)}</pre></div></div>`;
+  } else {
+    body = `<p class="hint">The judge is the base model with frozen prompts. It needs a live model server. ${r.__case ? "This call has a reference checklist (validated completeness mode)." : "No reference checklist: the model writes its own checklist, which is not validated."}</p><button class="ghost" id="jbtn">Run judge</button><div id="jout"></div>`;
+  }
+  $("result").innerHTML = `
+    <div class="banner ${r.status}">${r.status === "PASS" ? "✓ PASS" : r.status === "REVIEW" ? "⚠ NEEDS NURSE REVIEW" : "✕ FAILED"}<small>${esc(r.why)}</small></div>
+    <div class="card"><div class="hint" style="margin:0 0 8px">${esc(r.source)}${r.run && r.run.latency_s ? ` · ${r.run.latency_s}s` : ""}${r.run && r.run.completion_tokens ? ` · ${r.run.completion_tokens} tokens` : ""}${r.category ? ` · ${esc(r.category)}` : ""}</div>
+    <div class="tabs">${tabs.map(([k, n]) => `<button data-t="${k}" class="${k === tabName ? "on" : ""}">${n}</button>`).join("")}</div>${body}</div>`;
+  document.querySelectorAll(".tabs button").forEach((b) => (b.onclick = () => show(b.dataset.t)));
+  turnsHtml([]);
+  if (tabName === "evidence") {
+    const cc = r.chief_complaint;
+    const all = [].concat(cc ? [{ turns: cc.turns }] : [], r.bullets);
+    document.querySelectorAll(".bullet[data-i]").forEach((el) => {
+      el.onmouseenter = () => turnsHtml(all[+el.dataset.i].turns); el.onmouseleave = () => turnsHtml([]);
+    });
+  }
+  if (tabName === "judge") $("jbtn").onclick = runJudge;
+}
+
+async function runJudge() {
+  $("jbtn").disabled = true; $("jout").innerHTML = `<span class="hint">Judging (about a minute)…</span>`;
+  try {
+    const j = await api("/api/judge", { transcript: LAST.__transcript, summary: LAST.parsed, case_id: LAST.__case, call_timestamp_utc: LAST.call_timestamp_utc });
+    const rows = Object.entries(j.verdicts || {}).map(([k, v]) => `<tr><td><b>${k}</b></td><td class="${v && v.verdict === "PASS" ? "ok" : "miss"}">${v ? v.verdict : "no verdict"}</td><td>${esc(v ? v.reason : "")}<div class="hint">${esc(j.notes[k] || "")}</div></td></tr>`).join("");
+    $("jout").innerHTML = `<table><tr><th>Check</th><th>Verdict</th><th>Reason</th></tr>${rows}</table>`;
+  } catch (e) { $("jout").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+  $("jbtn").disabled = false;
+}
+
+function pct(m) { return m && m.value != null ? m.value.toFixed(1) + "%" : "n/a"; }
+function renderHeadline() {
+  const h = CFG.headline;
+  if (!h) { $("headline").textContent = "No matrix file found (pipeline/outputs)."; return; }
+  const names = { G1: "Safe-pass: no rule error and judged faithful (headline, unseen-data)", G1r: "Safe-pass after automatic quote repair", E1: "Calls with no rule error",
+    E1r: "… after quote repair", F1: "Judged faithful (judge validated)", H19: "Critical-Fact Accuracy against gold (headline, validation only)",
+    H19r: "Gold critical facts found (diagnostic, no penalty for extra facts)", O1: "Calls under 15 s (20-call sample, concurrency 1)" };
+  const a = h[0], b = h[1];
+  $("headline").innerHTML = `<table><tr><th>Metric</th><th class="num">${esc(a.system)}</th><th class="num">${esc(b.system)}</th><th class="num">Target</th></tr>` +
+    Object.keys(names).map((k) => `<tr><td>${esc(names[k])}<div class="hint">${k}</div></td><td class="num">${pct(a.rows[k])}</td><td class="num"><b>${pct(b.rows[k])}</b></td><td class="num">95%</td></tr>`).join("") + `</table>`;
+}
+
+init().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<p class="err" style="padding:20px">Could not start: ${esc(e.message)}</p>`); });
+</script>
+</body>
+</html>

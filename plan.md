@@ -1,12 +1,18 @@
 # Execution Plan — Clinical Summary LLM (5 days)
 
-Oct 3, 2026 · companion to [architecture.md](architecture.md), which holds the design rationale and evidence. This file covers what gets built, in what order, and when each step counts as done.
+Oct 4, 2026 · companion to [architecture.md](architecture.md), which holds the design rationale and evidence. This file covers what gets built, in what order, and when each step counts as done.
 
 ## 0. Progress
 
-- **Data authoring is complete:** 500 train + 100 validation calls, hand-authored and validated (0 errors, 0 warnings, no cross-split leaks). Overview and every call's facts, transcript, noise and summary: `data/dataset_overview.xlsx`.
-- Done so far: authoring tools and validator (`code/data/`), renderer (`code/common/`), system prompt draft (`prompts/system_v1.md`), compiled JSONL/SFT files (`data/`).
-- Not started: GPU/vLLM setup, baseline run, pipeline validators and API/UI, LoRA training, evaluation and judge harness, report and demo.
+**State on 4 Oct 2026: everything except the demo video and the submission zip is built and run. The 95% and 15 s targets were not reached.** Start with [REPORT.md](REPORT.md).
+
+- **Data:** 500 train + 100 validation calls, hand-authored and validated (0 errors, 0 warnings, no cross-split leaks). `data/dataset_overview.xlsx`.
+- **Judge:** base Gemma validated on 90 hand-edited summaries (50 to tune, 40 fresh with frozen prompts): faithfulness kappa 1.00 on the fresh set, completeness 0.61, calibration 0.55 (`llm_judge/`).
+- **Evaluation pipeline:** rules V1-V16, quote repair, frozen judge, gold comparison, one matrix (`pipeline/`). Baseline prompt iterated v1 → v4 and frozen; every run's outputs are saved in `pipeline/outputs/`.
+- **Fine-tuning:** one LoRA run (r16, 3 epochs, 189 steps, 2.9 h on the L40S); adapters in `finetune/runs/ft1/` (not in git). **Epoch 3 chosen.**
+- **Result (100 validation calls):** safe-pass G1 60% → **92%**, Critical-Fact Accuracy H19 56.8% → **81.6%**, latency p50 13.9 s / p95 19.8 s. **Not reached:** 95% on G1 and H19, p95 < 15 s.
+- **Demo UI:** `app/` (replay mode works without a GPU).
+- **Not done:** the planned sweeps (learning rate, rank), the adapter agreement check, epoch-1 evaluation, the Not-Applicable gate / candidates table / retry in the production path, the demo video. See the status tables below and REPORT §9.
 
 ## 1. Fixed decisions
 
@@ -17,7 +23,7 @@ Oct 3, 2026 · companion to [architecture.md](architecture.md), which holds the 
 | Data | Claude-authored; **500 train / 100 validation**; no separate evaluation split; the 5 provided real calls are not used as data |
 | Length mix | 72% short/normal · 12% medium · 16% long (train 360/60/80; validation 73/11/16). Minimums: short ≥ 65 lines and 4,500–9,000 chars; medium ≥ 85 lines and 7,500–12,500; long ≥ 105 lines and 10,500–18,000 (Not-Applicable calls exempt) |
 | Output | JSON → deterministic renderer → exact reference format |
-| SFT format | `{id, transcript, call_timestamp_utc, target}`; system prompt in `prompts/system_vN.md`, assembled at train time |
+| SFT format | `{id, transcript, call_timestamp_utc, target}`; system prompt in `prompts/system_vN.md`, assembled at train time. **Decision: train and evaluate the fine-tuned model with `system_v4.md`, the same prompt as the baseline (same input, only the weights differ)** |
 | Fine-tuning | BF16 LoRA r16 / α32 on all text-layer linear projections; ct checkpoint dequantized |
 | Headline | Critical-Fact Accuracy ≥ 95% + release gates; latency overall p50, overall p95, long-call p95 |
 
@@ -87,7 +93,7 @@ Data authoring is the critical path, so pipeline code and GPU work run in parall
 | 1 | 1.5 ~~Real-5 hand annotation~~ dropped: the 5 provided calls are not used as data | — | — |
 | 1 | 1.6 System prompt v1; baseline on the 5 provided examples | `prompts/system_v1.md` | 5/5 outputs parse |
 | 2 | 2.1 Author validation 100 | `data/sft/val.jsonl` | Done: validator + coverage clean |
-| 2 | 2.2 Pre-processing, validators V1–V12, NA gate, risk rules + unit tests | `code/pipeline/` | Tests pass on validation |
+| 2 | 2.2 Validators V1–V16, NA gate, risk rules, defect-detection study | `pipeline/pl/`, `pipeline/run_pipeline.py selftest` | Done: 0 errors on all gold; study in `pipeline/README.md` |
 | 2 | 2.3 Baseline on validation; prompt iteration; greedy vs sampling; thinking on vs off (50 calls) | `outputs/baseline_val/` | Prompt v_final frozen |
 | 2–3 | 2.4 Author train 500 | `data/sft/train.jsonl` | Done: validator + coverage clean; hashed |
 | **3** | 3.1 LoRA smoke test: 10 steps, peak memory, trainable-parameter count by module | log | Loss falls; peak < 42 GB |
@@ -98,10 +104,33 @@ Data authoring is the critical path, so pipeline code and GPU work run in parall
 | 4 | 4.2 Adapter-in-vLLM check (20 validation, 3 restarts) | log | Within 1 pt; ≥ 95% identical across restarts; else r8 |
 | 4 | 4.3 Validation 100: baseline vs fine-tuned, full metrics | `outputs/eval_reports/` | All metrics + CIs |
 | 4 | 4.4 Latency runs; work down the optimization list (architecture §6.2) if p95 ≥ 15 s | `outputs/latency/` | p50 / p95 / long-call p95 for both systems |
-| 4 | 4.5 Judge runs + calibration (you label 40) + mutation tests | `outputs/judge/` | κ reported |
+| 4 | 4.5 Judge: validation done (mutation tests, 50 + 40 items, `llm_judge/`); run the frozen v5 judge on baseline and fine-tuned outputs | `outputs/judge/` | Scores reported with the validated scope |
 | **5** | 5.1 Failure analysis, significance tests, figures | `outputs/failure_cases.md` | — |
 | 5 | 5.2 `report.md`, README, reproduce one eval from a clean env | — | README steps run end-to-end |
 | 5 | 5.3 Demo video (≤ 3 min), ZIP | `submission.zip` | Submitted |
+
+### Status of each step (what really happened)
+
+| Step | Status | Note |
+|---|---|---|
+| 1.1 Skeleton, schema, renderer, validators | Done | |
+| 1.2 vLLM + checkpoint on the pod | Done | vLLM 0.30.0 needs `VLLM_USE_FLASHINFER_SAMPLER=0` |
+| 1.3 Chat-template check | Done | Thinking off adds an empty thought block to the generation prompt; training uses it (`finetune/examples.py`) |
+| 1.6 Prompt v1; baseline | Done, **changed** | v1 never defined formats (G1 7%); iterated to v4 and frozen. Baseline is the 100 validation calls, not the 5 provided examples |
+| 2.1-2.4 Data (100 + 500) | Done | |
+| 2.2 Validators, defect study | Done | `pipeline/` |
+| 2.3 Prompt iteration; greedy vs sampling; thinking on/off | **Partly** | Prompt iteration done; greedy vs sampling and thinking on/off **not run** |
+| 3.1 LoRA smoke test | Done | 2-step trial on the pod plus a CPU test of the code on a tiny model |
+| 3.2 Sweep A/B/C | **Not done** | Only run A (r16, 2e-4) was trained |
+| 3.4 FastAPI + Gradio | **Changed** | Built as `app/` with the Python standard library (no FastAPI, no Gradio) |
+| 4.1 Select winner on validation CFA | Done | Epoch 3, on pipeline metrics (REPORT §7.7) |
+| 4.2 Adapter-in-vLLM check | **Not done** | vLLM served and ran the adapter; the formal HF-versus-vLLM agreement check was not run |
+| 4.3 Baseline vs fine-tuned, full metrics | Done | Intervals are Wilson bounds and a paired sign test, not bootstrap |
+| 4.4 Latency; optimisation list | Done, **target missed** | n-gram speculative decoding was tried and was slower; other rungs not tried |
+| 4.5 Judge on both systems | Done | |
+| 5.1 Failure analysis | Done | REPORT §7-8 |
+| 5.2 Report, README | Done | `REPORT.md`, `README.md` |
+| 5.3 Demo video, ZIP | **Not done** | |
 
 **Cut-lines if behind:**
 - Validation scoring slips → score a 50-call stratified subset, with the wider CI stated.
@@ -143,6 +172,8 @@ prompt: prompts/system_v{final}.md      # recorded with the adapter
 
 Estimated time [to be measured in 3.1]: ~1.7M tokens per epoch → ~15–25 min per epoch on L40S; the full sweep is under ~4 h.
 
+**As run:** only run A, one training run, no sweep. **Measured time: about 55 minutes per epoch (10,281 s for 3 epochs), against the 15-25 minute estimate above**: each example carries the 2,010-token prompt (about half the tokens), and with batch size 1 and gradient checkpointing a 12B model on an L40S processes about 50 s per 8-call step. Differences from the recipe: no TRL (own training loop with the same settings), `completion_only_loss` implemented as loss on the answer tokens only, summed per step and divided by the step's answer tokens.
+
 ## 5. Experiments and pass criteria
 
 | # | Experiment | Pass |
@@ -155,7 +186,9 @@ Estimated time [to be measured in 3.1]: ~1.7M tokens per epoch → ~15–25 min 
 | E6 | LoRA smoke test | Peak < 42 GB; module count as expected; accumulation 8 × batch 1 matches a batch of 8 (loss and grad norm within 1%) |
 | E7 | Adapter-in-vLLM check | Within 1 pt; ≥ 95% identical across restarts |
 | E8 | Latency optimization list (architecture §6.2) | Overall p95 < 15 s |
-| E9 | Judge calibration + mutations | κ ≥ 0.6 to publish judge metrics |
+| E9 | Judge validation by mutation tests (done: `llm_judge/README.md`) | Faithfulness κ 1.00 and completeness κ 0.61 on 40 fresh items; calibration reported as an indicator only |
+
+Status of the experiments: E1 done (decode about 62-73 tokens/s measured). E2 done. E3 **not run** (the constrained schema was always on; the candidates table was never used). E4 and E5 **not run**. E6 done in a reduced form (2-step run, peak 36.2 GB; the accumulation-equivalence check was not run). E7 **not run**. E8 **tried, failed** (speculative decoding slower). E9 done and exceeded (kappa 1.00 faithfulness on the fresh set).
 
 ## 6. Risks
 
@@ -168,3 +201,13 @@ Estimated time [to be measured in 3.1]: ~1.7M tokens per epoch → ~15–25 min 
 | Dequantized load fails in TRL | E6 error | Fallback base; Unsloth |
 | Gold errors | Validator failures; your 20-sample review | Fix and re-validate; report counts |
 
+### Risks as they turned out
+
+| Risk | What happened |
+|---|---|
+| Same-author style leakage → validation too easy | The baseline was *not* near-perfect (G1 60%), so the validation set is not trivially easy; the single-author limitation stands |
+| p95 ≥ 15 s on L40S | **Happened**: p95 19.8 s; speculative decoding did not help; needs a shorter output or a faster GPU |
+| vLLM adapter over int4 is wrong | Did not happen: vLLM loaded and ran all three adapters; the formal agreement check was not run |
+| Dequantised load fails | Did not happen: 0 quantised modules left, 328 LoRA targets, peak 36.2 GB |
+| Gold errors | Running the rules on the gold found 5 kinds of defect in 35 calls (junk fact keys, missing escalation flags, planned/completed labels, outside wording, one invented negative); all fixed; the model-vs-gold comparison also exposed scorer bugs (fixed, gold still scores 100%) |
+| *Not anticipated:* constrained-decoding schema order | Made the first fine-tuned evaluation invalid until fixed (REPORT §7.4) |
