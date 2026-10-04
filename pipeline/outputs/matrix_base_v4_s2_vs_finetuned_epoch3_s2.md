@@ -67,6 +67,17 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 **base_v4_s2: 21 of 50 metrics reach ≥95%:** A1 Output is valid JSON (98.0%), A2 Output matches the schema (98.0%), A3 Cited turns exist (99.6%), A4 Quotes are in the cited turns (verbatim or repairable) (97.2%), A5 Quotes are exactly verbatim (96.7%), A6 Quote speaker matches the transcript label (99.8%), B1 Numbers in the summary were spoken in the call (98.7%), B2 Numbers are in the cited turns (+/-2) (97.0%), B3 Drug names appear in the call (100.0%), B4 Clinical terms (fever, fall, seizure ...) appear in the call (100.0%), B5 Identity values (name, DOB, phone, relationship) were spoken (99.5%), C1 Planned vs completed matches the nurse's words (99.6%), C2 Negative findings are not stated as present (99.0%), C3 Caller hedges are kept (98.2%), D1 Not-Applicable decision agrees with the clinical-content gate (100.0%), D2 Suicidal / escalation flags the rules find are also in the output (100.0%), F1 Faithful: nothing wrong or invented (95.0%), F2 Complete: checklist items covered (item level) (97.7%), H1 Identity values correct (5 fields) (95.1%), H14 Not-Applicable decision correct (98.0%), O2 Outputs not cut off by the token limit (98.0%)
 **finetuned_epoch3_s2: 24 of 50 metrics reach ≥95%:** A1 Output is valid JSON (100.0%), A2 Output matches the schema (100.0%), A3 Cited turns exist (100.0%), A4 Quotes are in the cited turns (verbatim or repairable) (99.7%), A5 Quotes are exactly verbatim (99.7%), A6 Quote speaker matches the transcript label (99.9%), B1 Numbers in the summary were spoken in the call (99.7%), B2 Numbers are in the cited turns (+/-2) (99.0%), B3 Drug names appear in the call (99.5%), B4 Clinical terms (fever, fall, seizure ...) appear in the call (100.0%), B5 Identity values (name, DOB, phone, relationship) were spoken (99.8%), C1 Planned vs completed matches the nurse's words (99.5%), C2 Negative findings are not stated as present (100.0%), C3 Caller hedges are kept (97.7%), D1 Not-Applicable decision agrees with the clinical-content gate (100.0%), D2 Suicidal / escalation flags the rules find are also in the output (100.0%), E1r Calls with no rule ERROR after automatic quote repair (96.0%), F1 Faithful: nothing wrong or invented (97.0%), F2 Complete: checklist items covered (item level) (95.4%), F4 Calibrated: hedges, planned vs done, speaker (indicator) (95.0%), H1 Identity values correct (5 fields) (98.2%), H2 Identity values AND certainty correct (98.0%), H14 Not-Applicable decision correct (100.0%), O2 Outputs not cut off by the token limit (100.0%)
 
+## Latency (seconds, calls timed one at a time)
+
+| seconds | base_v4_s2 | finetuned_epoch3_s2 |
+|---|---|---|
+| Time to first token, p50 | 0.16 | 0.17 |
+| Time to first token, p95 | 0.62 | 0.64 |
+| Total response time, p50 | 27.96 | 14.02 |
+| Total response time, p95 (target < 15 s) | 69.88 | 19.11 |
+| Total response time, slowest | 70.39 | 20.84 |
+| calls timed | 20 | 20 |
+
 ## Breakdown
 
 **base_v4_s2 by category**

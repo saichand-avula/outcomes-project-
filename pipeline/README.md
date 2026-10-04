@@ -34,7 +34,7 @@ The transcript is sent numbered (`[T1] Nurse -> ...`) so the model can cite turn
 
 | File | One line per call | Key fields |
 |---|---|---|
-| `generations.jsonl` | what the model returned | `raw_text`, `parsed` (object or null), `parse_error`, `constrained`, `latency_s`, `prompt_tokens`, `completion_tokens`, `finish_reason` |
+| `generations.jsonl` | what the model returned | `raw_text`, `parsed` (object or null), `parse_error`, `constrained`, `latency_s`, `prompt_tokens`, `completion_tokens`, `finish_reason`; after the `latency` stage also `latency_seq_s` and `ttft_seq_s` |
 | `validation.jsonl` | what the rules found | `findings` (`rule`, `severity` ERROR/WARN/INFO, `path`, `message`), `counters` ({name: [ok, total]} for every check), `n_error`, `n_warn`, `final_flags` (model flags + rule flags), `rule_flags`, `na_score` |
 | `reference.jsonl` | gold comparison (only if the case has gold) | `counters` ({metric: [matched, total]}) |
 | `judge.jsonl` | what the judge said | `verdicts` (faithfulness, completeness, calibration: PASS/FAIL + reason), `extra.items` (each checklist item: present or missing, with the summary words that cover it), `completeness_mode` |
@@ -175,7 +175,7 @@ Measured on the L40S for 100 calls: base-model generation about 50 minutes one r
   Only the output format and naming conventions were changed, never clinical content. The scorer was corrected once (units, a stop word, name matching) and gold still scores 100% on every row.
 - **Schema key order bug (found on the first fine-tuned evaluation):** vLLM's constrained decoding enforces the schema's property order. The schema listed `certainty` second in a fact and `turns` before `heard_as`; the gold summaries have `certainty` last and `heard_as` before `turns`. A model trained on the gold order was forced to emit `certainty` right after `type`, closed the fact, and lost `name`, `dose` and the other slots (medications and vitals fell to about 3%). The schema now follows the gold order (`pl/schema.py`; 5.0% of gold facts still use another order, which the data itself contains), and the selftest checks it. Runs made before the fix (`base_v4`, `finetuned_epoch2` without a tag) used the old schema; the corrected runs carry the tag `_s2`.
 - `generate` runs 16 requests at once by default; latency is then measured on `--latency-n` calls re-run one at a time. Use `--latency-n 0` while iterating.
-- `latency --system X --prompt prompts/system_v4.md --model M --n 20` times 20 evenly spaced calls one at a time on an existing run and stores them in its generations; the matrix then reports latency from them. Run it for `base_v4` (model `gemma`) and for the chosen adapter (model `ft2`) so both numbers come from the same procedure.
+- `latency --system X --prompt prompts/system_v4.md --model M --n 20` times 20 evenly spaced calls one at a time on an existing run and stores them in its generations; the matrix then reports latency from them. Run it for `base_v4_s2` (model `gemma`) and for the chosen adapter (model `ft3`) so both numbers come from the same procedure. It streams the answer, so it also records the **time to first token** (`ttft_seq_s`; one untimed warm-up call first, because the server compiles the JSON grammar on first use), and the matrix prints a Latency table with both.
 - `validate` also writes `validation_repaired.jsonl` (near-match quotes replaced by the exact span, `pl/repair.py`); the matrix reports it as E1r and G1r next to the raw E1 and G1.
 - Python 3.11 compatible; standard library only (`openpyxl` is optional, for the .xlsx).
 

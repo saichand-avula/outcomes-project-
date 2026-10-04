@@ -10,9 +10,10 @@ Oct 4, 2026 · companion to [architecture.md](architecture.md), which holds the 
 - **Judge:** base Gemma validated on 90 hand-edited summaries (50 to tune, 40 fresh with frozen prompts): faithfulness kappa 1.00 on the fresh set, completeness 0.61, calibration 0.55 (`llm_judge/`).
 - **Evaluation pipeline:** rules V1-V16, quote repair, frozen judge, gold comparison, one matrix (`pipeline/`). Baseline prompt iterated v1 → v4 and frozen; every run's outputs are saved in `pipeline/outputs/`.
 - **Fine-tuning:** one LoRA run (r16, 3 epochs, 189 steps, 2.9 h on the L40S); adapters in `finetune/runs/ft1/` (not in git). **Epoch 3 chosen.**
-- **Result (100 validation calls):** safe-pass G1 60% → **92%**, Critical-Fact Accuracy H19 56.8% → **81.6%**, latency p50 13.9 s / p95 19.8 s. **Not reached:** 95% on G1 and H19, p95 < 15 s.
+- **Result (100 validation calls):** safe-pass G1 60% → **92%**, Critical-Fact Accuracy H19 56.8% → **81.6%**, latency p50 14.0 s / p95 19.1 s. **Not reached:** 95% on G1 and H19, p95 < 15 s.
 - **Demo UI:** `app/` (replay mode works without a GPU).
-- **Not done:** the planned sweeps (learning rate, rank), the adapter agreement check, epoch-1 evaluation, the Not-Applicable gate / candidates table / retry in the production path, the demo video. See the status tables below and REPORT §9.
+- **Medications got worse with fine-tuning** (name found 93.3% → 89.3%, name + dose 82.7% → 74.7%): 5 genuine losses of 19 lost slots, analysed in REPORT §8.1. **Time to first token** (p50 0.17 s, p95 0.64 s) was measured at the end by streaming (`run_pipeline.py latency`). **Epoch 1** was evaluated at the end too: clearly weaker (G1 68%, H19 73.3%, 3 runaway answers), so epoch 3 stays.
+- **Not done:** the planned sweeps (learning rate, rank), the adapter agreement check, the Not-Applicable gate / candidates table / retry in the production path, the demo video. See the status tables below and REPORT §9.
 
 ## 1. Fixed decisions
 
@@ -206,7 +207,7 @@ Status of the experiments: E1 done (decode about 62-73 tokens/s measured). E2 do
 | Risk | What happened |
 |---|---|
 | Same-author style leakage → validation too easy | The baseline was *not* near-perfect (G1 60%), so the validation set is not trivially easy; the single-author limitation stands |
-| p95 ≥ 15 s on L40S | **Happened**: p95 19.8 s; speculative decoding did not help; needs a shorter output or a faster GPU |
+| p95 ≥ 15 s on L40S | **Happened**: p95 19.1 s; speculative decoding did not help; needs a shorter output or a faster GPU |
 | vLLM adapter over int4 is wrong | Did not happen: vLLM loaded and ran all three adapters; the formal agreement check was not run |
 | Dequantised load fails | Did not happen: 0 quantised modules left, 328 LoRA targets, peak 36.2 GB |
 | Gold errors | Running the rules on the gold found 5 kinds of defect in 35 calls (junk fact keys, missing escalation flags, planned/completed labels, outside wording, one invented negative); all fixed; the model-vs-gold comparison also exposed scorer bugs (fixed, gold still scores 100%) |

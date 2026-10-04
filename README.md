@@ -13,11 +13,14 @@ Turn a nurse-line call transcript into a structured clinical summary with **Gemm
 | **G1** safe-pass (no rule error, judged faithful) | 60% | **92%** (lower bound 85%) | 95% ❌ |
 | G1r safe-pass after automatic quote repair | 78% | 94% (87.5%) | 95% ❌ |
 | **H19** Critical-Fact Accuracy against gold | 56.8% | **81.6%** (79%) | 95% ❌ |
-| Identity values and certainty (H2) | 91.8% | 98.0% (96.2%) | 95% ✅ |
+| Identity accuracy: values (H1) / values and certainty (H2) | 95.1% / 91.8% | **98.2% / 98.0%** (97% / 96%) | 95% ✅ |
 | Judged faithful (F1) | 95% | 97% (91.5%) | 95% ✅ (point estimate) |
-| Latency, 20 timed calls, one at a time, L40S | p50 28.1 s, p95 54.4 s | **p50 13.9 s, p95 19.8 s** | p95 < 15 s ❌ |
+| **Medication name** found (H3, 75 medications) | 93.3% | 89.3% (80%) | 95% ❌ (worse than base) |
+| **Medication name + dose + unit** (H4) | 82.7% | 74.7% (64%) | 95% ❌ (worse than base) |
+| Total response time, 20 timed calls, one at a time, L40S | p50 28.0 s, p95 69.9 s | **p50 14.0 s, p95 19.1 s** | p95 < 15 s ❌ |
+| Time to first token, p50 / p95 | 0.16 s / 0.62 s | 0.17 s / 0.64 s | none given |
 
-What the model still gets wrong ([REPORT.md](REPORT.md) §8): it is more selective than the base model and **drops details**, and in 2 of 100 calls it **swapped one drug for another** (lisinopril → metoprolol). The rules cannot see that kind of swap; only the judge and the gold comparison can. Every automatic summary needs a nurse's review.
+What the model still gets wrong ([REPORT.md](REPORT.md) §8): it is more selective than the base model and **drops details**. In 3 of 100 calls it **left out a drug the call was about** (for example lisinopril in va-039, zolpidem in va-069), and its medication scores fell below the base model's (REPORT §8.1 reads all 19 lost medication slots). The rules cannot see a missing drug; only the judge and the gold comparison can. Every automatic summary needs a nurse's review.
 
 ## The LLM judge was validated before it was used
 
@@ -49,6 +52,17 @@ transcript ──► Gemma 12B + LoRA (vLLM, JSON schema, greedy) ──► JSON
 python3 app/server.py          # open http://localhost:8080
 ```
 Pick any of the 100 validation calls to see the base model's and the fine-tuned model's saved outputs, the checks, the evidence behind every bullet, and the hand-written gold side by side. With a model server running, "Live model" summarizes any pasted transcript ([app/README.md](app/README.md)).
+
+## Assignment deliverables: where each one is
+
+| Asked for | Here |
+|---|---|
+| `code/` runnable Python | [code/](code/) (data tools, validator, renderer), [pipeline/](pipeline/) (generate, rules, judge, matrix), [finetune/](finetune/) (LoRA training), [app/](app/) (UI and API) |
+| `data/` training, validation and evaluation sets | [data/](data/): 500 train + 100 validation calls; `pipeline/data/` has the same calls prepared for evaluation |
+| `outputs/` summaries, reports, latency | [pipeline/outputs/](pipeline/outputs/): every run's generated summaries, rule results, judge results, matrices (`.md`, `.json`, `.xlsx`), [med_errors.md](pipeline/outputs/med_errors.md) |
+| `README.md` install and run | this file; GPU steps in [finetune/README.md](finetune/README.md) and [pipeline/README.md](pipeline/README.md) |
+| `report.md` | [REPORT.md](REPORT.md): design, model selection, safety controls, evaluation method, baseline versus fine-tuned, latency analysis, limitations. The four metrics the assignment names are in [§1.1](REPORT.md) |
+| Demo video | not part of this repo (to be recorded; the UI in [app/](app/) is what it would show) |
 
 ## Repo map
 

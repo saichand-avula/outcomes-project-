@@ -24,6 +24,30 @@ def _post(url, body, timeout=300):
         return json.load(r)
 
 
+def _post_stream(url, body, timeout=300):
+    """Same request, streamed (server-sent events). Returns (response shaped like the non-streamed one, seconds until the first content token arrived).
+    The first token is timed from just before the request is sent, so it includes the prompt processing (prefill) and the queue."""
+    body = dict(body, stream=True, stream_options={"include_usage": True})
+    req = urllib.request.Request(url + "/chat/completions", data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
+    t0, ttft, parts, finish, usage = time.time(), None, [], None, {}
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        for line in r:
+            line = line.decode("utf-8", "replace").strip()
+            if not line.startswith("data:") or line == "data: [DONE]":
+                continue
+            chunk = json.loads(line[5:])
+            if chunk.get("usage"):
+                usage = chunk["usage"]
+            for ch in chunk.get("choices") or []:
+                piece = (ch.get("delta") or {}).get("content")
+                if piece:
+                    if ttft is None:
+                        ttft = time.time() - t0
+                    parts.append(piece)
+                finish = ch.get("finish_reason") or finish
+    return {"choices": [{"message": {"content": "".join(parts)}, "finish_reason": finish}], "usage": usage}, ttft
+
+
 def check_server(url, model):
     """Fail fast with a clear message if the vLLM server is not reachable or does not serve this model name."""
     try:
@@ -53,7 +77,8 @@ def parse_json(text: str):
         return None, str(e)
 
 
-def generate_one(url: str, model: str, system_prompt: str, case: dict, max_tokens: int, constrained: bool = True) -> dict:
+def generate_one(url: str, model: str, system_prompt: str, case: dict, max_tokens: int, constrained: bool = True, stream: bool = False) -> dict:
+    """stream=True also records ttft_s (time to the first output token); used for the one-at-a-time latency measurements."""
     turns = parse(case["transcript"])
     body = {"model": model, "temperature": 0, "max_tokens": max_tokens,
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_message(turns)}],
@@ -62,16 +87,25 @@ def generate_one(url: str, model: str, system_prompt: str, case: dict, max_token
     if constrained:
         body["response_format"] = {"type": "json_schema", "json_schema": {"name": "clinical_summary", "schema": SUMMARY_SCHEMA, "strict": True}}
         used_schema = True
+    ttft = None
+
+    def send(b):
+        nonlocal ttft
+        if not stream:
+            return _post(url, b)
+        resp, ttft = _post_stream(url, b)
+        return resp
+
     t0 = time.time()
     try:
-        resp = _post(url, body)
+        resp = send(body)
     except Exception as first:
         if not used_schema:
             return {"id": case["id"], "raw_text": "", "parsed": None, "parse_error": f"request failed: {first!r}", "constrained": False, "latency_s": round(time.time() - t0, 2)}
         body.pop("response_format")  # the server rejected the schema: ask for plain text and let the validators judge it
         used_schema = False
         try:
-            resp = _post(url, body)
+            resp = send(body)
         except Exception as e:
             return {"id": case["id"], "raw_text": "", "parsed": None, "parse_error": f"request failed: {e!r}", "constrained": False, "latency_s": round(time.time() - t0, 2)}
     dt = time.time() - t0
@@ -79,8 +113,11 @@ def generate_one(url: str, model: str, system_prompt: str, case: dict, max_token
     raw = ch["message"].get("content") or ""
     obj, err = parse_json(raw)
     u = resp.get("usage", {})
-    return {"id": case["id"], "raw_text": raw, "parsed": obj, "parse_error": err, "constrained": used_schema, "latency_s": round(dt, 2),
-            "prompt_tokens": u.get("prompt_tokens"), "completion_tokens": u.get("completion_tokens"), "finish_reason": ch.get("finish_reason")}
+    out = {"id": case["id"], "raw_text": raw, "parsed": obj, "parse_error": err, "constrained": used_schema, "latency_s": round(dt, 2),
+           "prompt_tokens": u.get("prompt_tokens"), "completion_tokens": u.get("completion_tokens"), "finish_reason": ch.get("finish_reason")}
+    if stream:
+        out["ttft_s"] = None if ttft is None else round(ttft, 3)
+    return out
 
 
 def generate_all(cases: list[dict], url: str, model: str, system_name: str, prompt_path: Path | None = None, workers: int = 1, max_tokens: int = 6000,
@@ -112,7 +149,8 @@ def generate_all(cases: list[dict], url: str, model: str, system_name: str, prom
         by_id = {r["id"]: r for r in rows}
         print(f"  measuring latency one call at a time on {len(sample)} evenly spaced calls ...", flush=True)
         for i, c in enumerate(sample, 1):
-            r = generate_one(url, model, system_prompt, c, max_tokens, constrained)
+            r = generate_one(url, model, system_prompt, c, max_tokens, constrained, stream=True)
             by_id[c["id"]]["latency_seq_s"] = r["latency_s"]
-            print(f"  [latency {i}/{len(sample)}] {c['id']}: {r['latency_s']}s, {r.get('completion_tokens')} tokens", flush=True)
+            by_id[c["id"]]["ttft_seq_s"] = r.get("ttft_s")
+            print(f"  [latency {i}/{len(sample)}] {c['id']}: first token {r.get('ttft_s')}s, total {r['latency_s']}s, {r.get('completion_tokens')} tokens", flush=True)
     return rows

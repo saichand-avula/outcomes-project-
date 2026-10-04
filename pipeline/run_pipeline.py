@@ -80,13 +80,18 @@ def stage_latency(a):
     by_id = {r["id"]: r for r in rows}
     sample = [c for c in cases[:: max(1, len(cases) // a.n)][: a.n] if c["id"] in by_id]
     print(f"timing {len(sample)} calls one at a time with model '{a.model}' ...")
+    G.generate_one(a.url, a.model, system_prompt, sample[0], a.max_tokens, not a.unconstrained)  # warm-up (not timed): the server compiles the JSON-schema grammar on first use
     for i, c in enumerate(sample, 1):
-        r = G.generate_one(a.url, a.model, system_prompt, c, a.max_tokens, not a.unconstrained)
+        r = G.generate_one(a.url, a.model, system_prompt, c, a.max_tokens, not a.unconstrained, stream=True)
         by_id[c["id"]]["latency_seq_s"] = r["latency_s"]
-        print(f"  [{i}/{len(sample)}] {c['id']}: {r['latency_s']}s, {r.get('completion_tokens')} tokens", flush=True)
+        by_id[c["id"]]["ttft_seq_s"] = r.get("ttft_s")
+        print(f"  [{i}/{len(sample)}] {c['id']}: first token {r.get('ttft_s')}s, total {r['latency_s']}s, {r.get('completion_tokens')} tokens", flush=True)
     write(path, rows)
     lat = sorted(r["latency_seq_s"] for r in rows if r.get("latency_seq_s") is not None)
-    print(f"  p50 {lat[len(lat) // 2]:.1f}s, p95 {lat[min(len(lat) - 1, int(0.95 * len(lat)))]:.1f}s over {len(lat)} calls -> {path}")
+    ttf = sorted(r["ttft_seq_s"] for r in rows if r.get("ttft_seq_s") is not None)
+    print(f"  total response time: p50 {lat[len(lat) // 2]:.1f}s, p95 {lat[min(len(lat) - 1, int(0.95 * len(lat)))]:.1f}s over {len(lat)} calls -> {path}")
+    if ttf:
+        print(f"  time to first token: p50 {ttf[len(ttf) // 2]:.2f}s, p95 {ttf[min(len(ttf) - 1, int(0.95 * len(ttf)))]:.2f}s")
 
 
 def stage_validate(a):
@@ -157,7 +162,7 @@ def stage_matrix(a):
     results = [load_system(n, cases, a.judge_file) for n in a.systems]
     tag = "_vs_".join(a.systems)
     md = MX.compare(results, a.threshold)
-    text = f"# Evaluation matrix: {' vs '.join(a.systems)}\n\nCases: {len(cases)}. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold reference, DJ both, O operational.\n\n{md}\n\n## Breakdown\n{MX.breakdown_md(results)}\n"
+    text = f"# Evaluation matrix: {' vs '.join(a.systems)}\n\nCases: {len(cases)}. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold reference, DJ both, O operational.\n\n{md}\n\n## Latency (seconds, calls timed one at a time)\n\n{MX.latency_md(results)}\n\n## Breakdown\n{MX.breakdown_md(results)}\n"
     OUT.mkdir(exist_ok=True)
     (OUT / f"matrix_{tag}.md").write_text(text)
     (OUT / f"matrix_{tag}.json").write_text(json.dumps(results, indent=1, default=str))

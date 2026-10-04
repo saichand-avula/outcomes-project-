@@ -2,7 +2,7 @@
 
 Oct 4, 2026
 
-> **Outcome (4 Oct 2026).** The design below was built and run. Fine-tuning improved safe-pass from 60% to 92% and critical-fact accuracy from 56.8% to 81.6%, but **neither reached the 95% target and p95 latency was 19.8 s against 15 s**. Sections marked **Outcome** record where reality differed from this plan; the full account, including everything that failed, is in [REPORT.md](REPORT.md). Not built from this design: the Not-Applicable gate before the model, the candidates table in the input, the targeted retry (§5.2); the demo UI in `app/` applies the rules, the quote repair and a review gate only.
+> **Outcome (4 Oct 2026).** The design below was built and run. Fine-tuning improved safe-pass from 60% to 92% and critical-fact accuracy from 56.8% to 81.6%, but **neither reached the 95% target and p95 latency was 19.1 s against 15 s**. Sections marked **Outcome** record where reality differed from this plan; the full account, including everything that failed, is in [REPORT.md](REPORT.md). Not built from this design: the Not-Applicable gate before the model, the candidates table in the input, the targeted retry (§5.2); the demo UI in `app/` applies the rules, the quote repair and a review gate only.
 
 ## 0. Summary
 
@@ -452,7 +452,9 @@ Every metric is also reported per category, per length bucket, and on a hard sub
 
 End-to-end = request received → validated and rendered response, including any retry.
 
-**Outcome (measured, 20 evenly spaced calls, one at a time).** Base model p50 28.1 s, p95 54.4 s (slowest 70.6 s). Fine-tuned (epoch 3): **p50 13.9 s, p95 19.8 s** (slowest 21.7 s), 13 of 20 calls under 15 s; decode speed about 62 tokens/s (73 for the base model, so the adapter costs about 14%); median output 894 tokens. **The 15 s p95 target is not met.** The estimate that follows was right about the range and wrong about the verdict.
+**Outcome: time to first token was measured at the end** with a streamed request (the `latency` stage): p50 0.17 s, p95 0.64 s for the fine-tuned model, the same as the base model's (0.16 s, 0.62 s). The matrix has a Latency table. The totals below were measured.
+
+**Outcome (measured, 20 evenly spaced calls, one at a time).** Base model p50 28.0 s, p95 69.9 s (slowest 70.4 s). Fine-tuned (epoch 3): **p50 14.0 s, p95 19.1 s** (slowest 20.8 s), 13 of 20 calls under 15 s; decode speed about 62 tokens/s (73 for the base model, so the adapter costs about 14%); median output 894 tokens. **The 15 s p95 target is not met.** The estimate that follows was right about the range and wrong about the verdict.
 
 Estimate for the L40S, written before measuring: 864 GB/s bandwidth and ~8.3 GB of weights read per token give ≈ 60–85 tok/s, so 1,000 output tokens ≈ 12–17 s. **p95 < 15 s is borderline.** Optimizations, applied in order and stopped once the target is met. Steps 1–5 keep the rendered format identical:
 

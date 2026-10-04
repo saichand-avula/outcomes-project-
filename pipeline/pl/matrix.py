@@ -161,7 +161,11 @@ def build(system: str, cases: list[dict], gens: list[dict], vals: list[dict], ju
     ops = {}
     if lat:
         pct = lambda p: lat[min(len(lat) - 1, int(math.ceil(p * len(lat))) - 1)]  # noqa: E731
-        ops = {"p50": pct(0.5), "p95": pct(0.95), "mean": sum(lat) / len(lat), "max": lat[-1]}
+        ops = {"p50": pct(0.5), "p95": pct(0.95), "mean": sum(lat) / len(lat), "max": lat[-1], "n": len(lat)}
+        tt = sorted(r["ttft_seq_s"] for r in gens if r.get("ttft_seq_s") is not None)  # only measured one call at a time with streaming (`latency` stage)
+        if tt:
+            tpct = lambda p: tt[min(len(tt) - 1, int(math.ceil(p * len(tt))) - 1)]  # noqa: E731
+            ops.update({"ttft_p50": tpct(0.5), "ttft_p95": tpct(0.95), "ttft_mean": sum(tt) / len(tt), "ttft_max": tt[-1], "ttft_n": len(tt)})
         row("O1", "O. Operational", "Latency p95 under 15 s (calls under 15 s)", "O", sum(1 for x in lat if x < 15), len(lat), "validated", f"p50 {ops['p50']:.1f}s, p95 {ops['p95']:.1f}s; {lat_note}")
     if gens:
         trunc = sum(1 for r in gens if r.get("finish_reason") == "length")
@@ -237,6 +241,17 @@ def compare(results: list[dict], threshold: float = 95.0) -> str:
     for r, i in zip(results, idx):
         got = [m for m in r["metrics"] if m["value"] is not None and m["value"] >= threshold]
         L.append(f"**{r['system']}: {len(got)} of {len([m for m in r['metrics'] if m['value'] is not None])} metrics reach ≥{threshold:.0f}%:** " + (", ".join(f"{m['id']} {m['name']} ({m['value']:.1f}%)" for m in got) or "none"))
+    return "\n".join(L)
+
+
+def latency_md(results: list[dict]) -> str:
+    """The two timings the assignment asks for, side by side: time to first token and total response time (seconds, calls timed one at a time)."""
+    rows = [("Time to first token, p50", "ttft_p50"), ("Time to first token, p95", "ttft_p95"), ("Total response time, p50", "p50"), ("Total response time, p95 (target < 15 s)", "p95"),
+            ("Total response time, slowest", "max")]
+    L = ["| seconds | " + " | ".join(r["system"] for r in results) + " |", "|---|" + "---|" * len(results)]
+    for label, key in rows:
+        L.append(f"| {label} | " + " | ".join("not measured" if r["ops"].get(key) is None else f"{r['ops'][key]:.2f}" for r in results) + " |")
+    L.append("| calls timed | " + " | ".join(str(r["ops"].get("ttft_n") or r["ops"].get("n") or "") for r in results) + " |")
     return "\n".join(L)
 
 
