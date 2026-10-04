@@ -6,141 +6,203 @@
 <title>Clinical Call Summarizer</title>
 <style>
   :root {
-    --bg: #f6f7f9; --panel: #ffffff; --ink: #1c2430; --muted: #5d6b7c; --line: #dfe4ea;
-    --accent: #1f6feb; --pass: #1a7f4b; --passbg: #e6f4ec; --warn: #9a6700; --warnbg: #fff4d6;
-    --err: #b42318; --errbg: #fde8e6; --info: #4b5565; --infobg: #eef1f5; --hl: #fff2a8;
+    --bg: #f5f6f8; --panel: #ffffff; --ink: #1b2430; --muted: #5b6878; --line: #dde2e9;
+    --accent: #1f6feb; --accentbg: #e8f0fe; --pass: #17794a; --passbg: #e4f3ea; --warn: #94640a; --warnbg: #fff3d4;
+    --err: #b3261e; --errbg: #fce8e6; --info: #485366; --infobg: #edf0f4; --hl: #fff0a0;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #11151a; --panel: #1a2027; --ink: #e6ebf1; --muted: #98a4b3; --line: #2a333d;
-      --accent: #5aa2ff; --pass: #5ed39a; --passbg: #12301f; --warn: #f0c04d; --warnbg: #352a0c;
-      --err: #ff8a7d; --errbg: #3a1714; --info: #aab4c2; --infobg: #232b34; --hl: #5b4b00;
+      --bg: #10141a; --panel: #19202a; --ink: #e5eaf0; --muted: #96a3b3; --line: #29323d;
+      --accent: #5aa2ff; --accentbg: #17263b; --pass: #5ed39a; --passbg: #11301f; --warn: #f0c04d; --warnbg: #352a0c;
+      --err: #ff8a7d; --errbg: #3a1714; --info: #aab4c2; --infobg: #222a34; --hl: #5b4b00;
     }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  header { padding: 18px 20px 10px; max-width: 1280px; margin: 0 auto; }
-  h1 { font-size: 21px; margin: 0 0 2px; }
+  header { padding: 18px 20px 8px; max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 2px; letter-spacing: -.01em; }
   header p { margin: 0; color: var(--muted); }
-  .badges { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .badge { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--infobg); color: var(--info); border: 1px solid var(--line); }
-  .badge.good { background: var(--passbg); color: var(--pass); border-color: transparent; }
-  nav { max-width: 1280px; margin: 8px auto 0; padding: 0 20px; display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
-  nav button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 9px 14px; font: inherit; color: var(--muted); cursor: pointer; }
+  .badges { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: var(--infobg); color: var(--info); border: 1px solid var(--line); }
+  .badge.good { background: var(--passbg); color: var(--pass); border-color: transparent; font-weight: 600; }
+  .badge.bad { background: var(--warnbg); color: var(--warn); border-color: transparent; }
+  nav { max-width: 1400px; margin: 8px auto 0; padding: 0 20px; display: flex; gap: 2px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+  nav button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 16px; font: inherit; color: var(--muted); cursor: pointer; white-space: nowrap; }
   nav button.on { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
-  main { max-width: 1280px; margin: 0 auto; padding: 16px 20px 60px; }
-  .grid { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 16px; align-items: start; }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
-  .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 10px; }
+  main { max-width: 1400px; margin: 0 auto; padding: 16px 20px 60px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .card h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; }
+  .card h3 { font-size: 15px; margin: 14px 0 6px; }
+  .exgrid { display: grid; grid-template-columns: 250px minmax(280px, 400px) 1fr; gap: 14px; align-items: start; }
+  .owngrid { display: grid; grid-template-columns: minmax(300px, 460px) 1fr; gap: 14px; align-items: start; }
+  @media (max-width: 1100px) { .exgrid { grid-template-columns: 230px 1fr; } .exgrid > :nth-child(2) { grid-column: 1 / -1; order: 3; } }
+  @media (max-width: 760px) { .exgrid, .owngrid { grid-template-columns: 1fr; } }
   label { display: block; font-size: 13px; color: var(--muted); margin: 8px 0 3px; }
-  select, textarea, input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; }
-  textarea { min-height: 150px; resize: vertical; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; }
+  select, textarea, input[type=text] { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
+  textarea { min-height: 260px; resize: vertical; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.45; }
   .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-  .row label { display: inline-flex; gap: 6px; align-items: center; margin: 6px 0; color: var(--ink); font-size: 14px; }
-  button.primary { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 9px 16px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 10px; }
-  button.primary:disabled { opacity: .55; cursor: wait; }
-  button.ghost { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; font: inherit; cursor: pointer; }
+  .row label { display: inline-flex; gap: 6px; align-items: center; margin: 4px 0; color: var(--ink); font-size: 14px; }
+  button.primary { background: var(--accent); color: #fff; border: 0; border-radius: 9px; padding: 10px 18px; font: inherit; font-weight: 600; cursor: pointer; }
+  button.primary:disabled { opacity: .5; cursor: not-allowed; }
+  button.ghost { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font: inherit; font-size: 13.5px; cursor: pointer; }
   .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
-  .banner { border-radius: 10px; padding: 11px 14px; margin-bottom: 12px; font-weight: 600; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .banner { border-radius: 11px; padding: 11px 14px; margin-bottom: 12px; font-weight: 600; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
   .banner small { font-weight: 400; }
   .banner.PASS { background: var(--passbg); color: var(--pass); }
   .banner.REVIEW { background: var(--warnbg); color: var(--warn); }
   .banner.FAILED { background: var(--errbg); color: var(--err); }
-  .tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
-  .tabs button { border: 1px solid var(--line); background: var(--bg); color: var(--muted); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tabs button { border: 1px solid var(--line); background: var(--bg); color: var(--muted); border-radius: 999px; padding: 4px 13px; font: inherit; font-size: 13px; cursor: pointer; }
   .tabs button.on { background: var(--accent); color: #fff; border-color: var(--accent); }
   pre.summary { white-space: pre-wrap; font: 13.5px/1.55 ui-monospace, Menlo, Consolas, monospace; margin: 0; }
   .turn { padding: 3px 8px; border-radius: 6px; font-size: 13px; }
-  .turn b { color: var(--muted); font-weight: 600; margin-right: 6px; }
+  .turn b { color: var(--muted); font-weight: 600; margin-right: 6px; font-size: 11.5px; }
   .turn.Nurse .who { color: var(--accent); }
   .turn.hl { background: var(--hl); }
   .turn .who { font-weight: 600; margin-right: 6px; }
-  #turns { max-height: 520px; overflow: auto; }
-  .bullet { border-left: 3px solid var(--line); padding: 4px 10px; margin: 8px 0; cursor: default; }
+  .turns { max-height: 560px; overflow: auto; }
+  .bullet { border-left: 3px solid var(--line); padding: 4px 10px; margin: 8px 0; }
   .bullet:hover { border-left-color: var(--accent); background: var(--infobg); }
   .bullet .meta { font-size: 12px; color: var(--muted); }
-  .bullet q { color: var(--ink); font-style: italic; }
-  .chip { display: inline-block; font-size: 11.5px; padding: 1px 7px; border-radius: 999px; background: var(--infobg); color: var(--info); margin: 2px 4px 0 0; }
+  .chip { display: inline-block; font-size: 11.5px; padding: 1px 8px; border-radius: 999px; background: var(--infobg); color: var(--info); margin: 2px 4px 0 0; }
   .finding { display: grid; grid-template-columns: 52px 62px 1fr; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
   .sev { font-size: 11.5px; font-weight: 700; border-radius: 5px; text-align: center; padding: 1px 0; height: 20px; }
   .sev.ERROR { background: var(--errbg); color: var(--err); } .sev.WARN { background: var(--warnbg); color: var(--warn); } .sev.INFO { background: var(--infobg); color: var(--info); }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
   th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
-  td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
-  .miss { color: var(--err); font-weight: 600; }
-  .ok { color: var(--pass); font-weight: 600; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 900px) { .two { grid-template-columns: 1fr; } }
-  .callout { background: var(--warnbg); color: var(--ink); border-left: 4px solid var(--warn); padding: 10px 14px; border-radius: 6px; margin: 10px 0; font-size: 14px; }
+  td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .ok { color: var(--pass); font-weight: 600; } .miss { color: var(--err); font-weight: 600; }
+  .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 1000px) { .cols3, .cols2 { grid-template-columns: 1fr; } }
+  .callout { background: var(--warnbg); border-left: 4px solid var(--warn); padding: 10px 14px; border-radius: 8px; margin: 10px 0; font-size: 14px; }
+  .callout.good { background: var(--passbg); border-left-color: var(--pass); }
   .err { color: var(--err); }
-  footer { color: var(--muted); font-size: 12.5px; max-width: 1280px; margin: 0 auto; padding: 0 20px 30px; }
+  /* example list */
+  #exlist { max-height: 700px; overflow: auto; margin-top: 8px; border-top: 1px solid var(--line); }
+  .case { display: flex; width: 100%; gap: 8px; align-items: center; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 7px 4px; font: inherit; font-size: 13px; color: var(--ink); cursor: pointer; text-align: left; }
+  .case:hover { background: var(--infobg); }
+  .case.on { background: var(--accentbg); font-weight: 600; }
+  .case .sub { color: var(--muted); font-size: 11.5px; font-weight: 400; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--line); }
+  .dot.PASS { background: var(--pass); } .dot.REVIEW { background: #e0a100; } .dot.FAILED { background: var(--err); }
+  /* results */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+  @media (max-width: 1000px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .stat .v { font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+  .stat .l { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .stat .t { font-size: 12.5px; margin-top: 6px; font-weight: 600; }
+  .bar { position: relative; height: 10px; background: var(--infobg); border-radius: 6px; min-width: 120px; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 6px; background: var(--accent); }
+  .bar i.pass { background: var(--pass); } .bar i.low { background: #d9822b; }
+  .bar u { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); opacity: .55; left: 95%; text-decoration: none; }
+  .grp { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  @media (max-width: 1000px) { .steps { grid-template-columns: 1fr; } }
+  .step { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); font-size: 13.5px; }
+  .step b { display: block; margin-bottom: 3px; }
+  footer { color: var(--muted); font-size: 12.5px; max-width: 1400px; margin: 0 auto; padding: 0 20px 30px; }
 </style>
 </head>
 <body>
 <header>
   <h1>Clinical Call Summarizer</h1>
-  <p>Nurse-line call transcript → structured clinical summary, checked by rules and a validated LLM judge.</p>
+  <p>Nurse-line call transcript → structured clinical summary, checked by 16 rules and a validated LLM judge.</p>
   <div class="badges" id="badges"></div>
 </header>
 <nav>
-  <button id="t-run" class="on">Summarize</button>
+  <button id="t-ex" class="on">Examples</button>
+  <button id="t-own">Try your own transcript</button>
   <button id="t-res">Results</button>
   <button id="t-how">How it works</button>
 </nav>
 <main>
-<section id="p-run">
-  <div class="grid">
+
+<!-- ===================== EXAMPLES: already computed, no model needed ===================== -->
+<section id="p-ex">
+  <div class="exgrid">
+    <div class="card">
+      <h2>1 · Pick an example</h2>
+      <div class="hint" style="margin:0 0 6px">100 validation calls the model never trained on. Their outputs were computed beforehand.</div>
+      <div class="hint" style="margin:8px 0 2px"><b>Worth a look</b> (known weaknesses, see the report):</div>
+      <div id="notable">
+        <button class="ghost" data-id="va-039" title="passes the rules, but the lisinopril the call discusses is left out">va-039 drug left out</button>
+        <button class="ghost" data-id="va-069" title="the zolpidem the caller asks about is left out">va-069 drug left out</button>
+        <button class="ghost" data-id="va-034" title="garbled drug name guessed instead of marked unclear">va-034 name guessed</button>
+        <button class="ghost" data-id="va-005" title="a long call that passes">va-005 long, passes</button>
+      </div>
+      <label for="exmodel">Show the output of</label>
+      <select id="exmodel"><option value="finetuned">Fine-tuned (epoch 3)</option><option value="base">Base model</option></select>
+      <label for="excat">Category</label>
+      <select id="excat"><option value="">All categories</option></select>
+      <div class="row"><label><input type="checkbox" id="exrev"> only calls that need review</label></div>
+      <div id="exlist"></div>
+      <div class="hint"><span class="dot PASS" style="display:inline-block"></span> pass &nbsp; <span class="dot REVIEW" style="display:inline-block"></span> needs nurse review &nbsp; <span class="dot FAILED" style="display:inline-block"></span> failed</div>
+    </div>
+    <div class="card">
+      <h2>2 · Transcript</h2>
+      <div id="exturns" class="turns"><span class="hint">Pick an example. In the Evidence view, hovering a bullet lights up the turns it cites.</span></div>
+    </div>
+    <div id="exres"><div class="card"><h2>3 · Result</h2><span class="hint">Loading…</span></div></div>
+  </div>
+</section>
+
+<!-- ===================== TRY YOUR OWN: live model ===================== -->
+<section id="p-own" hidden>
+  <div class="owngrid">
     <div>
       <div class="card">
-        <h2>1 · Choose a call</h2>
-        <label for="case">Validation call (100 hand-written calls the model never trained on)</label>
-        <select id="case"></select>
-        <div class="row">
-          <label><input type="radio" name="mode" value="replay" checked> Replay saved output</label>
-          <label><input type="radio" name="mode" value="live"> Live model</label>
+        <h2>1 · Paste a transcript</h2>
+        <div id="liveinfo" class="callout" hidden></div>
+        <label for="owntr">One turn per line: <code>Nurse -&gt; …</code> or <code>Caller -&gt; …</code></label>
+        <textarea id="owntr" spellcheck="false" placeholder="Nurse -> Thank you for calling. How can I help?&#10;Caller -> Hi, this is ..."></textarea>
+        <div class="row" style="margin-top:8px">
+          <div style="flex:1;min-width:180px"><label for="ownts" style="margin-top:0">Call time (UTC, optional)</label><input type="text" id="ownts" placeholder="2026-09-12T12:20:00Z"></div>
+          <div style="flex:1;min-width:180px"><label for="ownsample" style="margin-top:0">…or start from a sample</label><select id="ownsample"><option value="">choose a sample</option></select></div>
         </div>
-        <div id="srcrow" class="row">
-          <label><input type="radio" name="src" value="finetuned" checked> Fine-tuned (epoch 3)</label>
-          <label><input type="radio" name="src" value="base"> Base model</label>
-        </div>
-        <label for="ts">Call time (UTC, optional)</label>
-        <input type="text" id="ts" placeholder="2026-09-12T12:20:00Z">
-        <label for="tr">Transcript (<code>Nurse -&gt; …</code> / <code>Caller -&gt; …</code>, one turn per line)</label>
-        <textarea id="tr" spellcheck="false"></textarea>
-        <button class="primary" id="run">Summarize</button>
-        <div class="hint" id="modehint"></div>
+        <div class="row" style="margin-top:12px"><button class="primary" id="ownrun">Summarize with the live model</button><button class="ghost" id="ownclear">Clear</button></div>
+        <div class="hint">The transcript goes to the model server and nowhere else. Expect about 10 to 25 seconds. Use made-up or synthetic text only: this page has no login.</div>
       </div>
       <div class="card">
-        <h2>Transcript</h2>
-        <div id="turns"><span class="hint">Run a summary to see the numbered transcript. Hover a bullet in the Evidence tab to light up the turns it cites.</span></div>
+        <h2>Numbered transcript</h2>
+        <div id="ownturns" class="turns"><span class="hint">Appears after a summary is made.</span></div>
       </div>
     </div>
-    <div id="result">
-      <div class="card"><span class="hint">Pick a call and press <b>Summarize</b>. Replay mode needs no GPU: it shows what the models actually produced for that call.</span></div>
-    </div>
+    <div id="ownres"><div class="card"><h2>2 · Result</h2><span class="hint">The summary, the rule checks and the evidence appear here, separate from the input.</span></div></div>
   </div>
 </section>
 
+<!-- ===================== RESULTS ===================== -->
 <section id="p-res" hidden>
-  <div class="card">
-    <h2>Headline results on the 100 validation calls</h2>
-    <div id="headline">loading…</div>
-    <div class="callout"><b>Honest reading.</b> The target was 95%. The fine-tuned model is far better than the base model but does <b>not</b> reach 95% on the two pre-registered headline metrics
-      (G1 safe-pass 92%, H19 critical-fact accuracy 81.6%), and its latency (p50 14.0 s, p95 19.1 s on 20 timed calls, L40S) misses the 15 s p95 target. Details, failures and what we would change are in <code>REPORT.md</code>.
-      Validation is also the set used to pick the epoch, so these numbers are slightly optimistic.</div>
-  </div>
+  <div id="resbody"><div class="card"><span class="hint">Loading…</span></div></div>
 </section>
 
+<!-- ===================== HOW IT WORKS ===================== -->
 <section id="p-how" hidden>
   <div class="card">
-    <h2>Pipeline</h2>
-    <p><b>1. Model.</b> Gemma 4 12B (4-bit QAT) with a LoRA adapter reads the numbered transcript and writes one JSON object: identity, chief complaint, assessment / response / education bullets (each with the verbatim quote and turn numbers it relies on), typed facts and risk flags.</p>
-    <p><b>2. Rules (no model).</b> 16 deterministic validators check the JSON against the transcript: valid schema, quotes really in the cited turns, numbers / drugs / names spoken in the call, planned-vs-completed wording, negatives kept negative, hedges kept, Not-Applicable gate, risk flags. A near-miss quote is repaired automatically.</p>
-    <p><b>3. Render.</b> A deterministic renderer turns the JSON into the exact reference text format.</p>
-    <p><b>4. Judge (optional, live mode).</b> The <i>base</i> Gemma model, with frozen prompts, checks faithfulness, completeness and calibration. <b>The judge was validated before it was used.</b> We hand-edited 90 summaries with known defects (50 used to tune the prompts, then 40 fresh ones run once with the prompts frozen). Faithfulness: kappa 0.90 on the tuning set and 1.00 on the fresh set (10 of 10 edits caught, 0 of 30 clean summaries flagged; small sample). Completeness: kappa 0.61 on the fresh set; reliable for missing nurse actions and instructions, weak for missing findings. Calibration: kappa 0.55; reliable for planned-vs-completed only. Details: <code>llm_judge/README.md</code>.</p>
-    <p><b>5. Routing.</b> A summary with a rule error that survives repair, or invalid JSON, is marked <b>REVIEW</b> or <b>FAILED</b> for a nurse instead of being presented as final. No automatic summary should be trusted without that gate.</p>
+    <h2>The pipeline</h2>
+    <div class="steps">
+      <div class="step"><b>1 · Model</b>Gemma 4 12B (4-bit) with a LoRA adapter reads the numbered transcript and writes one JSON object: identity, chief complaint, assessment / response / education bullets, each with a verbatim quote and cited turns, typed facts, risk flags.</div>
+      <div class="step"><b>2 · Rules</b>16 deterministic checks against the transcript: quotes really in the cited turns, numbers, drugs and names spoken, planned vs completed, negatives, hedges, Not-Applicable gate, risk flags. Near-miss quotes are repaired.</div>
+      <div class="step"><b>3 · Render</b>A deterministic renderer turns the JSON into the exact reference text.</div>
+      <div class="step"><b>4 · Judge</b>The base model with frozen prompts checks faithfulness, completeness and calibration (live mode, optional).</div>
+      <div class="step"><b>5 · Gate</b>A rule error that survives repair, or invalid JSON, becomes <b style="display:inline">NEEDS REVIEW</b> or <b style="display:inline">FAILED</b> for a nurse, never a final summary.</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>The LLM judge was validated before it was used</h2>
+    <p>We hand-edited 90 summaries with known defects (a wrong number, a swapped drug, an invented finding, a flipped negative, a removed item, planned → completed, a swapped speaker, a removed hedge). 50 were used to tune the judge prompts; the prompts were then <b>frozen</b> and run once on 40 fresh ones.</p>
+    <table><tr><th>Check</th><th>Result on the fresh set</th><th>Trusted for</th></tr>
+      <tr><td>Faithfulness</td><td>kappa 1.00: 10 of 10 edits caught, 0 of 30 clean summaries flagged (small sample)</td><td class="ok">yes</td></tr>
+      <tr><td>Completeness</td><td>kappa 0.61</td><td>missing nurse actions and instructions; <b>not</b> missing findings</td></tr>
+      <tr><td>Calibration</td><td>kappa 0.55</td><td>planned vs completed only</td></tr></table>
+    <div class="hint">Details: <code>llm_judge/README.md</code>. The judge is the same model family as the summarizer, so it is not an independent referee.</div>
+  </div>
+  <div class="card">
+    <h2>What the PASS / REVIEW / FAILED banner means</h2>
+    <p><b>PASS</b>: no rule error survives the automatic quote repair. <b>It is not a correctness guarantee.</b> The rules cannot see a missing drug or dose: in the examples, <code>va-039</code> passes although the lisinopril the call discusses is left out. <b>NEEDS REVIEW</b>: a rule error remains. <b>FAILED</b>: the output is not valid JSON. Every summary still needs a nurse.</p>
   </div>
 </section>
 </main>
@@ -149,7 +211,7 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-let CFG = null, LAST = null;
+let CFG = null, CASES = [];
 
 async function api(path, body) {
   const r = await fetch(path.replace(/^\//, ""), body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
@@ -158,134 +220,219 @@ async function api(path, body) {
   return j;
 }
 
+/* ---------- navigation ---------- */
+const TABS = ["ex", "own", "res", "how"];
 function tab(name) {
-  for (const k of ["run", "res", "how"]) { $("p-" + k).hidden = k !== name; $("t-" + k).classList.toggle("on", k === name); }
+  for (const k of TABS) { $("p-" + k).hidden = k !== name; $("t-" + k).classList.toggle("on", k === name); }
+  if (name === "own") refreshLive();
+  if (name === "res" && !tab.resLoaded) { tab.resLoaded = true; renderResults(); }
 }
-$("t-run").onclick = () => tab("run"); $("t-res").onclick = () => tab("res"); $("t-how").onclick = () => tab("how");
+TABS.forEach((k) => ($("t-" + k).onclick = () => tab(k)));
 
-function mode() { return document.querySelector("input[name=mode]:checked").value; }
-function src() { return document.querySelector("input[name=src]:checked").value; }
-function syncMode() {
-  $("srcrow").style.display = mode() === "replay" ? "flex" : "none";
-  $("modehint").textContent = mode() === "replay"
-    ? "Replay shows the saved output for that validation call, checked by the same rules. No GPU needed. Editing the transcript has no effect in replay mode."
-    : (CFG && CFG.live_available ? `Live: sends the transcript to model '${CFG.model}' at ${CFG.llm_url}. Any pasted transcript works; expect 10–30 s.`
-       : `Live mode needs a model server at ${CFG ? CFG.llm_url : ""} (see app/README.md). Not reachable right now.`);
+/* ---------- the result component: one function, used by both Examples and Try-your-own ---------- */
+function makeViewer(root, turnsEl) {
+  let r = null, ctx = {}, current = "summary";
+  function turns(hl) {
+    const set = new Set(hl || []);
+    turnsEl.innerHTML = (r.numbered_transcript || []).map((t) =>
+      `<div class="turn ${t.speaker}${set.has(t.id) ? " hl" : ""}" id="${turnsEl.id}-${t.id}"><b>T${t.id}</b><span class="who">${esc(t.speaker)}</span>${esc(t.text)}</div>`).join("");
+    if (set.size) { const el = $(turnsEl.id + "-" + Math.min(...set)); if (el) el.scrollIntoView({ block: "nearest" }); }
+  }
+  function findings(list) {
+    if (!list.length) return `<div class="hint">No findings.</div>`;
+    const order = { ERROR: 0, WARN: 1, INFO: 2 };
+    return [...list].sort((a, b) => order[a.severity] - order[b.severity]).map((f) =>
+      `<div class="finding"><div class="sev ${f.severity}">${f.severity}</div><div><b>${esc(f.rule)}</b></div><div>${esc(f.message)}<div class="hint">${esc(f.path)}</div></div></div>`).join("");
+  }
+  const banner = (x) => `<div class="banner ${x.status}">${x.status === "PASS" ? "✓ PASS" : x.status === "REVIEW" ? "⚠ NEEDS NURSE REVIEW" : "✕ FAILED"}<small>${esc(x.why)}</small></div>`;
+  function show(res, context, which) {
+    r = res; ctx = context || {}; current = which || "summary";
+    const tabs = [["summary", "Summary"], ["evidence", "Evidence"], ["checks", "Rule checks"]];
+    if (ctx.compare) tabs.push(["compare", "Base vs fine-tuned vs gold"]); else if (r.gold_rendered) tabs.push(["gold", "Compare with gold"]);
+    tabs.push(["judge", "Judge"]);
+    let body = "";
+    if (current === "summary") {
+      body = r.rendered ? `<pre class="summary">${esc(r.rendered)}</pre>` : `<div class="err">No summary could be rendered: ${esc(r.why)}.</div>`;
+      if (r.risk_flags && r.risk_flags.length) body += `<h3>Risk flags for the nurse</h3>` + r.risk_flags.map((f) => `<div class="bullet"><b>${esc(f.category)}</b> <span class="meta">turns ${esc((f.turns || []).join(", "))}</span><br><i>“${esc(f.quote)}”</i></div>`).join("");
+    } else if (current === "evidence") {
+      const cc = r.chief_complaint;
+      const all = [].concat(cc ? [{ section: "chief complaint", text: cc.reason, speaker: cc.speaker, turns: cc.turns, quote: cc.quote, facts: [] }] : [], r.bullets);
+      body = `<div class="hint" style="margin:0 0 6px">Every bullet shows the exact words it rests on. Hover one to see its turns in the transcript.</div>` +
+        (all.map((b, i) => `<div class="bullet" data-i="${i}"><b>${esc(b.section)}</b> · ${esc(b.text)}<div class="meta">${esc(b.speaker)} · turns ${esc((b.turns || []).join(", "))}</div><i>“${esc(b.quote)}”</i><div>${(b.facts || []).map((f) => `<span class="chip">${esc(f.type)}${f.name ? ": " + esc(f.name) : ""}${f.dose ? " " + esc(f.dose) + " " + esc(f.unit || "") : ""}${f.action_type ? ": " + esc(f.action_type) + "/" + esc(f.status) : ""}${f.education_type ? ": " + esc(f.education_type) : ""}</span>`).join("")}</div></div>`).join("") || `<div class="hint">No bullets.</div>`);
+    } else if (current === "checks") {
+      const c = r.counts;
+      body = `<p class="hint" style="margin-top:0">Raw output: ${c.raw_errors} error(s), ${c.raw_warnings} warning(s). After automatic quote repair (${c.quotes_repaired} quote(s) replaced by the exact span): ${c.errors_after_repair} error(s), ${c.warnings_after_repair} warning(s).</p><h3 style="margin-top:6px">Rule findings on the raw output</h3>${findings(r.findings_raw)}`;
+    } else if (current === "gold") {
+      body = `<div class="cols2"><div><h3 style="margin-top:0">Model</h3><pre class="summary">${esc(r.rendered || "(not renderable)")}</pre></div><div><h3 style="margin-top:0">Hand-written gold</h3><pre class="summary">${esc(r.gold_rendered)}</pre></div></div>`;
+    } else if (current === "compare") {
+      const o = ctx.compare;
+      const col = (title, x) => `<div><h3 style="margin-top:0">${title}</h3>${x.status ? banner(x) : ""}<pre class="summary">${esc(x.rendered || "(not renderable)")}</pre></div>`;
+      body = `<div class="cols3">${col("Base model", o.base)}${col("Fine-tuned (epoch 3)", o.finetuned)}<div><h3 style="margin-top:0">Hand-written gold</h3><pre class="summary">${esc(o.finetuned.gold_rendered)}</pre></div></div>`;
+    } else {
+      const can = CFG && CFG.live_available;
+      body = `<p class="hint" style="margin-top:0">The judge is the base model with frozen prompts. ${ctx.case_id ? "This call has a reference checklist, the mode validated for missing nurse actions and instructions." : "There is no reference checklist for a pasted transcript: the model writes its own, and that completeness check is <b>not validated</b>."} It needs a live model server${can ? "" : " (not connected right now)"}.</p><button class="ghost" id="${root.id}-jbtn" ${can ? "" : "disabled"}>Run judge (about a minute)</button><div id="${root.id}-jout"></div>`;
+    }
+    const meta = [r.source, r.run && r.run.ttft_s != null ? `first token ${r.run.ttft_s} s` : "", r.run && r.run.latency_s ? `total ${r.run.latency_s} s` : "", r.run && r.run.completion_tokens ? `${r.run.completion_tokens} tokens` : "", r.category || ""].filter(Boolean).join(" · ");
+    root.innerHTML = `<div class="card"><h2>${esc(ctx.title || "Result")}</h2>${banner(r)}<div class="hint" style="margin:0 0 10px">${esc(meta)}</div>
+      <div class="tabs">${tabs.map(([k, n]) => `<button data-t="${k}" class="${k === current ? "on" : ""}">${n}</button>`).join("")}</div>${body}</div>`;
+    root.querySelectorAll(".tabs button").forEach((b) => (b.onclick = () => show(r, ctx, b.dataset.t)));
+    turns([]);
+    if (current === "evidence") {
+      const cc = r.chief_complaint, all = [].concat(cc ? [{ turns: cc.turns }] : [], r.bullets);
+      root.querySelectorAll(".bullet[data-i]").forEach((el) => { el.onmouseenter = () => turns(all[+el.dataset.i].turns); el.onmouseleave = () => turns([]); });
+    }
+    if (current === "judge" && $(root.id + "-jbtn")) $(root.id + "-jbtn").onclick = () => runJudge(root);
+  }
+  async function runJudge(rootEl) {
+    const btn = $(rootEl.id + "-jbtn"), out = $(rootEl.id + "-jout");
+    btn.disabled = true; out.innerHTML = `<span class="hint">Judging…</span>`;
+    try {
+      const j = await api("/api/judge", { transcript: ctx.transcript, summary: r.parsed, case_id: ctx.case_id, call_timestamp_utc: r.call_timestamp_utc });
+      const rows = Object.entries(j.verdicts || {}).map(([k, v]) => `<tr><td><b>${k}</b></td><td class="${v && v.verdict === "PASS" ? "ok" : "miss"}">${v ? v.verdict : "no verdict"}</td><td>${esc(v ? v.reason : "")}<div class="hint">${esc(j.notes[k] || "")}</div></td></tr>`).join("");
+      out.innerHTML = `<table><tr><th>Check</th><th>Verdict</th><th>Reason</th></tr>${rows}</table>`;
+    } catch (e) { out.innerHTML = `<span class="err">${esc(e.message)}</span>`; }
+    btn.disabled = false;
+  }
+  return { show, empty: (html) => { root.innerHTML = `<div class="card">${html}</div>`; turnsEl.innerHTML = ""; }, current: () => current, last: () => r };
 }
-document.querySelectorAll("input[name=mode]").forEach((e) => (e.onchange = syncMode));
 
+/* ---------- Examples tab ---------- */
+const exView = makeViewer($("exres"), $("exturns"));
+let exSelected = null;
+
+function renderList() {
+  const model = $("exmodel").value, cat = $("excat").value, onlyRev = $("exrev").checked;
+  const items = CASES.filter((c) => (!cat || c.category === cat) && (!onlyRev || (c.status[model] && c.status[model] !== "PASS")));
+  $("exlist").innerHTML = items.map((c) => `<button class="case${c.id === exSelected ? " on" : ""}" data-id="${esc(c.id)}"><span class="dot ${c.status[model] || ""}"></span><span>${esc(c.id)}<br><span class="sub">${esc(c.category)} · ${esc(c.length)}</span></span></button>`).join("") || `<div class="hint" style="padding:8px">No calls match.</div>`;
+  $("exlist").querySelectorAll(".case").forEach((b) => (b.onclick = () => pickExample(b.dataset.id)));
+}
+
+async function pickExample(id, view) {
+  exSelected = id; renderList();
+  exView.empty(`<h2>3 · Result</h2><span class="hint">Checking the saved output…</span>`);
+  try {
+    const cs = await api("/api/case?id=" + encodeURIComponent(id));
+    const model = $("exmodel").value;
+    const body = (source) => ({ mode: "replay", source, transcript: cs.transcript, call_timestamp_utc: cs.call_timestamp_utc, case_id: id });
+    const [ft, base] = await Promise.all([api("/api/summarize", body("finetuned")), api("/api/summarize", body("base"))]);
+    exView.show(model === "finetuned" ? ft : base, { title: "3 · Result", transcript: cs.transcript, case_id: id, compare: { base, finetuned: ft } }, view);
+  } catch (e) { exView.empty(`<span class="err">${esc(e.message)}</span>`); }
+}
+$("exmodel").onchange = () => { renderList(); if (exSelected) pickExample(exSelected, exView.current()); };
+document.querySelectorAll("#notable button").forEach((b) => (b.style.margin = "3px 4px 0 0", b.onclick = () => pickExample(b.dataset.id)));
+$("excat").onchange = renderList; $("exrev").onchange = renderList;
+
+/* ---------- Try your own tab ---------- */
+const ownView = makeViewer($("ownres"), $("ownturns"));
+async function refreshLive() {
+  try { CFG = await api("/api/config"); } catch (e) { /* keep old */ }
+  const box = $("liveinfo");
+  if (CFG.live_available) { box.hidden = true; $("ownrun").disabled = false; }
+  else {
+    box.hidden = false; box.innerHTML = `<b>No live model is connected.</b> This tab needs a model server at <code>${esc(CFG.llm_url)}</code> (see <code>app/README.md</code>). The <b>Examples</b> tab works without one.`;
+    $("ownrun").disabled = true;
+  }
+}
+$("ownsample").onchange = async () => {
+  if (!$("ownsample").value) return;
+  const c = await api("/api/case?id=" + encodeURIComponent($("ownsample").value));
+  $("owntr").value = c.transcript; $("ownts").value = c.call_timestamp_utc || "";
+};
+$("ownclear").onclick = () => { $("owntr").value = ""; $("ownts").value = ""; $("ownsample").value = ""; ownView.empty(`<h2>2 · Result</h2><span class="hint">The summary, the rule checks and the evidence appear here.</span>`); };
+$("ownrun").onclick = async () => {
+  const transcript = $("owntr").value;
+  if (!transcript.trim()) { ownView.empty(`<span class="err">Paste a transcript first.</span>`); return; }
+  $("ownrun").disabled = true; $("ownrun").textContent = "Working…";
+  ownView.empty(`<h2>2 · Result</h2><span class="hint">Waiting for the model (10 to 25 s)…</span>`);
+  try {
+    const same = CASES.find((c) => c.id === $("ownsample").value);
+    let caseId;  // keep the case id (gold comparison, reference checklist) only while the sample is unedited
+    if (same) { const cs = await api("/api/case?id=" + encodeURIComponent(same.id)); if (cs.transcript.trim() === transcript.trim()) caseId = same.id; }
+    const res = await api("/api/summarize", { mode: "live", transcript, call_timestamp_utc: $("ownts").value || undefined, case_id: caseId });
+    ownView.show(res, { title: "2 · Result", transcript, case_id: caseId });
+  } catch (e) { ownView.empty(`<span class="err"><b>Error:</b> ${esc(e.message)}</span>`); }
+  $("ownrun").disabled = false; $("ownrun").textContent = "Summarize with the live model";
+};
+
+/* ---------- Results tab ---------- */
+const pct = (m) => (m && m.value != null ? m.value.toFixed(1) + "%" : "n/a");
+function bar(m) {
+  if (!m || m.value == null) return "";
+  return `<div class="bar" title="lower 95% bound ${m.ci_low != null ? m.ci_low.toFixed(0) + "%" : "n/a"}"><i class="${m.value >= 95 ? "pass" : m.value < 80 ? "low" : ""}" style="width:${Math.max(1, m.value)}%"></i><u></u></div>`;
+}
+const mark = (m) => (!m || m.value == null ? "" : m.value >= 95 ? `<span class="ok">✓ ≥ 95%</span>` : `<span class="miss">✗ below 95%</span>`);
+const sec = (x, d = 1) => (x == null ? "n/a" : x.toFixed(d) + " s");
+
+async function renderResults() {
+  let R;
+  try { R = await api("/api/results"); } catch (e) { $("resbody").innerHTML = `<div class="card err">${esc(e.message)}</div>`; return; }
+  const S = R.systems, base = S[R.base], ft = S[R.final];
+  if (!base || !ft) { $("resbody").innerHTML = `<div class="card">No matrix files found in pipeline/outputs.</div>`; return; }
+  const b = base.metrics, f = ft.metrics;
+  const stat = (v, l, t, bad) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div><div class="t ${bad ? "miss" : "ok"}">${t}</div></div>`;
+  const stats = `<div class="stats">
+    ${stat(pct(f.G1), "Safe-pass (no rule error, judged faithful)", `base ${pct(b.G1)} · target 95% ✗`, true)}
+    ${stat(pct(f.H19), "Critical-fact accuracy vs gold", `base ${pct(b.H19)} · target 95% ✗`, true)}
+    ${stat(pct(f.H4), "Medication name + dose + unit", `base ${pct(b.H4)} · got worse ✗`, true)}
+    ${stat(sec(ft.ops.p95), "p95 total response time", `base ${sec(base.ops.p95)} · target 15 s ✗`, true)}</div>`;
+
+  const A = [["Factual accuracy", "F1", "Judged faithful: nothing wrong or invented (judge validated)"], ["Factual accuracy", "H19", "Critical-Fact Accuracy against the hand-written gold"],
+    ["Completeness", "F2", "Checklist items covered (judge)"], ["Completeness", "F3", "Calls where every item is covered (judge)"], ["Completeness", "H19r", "Gold critical facts found"],
+    ["Identity accuracy", "H1", "Identity values correct (5 fields)"], ["Identity accuracy", "H2", "Values and certainty correct"],
+    ["Medication name accuracy", "H3", "Gold medications found by name (75)"], ["Medication name and dose accuracy", "H4", "Found with the right dose and unit (75)"]];
+  let lastG = "";
+  const arows = A.map(([g, id, name]) => {
+    const head = g !== lastG ? `<div class="grp">${g}</div>` : ""; lastG = g;
+    return `<tr><td>${head}<b>${id}</b> · ${esc(name)}</td><td class="num">${pct(b[id])}</td><td class="num"><b>${pct(f[id])}</b><div class="hint" style="margin:0">≥ ${f[id].ci_low != null ? f[id].ci_low.toFixed(0) : "?"}% (95% bound)</div></td><td style="width:20%">${bar(f[id])}</td><td>${mark(f[id])}</td></tr>`;
+  }).join("");
+  const lrows = [["Time to first token, p50", "ttft_p50", ""], ["Time to first token, p95", "ttft_p95", ""], ["Total response time, p50", "p50", ""], ["Total response time, p95", "p95", "target under 15 s ✗"], ["Total response time, slowest", "max", ""]]
+    .map(([n, k, t]) => `<tr><td>${n}</td><td class="num">${sec(base.ops[k], 2)}</td><td class="num"><b>${sec(ft.ops[k], 2)}</b></td><td class="miss">${t}</td></tr>`).join("");
+
+  const eps = ["finetuned_epoch1_s2", "finetuned_epoch2_s2", "finetuned_epoch3_s2"].filter((k) => S[k]);
+  const E = [["G1", "Safe-pass G1"], ["G1r", "Safe-pass after quote repair"], ["H19", "Critical-fact accuracy"], ["F1", "Judged faithful"], ["F3", "Every checklist item covered"], ["H3", "Medications found (name)"], ["H4", "Medications with dose and unit"], ["H12", "Gold risk flags found"], ["A1", "Valid JSON"]];
+  const erows = E.map(([id, n]) => `<tr><td>${n} <span class="hint">${id}</span></td><td class="num">${pct(b[id])}</td>${eps.map((k) => `<td class="num${k === R.final ? " ok" : ""}">${pct(S[k].metrics[id])}</td>`).join("")}</tr>`).join("") +
+    `<tr><td>Total response time p50 / p95</td><td class="num">${sec(base.ops.p50)} / ${sec(base.ops.p95)}</td>${eps.map((k) => `<td class="num">${S[k].ops.p50 != null ? sec(S[k].ops.p50) + " / " + sec(S[k].ops.p95) : "not timed"}</td>`).join("")}</tr>`;
+
+  const M = R.medications, mk = Object.keys(M);
+  const mcols = [["gold_meds", "Gold medications"], ["ok", "Right with dose and unit"], ["not_found", "Not found by name"], ["dose_missing", "Dose missing in the typed fact"], ["dose_wrong", "Different dose"], ["extra_model_meds", "Medications not in the gold"]];
+  const mrows = mcols.map(([k, n]) => `<tr><td>${n}</td>${mk.map((s) => `<td class="num">${M[s][k] ?? 0}</td>`).join("")}</tr>`).join("");
+
+  $("resbody").innerHTML = `${stats}
+  <div class="callout"><b>Honest reading.</b> Fine-tuning clearly helps (safe-pass 60% → 92%, critical-fact accuracy 56.8% → 81.6%, response time halved), but the 95% target and the 15 s latency target are <b>not reached</b>, and <b>medication accuracy got worse</b> than the base model's. 100 validation calls, so the 95% bounds are wide; validation is also the set used to pick the epoch, so the numbers are slightly optimistic. Full account: <code>REPORT.md</code>.</div>
+  <div class="card"><h2>The metrics the assignment asks for</h2>
+    <table><tr><th>Metric</th><th class="num">Base</th><th class="num">Fine-tuned (epoch 3)</th><th>vs 95% (line marks 95%)</th><th></th></tr>${arows}</table>
+    <h3>Time to first token and total response time (20 calls, one at a time, L40S)</h3>
+    <table><tr><th>Seconds</th><th class="num">Base</th><th class="num">Fine-tuned (epoch 3)</th><th></th></tr>${lrows}</table></div>
+  <div class="cols2">
+    <div class="card"><h2>Why epoch 3</h2><table><tr><th>Metric</th><th class="num">Base</th>${eps.map((k) => `<th class="num">Epoch ${k.match(/epoch(\d)/)[1]}</th>`).join("")}</tr>${erows}</table>
+      <div class="hint">Epoch 1 is clearly weakest (3 of its 100 answers ran into the token limit). Epochs 2 and 3 are close; epoch 3 is better on completeness and nurse actions.</div></div>
+    <div class="card"><h2>Medications: what went wrong</h2><table><tr><th></th>${mk.map((s) => `<th class="num">${s.replace("finetuned_epoch", "Epoch ").replace("_s2", "").replace("base_v4", "Base")}</th>`).join("")}</tr>${mrows}</table>
+      <div class="hint">Of the 19 slots epoch 3 loses, 5 are real losses (3 drugs left out of the summary, 1 dose dropped, 1 garbled name guessed); 14 are in the text or a matter of convention. Even counting only the 5, accuracy is 70 of 75 = 93.3%. See <code>REPORT.md</code> §8.1 and <code>pipeline/outputs/med_errors.md</code>.</div></div>
+  </div>`;
+}
+
+/* ---------- start ---------- */
 async function init() {
   CFG = await api("/api/config");
-  const cases = await api("/api/cases");
-  $("case").innerHTML = cases.map((c) => `<option value="${esc(c.id)}">${esc(c.id)} · ${esc(c.category)} · ${esc(c.length)}</option>`).join("");
-  $("case").onchange = loadCase;
+  const load = async () => { CASES = await api("/api/cases"); renderList(); };
+  CASES = await api("/api/cases");
+  $("excat").innerHTML += [...new Set(CASES.map((c) => c.category))].sort().map((c) => `<option>${esc(c)}</option>`).join("");
+  $("ownsample").innerHTML += CASES.map((c) => `<option value="${esc(c.id)}">${esc(c.id)} · ${esc(c.category)} · ${esc(c.length)}</option>`).join("");
   $("badges").innerHTML = [
     `<span class="badge good">LLM judge validated on 90 hand-edited items</span>`,
     `<span class="badge">16 rule validators</span>`,
-    `<span class="badge">${CFG.live_available ? "live model: connected" : "live model: not connected (replay works)"}</span>`,
-    `<span class="badge">target 95% not reached on the headline metrics</span>`,
+    `<span class="badge ${CFG.live_available ? "good" : ""}">${CFG.live_available ? "live model connected" : "live model not connected (examples work)"}</span>`,
+    `<span class="badge bad">95% and 15 s targets not reached</span>`,
   ].join("");
-  syncMode();
-  await loadCase();
-  renderHeadline();
-  const q = new URLSearchParams(location.search);  // shortcuts for demos: ?case=va-005&run=1&view=checks, ?tab=res
-  if (q.get("case")) { $("case").value = q.get("case"); await loadCase(); }
+  renderList();
+  if (!CASES.every((c) => c.status.finetuned)) {  // the example statuses are computed in the background after start-up
+    const poll = setInterval(async () => { const s = await api("/api/status_ready"); if (s.ready) { clearInterval(poll); await load(); } }, 3000);
+  }
+  const q = new URLSearchParams(location.search);  // demo shortcuts: ?tab=res  ?case=va-039&view=compare
+  const first = q.get("case") || "va-039";
   if (q.get("tab")) tab(q.get("tab"));
-  if (q.get("run")) { await run(); if (q.get("view")) show(q.get("view")); }
+  await pickExample(first, q.get("view") || undefined);
 }
-
-async function loadCase() {
-  const c = await api("/api/case?id=" + encodeURIComponent($("case").value));
-  $("tr").value = c.transcript; $("ts").value = c.call_timestamp_utc || "";
-}
-
-async function run() {
-  $("run").disabled = true; $("run").textContent = "Working…";
-  $("result").innerHTML = `<div class="card"><span class="hint">${mode() === "live" ? "Waiting for the model (10–30 s)…" : "Checking saved output…"}</span></div>`;
-  try {
-    const sel = await api("/api/case?id=" + encodeURIComponent($("case").value));
-    const same = $("tr").value.trim() === sel.transcript.trim();  // keep the case id (gold comparison, saved output) only while the transcript is unchanged
-    const body = { mode: mode(), source: src(), transcript: $("tr").value, call_timestamp_utc: $("ts").value || undefined,
-                   case_id: mode() === "replay" || same ? $("case").value : undefined };
-    LAST = await api("/api/summarize", body); LAST.__transcript = body.transcript; LAST.__case = body.case_id;
-    show();
-  } catch (e) {
-    $("result").innerHTML = `<div class="card err"><b>Error:</b> ${esc(e.message)}</div>`;
-  } finally { $("run").disabled = false; $("run").textContent = "Summarize"; }
-}
-$("run").onclick = run;
-
-function turnsHtml(hl) {
-  const set = new Set(hl || []);
-  $("turns").innerHTML = (LAST.numbered_transcript || []).map((t) =>
-    `<div class="turn ${t.speaker}${set.has(t.id) ? " hl" : ""}" id="turn-${t.id}"><b>T${t.id}</b><span class="who">${esc(t.speaker)}</span>${esc(t.text)}</div>`).join("");
-  if (set.size) { const el = $("turn-" + Math.min(...set)); if (el) el.scrollIntoView({ block: "nearest" }); }
-}
-
-function findings(list) {
-  if (!list.length) return `<div class="hint">No findings.</div>`;
-  const order = { ERROR: 0, WARN: 1, INFO: 2 };
-  return [...list].sort((a, b) => order[a.severity] - order[b.severity]).map((f) =>
-    `<div class="finding"><div class="sev ${f.severity}">${f.severity}</div><div><b>${esc(f.rule)}</b></div><div>${esc(f.message)}<div class="hint">${esc(f.path)}</div></div></div>`).join("");
-}
-
-function show(which) {
-  const r = LAST, c = r.counts, tabName = which || "summary";
-  const tabs = [["summary", "Summary"], ["evidence", "Evidence"], ["checks", "Checks"], ["gold", "Compare with gold"], ["judge", "Judge"]].filter(([k]) => k !== "gold" || r.gold_rendered);
-  let body = "";
-  if (tabName === "summary") {
-    body = r.rendered ? `<pre class="summary">${esc(r.rendered)}</pre>` : `<div class="err">No summary could be rendered: ${esc(r.why)}.</div>`;
-    if (r.risk_flags && r.risk_flags.length) body += `<h2 style="margin-top:14px">Risk flags</h2>` + r.risk_flags.map((f) => `<div class="bullet"><b>${esc(f.category)}</b> <span class="meta">turns ${esc((f.turns || []).join(", "))}</span><br><q>${esc(f.quote)}</q></div>`).join("");
-  } else if (tabName === "evidence") {
-    const cc = r.chief_complaint;
-    const all = [].concat(cc ? [{ section: "chief complaint", text: cc.reason, speaker: cc.speaker, turns: cc.turns, quote: cc.quote, facts: [] }] : [], r.bullets);
-    body = all.map((b, i) => `<div class="bullet" data-i="${i}"><b>${esc(b.section)}</b> · ${esc(b.text)}<div class="meta">${esc(b.speaker)} · turns ${esc((b.turns || []).join(", "))}</div><q>${esc(b.quote)}</q><div>${(b.facts || []).map((f) => `<span class="chip">${esc(f.type)}${f.name ? ": " + esc(f.name) : ""}${f.action_type ? ": " + esc(f.action_type) + "/" + esc(f.status) : ""}${f.education_type ? ": " + esc(f.education_type) : ""}</span>`).join("")}</div></div>`).join("") || `<div class="hint">No bullets.</div>`;
-  } else if (tabName === "checks") {
-    body = `<p class="hint">Raw output: ${c.raw_errors} error(s), ${c.raw_warnings} warning(s). After automatic quote repair (${c.quotes_repaired} quote(s) replaced by the exact span): ${c.errors_after_repair} error(s), ${c.warnings_after_repair} warning(s).</p>
-      <h2>Rule findings on the raw output</h2>${findings(r.findings_raw)}`;
-  } else if (tabName === "gold") {
-    body = `<div class="two"><div><h2>Model</h2><pre class="summary">${esc(r.rendered || "(not renderable)")}</pre></div><div><h2>Hand-written gold</h2><pre class="summary">${esc(r.gold_rendered)}</pre></div></div>`;
-  } else {
-    body = `<p class="hint">The judge is the base model with frozen prompts. It needs a live model server. ${r.__case ? "This call has a reference checklist (validated completeness mode)." : "No reference checklist: the model writes its own checklist, which is not validated."}</p><button class="ghost" id="jbtn">Run judge</button><div id="jout"></div>`;
-  }
-  $("result").innerHTML = `
-    <div class="banner ${r.status}">${r.status === "PASS" ? "✓ PASS" : r.status === "REVIEW" ? "⚠ NEEDS NURSE REVIEW" : "✕ FAILED"}<small>${esc(r.why)}</small></div>
-    <div class="card"><div class="hint" style="margin:0 0 8px">${esc(r.source)}${r.run && r.run.latency_s ? ` · ${r.run.latency_s}s` : ""}${r.run && r.run.completion_tokens ? ` · ${r.run.completion_tokens} tokens` : ""}${r.category ? ` · ${esc(r.category)}` : ""}</div>
-    <div class="tabs">${tabs.map(([k, n]) => `<button data-t="${k}" class="${k === tabName ? "on" : ""}">${n}</button>`).join("")}</div>${body}</div>`;
-  document.querySelectorAll(".tabs button").forEach((b) => (b.onclick = () => show(b.dataset.t)));
-  turnsHtml([]);
-  if (tabName === "evidence") {
-    const cc = r.chief_complaint;
-    const all = [].concat(cc ? [{ turns: cc.turns }] : [], r.bullets);
-    document.querySelectorAll(".bullet[data-i]").forEach((el) => {
-      el.onmouseenter = () => turnsHtml(all[+el.dataset.i].turns); el.onmouseleave = () => turnsHtml([]);
-    });
-  }
-  if (tabName === "judge") $("jbtn").onclick = runJudge;
-}
-
-async function runJudge() {
-  $("jbtn").disabled = true; $("jout").innerHTML = `<span class="hint">Judging (about a minute)…</span>`;
-  try {
-    const j = await api("/api/judge", { transcript: LAST.__transcript, summary: LAST.parsed, case_id: LAST.__case, call_timestamp_utc: LAST.call_timestamp_utc });
-    const rows = Object.entries(j.verdicts || {}).map(([k, v]) => `<tr><td><b>${k}</b></td><td class="${v && v.verdict === "PASS" ? "ok" : "miss"}">${v ? v.verdict : "no verdict"}</td><td>${esc(v ? v.reason : "")}<div class="hint">${esc(j.notes[k] || "")}</div></td></tr>`).join("");
-    $("jout").innerHTML = `<table><tr><th>Check</th><th>Verdict</th><th>Reason</th></tr>${rows}</table>`;
-  } catch (e) { $("jout").innerHTML = `<span class="err">${esc(e.message)}</span>`; }
-  $("jbtn").disabled = false;
-}
-
-function pct(m) { return m && m.value != null ? m.value.toFixed(1) + "%" : "n/a"; }
-function renderHeadline() {
-  const h = CFG.headline;
-  if (!h) { $("headline").textContent = "No matrix file found (pipeline/outputs)."; return; }
-  const names = { G1: "Safe-pass: no rule error and judged faithful (headline, unseen-data)", G1r: "Safe-pass after automatic quote repair", E1: "Calls with no rule error",
-    E1r: "… after quote repair", F1: "Judged faithful (judge validated)", H19: "Critical-Fact Accuracy against gold (headline, validation only)",
-    H19r: "Gold critical facts found (diagnostic, no penalty for extra facts)", O1: "Calls under 15 s (20-call sample, concurrency 1)" };
-  const a = h[0], b = h[1];
-  $("headline").innerHTML = `<table><tr><th>Metric</th><th class="num">${esc(a.system)}</th><th class="num">${esc(b.system)}</th><th class="num">Target</th></tr>` +
-    Object.keys(names).map((k) => `<tr><td>${esc(names[k])}<div class="hint">${k}</div></td><td class="num">${pct(a.rows[k])}</td><td class="num"><b>${pct(b.rows[k])}</b></td><td class="num">95%</td></tr>`).join("") + `</table>`;
-}
-
 init().catch((e) => { document.body.insertAdjacentHTML("beforeend", `<p class="err" style="padding:20px">Could not start: ${esc(e.message)}</p>`); });
 </script>
 </body>

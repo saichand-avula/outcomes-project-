@@ -51,7 +51,7 @@ transcript ──► Gemma 12B + LoRA (vLLM, JSON schema, greedy) ──► JSON
 ```bash
 python3 app/server.py          # open http://localhost:8080
 ```
-Pick any of the 100 validation calls to see the base model's and the fine-tuned model's saved outputs, the checks, the evidence behind every bullet, and the hand-written gold side by side. With a model server running, "Live model" summarizes any pasted transcript ([app/README.md](app/README.md)).
+Four tabs: **Examples** (the 100 validation calls with precomputed outputs of both models, rule checks, evidence and gold side by side), **Try your own transcript** (live model, needs a model server), **Results** (the assignment's metrics against the 95% line, latency, epochs, medication errors) and **How it works**. Showing it from the GPU pod: `bash app/serve_on_pod.sh` ([app/README.md](app/README.md)).
 
 ## Assignment deliverables: where each one is
 

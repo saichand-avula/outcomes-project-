@@ -9,7 +9,8 @@ base model and of the fine-tuned model (epoch 3) for the 100 validation calls.
 
 Endpoints:  GET /                 the page
             GET /api/config       modes available, models, headline results
-            GET /api/cases        the 100 validation calls (id, category, length)
+            GET /api/cases        the 100 validation calls (id, category, length, PASS/REVIEW/FAILED status of the saved outputs)
+            GET /api/results      metrics of base and the three epochs, latency, medication error breakdown (read from pipeline/outputs)
             GET /api/case?id=...  transcript, gold summary, saved outputs of both models
             POST /api/summarize   {transcript, call_timestamp_utc?, mode: replay|live, case_id?, source: finetuned|base}
             POST /api/judge       {transcript, summary, case_id?}   (live mode; needs the base model served as the judge)
@@ -17,9 +18,13 @@ Endpoints:  GET /                 the page
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
+import hmac
 import json
+import os
 import sys
+import threading
 import time
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -56,6 +61,18 @@ def load_state(a) -> None:
         system_prompt=Path(a.prompt).read_text(),
         judge_prompts=J.load_prompts(),
     )
+    STATE["status"], STATE["status_ready"] = {}, False
+
+    def fill_status():  # PASS / REVIEW / FAILED of every saved output, so the example list can show it (takes ~15 s, so not before the page is up)
+        for c in cases:
+            st = {}
+            for src in ("finetuned", "base"):
+                sv = STATE["saved"][src].get(c["id"])
+                if sv:
+                    st[src] = analyse(sv.get("parsed"), sv.get("parse_error"), c["transcript"], c["call_timestamp_utc"])["status"]
+            STATE["status"][c["id"]] = st
+        STATE["status_ready"] = True
+    threading.Thread(target=fill_status, daemon=True).start()
     matrix = out / f"matrix_{a.base_run}_vs_{a.finetuned_run}.json"
     STATE["headline"] = None
     if matrix.exists():
@@ -65,12 +82,34 @@ def load_state(a) -> None:
                                                            for m in r["metrics"] if m["id"] in pick}} for r in res]
 
 
+def results_payload() -> dict:
+    """Everything the Results tab shows, read from the saved matrices (pipeline/outputs) and the medication analysis."""
+    a, out = STATE["args"], PIPE / "outputs"
+    systems = {}
+    for f in (out / f"matrix_{a.base_run}_vs_{a.finetuned_run}.json", out / "matrix_finetuned_epoch1_s2_vs_finetuned_epoch2_s2_vs_finetuned_epoch3_s2.json"):
+        if f.exists():
+            for r in json.loads(f.read_text()):
+                systems.setdefault(r["system"], {"n": r["n"], "valid_outputs": r["valid_outputs"], "ops": r["ops"],
+                                                 "metrics": {m["id"]: {k: m.get(k) for k in ("name", "value", "num", "den", "ci_low", "evidence")} for m in r["metrics"]}})
+    med = out / "med_errors.json"
+    return {"base": a.base_run, "final": a.finetuned_run, "systems": systems, "medications": json.loads(med.read_text())["summary"] if med.exists() else {}}
+
+
 def llm_alive(url: str) -> bool:
     try:
         urllib.request.urlopen(url + "/models", timeout=2).read()
         return True
     except Exception:
         return False
+
+
+def _run_info(saved: dict | None) -> dict:
+    """Timing to show. A saved evaluation row was generated with 16 requests at once, so its latency_s is inflated: only the one-at-a-time timings count."""
+    if not saved:
+        return {}
+    if "concurrency" in saved:
+        return {"latency_s": saved.get("latency_seq_s"), "ttft_s": saved.get("ttft_seq_s"), "completion_tokens": saved.get("completion_tokens"), "finish_reason": saved.get("finish_reason")}
+    return {k: saved.get(k) for k in ("latency_s", "ttft_s", "completion_tokens", "finish_reason")}
 
 
 def analyse(obj, parse_error, transcript: str, timestamp: str | None, saved: dict | None = None) -> dict:
@@ -104,7 +143,7 @@ def analyse(obj, parse_error, transcript: str, timestamp: str | None, saved: dic
                    "warnings_after_repair": after["n_warn"], "quotes_repaired": n_fixed},
         "rule_flags": raw.get("rule_flags", []),
         "numbered_transcript": [{"id": t["id"], "speaker": t["speaker"], "text": t["text"]} for t in turns],
-        "run": {k: saved.get(k) for k in ("latency_s", "completion_tokens", "finish_reason")} if saved else {},
+        "run": _run_info(saved),
     }
 
 
@@ -127,7 +166,7 @@ def summarize(body: dict) -> dict:
         if not llm_alive(a.llm_url):
             raise RuntimeError(f"no model server at {a.llm_url}. Start vLLM with the adapter (finetune/scripts/serve_adapters.sh) or use replay mode.")
         t0 = time.time()
-        r = G.generate_one(a.llm_url, a.model, STATE["system_prompt"], {"id": "ui", "transcript": transcript}, a.max_tokens, True)
+        r = G.generate_one(a.llm_url, a.model, STATE["system_prompt"], {"id": "ui", "transcript": transcript}, a.max_tokens, True, stream=True)  # streamed: also gives time to first token
         r["latency_s"] = round(time.time() - t0, 2)
         res = analyse(r.get("parsed"), r.get("parse_error"), transcript, timestamp, r)
         res["source"] = f"live: model '{a.model}' at {a.llm_url}"
@@ -167,7 +206,26 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(data)
 
+    def authorized(self) -> bool:
+        """Optional shared password (HTTP Basic, any user name) when the server was started with --password."""
+        pw = STATE["args"].password
+        if not pw:
+            return True
+        try:
+            given = base64.b64decode((self.headers.get("Authorization") or "").split(" ", 1)[1]).decode().split(":", 1)[1]
+        except Exception:  # noqa: BLE001
+            given = ""
+        if hmac.compare_digest(given, pw):
+            return True
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="Clinical Call Summarizer"')
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+        return False
+
     def do_GET(self):
+        if not self.authorized():
+            return
         u = urlparse(self.path)
         a = STATE["args"]
         try:
@@ -176,9 +234,13 @@ class Handler(BaseHTTPRequestHandler):
             if u.path == "/api/config":
                 return self.send(200, {"live_available": llm_alive(a.llm_url), "llm_url": a.llm_url, "model": a.model, "judge_model": a.judge_model,
                                        "finetuned_run": a.finetuned_run, "base_run": a.base_run, "headline": STATE["headline"]})
+            if u.path == "/api/status_ready":
+                return self.send(200, {"ready": STATE["status_ready"]})
             if u.path == "/api/cases":
                 return self.send(200, [{"id": c["id"], "category": (c.get("meta") or {}).get("category"), "length": (c.get("meta") or {}).get("length"),
-                                        "noise": (c.get("meta") or {}).get("noise")} for c in STATE["cases"].values()])
+                                        "noise": (c.get("meta") or {}).get("noise"), "status": STATE["status"].get(c["id"], {})} for c in STATE["cases"].values()])
+            if u.path == "/api/results":
+                return self.send(200, results_payload())
             if u.path == "/api/case":
                 c = STATE["cases"].get(parse_qs(u.query).get("id", [""])[0])
                 if not c:
@@ -189,6 +251,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(500, {"error": str(e)})
 
     def do_POST(self):
+        if not self.authorized():
+            return
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0)) or 0) or b"{}")
             if self.path == "/api/summarize":
@@ -205,7 +269,8 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--port", type=int, default=8080)
-    ap.add_argument("--host", default="127.0.0.1")
+    ap.add_argument("--host", default="127.0.0.1", help="use 0.0.0.0 to accept connections from other machines (then set --password)")
+    ap.add_argument("--password", default=os.environ.get("APP_PASSWORD", ""), help="ask for this password (HTTP Basic, any user name); default none, or $APP_PASSWORD")
     ap.add_argument("--llm-url", default="http://localhost:8000/v1")
     ap.add_argument("--model", default="ft3", help="served name of the summarizer (the epoch-3 adapter)")
     ap.add_argument("--judge-model", default="gemma", help="served name of the base model, used as the judge")
