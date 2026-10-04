@@ -22,11 +22,13 @@ def _field(heard: bool = True) -> dict:
     return {"type": "object", "required": ["value", "certainty", "turns"], "additionalProperties": False, "properties": props}
 
 
-# Fact keys in the order that disagrees with the fewest gold facts (5.0% of 5,083; the gold itself uses both orders for a few pairs such as
-# onset/severity). `certainty` is last in the gold, so it is last here: the grammar must not force it right after `type`.
-FACT_KEYS = ["name", "action_type", "dose", "unit", "item", "strength", "education_type", "text", "route", "med_name", "medication", "present",
-             "value", "location", "supply", "duration", "frequency", "onset", "prn", "severity", "status", "last_dose", "timeframe", "target",
-             "med_status"]
+# Fact keys in the order that disagrees with the fewest gold facts: 17 of 5,083 (0.3%; found by a local search over the key orders of all 600 gold
+# summaries). vLLM's grammar forces this order and a key can never be written after a later key, so a model trained on the gold order
+# loses a field whenever this list disagrees with it. The earlier list disagreed with 252 facts (5.0%); among them every medication that
+# states a strength AND a dose (gold writes strength first), which made the model skip the dose (REPORT section 7.2).
+# `certainty` is last in the gold, so it is last here: the grammar must not force it right after `type`.
+FACT_KEYS = ["name", "value", "strength", "action_type", "dose", "item", "unit", "education_type", "text", "route", "present", "frequency", "prn",
+             "severity", "location", "onset", "status", "med_name", "duration", "last_dose", "supply", "medication", "timeframe", "target", "med_status"]
 FACT = {"type": "object", "required": ["type", "certainty"], "additionalProperties": False,
         "properties": {"type": {"type": "string", "enum": ["symptom", "pertinent_negative", "medication", "vital", "action", "education", "context", "supply"]},
                        **{k: ANY for k in FACT_KEYS},

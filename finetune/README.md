@@ -1,14 +1,14 @@
 # Fine-tuning (LoRA) of the clinical summarizer
 
-Self-contained: upload this folder to `/workspace/finetune` on the pod. It trains one LoRA adapter on the 500 training calls, saves it after every epoch, and gives scripts to serve each epoch and score it with the frozen evaluation pipeline (`../pipeline`). Design and the reasons for every choice: `architecture.md` §4.
+Self-contained: upload this folder to `/workspace/finetune` on the pod. It trains one LoRA adapter on the 500 training calls, saves it after every epoch, and gives scripts to serve each epoch and score it with the frozen evaluation pipeline (`../pipeline`). Design: `architecture.md` §4.
 
 ## Result of the run that was made (`runs/ft1`)
 
-One run: 189 steps, 2.9 hours on the L40S, peak memory 36.2 GB. Validation loss 0.189 / 0.167 / 0.171 after epochs 1 / 2 / 3 (0.635 before training). **Epoch 3 is the adapter to use** (`runs/ft1/epoch_3/`): on the evaluation pipeline it is equal or better than epoch 2 almost everywhere (safe-pass rate G1, calls with no rule error and judged faithful: 92% vs 91%; calls with every checklist item covered F3: 68% vs 57%; medication names found H3: 89% vs 83%) even though its validation loss is a little higher. Epoch 1 was evaluated too and is clearly weaker (safe-pass rate 68%, critical-fact accuracy 73.3%, and 3 of 100 answers ran into the token limit). Comparison with the base model: safe-pass rate (G1) 60% → 92%, critical-fact accuracy against the hand-written gold (H19) 56.8% → 81.6%, p50/p95 total response time 14.0 s / 19.1 s, time to first token p50 0.17 s. The 95% and 15 s targets were not reached; see [../REPORT.md](../REPORT.md) for why, and §10 there for what to change before training again.
+One run: 189 steps, 2.9 hours on the L40S, peak memory 36.2 GB. Validation loss 0.189 / 0.167 / 0.171 after epochs 1 / 2 / 3 (0.635 before training). **Epoch 3 is the adapter to use** (`runs/ft1/epoch_3/`): on the pipeline metrics it is equal or better than epoch 2 almost everywhere (safe-pass rate 92% vs 91%, every checklist item covered 68% vs 57%, medication names found 89% vs 83%) even though its validation loss is a little higher; epoch 1 is clearly weaker (safe-pass 68%, three answers ran into the token limit). Against the base model, with the corrected output schema: safe-pass rate **65% → 91%**, critical-fact accuracy against the gold **57.6% → 82.3%**, median / 95th-percentile response time 14.0 s / 19.1 s, time to first token 0.17 s. The 95% and 15 s targets were not reached: see [../REPORT.md](../REPORT.md), and its section 10 for what to change before training again.
 
 Files in `runs/ft1/`: `epoch_{1,2,3}/` (`adapter_config.json`, `adapter_model.safetensors`, about 250 MB each; the `.safetensors` files are git-ignored, back them up), `train_log.jsonl` (every step), `train_ft1.log` (the console output), `run_info.json` (settings and hashes of the data and prompt).
 
-**A bug to avoid:** the JSON schema used for constrained decoding at serving time must list keys in the same order as the training targets. vLLM forces schema order; with the wrong order the model lost the names and doses of facts. The schema in `../pipeline/pl/schema.py` now follows the training-target order (5% of facts still conflict, because the gold itself mixes two orders for a few key pairs).
+**A bug to avoid:** the JSON schema used for constrained decoding at serving time must list keys in the same order as the training targets. vLLM forces schema order and never lets a key be written after a later one, so a model trained on another order loses fields (first `certainty`, then, in medications, the dose after a strength). The schema in `../pipeline/pl/schema.py` now disagrees with only 17 of 5,083 gold facts (0.3%), and the selftest fails above 1% (REPORT §7.2, §8).
 
 ## How many parameters LoRA adds
 
@@ -38,11 +38,11 @@ Each adapted layer with input size `in` and output size `out` adds `16 × (in + 
 | `v_proj` | 40 (8 layers have no separate value projection) | 3,768,320 |
 | **Total** | **328** | **65,568,768** |
 
-At serving time the adapter is **not merged** into the 4-bit weights (merging would need re-quantising). vLLM adds its small matrix product to each adapted layer on the fly. We did not isolate the speed cost of that: the timed calls decoded about 63 tokens/s with the adapter against about 73 for the base model, but that difference also contains the prompt processing, which is spread over fewer output tokens when the answer is shorter (REPORT §6.3).
+At serving time the adapter is **not merged** into the 4-bit weights (merging would need re-quantising). vLLM adds its small matrix product to each adapted layer on the fly. We did not isolate the speed cost of that: the timed calls decoded about 63 tokens/s with the adapter against about 73 for the base model, but that difference also contains the prompt processing, which is spread over fewer output tokens when the answer is shorter (REPORT §6.2).
 
 ## The comparison it is built for
 
-| | Baseline `base_v4_s2` | Fine-tuned |
+| | Baseline `base_v4_s3` | Fine-tuned |
 |---|---|---|
 | System prompt | `system_v4.md` | `system_v4.md` (same file, copied here) |
 | User message | `CALL TRANSCRIPT` + numbered turns | the same (`textio.py` is a copy of `pipeline/pl/transcript.py`) |
@@ -96,11 +96,11 @@ Read it like this: training loss should fall quickly in the first 10-20 steps. I
    ```bash
    bash scripts/serve_adapters.sh runs/ft1        # leave running; serves the base as `gemma` and the adapters as ft1, ft2, ft3
    # in a second terminal
-   bash scripts/eval_adapter.sh ft1 _s2
-   bash scripts/eval_adapter.sh ft2 _s2
-   bash scripts/eval_adapter.sh ft3 _s2
+   bash scripts/eval_adapter.sh ft1 _s3
+   bash scripts/eval_adapter.sh ft2 _s3
+   bash scripts/eval_adapter.sh ft3 _s3
    ```
-   `eval_adapter.sh ft3 _s2` runs the base model (once) and adapter 3 with the same settings and prints their matrix, `outputs/matrix_base_v4_s2_vs_finetuned_epoch3_s2.md`. Timing: `run_pipeline.py latency` (see `../pipeline/README.md`). **Do not** start the server with the n-gram speculative-decoding flag: it made generation about 1.7 times slower (REPORT §7.5).
+   `eval_adapter.sh ft3 _s3` runs the base model (once) and adapter 3 with the same settings and prints their matrix, `outputs/matrix_base_v4_s3_vs_finetuned_epoch3_s3.md`. Timing: `run_pipeline.py latency` (see `../pipeline/README.md`). **Do not** start the server with the n-gram speculative-decoding flag: it made generation about 1.7 times slower (REPORT §7.5).
 
 ## Tests
 
@@ -109,5 +109,5 @@ Read it like this: training loss should fall quickly in the first 10-20 steps. I
 ## Limitations
 
 - Validation is used three ways: validation loss for monitoring, the choice among three epoch checkpoints (by critical-fact accuracy, H19), and the final numbers. With no separate test split the reported validation scores are slightly optimistic. The choice is only among three checkpoints, so the effect should be small; the report says so.
-- An adapter trained on a dequantized BF16 copy is served on the quantized W4A16 model. `architecture.md` §4.2 has an agreement check (training framework against vLLM on 20 validation calls); until it is done, treat the vLLM numbers as the truth, because that is what the pipeline measures.
+- An adapter trained on a dequantized BF16 copy is served on the quantized W4A16 model. A direct agreement check (training framework against vLLM on 20 validation calls) was planned and not run; treat the vLLM numbers as the truth, because that is what the pipeline measures.
 - The prompt is 2,010 tokens on every example, so each step is slower than with a short prompt. This was chosen on purpose to keep the comparison strict.

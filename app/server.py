@@ -38,6 +38,7 @@ sys.path.insert(0, str(PIPE))
 
 from pl import generate as G  # noqa: E402
 from pl import judge as J  # noqa: E402
+from pl import medsafety as MS  # noqa: E402
 from pl.repair import repair  # noqa: E402
 from pl.transcript import numbered, parse  # noqa: E402
 from pl.validators import validate  # noqa: E402
@@ -86,11 +87,16 @@ def results_payload() -> dict:
     """Everything the Results tab shows, read from the saved matrices (pipeline/outputs) and the medication analysis."""
     a, out = STATE["args"], PIPE / "outputs"
     systems = {}
-    for f in (out / f"matrix_{a.base_run}_vs_{a.finetuned_run}.json", out / "matrix_finetuned_epoch1_s2_vs_finetuned_epoch2_s2_vs_finetuned_epoch3_s2.json"):
+    for f in (out / f"matrix_{a.base_run}_vs_{a.finetuned_run}.json", out / "matrix_base_v4_s2_vs_finetuned_epoch3_s2.json",
+              out / "matrix_finetuned_epoch1_s2_vs_finetuned_epoch2_s2_vs_finetuned_epoch3_s2.json"):
         if f.exists():
             for r in json.loads(f.read_text()):
                 systems.setdefault(r["system"], {"n": r["n"], "valid_outputs": r["valid_outputs"], "ops": r["ops"],
                                                  "metrics": {m["id"]: {k: m.get(k) for k in ("name", "value", "num", "den", "ci_low", "evidence")} for m in r["metrics"]}})
+    for name, sysd in systems.items():  # a run that was not timed one call at a time borrows the timing of the same model under the earlier schema (same output lengths)
+        if not sysd["ops"].get("p50") and name.endswith("_s3") and systems.get(name[:-3] + "_s2", {}).get("ops", {}).get("p50"):
+            sysd["ops"] = dict(systems[name[:-3] + "_s2"]["ops"])
+            sysd["ops_from"] = name[:-3] + "_s2"
     med = out / "med_errors.json"
     return {"base": a.base_run, "final": a.finetuned_run, "systems": systems, "medications": json.loads(med.read_text())["summary"] if med.exists() else {}}
 
@@ -118,6 +124,7 @@ def analyse(obj, parse_error, transcript: str, timestamp: str | None, saved: dic
     raw = validate(obj, turns, parse_error)
     fixed, n_fixed = repair(obj, turns)
     after = validate(fixed, turns, parse_error if not isinstance(obj, dict) else None)
+    net_obj, net = MS.apply(fixed, turns) if isinstance(fixed, dict) else (fixed, [])  # medication safety net: add untyped drugs, fill doses, flag absent drugs
     rendered = J.render_summary(fixed, timestamp) if isinstance(fixed, dict) and after["parse_ok"] else None
     if not raw["parse_ok"]:
         status, why = "FAILED", "the model output is not valid JSON"
@@ -127,6 +134,10 @@ def analyse(obj, parse_error, transcript: str, timestamp: str | None, saved: dic
         status, why = "PASS", f"{n_fixed} quote(s) were repaired automatically; no rule errors remain"
     else:
         status, why = "PASS", "no rule errors"
+    absent = [f["drug"] for f in net if f["rule"] == "M3"]
+    if absent and status == "PASS":
+        status, why = "REVIEW", f"possible omission: the caller mentioned {', '.join(absent)} but the summary does not; a nurse should check ({why})"
+    fixed = net_obj
     sections = []
     if isinstance(fixed, dict):
         for name in ("assessment", "response", "education"):
@@ -139,6 +150,7 @@ def analyse(obj, parse_error, transcript: str, timestamp: str | None, saved: dic
         "chief_complaint": (fixed or {}).get("chief_complaint") if isinstance(fixed, dict) else None,
         "risk_flags": (fixed or {}).get("risk_flags") if isinstance(fixed, dict) else [],
         "findings_raw": raw["findings"], "findings_after_repair": after["findings"],
+        "findings_net": [{"severity": f["severity"], "rule": f["rule"], "message": f["message"], "path": f["drug"]} for f in net],
         "counts": {"raw_errors": raw["n_error"], "raw_warnings": raw["n_warn"], "errors_after_repair": after["n_error"],
                    "warnings_after_repair": after["n_warn"], "quotes_repaired": n_fixed},
         "rule_flags": raw.get("rule_flags", []),
@@ -276,8 +288,8 @@ def main():
     ap.add_argument("--judge-model", default="gemma", help="served name of the base model, used as the judge")
     ap.add_argument("--prompt", default=str(PIPE / "prompts" / "system_v4.md"))
     ap.add_argument("--max-tokens", type=int, default=3000)
-    ap.add_argument("--finetuned-run", default="finetuned_epoch3_s2")
-    ap.add_argument("--base-run", default="base_v4_s2")
+    ap.add_argument("--finetuned-run", default="finetuned_epoch3_s3")
+    ap.add_argument("--base-run", default="base_v4_s3")
     a = ap.parse_args()
     load_state(a)
     srv = ThreadingHTTPServer((a.host, a.port), Handler)

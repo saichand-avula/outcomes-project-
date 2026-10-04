@@ -15,7 +15,7 @@ python3 app/server.py            # then open http://localhost:8080
 | **Results** | Read from `pipeline/outputs/matrix_*.json` and `med_errors.json`: the four metrics the assignment names (with bars against the 95% line and the 95% confidence bound), time to first token and total response time, the epoch 1 / 2 / 3 comparison, and the medication error breakdown. States plainly that the 95% and 15 s targets were not reached |
 | **How it works** | The five pipeline steps, how the judge was validated and what it can be trusted for, and what the PASS banner does and does not mean |
 
-**The status banner is a safety gate, not a quality score.** PASS means no rule error survives automatic quote repair; it does not mean the summary is right (the rules cannot see a missing drug or dose; `va-039` passes while leaving out lisinopril). NEEDS NURSE REVIEW means a rule error remains; FAILED means the output is not valid JSON.
+**The status banner is a safety gate, not a quality score.** PASS means no rule error survives automatic quote repair; it does not mean the summary is right (the 16 rules cannot judge whether a drug or dose is missing). The **medication safety net** (`pipeline/pl/medsafety.py`) turns a PASS into NEEDS NURSE REVIEW when the caller said a drug (with a number, or twice) that the summary never mentions, as for lisinopril in `va-039`; it also adds a typed fact for a drug the summary names without one and copies a stated dose into the fact, both listed under *Rule checks*. NEEDS NURSE REVIEW also means a rule error remains; FAILED means the output is not valid JSON.
 
 ## Live model (for "Try your own transcript")
 
@@ -47,4 +47,4 @@ Without a password the server listens on `127.0.0.1` only and has no login. Do n
 
 ## Not in the UI
 
-The production design also had a Not-Applicable gate before the model, a candidates table in the input and a targeted retry when a rule fails (architecture §5.2). They are not built; the UI applies the rules, the quote repair and the review gate only.
+The production design also had a Not-Applicable gate before the model, a candidates table in the input and a targeted retry when a rule fails (architecture §8). They are not built; the UI applies the rules, the quote repair and the review gate only.

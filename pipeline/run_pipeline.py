@@ -27,6 +27,7 @@ sys.path.insert(0, str(HERE))
 from pl import generate as G  # noqa: E402
 from pl import repair as REP  # noqa: E402
 from pl import judge as J  # noqa: E402
+from pl import medsafety as MS  # noqa: E402
 from pl import matrix as MX  # noqa: E402
 from pl import reference_metrics as RM  # noqa: E402
 from pl.mutations import MUTATIONS, apply  # noqa: E402
@@ -118,6 +119,31 @@ def stage_validate(a):
     e = sum(1 for r in vrows if r["n_error"] == 0 and r["parse_ok"])
     print(f"  rules: {e}/{len(vrows)} calls with no ERROR -> {sysdir(a.system) / 'validation.jsonl'}" + (f"; reference counters for {len(rrows)} calls" if rrows else ""))
     print(f"  after automatic quote repair ({n_fixed} quotes replaced): {sum(1 for r in vrep if r['n_error'] == 0 and r['parse_ok'])}/{len(vrep)} calls with no ERROR")
+
+
+def stage_net(a):
+    """Medication safety net (pl/medsafety.py) on an existing run -> a new run `<system>_net` with untyped drugs added and missing doses filled.
+    The summary text is unchanged, so the judge verdicts are copied; rules and gold comparison are recomputed. Missing drugs (M3) are listed, not added."""
+    import shutil
+    cases = load_cases(a)
+    gens = {r["id"]: r for r in read(sysdir(a.system) / "generations.jsonl")}
+    rows, counts = [], {"M1": 0, "M2": 0, "M3": 0}
+    for c in cases:
+        r = dict(gens.get(c["id"], {"id": c["id"]}))
+        if isinstance(r.get("parsed"), dict):
+            r["parsed"], finds = MS.apply(r["parsed"], parse(c["transcript"]))
+            r["safety_net"] = [f["rule"] + ":" + f["drug"] for f in finds]
+            for f in finds:
+                counts[f["rule"]] += 1
+        rows.append(r)
+    out = a.system + "_net"
+    write(sysdir(out) / "generations.jsonl", rows)
+    if (sysdir(a.system) / "judge.jsonl").exists():
+        shutil.copy(sysdir(a.system) / "judge.jsonl", sysdir(out) / "judge.jsonl")
+    print(f"  safety net: {counts['M1']} typed facts added (M1), {counts['M2']} doses filled (M2), {counts['M3']} drugs said but missing from the summary (M3) -> {sysdir(out)}")
+    b = SimpleNamespace(**vars(a))
+    b.system = out
+    stage_validate(b)
 
 
 def stage_judge(a):
@@ -296,7 +322,7 @@ def stage_selftest(a):
             v[0] += x
             v[1] += y
     other = {k: v for k, v in viol.items() if k != "fact" and v[0]}
-    check(not other and viol["fact"][0] <= 0.08 * viol["fact"][1],
+    check(not other and viol["fact"][0] <= 0.01 * viol["fact"][1],
           f"schema key order matches the gold order (constrained decoding must not fight the trained order): facts {viol['fact'][0]}/{viol['fact'][1]} differ, all other objects 0 {other or ''}")
     res = deterministic_study(cases, per_mutation=30)
     must = {"truncated_json": 1.0, "missing_section": 1.0, "turn_out_of_range": 1.0, "quote_from_other_turn": 1.0, "quote_paraphrased": 1.0, "drug_swapped_in_fact": 0.95,
@@ -309,6 +335,18 @@ def stage_selftest(a):
     for name in ("invented_unlisted_finding", "names_swapped", "bullet_removed", "dose_swapped_within_call"):
         r = res[name]
         check(r["caught_error"] / max(1, r["n"]) < 0.3, f"{name}: rules correctly cannot see it ({r['caught_error']}/{r['n']}); the judge must")
+    # medication safety net: dose extraction, adding an untyped drug, flagging an absent one, leaving a good summary alone
+    check(MS.extract_dose("Morphine sulfate oral solution 20 mg per mL, 0.25 mL under the tongue every two hours", "morphine") == ("0.25", "mL"), "net: a concentration is not taken for a dose")
+    check(MS.extract_dose("Ibuprofen 100 mg per 5 mL was available and the box said 7.5 mL", "ibuprofen") == ("7.5", "mL"), "net: 100 mg per 5 mL is skipped, the dose 7.5 mL is found")
+    check(MS.extract_dose("Albuterol was needed twice this week", "albuterol") is None, "net: no dose invented when the text has none")
+    turns = [{"id": 1, "speaker": "Caller", "text": "I take warfarin five milligrams every night."}, {"id": 2, "speaker": "Caller", "text": "And lisinopril, ten milligrams."}]
+    summ = {"assessment": [{"text": "Warfarin 5 mg was taken every night.", "facts": []}], "response": [], "education": []}
+    new, fs = MS.apply(summ, turns)
+    check([f["rule"] for f in fs].count("M1") == 1 and new["assessment"][0]["facts"][0].get("dose") == "5", "net: a drug in the text without a typed fact gets one, with its dose")
+    check(any(f["rule"] == "M3" and f["drug"] == "lisinopril" for f in fs), "net: a drug the caller said and the summary never mentions is flagged")
+    check(summ["assessment"][0]["facts"] == [], "net: the input summary is never modified")
+    n_changed = sum(1 for c in cases if MS.apply(c["gold_target"], parse(c["transcript"]))[0] != c["gold_target"])
+    check(n_changed <= 0.05 * len(cases), f"net: it leaves almost every gold summary unchanged ({n_changed}/{len(cases)} get a fact added)")
     print("\nselftest", "OK" if ok else "FAILED")
     sys.exit(0 if ok else 1)
 
@@ -335,6 +373,7 @@ def main():
     lt.add_argument("--max-tokens", type=int, default=6000); lt.add_argument("--unconstrained", action="store_true"); lt.set_defaults(fn=stage_latency)
     v = sub.add_parser("validate"); common(v); v.set_defaults(fn=stage_validate)
     j = sub.add_parser("judge"); common(j, server=True); j.add_argument("--mode", choices=["reference", "transcript"]); j.add_argument("--out"); j.add_argument("--workers", type=int, default=4); j.set_defaults(fn=stage_judge)
+    nt = sub.add_parser("net"); common(nt); nt.set_defaults(fn=stage_net)
     m = sub.add_parser("matrix"); common(m, system=False); m.add_argument("--systems", nargs="+", required=True); m.add_argument("--threshold", type=float, default=95.0)
     m.add_argument("--judge-file", default="judge.jsonl"); m.set_defaults(fn=stage_matrix)
     al = sub.add_parser("all"); common(al, server=True); al.add_argument("--prompt"); al.add_argument("--workers", type=int, default=16); al.add_argument("--latency-n", type=int, default=20); al.add_argument("--max-tokens", type=int, default=6000)

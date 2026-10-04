@@ -8,7 +8,35 @@
    "dose_wrong": 7,
    "not_found": 5,
    "dose_missing": 1,
-   "extra_model_meds": 69
+   "extra_model_meds": 69,
+   "prf": {
+    "distinct_names": 109,
+    "name_precision": 0.642,
+    "name_recall": 0.933,
+    "name_f1": 0.761,
+    "strict_precision": 0.569,
+    "strict_recall": 0.827,
+    "strict_f1": 0.674
+   }
+  },
+  "base_v4_s3": {
+   "gold_meds": 75,
+   "name_in_text": 67,
+   "name_and_dose_in_text": 45,
+   "ok": 63,
+   "dose_wrong": 5,
+   "not_found": 4,
+   "dose_missing": 3,
+   "extra_model_meds": 68,
+   "prf": {
+    "distinct_names": 110,
+    "name_precision": 0.645,
+    "name_recall": 0.947,
+    "name_f1": 0.768,
+    "strict_precision": 0.573,
+    "strict_recall": 0.84,
+    "strict_f1": 0.681
+   }
   },
   "finetuned_epoch1_s2": {
    "gold_meds": 75,
@@ -18,7 +46,16 @@
    "dose_wrong": 4,
    "not_found": 9,
    "dose_missing": 6,
-   "extra_model_meds": 15
+   "extra_model_meds": 15,
+   "prf": {
+    "distinct_names": 75,
+    "name_precision": 0.88,
+    "name_recall": 0.88,
+    "name_f1": 0.88,
+    "strict_precision": 0.747,
+    "strict_recall": 0.747,
+    "strict_f1": 0.747
+   }
   },
   "finetuned_epoch2_s2": {
    "gold_meds": 75,
@@ -28,7 +65,16 @@
    "dose_wrong": 4,
    "not_found": 13,
    "dose_missing": 6,
-   "extra_model_meds": 7
+   "extra_model_meds": 7,
+   "prf": {
+    "distinct_names": 67,
+    "name_precision": 0.925,
+    "name_recall": 0.827,
+    "name_f1": 0.873,
+    "strict_precision": 0.776,
+    "strict_recall": 0.693,
+    "strict_f1": 0.732
+   }
   },
   "finetuned_epoch3_s2": {
    "gold_meds": 75,
@@ -38,7 +84,54 @@
    "dose_wrong": 4,
    "dose_missing": 7,
    "not_found": 8,
-   "extra_model_meds": 7
+   "extra_model_meds": 7,
+   "prf": {
+    "distinct_names": 73,
+    "name_precision": 0.918,
+    "name_recall": 0.893,
+    "name_f1": 0.905,
+    "strict_precision": 0.767,
+    "strict_recall": 0.747,
+    "strict_f1": 0.757
+   }
+  },
+  "finetuned_epoch3_s3": {
+   "gold_meds": 75,
+   "name_in_text": 72,
+   "name_and_dose_in_text": 68,
+   "ok": 59,
+   "dose_wrong": 4,
+   "not_found": 10,
+   "dose_missing": 2,
+   "extra_model_meds": 10,
+   "prf": {
+    "distinct_names": 74,
+    "name_precision": 0.878,
+    "name_recall": 0.867,
+    "name_f1": 0.872,
+    "strict_precision": 0.797,
+    "strict_recall": 0.787,
+    "strict_f1": 0.792
+   }
+  },
+  "finetuned_epoch3_s3_net": {
+   "gold_meds": 75,
+   "name_in_text": 72,
+   "name_and_dose_in_text": 68,
+   "ok": 62,
+   "dose_wrong": 4,
+   "not_found": 6,
+   "dose_missing": 3,
+   "extra_model_meds": 11,
+   "prf": {
+    "distinct_names": 79,
+    "name_precision": 0.873,
+    "name_recall": 0.92,
+    "name_f1": 0.896,
+    "strict_precision": 0.785,
+    "strict_recall": 0.827,
+    "strict_f1": 0.805
+   }
   }
  },
  "detail": {
@@ -421,6 +514,380 @@
     {
      "id": "va-100",
      "model": "heart pills"
+    },
+    {
+     "id": "va-100",
+     "model": "water pill"
+    }
+   ]
+  },
+  "base_v4_s3": {
+   "errors": [
+    {
+     "id": "va-008",
+     "kind": "dose_wrong",
+     "gold": "furosemide half a tablet",
+     "model": "furosemide half tablet",
+     "category": "ambiguous",
+     "reading": "different number"
+    },
+    {
+     "id": "va-013",
+     "kind": "not_found",
+     "gold": "lorezapam",
+     "model": "lorazepam 1; metoprolol; levothyroxine; haloperidol 0.5 milligram",
+     "category": "asr_error",
+     "reading": "dropped from the summary"
+    },
+    {
+     "id": "va-015",
+     "kind": "dose_wrong",
+     "gold": "warfarin 2 tablets",
+     "model": "warfarin 5 milligrams",
+     "category": "medication",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-016",
+     "kind": "dose_wrong",
+     "gold": "metoprolol succinate 1 tablet",
+     "model": "metoprolol succinate 50 milligrams",
+     "category": "medication",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-034",
+     "kind": "not_found",
+     "gold": "meth a dome 10 mg",
+     "model": "methadone 10 mg; methadone",
+     "category": "asr_error",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-039",
+     "kind": "dose_missing",
+     "gold": "metoprolol 1 tablet",
+     "model": "metoprolol",
+     "category": "high_risk",
+     "reading": "dose dropped from the summary"
+    },
+    {
+     "id": "va-056",
+     "kind": "dose_wrong",
+     "gold": "morphine 5 mg",
+     "model": "morphine sulfate oral solution 0.25 milliliters",
+     "category": "medication",
+     "reading": "different number"
+    },
+    {
+     "id": "va-059",
+     "kind": "not_found",
+     "gold": "Lantus 20 units",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-069",
+     "kind": "not_found",
+     "gold": "zolpidem 5 mg",
+     "model": "Melatonin 3 milligrams",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-087",
+     "kind": "dose_wrong",
+     "gold": "amoxicillan 5 mL",
+     "model": "amoxicillin 400 mg",
+     "category": "asr_error",
+     "reading": "different number"
+    },
+    {
+     "id": "va-095",
+     "kind": "dose_missing",
+     "gold": "levothyroxine 50 mcg",
+     "model": "Levothyroxine",
+     "category": "medication",
+     "reading": "dose dropped from the summary"
+    },
+    {
+     "id": "va-099",
+     "kind": "dose_missing",
+     "gold": "acetaminophen 5 mL",
+     "model": "acetaminophen",
+     "category": "medication",
+     "reading": "dose dropped from the summary"
+    }
+   ],
+   "extra": [
+    {
+     "id": "va-005",
+     "model": "metoprolol"
+    },
+    {
+     "id": "va-005",
+     "model": "atorvastatin"
+    },
+    {
+     "id": "va-005",
+     "model": "tamsulosin"
+    },
+    {
+     "id": "va-008",
+     "model": "furosemide whole tablet"
+    },
+    {
+     "id": "va-008",
+     "model": "furosemide"
+    },
+    {
+     "id": "va-010",
+     "model": "dilaudin"
+    },
+    {
+     "id": "va-012",
+     "model": "oxycodone"
+    },
+    {
+     "id": "va-013",
+     "model": "lorazepam 1"
+    },
+    {
+     "id": "va-013",
+     "model": "metoprolol"
+    },
+    {
+     "id": "va-013",
+     "model": "levothyroxine"
+    },
+    {
+     "id": "va-013",
+     "model": "haloperidol 0.5 milligram"
+    },
+    {
+     "id": "va-014",
+     "model": "haloperidol"
+    },
+    {
+     "id": "va-015",
+     "model": "warfarin"
+    },
+    {
+     "id": "va-016",
+     "model": "metoprolol succinate"
+    },
+    {
+     "id": "va-018",
+     "model": "levetiracetam"
+    },
+    {
+     "id": "va-022",
+     "model": "lorazepam"
+    },
+    {
+     "id": "va-024",
+     "model": "morphine"
+    },
+    {
+     "id": "va-032",
+     "model": "Levothyroxine"
+    },
+    {
+     "id": "va-032",
+     "model": "Famotidine"
+    },
+    {
+     "id": "va-032",
+     "model": "Atorvastatin"
+    },
+    {
+     "id": "va-033",
+     "model": "amlodipine"
+    },
+    {
+     "id": "va-034",
+     "model": "methadone 10 mg"
+    },
+    {
+     "id": "va-034",
+     "model": "methadone"
+    },
+    {
+     "id": "va-039",
+     "model": "atorvastatin"
+    },
+    {
+     "id": "va-039",
+     "model": "famotidine"
+    },
+    {
+     "id": "va-043",
+     "model": "saline"
+    },
+    {
+     "id": "va-044",
+     "model": "pills"
+    },
+    {
+     "id": "va-045",
+     "model": "metoprolol"
+    },
+    {
+     "id": "va-046",
+     "model": "morphine"
+    },
+    {
+     "id": "va-050",
+     "model": "furosemide 40 milligrams"
+    },
+    {
+     "id": "va-050",
+     "model": "furosemide 20 tablet"
+    },
+    {
+     "id": "va-050",
+     "model": "furosemide 20 tablet"
+    },
+    {
+     "id": "va-052",
+     "model": "water pill"
+    },
+    {
+     "id": "va-052",
+     "model": "vitamin"
+    },
+    {
+     "id": "va-055",
+     "model": "penicillin"
+    },
+    {
+     "id": "va-056",
+     "model": "anti-nausea one"
+    },
+    {
+     "id": "va-056",
+     "model": "senna 8.6 milligram"
+    },
+    {
+     "id": "va-056",
+     "model": "morphine"
+    },
+    {
+     "id": "va-057",
+     "model": "morning pills"
+    },
+    {
+     "id": "va-063",
+     "model": "hydroxyzine 1 tablet"
+    },
+    {
+     "id": "va-064",
+     "model": "Jevity"
+    },
+    {
+     "id": "va-064",
+     "model": "water 60 milliliters"
+    },
+    {
+     "id": "va-064",
+     "model": "water 60 milliliters"
+    },
+    {
+     "id": "va-067",
+     "model": "blood pressure one"
+    },
+    {
+     "id": "va-067",
+     "model": "baby aspirin"
+    },
+    {
+     "id": "va-067",
+     "model": "multivitamin"
+    },
+    {
+     "id": "va-067",
+     "model": "chamomile tea"
+    },
+    {
+     "id": "va-068",
+     "model": "oxycodone"
+    },
+    {
+     "id": "va-069",
+     "model": "Melatonin 3 milligrams"
+    },
+    {
+     "id": "va-070",
+     "model": "ondansetron"
+    },
+    {
+     "id": "va-070",
+     "model": "ondansetron"
+    },
+    {
+     "id": "va-075",
+     "model": "white stuff thin layer"
+    },
+    {
+     "id": "va-077",
+     "model": "None"
+    },
+    {
+     "id": "va-078",
+     "model": "insulin"
+    },
+    {
+     "id": "va-078",
+     "model": "insulin 14 units"
+    },
+    {
+     "id": "va-083",
+     "model": "ibuprofen"
+    },
+    {
+     "id": "va-083",
+     "model": "Advil"
+    },
+    {
+     "id": "va-083",
+     "model": "Aleve"
+    },
+    {
+     "id": "va-083",
+     "model": "aspirin"
+    },
+    {
+     "id": "va-085",
+     "model": "wine"
+    },
+    {
+     "id": "va-087",
+     "model": "amoxicillin 5 mL"
+    },
+    {
+     "id": "va-089",
+     "model": "warfarin"
+    },
+    {
+     "id": "va-089",
+     "model": "apixaban 8 8"
+    },
+    {
+     "id": "va-091",
+     "model": "morphine"
+    },
+    {
+     "id": "va-093",
+     "model": "None"
+    },
+    {
+     "id": "va-094",
+     "model": "Tylenol"
+    },
+    {
+     "id": "va-099",
+     "model": "Tylenol 5 milliliters"
     },
     {
      "id": "va-100",
@@ -1047,6 +1514,334 @@
     {
      "id": "va-099",
      "model": "Tylenol"
+    }
+   ]
+  },
+  "finetuned_epoch3_s3": {
+   "errors": [
+    {
+     "id": "va-008",
+     "kind": "dose_wrong",
+     "gold": "furosemide half a tablet",
+     "model": "furosemide 20 mg",
+     "category": "ambiguous",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-015",
+     "kind": "dose_wrong",
+     "gold": "warfarin 2 tablets",
+     "model": "warfarin 5 mg",
+     "category": "medication",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-016",
+     "kind": "dose_wrong",
+     "gold": "metoprolol succinate 1 tablet",
+     "model": "metoprolol succinate 50 mg",
+     "category": "medication",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-023",
+     "kind": "not_found",
+     "gold": "furosemide",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-023",
+     "kind": "not_found",
+     "gold": "amlodipine",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-026",
+     "kind": "not_found",
+     "gold": "acetaminophen",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "dropped from the summary"
+    },
+    {
+     "id": "va-034",
+     "kind": "not_found",
+     "gold": "meth a dome 10 mg",
+     "model": "methadone 10 mg",
+     "category": "asr_error",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-035",
+     "kind": "dose_missing",
+     "gold": "ibuprofen 7.5 mL",
+     "model": "ibuprofen",
+     "category": "medication",
+     "reading": "dose is in the summary text, not in the typed fact"
+    },
+    {
+     "id": "va-039",
+     "kind": "dose_wrong",
+     "gold": "metoprolol 1 tablet",
+     "model": "metoprolol 50 mg",
+     "category": "high_risk",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-039",
+     "kind": "not_found",
+     "gold": "lisinopril 10 mg",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "dropped from the summary"
+    },
+    {
+     "id": "va-060",
+     "kind": "dose_missing",
+     "gold": "albuterol 2 puffs",
+     "model": "albuterol",
+     "category": "routine",
+     "reading": "dose dropped from the summary"
+    },
+    {
+     "id": "va-069",
+     "kind": "not_found",
+     "gold": "zolpidem 5 mg",
+     "model": "melatonin 3 mg",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-080",
+     "kind": "not_found",
+     "gold": "morphine 5 mg",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-080",
+     "kind": "not_found",
+     "gold": "atropine 2 drops",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-095",
+     "kind": "not_found",
+     "gold": "levothyroxine 50 mcg",
+     "model": "(no medication written)",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-099",
+     "kind": "not_found",
+     "gold": "acetaminophen 5 mL",
+     "model": "Tylenol 5 mL",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    }
+   ],
+   "extra": [
+    {
+     "id": "va-005",
+     "model": "metoprolol"
+    },
+    {
+     "id": "va-005",
+     "model": "atorvastatin"
+    },
+    {
+     "id": "va-005",
+     "model": "tamsulosin"
+    },
+    {
+     "id": "va-032",
+     "model": "levothyroxine"
+    },
+    {
+     "id": "va-032",
+     "model": "famotidine"
+    },
+    {
+     "id": "va-032",
+     "model": "atorvastatin"
+    },
+    {
+     "id": "va-034",
+     "model": "methadone 10 mg"
+    },
+    {
+     "id": "va-063",
+     "model": "hydroxyzine"
+    },
+    {
+     "id": "va-069",
+     "model": "melatonin 3 mg"
+    },
+    {
+     "id": "va-099",
+     "model": "Tylenol 5 mL"
+    }
+   ]
+  },
+  "finetuned_epoch3_s3_net": {
+   "errors": [
+    {
+     "id": "va-008",
+     "kind": "dose_wrong",
+     "gold": "furosemide half a tablet",
+     "model": "furosemide 20 mg",
+     "category": "ambiguous",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-015",
+     "kind": "dose_wrong",
+     "gold": "warfarin 2 tablets",
+     "model": "warfarin 5 mg",
+     "category": "medication",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-016",
+     "kind": "dose_wrong",
+     "gold": "metoprolol succinate 1 tablet",
+     "model": "metoprolol succinate 50 mg",
+     "category": "medication",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-026",
+     "kind": "not_found",
+     "gold": "acetaminophen",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "dropped from the summary"
+    },
+    {
+     "id": "va-034",
+     "kind": "not_found",
+     "gold": "meth a dome 10 mg",
+     "model": "methadone 10 mg",
+     "category": "asr_error",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-039",
+     "kind": "dose_wrong",
+     "gold": "metoprolol 1 tablet",
+     "model": "metoprolol 50 mg",
+     "category": "high_risk",
+     "reading": "gold counts tablets or fractions, model wrote the strength (convention)"
+    },
+    {
+     "id": "va-039",
+     "kind": "not_found",
+     "gold": "lisinopril 10 mg",
+     "model": "(no medication written)",
+     "category": "high_risk",
+     "reading": "dropped from the summary"
+    },
+    {
+     "id": "va-060",
+     "kind": "dose_missing",
+     "gold": "albuterol 2 puffs",
+     "model": "albuterol",
+     "category": "routine",
+     "reading": "dose dropped from the summary"
+    },
+    {
+     "id": "va-069",
+     "kind": "not_found",
+     "gold": "zolpidem 5 mg",
+     "model": "melatonin 3 mg",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-080",
+     "kind": "dose_missing",
+     "gold": "morphine 5 mg",
+     "model": "morphine",
+     "category": "high_risk",
+     "reading": "dose is in the summary text, not in the typed fact"
+    },
+    {
+     "id": "va-080",
+     "kind": "dose_missing",
+     "gold": "atropine 2 drops",
+     "model": "atropine",
+     "category": "high_risk",
+     "reading": "dose is in the summary text, not in the typed fact"
+    },
+    {
+     "id": "va-095",
+     "kind": "not_found",
+     "gold": "levothyroxine 50 mcg",
+     "model": "(no medication written)",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    },
+    {
+     "id": "va-099",
+     "kind": "not_found",
+     "gold": "acetaminophen 5 mL",
+     "model": "Tylenol 5 mL",
+     "category": "medication",
+     "reading": "named in the summary text, no typed medication fact"
+    }
+   ],
+   "extra": [
+    {
+     "id": "va-005",
+     "model": "metoprolol"
+    },
+    {
+     "id": "va-005",
+     "model": "atorvastatin"
+    },
+    {
+     "id": "va-005",
+     "model": "tamsulosin"
+    },
+    {
+     "id": "va-032",
+     "model": "levothyroxine"
+    },
+    {
+     "id": "va-032",
+     "model": "famotidine"
+    },
+    {
+     "id": "va-032",
+     "model": "atorvastatin"
+    },
+    {
+     "id": "va-034",
+     "model": "methadone 10 mg"
+    },
+    {
+     "id": "va-063",
+     "model": "hydroxyzine"
+    },
+    {
+     "id": "va-069",
+     "model": "melatonin 3 mg"
+    },
+    {
+     "id": "va-083",
+     "model": "aspirin"
+    },
+    {
+     "id": "va-099",
+     "model": "Tylenol 5 mL"
     }
    ]
   }

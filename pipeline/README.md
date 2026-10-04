@@ -17,7 +17,7 @@ cases.jsonl ──► generate ──► generations.jsonl ──► validate (r
  "reference_checklist": [{"n": 1, "fact": "Reason for call: ..."}, {"n": 2, "fact": "Medication: morphine, 20 mg/mL, ..., status: taking"}],
  "meta": {"category": "routine", "length": "short", "agency": "...", "noise": "low"}}
 ```
-`reference_checklist` is one line per item of the hand-written fact record. Unseen data has no fact record, so the judge builds its own checklist from the transcript (section 4).
+`reference_checklist` is one line per item of the fact record. Unseen data has no fact record, so the judge builds its own checklist from the transcript (section 4).
 
 **What the model is asked to produce** (`prompts/system_v4.md`, frozen; schema in `pl/schema.py`): one JSON object, the same shape as the gold summaries.
 ```json
@@ -41,7 +41,7 @@ The transcript is sent numbered (`[T1] Nurse -> ...`) so the model can cite turn
 
 `outputs/matrix_<A>_vs_<B>.{md,xlsx,json}`: the common matrix and its breakdown by category, length and ASR-noise level.
 
-## 2. What can be checked deterministically (rules V1-V16)
+## 2. What can be checked deterministically (rules V1-V16, and the medication safety net)
 
 Rules use only the transcript and the model's output. No fact record or gold is needed, so they run on unseen calls too. `ERROR` = the output is not safe as it stands. `WARN` = a nurse should look. `INFO` is never scored.
 
@@ -109,10 +109,10 @@ Every row: a rate with `n/d`, a 95% lower confidence bound (Wilson), the source,
 | E. Whole call (rules) | E1 = share of calls with no rule ERROR; E2 = no ERROR and no WARN | D |
 | F. Meaning (judge) | faithful; completeness (item level and call level); calibrated | J |
 | G. Pipeline | **G1 safe-pass rate** (no rule ERROR and judged faithful); G2 full-pass rate (safe-pass, complete and calibrated) | DJ |
-| H. Against gold | identity, medications (name, dose, unit), symptoms, negatives, vitals, actions (type, status), education, flags, Not-Applicable, bullet coverage, hallucinated medications, **H19 critical-fact accuracy** (important facts matching the hand-written gold, minus facts the model added) | R |
+| H. Against gold | identity, medications (name, dose, unit), symptoms, negatives, vitals, actions (type, status), education, flags, Not-Applicable, bullet coverage, hallucinated medications, **H19 critical-fact accuracy** (important facts matching the gold, minus facts the model added) | R |
 | O. Operational | share of calls under 15 s (p50/p95 in the note), outputs not cut off | O |
 
-The letters are groups and the codes (G1, H19, ...) are row names; REPORT.md §1.2 explains every code in plain words.
+The letters are groups and the codes (G1, H19, ...) are row names; REPORT.md §2 explains every code in plain words.
 
 Rules of the table: slot rows (B, C, D) are computed over outputs that parsed; whole-call rows count an unparseable or unrenderable output as a failure. Judge rows are computed over the calls the judge actually ran on, and the note says how many. Rows H need gold, so they appear only for our validation set.
 
@@ -143,23 +143,23 @@ Terminal 2, the base model with the frozen prompt:
 ```bash
 cd /workspace/pipeline/pipeline
 python3 run_pipeline.py selftest
-python3 run_pipeline.py generate --system base_v4_s2 --prompt prompts/system_v4.md --url http://localhost:8000/v1 --model gemma --latency-n 0
-python3 run_pipeline.py validate --system base_v4_s2
-python3 run_pipeline.py judge    --system base_v4_s2 --workers 16 --url http://localhost:8000/v1 --model gemma
-python3 run_pipeline.py latency  --system base_v4_s2 --prompt prompts/system_v4.md --model gemma --n 20
-python3 run_pipeline.py matrix   --systems base_v4_s2
+python3 run_pipeline.py generate --system base_v4_s3 --prompt prompts/system_v4.md --url http://localhost:8000/v1 --model gemma --latency-n 0
+python3 run_pipeline.py validate --system base_v4_s3
+python3 run_pipeline.py judge    --system base_v4_s3 --workers 16 --url http://localhost:8000/v1 --model gemma
+python3 run_pipeline.py latency  --system base_v4_s3 --prompt prompts/system_v4.md --model gemma --n 20
+python3 run_pipeline.py matrix   --systems base_v4_s3
 ```
 `generate` sends 16 requests at once (a few minutes for 100 calls; we did not time it); `latency` then times 20 evenly spaced calls one at a time, which is the only honest latency figure. **Always pass `--prompt`**: without it `generate` uses the old draft prompt v1.
 
 The fine-tuned model: serve the base model with the adapters (`finetune/scripts/serve_adapters.sh runs/ft1` registers `ft1`, `ft2`, `ft3`), generate with the adapter, judge with the **base** model:
 ```bash
-python3 run_pipeline.py generate --system finetuned_epoch3_s2 --prompt prompts/system_v4.md --model ft3 --latency-n 0
-python3 run_pipeline.py validate --system finetuned_epoch3_s2
-python3 run_pipeline.py judge    --system finetuned_epoch3_s2 --workers 16 --model gemma
-python3 run_pipeline.py latency  --system finetuned_epoch3_s2 --prompt prompts/system_v4.md --model ft3 --n 20
-python3 run_pipeline.py matrix   --systems base_v4_s2 finetuned_epoch3_s2            # side by side, with deltas
+python3 run_pipeline.py generate --system finetuned_epoch3_s3 --prompt prompts/system_v4.md --model ft3 --latency-n 0
+python3 run_pipeline.py validate --system finetuned_epoch3_s3
+python3 run_pipeline.py judge    --system finetuned_epoch3_s3 --workers 16 --model gemma
+python3 run_pipeline.py latency  --system finetuned_epoch3_s3 --prompt prompts/system_v4.md --model ft3 --n 20
+python3 run_pipeline.py matrix   --systems base_v4_s3 finetuned_epoch3_s3            # side by side, with deltas
 ```
-(`finetune/scripts/eval_adapter.sh ft3 _s2` does the first four lines for you.) New, unseen calls: put them in a `cases.jsonl` with `id`, `transcript`, `call_timestamp_utc` and pass `--cases that_file`. The rules, the judge (transcript mode) and rows A-G work; rows H need gold and are left out.
+(`finetune/scripts/eval_adapter.sh ft3 _s3` does the first four lines for you.) New, unseen calls: put them in a `cases.jsonl` with `id`, `transcript`, `call_timestamp_utc` and pass `--cases that_file`. The rules, the judge (transcript mode) and rows A-G work; rows H need gold and are left out.
 
 Measured on the L40S for 100 calls: base-model generation about 50 minutes one request at a time (parallel generation is much faster; not timed); the judge 370 s with 4 workers; the rules a few seconds.
 
@@ -170,20 +170,21 @@ Measured on the L40S for 100 calls: base-model generation about 50 minutes one r
 - Risk-flag rules are a candidate generator. Suicidal and escalation rules are precise (about 0.9) and can raise an ERROR; the others (precision 0.4-0.5) only warn. The pipeline output carries `final_flags` = model flags plus rule flags, as in the architecture.
 - The rules were developed on the training split only and checked on validation. Rule-based checks of the gold found real defects in the data, which were fixed (see below).
 - The raw model output is what the headline rows score. The only repair step is the deterministic quote repair, reported separately (E1r: calls with no rule error after repair; G1r: safe-pass rate after repair). The targeted retry of the production design (architecture 5.2 step 6) is not implemented.
-- Prompt history (the base model, 100 validation calls; G1 = safe-pass rate: no rule error and judged faithful; H19 = critical-fact accuracy against the hand-written gold):
+- Prompt history (the base model, 100 validation calls; G1 = safe-pass rate: no rule error and judged faithful; H19 = critical-fact accuracy against the gold):
   v1 (draft, no output-format section): G1 7%, H19 29%, because dates, fact fields and names were not specified.
   v2 (exact output format): G1 59%, H19 44% (49% after the scorer fixes). v3 (name and relationship wording): G1 65%, H19 51%.
   v4 (caller-name wording) is **frozen** and is the baseline to beat; the fine-tuned model is also run with `system_v4.md`.
   Only the output format and naming conventions were changed, never clinical content. The scorer was corrected once (units, a stop word, name matching) and gold still scores 100% on every row.
-- **Schema key order bug (found on the first fine-tuned evaluation):** vLLM's constrained decoding enforces the schema's property order. The schema listed `certainty` second in a fact and `turns` before `heard_as`; the gold summaries have `certainty` last and `heard_as` before `turns`. A model trained on the gold order was forced to emit `certainty` right after `type`, closed the fact, and lost `name`, `dose` and the other slots (medications and vitals fell to about 3%). The schema now follows the gold order (`pl/schema.py`; 5.0% of gold facts still use another order, which the data itself contains), and the selftest checks it. Runs made before the fix (`base_v4`, `finetuned_epoch2` without a tag) used the old schema; the corrected runs carry the tag `_s2`.
+- **Schema key order bug (found on the first fine-tuned evaluation):** vLLM's constrained decoding enforces the schema's property order. The schema listed `certainty` second in a fact and `turns` before `heard_as`; the gold summaries have `certainty` last and `heard_as` before `turns`. A model trained on the gold order was forced to emit `certainty` right after `type`, closed the fact, and lost `name`, `dose` and the other slots (medications and vitals fell to about 3%). The schema now follows the gold order (`pl/schema.py`). **Correction:** that first fix still left 5.0% of the gold facts (252 of 5,083) in another order than the schema, and a later search found an order that disagrees with only 0.3% (17 facts). The 5.0% was not "the data itself": it was our compromise list. The selftest now requires under 1%. The runs tagged `_s2` used the 5.0% list; the corrected list is for runs tagged `_s3`. Runs made before the fix (`base_v4`, `finetuned_epoch2` without a tag) used the old schema; the corrected runs carry the tag `_s2`.
 - `generate` runs 16 requests at once by default; latency is then measured on `--latency-n` calls re-run one at a time. Use `--latency-n 0` while iterating.
-- `latency --system X --prompt prompts/system_v4.md --model M --n 20` times 20 evenly spaced calls one at a time on an existing run and stores them in its generations; the matrix then reports latency from them. Run it for `base_v4_s2` (model `gemma`) and for the chosen adapter (model `ft3`) so both numbers come from the same procedure. It streams the answer, so it also records the **time to first token** (`ttft_seq_s`; one untimed warm-up call first, because the server compiles the JSON grammar on first use), and the matrix prints a Latency table with both.
+- `net --system X` runs the **medication safety net** (`pl/medsafety.py`, REPORT §7.3) on an existing run and writes `X_net`: typed medication facts added for drugs the summary names (M1), stated doses copied into facts that lack one (M2), and a list of drugs the caller said that the summary lacks (M3, flagged, never added). The summary text is unchanged, so the judge file is copied; the rules and the gold comparison are recomputed. `python3 dev/medsafety_eval.py` reproduces the evaluation (rule rates on the training gold, dose-fill accuracy, before/after scores, false-alarm floor on the gold).
+- `latency --system X --prompt prompts/system_v4.md --model M --n 20` times 20 evenly spaced calls one at a time on an existing run and stores them in its generations; the matrix then reports latency from them. Run it for `base_v4_s3` (model `gemma`) and for the chosen adapter (model `ft3`) so both numbers come from the same procedure. It streams the answer, so it also records the **time to first token** (`ttft_seq_s`; one untimed warm-up call first, because the server compiles the JSON grammar on first use), and the matrix prints a Latency table with both.
 - `validate` also writes `validation_repaired.jsonl` (near-match quotes replaced by the exact span, `pl/repair.py`); the matrix reports it as E1r (calls with no rule error after repair) and G1r (safe-pass rate after repair) next to the raw E1 and G1.
 - Python 3.11 compatible; standard library only (`openpyxl` is optional, for the .xlsx).
 
 ## 7. Saved runs
 
-`outputs/README.md` lists every saved run (which prompt, which schema, valid or not) and `outputs/logs/` has the progress logs. Final comparison: `outputs/matrix_base_v4_s2_vs_finetuned_epoch3_s2.{md,xlsx,json}`.
+`outputs/README.md` lists every saved run (which prompt, which schema, valid or not) and `outputs/logs/` has the progress logs. Final comparison: `outputs/matrix_base_v4_s3_vs_finetuned_epoch3_s3.{md,xlsx,json}`.
 
 ## 8. Data defects found by building this (all fixed in `data/authoring`)
 

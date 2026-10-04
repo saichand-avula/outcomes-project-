@@ -130,7 +130,7 @@
       <div class="hint" style="margin:0 0 6px">100 validation calls the model never trained on. Their outputs were computed beforehand.</div>
       <div class="hint" style="margin:8px 0 2px"><b>Worth a look</b> (known weaknesses, see the report):</div>
       <div id="notable">
-        <button class="ghost" data-id="va-039" title="passes the rules, but the lisinopril the call discusses is left out">va-039 drug left out</button>
+        <button class="ghost" data-id="va-039" title="the lisinopril the call discusses is left out; the medication safety net flags it for review">va-039 drug left out</button>
         <button class="ghost" data-id="va-069" title="the zolpidem the caller asks about is left out">va-069 drug left out</button>
         <button class="ghost" data-id="va-034" title="garbled drug name guessed instead of marked unclear">va-034 name guessed</button>
         <button class="ghost" data-id="va-005" title="a long call that passes">va-005 long, passes</button>
@@ -190,12 +190,12 @@
       <div class="step"><b>2 · Rules</b>16 deterministic checks against the transcript: quotes really in the cited turns, numbers, drugs and names spoken, planned vs completed, negatives, hedges, Not-Applicable gate, risk flags. Near-miss quotes are repaired.</div>
       <div class="step"><b>3 · Render</b>A deterministic renderer turns the JSON into the exact reference text.</div>
       <div class="step"><b>4 · Judge</b>The base model with frozen prompts checks faithfulness, completeness and calibration (live mode, optional).</div>
-      <div class="step"><b>5 · Gate</b>A rule error that survives repair, or invalid JSON, becomes <b style="display:inline">NEEDS REVIEW</b> or <b style="display:inline">FAILED</b> for a nurse, never a final summary.</div>
+      <div class="step"><b>5 · Gate</b>A rule error that survives repair, a drug the caller said that the summary lacks (medication safety net), or invalid JSON, becomes <b style="display:inline">NEEDS REVIEW</b> or <b style="display:inline">FAILED</b> for a nurse, never a final summary.</div>
     </div>
   </div>
   <div class="card">
     <h2>The LLM judge was validated before it was used</h2>
-    <p>We hand-edited 90 summaries with known defects (a wrong number, a swapped drug, an invented finding, a flipped negative, a removed item, planned → completed, a swapped speaker, a removed hedge). 50 were used to tune the judge prompts; the prompts were then <b>frozen</b> and run once on 40 fresh ones.</p>
+    <p>We deliberately damaged 90 summaries with known defects (a wrong number, a swapped drug, an invented finding, a flipped negative, a removed item, planned → completed, a swapped speaker, a removed hedge). 50 were used to tune the judge prompts; the prompts were then <b>frozen</b> and run once on 40 fresh ones.</p>
     <table><tr><th>Check</th><th>Result on the fresh set</th><th>Trusted for</th></tr>
       <tr><td>Faithfulness</td><td>kappa 1.00: 10 of 10 edits caught, 0 of 30 clean summaries flagged (small sample)</td><td class="ok">yes</td></tr>
       <tr><td>Completeness</td><td>kappa 0.61</td><td>missing nurse actions and instructions; <b>not</b> missing findings</td></tr>
@@ -204,7 +204,7 @@
   </div>
   <div class="card">
     <h2>What the PASS / REVIEW / FAILED banner means</h2>
-    <p><b>PASS</b>: no rule error survives the automatic quote repair. <b>It is not a correctness guarantee.</b> The rules cannot see a missing drug or dose: in the examples, <code>va-039</code> passes although the lisinopril the call discusses is left out. <b>NEEDS REVIEW</b>: a rule error remains. <b>FAILED</b>: the output is not valid JSON. Every summary still needs a nurse.</p>
+    <p><b>PASS</b>: no rule error survives the automatic quote repair. <b>It is not a correctness guarantee.</b> The 16 rules cannot judge whether a drug or dose is missing (rule V15 only warns, and warnings do not stop a PASS), so a separate <b>medication safety net</b> compares the drugs the caller said with the summary: a drug the caller said with a number, or twice, that the summary never mentions turns the call into NEEDS NURSE REVIEW (<code>va-039</code>: lisinopril). The net catches both real omissions in the validation calls but also raises false alarms (2 of its 9 flags were real), so a flag means "please check", not "wrong". <b>NEEDS REVIEW</b> also means a rule error remains. <b>FAILED</b>: the output is not valid JSON. Every summary still needs a nurse.</p>
   </div>
 </section>
 </main>
@@ -263,7 +263,8 @@ function makeViewer(root, turnsEl) {
         (all.map((b, i) => `<div class="bullet" data-i="${i}"><b>${esc(b.section)}</b> · ${esc(b.text)}<div class="meta">${esc(b.speaker)} · turns ${esc((b.turns || []).join(", "))}</div><i>“${esc(b.quote)}”</i><div>${(b.facts || []).map((f) => `<span class="chip">${esc(f.type)}${f.name ? ": " + esc(f.name) : ""}${f.dose ? " " + esc(f.dose) + " " + esc(f.unit || "") : ""}${f.action_type ? ": " + esc(f.action_type) + "/" + esc(f.status) : ""}${f.education_type ? ": " + esc(f.education_type) : ""}</span>`).join("")}</div></div>`).join("") || `<div class="hint">No bullets.</div>`);
     } else if (current === "checks") {
       const c = r.counts;
-      body = `<p class="hint" style="margin-top:0">Raw output: ${c.raw_errors} error(s), ${c.raw_warnings} warning(s). After automatic quote repair (${c.quotes_repaired} quote(s) replaced by the exact span): ${c.errors_after_repair} error(s), ${c.warnings_after_repair} warning(s).</p><h3 style="margin-top:6px">Rule findings on the raw output</h3>${findings(r.findings_raw)}`;
+      body = `<p class="hint" style="margin-top:0">Raw output: ${c.raw_errors} error(s), ${c.raw_warnings} warning(s). After automatic quote repair (${c.quotes_repaired} quote(s) replaced by the exact span): ${c.errors_after_repair} error(s), ${c.warnings_after_repair} warning(s).</p><h3 style="margin-top:6px">Rule findings on the raw output</h3>${findings(r.findings_raw)}
+        <h3>Medication safety net</h3><div class="hint" style="margin:0 0 4px">A drug the caller said (with a number, or twice) should be in the summary. M1: a typed fact was added. M2: a dose was copied from the bullet text. M3: the drug is missing from the summary, which makes the call NEEDS NURSE REVIEW.</div>${findings(r.findings_net || [])}`;
     } else if (current === "gold") {
       body = `<div class="cols2"><div><h3 style="margin-top:0">Model</h3><pre class="summary">${esc(r.rendered || "(not renderable)")}</pre></div><div><h3 style="margin-top:0">Hand-written gold</h3><pre class="summary">${esc(r.gold_rendered)}</pre></div></div>`;
     } else if (current === "compare") {
@@ -366,7 +367,7 @@ const mark = (m) => (!m || m.value == null ? "" : m.value >= 95 ? `<span class="
 const sec = (x, d = 1) => (x == null ? "n/a" : x.toFixed(d) + " s");
 
 
-const GLOSS = [["G1", "Safe-pass rate: calls where no rule check found an error and the judge found nothing wrong or invented. Needs no hand-written answer, so it works on new calls"], ["G1r", "Safe-pass rate after near-miss quotes are replaced by the exact words from the transcript"], ["H19", "Critical-fact accuracy: important facts (identity, medications, symptoms, nurse actions, risk flags) that match the hand-written gold, minus facts the model added that the gold does not have"], ["H19r", "Critical facts found: the same, extra facts not penalised"], ["F1", "Judged-faithful rate: the judge model finds nothing wrong or invented"], ["F2", "Share of the reference-checklist items the summary covers (judge)"], ["F3", "Share of calls where every checklist item is covered (judge)"], ["F4", "Calibration: hedges, planned versus completed, and who said what are right (judge)"], ["H1", "Identity values right: patient name, date of birth, caller name, relationship, callback phone"], ["H2", "Identity values right and also the certainty (stated or unclear)"], ["H3", "Medication names found (of the gold's 75)"], ["H4", "Medication name, dose and unit all right"], ["H12", "Gold risk flags found by the model"], ["A1", "Output is valid JSON"]];
+const GLOSS = [["G1", "Safe-pass rate: calls where no rule check found an error and the judge found nothing wrong or invented. Needs no answer, so it works on new calls"], ["G1r", "Safe-pass rate after near-miss quotes are replaced by the exact words from the transcript"], ["H19", "Critical-fact accuracy: important facts (identity, medications, symptoms, nurse actions, risk flags) that match the gold, minus facts the model added that the gold does not have"], ["H19r", "Critical facts found: the same, extra facts not penalised"], ["F1", "Judged-faithful rate: the judge model finds nothing wrong or invented"], ["F2", "Share of the reference-checklist items the summary covers (judge)"], ["F3", "Share of calls where every checklist item is covered (judge)"], ["F4", "Calibration: hedges, planned versus completed, and who said what are right (judge)"], ["H1", "Identity values right: patient name, date of birth, caller name, relationship, callback phone"], ["H2", "Identity values right and also the certainty (stated or unclear)"], ["H3", "Medication names found (of the gold's 75)"], ["H4", "Medication name, dose and unit all right"], ["H12", "Gold risk flags found by the model"], ["A1", "Output is valid JSON"]];
 async function renderResults() {
   let R;
   try { R = await api("/api/results"); } catch (e) { $("resbody").innerHTML = `<div class="card err">${esc(e.message)}</div>`; return; }
@@ -380,7 +381,7 @@ async function renderResults() {
     ${stat(pct(f.H4), "Medication name + dose + unit", `base ${pct(b.H4)} · got worse ✗`, true)}
     ${stat(sec(ft.ops.p95), "p95 total response time", `base ${sec(base.ops.p95)} · target 15 s ✗`, true)}</div>`;
 
-  const A = [["Factual accuracy", "F1", "Judged faithful: nothing wrong or invented (judge validated)"], ["Factual accuracy", "H19", "Critical-fact accuracy: important facts matching the hand-written gold, minus facts the model added"],
+  const A = [["Factual accuracy", "F1", "Judged faithful: nothing wrong or invented (judge validated)"], ["Factual accuracy", "H19", "Critical-fact accuracy: important facts matching the gold, minus facts the model added"],
     ["Completeness", "F2", "Checklist items covered (judge)"], ["Completeness", "F3", "Calls where every item is covered (judge)"], ["Completeness", "H19r", "Gold critical facts found"],
     ["Identity accuracy", "H1", "Identity values correct (5 fields)"], ["Identity accuracy", "H2", "Values and certainty correct"],
     ["Medication name accuracy", "H3", "Gold medications found by name (75)"], ["Medication name and dose accuracy", "H4", "Found with the right dose and unit (75)"]];
@@ -394,27 +395,30 @@ async function renderResults() {
 
   const eps = ["finetuned_epoch1_s2", "finetuned_epoch2_s2", "finetuned_epoch3_s2"].filter((k) => S[k]);
   const E = [["G1", "Safe-pass rate (no rule error, judged faithful)"], ["G1r", "Safe-pass rate after quote repair"], ["H19", "Critical-fact accuracy"], ["F1", "Judged faithful"], ["F3", "Every checklist item covered"], ["H3", "Medications found (name)"], ["H4", "Medications with dose and unit"], ["H12", "Gold risk flags found"], ["A1", "Valid JSON"]];
-  const erows = E.map(([id, n]) => `<tr><td>${n} <span class="hint">${id}</span></td><td class="num">${pct(b[id])}</td>${eps.map((k) => `<td class="num${k === R.final ? " ok" : ""}">${pct(S[k].metrics[id])}</td>`).join("")}</tr>`).join("") +
-    `<tr><td>Total response time p50 / p95</td><td class="num">${sec(base.ops.p50)} / ${sec(base.ops.p95)}</td>${eps.map((k) => `<td class="num">${S[k].ops.p50 != null ? sec(S[k].ops.p50) + " / " + sec(S[k].ops.p95) : "not timed"}</td>`).join("")}</tr>`;
+  const b2 = (S["base_v4_s2"] || base);
+  const erows = E.map(([id, n]) => `<tr><td>${n} <span class="hint">${id}</span></td><td class="num">${pct(b2.metrics[id])}</td>${eps.map((k) => `<td class="num${k === "finetuned_epoch3_s2" ? " ok" : ""}">${pct(S[k].metrics[id])}</td>`).join("")}</tr>`).join("") +
+    `<tr><td>Total response time p50 / p95</td><td class="num">${sec(b2.ops.p50)} / ${sec(b2.ops.p95)}</td>${eps.map((k) => `<td class="num">${S[k].ops.p50 != null ? sec(S[k].ops.p50) + " / " + sec(S[k].ops.p95) : "not timed"}</td>`).join("")}</tr>`;
 
-  const M = R.medications, mk = Object.keys(M);
+  const M = R.medications, LBL = { base_v4_s3: "Base", finetuned_epoch3_s2: "Fine-tuned, earlier setting", finetuned_epoch3_s3: "Fine-tuned, corrected setting", finetuned_epoch3_s3_net: "Fine-tuned + safety net" };
+  const mk = Object.keys(LBL).filter((k) => M[k]);
   const mcols = [["gold_meds", "Gold medications"], ["ok", "Right with dose and unit"], ["not_found", "Not found by name"], ["dose_missing", "Dose missing in the typed fact"], ["dose_wrong", "Different dose"], ["extra_model_meds", "Medications not in the gold"]];
   const mrows = mcols.map(([k, n]) => `<tr><td>${n}</td>${mk.map((s) => `<td class="num">${M[s][k] ?? 0}</td>`).join("")}</tr>`).join("");
 
   $("resbody").innerHTML = `${stats}
-  <div class="callout"><b>Honest reading.</b> Fine-tuning clearly helps (safe-pass 60% → 92%, critical-fact accuracy 56.8% → 81.6%, response time halved), but the 95% target and the 15 s latency target are <b>not reached</b>, and <b>medication accuracy got worse</b> than the base model's. 100 validation calls, so the 95% bounds are wide; validation is also the set used to pick the epoch, so the numbers are slightly optimistic. Full account: <code>REPORT.md</code>.</div>
+  <div class="callout"><b>Honest reading.</b> Fine-tuning clearly helps (safe-pass ${pct(b.G1)} → ${pct(f.G1)}, critical-fact accuracy ${pct(b.H19)} → ${pct(f.H19)}, response time halved), but the 95% target and the 15 s latency target are <b>not reached</b>, and <b>medication accuracy is lower</b> than the base model's on the recall-only score (the base lists almost every drug; on a balanced score the fine-tuned model is far ahead). 100 validation calls, so the 95% bounds are wide; validation is also the set used to pick the epoch, so the numbers are slightly optimistic. Full account: <code>REPORT.md</code>.</div>
   <div class="card"><h2>The metrics the assignment asks for</h2>
     <table><tr><th>Metric</th><th class="num">Base</th><th class="num">Fine-tuned (epoch 3)</th><th>vs 95% (line marks 95%)</th><th></th></tr>${arows}</table>
     <h3>Time to first token and total response time (20 calls, one at a time, L40S)</h3>
-    <table><tr><th>Seconds</th><th class="num">Base</th><th class="num">Fine-tuned (epoch 3)</th><th></th></tr>${lrows}</table></div>
+    <table><tr><th>Seconds</th><th class="num">Base</th><th class="num">Fine-tuned (epoch 3)</th><th></th></tr>${lrows}</table>
+    ${ft.ops_from ? `<div class="hint">Timed on the earlier run <code>${esc(ft.ops_from)}</code>; the answers have the same length (median 917 tokens), so the corrected run should time the same. Re-timing is still to be done.</div>` : ""}</div>
   <div class="card"><details class="gloss"><summary>What do the codes (G1, H19, F1 ...) mean?</summary>
     <p class="hint">Each measurement in the evaluation table has a short code. In plain words: <b>gold</b> = the summary written by hand for each call; <b>rule checks</b> = 16 automatic checks of the summary against the transcript; <b>judge</b> = the base model reading transcript and summary; <b>95% bound</b> = a cautious estimate, since 100 calls cannot pin a rate down exactly.</p>
     <table><tr><th>Code</th><th>What it measures</th></tr>${GLOSS.map(([c, t]) => `<tr><td><span class="code" style="margin:0">${c}</span></td><td>${esc(t)}</td></tr>`).join("")}</table></details></div>
   <div class="cols2">
     <div class="card"><h2>Why epoch 3</h2><table><tr><th>Metric</th><th class="num">Base</th>${eps.map((k) => `<th class="num">Epoch ${k.match(/epoch(\d)/)[1]}</th>`).join("")}</tr>${erows}</table>
-      <div class="hint">Epoch 1 is clearly weakest (3 of its 100 answers ran into the token limit). Epochs 2 and 3 are close; epoch 3 is better on completeness and nurse actions.</div></div>
-    <div class="card"><h2>Medications: what went wrong</h2><table><tr><th></th>${mk.map((s) => `<th class="num">${s.replace("finetuned_epoch", "Epoch ").replace("_s2", "").replace("base_v4", "Base")}</th>`).join("")}</tr>${mrows}</table>
-      <div class="hint">Of the 19 slots epoch 3 loses, 5 are real losses (3 drugs left out of the summary, 1 dose dropped, 1 garbled name guessed); 14 are in the text or a matter of convention. Even counting only the 5, accuracy is 70 of 75 = 93.3%. See <code>REPORT.md</code> §8.1 and <code>pipeline/outputs/med_errors.md</code>.</div></div>
+      <div class="hint">All four columns were measured with the same, earlier key-order setting (<code>_s2</code>), so they compare fairly with each other; the headline table above uses the corrected setting (<code>_s3</code>). Epoch 1 is clearly weakest (3 of its 100 answers ran into the token limit). Epochs 2 and 3 are close; epoch 3 is better on completeness and nurse actions.</div></div>
+    <div class="card"><h2>Medications: what went wrong</h2><table><tr><th></th>${mk.map((s) => `<th class="num">${LBL[s]}</th>`).join("")}</tr>${mrows}</table>
+      <div class="hint">The earlier setting listed a medication's strength after its dose, the opposite of the training data, so the model could not write the dose after a strength: 6 doses were lost (base 0). The corrected setting recovers 5 of them. What remains is mostly the gold's selectivity (the fine-tuned model records only the drugs the call is about; the base records almost every drug, which the recall-only score rewards) plus a few real omissions. The safety net (right column) adds typed facts for drugs the summary names and flags drugs it lacks: names found 65 → 69 of 75, name + dose + unit 59 → 62. See <code>REPORT.md</code> §7 and <code>pipeline/outputs/med_errors.md</code>.</div></div>
   </div>`;
 }
 
@@ -426,7 +430,7 @@ async function init() {
   $("excat").innerHTML += [...new Set(CASES.map((c) => c.category))].sort().map((c) => `<option>${esc(c)}</option>`).join("");
   $("ownsample").innerHTML += CASES.map((c) => `<option value="${esc(c.id)}">${esc(c.id)} · ${esc(c.category)} · ${esc(c.length)}</option>`).join("");
   $("badges").innerHTML = [
-    `<span class="badge good">LLM judge validated on 90 hand-edited items</span>`,
+    `<span class="badge good">LLM judge validated on 90 damaged summaries</span>`,
     `<span class="badge">16 rule validators</span>`,
     `<span class="badge ${CFG.live_available ? "good" : ""}">${CFG.live_available ? "live model connected" : "live model not connected (examples work)"}</span>`,
     `<span class="badge bad">95% and 15 s targets not reached</span>`,

@@ -5,9 +5,24 @@ Every gold medication is compared with what each run wrote, using the same match
 | run | gold meds | strict ok (H4) | not found | dose missing | dose wrong | unit wrong | extra meds not in gold | name in summary text | name and dose in summary text |
 |---|---|---|---|---|---|---|---|---|---|
 | base_v4_s2 | 75 | 62 | 5 | 1 | 7 | 0 | 69 | 69 | 47 |
+| base_v4_s3 | 75 | 63 | 4 | 3 | 5 | 0 | 68 | 67 | 45 |
 | finetuned_epoch1_s2 | 75 | 56 | 9 | 6 | 4 | 0 | 15 | 70 | 65 |
 | finetuned_epoch2_s2 | 75 | 52 | 13 | 6 | 4 | 0 | 7 | 69 | 63 |
 | finetuned_epoch3_s2 | 75 | 56 | 8 | 7 | 4 | 0 | 7 | 71 | 67 |
+| finetuned_epoch3_s3 | 75 | 59 | 10 | 2 | 4 | 0 | 10 | 72 | 68 |
+| finetuned_epoch3_s3_net | 75 | 62 | 6 | 3 | 4 | 0 | 11 | 72 | 68 |
+
+## Precision, recall and F1 with repeated names merged
+
+| run | distinct names written | names: precision / recall / F1 | name + dose + unit: precision / recall / F1 |
+|---|---|---|---|
+| base_v4_s2 | 109 | 0.64 / 0.93 / 0.76 | 0.57 / 0.83 / 0.67 |
+| base_v4_s3 | 110 | 0.65 / 0.95 / 0.77 | 0.57 / 0.84 / 0.68 |
+| finetuned_epoch1_s2 | 75 | 0.88 / 0.88 / 0.88 | 0.75 / 0.75 / 0.75 |
+| finetuned_epoch2_s2 | 67 | 0.93 / 0.83 / 0.87 | 0.78 / 0.69 / 0.73 |
+| finetuned_epoch3_s2 | 73 | 0.92 / 0.89 / 0.91 | 0.77 / 0.75 / 0.76 |
+| finetuned_epoch3_s3 | 74 | 0.88 / 0.87 / 0.87 | 0.80 / 0.79 / 0.79 |
+| finetuned_epoch3_s3_net | 79 | 0.87 / 0.92 / 0.90 | 0.79 / 0.83 / 0.81 |
 
 ## base_v4_s2: every medication error
 
@@ -26,6 +41,23 @@ Every gold medication is compared with what each run wrote, using the same match
 | va-083 | medication | not_found | acetaminophen 500 mg | (no medication written) | dropped from the summary |
 | va-087 | asr_error | dose_wrong | amoxicillan 5 mL | amoxicillin 400 mg | different number |
 | va-096 | high_risk | dose_missing | warfarin 4 mg | warfarin | dose dropped from the summary |
+
+## base_v4_s3: every medication error
+
+| call | category | error | gold | model wrote | reading |
+|---|---|---|---|---|---|
+| va-008 | ambiguous | dose_wrong | furosemide half a tablet | furosemide half tablet | different number |
+| va-013 | asr_error | not_found | lorezapam | lorazepam 1; metoprolol; levothyroxine; haloperidol 0.5 milligram | dropped from the summary |
+| va-015 | medication | dose_wrong | warfarin 2 tablets | warfarin 5 milligrams | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-016 | medication | dose_wrong | metoprolol succinate 1 tablet | metoprolol succinate 50 milligrams | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-034 | asr_error | not_found | meth a dome 10 mg | methadone 10 mg; methadone | named in the summary text, no typed medication fact |
+| va-039 | high_risk | dose_missing | metoprolol 1 tablet | metoprolol | dose dropped from the summary |
+| va-056 | medication | dose_wrong | morphine 5 mg | morphine sulfate oral solution 0.25 milliliters | different number |
+| va-059 | high_risk | not_found | Lantus 20 units | (no medication written) | named in the summary text, no typed medication fact |
+| va-069 | medication | not_found | zolpidem 5 mg | Melatonin 3 milligrams | named in the summary text, no typed medication fact |
+| va-087 | asr_error | dose_wrong | amoxicillan 5 mL | amoxicillin 400 mg | different number |
+| va-095 | medication | dose_missing | levothyroxine 50 mcg | Levothyroxine | dose dropped from the summary |
+| va-099 | medication | dose_missing | acetaminophen 5 mL | acetaminophen | dose dropped from the summary |
 
 ## finetuned_epoch1_s2: every medication error
 
@@ -102,3 +134,42 @@ Every gold medication is compared with what each run wrote, using the same match
 | va-087 | asr_error | dose_missing | amoxicillan 5 mL | amoxicillan | dose is in the summary text, not in the typed fact |
 | va-095 | medication | not_found | levothyroxine 50 mcg | (no medication written) | named in the summary text, no typed medication fact |
 | va-099 | medication | not_found | acetaminophen 5 mL | Tylenol | named in the summary text, no typed medication fact |
+
+## finetuned_epoch3_s3: every medication error
+
+| call | category | error | gold | model wrote | reading |
+|---|---|---|---|---|---|
+| va-008 | ambiguous | dose_wrong | furosemide half a tablet | furosemide 20 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-015 | medication | dose_wrong | warfarin 2 tablets | warfarin 5 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-016 | medication | dose_wrong | metoprolol succinate 1 tablet | metoprolol succinate 50 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-023 | high_risk | not_found | furosemide | (no medication written) | named in the summary text, no typed medication fact |
+| va-023 | high_risk | not_found | amlodipine | (no medication written) | named in the summary text, no typed medication fact |
+| va-026 | high_risk | not_found | acetaminophen | (no medication written) | dropped from the summary |
+| va-034 | asr_error | not_found | meth a dome 10 mg | methadone 10 mg | named in the summary text, no typed medication fact |
+| va-035 | medication | dose_missing | ibuprofen 7.5 mL | ibuprofen | dose is in the summary text, not in the typed fact |
+| va-039 | high_risk | dose_wrong | metoprolol 1 tablet | metoprolol 50 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-039 | high_risk | not_found | lisinopril 10 mg | (no medication written) | dropped from the summary |
+| va-060 | routine | dose_missing | albuterol 2 puffs | albuterol | dose dropped from the summary |
+| va-069 | medication | not_found | zolpidem 5 mg | melatonin 3 mg | named in the summary text, no typed medication fact |
+| va-080 | high_risk | not_found | morphine 5 mg | (no medication written) | named in the summary text, no typed medication fact |
+| va-080 | high_risk | not_found | atropine 2 drops | (no medication written) | named in the summary text, no typed medication fact |
+| va-095 | medication | not_found | levothyroxine 50 mcg | (no medication written) | named in the summary text, no typed medication fact |
+| va-099 | medication | not_found | acetaminophen 5 mL | Tylenol 5 mL | named in the summary text, no typed medication fact |
+
+## finetuned_epoch3_s3_net: every medication error
+
+| call | category | error | gold | model wrote | reading |
+|---|---|---|---|---|---|
+| va-008 | ambiguous | dose_wrong | furosemide half a tablet | furosemide 20 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-015 | medication | dose_wrong | warfarin 2 tablets | warfarin 5 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-016 | medication | dose_wrong | metoprolol succinate 1 tablet | metoprolol succinate 50 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-026 | high_risk | not_found | acetaminophen | (no medication written) | dropped from the summary |
+| va-034 | asr_error | not_found | meth a dome 10 mg | methadone 10 mg | named in the summary text, no typed medication fact |
+| va-039 | high_risk | dose_wrong | metoprolol 1 tablet | metoprolol 50 mg | gold counts tablets or fractions, model wrote the strength (convention) |
+| va-039 | high_risk | not_found | lisinopril 10 mg | (no medication written) | dropped from the summary |
+| va-060 | routine | dose_missing | albuterol 2 puffs | albuterol | dose dropped from the summary |
+| va-069 | medication | not_found | zolpidem 5 mg | melatonin 3 mg | named in the summary text, no typed medication fact |
+| va-080 | high_risk | dose_missing | morphine 5 mg | morphine | dose is in the summary text, not in the typed fact |
+| va-080 | high_risk | dose_missing | atropine 2 drops | atropine | dose is in the summary text, not in the typed fact |
+| va-095 | medication | not_found | levothyroxine 50 mcg | (no medication written) | named in the summary text, no typed medication fact |
+| va-099 | medication | not_found | acetaminophen 5 mL | Tylenol 5 mL | named in the summary text, no typed medication fact |

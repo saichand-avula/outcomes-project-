@@ -8,7 +8,7 @@ For each gold medication (same matching as pl/reference_metrics.py H3/H4):
   not_found     no model medication matches the name (then: did the model write another drug instead, or nothing?)
 Also counts model medications that match no gold medication ("extra").
 
-Usage: python3 dev/med_error_analysis.py [run ...]     (default: base_v4_s2 finetuned_epoch1_s2 finetuned_epoch2_s2 finetuned_epoch3_s2)
+Usage: python3 dev/med_error_analysis.py [run ...]     (default: base_v4_s2 base_v4_s3 finetuned_epoch1_s2 finetuned_epoch2_s2 finetuned_epoch3_s2 finetuned_epoch3_s3 finetuned_epoch3_s3_net)
 Writes outputs/med_errors.md and outputs/med_errors.json.
 """
 import json, re, sys
@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 from pl.reference_metrics import _facts, _name_match, _same_dose, _num, _unit, SECTIONS  # noqa: E402
 from pl.textnorm import normalize  # noqa: E402
 
-RUNS = sys.argv[1:] or ["base_v4_s2", "finetuned_epoch1_s2", "finetuned_epoch2_s2", "finetuned_epoch3_s2"]
+RUNS = sys.argv[1:] or ["base_v4_s2", "base_v4_s3", "finetuned_epoch1_s2", "finetuned_epoch2_s2", "finetuned_epoch3_s2", "finetuned_epoch3_s3", "finetuned_epoch3_s3_net"]
 cases = {c["id"]: c for c in map(json.loads, open(ROOT / "data" / "val_cases.jsonl"))}
 
 
@@ -113,6 +113,34 @@ for run in RUNS:
     result[run] = {"gold_meds": n_gold, **cnt, "extra_model_meds": len(extra)}
     detail[run] = {"errors": rows, "extra": extra}
 
+# precision / recall / F1 with repeated names merged (a model that lists the same drug twice in a call is not inventing a drug)
+PRF = {}
+for run in RUNS:
+    gens = {r["id"]: r for r in map(json.loads, open(ROOT / "outputs" / run / "generations.jsonl"))}
+    uniq = hit_names = ok_names = n_gold = found = strict = 0
+    for cid, c in cases.items():
+        gold = c["gold_target"]
+        if (gold.get("not_applicable") or {}).get("is_na"):
+            continue
+        pm = meds(gens[cid].get("parsed") or {}, SECTIONS)
+        gm = meds(gold, ("assessment",))
+        n_gold += len(gm)
+        names = {normalize(str(f.get("name", ""))): f for f in pm}
+        uniq += len(names)
+        hit_names += sum(any(_name_match(gf.get("name"), f.get("name")) for gf in gm) for f in names.values())
+        used = set()
+        for gf in gm:
+            hit = next((i for i, pf in enumerate(pm) if i not in used and _name_match(gf.get("name"), pf.get("name"))), None)
+            if hit is not None:
+                used.add(hit)
+                found += 1
+                strict += int(_same_dose(gf, pm[hit]))
+    P, R = hit_names / uniq, found / n_gold
+    Ps, Rs = strict / uniq, strict / n_gold
+    PRF[run] = {"distinct_names": uniq, "name_precision": round(P, 3), "name_recall": round(R, 3), "name_f1": round(2 * P * R / (P + R), 3),
+                "strict_precision": round(Ps, 3), "strict_recall": round(Rs, 3), "strict_f1": round(2 * Ps * Rs / (Ps + Rs), 3)}
+    result[run]["prf"] = PRF[run]
+
 (ROOT / "outputs" / "med_errors.json").write_text(json.dumps({"summary": result, "detail": detail}, indent=1))
 
 L = ["# Medication errors by type (100 validation calls)", "",
@@ -120,6 +148,10 @@ L = ["# Medication errors by type (100 validation calls)", "",
      "| run | gold meds | strict ok (H4) | not found | dose missing | dose wrong | unit wrong | extra meds not in gold | name in summary text | name and dose in summary text |", "|---|---|---|---|---|---|---|---|---|---|"]
 for run, r in result.items():
     L.append(f"| {run} | {r['gold_meds']} | {r.get('ok', 0)} | {r.get('not_found', 0)} | {r.get('dose_missing', 0)} | {r.get('dose_wrong', 0)} | {r.get('unit_wrong', 0)} | {r['extra_model_meds']} | {r.get('name_in_text', 0)} | {r.get('name_and_dose_in_text', 0)} |")
+L += ["", "## Precision, recall and F1 with repeated names merged", "", "| run | distinct names written | names: precision / recall / F1 | name + dose + unit: precision / recall / F1 |", "|---|---|---|---|"]
+for run in RUNS:
+    q = PRF[run]
+    L.append(f"| {run} | {q['distinct_names']} | {q['name_precision']:.2f} / {q['name_recall']:.2f} / {q['name_f1']:.2f} | {q['strict_precision']:.2f} / {q['strict_recall']:.2f} / {q['strict_f1']:.2f} |")
 for run in RUNS:
     L += ["", f"## {run}: every medication error", "", "| call | category | error | gold | model wrote | reading |", "|---|---|---|---|---|---|"]
     for e in detail[run]["errors"]:
