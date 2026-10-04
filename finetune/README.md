@@ -4,7 +4,7 @@ Self-contained: upload this folder to `/workspace/finetune` on the pod. It train
 
 ## Result of the run that was made (`runs/ft1`)
 
-One run: 189 steps, 2.9 hours on the L40S, peak memory 36.2 GB. Validation loss 0.189 / 0.167 / 0.171 after epochs 1 / 2 / 3 (0.635 before training). **Epoch 3 is the adapter to use** (`runs/ft1/epoch_3/`): on the evaluation pipeline it is equal or better than epoch 2 almost everywhere (safe-pass G1 92% vs 91%, judge completeness F3 68% vs 57%, medications found 89% vs 83%) even though its validation loss is a little higher. Epoch 1 was evaluated too and is clearly weaker (G1 68%, H19 73.3%, and 3 of 100 answers ran into the token limit). Comparison with the base model: G1 60% → 92%, Critical-Fact Accuracy 56.8% → 81.6%, p50/p95 total response time 14.0 s / 19.1 s, time to first token p50 0.17 s. The 95% and 15 s targets were not reached; see [../REPORT.md](../REPORT.md) for why, and §10 there for what to change before training again.
+One run: 189 steps, 2.9 hours on the L40S, peak memory 36.2 GB. Validation loss 0.189 / 0.167 / 0.171 after epochs 1 / 2 / 3 (0.635 before training). **Epoch 3 is the adapter to use** (`runs/ft1/epoch_3/`): on the evaluation pipeline it is equal or better than epoch 2 almost everywhere (safe-pass rate G1, calls with no rule error and judged faithful: 92% vs 91%; calls with every checklist item covered F3: 68% vs 57%; medication names found H3: 89% vs 83%) even though its validation loss is a little higher. Epoch 1 was evaluated too and is clearly weaker (safe-pass rate 68%, critical-fact accuracy 73.3%, and 3 of 100 answers ran into the token limit). Comparison with the base model: safe-pass rate (G1) 60% → 92%, critical-fact accuracy against the hand-written gold (H19) 56.8% → 81.6%, p50/p95 total response time 14.0 s / 19.1 s, time to first token p50 0.17 s. The 95% and 15 s targets were not reached; see [../REPORT.md](../REPORT.md) for why, and §10 there for what to change before training again.
 
 Files in `runs/ft1/`: `epoch_{1,2,3}/` (`adapter_config.json`, `adapter_model.safetensors`, about 250 MB each; the `.safetensors` files are git-ignored, back them up), `train_log.jsonl` (every step), `train_ft1.log` (the console output), `run_info.json` (settings and hashes of the data and prompt).
 
@@ -69,7 +69,7 @@ Only the weights differ. The judge is always the base model.
 - `val` at step 0 (the untouched model, i.e. the starting loss) and every 20 steps on a fixed 25-call subset.
 - `val_epoch`: validation loss on all 100 calls at the end of each epoch.
 
-Read it like this: training loss should fall quickly in the first 10-20 steps. If the validation loss starts rising while the training loss keeps falling, the model is memorising the 500 calls (the validation calls come from two agencies the training set never sees, so this is a fair generalisation check). **The validation loss does not choose the checkpoint**; the pipeline does (H19 and the other rows), because loss and output quality do not track each other well.
+Read it like this: training loss should fall quickly in the first 10-20 steps. If the validation loss starts rising while the training loss keeps falling, the model is memorising the 500 calls (the validation calls come from two agencies the training set never sees, so this is a fair generalisation check). **The validation loss does not choose the checkpoint**; the pipeline does (critical-fact accuracy and the other rows), because loss and output quality do not track each other well.
 
 ## Run it on the pod
 
@@ -108,6 +108,6 @@ Read it like this: training loss should fall quickly in the first 10-20 steps. I
 
 ## Limitations
 
-- Validation is used three ways: validation loss for monitoring, the choice among three epoch checkpoints (by H19), and the final numbers. With no separate test split the reported validation scores are slightly optimistic. The choice is only among three checkpoints, so the effect should be small; the report says so.
+- Validation is used three ways: validation loss for monitoring, the choice among three epoch checkpoints (by critical-fact accuracy, H19), and the final numbers. With no separate test split the reported validation scores are slightly optimistic. The choice is only among three checkpoints, so the effect should be small; the report says so.
 - An adapter trained on a dequantized BF16 copy is served on the quantized W4A16 model. `architecture.md` §4.2 has an agreement check (training framework against vLLM on 20 validation calls); until it is done, treat the vLLM numbers as the truth, because that is what the pipeline measures.
 - The prompt is 2,010 tokens on every example, so each step is slower than with a short prompt. This was chosen on purpose to keep the comparison strict.

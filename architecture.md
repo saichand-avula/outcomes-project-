@@ -198,7 +198,7 @@ Gold is written after the transcript, from the fact record plus the noise log. V
 
 A fact record states exactly which facts exist and with what status. Checking gold against it in both directions (G7/G8) catches omissions, extras and over-inference that transcript checks miss. (`carfentanil` and `ibuprofen` are **not** treated as errors: under the source-grounded policy, §3.3, single confident mentions are summarized as stated.)
 
-| Gold check | Rule |
+| Gold check (these G-codes belong to the gold validator, not to the evaluation table's G rows) | Rule |
 |---|---|
 | G1 | Valid against the output JSON schema |
 | G2 | Every quote is a verbatim span (after normalizing case, punctuation and immediate repeats) of its cited turns; cited turns belong to the stated speaker |
@@ -427,7 +427,7 @@ CFA = gold critical slots matched / (gold critical slots + unsupported critical 
 - **Matched** = normalized value equal, correct speaker, correct certainty, correct status, and the cited quote passes V3.
 - **Unsupported** values (hallucinations) enter the denominator, so the metric can't be gamed by leaving things out or by adding extras.
 - **Target:** CFA ≥ 95% (point estimate with a transcript-level cluster-bootstrap 95% CI).
-- **Outcome:** implemented as H19 in `pipeline/pl/reference_metrics.py`, with simplifications: slots are matched by normalised value and cited-turn proximity, without the speaker and quote-validity conditions, and the intervals are Wilson bounds (not a cluster bootstrap). Result: 81.6% (lower bound 79.3%). A companion H19r (gold slots found, no penalty for extra facts) is 90.3%, because many of the "unsupported" facts are true details the gold does not record.
+- **Outcome:** implemented as H19 (critical-fact accuracy against the gold) in `pipeline/pl/reference_metrics.py`, with simplifications: slots are matched by normalised value and cited-turn proximity, without the speaker and quote-validity conditions, and the intervals are Wilson bounds (not a cluster bootstrap). Result: 81.6% (lower bound 79.3%). A companion H19r (gold slots found, no penalty for extra facts) is 90.3%, because many of the "unsupported" facts are true details the gold does not record.
 - **Release gates:** fabricated medication or dose = 0; high-risk recall ≥ 98%; NA accuracy ≥ 95%; four sections present in 100% of non-NA outputs.
 - **Transcript-level safe-pass** (no unsupported critical value, no identity error, all flags found, NA correct) is reported with a Wilson CI.
 
@@ -504,9 +504,9 @@ RunPod pod, 1× **NVIDIA L40S, 46,068 MiB**, driver 595.91.07, CUDA 13.2 [VERIFI
 | Out-of-formulary drug → `unclear` | Source-grounded value policy (§3.3) | Your decision: summarize what the transcript supports; uncertainty only from transcript evidence |
 | Training input includes a candidates table (§5.2) | Not used: the input is the system prompt plus the numbered transcript, identical for base and fine-tuned | Strictest comparison: only the weights differ |
 | Constrained schema in any key order | Schema key order must equal the training-target order | vLLM forces schema order; the first fine-tuned evaluation was invalid because of it (REPORT §7.4) |
-| Raw model output scored only | Quote repair reported separately (E1r, G1r) | Many failures were a stitched quote that has an exact counterpart in the call |
+| Raw model output scored only | Quote repair reported separately (calls with no rule error after repair, E1r; safe-pass rate after repair, G1r) | Many failures were a stitched quote that has an exact counterpart in the call |
 | Validation set for final numbers only | Validation also used for monitoring and epoch choice | No test split exists; stated as a limitation |
-| Prompt written once | Prompt iterated v1 → v4 on the baseline, then frozen | v1 never defined formats (G1 7%); only formats and naming conventions changed |
+| Prompt written once | Prompt iterated v1 → v4 on the baseline, then frozen | v1 never defined formats (safe-pass rate G1 7%); only formats and naming conventions changed |
 
 ## 10. Documented assumptions (confirmed)
 

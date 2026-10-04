@@ -8,9 +8,9 @@ Task: turn a nurse-line call transcript into a structured clinical summary with 
 
 | Goal | Result | Met? |
 |---|---|---|
-| Fine-tuning improves on the base model | Safe-pass G1 **60% → 92%**, Critical-Fact Accuracy H19 **56.8% → 81.6%** (same prompt, same schema, same 100 calls; paired sign test p < 0.001) | **Yes** |
-| 95% on the headline automatic metrics | G1 92% (lower 95% bound 85%), H19 81.6% (79.3%). After automatic quote repair G1r is 94% (87.5%) | **No** |
-| 95% on *some* automatic metrics | 24 of 50 matrix rows are at or above 95%, among them identity values (H2 98.0%), calls with no rule error after quote repair (E1r 96.0%), judged faithful (F1 97%), Not-Applicable decision (H14 100%). The pre-registered headlines are not among them | Partly |
+| Fine-tuning improves on the base model | Safe-pass rate (G1: no rule error and judged faithful) **60% → 92%**, critical-fact accuracy (H19: facts matching the gold summary) **56.8% → 81.6%** (same prompt, same schema, same 100 calls; paired sign test p < 0.001) | **Yes** |
+| 95% on the headline automatic metrics | safe-pass rate (G1) 92% (lower 95% bound 85%), critical-fact accuracy (H19) 81.6% (79.3%). After automatic quote repair the safe-pass rate (G1r) is 94% (87.5%) | **No** |
+| 95% on *some* automatic metrics | 24 of 50 matrix rows are at or above 95%, among them identity values and certainty right (H2: 98.0%), calls with no rule error after quote repair (E1r: 96.0%), judged faithful (F1: 97%), Not-Applicable decision right (H14: 100%). The pre-registered headlines are not among them | Partly |
 | p95 latency under 15 s | p50 14.0 s, **p95 19.1 s** (slowest 20.8 s), 65% of calls under 15 s; 20 timed calls, one at a time, L40S | **No** |
 | LLM judge is trustworthy before being used | Validated on 90 hand-edited summaries, with a fresh set run once on frozen prompts. Trustworthy for faithfulness and for missing nurse actions; weak for missing findings, hedges and speaker swaps (section 5) | **Yes, with stated limits** |
 
@@ -34,9 +34,43 @@ The assignment (task 4) names four metrics. Here they are with the numbers of th
 | **Time to first token** | Streaming measurement, 20 calls one at a time (prompt processing included) | p50 0.16 s, p95 0.62 s | p50 0.17 s, p95 0.64 s | no target given |
 | **Total response time** | Median / 95th percentile, 20 calls one at a time, L40S | 28.0 s / 69.9 s | **14.0 s / 19.1 s** | **No** (target p95 under 15 s) |
 
-Task 5 asks for 95% on the defined automatic metric, with the definition, the dataset size and the failure cases stated. Definition: G1 (no rule error and judged faithful, no gold needed) and H19 (above). Dataset: 100 validation calls, two agencies the training never saw. Result: **92% and 81.6%, so the target is not met.** Failure cases: section 8. Where 95% is met: identity (H1, H2), judged faithful (F1) and the validity and grounding rows (24 of 50 matrix rows).
+Task 5 asks for 95% on the defined automatic metric, with the definition, the dataset size and the failure cases stated. Definition: safe-pass rate (G1: no rule error and judged faithful, no gold needed) and critical-fact accuracy (H19: above). Dataset: 100 validation calls, two agencies the training never saw. Result: **92% and 81.6%, so the target is not met.** Failure cases: section 8. Where 95% is met: identity (H1, H2), judged faithful (F1) and the validity and grounding rows (24 of 50 matrix rows).
 
 **Time to first token** is measured by streaming the answer: 20 evenly spaced calls, one at a time, after one warm-up call (the server compiles the JSON grammar on first use). It is small, p50 0.17 s and p95 0.64 s for the fine-tuned model, because the only work before the first token is processing the prompt (about 3,600 tokens). It is the same for the base model (0.16 s and 0.62 s): fine-tuning does not change it. The assignment sets no target for it. The total response time is almost all token-by-token writing (section 6.3). These two timings were taken in a second timing pass; the first pass (total time only) gave slightly different totals, see 6.3.
+
+### 1.2 What the metric codes mean
+
+The evaluation produces one table of 50 measurements (the "matrix"), each with a short code. Every time a code appears in this report it comes with its meaning; this is the full list of the ones used. All are percentages of the 100 validation calls (or of the items inside them), higher is better. **Gold** means the hand-written reference summary of a call. **Rule checks** are 16 automatic checks (V1 to V16) that compare the summary with the transcript without any model. **The judge** is the base model, asked to read the transcript and a summary and say whether the summary is faithful, complete and well calibrated (validated in section 5). **95% bound** is a cautious estimate: with only 100 calls, the true rate could plausibly be as low as this.
+
+| Code | What it measures, in plain words |
+|---|---|
+| **G1** | **Safe-pass rate.** Share of calls where no rule check found an error *and* the judge found nothing wrong or invented. Needs no gold summary, so it also works on new calls. Headline for unseen data |
+| G1r | Safe-pass rate after the automatic quote repair (a near-miss quote is replaced by the exact words from the transcript) |
+| G2 | Full-pass rate: safe-pass, nothing from the checklist missing, and hedges, planned-versus-done and speaker right |
+| **H19** | **Critical-fact accuracy.** Of the facts that matter (identity, medications, symptoms, nurse actions, risk flags...), how many match the gold, with facts the model added that the gold does not have counted against it. Headline against the gold; validation calls only |
+| H19r | Critical facts found: the same, but extra facts are not penalised |
+| E1 | Share of calls that pass all 16 rule checks (no rule error) |
+| E1r | The same, after the quote repair |
+| F1 | Judged-faithful rate: the judge finds nothing wrong or invented |
+| F2 | Of the things a reference checklist says the summary should contain, the share it covers (judge, item level) |
+| F3 | Share of calls where *every* checklist item is covered (judge) |
+| F4 | Calibration rate: hedges ("I think"), planned versus completed, and who said what are right (judge) |
+| H1 | Identity values right: patient name, date of birth, caller name, relationship, callback phone, each compared with the gold (5 fields per call) |
+| H2 | The same, and the certainty ("stated" or "unclear") is also right |
+| H3 | Medication names found: share of the gold's medications that appear in the output |
+| H4 | Medication name, dose and unit all right |
+| H5 | Medication certainty ("stated" or "unclear") right |
+| H9 / H10 | Nurse actions found / found with the right status (planned or completed) |
+| H11 | Education items found (instructions the nurse gave) |
+| H12 | Gold risk flags found: share of the flags the gold raises that the model also raised |
+| H13 | Risk-flag precision: share of the flags the model raised that the gold also has |
+| H14 | Not-Applicable decision right: calls without clinical content recognised, and clinical calls not mislabelled |
+| H18 | Share of the model's medications that are in the gold (100% means it invented no drug) |
+| D3 | Share of the drugs said in the call that appear in the summary |
+| B1 | Share of the numbers in the summary that were really spoken in the call |
+| C1 | Planned-versus-completed wording matches what the nurse said |
+| A1 | Valid JSON: the model's output can be read by the program at all |
+| O1 | Share of the 20 timed calls answered in under 15 seconds |
 
 ## 2. What was built
 
@@ -105,50 +139,50 @@ Version history (v1 to v5, what each change fixed) is in `llm_judge/README.md`. 
 
 All rows: 100 validation calls, same prompt, same constrained-decoding schema, judge = base model. Full matrix: `pipeline/outputs/matrix_base_v4_s2_vs_finetuned_epoch3_s2.md`.
 
-| Metric | Base | **Fine-tuned (epoch 3)** | 95% bound of the fine-tuned value |
+| What is measured (matrix code) | Base | **Fine-tuned (epoch 3)** | 95% bound of the fine-tuned value |
 |---|---|---|---|
-| **G1** safe-pass: no rule error and judged faithful (headline, works on unseen calls) | 60% | **92%** | 85% |
-| G1r safe-pass after automatic quote repair | 78% | 94% | 87.5% |
-| **H19** Critical-Fact Accuracy against gold (headline, validation only) | 56.8% | **81.6%** | 79% |
-| H19r gold critical facts found (diagnostic) | 84.6% | 90.3% | |
-| E1 calls with no rule ERROR / E1r after quote repair | 62% / 80% | 94% / 96% | 87.5% / 90.2% |
-| F1 judged faithful | 95% | 97% | 91.5% |
-| F3 judge: every checklist item covered | 81% | 68% | |
-| G2 safe-pass and complete and calibrated | 43% | 61% | |
-| H1 / H2 identity values (and certainty) | 95.1% / 91.8% | 98.2% / 98.0% | |
-| H3 / H4 medications found / correct (name, dose, unit) | 93.3% / 82.7% | 89.3% / 74.7% | |
-| H18 output medications that are in gold | 50.4% | 90.5% | |
-| H9 / H10 / H11 nurse actions found / correct / education types found | 73.8% / 72.8% / 60.0% | 87.6% / 87.1% / 83.9% | |
-| H13 output risk flags that are in gold | 27.0% | 87.9% | |
-| H12 gold risk flags found | 89.2% | 78.4% | |
+| **Safe-pass rate (G1)**: share of calls with no rule error and a summary the judge finds faithful. Headline; needs no gold, so it also works on unseen calls | 60% | **92%** | 85% |
+| Safe-pass rate after automatic quote repair (G1r): the same, after near-miss quotes are fixed | 78% | 94% | 87.5% |
+| **Critical-fact accuracy (H19)**: critical facts that match the hand-written gold, minus facts the model added that are not in it. Headline; validation set only | 56.8% | **81.6%** | 79% |
+| Critical facts found (H19r): gold critical facts present in the output, no penalty for extras | 84.6% | 90.3% | |
+| Calls with no rule error (E1) / after quote repair (E1r): share of calls that pass all 16 rule checks | 62% / 80% | 94% / 96% | 87.5% / 90.2% |
+| Judged-faithful rate (F1): the judge finds nothing wrong or invented | 95% | 97% | 91.5% |
+| Calls with every checklist item covered (F3): the judge finds nothing from the reference checklist missing | 81% | 68% | |
+| Full-pass rate (G2): safe-pass, complete (F3) and calibrated (hedges, planned vs completed, speaker) | 43% | 61% | |
+| Identity values right (H1) / values and certainty right (H2): name, date of birth, caller, relationship, phone | 95.1% / 91.8% | 98.2% / 98.0% | |
+| Medication names found (H3) / name, dose and unit right (H4) | 93.3% / 82.7% | 89.3% / 74.7% | |
+| Share of the model's medications that are in the gold (H18): 100% means it invented no drug | 50.4% | 90.5% | |
+| Nurse actions found (H9) / with the right planned-or-completed status (H10) / education items found (H11) | 73.8% / 72.8% / 60.0% | 87.6% / 87.1% / 83.9% | |
+| Risk-flag precision (H13): share of the flags the model raised that the gold also has | 27.0% | 87.9% | |
+| Gold risk flags found (H12): share of the gold's flags that the model also raised | 89.2% | 78.4% | |
 | Latency (20 calls, one at a time) | p50 28.0 s, p95 69.9 s | **p50 14.0 s, p95 19.1 s** | target: p95 < 15 s |
 
 Reading it honestly:
 
-- **What fine-tuning bought.** The model learned the gold summaries' habits: it records the right kinds of facts, with the right labels, and flags risk far less often and far more precisely (H13 27% → 88%). Rule errors fell from 38 calls to 6. Output is valid JSON in 100% of calls, 99.7% of quotes are in the cited turns, and the output is less than half as long, hence the halved latency.
+- **What fine-tuning bought.** The model learned the gold summaries' habits: it records the right kinds of facts, with the right labels, and flags risk far less often and far more precisely (risk-flag precision (H13) 27% → 88%). Rule errors fell from 38 calls to 6. Output is valid JSON in 100% of calls, 99.7% of quotes are in the cited turns, and the output is less than half as long, hence the halved latency.
 - **What it cost.** It is more selective, and so it **drops things**: medications found fell from 93% to 89%, "every checklist item covered" (judge) from 81% to 68%, and gold risk flags found from 89% to 78%. This is the main weakness (section 8).
-- **Paired by call**, G1 passes in 36 calls only for the fine-tuned model and in 4 calls only for the base (p < 0.001). Against the *stronger* baseline of the old schema (G1 70%), 28 versus 6 calls (p = 0.0002).
-- **By category** (fine-tuned, G1): medication calls are the weakest (77.8%), then high-risk (90%); ambiguous, ASR-error and Not-Applicable calls are at 100% (12, 12 and 10 calls: small numbers). H19 is lowest on long calls (75.6%) and high-risk calls (75.4%).
+- **Paired by call**, safe-pass rate (G1) passes in 36 calls only for the fine-tuned model and in 4 calls only for the base (p < 0.001). Against the *stronger* baseline of the old schema (safe-pass rate (G1) 70%), 28 versus 6 calls (p = 0.0002).
+- **By category** (fine-tuned, safe-pass rate (G1)): medication calls are the weakest (77.8%), then high-risk (90%); ambiguous, ASR-error and Not-Applicable calls are at 100% (12, 12 and 10 calls: small numbers). critical-fact accuracy (H19) is lowest on long calls (75.6%) and high-risk calls (75.4%).
 
 ### 6.2 Every run, so the history is not hidden
 
 Recomputed from the saved outputs. The old-schema fine-tuned run is **invalid** (section 7.4) and is shown only so nobody mistakes it for a result.
 
-| Run | G1 | H19 | E1 | F1 | H3 meds found | Notes |
+| Run | Safe-pass rate (G1) | Critical-fact accuracy (H19) | Calls with no rule error (E1) | Judged faithful (F1) | Medication names found (H3) | Notes |
 |---|---|---|---|---|---|---|
 | `base` (prompt v1) | 7% | 31% | 7% | 92% | 0% | v1 never defined the fact fields or date format |
 | `base_v2` | 59% | 49% | 63% | 95% | 94.7% | exact output format added |
 | `base_v3` | 65% | 51% | 67% | 98% | 94.7% | name / relationship wording |
 | `base_v4` (old schema) | 70% | 56.9% | 70% | 98% | 93.3% | frozen prompt, schema with the wrong key order |
 | `base_v4_s2` | 60% | 56.8% | 62% | 95% | 93.3% | frozen prompt, corrected schema: **the baseline we compare with** |
-| `finetuned_epoch1_s2` | 68% | 73.3% | 74% | 85% | 88.0% | epoch 1: 3 answers ran to the 6,000-token limit (invalid JSON, 97%); weak on risk flags (H12 54%) |
+| `finetuned_epoch1_s2` | 68% | 73.3% | 74% | 85% | 88.0% | epoch 1: 3 answers ran to the 6,000-token limit (invalid JSON, 97%); weak on risk flags: only 54% of the gold's flags found (H12) |
 | `finetuned_epoch2` (old schema) | 87% | 62.7% | 89% | 93% | **2.7%** | **invalid**: the schema forced a key order the model had not learned |
 | `finetuned_epoch2_s2` | 91% | 81.4% | 93% | 98% | 82.7% | |
 | **`finetuned_epoch3_s2`** | **92%** | **81.6%** | **94%** | 97% | 89.3% | **chosen** |
 
 Epoch 1 was evaluated afterwards (row above) and is clearly the weakest of the three.
 
-(`H19` for the old-schema runs and the first two rows is recomputed with the corrected scorer, so it can differ from numbers shown in earlier messages.)
+(Critical-fact accuracy (H19) for the old-schema runs and the first two rows is recomputed with the corrected scorer, so it can differ from numbers shown in earlier messages.)
 
 ### 6.3 Latency analysis
 
@@ -185,8 +219,8 @@ The stage streams each answer, throws away one warm-up call (the server compiles
 
 | Goal | What we did | What it achieved (measured) | What it did not |
 |---|---|---|---|
-| **Safety** | Every bullet carries a verbatim quote and cited turns; 16 deterministic rules (V1-V16) check quotes, numbers, drug names, identity values, planned versus completed and negations against the transcript; automatic quote repair; Not-Applicable decision; risk flags; a PASS / NEEDS NURSE REVIEW / FAILED gate in the UI; the validated judge for meaning | Rule errors per call 38% → 6% (E1), 20% → 4% after quote repair (E1r); numbers in the summary that were spoken in the call 98.7% → 99.7% (B1); planned-versus-completed 99.5% (C1) | The rules cannot see a dropped drug or a swapped drug that is also in the call; the judge is the only guard there, and it is imperfect (section 5) |
-| **Accuracy** | LoRA fine-tuning on 500 hand-written calls; a frozen, versioned prompt (v1 → v4); schema with the same key order as the training targets | Safe-pass G1 60% → 92%; Critical-Fact Accuracy 56.8% → 81.6%; identity 91.8% → 98.0% | Medications got worse (section 8); 95% not reached |
+| **Safety** | Every bullet carries a verbatim quote and cited turns; 16 deterministic rules (V1-V16) check quotes, numbers, drug names, identity values, planned versus completed and negations against the transcript; automatic quote repair; Not-Applicable decision; risk flags; a PASS / NEEDS NURSE REVIEW / FAILED gate in the UI; the validated judge for meaning | Calls with a rule error 38% → 6% (E1: calls with no rule error), 20% → 4% after quote repair (E1r); numbers in the summary that were spoken in the call 98.7% → 99.7% (B1); planned-versus-completed wording right 99.5% (C1) | The rules cannot see a dropped drug or a swapped drug that is also in the call; the judge is the only guard there, and it is imperfect (section 5) |
+| **Accuracy** | LoRA fine-tuning on 500 hand-written calls; a frozen, versioned prompt (v1 → v4); schema with the same key order as the training targets | Safe-pass rate (G1) 60% → 92%; critical-fact accuracy (H19) 56.8% → 81.6%; identity values and certainty right (H2) 91.8% → 98.0% | Medications got worse (section 8); 95% not reached |
 | **Consistency** | Greedy decoding (temperature 0); JSON-schema constrained output (valid JSON 98% → 100%); fixed key order; one prompt for both models; deterministic renderer | Valid and schema-correct output on 100 of 100 calls | **Not measured:** that the same call gives byte-identical output on repeated runs or after a server restart (planned, not done) |
 | **Latency** | Fine-tuning for compact output; 4-bit weights; adapter served by vLLM without merging; constrained decoding (valid JSON the first time, so no retry is needed) | p50 28.0 s → 14.0 s, p95 69.9 s → 19.1 s | p95 target (15 s) missed; n-gram speculative decoding made it slower (7.5); no faster GPU or shorter schema tried |
 
@@ -195,7 +229,7 @@ The stage streams each answer, throws away one warm-up call (the server compiles
 This is the part most reports leave out.
 
 ### 7.1 The first baseline was nearly meaningless (prompt)
-The draft prompt did not say how to write dates (the model wrote "February 12, 1936"), nor the field names inside the typed facts (the model invented a free-text `value`), nor whether `relationship` meant the caller's or the patient's role. Result: G1 7%, medication matching 0%. We rewrote the prompt three times (v2 → v4), changing **only output format and naming conventions, never clinical content**. We then froze it, because tuning the baseline on the very set we evaluate on would flatter the baseline. The residual risk: the prompt was shaped against the validation conventions, so the baseline is better than a first try but not an expert-tuned one.
+The draft prompt did not say how to write dates (the model wrote "February 12, 1936"), nor the field names inside the typed facts (the model invented a free-text `value`), nor whether `relationship` meant the caller's or the patient's role. Result: safe-pass rate (G1) 7%, medication matching 0%. We rewrote the prompt three times (v2 → v4), changing **only output format and naming conventions, never clinical content**. We then froze it, because tuning the baseline on the very set we evaluate on would flatter the baseline. The residual risk: the prompt was shaped against the validation conventions, so the baseline is better than a first try but not an expert-tuned one.
 
 ### 7.2 Our own tools had bugs
 - **Renderer crash.** The renderer crashed on any date of birth that was not `YYYY-MM-DD`, and the judge silently skipped those calls: only 13 of 100 were judged, in 25 seconds. We noticed the number, fixed it (the judge now converts spoken and written dates for display) and added a warning that counts any skipped call.
@@ -203,10 +237,10 @@ The draft prompt did not say how to write dates (the model wrote "February 12, 1
 - **Generation took 50 minutes** because of one request at a time. We added parallel generation and a separate timed sample for latency.
 
 ### 7.3 Quote stitching
-The base model often glued two sentences together with "..." or ran a quote past a clean span: 29 to 33 calls with a quote error. We added a **deterministic quote repair** (replace a near-miss quote with the exact span from the cited turns; it never touches anything else and changes 0 quotes in all 100 gold summaries) and report it **separately** (E1r, G1r) so the raw numbers stay primary. The fine-tuned model has this problem in only 3 calls.
+The base model often glued two sentences together with "..." or ran a quote past a clean span: 29 to 33 calls with a quote error. We added a **deterministic quote repair** (replace a near-miss quote with the exact span from the cited turns; it never touches anything else and changes 0 quotes in all 100 gold summaries) and report it **separately** (calls with no rule error after quote repair (E1r), safe-pass rate after quote repair (G1r)) so the raw numbers stay primary. The fine-tuned model has this problem in only 3 calls.
 
 ### 7.4 Our schema made the first fine-tuned result wrong
-The first evaluation of the fine-tuned model showed **medications found 2.7%, vitals 2.8%**, and the model "worse" than the base on several rows. Training was fine; our serving schema was the cause. vLLM's constrained decoding forces the keys in the schema's order, and our schema listed `certainty` second in every fact, while the training targets have it last. After `type`, the grammar forced `certainty`, which the model had learned means "this fact is finished", so it closed the fact without its name, dose or severity. We proved it by checking all 600 gold summaries against the schema (the old order disagreed with 2,400 identity fields and 4,914 of 5,083 facts), reordered the schema, added a test, and re-ran **both** the base and the fine-tuned model under the corrected schema. The corrected schema made the base model *slightly worse* (G1 70% → 60%), so we report both baselines; the fine-tuned model beats either. Five percent of the gold facts still use an order that conflicts with the one we chose (the gold itself is inconsistent for a few key pairs); that is fixable at training time (section 10).
+The first evaluation of the fine-tuned model showed **medications found 2.7%, vitals 2.8%**, and the model "worse" than the base on several rows. Training was fine; our serving schema was the cause. vLLM's constrained decoding forces the keys in the schema's order, and our schema listed `certainty` second in every fact, while the training targets have it last. After `type`, the grammar forced `certainty`, which the model had learned means "this fact is finished", so it closed the fact without its name, dose or severity. We proved it by checking all 600 gold summaries against the schema (the old order disagreed with 2,400 identity fields and 4,914 of 5,083 facts), reordered the schema, added a test, and re-ran **both** the base and the fine-tuned model under the corrected schema. The corrected schema made the base model *slightly worse* (safe-pass rate (G1) 70% → 60%), so we report both baselines; the fine-tuned model beats either. Five percent of the gold facts still use an order that conflicts with the one we chose (the gold itself is inconsistent for a few key pairs); that is fixable at training time (section 10).
 
 ### 7.5 Speculative decoding for latency made it slower
 To close the latency gap we tried n-gram (prompt-lookup) speculative decoding, which is lossless and needs no retraining. The server accepted about 2.4 to 3.4 tokens per step, but throughput fell from about 62 to **34 to 43 tokens/s** (median 23 s per call instead of 14 s). vLLM 0.30 logged why: with n-gram speculation it falls back to the older model runner and disables asynchronous scheduling, and here it is combined with LoRA and constrained JSON decoding. The first reading of that slow run was confused for a while because `ps` does not show the original command line of vLLM; we found the cause from the server log and the metrics endpoint. **Not tried:** the model-based drafter (MTP), emitting quote pointers instead of verbatim quotes, templated explanations, a faster GPU.
@@ -215,24 +249,24 @@ To close the latency gap we tried n-gram (prompt-lookup) speculative decoding, w
 At about 62 tokens/s, 15 s means about 900 output tokens; the median fine-tuned call writes 894 and the long ones 1,000 to 1,300. Removing the `explanation` field (11% of the output) would still leave the longest calls near 19 s; removing `quote` (15%) would also remove our evidence check. A faster GPU is the more reliable lever (decoding speed follows memory bandwidth; an H100 has about four times the L40S's, which suggests 2 to 3 times faster in practice: an estimate, not measured).
 
 ### 7.7 Why epoch 3, not epoch 2
-Validation loss was lowest at epoch 2 (0.167 against 0.171), and the training loss kept falling, which looks like the start of overfitting. But loss is not the thing we care about. On the pipeline metrics, epoch 3 is equal or better almost everywhere: G1 92% vs 91% (a tie: 5 calls only epoch 3 passes, 4 only epoch 2), and clearly better on completeness (judge F3 68% vs 57%, G2 61% vs 51%), medications found (89% vs 83%) and nurse actions. It misses slightly more risk flags (78% vs 81%), a difference of one flag. So we chose epoch 3 on the pipeline metrics, **using the same validation set we report on**: the choice is among three checkpoints, so the effect is small, but the final numbers are slightly optimistic. **Epoch 1 was evaluated later and is clearly weaker**: G1 68% (epoch 3: 92%), H19 73.3% (81.6%), judged faithful 85% (97%), gold risk flags found 54% (78%), and 3 of its 100 answers ran into the 6,000-token limit and are not valid JSON (epoch 3: none). Its medication scores equal epoch 3's (H4 74.7% for both, H3 88.0% against 89.3%). So the choice was between epochs 2 and 3, and epoch 1 would not have changed it.
+Validation loss was lowest at epoch 2 (0.167 against 0.171), and the training loss kept falling, which looks like the start of overfitting. But loss is not the thing we care about. On the pipeline metrics, epoch 3 is equal or better almost everywhere: safe-pass rate (G1) 92% vs 91% (a tie: 5 calls only epoch 3 passes, 4 only epoch 2), and clearly better on completeness (calls with every checklist item covered, F3: 68% vs 57%; full-pass rate, G2: 61% vs 51%), medication names found (H3: 89% vs 83%) and nurse actions. It misses slightly more risk flags (78% vs 81%), a difference of one flag. So we chose epoch 3 on the pipeline metrics, **using the same validation set we report on**: the choice is among three checkpoints, so the effect is small, but the final numbers are slightly optimistic. **Epoch 1 was evaluated later and is clearly weaker**: safe-pass rate (G1) 68% (epoch 3: 92%), critical-fact accuracy (H19) 73.3% (81.6%), judged faithful 85% (97%), gold risk flags found 54% (78%), and 3 of its 100 answers ran into the 6,000-token limit and are not valid JSON (epoch 3: none). Its medication scores equal epoch 3's (medication name + dose + unit right, H4: 74.7% for both; medication names found, H3: 88.0% against 89.3%). So the choice was between epochs 2 and 3, and epoch 1 would not have changed it.
 
 ### 7.8 A smaller point
 A single CUDA out-of-memory warning at step 9 (46 GB reserved, 35 GB used) recovered; the run was not restarted. `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` would likely avoid it; we did not apply it.
 
 ## 8. What the fine-tuned model still gets wrong
 
-From the 8 of 100 calls that fail G1, and from reading every gold medication the model missed (epoch 3):
+From the 8 of 100 calls that fail safe-pass rate (G1), and from reading every gold medication the model missed (epoch 3):
 
-- **Medications: the assignment's weakest metric, and worse than the base model.** Of 75 gold medications, the fine-tuned model finds 67 by name (H3 89.3%; base 70) and gets 56 right with dose and unit (H4 74.7%; base 62). Section 8.1 reads all 19 lost slots one by one.
+- **Medications: the assignment's weakest metric, and worse than the base model.** Of 75 gold medications, the fine-tuned model finds 67 by name (H3: 89.3%; base 70) and gets 56 right with dose and unit (H4: 74.7%; base 62). Section 8.1 reads all 19 lost slots one by one.
 - **Timing and hedging.** "twenty minutes earlier" and "last given this afternoon" where the transcript supports neither; a claim that a pill organiser was "full" when the caller said otherwise.
 - **Remaining rule errors (after quote repair):** one invented number (va-095), one drug not in the call (va-059, "insulin"), one status marked completed without a completion cue (va-077), one quote still wrong.
 - **Missing details.** 105 gold critical slots are missing from the output: nurse actions 26, symptoms 26, medications 19, negatives 17, identity 9, risk flags 8. Symptom and negative matching is word overlap, so some of these are different phrasings, not omissions; and the judge's completeness check on findings is itself weak.
-- **Extra facts.** 115 "unsupported" facts count against H19 (symptoms 44, actions 38, negatives 14, medications 7, flags 4, identity 8). Spot checks showed many are true details the gold simply does not record, so H19 partly measures *imitating the gold's selectivity*. That is why H19r (no penalty for extras) is reported next to it, and why we do not treat H19 alone as a measure of correctness.
+- **Extra facts.** 115 "unsupported" facts count against critical-fact accuracy (H19) (symptoms 44, actions 38, negatives 14, medications 7, flags 4, identity 8). Spot checks showed many are true details the gold simply does not record, so critical-fact accuracy (H19) partly measures *imitating the gold's selectivity*. That is why H19r (no penalty for extras) is reported next to it, and why we do not treat critical-fact accuracy (H19) alone as a measure of correctness.
 
 ### 8.1 Medication errors, one by one
 
-Generated by `pipeline/dev/med_error_analysis.py`; the full list with transcripts' wording is `pipeline/outputs/med_errors.md`. Same matching as H3 and H4.
+Generated by `pipeline/dev/med_error_analysis.py`; the full list with transcripts' wording is `pipeline/outputs/med_errors.md`. Same matching as the matrix rows for medication names found (H3) and medication name, dose and unit right (H4).
 
 | | Base | Epoch 1 | Epoch 2 | **Epoch 3** |
 |---|---|---|---|---|
@@ -245,7 +279,7 @@ Generated by `pipeline/dev/med_error_analysis.py`; the full list with transcript
 | Medications the model wrote that are not in the gold | 69 | 15 | 7 | 7 |
 | Gold drug named, and its dose written in the same sentence of the summary text (approximate text match; a drug with no numeric gold dose counts if named) | 47 | 65 | 63 | **67** |
 
-Medication accuracy did not improve with more training: H4 went 74.7% → 69.3% → 74.7% over the three epochs, a swing of 4 medications out of 75, which is within the noise of this set. The problem is not a matter of training too little or too long.
+Medication accuracy did not improve with more training: medication name + dose + unit right (H4) went 74.7% → 69.3% → 74.7% over the three epochs, a swing of 4 medications out of 75, which is within the noise of this set. The problem is not a matter of training too little or too long.
 
 Reading the 19 lost slots of epoch 3:
 
@@ -262,7 +296,7 @@ So **5 of the 19 are genuine losses of information or breaches of the safety rul
 
 **These are omissions, not drug swaps.** In va-039 and va-069 the drug the model wrote was really spoken in the call; what it did was leave out another drug. That is still a safety problem (a medication the nurse should see is missing, and no rule can see a missing item), but we found no case among the lost slots where a wrong drug took the place of the right one. Separately, the rules found one drug name that is not in the call at all (va-059, "insulin", section 8).
 
-**Why fine-tuning made the strict medication score drop.** Base and fine-tuned differ in a way the 75 gold medications hide: the base model lists nearly every drug in the call (69 extra medications that are not in the gold: only 50.4% of the medications it writes are in the gold, H18), so it finds more gold drugs; the fine-tuned model writes only 7 extra (H18 90.5%) but also drops some it should keep. We believe, but did not test, that it learned the gold's selectivity too well: the gold records only the medications the call is about, and a drug that the nurse merely reads from the chart is dropped. For the missing typed doses the training data is only a partial explanation: 13 of the 428 medication facts in the training targets (3%) have a dose in the sentence but not in the typed fact, while the model does it in 6 of 75 (8%). We do not know the cause. Section 10 lists what to change.
+**Why fine-tuning made the strict medication score drop.** Base and fine-tuned differ in a way the 75 gold medications hide: the base model lists nearly every drug in the call (69 extra medications that are not in the gold: only 50.4% of the medications it writes are in the gold), so it finds more gold drugs; the fine-tuned model writes only 7 extra (90.5% of its medications are in the gold) but also drops some it should keep. We believe, but did not test, that it learned the gold's selectivity too well: the gold records only the medications the call is about, and a drug that the nurse merely reads from the chart is dropped. For the missing typed doses the training data is only a partial explanation: 13 of the 428 medication facts in the training targets (3%) have a dose in the sentence but not in the typed fact, while the model does it in 6 of 75 (8%). We do not know the cause. Section 10 lists what to change.
 
 ## 9. Limits of this evidence
 
@@ -270,7 +304,7 @@ So **5 of the 19 are genuine losses of information or breaches of the safety rul
 - No test split; validation was used for monitoring, epoch choice and reporting.
 - The judge is the same model family as the system it judges; its completeness mode is unvalidated on unseen data.
 - Latency is 20 timed calls, one at a time, on one L40S. The p95 of 20 samples is close to the slowest call.
-- The gold comparison (H19) is not identical to the architecture's "CFA" definition: matching is by normalised value and cited-turn proximity, without a speaker or quote-validity condition.
+- The gold comparison (critical-fact accuracy, H19) is not identical to the architecture's "CFA" definition: matching is by normalised value and cited-turn proximity, without a speaker or quote-validity condition.
 - **Planned and not done:** a learning-rate sweep (only 2e-4 was run), a rank sweep, greedy-versus-sampling test, thinking-mode test, the HF-versus-vLLM agreement check of the adapter, McNemar and bootstrap intervals (we used a paired sign test and Wilson bounds), preference tuning (DPO).
 - **Production pieces in the design but not built:** the Not-Applicable gate before the model, the candidates table in the input, the targeted retry on validator errors. The demo UI applies the rules, the quote repair and a review gate, not these.
 
@@ -279,7 +313,7 @@ So **5 of the 19 are genuine losses of information or breaches of the safety rul
 Each item is tied to evidence above; none is a guarantee.
 
 1. **Canonicalise the key order in the training targets, and use the same order in the serving schema.** Fixes the 5% order conflicts (252 of 5,083 facts) so the grammar never fights the model.
-2. **Fix the medication problem directly (it is an assignment metric and it got worse).** (a) Make the training targets consistent: every medication fact carries the dose and unit that its sentence states (13 of 428 do not now), and a tablet count and a strength are both kept ("2 tablets, 5 mg each"), which also removes the 4 convention misses. (b) Add training calls where the chart lists drugs that the call does not discuss and calls where the drug asked about differs from the drug already taken, so the model learns to keep both. (c) Keep garbled drug names as spoken with certainty "unclear" (more calls like "meth a dome"). (d) Weight the loss on drug-name and dose tokens. (e) Score medications at the text level as well as the typed-fact level, so the two stop being confused (`dev/med_error_analysis.py` does this). (f) At serving time, compare the drugs found in the transcript with the drugs in the summary and send the call to nurse review when one is missing. Today this exists only as a matrix indicator (D3, 72.8% for the fine-tuned model, because drugs a nurse merely reads from the chart also count against it), so as a review trigger it would flag many calls; it would have to be narrowed (for example to drugs mentioned more than once) and tested first. It needs no retraining.
+2. **Fix the medication problem directly (it is an assignment metric and it got worse).** (a) Make the training targets consistent: every medication fact carries the dose and unit that its sentence states (13 of 428 do not now), and a tablet count and a strength are both kept ("2 tablets, 5 mg each"), which also removes the 4 convention misses. (b) Add training calls where the chart lists drugs that the call does not discuss and calls where the drug asked about differs from the drug already taken, so the model learns to keep both. (c) Keep garbled drug names as spoken with certainty "unclear" (more calls like "meth a dome"). (d) Weight the loss on drug-name and dose tokens. (e) Score medications at the text level as well as the typed-fact level, so the two stop being confused (`dev/med_error_analysis.py` does this). (f) At serving time, compare the drugs found in the transcript with the drugs in the summary and send the call to nurse review when one is missing. Today this exists only as a matrix indicator (D3: share of drugs said in the call that appear in the summary, 72.8% for the fine-tuned model, because drugs a nurse merely reads from the chart also count against it), so as a review trigger it would flag many calls; it would have to be narrowed (for example to drugs mentioned more than once) and tested first. It needs no retraining.
 3. **Hold out a development split** (for example 40 of the 500) for choosing the epoch and any hyper-parameter, so validation is touched once at the end. (All three epochs have now been evaluated; epoch 1 is clearly weaker, section 7.7.)
 4. **Run the sweeps we skipped:** learning rate (1e-4 against 2e-4), possibly more epochs at a lower rate (metrics were still improving at epoch 3 while validation loss was not).
 5. **Shorten the output** only if latency matters more than the extra fields: templated `explanation`, quote pointers (turn plus first and last words, filled in by code), compact identity. Train and serve it together, then re-validate every rule.

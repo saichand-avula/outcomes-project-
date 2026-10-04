@@ -8,17 +8,19 @@ Turn a nurse-line call transcript into a structured clinical summary with **Gemm
 
 100 validation calls (two agencies held out), same prompt, same schema, judge = base model. Details and every run: [REPORT.md](REPORT.md) §6.
 
-| | Base model | **Fine-tuned (epoch 3)** | Target |
+| What is measured (code in the evaluation table) | Base model | **Fine-tuned (epoch 3)** | Target |
 |---|---|---|---|
-| **G1** safe-pass (no rule error, judged faithful) | 60% | **92%** (lower bound 85%) | 95% ❌ |
-| G1r safe-pass after automatic quote repair | 78% | 94% (87.5%) | 95% ❌ |
-| **H19** Critical-Fact Accuracy against gold | 56.8% | **81.6%** (79%) | 95% ❌ |
-| Identity accuracy: values (H1) / values and certainty (H2) | 95.1% / 91.8% | **98.2% / 98.0%** (97% / 96%) | 95% ✅ |
-| Judged faithful (F1) | 95% | 97% (91.5%) | 95% ✅ (point estimate) |
-| **Medication name** found (H3, 75 medications) | 93.3% | 89.3% (80%) | 95% ❌ (worse than base) |
-| **Medication name + dose + unit** (H4) | 82.7% | 74.7% (64%) | 95% ❌ (worse than base) |
-| Total response time, 20 timed calls, one at a time, L40S | p50 28.0 s, p95 69.9 s | **p50 14.0 s, p95 19.1 s** | p95 < 15 s ❌ |
-| Time to first token, p50 / p95 | 0.16 s / 0.62 s | 0.17 s / 0.64 s | none given |
+| **Safe-pass rate (G1)**: calls where no automatic rule found an error *and* the judge found nothing wrong or invented | 60% | **92%** (cautious estimate 85%) | 95% ❌ |
+| Safe-pass rate after automatic quote repair (G1r): the same once near-miss quotes are corrected | 78% | 94% (87.5%) | 95% ❌ |
+| **Critical-fact accuracy (H19)**: important facts that match the hand-written reference summary, minus facts the model added | 56.8% | **81.6%** (79%) | 95% ❌ |
+| **Identity accuracy**: patient and caller name, date of birth, relationship, phone right (H1) / and "stated or unclear" right (H2) | 95.1% / 91.8% | **98.2% / 98.0%** (97% / 96%) | 95% ✅ |
+| Judged-faithful rate (F1): the judge model finds nothing wrong or invented | 95% | 97% (91.5%) | 95% ✅ (best guess; the cautious estimate is below) |
+| **Medication name** found (H3): drugs in the reference that appear in the output (75 drugs) | 93.3% | 89.3% (80%) | 95% ❌ (worse than base) |
+| **Medication name + dose + unit** all right (H4) | 82.7% | 74.7% (64%) | 95% ❌ (worse than base) |
+| **Total response time**, 20 calls timed one at a time on an L40S GPU | median 28.0 s, 95th percentile 69.9 s | **median 14.0 s, 95th percentile 19.1 s** | 95th percentile under 15 s ❌ |
+| **Time to first token** (how soon the answer starts), median / 95th percentile | 0.16 s / 0.62 s | 0.17 s / 0.64 s | none given |
+
+"Gold" or "reference" means the summary written by hand for each call. The figure in brackets is a cautious estimate (the 95% lower bound): with 100 calls the true rate could plausibly be that low. Every code (G1, H19, ...) is explained in plain words in [REPORT.md §1.2](REPORT.md).
 
 What the model still gets wrong ([REPORT.md](REPORT.md) §8): it is more selective than the base model and **drops details**. In 3 of 100 calls it **left out a drug the call was about** (for example lisinopril in va-039, zolpidem in va-069), and its medication scores fell below the base model's (REPORT §8.1 reads all 19 lost medication slots). The rules cannot see a missing drug; only the judge and the gold comparison can. Every automatic summary needs a nurse's review.
 

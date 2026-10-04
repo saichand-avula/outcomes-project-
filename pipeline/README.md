@@ -106,17 +106,19 @@ Every row: a rate with `n/d`, a 95% lower confidence bound (Wilson), the source,
 | B. Grounding in the call | numbers, drug names, clinical terms, identity values | D |
 | C. Wording vs meaning | planned/completed, negatives, hedges | D |
 | D. Safety gates | Not-Applicable decision, risk flags the rules find (precise and loose), drug mentions covered | D |
-| E. Whole call (rules) | E1 no ERROR; E2 no ERROR and no WARN | D |
+| E. Whole call (rules) | E1 = share of calls with no rule ERROR; E2 = no ERROR and no WARN | D |
 | F. Meaning (judge) | faithful; completeness (item level and call level); calibrated | J |
-| G. Pipeline | **G1 safe-pass** (no rule ERROR and judged faithful); G2 full-pass | DJ |
-| H. Against gold | identity, medications (name, dose, unit), symptoms, negatives, vitals, actions (type, status), education, flags, Not-Applicable, bullet coverage, hallucinated medications, **H19 Critical-Fact Accuracy** | R |
+| G. Pipeline | **G1 safe-pass rate** (no rule ERROR and judged faithful); G2 full-pass rate (safe-pass, complete and calibrated) | DJ |
+| H. Against gold | identity, medications (name, dose, unit), symptoms, negatives, vitals, actions (type, status), education, flags, Not-Applicable, bullet coverage, hallucinated medications, **H19 critical-fact accuracy** (important facts matching the hand-written gold, minus facts the model added) | R |
 | O. Operational | share of calls under 15 s (p50/p95 in the note), outputs not cut off | O |
+
+The letters are groups and the codes (G1, H19, ...) are row names; REPORT.md §1.2 explains every code in plain words.
 
 Rules of the table: slot rows (B, C, D) are computed over outputs that parsed; whole-call rows count an unparseable or unrenderable output as a failure. Judge rows are computed over the calls the judge actually ran on, and the note says how many. Rows H need gold, so they appear only for our validation set.
 
-**Fixed in advance (so we cannot pick the best-looking number afterwards):** the headline for unseen data is G1; the headline on our validation set is H19 (Critical-Fact Accuracy) and G1. Everything else is reported but is not the claim. The report states which rows reach 95%.
+**Fixed in advance (so we cannot pick the best-looking number afterwards):** the headline for unseen data is G1 (safe-pass rate: no rule error and judged faithful); the headline on our validation set is H19 (critical-fact accuracy against the gold) and G1. Everything else is reported but is not the claim. The report states which rows reach 95%.
 
-A "ceiling" column is useful: `fake-system --system gold` writes the gold summaries as if a perfect model had produced them. Rows like D2b (loose risk rules) and D3 (drug mentions) are below 100% even for gold, so they are read against that ceiling, not against 95%.
+A "ceiling" column is useful: `fake-system --system gold` writes the gold summaries as if a perfect model had produced them. Rows like D2b (other risk flags the loose rules suggest) and D3 (drugs said in the call that appear in the summary) are below 100% even for gold, so they are read against that ceiling, not against 95%.
 
 ## 5. Run it
 
@@ -167,8 +169,8 @@ Measured on the L40S for 100 calls: base-model generation about 50 minutes one r
 - Speaker mismatch is a WARN: the prompt tells the model to attribute by meaning when a label looks wrong, and the rules only see labels.
 - Risk-flag rules are a candidate generator. Suicidal and escalation rules are precise (about 0.9) and can raise an ERROR; the others (precision 0.4-0.5) only warn. The pipeline output carries `final_flags` = model flags plus rule flags, as in the architecture.
 - The rules were developed on the training split only and checked on validation. Rule-based checks of the gold found real defects in the data, which were fixed (see below).
-- The raw model output is what the headline rows score. The only repair step is the deterministic quote repair, reported separately (E1r, G1r). The targeted retry of the production design (architecture 5.2 step 6) is not implemented.
-- Prompt history (the base model, 100 validation calls, G1 = safe-pass, H19 = Critical-Fact Accuracy):
+- The raw model output is what the headline rows score. The only repair step is the deterministic quote repair, reported separately (E1r: calls with no rule error after repair; G1r: safe-pass rate after repair). The targeted retry of the production design (architecture 5.2 step 6) is not implemented.
+- Prompt history (the base model, 100 validation calls; G1 = safe-pass rate: no rule error and judged faithful; H19 = critical-fact accuracy against the hand-written gold):
   v1 (draft, no output-format section): G1 7%, H19 29%, because dates, fact fields and names were not specified.
   v2 (exact output format): G1 59%, H19 44% (49% after the scorer fixes). v3 (name and relationship wording): G1 65%, H19 51%.
   v4 (caller-name wording) is **frozen** and is the baseline to beat; the fine-tuned model is also run with `system_v4.md`.
@@ -176,7 +178,7 @@ Measured on the L40S for 100 calls: base-model generation about 50 minutes one r
 - **Schema key order bug (found on the first fine-tuned evaluation):** vLLM's constrained decoding enforces the schema's property order. The schema listed `certainty` second in a fact and `turns` before `heard_as`; the gold summaries have `certainty` last and `heard_as` before `turns`. A model trained on the gold order was forced to emit `certainty` right after `type`, closed the fact, and lost `name`, `dose` and the other slots (medications and vitals fell to about 3%). The schema now follows the gold order (`pl/schema.py`; 5.0% of gold facts still use another order, which the data itself contains), and the selftest checks it. Runs made before the fix (`base_v4`, `finetuned_epoch2` without a tag) used the old schema; the corrected runs carry the tag `_s2`.
 - `generate` runs 16 requests at once by default; latency is then measured on `--latency-n` calls re-run one at a time. Use `--latency-n 0` while iterating.
 - `latency --system X --prompt prompts/system_v4.md --model M --n 20` times 20 evenly spaced calls one at a time on an existing run and stores them in its generations; the matrix then reports latency from them. Run it for `base_v4_s2` (model `gemma`) and for the chosen adapter (model `ft3`) so both numbers come from the same procedure. It streams the answer, so it also records the **time to first token** (`ttft_seq_s`; one untimed warm-up call first, because the server compiles the JSON grammar on first use), and the matrix prints a Latency table with both.
-- `validate` also writes `validation_repaired.jsonl` (near-match quotes replaced by the exact span, `pl/repair.py`); the matrix reports it as E1r and G1r next to the raw E1 and G1.
+- `validate` also writes `validation_repaired.jsonl` (near-match quotes replaced by the exact span, `pl/repair.py`); the matrix reports it as E1r (calls with no rule error after repair) and G1r (safe-pass rate after repair) next to the raw E1 and G1.
 - Python 3.11 compatible; standard library only (`openpyxl` is optional, for the .xlsx).
 
 ## 7. Saved runs
