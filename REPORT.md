@@ -11,7 +11,7 @@ Task: turn a nurse-line call transcript into a structured clinical summary with 
 | Fine-tuning beats the base model | Safe-pass rate **65% → 91%**, critical-fact accuracy **57.6% → 82.3%** (same prompt, same schema; paired sign test p < 0.001) | **Yes** |
 | 95% on the headline metrics | Safe-pass 91% (lower 95% bound 84%), critical-fact accuracy 82.3% (80%) | **No** |
 | 95% on other metrics | 25 of 49 matrix rows: identity 98%, no rule error after quote repair 97%, judged faithful 96%, Not-Applicable decision 100% | Partly |
-| Medication accuracy | Fine-tuned model scores *below* the base on recall (names 86.7% vs 94.7%, name + dose + unit 78.7% vs 84.0%) but far above it once precision counts; a safety net lifts it to 92.0% / 82.7% (section 7) | **No** |
+| Medication accuracy | Fine-tuned model scores *below* the base on recall (names 86.7% vs 94.7%, name + dose + unit 78.7% vs 84.0%) but far above it once precision counts; a safety net lifts it to 92.0% / 85.3% (section 7) | **No** |
 | p95 latency < 15 s | median 14.0 s, **p95 19.1 s**, 13 of 20 timed calls under 15 s | **No** |
 | LLM judge validated before use | 90 deliberately damaged summaries, fresh set run once on frozen prompts (section 5) | **Yes, with limits** |
 
@@ -27,7 +27,7 @@ The fine-tuned model is much better than the base model, but not finished: it is
 | | Gold critical facts found, extras not penalised (H19r) | 86.7% | 90.9% (89%) | no |
 | Identity accuracy | Name, DOB, caller, relationship, phone right (H1) / and certainty right (H2) | 97.3% / 93.8% | **98.2% / 98.0%** (97% / 96%) | **yes** |
 | Medication name | Gold drugs found by name, 75 drugs (H3) | 94.7% | 86.7% (77%); **92.0% with safety net** | no |
-| Medication name + dose | Found with the right dose and unit (H4) | 84.0% | 78.7% (68%); **82.7% with safety net** | no |
+| Medication name + dose | Found with the right dose and unit (H4) | 84.0% | 78.7% (68%); **85.3% with safety net** | no |
 | Time to first token | Streamed, 20 calls one at a time | 0.16 s / 0.62 s | 0.17 s / 0.64 s | no target |
 | Total response time | Median / 95th percentile, same 20 calls, L40S | 28.0 s / 69.9 s | **14.0 s / 19.1 s** | p95 no |
 
@@ -132,6 +132,22 @@ Validation loss was lowest at epoch 2 (0.167 vs 0.171), but loss is not the goal
 | Consistency | Greedy decoding; JSON-schema constrained output; fixed key order; one prompt; deterministic renderer | Valid, schema-correct output on 100 of 100 calls | Byte-identical repeat runs not tested |
 | Latency | Compact output from fine-tuning; 4-bit weights; adapter served unmerged; no retry needed | p50 28.0 → 14.0 s, p95 69.9 → 19.1 s | 15 s missed; n-gram speculative decoding was slower |
 
+### 6.5 Why each headline number is below 95% (fine-tuned, epoch 3, 100 validation calls)
+
+Taken from the saved outputs (`reference.jsonl`, `validation.jsonl`, `judge.jsonl`), not from assumptions.
+
+**Safe-pass rate, 91% (9 calls fail; base 35).** Five calls have a rule error: three are a quote attached to a neighbouring turn (V4; automatic repair exists for these, consistent with 93% after repair), one is a drug the call never named ("insulin", V7), one is an invented number (70, V6). Four calls are judged unfaithful; the judge's reasons quote the transcript and I read them as correct, but the transcripts were not re-audited line by line: a hedge dropped ("since Tuesday, or maybe Wednesday" became "since the beginning of the week"), a last dose given as "this morning" when the call said the pill is due at eight, a dose given as "one ... another one" written as "1 mg", and a pill organiser called "full" when three slots were empty. These are the model's real mistakes. Base fails mostly on quote placement (30 of its 35).
+
+**Critical-fact accuracy, 82.3% (82.5% with the safety net).** The score is matched critical slots divided by (gold slots + model slots the gold lacks): 989 matched of 1,083 gold slots, plus 116 extra. The 94 missed gold slots: symptoms 26, pertinent negatives 16, nurse actions 24, medications 11, risk flags 8, identity and the rest about 9 (approximate split). The 116 extras: symptoms 44, actions 34, medications 13, pertinent negatives 12, risk flags 5. In the 9 calls I read side by side (symptoms only), roughly half of the misses and extras were scoring artifacts or gold selectivity, not errors (a sample, not a count): wording that does not share a word with the gold ("dry mouth" absent, "low mood" written as "hopelessness"), and real, grounded findings the gold chose not to record (itching, knee stiffness, hip pain). Only the first kind of miss is the model's fault. Because the gold is one author's selection, a gap to 95% on this score cannot be closed by the model alone; the judge's faithfulness (96%) is the fairer measure of invented content.
+
+**Completeness of the whole call (F3), 69% (base 84%).** 31 calls miss at least one checklist item; the item most often missing is *background* ("children are staying at the house", "afraid of giving too much", 14 calls, 9 of them miss only background), then instructions given (9), pertinent negatives (6) and nurse actions (5). The fine-tuned model writes shorter summaries that follow the gold's selection, and the judge's completeness rubric is weak (kappa 0.61), so this is partly the judge. It is a real gap for background context that the gold does keep.
+
+**Risk flags, 78% found (H12) and 37.5% of the rule-suggested other flags present (D2b).** The model flags only what the gold flags (85% of its flags are in the gold, against 28% for the base); it misses 8 of 37 gold flags. The rule-suggested flags are broad keyword hits, so D2b is an indicator, not a target.
+
+**Medications.** Section 7. After the safety net: names 92.0%, name + dose + unit 85.3% (base 94.7% and 84.0%).
+
+**Latency.** Section 6.2: the answer is about 900 tokens at 62-73 tokens per second on one L40S, so the median is about 14 s and the tail (long calls, long answers) is 19 s. Reaching p95 under 15 s needs a shorter output (for example dropping the explanation and quote fields; untested), a faster GPU, or a smaller model.
+
 ## 7. Medications: why the fine-tuned model scores lower, and what we did
 
 ### 7.1 The numbers
@@ -139,9 +155,9 @@ Validation loss was lowest at epoch 2 (0.167 vs 0.171), but loss is not the goal
 | | Base | Fine-tuned | Fine-tuned + safety net |
 |---|---|---|---|
 | Gold drugs found by name (H3), of 75 | 71 (94.7%) | 65 (86.7%) | **69 (92.0%)** |
-| Name + dose + unit right (H4), of 75 | 63 (84.0%) | 59 (78.7%) | **62 (82.7%)** |
-| Distinct drug names it wrote that are gold drugs | 65% | 88% | 87% |
-| F1, names / name + dose + unit (precision and recall together) | 0.77 / 0.68 | 0.87 / 0.79 | **0.90 / 0.81** |
+| Name + dose + unit right (H4), of 75 | 63 (84.0%) | 59 (78.7%) | **64 (85.3%)** |
+| Distinct drug names it wrote that are gold drugs | 65% | 88% | 85% |
+| F1, names / name + dose + unit (precision and recall together) | 0.77 / 0.68 | 0.87 / 0.79 | **0.89 / 0.82** |
 
 ### 7.2 Why (each point checked on the saved outputs)
 
@@ -157,9 +173,9 @@ Slot-by-slot lists: `pipeline/outputs/med_errors.md` (`dev/med_error_analysis.py
 
 `pipeline/pl/medsafety.py` runs after the model, needs no gold and no GPU:
 - An **expected drug** is a formulary drug the *caller* said, with a number in the turn or in two or more turns. The rule was read off the training set before scoring validation: 405 of 497 spoken drugs qualify, 84% are recorded in the training gold, covering 91% of its medication facts.
-- **M1:** an expected drug named in a bullet's text but without a typed fact gets one. **M2:** a typed fact without a dose gets the "number unit" that follows the drug in its own bullet (never a concentration such as "20 mg per mL"; 98% correct on the training gold with doses blanked). **M3:** an expected drug the summary never names is flagged (not added) and the UI turns a PASS into NEEDS NURSE REVIEW.
+- **M1:** an expected drug named in a bullet's text but without a typed fact gets one. **M2:** a typed fact without a dose gets the "number unit" that follows the drug in its own bullet (a number before the drug, as in "five milligrams of morphine", is read too, and spelled-out numbers; never a concentration such as "20 mg per mL"; 97% correct on the training gold with doses blanked, 338 of 363 filled). **M3:** an expected drug the summary never names is flagged (not added) and the UI turns a PASS into NEEDS NURSE REVIEW.
 - Rule V15 already *warns* about every spoken drug the summary lacks, but also fires on chart-read distractors and warnings do not stop a PASS; M3 is the narrower version that does.
-- **Cost and limits.** It flagged 9 drugs in 7 of 100 calls: both real omissions, and 7 that are not in the gold (chart-read drugs, Tylenol, aspirin). The same net flags 7 of 100 *gold* summaries, so about that many false alarms are expected: a flag means "please check". The brand-to-generic table was added after seeing the first flags on validation, and the same 100 calls score everything, so the figures are optimistic. The net repairs the typed list; the summary text is unchanged.
+- **Cost and limits.** It flagged 7 drugs in 5 of 100 calls: both real omissions (va-026, va-039) and 5 that are not in the gold (chart-read drugs, Tylenol, aspirin). The same net flags 5 of 100 *gold* summaries, so about that many false alarms are expected: a flag means "please check". The brand-to-generic table, the brand/generic check before flagging, and the reading of a dose written before the drug name ("five milligrams of morphine", va-080) were all added after seeing validation misses, and the same 100 calls score everything, so the figures are optimistic (the training-gold dose test, 97% correct, is the unbiased evidence for the extractor). The remaining 6 unfound names are not net failures: 2 are omitted from the summary (flagged, not added), and 4 are scoring conventions (Tylenol against the gold's acetaminophen, a garbled drug name that the gold keeps as heard, a drug only the nurse mentions, a drug with two doses in the call). The net repairs the typed list; the summary text is unchanged.
 
 ### 7.4 What the literature says (analogies, not proofs)
 

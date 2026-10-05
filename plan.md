@@ -13,7 +13,7 @@
 | Pipeline | Rules V1-V16, quote repair, medication safety net, frozen judge, gold comparison, one matrix; prompt iterated v1 → v4 and frozen |
 | Fine-tuning | One LoRA run (r16, 3 epochs, 189 steps, 2.9 h, L40S); **epoch 3 chosen**; adapters in `finetune/runs/ft1/` (not in git) |
 | Result | Safe-pass rate 65% → **91%**, critical-fact accuracy 57.6% → **82.3%**, median response 14.0 s, p95 19.1 s, first token 0.17 s |
-| Medications | Recall below the base model's (names 86.7% vs 94.7%), ahead on precision; safety net: 92.0% / 82.7% (REPORT §7) |
+| Medications | Recall below the base model's (names 86.7% vs 94.7%), ahead on precision; safety net: 92.0% / 85.3% (REPORT §7) |
 | UI | `app/`: Examples, Try your own transcript, Results, How it works |
 
 ## 2. Fixed decisions

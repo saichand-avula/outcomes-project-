@@ -10,7 +10,7 @@ Every gold medication is compared with what each run wrote, using the same match
 | finetuned_epoch2_s2 | 75 | 52 | 13 | 6 | 4 | 0 | 7 | 69 | 63 |
 | finetuned_epoch3_s2 | 75 | 56 | 8 | 7 | 4 | 0 | 7 | 71 | 67 |
 | finetuned_epoch3_s3 | 75 | 59 | 10 | 2 | 4 | 0 | 10 | 72 | 68 |
-| finetuned_epoch3_s3_net | 75 | 62 | 6 | 3 | 4 | 0 | 11 | 72 | 68 |
+| finetuned_epoch3_s3_net | 75 | 64 | 6 | 1 | 4 | 0 | 13 | 72 | 68 |
 
 ## Precision, recall and F1 with repeated names merged
 
@@ -22,7 +22,7 @@ Every gold medication is compared with what each run wrote, using the same match
 | finetuned_epoch2_s2 | 67 | 0.93 / 0.83 / 0.87 | 0.78 / 0.69 / 0.73 |
 | finetuned_epoch3_s2 | 73 | 0.92 / 0.89 / 0.91 | 0.77 / 0.75 / 0.76 |
 | finetuned_epoch3_s3 | 74 | 0.88 / 0.87 / 0.87 | 0.80 / 0.79 / 0.79 |
-| finetuned_epoch3_s3_net | 79 | 0.87 / 0.92 / 0.90 | 0.79 / 0.83 / 0.81 |
+| finetuned_epoch3_s3_net | 81 | 0.85 / 0.92 / 0.89 | 0.79 / 0.85 / 0.82 |
 
 ## base_v4_s2: every medication error
 
@@ -169,7 +169,5 @@ Every gold medication is compared with what each run wrote, using the same match
 | va-039 | high_risk | not_found | lisinopril 10 mg | (no medication written) | dropped from the summary |
 | va-060 | routine | dose_missing | albuterol 2 puffs | albuterol | dose dropped from the summary |
 | va-069 | medication | not_found | zolpidem 5 mg | melatonin 3 mg | named in the summary text, no typed medication fact |
-| va-080 | high_risk | dose_missing | morphine 5 mg | morphine | dose is in the summary text, not in the typed fact |
-| va-080 | high_risk | dose_missing | atropine 2 drops | atropine | dose is in the summary text, not in the typed fact |
 | va-095 | medication | not_found | levothyroxine 50 mcg | (no medication written) | named in the summary text, no typed medication fact |
 | va-099 | medication | not_found | acetaminophen 5 mL | Tylenol 5 mL | named in the summary text, no typed medication fact |

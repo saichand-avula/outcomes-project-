@@ -74,6 +74,16 @@ def _same(a: str, b: str) -> bool:
     return bool(a and b) and (a == b or a in b or b in a or SequenceMatcher(None, a, b).ratio() >= 0.85)
 
 
+def _variants(drug: str) -> set[str]:
+    """The drug and its brand/generic partners ("tylenol" <-> "acetaminophen"), so a summary that uses the other name is not flagged."""
+    g = ALIASES.get(drug, drug)
+    return {drug, g} | {b for b, gen in ALIASES.items() if gen == g}
+
+
+def _named_in(drug: str, text: str) -> bool:
+    return any(re.search(r"\b" + re.escape(normalize(v)) + r"\b", text) for v in _variants(drug))
+
+
 def _bullets(obj: dict):
     for sec in SECTIONS:
         for b in (obj.get(sec) or []) if isinstance(obj, dict) else []:
@@ -85,9 +95,29 @@ def _typed_names(obj: dict) -> list[str]:
     return [str(f.get("name") or "") for _, b in _bullets(obj) for f in (b.get("facts") or []) if isinstance(f, dict) and f.get("type") == "medication"]
 
 
+WORDNUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "fifteen": 15, "twenty": 20,
+           "twenty five": 25, "thirty": 30, "forty": 40, "fifty": 50, "seventy five": 75, "hundred": 100, "one hundred": 100}
+WORDNUM_RX = re.compile(r"\b(" + "|".join(sorted(map(re.escape, WORDNUM), key=len, reverse=True)) + r")\b(?=\s+" + UNIT + r"\b)", re.I)
+
+
+def _digits(t: str) -> str:
+    """Spelled numbers directly before a unit become digits ("five milligrams" -> "5 milligrams"); anything else is left alone."""
+    return WORDNUM_RX.sub(lambda m: str(WORDNUM[m.group(1).lower()]), t)
+
+
+def _first_dose(window: str, before_drug: bool = False):
+    for d in DOSE_RX.finditer(window):  # first "<number> <unit>" that is a dose, not a concentration ("20 mg per mL", "100 mg in 5 mL", "20 mg/mL")
+        pre = window[max(0, d.start() - 5): d.start()]
+        if re.search(r"(?:\bper|\bin|/)\s*$", pre):
+            continue
+        return d.group(1), UNIT_CANON.get(d.group(2).lower(), d.group(2))
+    return None
+
+
 def extract_dose(text: str, drug: str) -> tuple[str, str] | None:
-    """The "<number> <unit>" that follows `drug` in `text`, before the next drug name or 70 characters; None if there is none."""
-    t = text.lower()
+    """The "<number> <unit>" that follows `drug` in `text` (before the next drug name or 70 characters); if none does, the one that comes
+    just before it in the same clause ("five milligrams of morphine", at most 3 words between); None if there is none."""
+    t = _digits(text.lower())
     m = re.search(r"\b" + re.escape(drug.lower()) + r"\b", t)
     if not m:
         return None
@@ -97,11 +127,15 @@ def extract_dose(text: str, drug: str) -> tuple[str, str] | None:
             o = re.search(r"\b" + re.escape(other.lower()) + r"\b", window)
             if o:
                 window = window[: o.start()]
-    for d in DOSE_RX.finditer(window):  # first "<number> <unit>" that is a dose, not a concentration ("20 mg per mL", "100 mg in 5 mL", "20 mg/mL")
-        before = window[max(0, d.start() - 5): d.start()]
-        if re.search(r"(?:\bper|\bin|/)\s*$", before):
-            continue
-        return d.group(1), UNIT_CANON.get(d.group(2).lower(), d.group(2))
+                own = re.search(rf"\d+(?:\.\d+)?\s*(?:{UNIT})\s+of\s+(?:[a-z]+\s+){{0,2}}$", window)  # "<dose> of <next drug>": belongs to the next drug
+                if own:
+                    window = window[: own.start()]
+    got = _first_dose(window)
+    if got:
+        return got
+    back = re.search(rf"(\d+(?:\.\d+)?)\s*({UNIT})\s+of\s+(?:(?!per\b|in\b)[a-z]+\s+){{0,3}}$", t[max(0, m.start() - 45): m.start()])
+    if back and not re.search(r"[,;.]", back.group(0)):  # same clause only; needs "of" ("5 mg of morphine"), so "20 mg per mL of x" is out
+        return back.group(1), UNIT_CANON.get(back.group(2).lower(), back.group(2))
     return None
 
 
@@ -133,8 +167,8 @@ def apply(obj, turns: list[dict]):
     for drug, o in spoken_drugs(turns).items():
         if not expected(o) or any(_same(drug, n) for n in typed):
             continue
-        if DRUG_RX[drug].search(text):
-            host = next((b for _, b in _bullets(new) if DRUG_RX[drug].search(normalize(str(b.get("text") or "")))), None)
+        if _named_in(drug, text):
+            host = next((b for _, b in _bullets(new) if _named_in(drug, normalize(str(b.get("text") or "")))), None)
             fact = {"type": "medication", "name": drug}
             got = extract_dose(str(host.get("text") or ""), drug) if host else None
             if got:

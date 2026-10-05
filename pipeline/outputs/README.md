@@ -21,7 +21,7 @@ Codes such as G1 are rows of the evaluation table; REPORT.md §2 explains each i
 | `finetuned_epoch3_s2` | LoRA epoch 3 | v4 | key order disagrees with 5.0% of gold facts | Superseded by `_s3` (safe-pass rate G1 92%); still the set for the epoch comparison and the latency timing |
 | `base_v4_s3` | base | v4 | **corrected key order** (0.3% disagree) | **Yes: the baseline to compare with** (safe-pass rate G1 65%) |
 | **`finetuned_epoch3_s3`** | **LoRA epoch 3** | v4 | **corrected** | **Yes: the final model** (safe-pass rate G1 91%; not timed yet) |
-| `finetuned_epoch3_s3_net`, `base_v4_s3_net` | the same outputs after the medication safety net (`run_pipeline.py net`) | v4 | corrected | Yes: typed medication facts added or completed; summary text and judge verdicts unchanged (medication names found 65 → 69 of 75 for the fine-tuned model) |
+| `finetuned_epoch3_s3_net`, `base_v4_s3_net` | the same outputs after the medication safety net (`run_pipeline.py net`) | v4 | corrected | Yes: typed medication facts added or completed; summary text and judge verdicts unchanged (medication names found 65 → 69 of 75, name + dose + unit 59 → 64 for the fine-tuned model) |
 
 Notes
 - `matrix_finetuned_epoch1_s2_vs_finetuned_epoch2_s2_vs_finetuned_epoch3_s2.*` compares the three epochs side by side. Latency and first-token times were taken in a second pass (with streaming) over the same 20 calls; the first pass gave slightly different totals (REPORT §6.3).

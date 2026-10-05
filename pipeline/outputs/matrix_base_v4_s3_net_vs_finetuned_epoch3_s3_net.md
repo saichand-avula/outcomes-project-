@@ -12,9 +12,9 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 | A5 | Quotes are exactly verbatim | D | validated | 96.7% (1511/1562) | 99.7% (930/933) | +2.9 | ✅ (96%) lower bound ≥95 | ✅ (99%) lower bound ≥95 |
 | A6 | Quote speaker matches the transcript label | D | validated | 99.9% (1400/1402) | 99.9% (895/896) | +0.0 | ✅ (99%) lower bound ≥95 | ✅ (99%) lower bound ≥95 |
 | **B. Grounding in the call** | | | | | | | | |
-| B1 | Numbers in the summary were spoken in the call | D | validated | 99.2% (480/484) | 99.7% (395/396) | +0.6 | ✅ (98%) lower bound ≥95 | ✅ (99%) lower bound ≥95 |
-| B2 | Numbers are in the cited turns (+/-2) | D | validated | 97.9% (474/484) | 99.0% (392/396) | +1.1 | ✅ (96%) lower bound ≥95 | ✅ (97%) lower bound ≥95 |
-| B3 | Drug names appear in the call | D | validated | 100.0% (325/325) | 99.5% (202/203) | -0.5 | ✅ (99%) lower bound ≥95 | ✅ (97%) lower bound ≥95 |
+| B1 | Numbers in the summary were spoken in the call | D | validated | 99.2% (480/484) | 99.7% (397/398) | +0.6 | ✅ (98%) lower bound ≥95 | ✅ (99%) lower bound ≥95 |
+| B2 | Numbers are in the cited turns (+/-2) | D | validated | 97.9% (474/484) | 99.0% (394/398) | +1.1 | ✅ (96%) lower bound ≥95 | ✅ (97%) lower bound ≥95 |
+| B3 | Drug names appear in the call | D | validated | 100.0% (326/326) | 99.5% (204/205) | -0.5 | ✅ (99%) lower bound ≥95 | ✅ (97%) lower bound ≥95 |
 | B4 | Clinical terms (fever, fall, seizure ...) appear in the call | D | validated | 99.8% (531/532) | 100.0% (445/445) | +0.2 | ✅ (99%) lower bound ≥95 | ✅ (99%) lower bound ≥95 |
 | B5 | Identity values (name, DOB, phone, relationship) were spoken | D | validated | 99.5% (425/427) | 99.8% (426/427) | +0.2 | ✅ (98%) lower bound ≥95 | ✅ (99%) lower bound ≥95 |
 | **C. Wording vs meaning** | | | | | | | | |
@@ -25,10 +25,10 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 | D1 | Not-Applicable decision agrees with the clinical-content gate | D | validated | 100.0% (100/100) | 100.0% (100/100) | +0.0 | ✅ (96%) lower bound ≥95 | ✅ (96%) lower bound ≥95 |
 | D2 | Suicidal / escalation flags the rules find are also in the output | D | validated | 100.0% (10/10) | 100.0% (10/10) | +0.0 | ✅ (72%) | ✅ (72%) |
 | D2b | Other risk flags the rules suggest are also in the output | D | indicator | 60.0% (24/40) | 37.5% (15/40) | -22.5 | — (45%) | — (24%) |
-| D3 | Drugs mentioned in the call appear in the summary | D | indicator | 90.3% (93/103) | 75.7% (78/103) | -14.6 | — (83%) | — (67%) |
+| D3 | Drugs mentioned in the call appear in the summary | D | indicator | 91.3% (94/103) | 77.7% (80/103) | -13.6 | — (84%) | — (69%) |
 | **E. Whole call (rules)** | | | | | | | | |
 | E1 | Calls with no rule ERROR | D | validated | 65.0% (65/100) | 95.0% (95/100) | +30.0 | — (55%) | ✅ (89%) |
-| E2 | Calls with no rule ERROR and no WARN (no nurse review needed) | D | indicator | 35.0% (35/100) | 53.0% (53/100) | +18.0 | — (26%) | — (43%) |
+| E2 | Calls with no rule ERROR and no WARN (no nurse review needed) | D | indicator | 35.0% (35/100) | 54.0% (54/100) | +19.0 | — (26%) | — (44%) |
 | E1r | Calls with no rule ERROR after automatic quote repair | D | indicator | 83.0% (83/100) | 97.0% (97/100) | +14.0 | — (74%) | ✅ (92%) |
 | **F. Meaning (LLM judge)** | | | | | | | | |
 | F1 | Faithful: nothing wrong or invented | J | validated | 100.0% (100/100) | 96.0% (96/100) | -4.0 | ✅ (96%) lower bound ≥95 | ✅ (90%) |
@@ -43,7 +43,7 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 | H1 | Identity values correct (5 fields) | R | validated | 97.3% (438/450) | 98.2% (442/450) | +0.9 | ✅ (95%) lower bound ≥95 | ✅ (97%) lower bound ≥95 |
 | H2 | Identity values AND certainty correct | R | validated | 93.8% (422/450) | 98.0% (441/450) | +4.2 | — (91%) | ✅ (96%) lower bound ≥95 |
 | H3 | Medications found (name) | R | validated | 94.7% (71/75) | 92.0% (69/75) | -2.7 | — (87%) | — (84%) |
-| H4 | Medications correct (name + dose + unit) | R | validated | 84.0% (63/75) | 82.7% (62/75) | -1.3 | — (74%) | — (73%) |
+| H4 | Medications correct (name + dose + unit) | R | validated | 84.0% (63/75) | 85.3% (64/75) | +1.3 | — (74%) | — (76%) |
 | H5 | Medication certainty (stated/unclear) correct | R | validated | 88.7% (63/71) | 94.2% (65/69) | +5.5 | — (79%) | — (86%) |
 | H6 | Symptoms found | R | validated | 74.4% (96/129) | 79.8% (103/129) | +5.4 | — (66%) | — (72%) |
 | H7 | Pertinent negatives found | R | validated | 76.7% (69/90) | 82.2% (74/90) | +5.6 | — (67%) | — (73%) |
@@ -57,9 +57,9 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 | H15 | Assessment bullets covered (anchored on cited turns) | R | validated | 87.5% (342/391) | 86.2% (337/391) | -1.3 | — (84%) | — (82%) |
 | H16 | Response bullets covered | R | validated | 95.0% (191/201) | 89.6% (180/201) | -5.5 | ✅ (91%) | — (85%) |
 | H17 | Education bullets covered | R | validated | 68.8% (141/205) | 84.4% (173/205) | +15.6 | — (62%) | — (79%) |
-| H18 | Output medications that are in gold (no hallucinated drug) | R | validated | 51.1% (71/139) | 86.2% (69/80) | +35.2 | — (43%) | — (77%) |
-| H19 | Critical-Fact Accuracy (headline in the architecture) | R | validated | 57.6% (939/1631) | 82.5% (987/1197) | +24.9 | — (55%) | — (80%) |
-| H19r | Gold critical facts found (no penalty for extra facts) | R | indicator | 86.7% (939/1083) | 91.1% (987/1083) | +4.4 | — (85%) | — (89%) |
+| H18 | Output medications that are in gold (no hallucinated drug) | R | validated | 50.7% (71/140) | 84.1% (69/82) | +33.4 | — (43%) | — (75%) |
+| H19 | Critical-Fact Accuracy (headline in the architecture) | R | validated | 57.5% (939/1632) | 82.5% (989/1199) | +24.9 | — (55%) | — (80%) |
+| H19r | Gold critical facts found (no penalty for extra facts) | R | indicator | 86.7% (939/1083) | 91.3% (989/1083) | +4.6 | — (85%) | — (89%) |
 | **O. Operational** | | | | | | | | |
 | O2 | Outputs not cut off by the token limit | O | validated | 100.0% (100/100) | 100.0% (100/100) | +0.0 | ✅ (96%) lower bound ≥95 | ✅ (96%) lower bound ≥95 |
 
@@ -86,7 +86,7 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 | ambiguous | 12 | 58.3% | 58.3% | 54.6% |
 | asr_error | 12 | 58.3% | 58.3% | 52.1% |
 | high_risk | 20 | 80.0% | 80.0% | 55.6% |
-| medication | 18 | 66.7% | 66.7% | 61.7% |
+| medication | 18 | 66.7% | 66.7% | 61.6% |
 | not_applicable | 10 | 20.0% | 20.0% | 100.0% |
 | routine | 16 | 56.2% | 56.2% | 61.2% |
 | supply | 12 | 100.0% | 100.0% | 57.6% |
@@ -95,7 +95,7 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 
 | group | n | E1 | G1 | H19 |
 |---|---|---|---|---|
-| long | 16 | 56.2% | 56.2% | 54.6% |
+| long | 16 | 56.2% | 56.2% | 54.5% |
 | medium | 11 | 72.7% | 72.7% | 50.2% |
 | short | 73 | 65.8% | 65.8% | 60.1% |
 
@@ -112,9 +112,9 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 | group | n | E1 | G1 | H19 |
 |---|---|---|---|---|
 | ambiguous | 12 | 100.0% | 91.7% | 80.3% |
-| asr_error | 12 | 100.0% | 100.0% | 85.0% |
-| high_risk | 20 | 95.0% | 90.0% | 76.8% |
-| medication | 18 | 83.3% | 77.8% | 82.9% |
+| asr_error | 12 | 100.0% | 100.0% | 84.5% |
+| high_risk | 20 | 95.0% | 90.0% | 77.4% |
+| medication | 18 | 83.3% | 77.8% | 82.6% |
 | not_applicable | 10 | 100.0% | 100.0% | 100.0% |
 | routine | 16 | 100.0% | 93.8% | 84.6% |
 | supply | 12 | 91.7% | 91.7% | 90.5% |
@@ -123,14 +123,14 @@ Cases: 100. Rates are 0-100% (100 = best). Src: D rules, J LLM judge, R gold ref
 
 | group | n | E1 | G1 | H19 |
 |---|---|---|---|---|
-| long | 16 | 100.0% | 100.0% | 77.4% |
+| long | 16 | 100.0% | 100.0% | 77.9% |
 | medium | 11 | 100.0% | 100.0% | 82.3% |
-| short | 73 | 93.2% | 87.7% | 84.1% |
+| short | 73 | 93.2% | 87.7% | 84.0% |
 
 **finetuned_epoch3_s3_net by noise**
 
 | group | n | E1 | G1 | H19 |
 |---|---|---|---|---|
-| high | 8 | 100.0% | 100.0% | 82.7% |
-| low | 75 | 93.3% | 89.3% | 82.4% |
+| high | 8 | 100.0% | 100.0% | 81.8% |
+| low | 75 | 93.3% | 89.3% | 82.5% |
 | medium | 17 | 100.0% | 94.1% | 82.6% |
