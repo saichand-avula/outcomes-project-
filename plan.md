@@ -4,16 +4,16 @@
 
 ## 1. Where things stand
 
-**Built and run:** data, evaluation pipeline, judge validation, fine-tuning, latency measurement, medication safety net, demo UI, reports. **Not done:** the demo video and the submission zip. **Targets:** 95% on the headline metrics and p95 < 15 s were **not reached**.
+**Built and run:** data, evaluation pipeline, judge validation, fine-tuning, latency measurement, automatic medication check, demo UI, reports. **Not done:** the demo video and the submission zip. **Targets:** 95% on the headline metrics and p95 < 15 s were **not reached**.
 
 | Area | State |
 |---|---|
 | Data | 500 train + 100 validation calls, authored one at a time and validated (0 errors in 600, no cross-split leaks); `data/dataset_overview.xlsx` |
 | Judge | Base Gemma validated on 90 deliberately damaged summaries (50 to tune, 40 fresh on frozen prompts): faithfulness kappa 1.00, completeness 0.61, calibration 0.55 |
-| Pipeline | Rules V1-V16, quote repair, medication safety net, frozen judge, gold comparison, one matrix; prompt iterated v1 → v4 and frozen |
+| Pipeline | Rules V1-V16, quote repair, automatic medication check, frozen judge, gold comparison, one matrix; prompt iterated v1 → v4 and frozen |
 | Fine-tuning | One LoRA run (r16, 3 epochs, 189 steps, 2.9 h, L40S); **epoch 3 chosen**; adapters in `finetune/runs/ft1/` (not in git) |
 | Result | Safe-pass rate 65% → **91%**, critical-fact accuracy 57.6% → **82.3%**, median response 14.0 s, p95 19.1 s, first token 0.17 s |
-| Medications | Recall below the base model's (names 86.7% vs 94.7%), ahead on precision; safety net: 92.0% / 85.3% (REPORT §7) |
+| Medications | Recall below the base model's (names 86.7% vs 94.7%), ahead on precision; medication check: 92.0% / 85.3% (REPORT §7) |
 | UI | `app/`: Examples, Try your own transcript, Results, How it works |
 
 ## 2. Fixed decisions
@@ -61,7 +61,7 @@ Secondary axes (caller type, age, agency type, 15+ clinical domains, identity pa
 | 4 | Baseline vs fine-tuned, full metrics | Done (Wilson bounds and a paired sign test, not bootstrap); rerun once after the output-schema fix |
 | 4 | Latency; optimisation list | Done, **target missed**: n-gram speculative decoding tried and slower; other options not tried |
 | 4 | Judge on both systems | Done |
-| 5 | Failure analysis; medication analysis and safety net | Done (REPORT §7-8) |
+| 5 | Failure analysis; medication analysis and medication check | Done (REPORT §7-8) |
 | 5 | Report, README, architecture, plan | Done |
 | 5 | Demo video, ZIP | **Not done** |
 
@@ -78,7 +78,7 @@ LoRA r16 / alpha 32 / dropout 0.05 on q, k, v, o, gate, up, down (328 modules, 6
 | p95 ≥ 15 s on the L40S | **Happened**: p95 19.1 s; speculative decoding slower; needs shorter output or a faster GPU |
 | Same-author style leakage makes validation too easy | The baseline was far from perfect (safe-pass 65%), so unlikely to be trivial; the single-author limitation stands |
 | Judge unreliable | Validated before use; weak on completeness of findings, hedges, speaker swaps; stated wherever used |
-| Fine-tuning hurts something | Medication recall below the base model's (selectivity, one fact for several drugs, a schema mistake): analysed, partly repaired with the safety net |
+| Fine-tuning hurts something | Medication recall below the base model's (selectivity, one fact for several drugs, a schema mistake): analysed, partly repaired with the automatic check |
 | Out of memory | One warning at step 9, recovered |
 
 ## 7. Not done

@@ -1,4 +1,4 @@
-"""Medication safety net: a deterministic check after the model, no GPU, no gold needed.
+"""Automatic medication check: a deterministic check after the model, no GPU, no gold needed.
 
 Why: the fine-tuned model records only the drugs a call is about (as the gold does) and sometimes (a) writes a drug in the summary text
 without its own typed medication fact, (b) leaves a stated dose out of the typed fact, (c) leaves a drug out of the summary altogether.

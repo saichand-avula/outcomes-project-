@@ -11,7 +11,7 @@ Task: turn a nurse-line call transcript into a structured clinical summary with 
 | Fine-tuning beats the base model | Safe-pass rate **65% → 91%**, critical-fact accuracy **57.6% → 82.3%** (same prompt, same schema; paired sign test p < 0.001) | **Yes** |
 | 95% on the headline metrics | Safe-pass 91% (lower 95% bound 84%), critical-fact accuracy 82.3% (80%) | **No** |
 | 95% on other metrics | 25 of 49 matrix rows: identity 98%, no rule error after quote repair 97%, judged faithful 96%, Not-Applicable decision 100% | Partly |
-| Medication accuracy | Fine-tuned model scores *below* the base on recall (names 86.7% vs 94.7%, name + dose + unit 78.7% vs 84.0%) but far above it once precision counts; a safety net lifts it to 92.0% / 85.3% (section 7) | **No** |
+| Medication accuracy | Fine-tuned model scores *below* the base on recall (names 86.7% vs 94.7%, name + dose + unit 78.7% vs 84.0%) but far above it once precision counts; a medication check lifts it to 92.0% / 85.3% (section 7) | **No** |
 | p95 latency < 15 s | median 14.0 s, **p95 19.1 s**, 13 of 20 timed calls under 15 s | **No** |
 | LLM judge validated before use | 90 deliberately damaged summaries, fresh set run once on frozen prompts (section 5) | **Yes, with limits** |
 
@@ -26,8 +26,8 @@ The fine-tuned model is much better than the base model, but not finished: it is
 | Completeness | Checklist items covered (F2) / every item covered in a call (F3) | 97.3% / 84.0% | 95.3% / 69.0% | F2 yes, F3 no |
 | | Gold critical facts found, extras not penalised (H19r) | 86.7% | 90.9% (89%) | no |
 | Identity accuracy | Name, DOB, caller, relationship, phone right (H1) / and certainty right (H2) | 97.3% / 93.8% | **98.2% / 98.0%** (97% / 96%) | **yes** |
-| Medication name | Gold drugs found by name, 75 drugs (H3) | 94.7% | 86.7% (77%); **92.0% with safety net** | no |
-| Medication name + dose | Found with the right dose and unit (H4) | 84.0% | 78.7% (68%); **85.3% with safety net** | no |
+| Medication name | Gold drugs found by name, 75 drugs (H3) | 94.7% | 86.7% (77%); 92.0% with the automatic check (§7) | no |
+| Medication name + dose | Found with the right dose and unit (H4) | 84.0% | 78.7% (68%); 85.3% with the automatic check (§7) | no |
 | Time to first token | Streamed, 20 calls one at a time | 0.16 s / 0.62 s | 0.17 s / 0.64 s | no target |
 | Total response time | Median / 95th percentile, same 20 calls, L40S | 28.0 s / 69.9 s | **14.0 s / 19.1 s** | p95 no |
 
@@ -53,7 +53,7 @@ Task 5 (95% on the defined metric, with definition, dataset size and failure cas
  data/ (500 train + 100 validation, authored)      finetune/ (LoRA, 189 steps)
         │                                                       │ adapter
         ▼                                                       ▼
- pipeline/: generate ─► rules V1-V16 + quote repair ─► medication safety net ─► frozen judge ─► one matrix
+ pipeline/: generate ─► rules V1-V16 + quote repair ─► automatic medication check ─► frozen judge ─► one matrix
  app/: demo UI (same checks; PASS / NEEDS NURSE REVIEW / FAILED)
 ```
 
@@ -127,7 +127,7 @@ Validation loss was lowest at epoch 2 (0.167 vs 0.171), but loss is not the goal
 
 | Goal | What we did | Measured effect | What it did not do |
 |---|---|---|---|
-| Safety | Verbatim quote and cited turns on every bullet; 16 rules (quotes, numbers, drug names, identity, planned vs completed, negations); quote repair; Not-Applicable decision; risk flags; PASS / NEEDS NURSE REVIEW / FAILED gate; medication safety net; validated judge | Calls with a rule error 35% → 5%; numbers really spoken 99.2% → 99.7%; planned-vs-completed wording right 99.3% → 100% | Rule V15 only warns about a spoken drug the summary lacks (section 7.3); a wrong drug that is also in the call is seen only by the judge |
+| Safety | Verbatim quote and cited turns on every bullet; 16 rules (quotes, numbers, drug names, identity, planned vs completed, negations); quote repair; Not-Applicable decision; risk flags; PASS / NEEDS NURSE REVIEW / FAILED gate; automatic medication check; validated judge | Calls with a rule error 35% → 5%; numbers really spoken 99.2% → 99.7%; planned-vs-completed wording right 99.3% → 100% | Rule V15 only warns about a spoken drug the summary lacks (section 7.3); a wrong drug that is also in the call is seen only by the judge |
 | Accuracy | LoRA on 500 calls; frozen prompt v4; schema key order matched to the training targets | Safe-pass 65% → 91%; critical-fact accuracy 57.6% → 82.3% | Medication recall below the base (section 7); 95% not reached |
 | Consistency | Greedy decoding; JSON-schema constrained output; fixed key order; one prompt; deterministic renderer | Valid, schema-correct output on 100 of 100 calls | Byte-identical repeat runs not tested |
 | Latency | Compact output from fine-tuning; 4-bit weights; adapter served unmerged; no retry needed | p50 28.0 → 14.0 s, p95 69.9 → 19.1 s | 15 s missed; n-gram speculative decoding was slower |
@@ -138,13 +138,13 @@ Taken from the saved outputs (`reference.jsonl`, `validation.jsonl`, `judge.json
 
 **Safe-pass rate, 91% (9 calls fail; base 35).** Five calls have a rule error: three are a quote attached to a neighbouring turn (V4; automatic repair exists for these, consistent with 93% after repair), one is a drug the call never named ("insulin", V7), one is an invented number (70, V6). Four calls are judged unfaithful; the judge's reasons quote the transcript and I read them as correct, but the transcripts were not re-audited line by line: a hedge dropped ("since Tuesday, or maybe Wednesday" became "since the beginning of the week"), a last dose given as "this morning" when the call said the pill is due at eight, a dose given as "one ... another one" written as "1 mg", and a pill organiser called "full" when three slots were empty. These are the model's real mistakes. Base fails mostly on quote placement (30 of its 35).
 
-**Critical-fact accuracy, 82.3% (82.5% with the safety net).** The score is matched critical slots divided by (gold slots + model slots the gold lacks): 989 matched of 1,083 gold slots, plus 116 extra. The 94 missed gold slots: symptoms 26, pertinent negatives 16, nurse actions 24, medications 11, risk flags 8, identity and the rest about 9 (approximate split). The 116 extras: symptoms 44, actions 34, medications 13, pertinent negatives 12, risk flags 5. In the 9 calls I read side by side (symptoms only), roughly half of the misses and extras were scoring artifacts or gold selectivity, not errors (a sample, not a count): wording that does not share a word with the gold ("dry mouth" absent, "low mood" written as "hopelessness"), and real, grounded findings the gold chose not to record (itching, knee stiffness, hip pain). Only the first kind of miss is the model's fault. Because the gold is one author's selection, a gap to 95% on this score cannot be closed by the model alone; the judge's faithfulness (96%) is the fairer measure of invented content.
+**Critical-fact accuracy, 82.3% (82.5% with the automatic check).** The score is matched critical slots divided by (gold slots + model slots the gold lacks): 989 matched of 1,083 gold slots, plus 116 extra. The 94 missed gold slots: symptoms 26, pertinent negatives 16, nurse actions 24, medications 11, risk flags 8, identity and the rest about 9 (approximate split). The 116 extras: symptoms 44, actions 34, medications 13, pertinent negatives 12, risk flags 5. In the 9 calls I read side by side (symptoms only), roughly half of the misses and extras were scoring artifacts or gold selectivity, not errors (a sample, not a count): wording that does not share a word with the gold ("dry mouth" absent, "low mood" written as "hopelessness"), and real, grounded findings the gold chose not to record (itching, knee stiffness, hip pain). Only the first kind of miss is the model's fault. Because the gold is one author's selection, a gap to 95% on this score cannot be closed by the model alone; the judge's faithfulness (96%) is the fairer measure of invented content.
 
 **Completeness of the whole call (F3), 69% (base 84%).** 31 calls miss at least one checklist item; the item most often missing is *background* ("children are staying at the house", "afraid of giving too much", 14 calls, 9 of them miss only background), then instructions given (9), pertinent negatives (6) and nurse actions (5). The fine-tuned model writes shorter summaries that follow the gold's selection, and the judge's completeness rubric is weak (kappa 0.61), so this is partly the judge. It is a real gap for background context that the gold does keep.
 
 **Risk flags, 78% found (H12) and 37.5% of the rule-suggested other flags present (D2b).** The model flags only what the gold flags (85% of its flags are in the gold, against 28% for the base); it misses 8 of 37 gold flags. The rule-suggested flags are broad keyword hits, so D2b is an indicator, not a target.
 
-**Medications.** Section 7. After the safety net: names 92.0%, name + dose + unit 85.3% (base 94.7% and 84.0%).
+**Medications.** Section 7. After the automatic check: names 92.0%, name + dose + unit 85.3% (base 94.7% and 84.0%).
 
 **Latency.** Section 6.2: the answer is about 900 tokens at 62-73 tokens per second on one L40S, so the median is about 14 s and the tail (long calls, long answers) is 19 s. Reaching p95 under 15 s needs a shorter output (for example dropping the explanation and quote fields; untested), a faster GPU, or a smaller model.
 
@@ -152,7 +152,7 @@ Taken from the saved outputs (`reference.jsonl`, `validation.jsonl`, `judge.json
 
 ### 7.1 The numbers
 
-| | Base | Fine-tuned | Fine-tuned + safety net |
+| | Base | Fine-tuned (model alone) | Fine-tuned + automatic medication check |
 |---|---|---|---|
 | Gold drugs found by name (H3), of 75 | 71 (94.7%) | 65 (86.7%) | **69 (92.0%)** |
 | Name + dose + unit right (H4), of 75 | 63 (84.0%) | 59 (78.7%) | **64 (85.3%)** |
@@ -169,7 +169,7 @@ Taken from the saved outputs (`reference.jsonl`, `validation.jsonl`, `judge.json
 
 Slot-by-slot lists: `pipeline/outputs/med_errors.md` (`dev/med_error_analysis.py`).
 
-### 7.3 The medication safety net (built, no retraining)
+### 7.3 The automatic medication check (built, no retraining)
 
 `pipeline/pl/medsafety.py` runs after the model, needs no gold and no GPU:
 - An **expected drug** is a formulary drug the *caller* said, with a number in the turn or in two or more turns. The rule was read off the training set before scoring validation: 405 of 497 spoken drugs qualify, 84% are recorded in the training gold, covering 91% of its medication facts.
@@ -213,7 +213,7 @@ Omissions, not inventions, dominate LLM clinical-summary errors (3.45% against 1
 ```bash
 python3 code/data/validate_gold.py                 # 600 gold calls, 0 errors
 python3 code/tests/test_validator.py && python3 code/tests/test_render.py
-cd pipeline && python3 run_pipeline.py selftest    # rules, schema order, safety net
+cd pipeline && python3 run_pipeline.py selftest    # rules, schema order, medication check
 python3 run_pipeline.py matrix --systems base_v4_s3 finetuned_epoch3_s3      # final comparison from saved outputs
 python3 dev/medsafety_eval.py && python3 dev/med_error_analysis.py            # medication analysis
 python3 ../app/server.py                           # demo UI at http://localhost:8080 (replay mode needs no GPU)

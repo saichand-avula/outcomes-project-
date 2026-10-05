@@ -130,7 +130,7 @@
       <div class="hint" style="margin:0 0 6px">100 validation calls the model never trained on. Their outputs were computed beforehand.</div>
       <div class="hint" style="margin:8px 0 2px"><b>Worth a look</b> (known weaknesses, see the report):</div>
       <div id="notable">
-        <button class="ghost" data-id="va-039" title="the lisinopril the call discusses is left out; the medication safety net flags it for review">va-039 drug left out</button>
+        <button class="ghost" data-id="va-039" title="the lisinopril the call discusses is left out; the automatic medication check flags it for review">va-039 drug left out</button>
         <button class="ghost" data-id="va-069" title="the zolpidem the caller asks about is left out">va-069 drug left out</button>
         <button class="ghost" data-id="va-034" title="garbled drug name guessed instead of marked unclear">va-034 name guessed</button>
         <button class="ghost" data-id="va-005" title="a long call that passes">va-005 long, passes</button>
@@ -190,7 +190,7 @@
       <div class="step"><b>2 · Rules</b>16 deterministic checks against the transcript: quotes really in the cited turns, numbers, drugs and names spoken, planned vs completed, negatives, hedges, Not-Applicable gate, risk flags. Near-miss quotes are repaired.</div>
       <div class="step"><b>3 · Render</b>A deterministic renderer turns the JSON into the exact reference text.</div>
       <div class="step"><b>4 · Judge</b>The base model with frozen prompts checks faithfulness, completeness and calibration (live mode, optional).</div>
-      <div class="step"><b>5 · Gate</b>A rule error that survives repair, a drug the caller said that the summary lacks (medication safety net), or invalid JSON, becomes <b style="display:inline">NEEDS REVIEW</b> or <b style="display:inline">FAILED</b> for a nurse, never a final summary.</div>
+      <div class="step"><b>5 · Gate</b>A rule error that survives repair, a drug the caller said that the summary lacks (automatic medication check), or invalid JSON, becomes <b style="display:inline">NEEDS REVIEW</b> or <b style="display:inline">FAILED</b> for a nurse, never a final summary.</div>
     </div>
   </div>
   <div class="card">
@@ -204,7 +204,7 @@
   </div>
   <div class="card">
     <h2>What the PASS / REVIEW / FAILED banner means</h2>
-    <p><b>PASS</b>: no rule error survives the automatic quote repair. <b>It is not a correctness guarantee.</b> The 16 rules cannot judge whether a drug or dose is missing (rule V15 only warns, and warnings do not stop a PASS), so a separate <b>medication safety net</b> compares the drugs the caller said with the summary: a drug the caller said with a number, or twice, that the summary never mentions turns the call into NEEDS NURSE REVIEW (<code>va-039</code>: lisinopril). The net catches both real omissions in the validation calls but also raises false alarms (2 of its 7 flags were real), so a flag means "please check", not "wrong". <b>NEEDS REVIEW</b> also means a rule error remains. <b>FAILED</b>: the output is not valid JSON. Every summary still needs a nurse.</p>
+    <p><b>PASS</b>: no rule error survives the automatic quote repair. <b>It is not a correctness guarantee.</b> The 16 rules cannot judge whether a drug or dose is missing (rule V15 only warns, and warnings do not stop a PASS), so a separate <b>automatic medication check</b> compares the drugs the caller said with the summary: a drug the caller said with a number, or twice, that the summary never mentions turns the call into NEEDS NURSE REVIEW (<code>va-039</code>: lisinopril). The net catches both real omissions in the validation calls but also raises false alarms (2 of its 7 flags were real), so a flag means "please check", not "wrong". <b>NEEDS REVIEW</b> also means a rule error remains. <b>FAILED</b>: the output is not valid JSON. Every summary still needs a nurse.</p>
   </div>
 </section>
 </main>
@@ -264,7 +264,7 @@ function makeViewer(root, turnsEl) {
     } else if (current === "checks") {
       const c = r.counts;
       body = `<p class="hint" style="margin-top:0">Raw output: ${c.raw_errors} error(s), ${c.raw_warnings} warning(s). After automatic quote repair (${c.quotes_repaired} quote(s) replaced by the exact span): ${c.errors_after_repair} error(s), ${c.warnings_after_repair} warning(s).</p><h3 style="margin-top:6px">Rule findings on the raw output</h3>${findings(r.findings_raw)}
-        <h3>Medication safety net</h3><div class="hint" style="margin:0 0 4px">A drug the caller said (with a number, or twice) should be in the summary. M1: a typed fact was added. M2: a dose was copied from the bullet text. M3: the drug is missing from the summary, which makes the call NEEDS NURSE REVIEW.</div>${findings(r.findings_net || [])}`;
+        <h3>Automatic medication check</h3><div class="hint" style="margin:0 0 4px">A drug the caller said (with a number, or twice) should be in the summary. M1: a typed fact was added. M2: a dose was copied from the bullet text. M3: the drug is missing from the summary, which makes the call NEEDS NURSE REVIEW.</div>${findings(r.findings_net || [])}`;
     } else if (current === "gold") {
       body = `<div class="cols2"><div><h3 style="margin-top:0">Model</h3><pre class="summary">${esc(r.rendered || "(not renderable)")}</pre></div><div><h3 style="margin-top:0">Hand-written gold</h3><pre class="summary">${esc(r.gold_rendered)}</pre></div></div>`;
     } else if (current === "compare") {
@@ -399,7 +399,7 @@ async function renderResults() {
   const erows = E.map(([id, n]) => `<tr><td>${n} <span class="hint">${id}</span></td><td class="num">${pct(b2.metrics[id])}</td>${eps.map((k) => `<td class="num${k === "finetuned_epoch3_s2" ? " ok" : ""}">${pct(S[k].metrics[id])}</td>`).join("")}</tr>`).join("") +
     `<tr><td>Total response time p50 / p95</td><td class="num">${sec(b2.ops.p50)} / ${sec(b2.ops.p95)}</td>${eps.map((k) => `<td class="num">${S[k].ops.p50 != null ? sec(S[k].ops.p50) + " / " + sec(S[k].ops.p95) : "not timed"}</td>`).join("")}</tr>`;
 
-  const M = R.medications, LBL = { base_v4_s3: "Base", finetuned_epoch3_s2: "Fine-tuned, earlier setting", finetuned_epoch3_s3: "Fine-tuned, corrected setting", finetuned_epoch3_s3_net: "Fine-tuned + safety net" };
+  const M = R.medications, LBL = { base_v4_s3: "Base", finetuned_epoch3_s2: "Fine-tuned, earlier setting", finetuned_epoch3_s3: "Fine-tuned, corrected setting", finetuned_epoch3_s3_net: "Fine-tuned + automatic medication check" };
   const mk = Object.keys(LBL).filter((k) => M[k]);
   const mcols = [["gold_meds", "Gold medications"], ["ok", "Right with dose and unit"], ["not_found", "Not found by name"], ["dose_missing", "Dose missing in the typed fact"], ["dose_wrong", "Different dose"], ["extra_model_meds", "Medications not in the gold"]];
   const mrows = mcols.map(([k, n]) => `<tr><td>${n}</td>${mk.map((s) => `<td class="num">${M[s][k] ?? 0}</td>`).join("")}</tr>`).join("");
@@ -418,7 +418,7 @@ async function renderResults() {
     <div class="card"><h2>Why epoch 3</h2><table><tr><th>Metric</th><th class="num">Base</th>${eps.map((k) => `<th class="num">Epoch ${k.match(/epoch(\d)/)[1]}</th>`).join("")}</tr>${erows}</table>
       <div class="hint">All four columns were measured with the same, earlier key-order setting (<code>_s2</code>), so they compare fairly with each other; the headline table above uses the corrected setting (<code>_s3</code>). Epoch 1 is clearly weakest (3 of its 100 answers ran into the token limit). Epochs 2 and 3 are close; epoch 3 is better on completeness and nurse actions.</div></div>
     <div class="card"><h2>Medications: what went wrong</h2><table><tr><th></th>${mk.map((s) => `<th class="num">${LBL[s]}</th>`).join("")}</tr>${mrows}</table>
-      <div class="hint">The earlier setting listed a medication's strength after its dose, the opposite of the training data, so the model could not write the dose after a strength: 6 doses were lost (base 0). The corrected setting recovers 5 of them. What remains is mostly the gold's selectivity (the fine-tuned model records only the drugs the call is about; the base records almost every drug, which the recall-only score rewards) plus a few real omissions. The safety net (right column) adds typed facts for drugs the summary names and flags drugs it lacks: names found 65 → 69 of 75, name + dose + unit 59 → 64. See <code>REPORT.md</code> §7 and <code>pipeline/outputs/med_errors.md</code>.</div></div>
+      <div class="hint">The earlier setting listed a medication's strength after its dose, the opposite of the training data, so the model could not write the dose after a strength: 6 doses were lost (base 0). The corrected setting recovers 5 of them. What remains is mostly the gold's selectivity (the fine-tuned model records only the drugs the call is about; the base records almost every drug, which the recall-only score rewards) plus a few real omissions. The medication check (right column) adds typed facts for drugs the summary names and flags drugs it lacks: names found 65 → 69 of 75, name + dose + unit 59 → 64. See <code>REPORT.md</code> §7 and <code>pipeline/outputs/med_errors.md</code>.</div></div>
   </div>`;
 }
 

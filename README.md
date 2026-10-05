@@ -1,6 +1,6 @@
 # Clinical Call Summaries with a Fine-Tuned Open Model
 
-Turn a nurse-line call transcript into a structured clinical summary with **Gemma 4 12B (4-bit QAT) + a LoRA adapter**. Every summary is checked by **16 deterministic rules, a medication safety net and an LLM judge that was validated first**, then rendered in the exact reference format. Authored data, a frozen evaluation pipeline, a trained adapter and a demo UI.
+Turn a nurse-line call transcript into a structured clinical summary with **Gemma 4 12B (4-bit QAT) + a LoRA adapter**. Every summary is checked by **16 deterministic rules, an automatic medication check and an LLM judge that was validated first**, then rendered in the exact reference format. Authored data, a frozen evaluation pipeline, a trained adapter and a demo UI.
 
 > **Status:** fine-tuning clearly works (safe-pass rate **65% → 91%**, critical-fact accuracy **57.6% → 82.3%**), but the **95% target and the 15 s latency target were not reached**. Full, honest account: **[REPORT.md](REPORT.md)**.
 
@@ -14,12 +14,12 @@ Turn a nurse-line call transcript into a structured clinical summary with **Gemm
 | **Critical-fact accuracy (H19)**: important facts matching the gold, minus facts the model added | 57.6% | **82.3%** (80%) | 95% ❌ |
 | **Identity**: names, date of birth, relationship, phone right (H1) / and "stated or unclear" right (H2) | 97.3% / 93.8% | **98.2% / 98.0%** (97% / 96%) | 95% ✅ |
 | Judged-faithful rate (F1) | 100% | 96% (90%) | 95% ✅ best guess only |
-| **Medication names found** (H3, 75 drugs) | 94.7% | 86.7%; **92.0% with the safety net** | 95% ❌ |
-| **Medication name + dose + unit right** (H4) | 84.0% | 78.7%; **85.3% with the safety net** | 95% ❌ |
+| **Medication names found** (H3, 75 drugs) | 94.7% | 86.7% (92.0% with the automatic medication check, below) | 95% ❌ |
+| **Medication name + dose + unit right** (H4) | 84.0% | 78.7% (85.3% with the check) | 95% ❌ |
 | **Total response time**, 20 calls one at a time, L40S GPU | median 28.0 s, p95 69.9 s | **median 14.0 s, p95 19.1 s** | p95 under 15 s ❌ |
 | **Time to first token**, median / p95 | 0.16 s / 0.62 s | 0.17 s / 0.64 s | none given |
 
-**Why the fine-tuned model is lower on medication recall** (it is not worse overall): the base model lists every drug it hears (139 entries for 75 correct drugs, a third wrong), and the score only counts drugs found, never extras; the fine-tuned model lists only the drugs the call is about, like the gold (88% of its drugs are right against 65%), and counting both it is ahead (F1 0.87 against 0.77 for names). Its real weaknesses are writing one entry for several drugs in one sentence and 2 truly omitted drugs (lisinopril in va-039, acetaminophen in va-026). A mistake of ours in the output-format setting had also cost it doses (fixed). A deterministic **medication safety net** (`pipeline/pl/medsafety.py`) adds missing typed facts, copies stated doses and flags a drug the caller said that the summary lacks; it flagged both omissions, with 5 more flags that are false alarms. Evidence: [REPORT.md §7](REPORT.md); why every other number is under 95%: [§6.5](REPORT.md).
+**Why the fine-tuned model is lower on medication recall** (it is not worse overall): the base model lists every drug it hears (139 entries for 75 correct drugs, a third wrong), and the score only counts drugs found, never extras; the fine-tuned model lists only the drugs the call is about, like the gold (88% of its drugs are right against 65%), and counting both it is ahead (F1 0.87 against 0.77 for names). Its real weaknesses are writing one entry for several drugs in one sentence and 2 truly omitted drugs (lisinopril in va-039, acetaminophen in va-026). A mistake of ours in the output-format setting had also cost it doses (fixed). A simple automatic check after the model (it compares the drugs the caller said with the summary, adds a missing medication entry, copies a stated dose, and flags a drug the summary lacks) raises names found to 92.0% and name + dose + unit to 85.3%; those two figures use the check and are slightly optimistic, because parts of it were tuned after looking at validation misses. Evidence: [REPORT.md §7](REPORT.md); why every other number is under 95%: [§6.5](REPORT.md).
 
 ## The LLM judge was validated before it was used
 
@@ -39,7 +39,7 @@ Method and limits: [llm_judge/README.md](llm_judge/README.md).
 transcript ──► Gemma 12B + LoRA (vLLM, JSON schema, greedy) ──► JSON summary
                                                                    │
         16 rule validators + quote repair (no model, no gold)  ◄───┤
-        medication safety net (drugs said but not recorded)    ◄───┤
+        automatic medication check (drugs said but not recorded)    ◄───┤
         frozen LLM judge (base model, optional)                ◄───┤
         deterministic renderer                                 ◄───┘
                      │
@@ -57,7 +57,7 @@ Four tabs: **Examples** (100 validation calls with precomputed outputs of both m
 
 | Asked for | Here |
 |---|---|
-| `code/` runnable Python | [code/](code/) (data tools, validator, renderer), [pipeline/](pipeline/) (generate, rules, judge, safety net, matrix), [finetune/](finetune/) (LoRA training), [app/](app/) (UI and API) |
+| `code/` runnable Python | [code/](code/) (data tools, validator, renderer), [pipeline/](pipeline/) (generate, rules, judge, medication check, matrix), [finetune/](finetune/) (LoRA training), [app/](app/) (UI and API) |
 | `data/` training, validation, evaluation sets | [data/](data/): 500 train + 100 validation calls; `pipeline/data/` has the validation calls prepared for evaluation |
 | `outputs/` summaries, reports, latency | [pipeline/outputs/](pipeline/outputs/): every run's summaries, rule and judge results, matrices (`.md`, `.json`, `.xlsx`), [med_errors.md](pipeline/outputs/med_errors.md), [medsafety.md](pipeline/outputs/medsafety.md) |
 | `README.md` | this file; GPU steps in [finetune/README.md](finetune/README.md) and [pipeline/README.md](pipeline/README.md) |
@@ -74,7 +74,7 @@ Four tabs: **Examples** (100 validation calls with precomputed outputs of both m
 | [data/](data/) | 500 train + 100 validation calls: facts → transcript → gold summary; `dataset_overview.xlsx` is the readable view |
 | [code/](code/) | Data tools: gold validator, renderer, batching, tests |
 | [llm_judge/](llm_judge/) | Judge validation: golden sets, versions v1-v5, frozen prompts, results |
-| [pipeline/](pipeline/) | Evaluation pipeline (generate → rules → safety net → judge → matrix), prompts v1-v4, **every run's saved outputs** |
+| [pipeline/](pipeline/) | Evaluation pipeline (generate → rules → medication check → judge → matrix), prompts v1-v4, **every run's saved outputs** |
 | [finetune/](finetune/) | LoRA training code, config, logs; adapters in `finetune/runs/ft1/epoch_{1,2,3}` (not in git; **use epoch 3**) |
 | [app/](app/) | Demo UI and API (Python standard library only) |
 
@@ -90,7 +90,7 @@ Four tabs: **Examples** (100 validation calls with precomputed outputs of both m
 python3 code/data/validate_gold.py                # validated 600 calls: 0 errors, 0 warnings
 python3 code/tests/test_validator.py              # 15/15 damage types caught
 python3 code/tests/test_render.py
-cd pipeline && python3 run_pipeline.py selftest   # selftest OK (rules, schema order, safety net)
+cd pipeline && python3 run_pipeline.py selftest   # selftest OK (rules, schema order, medication check)
 python3 run_pipeline.py matrix --systems base_v4_s3 finetuned_epoch3_s3     # rebuild the final comparison from saved outputs
 ```
 

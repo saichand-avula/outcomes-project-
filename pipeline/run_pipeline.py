@@ -122,7 +122,7 @@ def stage_validate(a):
 
 
 def stage_net(a):
-    """Medication safety net (pl/medsafety.py) on an existing run -> a new run `<system>_net` with untyped drugs added and missing doses filled.
+    """Automatic medication check (pl/medsafety.py) on an existing run -> a new run `<system>_net` with untyped drugs added and missing doses filled.
     The summary text is unchanged, so the judge verdicts are copied; rules and gold comparison are recomputed. Missing drugs (M3) are listed, not added."""
     import shutil
     cases = load_cases(a)
@@ -335,7 +335,7 @@ def stage_selftest(a):
     for name in ("invented_unlisted_finding", "names_swapped", "bullet_removed", "dose_swapped_within_call"):
         r = res[name]
         check(r["caught_error"] / max(1, r["n"]) < 0.3, f"{name}: rules correctly cannot see it ({r['caught_error']}/{r['n']}); the judge must")
-    # medication safety net: dose extraction, adding an untyped drug, flagging an absent one, leaving a good summary alone
+    # automatic medication check: dose extraction, adding an untyped drug, flagging an absent one, leaving a good summary alone
     check(MS.extract_dose("Morphine sulfate oral solution 20 mg per mL, 0.25 mL under the tongue every two hours", "morphine") == ("0.25", "mL"), "net: a concentration is not taken for a dose")
     check(MS.extract_dose("Ibuprofen 100 mg per 5 mL was available and the box said 7.5 mL", "ibuprofen") == ("7.5", "mL"), "net: 100 mg per 5 mL is skipped, the dose 7.5 mL is found")
     check(MS.extract_dose("Albuterol was needed twice this week", "albuterol") is None, "net: no dose invented when the text has none")

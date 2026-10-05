@@ -124,7 +124,7 @@ def analyse(obj, parse_error, transcript: str, timestamp: str | None, saved: dic
     raw = validate(obj, turns, parse_error)
     fixed, n_fixed = repair(obj, turns)
     after = validate(fixed, turns, parse_error if not isinstance(obj, dict) else None)
-    net_obj, net = MS.apply(fixed, turns) if isinstance(fixed, dict) else (fixed, [])  # medication safety net: add untyped drugs, fill doses, flag absent drugs
+    net_obj, net = MS.apply(fixed, turns) if isinstance(fixed, dict) else (fixed, [])  # automatic medication check: add untyped drugs, fill doses, flag absent drugs
     rendered = J.render_summary(fixed, timestamp) if isinstance(fixed, dict) and after["parse_ok"] else None
     if not raw["parse_ok"]:
         status, why = "FAILED", "the model output is not valid JSON"

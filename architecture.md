@@ -14,8 +14,8 @@
                                            checkpoint), 189 steps           │
                                                                             ▼
  EVALUATION (offline)                                                    rules V1-V16 + quote repair
- validation calls → generate → rules → safety net → judge → one matrix      │
- (+ comparison with the gold)                                            medication safety net
+ validation calls → generate → rules → medication check → judge → one matrix      │
+ (+ comparison with the gold)                                            automatic medication check
                                                                             │
                                                                             ▼
                                                               renderer → reference text
@@ -47,7 +47,7 @@
 - **Serving.** vLLM 0.30.0 on one L40S, `--max-model-len 16384`, base as `gemma`, adapters as `ft1`-`ft3`, temperature 0, thinking off, JSON-schema constrained output, prefix caching for the fixed prompt. Output is validated by `check()` in `pl/schema.py`, the same definition vLLM receives.
 - **Rules V1-V16** (`pipeline/pl/validators.py`, transcript and output only, no gold): valid schema and sections, cited turns exist, quote is verbatim in the cited same-speaker turns, numbers are in the cited turns, drug names and clinical terms are in the call, identity values were spoken, planned vs completed matches the nurse's words, hedges and negations kept, risk flags vs rule hits, Not-Applicable consistency, coverage warnings (V15), hygiene. ERROR = unsafe as it stands; WARN = a nurse should look.
 - **Quote repair** (`pl/repair.py`): a near-miss quote is replaced by the exact transcript span; it touches nothing else.
-- **Medication safety net** (`pl/medsafety.py`, REPORT §7.3): adds a typed fact for a drug the summary names, copies a stated dose into a fact, and flags a drug the caller said that the summary lacks; a flag turns a PASS into NEEDS NURSE REVIEW.
+- **Automatic medication check** (`pl/medsafety.py`, REPORT §7.3): adds a typed fact for a drug the summary names, copies a stated dose into a fact, and flags a drug the caller said that the summary lacks; a flag turns a PASS into NEEDS NURSE REVIEW.
 - **Risk flags** = rule hits (uncontrolled symptom, medication concern, suicidal statement, breathing concern, escalation request, other urgent) combined with verified model flags, favouring recall; a negation window suppresses "no trouble breathing" but never suicidal phrases.
 - **Interface.** `app/server.py` (Python standard library): `/api/summarize`, `/api/judge`, `/api/case(s)`, `/api/results`, `/api/config`, plus the web UI. It imports the pipeline's own code so the page shows what the evaluation measures.
 
@@ -57,7 +57,7 @@
 - **Headline metrics, fixed in advance:** safe-pass rate (no rule error and judged faithful; needs no gold) and critical-fact accuracy (matched critical slots ÷ (gold slots + model slots the gold lacks); validation only). Quote-repaired variants are reported separately; the raw output is the primary result.
 - **Judge.** The base model with frozen prompts, validated on 90 deliberately damaged summaries before use (REPORT §5, `llm_judge/`).
 - **Latency.** 20 evenly spaced calls, one request at a time, streamed so time to first token and total time come from one pass; one untimed warm-up call (the server compiles the JSON grammar on first use); nearest-rank percentiles.
-- **Self-test.** `run_pipeline.py selftest`: gold passes its own rules and scores 100% against itself, 15 damage types are caught as expected (and four are shown to be invisible to the rules), the schema key order matches the gold (under 1% disagree), the safety net behaves.
+- **Self-test.** `run_pipeline.py selftest`: gold passes its own rules and scores 100% against itself, 15 damage types are caught as expected (and four are shown to be invisible to the rules), the schema key order matches the gold (under 1% disagree), the automatic check behaves.
 
 ## 7. Hardware
 
@@ -78,7 +78,7 @@ One RunPod pod, one NVIDIA L40S (46 GB), CUDA 13.2. The 4-bit weights (about 8 G
 | Output schema "in the order of the gold" | Reordered **twice** | The first order made the first fine-tuned result invalid (2.7% medications); the second still disagreed with 5% of gold facts and cost doses (REPORT §7.2, §8) |
 | Latency target by optimisation ladder | Target missed (p95 19.1 s); n-gram speculative decoding slower | REPORT §8 |
 | Deterministic metrics only on fact records | Gold comparison by value and cited-turn proximity; judge adds meaning | Practical; see REPORT §9 |
-| Nothing for drugs the model drops | Medication safety net | Rules V15 only warned; REPORT §7 |
+| Nothing for drugs the model drops | Automatic medication check | Rules V15 only warned; REPORT §7 |
 
 ## 9. Assumptions and limits
 
